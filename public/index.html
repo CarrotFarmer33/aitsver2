@@ -223,7 +223,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 #scrExam .xright{flex:0 0 250px;width:250px;display:flex;flex-direction:column;min-height:0;background:var(--x-rblue);border-left:1px solid var(--x-line)}
 #scrExam .xuser{flex:none;display:flex;height:102px;background:var(--x-rwhite);border-bottom:1px solid var(--x-line2)}
 #scrExam .xavatar{flex:none;width:94px;height:101px;border:1px solid var(--x-line);background:#fff;overflow:hidden}
-#scrExam .xavatar svg{display:block;width:100%;height:100%}
+#scrExam .xavatar img{display:block;width:100%;height:100%;object-fit:cover}
 #scrExam .xname{padding:7px 4px 0 7px;font-size:18px;line-height:23px;font-weight:700;color:var(--x-ink);overflow-wrap:anywhere;min-width:0}
 #scrExam .xlegend{flex:none;display:flex;flex-wrap:wrap;align-content:flex-start;height:155px;padding:23px 0 0 18px;background:var(--x-rwhite);overflow:hidden}
 #scrExam .ltype{display:flex;align-items:flex-start;width:41.5%;min-height:41px}
@@ -461,7 +461,6 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
       <div class="xsections"><span>Sections</span><span class="tl" id="tlWrap"><span id="tlLbl">Time Left : </span><b id="timer">--:--</b></span></div>
       <div class="xtabsrow"><button class="xarr l off" id="tabL" type="button" aria-label="Scroll sections left"></button><div class="tabs" id="tabs" role="tablist"></div><button class="xarr r off" id="tabR" type="button" aria-label="Scroll sections right"></button></div>
       <div class="xqtype"><span id="qType"></span><span id="qMarks" class="qmarks"></span></div>
-      <div class="xview"><label for="langSel">View in :</label><select id="langSel" aria-label="View in"><option>English</option></select></div>
       <div class="xqno"><span id="qNo"></span><button class="rb" id="btnDown" type="button" aria-label="Scroll to the end of the question"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v10M3.5 8l4.5 4.5L12.5 8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
       <div class="xqwrap"><div class="xscroll" id="xscroll"></div><button class="rb up" id="btnUp" type="button" aria-label="Scroll to the top of the question"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 14V4M3.5 8L8 3.5 12.5 8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
       <div class="xbottom">
@@ -475,7 +474,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
     <button class="xcollapse" id="xcollapse" type="button" aria-label="Hide question palette" aria-expanded="true"><svg width="8" height="12" viewBox="0 0 8 12" aria-hidden="true"><path d="M1.5 1.5L6.5 6l-5 4.5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     <aside class="xright" id="rail" aria-label="Question palette">
       <div class="xuser">
-        <div class="xavatar"><svg viewBox="0 0 94 101" aria-hidden="true"><defs><linearGradient id="avG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9eef3"/><stop offset="1" stop-color="#7f8d9b"/></linearGradient><radialGradient id="avH" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#f4f7fa"/><stop offset="1" stop-color="#6d7b89"/></radialGradient></defs><rect width="94" height="101" fill="#fff"/><path d="M6 101c0-26 14-38 41-38s41 12 41 38z" fill="url(#avG)" stroke="#4d5a67" stroke-width="2"/><path d="M38 64l9 12 9-12" fill="#fff" stroke="#4d5a67" stroke-width="1.5"/><path d="M44 72h6l3 24-6 4-6-4z" fill="#3c4a58"/><ellipse cx="47" cy="33" rx="19" ry="23" fill="url(#avH)" stroke="#4d5a67" stroke-width="2"/></svg></div>
+        <div class="xavatar"><img src="data:image/jpeg;base64,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" alt="Candidate photo"></div>
         <div class="xname" id="rName"></div>
       </div>
       <div class="xlegend" id="rLeg"></div>
@@ -839,6 +838,7 @@ function renderInstr(){
 }
 
 /* ---------- exam ---------- */
+const dv=s=>s.draft!==undefined?s.draft:s.ans; /* unsaved selection; s.ans only changes on Save */
 const hasAns=(q,s)=> q.type==='numerical' ? (s.ans!=null && /\d/.test(String(s.ans))) : q.type==='multi' ? !!(s.ans&&s.ans.length) : s.ans!=null;
 function status(i){
   const s=T.st[i], a=hasAns(T.qs[i],s);
@@ -946,11 +946,11 @@ function renderQ(){
   q.images.forEach(u=>{ h+=imageMarkup(u,'Question figure'); });
   const locked=T.mode==='practice' && s.checked, dis=locked?' disabled':'';
   if(q.type==='numerical'){
-    h+='<div class="numwrap"><input class="numin" id="numIn" type="text" readonly inputmode="none" aria-label="Your numerical answer" value="'+esc(s.ans==null?'':s.ans)+'"><div class="keys">'+
+    h+='<div class="numwrap"><input class="numin" id="numIn" type="text" readonly inputmode="none" aria-label="Your numerical answer" value="'+esc(dv(s)==null?'':dv(s))+'"><div class="keys">'+
       ['7','8','9','4','5','6','1','2','3','0','.','−'].map(k=>'<button type="button" data-k="'+k+'"'+dis+'>'+k+'</button>').join('')+
       '<button type="button" class="half" data-k="bk"'+dis+'>Backspace</button><button type="button" class="half" data-k="clr"'+dis+'>Clear All</button><span></span></div></div>';
   } else {
-    const multi=q.type==='multi', sel=multi?(s.ans||[]):(s.ans==null?[]:[s.ans]);
+    const multi=q.type==='multi', sel=multi?(dv(s)||[]):(dv(s)==null?[]:[dv(s)]);
     h+='<div class="opts" role="group" aria-label="Options">'+q.options.map((o,k)=>{
       const corr=locked&&q.keyOk&&q.ans.includes(k), wr=locked&&sel.includes(k)&&!corr;
       return '<label class="opt'+(locked?' locked':'')+(corr?' corr':'')+(wr?' wrong':'')+'"><input type="'+(multi?'checkbox':'radio')+'" name="opt" data-o="'+k+'"'+(sel.includes(k)?' checked':'')+dis+'>'+(q.labelOnly?'<span class="ol">'+LET[k]+'</span>':'<span class="ot">'+rich(o)+'</span>')+'</label>';
@@ -985,14 +985,14 @@ function renderPal(){
 function leave(){ const now=Date.now(); if(T.qStart) T.st[T.cur].time+=(now-T.qStart)/1000; T.qStart=now; }
 function goto(i){
   if(i<0||i>=T.qs.length) return;
-  leave(); T.cur=i; T.st[i].visited=true;
+  T.st[T.cur].draft=undefined; leave(); T.cur=i; T.st[i].visited=true;
   const k=T.secOf[i]; if(k!==T.sec){ T.sec=k; renderTabs(); }
   renderQ(); renderPal(); closeRail();
 }
-function setNum(v){ const s=T.st[T.cur]; s.ans=v===''?null:v; const el=$('#numIn'); if(el) el.value=v; renderPal(); }
+function setNum(v){ const s=T.st[T.cur]; s.draft=v===''?null:v; const el=$('#numIn'); if(el) el.value=v; renderPal(); }
 function numKey(k){
   const s=T.st[T.cur]; if(T.mode==='practice' && s.checked) return;
-  let v=s.ans==null?'':String(s.ans);
+  let v=dv(s)==null?'':String(dv(s));
   if(k==='bk') v=v.slice(0,-1);
   else if(k==='clr') v='';
   else if(k==='.'){ if(!v.includes('.')) v=(v===''||v==='-')?v+'0.':v+'.'; }
@@ -1004,11 +1004,12 @@ function onAction(a){
   const s=T.st[T.cur];
   const locked=T.mode==='practice' && s.checked;
   if(a==='prev'){ goto(T.cur-1); return; }
-  if(a==='clear'){ if(locked) return; s.ans=null; renderQ(); renderPal(); return; }
-  if(a==='save' && T.mode==='practice' && !s.checked){ s.marked=false; s.checked=true; renderQ(); renderPal(); return; }
+  const commit=()=>{ if(s.draft!==undefined){ s.ans=s.draft; s.draft=undefined; } };
+  if(a==='clear'){ if(locked) return; s.ans=null; s.draft=undefined; renderQ(); renderPal(); return; }
+  if(a==='save' && T.mode==='practice' && !s.checked){ commit(); s.marked=false; s.checked=true; renderQ(); renderPal(); return; }
   if(a==='save' && locked && T.cur===T.qs.length-1){ openSubmit(); return; }
-  if(a==='save'){ s.marked=false; if(T.cur<T.qs.length-1) goto(T.cur+1); else renderPal(); return; }
-  if(a==='mark'){ s.marked=true; if(T.cur<T.qs.length-1) goto(T.cur+1); else renderPal(); }
+  if(a==='save'){ commit(); s.marked=false; if(T.cur<T.qs.length-1) goto(T.cur+1); else renderPal(); return; }
+  if(a==='mark'){ commit(); s.marked=true; if(T.cur<T.qs.length-1) goto(T.cur+1); else renderPal(); }
 }
 function openRail(){ $('#rail').classList.add('open'); $('#scrim').classList.add('open'); }
 function closeRail(){ $('#rail').classList.remove('open'); $('#scrim').classList.remove('open'); }
@@ -1135,8 +1136,8 @@ document.addEventListener('change',e=>{
   else if(t.matches('#xscroll input[data-o]')){
     const q=T.qs[T.cur], s=T.st[T.cur], k=+t.dataset.o;
     if(T.mode==='practice' && s.checked){ renderQ(); return; }
-    if(q.type==='multi'){ const a=new Set(s.ans||[]); t.checked?a.add(k):a.delete(k); s.ans=[...a].sort((x,y)=>x-y); if(!s.ans.length) s.ans=null; }
-    else s.ans=k;
+    if(q.type==='multi'){ const a=new Set(dv(s)||[]); t.checked?a.add(k):a.delete(k); s.draft=[...a].sort((x,y)=>x-y); if(!s.draft.length) s.draft=null; }
+    else s.draft=k;
     renderPal();
   }
 });
