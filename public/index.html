@@ -1,4 +1,4 @@
-<!doctype html><html data-theme="dark"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>AITS Practice Portal</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +14,12 @@
   --good:#1f7a2e; --good-bg:#e7f4e9; --bad:#b3261e; --bad-bg:#fcebea; --part:#8a5a00; --part-bg:#fff3dc;
   --font-ui:"Open Sans","Segoe UI",Arial,sans-serif; --font-q:"Times New Roman",Times,"Liberation Serif",serif;
 }
-
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#14181e; --surface:#1c222a; --surface-2:#232b35; --panel:#212831; --fg:#e6e9ed; --muted:#9aa6b3; --line:#38424f;
+  --top:#0c0e11; --top-ink:#f6d23c;
+  --brand:#4a8fd4; --brand-deep:#3a7bc0; --brand-ink:#ffffff; --tint:#1f3248;
+  --ok:#52ad33; --nok:#e0562c; --rev:#9a63c2; --nv-a:#3a4552; --nv-b:#2a333e; --nv-ink:#e1e7ee; --plus:#6fd07c;
+  --good:#6fd07c; --good-bg:#16301c; --bad:#ff8a80; --bad-bg:#3a1d1b; --part:#f0c26a; --part-bg:#3a2f14; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#14181e; --surface:#1c222a; --surface-2:#232b35; --panel:#212831; --fg:#e6e9ed; --muted:#9aa6b3; --line:#38424f;
   --top:#0c0e11; --top-ink:#f6d23c;
@@ -100,9 +105,9 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 .spr,.tile,.ico{background-repeat:no-repeat;--k:calc(var(--t) / var(--m));width:calc(var(--w) * var(--k) * 1px);height:calc(var(--h) * var(--k) * 1px);background-size:calc(var(--iw) * var(--k) * 1px) calc(var(--ih) * var(--k) * 1px);background-position:calc(var(--x) * var(--k) * -1px) calc(var(--y) * var(--k) * -1px)}
 .ico{display:inline-block;flex:none;background-image:url(/sprites/icon-sprite.png);--iw:540;--ih:118;--t:18;vertical-align:middle}
 .i-notes{--x:7;--y:5;--w:17;--h:22;--m:22}
-.i-mag{--x:140;--y:7;--w:18;--h:18;--m:18}
-.i-info{--x:166;--y:7;--w:18;--h:18;--m:18}
-.i-help{--x:188;--y:8;--w:18;--h:18;--m:18}
+.i-mag{--x:114;--y:6;--w:19;--h:20;--m:20}
+.i-info{--x:140;--y:7;--w:18;--h:18;--m:18}
+.i-help{--x:166;--y:7;--w:18;--h:18;--m:18}
 .i-zin{--x:175;--y:63;--w:26;--h:26;--m:26}
 .i-zout{--x:207;--y:63;--w:26;--h:26;--m:26}
 .i-calc{--x:148;--y:62;--w:17;--h:23;--m:23}
@@ -117,32 +122,170 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 .tile.sm.s-an{padding-top:4px}
 .tile.sm.s-na{padding-bottom:4px}
 
-/* exam console */
-#scrExam{height:100%;display:flex;flex-direction:column}
-.xmain{flex:1 1 auto;display:flex;min-height:0}
-.xleft{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;background:var(--bg)}
-.xleft>*{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:16px}
-.xrow1{padding-top:10px;padding-bottom:4px}
-.pill{display:inline-block;background:var(--brand);color:#fff;padding:5px 14px;border-radius:3px;font-size:12px;font-weight:600}
-.xrow2{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-top:6px;padding-bottom:6px;font-size:12px}
-.xrow2 .tl{font-variant-numeric:tabular-nums}
-.xrow2 .tl.low b{color:var(--nok)}
-.tabs{display:flex;gap:6px;padding-top:4px;padding-bottom:8px;overflow-x:auto;flex:none}
-.tab{flex:none;display:flex;align-items:center;gap:6px;border:1px solid var(--brand);background:var(--surface);color:var(--brand);padding:5px 10px;border-radius:3px;font-size:12px;font-weight:600;white-space:nowrap}
-.tab[aria-selected=true]{background:var(--brand);color:#fff}
-.info{--t:15;cursor:pointer}
-.tab[aria-selected=true] .info{background-color:#fff;border-radius:50%}
-.xinfo{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 16px;padding-top:6px;padding-bottom:6px;font-size:12px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.xinfo .plus{color:var(--plus)}
-.xqno{display:flex;align-items:center;justify-content:space-between;padding-top:8px;padding-bottom:8px;font-size:14px;font-weight:700;border-bottom:1px solid var(--line)}
-.dn{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--brand);border:0;padding:0}
-.xscroll{flex:1 1 auto;min-height:0;overflow:auto;padding-top:12px;padding-bottom:16px}
-.secbox{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:var(--surface);border:1px solid var(--fg);border-radius:2px;padding:5px 12px;font-weight:700;font-size:13px;text-align:center}
-.secbox svg{flex:none;margin-left:auto}
-.secbox span{flex:1}
-.secinfo{margin-top:8px;padding:8px 12px;background:var(--tint);font-size:13px;border-radius:2px}
+/* exam console: replica of the TCS CBT test screen (colours and sizes taken from the reference screenshot) */
+#scrExam{height:100%;display:flex;flex-direction:column;
+  --x-page:#ffffff;--x-ink:#000000;--x-sub:#49525b;--x-text:#252525;--x-group:#e9e9e9;--x-line:#c3c3c1;--x-line2:#dadad9;
+  --x-pill:#178aca;--x-tab:#147eb3;--x-tabbg:#ffffff;--x-bluebar:#4e85c5;--x-select:#c9daef;--x-selink:#8794a6;
+  --x-bottom:#f7f7f7;--x-btnbg:#ffffff;--x-btnline:#c8c8c8;--x-pri:#0c82b5;--x-pri-line:#0a74a2;
+  --x-rwhite:#ffffff;--x-rblue:#e5f6fd;--x-hdr:#1485ad;--x-plus:#159147;--x-minus:#b0182e;
+  --x-arrow:#c3c9cf;--x-arrow-on:#5f7183;--x-circle:#2980b9;--x-top:#333333;
+  background:var(--x-page);color:var(--x-ink);font:12px Arial,Helvetica,"Liberation Sans",sans-serif}
+/* Accessibility theme choice. These blocks also remap the page tokens, so every control inside the test screen (and dialogs opened from it) follows the chosen theme. */
+#scrExam[data-xtheme="light"],#modal[data-xtheme="light"]{
+  --bg:#f4f4f4;--surface:#ffffff;--surface-2:#f0f0f0;--panel:#e9e9e9;--fg:#222222;--muted:#666666;--line:#cfcfcf;
+  --top:#2b2b2b;--top-ink:#f6d23c;
+  --brand:#3b82c4;--brand-deep:#2d6cab;--brand-ink:#ffffff;--tint:#e4eef9;
+  --ok:#4a9a2c;--nok:#d0471f;--rev:#7b4a9f;--nv-a:#fafafa;--nv-b:#d3d3d3;--nv-ink:#333333;--plus:#2f8f2f;
+  --good:#1f7a2e;--good-bg:#e7f4e9;--bad:#b3261e;--bad-bg:#fcebea;--part:#8a5a00;--part-bg:#fff3dc;color-scheme:light}
+#scrExam[data-xtheme="dark"],#modal[data-xtheme="dark"]{
+  --bg:#14181e;--surface:#1c222a;--surface-2:#232b35;--panel:#212831;--fg:#e6e9ed;--muted:#9aa6b3;--line:#38424f;
+  --top:#0c0e11;--top-ink:#f6d23c;
+  --brand:#4a8fd4;--brand-deep:#3a7bc0;--brand-ink:#ffffff;--tint:#1f3248;
+  --ok:#52ad33;--nok:#e0562c;--rev:#9a63c2;--nv-a:#3a4552;--nv-b:#2a333e;--nv-ink:#e1e7ee;--plus:#6fd07c;
+  --good:#6fd07c;--good-bg:#16301c;--bad:#ff8a80;--bad-bg:#3a1d1b;--part:#f0c26a;--part-bg:#3a2f14;color-scheme:dark}
+#modal[data-xtheme]{color:var(--fg)}
+#scrExam[data-xtheme="dark"]{
+  --x-page:#12171d;--x-ink:#e6ebf0;--x-sub:#c4ccd5;--x-text:#e3e8ee;--x-group:#1d242c;--x-line:#394450;--x-line2:#2e3843;
+  --x-pill:#1673a8;--x-tab:#1b83bd;--x-tabbg:#171d24;--x-bluebar:#2e5584;--x-select:#2a3b52;--x-selink:#aebdd0;
+  --x-bottom:#1a2128;--x-btnbg:#222a33;--x-btnline:#3b4753;--x-pri:#0f7fae;--x-pri-line:#0c6a93;
+  --x-rwhite:#171d24;--x-rblue:#1c2a34;--x-hdr:#0f6f93;--x-plus:#6fd07c;--x-minus:#ff8a80;
+  --x-arrow:#4a5663;--x-arrow-on:#9fb0c1;--x-circle:#2b7fbb;--x-top:#0c0f12}
+#scrExam.xinv .qimg{filter:invert(1) hue-rotate(180deg)}
+
+/* dark title bar */
+#scrExam .topbar{position:relative;top:auto;flex:none;background:var(--x-top)}
+#scrExam .tool{font-size:13px;padding:2px 6px;border-radius:2px}
+#scrExam .tool[aria-pressed="true"],#scrExam .tool[aria-expanded="true"]{background:rgba(255,255,255,.18)}
+.i-paper{--x:188;--y:8;--w:18;--h:18;--m:18}
+.accPanel{position:absolute;right:max(12px,env(safe-area-inset-right,0px));top:100%;z-index:60;width:min(320px,calc(100vw - 24px));background:var(--surface);color:var(--fg);border:1px solid var(--line);border-radius:3px;box-shadow:0 6px 20px rgba(0,0,0,.35);padding:12px 14px;font-size:13px;display:flex;flex-direction:column;gap:12px}
+.accPanel[hidden]{display:none}
+.accPanel h3{margin:0;font-size:14px}
+.accRow{display:flex;flex-direction:column;gap:6px}
+.accRow>b{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.accOpts{display:flex;flex-wrap:wrap;gap:6px 16px}
+.accOpts label,.accChk{display:flex;align-items:center;gap:8px;cursor:pointer;min-height:28px}
+.accChk[aria-disabled="true"]{opacity:.5}
+.accSize{display:flex;gap:6px;flex-wrap:wrap}
+.accSize .btn{min-height:30px;padding:3px 12px;font-size:13px}
+
+/* left column */
+#scrExam .xmain{flex:1 1 auto;display:flex;min-height:0;position:relative}
+#scrExam .xleft{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;background:var(--x-page)}
+#scrExam .xgroup{flex:none;display:flex;align-items:center;height:44px;background:var(--x-group);border-bottom:1px solid var(--x-line2);padding:0 8px 0 3px}
+#scrExam .gpill{display:inline-flex;align-items:center;gap:10px;height:31px;margin-left:9px;padding:0 13px;background:var(--x-pill);color:#fff;font-size:13.5px;font-weight:700;border-radius:2px;white-space:nowrap}
+#scrExam .xarr{flex:none;width:18px;height:24px;border:0;padding:0;background:none;position:relative;display:inline-block}
+#scrExam .xarr:before{content:"";position:absolute;top:50%;margin-top:-6px;border-top:6px solid transparent;border-bottom:6px solid transparent}
+#scrExam .xarr.l:before{left:2px;border-right:8px solid var(--x-arrow-on)}
+#scrExam .xarr.r:before{right:2px;border-left:8px solid var(--x-arrow-on)}
+#scrExam .xarr.off{cursor:default}
+#scrExam .xarr.off.l:before{border-right-color:var(--x-arrow)}
+#scrExam .xarr.off.r:before{border-left-color:var(--x-arrow)}
+#scrExam .xsections{flex:none;display:flex;justify-content:space-between;align-items:center;gap:8px;height:30px;padding:0 8px 0 10px;border-bottom:1px solid var(--x-line2);font-weight:700;color:var(--x-sub)}
+#scrExam .xsections .tl{font-size:15px;color:var(--x-ink);font-variant-numeric:tabular-nums}
+#scrExam .xsections .tl.low b{color:var(--x-minus)}
+#scrExam .xtabsrow{flex:none;display:flex;align-items:center;height:38px;border-bottom:1px solid var(--x-line2)}
+#scrExam .tabs{position:relative;flex:1 1 auto;min-width:0;display:flex;align-items:center;gap:4px;padding:0 2px;overflow-x:auto;scrollbar-width:none}
+#scrExam .tabs::-webkit-scrollbar{display:none}
+#scrExam .tab{flex:none;display:inline-flex;align-items:center;gap:8px;height:31px;padding:0 9px;border:1px solid var(--x-line);border-radius:0;background:var(--x-tabbg);color:var(--x-tab);font-size:13px;font-weight:700;white-space:nowrap}
+#scrExam .tab[aria-selected=true]{background:var(--x-tab);border-color:var(--x-tab);color:#fff}
+#scrExam .info{--t:18;cursor:pointer}
+#scrExam .tab[aria-selected=true] .info{background-color:#fff;border-radius:50%}
+#scrExam .xqtype{flex:none;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:2px 16px;min-height:29px;padding:0 24px 0 10px;border-bottom:1px solid var(--x-line2)}
+#scrExam #qType{font-size:14px;font-weight:700;color:var(--x-text)}
+#scrExam .qmarks{font-size:12px;color:var(--x-text)}
+#scrExam .qmarks .plus{color:var(--x-plus);font-weight:400}
+#scrExam .qmarks .minus{color:var(--x-minus)}
+#scrExam .xview{flex:none;display:flex;justify-content:flex-end;align-items:center;gap:6px;height:41px;padding:0 10px;background:var(--x-bluebar);color:#fff}
+#scrExam .xview label{font-size:12px;font-weight:700}
+#scrExam .xview select{width:96px;min-height:0;height:25px;padding:0 4px;border:1px solid rgba(255,255,255,.35);border-radius:2px;background-color:var(--x-select);color:var(--x-selink);font-size:15px;font-weight:700}
+#scrExam .xqno{flex:none;display:flex;justify-content:space-between;align-items:center;gap:8px;height:41px;padding:6px 26px 0 2px;font-size:14px;font-weight:700;color:var(--x-ink)}
+#scrExam .rb{flex:none;display:grid;place-items:center;width:28px;height:28px;padding:0;border:0;border-radius:50%;background:var(--x-circle);box-shadow:0 1px 2px rgba(0,0,0,.25)}
+#scrExam .rb.up{position:absolute;right:26px;bottom:25%;z-index:2}
+#scrExam .xqwrap{position:relative;flex:1 1 auto;min-height:0;display:flex}
+#scrExam .xscroll{flex:1 1 auto;min-width:0;overflow-x:hidden;overflow-y:scroll;overscroll-behavior:contain;padding:0 12px 20px 11px}
+#scrExam .opts{margin-top:14px}
+#scrExam .opt{padding:8px 0}
+#scrExam .opt input{width:13px;height:13px;margin-top:0;align-self:center;accent-color:var(--x-pri)}
+#scrExam .opt .ol{width:auto;color:var(--x-ink);font-weight:700}
+#scrExam .xbottom{flex:none;display:flex;flex-wrap:wrap;align-items:center;gap:6px 13px;min-height:70px;padding:8px 15px 8px 6px;background:var(--x-bottom);border-top:1px solid var(--x-line)}
+#scrExam .xbottom .gap{flex:1 1 auto}
+#scrExam .xbtn{height:39px;padding:0 20px;border:1px solid var(--x-btnline);border-radius:2px;background:var(--x-btnbg);color:var(--x-text);font-size:14px;font-weight:400;white-space:nowrap}
+#scrExam .xbtn:hover{filter:brightness(.97)}
+#scrExam .xbtn.pri{background:var(--x-pri);border-color:var(--x-pri);color:#fff}
+#scrExam .xbtn:disabled{opacity:.65;cursor:not-allowed}
+#scrExam .xbtn.palbtn{height:30px;padding:0 10px;font-size:13px}
+
+/* right panel */
+#scrExam .xcollapse{position:absolute;right:250px;top:calc(50% - 25px);z-index:5;display:grid;place-items:center;width:14px;height:50px;padding:0;border:0;border-radius:3px 0 0 3px;background:#000}
+#scrExam .xmain.right-hidden .xcollapse{right:0}
+#scrExam .xmain.right-hidden .xcollapse svg{transform:rotate(180deg)}
+#scrExam .xmain.right-hidden .xright{display:none}
+#scrExam .xright{flex:0 0 250px;width:250px;display:flex;flex-direction:column;min-height:0;background:var(--x-rblue);border-left:1px solid var(--x-line)}
+#scrExam .xuser{flex:none;display:flex;height:102px;background:var(--x-rwhite);border-bottom:1px solid var(--x-line2)}
+#scrExam .xavatar{flex:none;width:94px;height:101px;border:1px solid var(--x-line);background:#fff;overflow:hidden}
+#scrExam .xavatar svg{display:block;width:100%;height:100%}
+#scrExam .xname{padding:7px 4px 0 7px;font-size:18px;line-height:23px;font-weight:700;color:var(--x-ink);overflow-wrap:anywhere;min-width:0}
+#scrExam .xlegend{flex:none;display:flex;flex-wrap:wrap;align-content:flex-start;height:155px;padding:23px 0 0 18px;background:var(--x-rwhite);overflow:hidden}
+#scrExam .ltype{display:flex;align-items:flex-start;width:41.5%;min-height:41px}
+#scrExam .ltype.wide{width:100%;min-height:56px}
+#scrExam .ltitle{display:block;max-width:76px;padding-top:1px;font-size:12px;line-height:14px;color:var(--x-text)}
+#scrExam .ltype.wide .ltitle{max-width:154px;width:154px}
+#scrExam .xhdr{flex:none;height:31px;padding-left:10px;line-height:31px;background:var(--x-hdr);color:#fff;font-size:20px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#scrExam .xsub{flex:none;height:36px;padding-left:10px;line-height:28px;background:var(--x-rblue);font-size:12px;font-weight:700;color:var(--x-ink)}
+#scrExam .xpal{flex:1 1 auto;min-height:0;display:flex;flex-wrap:wrap;align-content:flex-start;padding:0 0 0 11px;overflow-x:hidden;overflow-y:scroll;overscroll-behavior:contain;background:var(--x-rblue)}
+#scrExam .xfinal{flex:none;display:flex;justify-content:center;align-items:flex-start;height:70px;background:var(--x-rblue);border-top:1px solid var(--x-line)}
+#scrExam .submit{height:38px;min-width:87px;margin-top:9px;padding:0 20px;border:1px solid var(--x-pri-line);border-radius:2px;background:var(--x-pri);color:#fff;font-size:14px;font-weight:400}
+#scrExam .submit:hover{filter:brightness(1.08)}
+
+/* palette sprites (jee-advanced-sprite.png) */
+#scrExam .numpan,#scrExam .statusIcon{flex:none;display:inline-block;position:relative;border:0;padding:0;background-color:transparent;background-image:url(/sprites/jee-advanced-sprite.png);background-repeat:no-repeat;color:#fff;text-align:center;font-family:Arial,Helvetica,sans-serif}
+#scrExam .numpan{width:50px;height:43px;margin:0 2px 10px 0;font-size:17px;line-height:42px;cursor:pointer}
+#scrExam .numpan.answered{background-position:-4px -5px}
+#scrExam .numpan.not_answered{background-position:-57px -6px;width:49px;height:43px}
+#scrExam .numpan.review{background-position:-108px -1px;width:50px;height:50px;line-height:50px;margin-bottom:3px}
+#scrExam .numpan.review_answered{background-position:-66px -178px;width:49px;height:53px;line-height:51px;margin-bottom:0}
+#scrExam .numpan.not_visited{background-position:-157px -4px;width:50px;height:43px;line-height:43px;color:#474747}
+#scrExam .numpan.active{filter:brightness(1.18) saturate(.85)}
+#scrExam .statusIcon{margin-right:10px;font-size:12px}
+#scrExam .statusIcon.answered{background-position:-7px -55px;width:29px;height:26px;line-height:23px;padding-top:3px}
+#scrExam .statusIcon.not_answered{background-position:-42px -56px;width:29px;height:26px;line-height:22px}
+#scrExam .statusIcon.not_visited{background-position:-107px -56px;width:29px;height:26px;line-height:24px;padding-top:2px;color:#000}
+#scrExam .statusIcon.review{background-position:-75px -54px;width:28px;height:28px;line-height:23px;padding-top:5px}
+#scrExam .statusIcon.review_answered{background-position:-9px -87px;width:28px;height:29px;line-height:22px;padding-top:5px}
+
+/* hover summary for the (i) icons */
+.floatingInfoTooltip{position:fixed;z-index:1500;width:239px;min-height:214px;padding:0 10px 9px 3px;background:var(--x-rblue,#e5f6fd);border:1px solid var(--x-line,#b8c8cf);color:var(--x-ink,#000);font:12px Arial,Helvetica,sans-serif;pointer-events:none;box-shadow:0 3px 10px rgba(0,0,0,.25)}
+.floatingInfoTooltip[hidden]{display:none}
+.infoTooltipTitle{height:29px;padding-left:7px;line-height:29px;font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.infoTooltipRow{display:flex;align-items:center;height:33px;padding-left:7px;overflow:hidden}
+.infoTooltipLabel{max-width:176px;line-height:28px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.floatingInfoTooltip .statusIcon{flex:none;display:inline-block;background-color:transparent;background-image:url(/sprites/jee-advanced-sprite.png);background-repeat:no-repeat;color:#fff;text-align:center;margin-right:0}
+.floatingInfoTooltip .statusIcon.answered{background-position:-7px -55px;width:29px;height:26px;line-height:23px;padding-top:3px}
+.floatingInfoTooltip .statusIcon.not_answered{background-position:-42px -56px;width:29px;height:26px;line-height:22px}
+.floatingInfoTooltip .statusIcon.not_visited{background-position:-107px -56px;width:29px;height:26px;line-height:24px;padding-top:2px;color:#000}
+.floatingInfoTooltip .statusIcon.review{background-position:-75px -54px;width:28px;height:28px;line-height:23px;padding-top:5px}
+.floatingInfoTooltip .statusIcon.review_answered{background-position:-9px -87px;width:28px;height:29px;line-height:22px;padding-top:5px}
+
+/* Instructions and Question Paper dialogs */
+.modal .box.wide{max-width:min(960px,96vw)}
+.instol{margin:12px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+.qpwrap{max-height:calc(90dvh - 96px);overflow:auto;display:flex;flex-direction:column;gap:14px}
+.qpitem{border:1px solid var(--line);padding:10px 12px;min-width:0}
+.qphead{display:flex;flex-wrap:wrap;gap:4px 12px;margin-bottom:6px;font-size:13px;color:var(--muted)}
+.qphead b{color:var(--fg)}
+.qpitem .qtext{margin-top:6px}
+.qpimg{display:block;max-width:100%;height:auto;margin:8px 0;background:#fff;border:1px solid var(--line)}
+.qpopts{margin:8px 0 0;padding-left:24px}
+.scrim{display:none}
+.palbtn{display:none}
+/* unchanged question and option styles */
 .qtext{font-family:var(--font-q);font-size:var(--qs,17px);margin-top:16px;overflow-wrap:anywhere;line-height:1.55}
-.qimg{display:block;max-width:100%;margin:12px 0;background:#fff}
+.qimg{display:block;width:auto;max-width:min(76%,760px);max-height:360px;object-fit:contain;object-position:left center;margin:12px 0;background:#fff;cursor:zoom-in;border:1px solid var(--line)}
+.qimg:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+.modal .box:has(.image-preview){max-width:96vw;width:max-content;max-height:94dvh;padding:12px}
+.image-preview{display:grid;place-items:center;max-height:calc(94dvh - 70px);overflow:auto;background:var(--surface-2);padding:8px}
+.image-preview img{display:block;width:auto;height:auto;max-width:calc(96vw - 48px);max-height:calc(88dvh - 90px);object-fit:contain;cursor:zoom-out}
+.image-preview-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px;font-size:14px;font-weight:600}
 .opts{display:flex;flex-direction:column;gap:2px;margin-top:20px}
 .opt{display:flex;gap:10px;align-items:flex-start;padding:6px 0;cursor:pointer;min-width:0;font-size:calc(var(--qs,17px) * .82)}
 .opt input{margin-top:3px}
@@ -154,24 +297,6 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 .keys button{min-height:40px;background:var(--surface-2);border:1px solid var(--line);border-radius:2px;font-size:16px;font-weight:600}
 .keys button:active{background:var(--tint)}
 .keys .half{font-size:13px}
-.xbottom{flex:none;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));background:var(--panel);border-top:1px solid var(--line)}
-.xbottom .gap{flex:1 1 auto}
-.xbtn{background:var(--surface);border:1px solid var(--line);border-radius:2px;padding:9px 14px;font-size:12px;font-weight:600;min-height:40px;color:var(--fg)}
-.xbtn:hover{background:var(--surface-2)}
-.xright{flex:0 0 clamp(250px,22%,330px);display:flex;flex-direction:column;background:var(--panel);border-left:1px solid var(--line);min-height:0}
-.rcand{display:flex;gap:12px;align-items:center;padding:14px 12px 10px;font-weight:600;font-size:14px}
-.rcand svg{flex:none;width:54px;height:54px;border-radius:3px}
-.rleg{display:grid;grid-template-columns:1fr 1fr;gap:12px 8px;padding:8px 12px 14px;font-size:11px;line-height:1.25}
-.rleg div{display:flex;gap:8px;align-items:center}
-.rleg .wide{grid-column:span 2}
-.rsec{background:var(--brand);color:#fff;font-weight:600;font-size:13px;padding:7px 12px}
-.rch{padding:8px 12px 4px;font-size:12px}
-.pal{flex:1 1 auto;min-height:0;overflow:auto;display:grid;grid-template-columns:repeat(4,36px);justify-content:space-between;gap:12px 8px;align-content:start;padding:10px 12px 16px;padding-right:max(12px,env(safe-area-inset-right,0px))}
-.rbottom{flex:none;display:flex;justify-content:center;align-items:center;padding:12px 12px calc(12px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);background:var(--panel)}
-.submit{background:var(--brand-deep);color:#fff;border:0;border-radius:2px;min-width:120px;min-height:42px;font-weight:600;padding:0 24px}
-.submit:hover{background:var(--brand)}
-.scrim{display:none}
-.palbtn{display:none}
 
 /* modal */
 .modal{position:fixed;inset:0;z-index:95;background:rgba(10,20,35,.6);display:grid;place-items:center;padding:16px}
@@ -212,66 +337,21 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 
 @media (max-width:900px){
   .setup-grid{grid-template-columns:minmax(0,1fr)} .sticky{position:static}
-  .xleft>*{padding-right:max(16px,env(safe-area-inset-right,0px))}
-  .xright{position:fixed;top:0;right:0;bottom:0;z-index:80;width:min(320px,88vw);transform:translateX(100%);transition:transform .2s;padding-top:env(safe-area-inset-top,0px);box-shadow:-4px 0 16px rgba(0,0,0,.25)}
-  .xright.open{transform:none}
+  #scrExam .xright{position:fixed;top:0;right:0;bottom:0;z-index:80;width:min(320px,88vw);flex:none;transform:translateX(100%);transition:transform .2s;padding-top:env(safe-area-inset-top,0px);box-shadow:-4px 0 16px rgba(0,0,0,.25)}
+  #scrExam .xright.open{transform:none}
+  #scrExam .xmain.right-hidden .xright{display:flex}
+  #scrExam .xcollapse{display:none}
+  #scrExam .xlegend{height:auto;min-height:155px;padding-bottom:12px}
   .scrim.open{display:block;position:fixed;inset:0;z-index:70;background:rgba(10,20,35,.5)}
   .palbtn{display:inline-block}
   .tool .lbl{display:none}
+  #scrExam .xqtype,#scrExam .xqno{padding-right:12px}
+  #scrExam .rb.up{right:12px}
+  #scrExam .xbottom{padding:8px 10px;gap:6px 8px}
+  #scrExam .xbtn{padding:0 12px;font-size:13px}
 }
-@media (max-width:520px){ .xbtn{padding:8px 10px} .tb-title{font-size:11px} }
+@media (max-width:520px){ #scrExam .xbtn{padding:0 10px} .tb-title{font-size:11px} #scrExam .tab{font-size:13px} #scrExam .gpill{font-size:14px} }
 @media (prefers-reduced-motion:reduce){.xright{transition:none}}
-
-/* === CONSISTENT DARK CBT THEME — forced, no OS-dependent light/dark mixing === */
-:root, :root[data-theme="light"], :root[data-theme="dark"] {
- color-scheme: dark !important;
- --bg:#11151b !important;
- --surface:#1a2029 !important;
- --surface-2:#242d39 !important;
- --panel:#1d2530 !important;
- --fg:#e7edf5 !important;
- --muted:#a4afbd !important;
- --line:#374352 !important;
- --top:#090c10 !important;
- --top-ink:#f4d35e !important;
- --brand:#2688c7 !important;
- --brand-deep:#176ca8 !important;
- --brand-ink:#ffffff !important;
- --tint:#182f43 !important;
- --ok:#39a95b !important;
- --nok:#df5a36 !important;
- --rev:#9466c6 !important;
- --nv-a:#2b3542 !important;
- --nv-b:#202934 !important;
- --nv-ink:#e7edf5 !important;
- --plus:#63d28a !important;
- --good:#70d990 !important;
- --good-bg:#173324 !important;
- --bad:#ff958d !important;
- --bad-bg:#3b2224 !important;
- --part:#f4ca74 !important;
- --part-bg:#3a301b !important;
- background:var(--bg) !important;
-}
-html,body { background:var(--bg) !important; color:var(--fg) !important; color-scheme:dark !important; }
-body, main, section, article, aside, form, fieldset, label, details, summary { color:var(--fg); }
-.card,.panel,.box,.modal,.modalBox,.question-card,.stat,.history-item,.result-card,.instruction-card,
-#dbCard,#histCard,#modalBox,#secBox,#rvbar,#rvList { background:var(--surface) !important; color:var(--fg) !important; border-color:var(--line) !important; }
-input,select,textarea { background:var(--surface-2) !important; color:var(--fg) !important; border-color:var(--line) !important; }
-input::placeholder,textarea::placeholder { color:var(--muted) !important; }
-button:not(.primary):not(.danger):not(.tool) { background:var(--surface-2); color:var(--fg); border-color:var(--line); }
-button:not(:disabled):hover { filter:brightness(1.12); }
-hr,.divider { border-color:var(--line) !important; }
-.muted,.hint,.subtle,.help,.caption { color:var(--muted) !important; }
-.topbar,.topbar * { color:inherit; }
-.qimg,.question-image,img.qimg { background:#fff !important; }
-pre,code { background:var(--surface-2) !important; color:var(--fg) !important; }
-a { color:#79bfff; }
-:focus-visible { outline-color:#63b8ff !important; }
-@media (prefers-color-scheme: light) {
- :root { color-scheme:dark !important; }
-}
-
 </style>
 
 <div id="scrSetup" class="screen">
@@ -349,43 +429,63 @@ a { color:#79bfff; }
   </main>
 </div>
 
-<div id="scrExam" class="screen" hidden>
+<div id="scrExam" class="screen" data-xtheme="light" hidden>
   <div class="topbar"><div class="tb-in">
     <span class="tb-title" id="ehTitle"></span>
     <span class="tb-tools">
-      <button class="tool" id="btnAcc" type="button" aria-label="Accessibility"><span class="ico spr i-zin" aria-hidden="true"></span><span class="lbl">Accessibility</span></button>
-      <button class="tool" id="btnMag" type="button" aria-label="Screen Magnifier"><span class="ico spr i-mag" aria-hidden="true"></span><span class="lbl">Screen Magnifier</span></button>
-      <button class="btn sm palbtn" id="palBtn" type="button">Palette</button>
+      <button class="tool" id="btnInstr" type="button" aria-label="Instructions"><span class="ico spr i-info" aria-hidden="true"></span><span class="lbl">Instructions</span></button>
+      <button class="tool" id="btnQP" type="button" aria-label="Question Paper"><span class="ico spr i-paper" aria-hidden="true"></span><span class="lbl">Question Paper</span></button>
+      <button class="tool" id="btnMag" type="button" aria-label="Screen Magnifier" aria-pressed="false"><span class="ico spr i-mag" aria-hidden="true"></span><span class="lbl">Screen Magnifier</span></button>
+      <button class="tool" id="btnAcc" type="button" aria-label="Accessibility" aria-haspopup="dialog" aria-expanded="false" aria-controls="accPanel"><span class="ico spr i-zin" aria-hidden="true"></span><span class="lbl">Accessibility</span></button>
+      <button class="xbtn palbtn" id="palBtn" type="button">Palette</button>
     </span>
+  </div>
+  <div class="accPanel" id="accPanel" role="dialog" aria-label="Accessibility" hidden>
+    <h3>Accessibility</h3>
+    <div class="accRow"><b>Theme</b>
+      <div class="accOpts" role="radiogroup" aria-label="Theme">
+        <label><input type="radio" name="xtheme" value="light" id="accLight"> Light mode</label>
+        <label><input type="radio" name="xtheme" value="dark" id="accDark"> Dark mode</label>
+      </div>
+      <label class="accChk" id="accInvRow"><input type="checkbox" id="accInv"> Invert question images in dark mode</label>
+    </div>
+    <div class="accRow"><b>Question text size</b>
+      <div class="accSize"><button class="btn" type="button" data-acc="minus"><span class="ico spr i-zout" aria-hidden="true"></span> Smaller</button><button class="btn" type="button" data-acc="reset">Reset</button><button class="btn" type="button" data-acc="plus"><span class="ico spr i-zin" aria-hidden="true"></span> Larger</button></div>
+    </div>
+    <label class="accChk"><input type="checkbox" id="accMag"> Magnify question</label>
   </div></div>
-  <div class="xmain">
+  <div class="xmain" id="xmain">
     <section class="xleft">
-      <div class="xrow1"><span class="pill" id="testPill">AITS_PRACTICE</span></div>
-      <div class="xrow2"><span>Sections</span><span class="tl" id="tlWrap"><span id="tlLbl">Time Left : </span><b id="timer">--:--</b></span></div>
-      <div class="tabs" id="tabs" role="tablist"></div>
-      <div class="xinfo"><span id="qType"></span><span id="qMarks"></span></div>
-      <div class="xqno"><span id="qNo"></span><button class="dn" id="btnDown" type="button" aria-label="Scroll to the end of the question"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2v8M2.5 6.5L6 10l3.5-3.5" stroke="#fff" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
-      <div class="xscroll" id="xscroll"></div>
+      <div class="xgroup"><span class="xarr l off" aria-hidden="true"></span><span class="gpill" id="testPill"><span id="pillName">AITS_PRACTICE - Test</span><span class="info ico spr i-info" role="button" tabindex="0" data-info="all" aria-label="Test details"></span></span></div>
+      <div class="xsections"><span>Sections</span><span class="tl" id="tlWrap"><span id="tlLbl">Time Left : </span><b id="timer">--:--</b></span></div>
+      <div class="xtabsrow"><button class="xarr l off" id="tabL" type="button" aria-label="Scroll sections left"></button><div class="tabs" id="tabs" role="tablist"></div><button class="xarr r off" id="tabR" type="button" aria-label="Scroll sections right"></button></div>
+      <div class="xqtype"><span id="qType"></span><span id="qMarks" class="qmarks"></span></div>
+      <div class="xview"><label for="langSel">View in :</label><select id="langSel" aria-label="View in"><option>English</option></select></div>
+      <div class="xqno"><span id="qNo"></span><button class="rb" id="btnDown" type="button" aria-label="Scroll to the end of the question"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v10M3.5 8l4.5 4.5L12.5 8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+      <div class="xqwrap"><div class="xscroll" id="xscroll"></div><button class="rb up" id="btnUp" type="button" aria-label="Scroll to the top of the question"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 14V4M3.5 8L8 3.5 12.5 8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
       <div class="xbottom">
         <button class="xbtn" data-act="mark" type="button">Mark for Review &amp; Next</button>
         <button class="xbtn" data-act="clear" type="button">Clear Response</button>
         <span class="gap"></span>
-        <button class="xbtn" data-act="save" type="button">Save &amp; Next</button>
+        <button class="xbtn" data-act="prev" type="button">Previous</button>
+        <button class="xbtn pri" data-act="save" type="button">Save &amp; Next</button>
       </div>
     </section>
+    <button class="xcollapse" id="xcollapse" type="button" aria-label="Hide question palette" aria-expanded="true"><svg width="8" height="12" viewBox="0 0 8 12" aria-hidden="true"><path d="M1.5 1.5L6.5 6l-5 4.5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     <aside class="xright" id="rail" aria-label="Question palette">
-      <div class="rcand">
-        <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" fill="#dcdcdc"/><circle cx="32" cy="24" r="11" fill="#8d8d8d"/><path d="M9 64c0-15 9-23 23-23s23 8 23 23z" fill="#8d8d8d"/></svg>
-        <span id="rName"></span>
+      <div class="xuser">
+        <div class="xavatar"><svg viewBox="0 0 94 101" aria-hidden="true"><defs><linearGradient id="avG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9eef3"/><stop offset="1" stop-color="#7f8d9b"/></linearGradient><radialGradient id="avH" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#f4f7fa"/><stop offset="1" stop-color="#6d7b89"/></radialGradient></defs><rect width="94" height="101" fill="#fff"/><path d="M6 101c0-26 14-38 41-38s41 12 41 38z" fill="url(#avG)" stroke="#4d5a67" stroke-width="2"/><path d="M38 64l9 12 9-12" fill="#fff" stroke="#4d5a67" stroke-width="1.5"/><path d="M44 72h6l3 24-6 4-6-4z" fill="#3c4a58"/><ellipse cx="47" cy="33" rx="19" ry="23" fill="url(#avH)" stroke="#4d5a67" stroke-width="2"/></svg></div>
+        <div class="xname" id="rName"></div>
       </div>
-      <div class="rleg" id="rLeg"></div>
-      <div class="rsec" id="rSec"></div>
-      <div class="rch">Choose a Question</div>
-      <div class="pal" id="pal"></div>
-      <div class="rbottom"><button class="submit" id="submitRail" type="button">Submit</button></div>
+      <div class="xlegend" id="rLeg"></div>
+      <div class="xhdr" id="rSec"></div>
+      <div class="xsub">Choose a Question</div>
+      <div class="xpal" id="pal"></div>
+      <div class="xfinal"><button class="submit" id="submitRail" type="button">Submit</button></div>
     </aside>
   </div>
   <div class="scrim" id="scrim"></div>
+  <div class="floatingInfoTooltip" id="infoTip" hidden></div>
 </div>
 
 <div id="scrRes" class="screen" hidden>
@@ -565,7 +665,7 @@ function extractList(raw){
 /* ---------- state ---------- */
 let DB=[], dbLabel='', dbSample=false, dbSkipped=0, dbNoKey=0;
 const cfg = {chapters:new Set(), types:new Set(Object.keys(TYPES)), paper:'all', years:new Set(), count:30, countAuto:true, minutes:90, minAuto:true, shuffle:false, preset:'adv', mode:'test'};
-const ui = {mag:false, size:0};
+const ui = {mag:false, size:0, theme:(store.get('aits_xtheme')==='dark'?'dark':'light'), invert:store.get('aits_xinvert')==='1'};
 let T=null, timerId=null, lastResult=null;
 
 function loadDB(raw,label,isSample){
@@ -587,6 +687,7 @@ function showNote(t){ const n=$('#dbNote'); n.textContent=t; n.hidden=!t; }
 /* ---------- screens ---------- */
 function show(id){
   ['scrSetup','scrInstr','scrExam','scrRes'].forEach(s=>{ $('#'+s).hidden = s!==id; });
+  toggleAcc(false); hideTip();
   window.scrollTo(0,0);
 }
 
@@ -719,7 +820,7 @@ function markText(type){
 }
 function marksHtml(type){
   const m=T.preset[type];
-  return 'Marks for correct answer: <b class="plus">+'+m.c+'</b> | Negative Marks: '+negText(m)+(type==='multi'?' | Partial: +'+m.p+' per correct option':'');
+  return 'Marks for correct answer: <span class="plus">'+m.c+'</span> | Negative Marks: <span class="minus">'+negText(m)+'</span>'+(type==='multi'?' | Partial: +'+m.p+' per correct option':'');
 }
 function renderInstr(){
   const counts=T.secs.map(s=>s.name+' '+s.idx.length).join(' · ');
@@ -746,14 +847,65 @@ function status(i){
   if(s.marked) return 'mk';
   return 'na';
 }
+const QTS = {single:'MCQ', multi:'MSQ', numerical:'NAT'};
+const STC = {nv:'not_visited', na:'not_answered', an:'answered', mk:'review', am:'review_answered'};
+let tipPinned = null;
 function applyUi(){
-  const px=17*(1+0.12*ui.size)*(ui.mag?1.35:1);
-  $('#scrExam').style.setProperty('--qs',px.toFixed(1)+'px');
+  const px=17*(1+0.12*ui.size)*(ui.mag?1.35:1), x=$('#scrExam');
+  x.style.setProperty('--qs',px.toFixed(1)+'px');
+  x.dataset.xtheme=ui.theme; x.classList.toggle('xinv',ui.theme==='dark'&&ui.invert);
+  const mg=$('#btnMag'); if(mg) mg.setAttribute('aria-pressed',String(ui.mag));
+  syncAcc();
+}
+function syncAcc(){
+  document.querySelectorAll('#accPanel input[name="xtheme"]').forEach(i=>{ i.checked=i.value===ui.theme; });
+  const iv=$('#accInv'); if(iv){ iv.checked=ui.invert; iv.disabled=ui.theme!=='dark'; const row=$('#accInvRow'); if(row) row.setAttribute('aria-disabled',String(ui.theme!=='dark')); }
+  const mg=$('#accMag'); if(mg) mg.checked=ui.mag;
+}
+function toggleAcc(force){
+  const p=$('#accPanel'), b=$('#btnAcc'); if(!p||!b) return;
+  const open=force==null?p.hidden:!!force;
+  if(p.hidden===!open) return;
+  p.hidden=!open; b.setAttribute('aria-expanded',String(open));
+  if(open){ syncAcc(); const f=p.querySelector('input:checked'); if(f) f.focus(); }
+}
+function tipCounts(idxs){ const c={nv:0,na:0,an:0,mk:0,am:0}; (idxs||T.qs.map((_,i)=>i)).forEach(i=>{ c[status(i)]++; }); return c; }
+function showTip(el){
+  if(!T) return;
+  const tip=$('#infoTip'), k=el.dataset.info, sec=k==='all'?null:T.secs[+k];
+  const c=tipCounts(sec?sec.idx:null);
+  const rows=[['an','Answered'],['na','Not Answered'],['nv','Not Visited'],['mk','Marked for Review'],['am','Answered & Marked for Review']];
+  tip.innerHTML='<div class="infoTooltipTitle">'+esc(sec?sec.name:$('#pillName').textContent)+'</div>'+rows.map(r=>'<div class="infoTooltipRow"><span class="statusIcon '+STC[r[0]]+'">'+c[r[0]]+'</span><span class="infoTooltipLabel">'+esc(r[1])+'</span></div>').join('');
+  tip.hidden=false;
+  const r=el.getBoundingClientRect(), w=239, h=tip.offsetHeight||214;
+  const left=Math.min(Math.max(8,r.left-20),Math.max(8,window.innerWidth-w-8));
+  let top=r.bottom+8; if(top+h>window.innerHeight-8) top=Math.max(8,r.top-h-8);
+  tip.style.left=left+'px'; tip.style.top=top+'px';
+}
+function hideTip(){ const t=$('#infoTip'); if(t) t.hidden=true; tipPinned=null; }
+function openInstructions(){
+  leave();
+  openModal('<h2>General instructions</h2>'+$('#instSummary').innerHTML+'<ol class="instol">'+$('#instList').innerHTML+'</ol><div class="row"><button class="btn primary" id="mNo" type="button">Close</button></div>',()=>{
+    $('#modalBox').classList.add('wide'); $('#mNo').onclick=closeModal;
+  });
+}
+function openPaper(){
+  leave();
+  const body=T.qs.map((q,i)=>{
+    const sec=T.secs[T.secOf[i]];
+    const imgs=q.images.map(u=>imageMarkup(u,'Question '+(i+1)).replace('class="qimg"','class="qpimg"')).join('');
+    const opts=(q.options&&!q.labelOnly)?'<ol class="qpopts" type="A">'+q.options.map(o=>'<li>'+rich(o)+'</li>').join('')+'</ol>':'';
+    return '<section class="qpitem"><div class="qphead"><b>Question No. '+(i+1)+'</b><span>'+esc(sec.name)+' · '+esc(q.chapter)+'</span></div>'+(q.text?'<div class="qtext">'+rich(q.text)+'</div>':'')+imgs+opts+'</section>';
+  }).join('');
+  openModal('<div class="image-preview-title"><span>Question Paper</span><button type="button" class="btn" id="closePaper">Close</button></div><div class="qpwrap">'+body+'</div>',()=>{
+    const box=$('#modalBox'); box.classList.add('wide'); $('#closePaper').onclick=closeModal; hydrateZipImages(box); typeset(box);
+  });
 }
 function startExam(){
   show('scrExam');
   T.startTs=Date.now(); T.sec=0; T.cur=T.secs[0].idx[0]; T.st[T.cur].visited=true; T.qStart=Date.now();
   $('#ehTitle').textContent=T.title; $('#rName').textContent=T.name;
+  $('#pillName').textContent=T.mode==='practice'?'AITS_PRACTICE - Practice Mode':'AITS_PRACTICE - Test';
   clearInterval(timerId); applyUi(); tick(); timerId=setInterval(tick,1000);
   renderTabs(); renderQ(); renderPal();
 }
@@ -767,19 +919,29 @@ function tick(){
   } else { $('#tlLbl').textContent='Time Elapsed : '; t.textContent=mmss(el); $('#tlWrap').classList.remove('low'); }
 }
 function renderTabs(){
-  $('#tabs').innerHTML=T.secs.map((s,k)=>'<button class="tab" role="tab" data-sec="'+k+'" aria-selected="'+(k===T.sec)+'">'+esc(s.name)+'<span class="info ico spr i-info" role="button" tabindex="0" data-info="'+k+'" aria-label="Section details"></span></button>').join('');
+  $('#tabs').innerHTML=T.secs.map((s,k)=>'<button class="tab" role="tab" data-sec="'+k+'" aria-selected="'+(k===T.sec)+'"><span>'+esc(s.name)+'</span><span class="info ico spr i-info" role="button" tabindex="0" data-info="'+k+'" aria-label="Section details"></span></button>').join('');
+  setTimeout(()=>{ centerTab(); updateTabArrows(); },0);
+}
+function centerTab(){
+  const tb=$('#tabs'), a=tb&&tb.querySelector('[aria-selected="true"]'); if(!a) return;
+  const left=Math.max(0,a.offsetLeft-(tb.clientWidth-a.offsetWidth)/2);
+  if(tb.scrollTo) tb.scrollTo({left:left}); else tb.scrollLeft=left;
+}
+function updateTabArrows(){
+  const tb=$('#tabs'); if(!tb) return;
+  const l=$('#tabL'), r=$('#tabR'), atL=tb.scrollLeft<=2, atR=tb.scrollLeft+tb.clientWidth>=tb.scrollWidth-2;
+  l.classList.toggle('off',atL); r.classList.toggle('off',atR); l.disabled=atL; r.disabled=atR;
 }
 function secInfoText(s){
   const m=T.preset[s.type];
   return s.idx.length+' questions · '+QT[s.type]+' · Maximum marks '+s.max+' · Correct +'+m.c+', negative '+negText(m)+(s.type==='multi'?', partial +'+m.p+' per correct option':'')+'.';
 }
 function renderQ(){
-  const q=T.qs[T.cur], s=T.st[T.cur], sec=T.secs[T.sec];
-  $('#qType').textContent='Question Type: '+QT[q.type];
+  const q=T.qs[T.cur], s=T.st[T.cur];
+  $('#qType').textContent='Question Type: '+QTS[q.type];
   $('#qMarks').innerHTML=marksHtml(q.type);
   $('#qNo').textContent='Question No. '+(T.cur+1);
-  let h='<button class="secbox" id="secBox" type="button"><span>'+esc(sec.name)+' (Maximum Marks: '+sec.max+')</span><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="secinfo" id="secInfo" hidden>'+esc(secInfoText(sec))+'</div>';
-  h+='<div class="qtext">'+rich(q.text)+'</div>';
+  let h='<div class="qtext">'+rich(q.text)+'</div>';
   q.images.forEach(u=>{ h+=imageMarkup(u,'Question figure'); });
   const locked=T.mode==='practice' && s.checked, dis=locked?' disabled':'';
   if(q.type==='numerical'){
@@ -798,7 +960,10 @@ function renderQ(){
   if(saveBtn) saveBtn.innerHTML = T.mode!=='practice' ? 'Save &amp; Next' : (locked ? (T.cur<T.qs.length-1?'Next':'Finish') : 'Check Answer');
   const clearBtn=document.querySelector('.xbtn[data-act="clear"]');
   if(clearBtn) clearBtn.disabled=locked;
+  const prevBtn=document.querySelector('.xbtn[data-act="prev"]');
+  if(prevBtn) prevBtn.disabled=T.cur===0;
   const box=$('#xscroll'); box.innerHTML=h; box.scrollTop=0; hydrateZipImages(box); typeset(box);
+  box.querySelectorAll('img.qimg').forEach(img=>{img.tabIndex=0;img.setAttribute('role','button');img.setAttribute('aria-label',(img.alt||'Question image')+' — click to preview');img.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();img.click();}});});
 }
 function feedbackHtml(q,s){
   const r=evaluate(q,s,T.preset);
@@ -810,11 +975,11 @@ function feedbackHtml(q,s){
 }
 function renderPal(){
   const sec=T.secs[T.sec];
-  $('#rSec').textContent=sec.name;
-  $('#pal').innerHTML=sec.idx.map(gi=>'<button type="button" class="tile s-'+status(gi)+(gi===T.cur?' cur':'')+'" data-q="'+gi+'" aria-label="Question '+(gi+1)+'">'+(gi+1)+'</button>').join('');
+  const hd=$('#rSec'), n=sec.name.length; hd.textContent=sec.name; hd.style.fontSize=n<=12?'20px':(n<=18?'17px':(n<=26?'14.5px':'12.5px'));
+  $('#pal').innerHTML=sec.idx.map(gi=>'<button type="button" class="numpan '+STC[status(gi)]+(gi===T.cur?' active':'')+'" data-q="'+gi+'" aria-label="Question '+(gi+1)+'">'+(gi+1)+'</button>').join('');
   const c={nv:0,na:0,an:0,mk:0,am:0}; T.qs.forEach((_,i)=>{ c[status(i)]++; });
-  const L=[['an','Answered'],['na','Not Answered'],['nv','Not Visited'],['mk','Marked for Review'],['am','Answered &amp; Marked for Review (will be evaluated)']];
-  $('#rLeg').innerHTML=L.map((x,k)=>'<div'+(k===4?' class="wide"':'')+'><span class="tile sm s-'+x[0]+'">'+c[x[0]]+'</span><span>'+x[1]+'</span></div>').join('');
+  const L=[['an','Answered'],['na','Not Answered'],['nv','Not Visited'],['mk','Marked for Review'],['am','Answered &amp; Marked for Review (will also be evaluated)']];
+  $('#rLeg').innerHTML=L.map((x,k)=>'<div class="ltype'+(k===4?' wide':'')+'"><span class="statusIcon '+STC[x[0]]+'">'+c[x[0]]+'</span><span class="ltitle">'+x[1]+'</span></div>').join('');
 }
 function leave(){ const now=Date.now(); if(T.qStart) T.st[T.cur].time+=(now-T.qStart)/1000; T.qStart=now; }
 function goto(i){
@@ -837,6 +1002,7 @@ function numKey(k){
 function onAction(a){
   const s=T.st[T.cur];
   const locked=T.mode==='practice' && s.checked;
+  if(a==='prev'){ goto(T.cur-1); return; }
   if(a==='clear'){ if(locked) return; s.ans=null; renderQ(); renderPal(); return; }
   if(a==='save' && T.mode==='practice' && !s.checked){ s.marked=false; s.checked=true; renderQ(); renderPal(); return; }
   if(a==='save' && locked && T.cur===T.qs.length-1){ openSubmit(); return; }
@@ -845,7 +1011,7 @@ function onAction(a){
 }
 function openRail(){ $('#rail').classList.add('open'); $('#scrim').classList.add('open'); }
 function closeRail(){ $('#rail').classList.remove('open'); $('#scrim').classList.remove('open'); }
-function openModal(html,wire){ $('#modalBox').innerHTML=html; $('#modal').hidden=false; if(wire) wire(); }
+function openModal(html,wire){ const m=$('#modal'), bx=$('#modalBox'); bx.classList.remove('wide'); if(!$('#scrExam').hidden) m.dataset.xtheme=ui.theme; else delete m.dataset.xtheme; bx.innerHTML=html; m.hidden=false; if(wire) wire(); }
 function closeModal(){ $('#modal').hidden=true; if(T&&!T.over) T.qStart=Date.now(); }
 
 function openSubmit(){
@@ -854,14 +1020,6 @@ function openSubmit(){
   openModal('<h2>Submit test?</h2><div class="scroll"><table><thead><tr><th>Section</th><th class="n">Total</th><th class="n">Answered</th><th class="n">Not answered</th><th class="n">Not visited</th><th class="n">For review</th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="muted" style="margin:10px 0 0">After submitting you cannot change your answers.</p><div class="row"><button class="btn" id="mNo" type="button">Back to test</button><button class="btn danger" id="mYes" type="button">Submit</button></div>',()=>{
     $('#mNo').onclick=closeModal;
     $('#mYes').onclick=()=>{ $('#modal').hidden=true; finish(false); };
-  });
-}
-function openAccess(){
-  openModal('<h2>Accessibility</h2><p style="margin:0 0 10px">Question text size</p><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="aMinus" type="button" style="display:inline-flex;align-items:center;gap:6px"><span class="ico spr i-zout" aria-hidden="true"></span>Smaller</button><button class="btn" id="aReset" type="button">Reset</button><button class="btn" id="aPlus" type="button" style="display:inline-flex;align-items:center;gap:6px"><span class="ico spr i-zin" aria-hidden="true"></span>Larger</button></div><div class="row"><button class="btn primary" id="aOk" type="button">Done</button></div>',()=>{
-    $('#aMinus').onclick=()=>{ ui.size=Math.max(-2,ui.size-1); applyUi(); };
-    $('#aPlus').onclick=()=>{ ui.size=Math.min(4,ui.size+1); applyUi(); };
-    $('#aReset').onclick=()=>{ ui.size=0; ui.mag=false; applyUi(); };
-    $('#aOk').onclick=closeModal;
   });
 }
 
@@ -970,6 +1128,9 @@ document.addEventListener('change',e=>{
   else if(t.id==='mrkSel'){ cfg.preset=t.value; }
   else if(t.id==='candName'){ store.set('aits_name',t.value.trim()); }
   else if(t.id==='instOk'){ $('#btnBegin').disabled=!t.checked; }
+  else if(t.name==='xtheme'){ ui.theme=t.value==='dark'?'dark':'light'; store.set('aits_xtheme',ui.theme); applyUi(); }
+  else if(t.id==='accInv'){ ui.invert=t.checked; store.set('aits_xinvert',ui.invert?'1':'0'); applyUi(); }
+  else if(t.id==='accMag'){ ui.mag=t.checked; applyUi(); }
   else if(t.matches('#xscroll input[data-o]')){
     const q=T.qs[T.cur], s=T.st[T.cur], k=+t.dataset.o;
     if(T.mode==='practice' && s.checked){ renderQ(); return; }
@@ -980,8 +1141,22 @@ document.addEventListener('change',e=>{
 });
 document.addEventListener('input',e=>{ if(e.target.id==='chSearch') renderChapters(); });
 document.addEventListener('click',e=>{
+  const previewImage=e.target.closest('img.qimg');
+  if(previewImage){
+    e.preventDefault();
+    const src=previewImage.currentSrc||previewImage.src;
+    if(src && src!=='data:,'){
+      const alt=previewImage.alt||'Question image';
+      openModal('<div class="image-preview-title"><span>'+esc(alt)+'</span><button type="button" class="btn" id="closeImagePreview">Close</button></div><div class="image-preview"><img src="'+esc(src)+'" alt="'+esc(alt)+'"></div>',()=>{
+        const close=$('#closeImagePreview'); if(close) close.onclick=closeModal;
+      });
+    }
+    return;
+  }
+  if(!e.target.closest('#accPanel') && !e.target.closest('#btnAcc')) toggleAcc(false);
   const inf=e.target.closest('.info');
-  if(inf && T){ e.stopPropagation(); const s=T.secs[+inf.dataset.info]; openModal('<h2>'+esc(s.name)+'</h2><p style="margin:0">'+esc(secInfoText(s))+'</p><div class="row"><button class="btn primary" id="mNo" type="button">Close</button></div>',()=>{ $('#mNo').onclick=closeModal; }); return; }
+  if(!inf) hideTip();
+  if(inf && T){ e.stopPropagation(); if(tipPinned===inf) hideTip(); else { tipPinned=inf; showTip(inf); } return; }
   const b=e.target.closest('button'); if(!b) return;
   if(b.id==='chAll'||b.id==='chNone'){ const term=$('#chSearch').value.trim().toLowerCase(); DB.forEach(q=>{ if(!term||q.chapter.toLowerCase().includes(term)||q.subject.toLowerCase().includes(term)){ const k=q.subject+'||'+q.chapter; b.id==='chAll'?cfg.chapters.add(k):cfg.chapters.delete(k); } }); renderChapters(); renderTypes(); refreshSummary(); }
   else if(b.id==='cntAll'){ cfg.count=pool().length; cfg.countAuto=false; refreshSummary(); }
@@ -990,10 +1165,15 @@ document.addEventListener('click',e=>{
   else if(b.id==='btnBegin') startExam();
   else if(b.id==='submitRail') openSubmit();
   else if(b.id==='palBtn') openRail();
-  else if(b.id==='btnAcc') openAccess();
+  else if(b.id==='btnAcc') toggleAcc();
   else if(b.id==='btnMag'){ ui.mag=!ui.mag; applyUi(); }
   else if(b.id==='btnDown'){ const x=$('#xscroll'); x.scrollTo({top:x.scrollHeight,behavior:'smooth'}); }
-  else if(b.id==='secBox'){ const i=$('#secInfo'); i.hidden=!i.hidden; }
+  else if(b.id==='btnUp'){ const x=$('#xscroll'); x.scrollTo({top:0,behavior:'smooth'}); }
+  else if(b.id==='btnInstr') openInstructions();
+  else if(b.id==='btnQP') openPaper();
+  else if(b.id==='xcollapse'){ const mx=$('#xmain'), hid=mx.classList.toggle('right-hidden'); b.setAttribute('aria-expanded',String(!hid)); b.setAttribute('aria-label',hid?'Show question palette':'Hide question palette'); }
+  else if(b.id==='tabL'||b.id==='tabR'){ const tb=$('#tabs'), d=(b.id==='tabL'?-1:1)*Math.max(160,tb.clientWidth*0.6); if(tb.scrollBy) tb.scrollBy({left:d,behavior:'smooth'}); else tb.scrollLeft+=d; }
+  else if(b.dataset.acc){ const a=b.dataset.acc; if(a==='minus') ui.size=Math.max(-2,ui.size-1); else if(a==='plus') ui.size=Math.min(4,ui.size+1); else { ui.size=0; ui.mag=false; } applyUi(); }
   else if(b.dataset.act && T && !T.over) onAction(b.dataset.act);
   else if(b.dataset.k && T && !T.over) numKey(b.dataset.k);
   else if(b.dataset.q!=null && T && !T.over) goto(+b.dataset.q);
@@ -1007,6 +1187,18 @@ document.addEventListener('click',e=>{
   }
 });
 $('#scrim').addEventListener('click',closeRail);
+$('#tabs').addEventListener('scroll',updateTabArrows);
+window.addEventListener('resize',()=>{ if(T&&!$('#scrExam').hidden) updateTabArrows(); });
+const infoOf=e=>e.target&&e.target.closest?e.target.closest('.info'):null;
+document.addEventListener('mouseover',e=>{ const i=infoOf(e); if(i&&T&&!tipPinned&&!$('#scrExam').hidden) showTip(i); });
+document.addEventListener('mouseout',e=>{ const i=infoOf(e); if(i&&!tipPinned) $('#infoTip').hidden=true; });
+document.addEventListener('focusin',e=>{ const i=infoOf(e); if(i&&T&&!tipPinned&&!$('#scrExam').hidden) showTip(i); });
+document.addEventListener('focusout',e=>{ const i=infoOf(e); if(i&&!tipPinned) $('#infoTip').hidden=true; });
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){ toggleAcc(false); hideTip(); closeRail(); return; }
+  const i=infoOf(e); if(i&&(e.key==='Enter'||e.key===' ')){ e.preventDefault(); i.click(); }
+});
+applyUi();
 document.addEventListener('keydown',e=>{
   if(!T||T.over||$('#scrExam').hidden||!$('#modal').hidden) return;
   if(e.ctrlKey||e.metaKey||e.altKey) return;
