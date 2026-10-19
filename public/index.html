@@ -280,11 +280,11 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 .palbtn{display:none}
 /* unchanged question and option styles */
 .qtext{font-family:var(--font-q);font-size:var(--qs,17px);margin-top:16px;overflow-wrap:anywhere;line-height:1.55}
-.qimg{display:block;width:auto;max-width:min(76%,760px);max-height:360px;object-fit:contain;object-position:left center;margin:12px 0;background:#fff;cursor:zoom-in;border:1px solid var(--line)}
+.qimg{display:block;width:80%;max-width:100%;height:auto;object-fit:contain;object-position:left center;margin:12px 0;background:#fff;cursor:zoom-in;border:1px solid var(--line)}
 .qimg:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
-.modal .box:has(.image-preview){max-width:96vw;width:max-content;max-height:94dvh;padding:12px}
-.image-preview{display:grid;place-items:center;max-height:calc(94dvh - 70px);overflow:auto;background:var(--surface-2);padding:8px}
-.image-preview img{display:block;width:auto;height:auto;max-width:calc(96vw - 48px);max-height:calc(88dvh - 90px);object-fit:contain;cursor:zoom-out}
+.modal .box:has(.image-preview){max-width:96vw;width:max-content;max-height:92dvh;padding:12px}
+.image-preview{display:grid;place-items:start center;max-height:calc(92dvh - 80px);overflow:auto;background:var(--surface-2);padding:8px}
+.image-preview img{display:block;width:auto;height:auto;max-width:none;max-height:none;cursor:zoom-out}
 .image-preview-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px;font-size:14px;font-weight:600}
 .opts{display:flex;flex-direction:column;gap:2px;margin-top:20px}
 .opt{display:flex;gap:10px;align-items:flex-start;padding:6px 0;cursor:pointer;min-width:0;font-size:calc(var(--qs,17px) * .82)}
@@ -351,6 +351,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   #scrExam .xbtn{padding:0 12px;font-size:13px}
 }
 @media (max-width:520px){ #scrExam .xbtn{padding:0 10px} .tb-title{font-size:11px} #scrExam .tab{font-size:13px} #scrExam .gpill{font-size:14px} }
+@media (max-width:900px){ .qimg{width:100%} .modal .box:has(.image-preview){max-width:96vw} }
 @media (prefers-reduced-motion:reduce){.xright{transition:none}}
 </style>
 
