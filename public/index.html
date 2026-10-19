@@ -147,7 +147,12 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 .secbox span{flex:1}
 .secinfo{margin-top:8px;padding:8px 12px;background:var(--tint);font-size:13px;border-radius:2px}
 .qtext{font-family:var(--font-q);font-size:var(--qs,17px);margin-top:16px;overflow-wrap:anywhere;line-height:1.55}
-.qimg{display:block;max-width:100%;margin:12px 0;background:#fff}
+.qimg{display:block;width:auto;max-width:min(76%,760px);max-height:360px;object-fit:contain;object-position:left center;margin:12px 0;background:#fff;cursor:zoom-in;border:1px solid var(--line)}
+.qimg:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+.modal .box:has(.image-preview){max-width:96vw;width:max-content;max-height:94dvh;padding:12px}
+.image-preview{display:grid;place-items:center;max-height:calc(94dvh - 70px);overflow:auto;background:var(--surface-2);padding:8px}
+.image-preview img{display:block;width:auto;height:auto;max-width:calc(96vw - 48px);max-height:calc(88dvh - 90px);object-fit:contain;cursor:zoom-out}
+.image-preview-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px;font-size:14px;font-weight:600}
 .opts{display:flex;flex-direction:column;gap:2px;margin-top:20px}
 .opt{display:flex;gap:10px;align-items:flex-start;padding:6px 0;cursor:pointer;min-width:0;font-size:calc(var(--qs,17px) * .82)}
 .opt input{margin-top:3px}
@@ -753,6 +758,7 @@ function renderQ(){
   const clearBtn=document.querySelector('.xbtn[data-act="clear"]');
   if(clearBtn) clearBtn.disabled=locked;
   const box=$('#xscroll'); box.innerHTML=h; box.scrollTop=0; hydrateZipImages(box); typeset(box);
+  box.querySelectorAll('img.qimg').forEach(img=>{img.tabIndex=0;img.setAttribute('role','button');img.setAttribute('aria-label',(img.alt||'Question image')+' — click to preview');img.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();img.click();}});});
 }
 function feedbackHtml(q,s){
   const r=evaluate(q,s,T.preset);
@@ -934,6 +940,18 @@ document.addEventListener('change',e=>{
 });
 document.addEventListener('input',e=>{ if(e.target.id==='chSearch') renderChapters(); });
 document.addEventListener('click',e=>{
+  const previewImage=e.target.closest('img.qimg');
+  if(previewImage){
+    e.preventDefault();
+    const src=previewImage.currentSrc||previewImage.src;
+    if(src && src!=='data:,'){
+      const alt=previewImage.alt||'Question image';
+      openModal('<div class="image-preview-title"><span>'+esc(alt)+'</span><button type="button" class="btn" id="closeImagePreview">Close</button></div><div class="image-preview"><img src="'+esc(src)+'" alt="'+esc(alt)+'"></div>',()=>{
+        const close=$('#closeImagePreview'); if(close) close.onclick=closeModal;
+      });
+    }
+    return;
+  }
   const inf=e.target.closest('.info');
   if(inf && T){ e.stopPropagation(); const s=T.secs[+inf.dataset.info]; openModal('<h2>'+esc(s.name)+'</h2><p style="margin:0">'+esc(secInfoText(s))+'</p><div class="row"><button class="btn primary" id="mNo" type="button">Close</button></div>',()=>{ $('#mNo').onclick=closeModal; }); return; }
   const b=e.target.closest('button'); if(!b) return;
