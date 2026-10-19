@@ -1,0 +1,212 @@
+{
+  "downloads": [
+    {
+      "number": 1,
+      "title": "Units, Dimensions & Measurement",
+      "category": "Physics Chapter Sheets",
+      "description": "Chapter 01 PDF",
+      "file": "01_Units_Dimensions_Measurement.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/01_Units_Dimensions_Measurement.pdf"
+    },
+    {
+      "number": 2,
+      "title": "Kinematics",
+      "category": "Physics Chapter Sheets",
+      "description": "Chapter 02 PDF",
+      "file": "02_Kinematics.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/02_Kinematics.pdf"
+    },
+    {
+      "number": 3,
+      "title": "Laws of Motion",
+      "category": "Physics Chapter Sheets",
+      "description": "Chapter 03 PDF",
+      "file": "03_Laws_of_Motion.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/03_Laws_of_Motion.pdf"
+    },
+    {
+      "number": 4,
+      "title": "Work, Energy & Power",
+      "category": "Physics Chapter Sheets",
+      "description": "Chapter 04 PDF",
+      "file": "04_Work_Energy_Power.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/04_Work_Energy_Power.pdf"
+    },
+    {
+      "number": 5,
+      "title": "Centre of Mass, Momentum & Collisions",
+      "category": "Physics Chapter Sheets",
+      "description": "Chapter 05 PDF",
+      "file": "05_Centre_of_Mass_Momentum_Collisions.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/05_Centre_of_Mass_Momentum_Collisions.pdf"
+    },
+    {
+      "number": 6,
+      "title": "Rotational Motion",
+      "category": "Physics Chapter Sheets",
+      "description": "Chapter 06 PDF",
+      "file": "06_Rotational_Motion.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/06_Rotational_Motion.pdf"
+    },
+    {
+      "number": 7,
+      "title": "Gravitation",
+      "category": "Physics Chapter Sheets",
+      "description": "Chapter 07 PDF",
+      "file": "07_Gravitation.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/07_Gravitation.pdf"
+    },
+    {
+      "number": 8,
+      "title": "Elasticity (Mechanical Properties of Solids)",
+      "category": "Physics Chapter Sheets",
+      "description": "Chapter 08 PDF",
+      "file": "08_Elasticity_Mechanical_Properties_of_Solids.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/08_Elasticity_Mechanical_Properties_of_Solids.pdf"
+    },
+    {
+      "number": 9,
+      "title": "Fluid Mechanics",
+      "category": "Physics Chapter Sheets",
+      "description": "Chapter 09 PDF",
+      "file": "09_Fluid_Mechanics.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/09_Fluid_Mechanics.pdf"
+    },
+    {
+      "number": 10,
+      "title": "Thermal Properties & Heat Transfer",
+      "category": "Physics Chapter Sheets",
+      "description": "Chapter 10 PDF",
+      "file": "10_Thermal_Properties_Heat_Transfer.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/10_Thermal_Properties_Heat_Transfer.pdf"
+    },
+    {
+      "number": 11,
+      "title": "Kinetic Theory of Gases",
+      "category": "Physics Chapter Sheets",
+      "description": "Chapter 11 PDF",
+      "file": "11_Kinetic_Theory_of_Gases.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/11_Kinetic_Theory_of_Gases.pdf"
+    },
+    {
+      "number": 12,
+      "title": "Thermodynamics",
+      "category": "Physics Chapter Sheets",
+      "description": "Chapter 12 PDF",
+      "file": "12_Thermodynamics.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/12_Thermodynamics.pdf"
+    },
+    {
+      "number": 13,
+      "title": "Oscillations (SHM)",
+      "category": "Physics Chapter Sheets",
+      "description": "Chapter 13 PDF",
+      "file": "13_Oscillations_SHM.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/13_Oscillations_SHM.pdf"
+    },
+    {
+      "number": 14,
+      "title": "Waves & Sound",
+      "category": "Physics Chapter Sheets",
+      "description": "Chapter 14 PDF",
+      "file": "14_Waves_Sound.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/14_Waves_Sound.pdf"
+    },
+    {
+      "number": 15,
+      "title": "Electrostatics",
+      "category": "Physics Chapter Sheets",
+      "description": "Chapter 15 PDF",
+      "file": "15_Electrostatics.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/15_Electrostatics.pdf"
+    },
+    {
+      "number": 16,
+      "title": "Capacitance",
+      "category": "Physics Chapter Sheets",
+      "description": "Chapter 16 PDF",
+      "file": "16_Capacitance.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/16_Capacitance.pdf"
+    },
+    {
+      "number": 17,
+      "title": "Current Electricity",
+      "category": "Physics Chapter Sheets",
+      "description": "Chapter 17 PDF",
+      "file": "17_Current_Electricity.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/17_Current_Electricity.pdf"
+    },
+    {
+      "number": 18,
+      "title": "Moving Charges & Magnetism",
+      "category": "Physics Chapter Sheets",
+      "description": "Chapter 18 PDF",
+      "file": "18_Moving_Charges_Magnetism.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/18_Moving_Charges_Magnetism.pdf"
+    },
+    {
+      "number": 19,
+      "title": "Magnetism & Matter",
+      "category": "Physics Chapter Sheets",
+      "description": "Chapter 19 PDF",
+      "file": "19_Magnetism_Matter.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/19_Magnetism_Matter.pdf"
+    },
+    {
+      "number": 20,
+      "title": "Electromagnetic Induction",
+      "category": "Physics Chapter Sheets",
+      "description": "Chapter 20 PDF",
+      "file": "20_Electromagnetic_Induction.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/20_Electromagnetic_Induction.pdf"
+    },
+    {
+      "number": 21,
+      "title": "Alternating Current",
+      "category": "Physics Chapter Sheets",
+      "description": "Chapter 21 PDF",
+      "file": "21_Alternating_Current.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/21_Alternating_Current.pdf"
+    },
+    {
+      "number": 22,
+      "title": "Electromagnetic Waves",
+      "category": "Physics Chapter Sheets",
+      "description": "Chapter 22 PDF",
+      "file": "22_Electromagnetic_Waves.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/22_Electromagnetic_Waves.pdf"
+    },
+    {
+      "number": 23,
+      "title": "Ray Optics & Optical Instruments",
+      "category": "Physics Chapter Sheets",
+      "description": "Chapter 23 PDF",
+      "file": "23_Ray_Optics_Optical_Instruments.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/23_Ray_Optics_Optical_Instruments.pdf"
+    },
+    {
+      "number": 24,
+      "title": "Wave Optics",
+      "category": "Physics Chapter Sheets",
+      "description": "Chapter 24 PDF",
+      "file": "24_Wave_Optics.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/24_Wave_Optics.pdf"
+    },
+    {
+      "number": 25,
+      "title": "Dual Nature of Matter & Radiation",
+      "category": "Physics Chapter Sheets",
+      "description": "Chapter 25 PDF",
+      "file": "25_Dual_Nature_of_Matter_Radiation.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/25_Dual_Nature_of_Matter_Radiation.pdf"
+    },
+    {
+      "number": 26,
+      "title": "Atoms, Nuclei & Semiconductor Electronics",
+      "category": "Physics Chapter Sheets",
+      "description": "Chapter 26 PDF",
+      "file": "26_Atoms_Nuclei_Semiconductor_Electronics.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/26_Atoms_Nuclei_Semiconductor_Electronics.pdf"
+    }
+  ]
+}

@@ -1,0 +1,1067 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>AITS Practice Portal</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap">
+<style>
+/* Layout: replica of the NTA CBT console. Dark title bar; left = test pill, Sections/Time Left, section tabs, question info, scrolling question, bottom action bar; right = candidate, legend, section bar, palette grid, Submit. Phones turn the right panel into a drawer. */
+:root{
+  --bg:#f4f4f4; --surface:#ffffff; --surface-2:#f0f0f0; --panel:#e9e9e9; --fg:#222222; --muted:#666666; --line:#cfcfcf;
+  --top:#2b2b2b; --top-ink:#f6d23c;
+  --brand:#3b82c4; --brand-deep:#2d6cab; --brand-ink:#ffffff; --tint:#e4eef9;
+  --ok:#4a9a2c; --nok:#d0471f; --rev:#7b4a9f; --nv-a:#fafafa; --nv-b:#d3d3d3; --nv-ink:#333333; --plus:#2f8f2f;
+  --good:#1f7a2e; --good-bg:#e7f4e9; --bad:#b3261e; --bad-bg:#fcebea; --part:#8a5a00; --part-bg:#fff3dc;
+  --font-ui:"Open Sans","Segoe UI",Arial,sans-serif; --font-q:"Times New Roman",Times,"Liberation Serif",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#14181e; --surface:#1c222a; --surface-2:#232b35; --panel:#212831; --fg:#e6e9ed; --muted:#9aa6b3; --line:#38424f;
+  --top:#0c0e11; --top-ink:#f6d23c;
+  --brand:#4a8fd4; --brand-deep:#3a7bc0; --brand-ink:#ffffff; --tint:#1f3248;
+  --ok:#52ad33; --nok:#e0562c; --rev:#9a63c2; --nv-a:#3a4552; --nv-b:#2a333e; --nv-ink:#e1e7ee; --plus:#6fd07c;
+  --good:#6fd07c; --good-bg:#16301c; --bad:#ff8a80; --bad-bg:#3a1d1b; --part:#f0c26a; --part-bg:#3a2f14; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#14181e; --surface:#1c222a; --surface-2:#232b35; --panel:#212831; --fg:#e6e9ed; --muted:#9aa6b3; --line:#38424f;
+  --top:#0c0e11; --top-ink:#f6d23c;
+  --brand:#4a8fd4; --brand-deep:#3a7bc0; --brand-ink:#ffffff; --tint:#1f3248;
+  --ok:#52ad33; --nok:#e0562c; --rev:#9a63c2; --nv-a:#3a4552; --nv-b:#2a333e; --nv-ink:#e1e7ee; --plus:#6fd07c;
+  --good:#6fd07c; --good-bg:#16301c; --bad:#ff8a80; --bad-bg:#3a1d1b; --part:#f0c26a; --part-bg:#3a2f14; color-scheme:dark}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-ui);font-size:14px;line-height:1.5;min-width:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:90;background:var(--top)}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.wrap{max-width:1280px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.muted{color:var(--muted)}
+.mono{font-variant-numeric:tabular-nums;font-weight:600}
+
+/* dark title bar (all screens) */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--top);color:var(--top-ink)}
+.tb-in{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:30px;padding-top:5px;padding-bottom:5px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.tb-title{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.01em;min-width:0;overflow-wrap:anywhere}
+.tb-tools{display:flex;align-items:center;gap:14px;flex:none}
+.tool{display:flex;align-items:center;gap:6px;background:none;border:0;color:#fff;font-size:12px;padding:2px 0}
+.tool svg{flex:none}
+.topbar .btn{background:transparent;color:#fff;border-color:#777;min-height:26px;padding:2px 10px;font-size:12px}
+.topbar .btn:hover{background:#444}
+
+/* buttons */
+.btn{border:1px solid var(--line);background:var(--surface);padding:8px 16px;border-radius:2px;font-weight:600;min-height:38px}
+.btn:hover{background:var(--surface-2)}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}
+.btn.primary:hover{background:var(--brand-deep)}
+.btn.danger{background:var(--nok);border-color:var(--nok);color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.sm{min-height:30px;padding:3px 10px;font-size:13px}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:2px;padding:16px}
+.card h2{margin:0 0 12px;font-size:17px;line-height:1.3}
+.card h3{margin:16px 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.field{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
+.field label{font-weight:600;font-size:13px}
+input[type=text],input[type=number],select{background:var(--surface);border:1px solid var(--line);border-radius:2px;padding:7px 10px;min-height:38px;width:100%}
+input[type=checkbox],input[type=radio]{accent-color:var(--brand);width:17px;height:17px;flex:none;margin:0}
+
+/* setup */
+.setup{padding-top:16px;padding-bottom:40px;display:flex;flex-direction:column;gap:16px}
+.setup-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}
+.sticky{position:sticky;top:calc(48px + env(safe-area-inset-top,0px))}
+.dbrow{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.dbstats{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:8px}
+.note{background:var(--part-bg);color:var(--part);border-radius:2px;padding:8px 12px;font-size:13px;margin-top:10px}
+.drop{border:2px dashed var(--line);border-radius:2px;padding:10px 14px;font-size:13px;color:var(--muted);margin-top:10px}
+body.dragging .drop{border-color:var(--brand);background:var(--tint);color:var(--fg)}
+.chips{display:flex;flex-wrap:wrap;gap:4px 18px}
+.chk{display:flex;align-items:center;gap:8px;cursor:pointer;min-height:30px}
+.chk .cnt{margin-left:auto;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.chk.zero{opacity:.45}
+.chtools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.chtools input[type=text]{flex:1 1 180px;width:auto}
+.chgroup{border:1px solid var(--line);margin-bottom:10px;overflow:hidden}
+.chgroup>.gh{display:flex;align-items:center;gap:8px;padding:6px 12px;background:var(--brand);color:#fff;font-weight:700}
+.chgroup>.gh .cnt{margin-left:auto;font-size:12px;font-weight:600}
+.chgroup>.gh input{accent-color:#fff}
+.chlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:0 16px;padding:6px 12px}
+.sum{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:8px 0;border-bottom:1px solid var(--line)}
+.sum b.big{font-size:28px;line-height:1;font-variant-numeric:tabular-nums}
+.hist div{display:flex;flex-wrap:wrap;gap:4px 16px;padding:7px 0;border-bottom:1px solid var(--line);font-size:13px}
+
+/* instructions */
+.instr{padding-top:16px;padding-bottom:40px;max-width:900px}
+.instr ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px 16px;margin:8px 0}
+.legend div{display:flex;align-items:center;gap:10px}
+table{border-collapse:collapse;width:100%}
+th,td{border-bottom:1px solid var(--line);padding:7px 10px;text-align:left;font-size:14px;vertical-align:middle}
+th{background:var(--tint);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto}
+
+/* palette tiles: NTA shapes */
+/* sprite helper: --x/--y/--w/--h = region in the sheet, --m = max(w,h), --t = rendered box size (px, unitless) */
+.spr,.tile,.ico{background-repeat:no-repeat;--k:calc(var(--t) / var(--m));width:calc(var(--w) * var(--k) * 1px);height:calc(var(--h) * var(--k) * 1px);background-size:calc(var(--iw) * var(--k) * 1px) calc(var(--ih) * var(--k) * 1px);background-position:calc(var(--x) * var(--k) * -1px) calc(var(--y) * var(--k) * -1px)}
+.ico{display:inline-block;flex:none;background-image:url(/sprites/icon-sprite.png);--iw:540;--ih:118;--t:18;vertical-align:middle}
+.i-notes{--x:7;--y:5;--w:17;--h:22;--m:22}
+.i-mag{--x:140;--y:7;--w:18;--h:18;--m:18}
+.i-info{--x:166;--y:7;--w:18;--h:18;--m:18}
+.i-help{--x:188;--y:8;--w:18;--h:18;--m:18}
+.i-zin{--x:175;--y:63;--w:26;--h:26;--m:26}
+.i-zout{--x:207;--y:63;--w:26;--h:26;--m:26}
+.i-calc{--x:148;--y:62;--w:17;--h:23;--m:23}
+.tile{flex:none;border:0;padding:0;display:grid;place-items:center;font-weight:600;font-size:13px;position:relative;color:#fff;text-shadow:0 1px 1px rgba(0,0,0,.45);font-variant-numeric:tabular-nums;font-family:var(--font-ui);background-color:transparent;background-image:url(/sprites/jee-advanced-sprite.png);--iw:590;--ih:231;--t:36}
+.tile.s-an{--x:4;--y:5;--w:50;--h:42;--m:50;padding-top:5px}
+.tile.s-na{--x:57;--y:6;--w:49;--h:41;--m:49;padding-bottom:5px}
+.tile.s-mk{--x:108;--y:1;--w:49;--h:49;--m:49}
+.tile.s-nv{--x:160;--y:4;--w:43;--h:43;--m:43;color:#333;text-shadow:none}
+.tile.s-am{--x:5;--y:177;--w:54;--h:50;--m:54}
+.tile.cur{filter:brightness(1.25) drop-shadow(0 0 2px var(--brand))}
+.tile.sm{font-size:12px;cursor:default;--t:28}
+.tile.sm.s-an{padding-top:4px}
+.tile.sm.s-na{padding-bottom:4px}
+
+/* exam console */
+#scrExam{height:100%;display:flex;flex-direction:column}
+.xmain{flex:1 1 auto;display:flex;min-height:0}
+.xleft{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;background:var(--bg)}
+.xleft>*{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:16px}
+.xrow1{padding-top:10px;padding-bottom:4px}
+.pill{display:inline-block;background:var(--brand);color:#fff;padding:5px 14px;border-radius:3px;font-size:12px;font-weight:600}
+.xrow2{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-top:6px;padding-bottom:6px;font-size:12px}
+.xrow2 .tl{font-variant-numeric:tabular-nums}
+.xrow2 .tl.low b{color:var(--nok)}
+.tabs{display:flex;gap:6px;padding-top:4px;padding-bottom:8px;overflow-x:auto;flex:none}
+.tab{flex:none;display:flex;align-items:center;gap:6px;border:1px solid var(--brand);background:var(--surface);color:var(--brand);padding:5px 10px;border-radius:3px;font-size:12px;font-weight:600;white-space:nowrap}
+.tab[aria-selected=true]{background:var(--brand);color:#fff}
+.info{--t:15;cursor:pointer}
+.tab[aria-selected=true] .info{background-color:#fff;border-radius:50%}
+.xinfo{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 16px;padding-top:6px;padding-bottom:6px;font-size:12px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.xinfo .plus{color:var(--plus)}
+.xqno{display:flex;align-items:center;justify-content:space-between;padding-top:8px;padding-bottom:8px;font-size:14px;font-weight:700;border-bottom:1px solid var(--line)}
+.dn{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--brand);border:0;padding:0}
+.xscroll{flex:1 1 auto;min-height:0;overflow:auto;padding-top:12px;padding-bottom:16px}
+.secbox{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:var(--surface);border:1px solid var(--fg);border-radius:2px;padding:5px 12px;font-weight:700;font-size:13px;text-align:center}
+.secbox svg{flex:none;margin-left:auto}
+.secbox span{flex:1}
+.secinfo{margin-top:8px;padding:8px 12px;background:var(--tint);font-size:13px;border-radius:2px}
+.qtext{font-family:var(--font-q);font-size:var(--qs,17px);margin-top:16px;overflow-wrap:anywhere;line-height:1.55}
+.qimg{display:block;max-width:100%;margin:12px 0;background:#fff}
+.opts{display:flex;flex-direction:column;gap:2px;margin-top:20px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:6px 0;cursor:pointer;min-width:0;font-size:calc(var(--qs,17px) * .82)}
+.opt input{margin-top:3px}
+.opt .ol{flex:none;width:20px;color:var(--muted)}
+.opt .ot{min-width:0;overflow-wrap:anywhere}
+.numwrap{margin-top:20px;max-width:300px}
+.numin{width:100%;font-size:20px;text-align:right;padding:8px 12px;border:1px solid var(--fg);border-radius:2px;background:var(--surface);min-height:46px;font-variant-numeric:tabular-nums}
+.keys{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:6px}
+.keys button{min-height:40px;background:var(--surface-2);border:1px solid var(--line);border-radius:2px;font-size:16px;font-weight:600}
+.keys button:active{background:var(--tint)}
+.keys .half{font-size:13px}
+.xbottom{flex:none;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));background:var(--panel);border-top:1px solid var(--line)}
+.xbottom .gap{flex:1 1 auto}
+.xbtn{background:var(--surface);border:1px solid var(--line);border-radius:2px;padding:9px 14px;font-size:12px;font-weight:600;min-height:40px;color:var(--fg)}
+.xbtn:hover{background:var(--surface-2)}
+.xright{flex:0 0 clamp(250px,22%,330px);display:flex;flex-direction:column;background:var(--panel);border-left:1px solid var(--line);min-height:0}
+.rcand{display:flex;gap:12px;align-items:center;padding:14px 12px 10px;font-weight:600;font-size:14px}
+.rcand svg{flex:none;width:54px;height:54px;border-radius:3px}
+.rleg{display:grid;grid-template-columns:1fr 1fr;gap:12px 8px;padding:8px 12px 14px;font-size:11px;line-height:1.25}
+.rleg div{display:flex;gap:8px;align-items:center}
+.rleg .wide{grid-column:span 2}
+.rsec{background:var(--brand);color:#fff;font-weight:600;font-size:13px;padding:7px 12px}
+.rch{padding:8px 12px 4px;font-size:12px}
+.pal{flex:1 1 auto;min-height:0;overflow:auto;display:grid;grid-template-columns:repeat(4,36px);justify-content:space-between;gap:12px 8px;align-content:start;padding:10px 12px 16px;padding-right:max(12px,env(safe-area-inset-right,0px))}
+.rbottom{flex:none;display:flex;justify-content:center;align-items:center;padding:12px 12px calc(12px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);background:var(--panel)}
+.submit{background:var(--brand-deep);color:#fff;border:0;border-radius:2px;min-width:120px;min-height:42px;font-weight:600;padding:0 24px}
+.submit:hover{background:var(--brand)}
+.scrim{display:none}
+.palbtn{display:none}
+
+/* modal */
+.modal{position:fixed;inset:0;z-index:95;background:rgba(10,20,35,.6);display:grid;place-items:center;padding:16px}
+.modal .box{background:var(--surface);border-radius:3px;max-width:560px;width:100%;max-height:90dvh;overflow:auto;padding:16px;border:1px solid var(--line)}
+.modal h2{margin:0 0 10px;font-size:18px}
+.modal .row{display:flex;gap:8px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap}
+
+/* results */
+.res{padding-top:16px;padding-bottom:48px;display:flex;flex-direction:column;gap:16px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:2px;padding:10px 14px}
+.kpi small{display:block;color:var(--muted);font-size:12px}
+.kpi b{font-size:24px;font-variant-numeric:tabular-nums;line-height:1.3}
+.bar-t{height:8px;background:var(--nv-b);border-radius:2px;overflow:hidden;min-width:70px}
+.bar-t i{display:block;height:100%;background:var(--ok)}
+.bar-t i.lo{background:var(--nok)} .bar-t i.mid{background:#d99a00}
+.rvbar{display:flex;flex-wrap:wrap;gap:8px}
+.rvbar button[aria-pressed=true]{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+.rv{background:var(--surface);border:1px solid var(--line);border-left-width:6px;border-radius:2px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.rv.r-ok{border-left-color:var(--ok)} .rv.r-bad{border-left-color:var(--nok)} .rv.r-part{border-left-color:#d99a00} .rv.r-skip,.rv.r-nokey{border-left-color:var(--muted)}
+.rv header{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;font-size:13px;color:var(--muted)}
+.rv header b{color:var(--fg)}
+.badge{display:inline-block;padding:1px 8px;border-radius:10px;font-weight:700;font-size:12px}
+.badge.ok{background:var(--good-bg);color:var(--good)} .badge.bad{background:var(--bad-bg);color:var(--bad)} .badge.part{background:var(--part-bg);color:var(--part)} .badge.skip{background:var(--nv-b);color:var(--nv-ink)}
+.ropt{display:flex;gap:10px;padding:6px 10px;border:1px solid var(--line);border-radius:2px}
+.ropt.corr{background:var(--good-bg);border-color:var(--good)}
+.ropt.wrong{background:var(--bad-bg);border-color:var(--bad)}
+.opt.locked{cursor:default}
+.opt.corr{background:var(--good-bg);outline:1px solid var(--good);padding:6px 8px;border-radius:2px}
+.opt.wrong{background:var(--bad-bg);outline:1px solid var(--bad);padding:6px 8px;border-radius:2px}
+.fb{margin-top:16px;padding:12px 14px;border:1px solid var(--line);border-left:4px solid var(--muted);border-radius:2px;display:flex;flex-direction:column;gap:8px;font-size:calc(var(--qs,17px) * .8)}
+.fb.r-ok{border-left-color:var(--ok)} .fb.r-bad{border-left-color:var(--nok)} .fb.r-part{border-left-color:#d99a00}
+.fb .fbh{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.rv details{background:var(--surface-2);border-radius:2px;padding:8px 12px}
+.rv summary{cursor:pointer;font-weight:600}
+.rv .qtext{margin-top:0}
+mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
+
+@media (max-width:900px){
+  .setup-grid{grid-template-columns:minmax(0,1fr)} .sticky{position:static}
+  .xleft>*{padding-right:max(16px,env(safe-area-inset-right,0px))}
+  .xright{position:fixed;top:0;right:0;bottom:0;z-index:80;width:min(320px,88vw);transform:translateX(100%);transition:transform .2s;padding-top:env(safe-area-inset-top,0px);box-shadow:-4px 0 16px rgba(0,0,0,.25)}
+  .xright.open{transform:none}
+  .scrim.open{display:block;position:fixed;inset:0;z-index:70;background:rgba(10,20,35,.5)}
+  .palbtn{display:inline-block}
+  .tool .lbl{display:none}
+}
+@media (max-width:520px){ .xbtn{padding:8px 10px} .tb-title{font-size:11px} }
+@media (prefers-reduced-motion:reduce){.xright{transition:none}}
+
+/* AITS visual refresh — retain the existing exam logic and DOM contracts. */
+:root{--bg:#f3f6fb;--surface:#fff;--surface-2:#f6f8fc;--panel:#eef2f8;--fg:#172033;--muted:#66738a;--line:#dce3ee;--top:#101827;--top-ink:#f8fafc;--brand:#1769d2;--brand-deep:#1056b3;--brand-ink:#fff;--tint:#eaf2ff;--ok:#16845b;--nok:#c2413a;--rev:#7654c8;--nv-a:#f5f7fb;--nv-b:#d9e1ed;--nv-ink:#344054;--plus:#16845b;--good:#16794c;--good-bg:#e5f7ed;--bad:#b42318;--bad-bg:#fff0ef;--part:#925d00;--part-bg:#fff5dc;--font-ui:Inter,"Open Sans","Segoe UI",Arial,sans-serif;--font-q:Georgia,"Times New Roman",serif}
+body{background:var(--bg);color:var(--fg);font-size:14px;line-height:1.55}
+.topbar{box-shadow:0 2px 12px #0c1b3318}.tb-in{min-height:52px;padding-top:8px;padding-bottom:8px}.tb-title{font-size:14px;letter-spacing:.015em}.topbar .btn{border-radius:9px;border-color:#536176;min-height:34px;padding:5px 12px}
+.wrap{max-width:1480px;padding-left:max(22px,env(safe-area-inset-left,0px));padding-right:max(22px,env(safe-area-inset-right,0px))}
+.setup{padding-top:24px;gap:20px}.setup-grid{grid-template-columns:minmax(0,1fr) 350px;gap:20px}
+.card{border:1px solid #e1e7f0;border-radius:16px;padding:22px;box-shadow:0 5px 22px rgba(24,43,77,.045)}.card h2{font-size:19px;letter-spacing:-.02em}.card h3{margin-top:22px;color:#52627b;font-size:11px;letter-spacing:.09em}
+#dbCard{background:linear-gradient(120deg,#fff 0%,#f5f9ff 100%);border-color:#d8e6fb}.dbstats{gap:8px;margin-top:14px}.dbstats>span{display:inline-flex;gap:6px;align-items:center;background:#edf4ff;color:#264b80;border:1px solid #dce9fb;border-radius:999px;padding:5px 11px;font-size:12px}
+.sticky{top:70px}.sticky h2{padding-bottom:14px;border-bottom:1px solid var(--line)}.sum{padding:12px 0}.sum b.big{font-size:34px;color:var(--brand)}
+.btn{border-radius:9px;transition:background .15s,border-color .15s,transform .15s;min-height:40px;padding:8px 14px}.btn:hover{transform:translateY(-1px)}.btn.primary{box-shadow:0 4px 10px #1769d222}.btn.sm{border-radius:8px;min-height:32px}
+input[type=text],input[type=number],select{border-radius:9px;min-height:42px;padding:9px 12px;border-color:#d6dfeb;background:#fff}input:focus,select:focus{outline:3px solid #1769d21c;border-color:var(--brand)}
+.chtools{gap:8px}.chtools input[type=text]{min-height:38px}.chgroup{border:1px solid #e1e7f0;border-radius:11px;margin-bottom:12px}.chgroup>.gh{padding:10px 13px;background:#eef4ff;color:#204a84;border-bottom:1px solid #dbe7f8}.chlist{padding:8px 13px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:2px 16px}.chk{padding:4px 5px;border-radius:7px}.chk:hover{background:#f4f7fc}.chk .cnt{font-weight:600}
+.instr{padding-top:24px;max-width:1000px}.instr .card{padding:28px}.legend{gap:12px}.legend>div{padding:10px 12px;background:var(--surface-2);border-radius:10px}
+#scrExam{background:var(--bg)}#scrExam .topbar{flex:none}.xmain{gap:0;padding:16px;min-height:0}.xleft{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--surface);box-shadow:0 5px 24px rgba(24,43,77,.055)}.xleft>*{padding-left:22px;padding-right:22px}.xrow1{padding-top:18px;padding-bottom:8px}.pill{border-radius:999px;background:#eaf2ff;color:#1b57a5;padding:6px 13px;font-size:12px}.xrow2{padding-top:7px;padding-bottom:9px;color:var(--muted)}.tabs{padding-top:8px;padding-bottom:12px;gap:8px}.tab{border-color:#d5e1f2;background:#f8faff;color:#355779;border-radius:9px;padding:8px 12px}.tab[aria-selected=true]{background:var(--brand);border-color:var(--brand);box-shadow:0 3px 8px #1769d22b}.xinfo{background:#f8faff;border-top:1px solid #edf1f7;border-bottom:1px solid #edf1f7;padding-top:10px;padding-bottom:10px;color:#52627b}.xqno{padding-top:13px;padding-bottom:13px;border-bottom:1px solid #edf1f7}.dn{border-radius:8px;width:30px;height:30px}.xscroll{padding-top:20px;padding-bottom:26px}.secbox{border-color:#e1e7f0;border-radius:10px;background:#f8faff;padding:10px 14px}.secinfo{border-radius:9px;padding:10px 14px}.qtext{font-family:var(--font-q);font-size:clamp(17px,var(--qs,17px),22px);line-height:1.7;margin-top:18px}.qimg{display:block;width:auto;max-width:min(76%,760px);max-height:360px;object-fit:contain;object-position:left center;margin:16px 0;background:#fff;cursor:zoom-in;border:1px solid #e0e6ef;border-radius:8px;box-shadow:0 3px 12px #1720330b;transition:box-shadow .15s,transform .15s}.qimg:hover{box-shadow:0 7px 20px #17203318;transform:translateY(-1px)}.qimg:focus-visible{outline:3px solid var(--brand);outline-offset:3px}.opts{gap:8px;margin-top:24px}.opt{padding:11px 13px;border:1px solid #e4eaf2;border-radius:10px;align-items:flex-start;font-size:calc(var(--qs,17px) * .84);transition:background .15s,border-color .15s}.opt:hover{background:#f7faff;border-color:#c8d9f0}.opt input{margin-top:5px;accent-color:var(--brand)}.opt .ol{font-weight:700;color:#4c6281}.numin{border-radius:10px!important}.xbottom{padding:14px 20px;background:#f8faff;border-top:1px solid #e5ebf4;gap:10px}.xbtn{border-radius:9px;min-height:42px;padding:10px 15px}.xbtn[data-act="save"]{background:var(--brand);color:#fff;border-color:var(--brand)}.xbtn[data-act="save"]:hover{background:var(--brand-deep)}
+.xright{margin-left:14px;flex-basis:300px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 5px 24px rgba(24,43,77,.055)}.rcand{padding:18px 15px 14px;border-bottom:1px solid #edf1f7}.rcand svg{border-radius:12px;background:#eaf2ff}.rleg{padding:14px 15px 16px;gap:13px 8px;font-size:11px}.rsec{background:#edf4ff;color:#1f4c87;padding:10px 15px}.rch{padding:12px 15px 5px;font-weight:600;color:#596980}.pal{grid-template-columns:repeat(4,40px);justify-content:start;gap:12px;padding:12px 15px}.tile{--t:40}.tile.sm{--t:30}.rbottom{background:#f8faff;padding:14px;border-top:1px solid #e5ebf4}.submit{border-radius:9px;min-height:44px;box-shadow:0 4px 10px #1769d222}
+.modal{backdrop-filter:blur(5px);background:rgba(12,22,40,.62)}.modal .box{border-radius:16px;padding:22px;box-shadow:0 20px 70px #06152a44}.modal .row .btn{min-width:90px}
+.res{padding-top:24px;gap:20px}.kpi{border:1px solid #e1e7f0;border-radius:14px;padding:16px;box-shadow:0 4px 16px #17203308}.kpi b{font-size:29px;color:var(--brand)}.rv{border-radius:12px;padding:16px;border-color:#e1e7f0}.ropt{border-radius:9px}.rv details{border-radius:9px;padding:12px}
+#imagePreview{display:none;position:fixed;inset:0;z-index:110;background:rgba(7,13,24,.84);backdrop-filter:blur(5px);padding:24px;align-items:center;justify-content:center;cursor:zoom-out}#imagePreview.open{display:flex}#imagePreview img{max-width:min(94vw,1500px);max-height:90vh;object-fit:contain;background:#fff;border-radius:10px;box-shadow:0 20px 70px #0008}#imagePreview button{position:absolute;top:18px;right:20px;border:1px solid #ffffff66;border-radius:999px;background:#172033;color:#fff;padding:9px 14px;font-weight:700;cursor:pointer}
+@media(max-width:900px){.setup-grid{grid-template-columns:minmax(0,1fr)}.sticky{position:static}.xmain{padding:8px}.xright{margin-left:0;border-radius:14px}.xleft{border-radius:14px}.xleft>*{padding-left:14px;padding-right:14px}.xscroll{padding-top:14px}.qimg{max-width:min(92%,760px);max-height:300px}.card{padding:17px}.wrap{padding-left:12px;padding-right:12px}}
+@media(max-width:520px){.tb-in{gap:8px}.tb-title{font-size:11px}.setup{padding-top:12px}.card{border-radius:13px;padding:15px}.xmain{padding:5px}.xbottom{padding:10px;gap:6px}.xbtn{font-size:11px;padding:8px}.xbtn[data-act="mark"]{max-width:48%}.qtext{font-size:17px}.qimg{max-width:100%;max-height:260px}.opt{padding:10px}.pal{grid-template-columns:repeat(5,36px);gap:10px}.tile{--t:36px}}
+
+</style>
+
+<div id="scrSetup" class="screen">
+  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Physics Practice Portal &ndash; chapter-wise question practice</span><a class="btn sm" href="downloads.html" style="text-decoration:none;white-space:nowrap">Downloads</a></div></div>
+  <main class="wrap setup">
+    <section class="card" id="dbCard">
+      <div class="dbrow">
+        <div><h2 style="margin:0">Question bank</h2><div id="dbLabel" class="muted"></div></div>
+        <div class="muted" style="font-size:13px">Physics question bank · hosted database</div>
+      </div>
+      <div class="dbstats" id="dbStats"></div>
+      <div id="dbNote" class="note" hidden></div>
+    </section>
+
+    <div class="setup-grid">
+      <div class="card">
+        <h2>Build your practice set</h2>
+        <div class="field"><label for="candName">Candidate name</label><input type="text" id="candName" placeholder="Your name" autocomplete="off"></div>
+        <h3>Question type</h3>
+        <div class="chips" id="typeBox"></div>
+        <h3>Paper</h3>
+        <div class="field"><select id="paperSel" aria-label="Paper"></select></div>
+        <h3>Years</h3>
+        <div class="chtools">
+          <button class="btn sm" id="yrAll" type="button">Select all</button>
+          <button class="btn sm" id="yrNone" type="button">Clear</button>
+        </div>
+        <div class="chips years" id="yearBox" role="group" aria-label="Years"></div>
+        <h3>Chapters</h3>
+        <div class="chtools">
+          <input type="text" id="chSearch" placeholder="Search chapters" aria-label="Search chapters" autocomplete="off">
+          <button class="btn sm" id="chAll" type="button">Select all</button>
+          <button class="btn sm" id="chNone" type="button">Clear</button>
+        </div>
+        <div id="chapList"></div>
+      </div>
+
+      <aside class="card sticky">
+        <h2>Test summary</h2>
+        <div class="sum"><span>Matching questions</span><b class="big" id="sumAvail">0</b></div>
+        <div class="field" style="margin-top:12px"><label for="cntIn">Number of questions</label>
+          <div style="display:flex;gap:8px"><input type="number" id="cntIn" min="1" step="1"><button class="btn sm" id="cntAll" type="button">All</button></div></div>
+        <div class="field"><label for="ordSel">Order</label>
+          <select id="ordSel"><option value="seq">Bank order</option><option value="shuf">Shuffled</option></select></div>
+        <div class="field"><label for="minIn">Time limit (minutes, 0 for untimed)</label><input type="number" id="minIn" min="0" step="1"></div>
+        <div class="field"><label for="modeSel">Mode</label>
+          <select id="modeSel"><option value="test">Take as a test (results at the end)</option><option value="practice">Practice (check answer and solution after each question)</option></select></div>
+        <div class="field"><label for="mrkSel">Marking scheme</label><select id="mrkSel"></select></div>
+        <button class="btn primary" id="btnStart" type="button" style="width:100%">Continue to instructions</button>
+        <div id="startWhy" class="muted" style="font-size:13px;margin-top:8px"></div>
+        <div id="histCard" hidden><h3>Recent tests</h3><div class="hist" id="histList"></div></div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<div id="scrInstr" class="screen" hidden>
+  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Test &ndash; instructions</span><button class="btn sm" id="instBack" type="button">Change selection</button></div></div>
+  <main class="wrap instr">
+    <section class="card">
+      <h2>General instructions</h2>
+      <div id="instSummary"></div>
+      <ol id="instList"></ol>
+      <h3>Question palette</h3>
+      <div class="legend">
+        <div><span class="tile sm s-nv">1</span> You have not visited the question yet.</div>
+        <div><span class="tile sm s-na">2</span> You have not answered the question.</div>
+        <div><span class="tile sm s-an">3</span> You have answered the question.</div>
+        <div><span class="tile sm s-mk">4</span> You have not answered but marked it for review.</div>
+        <div><span class="tile sm s-am">5</span> Answered and marked for review (will be evaluated).</div>
+      </div>
+      <label class="chk" style="margin-top:16px"><input type="checkbox" id="instOk"> <span>I have read and understood the instructions.</span></label>
+      <div style="margin-top:12px"><button class="btn primary" id="btnBegin" type="button" disabled>I am ready to begin</button></div>
+    </section>
+  </main>
+</div>
+
+<div id="scrExam" class="screen" hidden>
+  <div class="topbar"><div class="tb-in">
+    <span class="tb-title" id="ehTitle"></span>
+    <span class="tb-tools">
+      <button class="tool" id="btnAcc" type="button" aria-label="Accessibility"><span class="ico spr i-zin" aria-hidden="true"></span><span class="lbl">Accessibility</span></button>
+      <button class="tool" id="btnMag" type="button" aria-label="Screen Magnifier"><span class="ico spr i-mag" aria-hidden="true"></span><span class="lbl">Screen Magnifier</span></button>
+      <button class="btn sm palbtn" id="palBtn" type="button">Palette</button>
+    </span>
+  </div></div>
+  <div class="xmain">
+    <section class="xleft">
+      <div class="xrow1"><span class="pill" id="testPill">AITS_PRACTICE</span></div>
+      <div class="xrow2"><span>Sections</span><span class="tl" id="tlWrap"><span id="tlLbl">Time Left : </span><b id="timer">--:--</b></span></div>
+      <div class="tabs" id="tabs" role="tablist"></div>
+      <div class="xinfo"><span id="qType"></span><span id="qMarks"></span></div>
+      <div class="xqno"><span id="qNo"></span><button class="dn" id="btnDown" type="button" aria-label="Scroll to the end of the question"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2v8M2.5 6.5L6 10l3.5-3.5" stroke="#fff" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+      <div class="xscroll" id="xscroll"></div>
+      <div class="xbottom">
+        <button class="xbtn" data-act="mark" type="button">Mark for Review &amp; Next</button>
+        <button class="xbtn" data-act="clear" type="button">Clear Response</button>
+        <span class="gap"></span>
+        <button class="xbtn" data-act="save" type="button">Save &amp; Next</button>
+      </div>
+    </section>
+    <aside class="xright" id="rail" aria-label="Question palette">
+      <div class="rcand">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" fill="#dcdcdc"/><circle cx="32" cy="24" r="11" fill="#8d8d8d"/><path d="M9 64c0-15 9-23 23-23s23 8 23 23z" fill="#8d8d8d"/></svg>
+        <span id="rName"></span>
+      </div>
+      <div class="rleg" id="rLeg"></div>
+      <div class="rsec" id="rSec"></div>
+      <div class="rch">Choose a Question</div>
+      <div class="pal" id="pal"></div>
+      <div class="rbottom"><button class="submit" id="submitRail" type="button">Submit</button></div>
+    </aside>
+  </div>
+  <div class="scrim" id="scrim"></div>
+</div>
+
+<div id="scrRes" class="screen" hidden>
+  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Test &ndash; result</span>
+    <span style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" id="resRetry" type="button">Retry wrong and skipped</button><button class="btn sm" id="resNew" type="button">New test</button></span></div></div>
+  <main class="wrap res" id="resBody"></main>
+</div>
+
+<div id="imagePreview" role="dialog" aria-modal="true" aria-label="Image preview"><button type="button" id="imagePreviewClose" aria-label="Close image preview">✕ Close</button><img alt="Enlarged question image"></div>
+<div id="modal" class="modal" hidden><div class="box" id="modalBox"></div></div>
+
+<script>
+window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},svg:{fontCache:'global'},startup:{typeset:false}};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="config.js"></script>
+<script>
+const zipCache = new Map();
+function esc(value){
+  return String(value==null?'':value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+window.esc = esc;
+function imageMarkup(u,alt){
+  const x=String(u||'');
+  if(x.startsWith('zipimg:')) return '<img class="qimg" alt="'+esc(alt||'Question figure')+'" data-zipimg="'+esc(x.slice(7))+'" src="data:,">';
+  return '<img class="qimg" alt="'+esc(alt||'Question figure')+'" src="'+esc(x)+'">';
+}
+async function resolveZipImage(img){
+  const ref=img.dataset.zipimg; if(!ref) return;
+  const hash=ref.lastIndexOf('#'); if(hash<0) return;
+  const zipUrl=ref.slice(0,hash), fileName=decodeURIComponent(ref.slice(hash+1));
+  try{
+    if(!window.JSZip) throw new Error('ZIP image support failed to load');
+    if(!zipCache.has(zipUrl)) zipCache.set(zipUrl,fetch(zipUrl).then(r=>{if(!r.ok) throw new Error('Could not fetch ZIP ('+r.status+')'); return r.arrayBuffer();}).then(b=>JSZip.loadAsync(b)));
+    const zip=await zipCache.get(zipUrl);
+    let f=zip.file(fileName);
+    if(!f){ const match=Object.keys(zip.files).find(k=>!zip.files[k].dir && (k===fileName || k.endsWith('/'+fileName))); if(match) f=zip.file(match); }
+    if(!f) throw new Error('Image not found in ZIP: '+fileName);
+    const blob=await f.async('blob');
+    img.src=URL.createObjectURL(blob); img.removeAttribute('data-zipimg');
+  }catch(e){ img.alt='Unable to load image: '+fileName; img.style.display='none'; console.warn(e); }
+}
+function hydrateZipImages(root){ if(root) root.querySelectorAll('img[data-zipimg]').forEach(resolveZipImage); }
+</script>
+<script>
+(function(){
+"use strict";
+
+const $ = s => document.querySelector(s);
+const rich = s => esc(s).replace(/\n/g,'<br>');
+const SUBJ = ['Physics'];
+const TYPES = {single:'Single correct', multi:'Multiple correct', numerical:'Numerical'};
+const QT = {single:'Multiple Choice', multi:'Multiple Choice (one or more correct)', numerical:'Numerical Value'};
+const SECLBL = {single:'MCQ', multi:'Multiple Correct', numerical:'Numerical'};
+const TRANK = {single:0, multi:1, numerical:2};
+const LET = 'ABCDEFGH';
+const PRESETS = {
+  adv:{name:'JEE Advanced: single +3/−1, multiple +4/−2 with partial, numerical +4', single:{c:3,w:-1}, multi:{c:4,w:-2,p:1}, numerical:{c:4,w:0}},
+  main:{name:'JEE Main: +4/−1 for all types', single:{c:4,w:-1}, multi:{c:4,w:-1,p:1}, numerical:{c:4,w:-1}},
+  none:{name:'No negative marking: +4 for all types', single:{c:4,w:0}, multi:{c:4,w:0,p:1}, numerical:{c:4,w:0}}
+};
+const store = {
+  get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } },
+  set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+};
+const typeset = el => { try{ if(window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise(el?[el]:undefined).catch(()=>{}); }catch(e){} };
+const mmss = s => { s=Math.max(0,Math.floor(s)); return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'); };
+const hms = s => { s=Math.max(0,Math.round(s)); const h=Math.floor(s/3600), m=Math.floor(s%3600/60), x=s%60; return [h,m,x].map(n=>String(n).padStart(2,'0')).join(':'); };
+const subjRank = s => { const i=SUBJ.indexOf(s); return i<0?99:i; };
+
+/* ---------- normalisation of database.json ---------- */
+function normSubject(s){
+  const t=String(s||'').toLowerCase();
+  if(/phy/.test(t)) return 'Physics';
+  return /phy/.test(t) ? 'Physics' : 'Other';
+}
+function normType(t){
+  const s=String(t==null?'':t).toLowerCase();
+  if(!s) return null;
+  if(s.includes('multi')) return 'multi';
+  if(/single|^mcq/.test(s)) return 'single';
+  if(/num|integer|^int|subjective|decimal/.test(s)) return 'numerical';
+  return null;
+}
+function normOptions(o){
+  if(!o) return null;
+  let arr = Array.isArray(o) ? o : (typeof o==='object' ? Object.keys(o).sort().map(k=>o[k]) : null);
+  if(!arr || !arr.length) return null;
+  return arr.map(x=>{
+    let t = (x && typeof x==='object') ? (x.text!=null?x.text:(x.option!=null?x.option:(x.value!=null?x.value:JSON.stringify(x)))) : String(x);
+    return String(t).replace(/^\s*(\([A-Da-d1-4]\)|[A-Da-d][\).])\s*/,'').trim();
+  });
+}
+function parseChoice(a,opts){
+  if(a==null || a==='') return null;
+  const items = Array.isArray(a) ? a.map(String) : [String(a)];
+  const out = new Set();
+  for(const it of items){
+    const s = it.trim();
+    if(opts){ const k = opts.findIndex(o=>o.toLowerCase()===s.toLowerCase()); if(k>=0 && s.length>1){ out.add(k); continue; } }
+    const c = s.replace(/[^A-Za-z0-9]/g,'');
+    if(/^[A-Ha-h]+$/.test(c)) [...c.toUpperCase()].forEach(ch=>out.add(LET.indexOf(ch)));
+    else if(/^[1-8]+$/.test(c)) [...c].forEach(ch=>out.add(+ch-1));
+  }
+  return out.size ? [...out].sort((x,y)=>x-y) : null;
+}
+function parseNum(a){
+  if(a==null || a==='') return null;
+  if(typeof a==='number') return isFinite(a)?a:null;
+  const m = String(a).replace(/,/g,'').match(/-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/);
+  return m ? parseFloat(m[0]) : null;
+}
+function normQuestion(q,i,defSubject){
+  if(!q || typeof q!=='object') return null;
+  const text = q.question!=null?q.question:(q.text!=null?q.text:(q.statement!=null?q.statement:''));
+  const imgs = [].concat(q.images||q.question_images||q.image||[]).filter(Boolean);
+  if(!String(text).trim() && !imgs.length) return null;
+  const subject = normSubject(q.subject!=null?q.subject:defSubject);
+  const chapter = String(q.chapter!=null?q.chapter:(q.topic!=null?q.topic:'Unsorted')).trim() || 'Unsorted';
+  let options = normOptions(q.options!=null?q.options:q.choices);
+  let type = normType(q.type!=null?q.type:(q.question_type!=null?q.question_type:q.qtype));
+  const rawAns = q.answer!=null?q.answer:(q.correct_answer!=null?q.correct_answer:(q.correct!=null?q.correct:q.key));
+  let labelOnly = false;
+  if(type==='numerical') options=null;
+  let ans=null, tol=null, range=null, keyOk=false;
+  if(!type){
+    if(options){ const p=parseChoice(rawAns,options); type = p && p.length>1 ? 'multi' : 'single'; }
+    else type='numerical';
+  }
+  if(type!=='numerical'){
+    if(!options){ const n = +(q.option_count||q.optionCount||4); options = Array.from({length:Math.min(Math.max(n,2),8)},(_,k)=>LET[k]); labelOnly=true; }
+    ans = parseChoice(rawAns,labelOnly?null:options);
+    if(ans) ans = ans.filter(k=>k<options.length);
+    keyOk = !!(ans && ans.length);
+  } else {
+    const r = q.range||q.answer_range;
+    if(Array.isArray(r) && r.length===2 && isFinite(+r[0]) && isFinite(+r[1])){ range=[Math.min(+r[0],+r[1]),Math.max(+r[0],+r[1])]; keyOk=true; ans=(range[0]+range[1])/2; }
+    else { ans = parseNum(rawAns); keyOk = ans!=null; }
+    tol = q.tolerance!=null ? Math.abs(+q.tolerance)||0 : 0.01;
+  }
+  return {
+    id:String(q.id!=null?q.id:(q.question_id!=null?q.question_id:('Q'+(i+1)))),
+    subject, chapter, type, text:String(text), options, labelOnly, ans, tol, range, keyOk,
+    solution:String(q.solution!=null?q.solution:(q.explanation||'')),
+    images:imgs.map(String), solImages:[].concat(q.solution_images||q.solutionImages||[]).filter(Boolean).map(String),
+    source:String(q.source!=null?q.source:(q.source_paper!=null?q.source_paper:(q.paper!=null?q.paper:(q.test||'')))),
+    paper:paperOf(String(q.source||'')+' '+String(q.paperTitle||q.paper_title||'')),
+    year:yearOf(q)
+  };
+}
+function yearOf(q){
+  const y=parseInt(q.year,10);
+  if(y>=1990 && y<=2100) return String(y);
+  const m=(String(q.source||'')+' '+String(q.paperTitle||q.paper_title||'')).match(/\b(19|20)\d{2}\b/);
+  return m ? m[0] : 'Unknown';
+}
+function paperOf(s){
+  const m=/(\bJM\b|JEE[\s_-]?M\b|JEEM|\bMains?\b|_Mains?\b)/i.test(s), a=/(\bJA\b|JEE[\s_-]?A\b|JEEA|\bAdv)/i.test(s);
+  if(m&&!a) return 'main';
+  if(a&&!m) return 'adv';
+  if(m&&a) return /\bMain\b/i.test(s)?'main':'adv';
+  if(/Paper[- _]?(1|2|I{1,2})\b|\bP[- ]?[12]\b/i.test(s)) return 'adv';
+  return 'other';
+}
+const PAPERS={main:'Mains paper', adv:'Advanced paper'};
+function extractList(raw){
+  if(Array.isArray(raw)) return raw.map(x=>({q:x}));
+  if(raw && typeof raw==='object'){
+    for(const k of ['questions','data','items','database']) if(Array.isArray(raw[k])) return raw[k].map(x=>({q:x}));
+    const out=[];
+    for(const k of Object.keys(raw)) if(Array.isArray(raw[k])) raw[k].forEach(x=>out.push({q:x,subject:k}));
+    if(out.length) return out;
+  }
+  return null;
+}
+
+/* ---------- state ---------- */
+let DB=[], dbLabel='', dbSample=false, dbSkipped=0, dbNoKey=0;
+const cfg = {chapters:new Set(), types:new Set(Object.keys(TYPES)), paper:'all', years:new Set(), count:30, countAuto:true, minutes:90, minAuto:true, shuffle:false, preset:'adv', mode:'test'};
+const ui = {mag:false, size:0};
+let T=null, timerId=null, lastResult=null;
+
+function loadDB(raw,label,isSample){
+  const list = extractList(raw);
+  if(!list){ showNote('That file is not a list of questions. Expected an array, or an object with a "questions" array.'); return false; }
+  const out=[]; let skipped=0;
+  list.forEach((e,i)=>{ const n=normQuestion(e.q,i,e.subject); if(n && n.subject==='Physics') out.push(n); else skipped++; });
+  if(!out.length){ showNote('No usable questions were found in that file.'); return false; }
+  const seen=new Map();
+  out.forEach(q=>{ const c=(seen.get(q.id)||0)+1; seen.set(q.id,c); if(c>1) q.id=q.id+'#'+c; });
+  DB=out; dbLabel=label; dbSample=!!isSample; dbSkipped=skipped; dbNoKey=out.filter(q=>!q.keyOk).length;
+  cfg.chapters=new Set(DB.map(q=>q.subject+'||'+q.chapter)); cfg.types=new Set(Object.keys(TYPES)); cfg.paper='all';
+  cfg.years=new Set(DB.map(q=>q.year));
+  cfg.countAuto=true; cfg.minAuto=true; $('#chSearch').value='';
+  renderSetup(); return true;
+}
+function showNote(t){ const n=$('#dbNote'); n.textContent=t; n.hidden=!t; }
+
+/* ---------- screens ---------- */
+function show(id){
+  ['scrSetup','scrInstr','scrExam','scrRes'].forEach(s=>{ $('#'+s).hidden = s!==id; });
+  window.scrollTo(0,0);
+}
+
+/* ---------- setup ---------- */
+const paperOnlyOK = q => cfg.paper==='all' || q.paper===cfg.paper;
+const paperOK = q => paperOnlyOK(q) && cfg.years.has(q.year);
+function typeSrcOK(q){ return cfg.types.has(q.type) && paperOK(q); }
+function renderYears(){
+  const counts={};
+  DB.forEach(q=>{ if(!(q.year in counts)) counts[q.year]=0; if(paperOnlyOK(q) && cfg.types.has(q.type) && cfg.chapters.has(q.subject+'||'+q.chapter)) counts[q.year]++; });
+  const years=Object.keys(counts).sort((a,b)=>(a==='Unknown')-(b==='Unknown')||b.localeCompare(a));
+  $('#yearBox').innerHTML = years.map(y=>'<label class="chk'+(counts[y]?'':' zero')+'"><input type="checkbox" data-year="'+esc(y)+'"'+(cfg.years.has(y)?' checked':'')+'><span>'+esc(y)+'</span><span class="cnt">'+counts[y]+'</span></label>').join('');
+}
+function refreshAll(){ renderYears(); renderTypes(); renderChapters(); refreshSummary(); }
+function pool(){ return DB.filter(q=>typeSrcOK(q) && cfg.chapters.has(q.subject+'||'+q.chapter)); }
+function renderSetup(){
+  $('#dbLabel').textContent = dbSample ? 'Sample questions (replace with your database.json)' : ('Loaded from '+dbLabel);
+
+  const bySub={}; DB.forEach(q=>{ bySub[q.subject]=(bySub[q.subject]||0)+1; });
+  $('#dbStats').innerHTML = '<span><b>'+DB.length+'</b> questions</span>' + Object.keys(bySub).sort((a,b)=>subjRank(a)-subjRank(b)||a.localeCompare(b)).map(s=>'<span>'+esc(s)+' <b>'+bySub[s]+'</b></span>').join('');
+  const notes=[];
+  if(dbSkipped) notes.push(dbSkipped+' entries had no question text or image and were skipped.');
+  showNote(notes.join(' '));
+  const pc={main:0,adv:0}; DB.forEach(q=>{ if(pc[q.paper]!=null) pc[q.paper]++; });
+  const sel=$('#paperSel');
+  sel.innerHTML='<option value="all">Mains and Advanced papers ('+DB.length+')</option>'+Object.keys(PAPERS).map(k=>'<option value="'+k+'">'+PAPERS[k]+' ('+pc[k]+')</option>').join('');
+  sel.value=cfg.paper;
+  $('#modeSel').value=cfg.mode;
+  $('#mrkSel').innerHTML=Object.keys(PRESETS).map(k=>'<option value="'+k+'">'+esc(PRESETS[k].name)+'</option>').join('');
+  $('#mrkSel').value=cfg.preset;
+  $('#candName').value = store.get('aits_name')||'';
+  renderYears(); renderTypes(); renderChapters(); refreshSummary(); renderHist();
+}
+function renderTypes(){
+  const base=DB.filter(q=>paperOK(q) && cfg.chapters.has(q.subject+'||'+q.chapter));
+  $('#typeBox').innerHTML = Object.keys(TYPES).map(k=>{
+    const n=base.filter(q=>q.type===k).length;
+    return '<label class="chk'+(n?'':' zero')+'"><input type="checkbox" data-type="'+k+'"'+(cfg.types.has(k)?' checked':'')+'><span>'+TYPES[k]+'</span><span class="cnt">'+n+'</span></label>';
+  }).join('');
+}
+const CHAPTER_SEGMENTS = [
+  {name:'Mechanics', chapters:['Units, Dimensions & Measurement','Kinematics','Laws of Motion','Centre of Mass, Momentum & Collisions','Work, Energy & Power','Rotational Motion','Gravitation']},
+  {name:'Properties of Matter', chapters:['Elasticity (Mechanical Properties of Solids)','Fluid Mechanics']},
+  {name:'Thermal Physics', chapters:['Thermal Properties & Heat Transfer','Thermodynamics','Kinetic Theory of Gases']},
+  {name:'Oscillations & Waves', chapters:['Oscillations (SHM)','Waves & Sound']},
+  {name:'Electrostatics & Current Electricity', chapters:['Electrostatics','Capacitance','Current Electricity']},
+  {name:'Magnetism & Electromagnetism', chapters:['Moving Charges & Magnetism','Magnetism & Matter','Electromagnetic Induction','Alternating Current','Electromagnetic Waves']},
+  {name:'Optics', chapters:['Ray Optics & Optical Instruments','Wave Optics']},
+  {name:'Modern Physics & Electronics', chapters:['Dual Nature of Matter & Radiation','Atoms, Nuclei & Semiconductor Electronics']}
+];
+function chapterSegment(chapter){
+  const found=CHAPTER_SEGMENTS.find(g=>g.chapters.includes(chapter));
+  return found ? found.name : 'Other Chapters';
+}
+function renderChapters(){
+  const term=$('#chSearch').value.trim().toLowerCase();
+  const groups={};
+  DB.forEach(q=>{ const g=groups[q.subject]||(groups[q.subject]={}); const c=g[q.chapter]||(g[q.chapter]={n:0}); if(typeSrcOK(q)) c.n++; });
+  const subjects=Object.keys(groups).sort((a,b)=>subjRank(a)-subjRank(b)||a.localeCompare(b));
+  const html=subjects.map(subject=>{
+    const available=groups[subject];
+    const orderedSegments=CHAPTER_SEGMENTS.map(g=>({name:g.name,chapters:g.chapters.filter(c=>Object.prototype.hasOwnProperty.call(available,c))})).filter(g=>g.chapters.length);
+    const assigned=new Set(orderedSegments.flatMap(g=>g.chapters));
+    const extras=Object.keys(available).filter(c=>!assigned.has(c)).sort((a,b)=>a.localeCompare(b,undefined,{numeric:true}));
+    if(extras.length) orderedSegments.push({name:'Other Chapters',chapters:extras});
+    return orderedSegments.map(segment=>{
+      const shown=segment.chapters.filter(c=>!term||c.toLowerCase().includes(term)||segment.name.toLowerCase().includes(term)||subject.toLowerCase().includes(term));
+      if(!shown.length) return '';
+      const total=shown.reduce((n,c)=>n+available[c].n,0);
+      const segmentKey=subject+'||SEGMENT||'+segment.name;
+      return '<div class="chgroup"><div class="gh"><label class="chk" style="flex:1"><input type="checkbox" data-segment="'+esc(segmentKey)+'"><span>'+esc(segment.name)+'</span></label><span class="cnt">'+total+'</span></div><div class="chlist">'+
+        shown.map(c=>{ const k=subject+'||'+c; return '<label class="chk'+(available[c].n?'':' zero')+'"><input type="checkbox" data-ch="'+esc(k)+'"'+(cfg.chapters.has(k)?' checked':'')+'><span>'+esc(c)+'</span><span class="cnt">'+available[c].n+'</span></label>'; }).join('')+'</div></div>';
+    }).join('');
+  }).join('');
+  $('#chapList').innerHTML = html || '<div class="muted">No chapters match your search.</div>';
+  document.querySelectorAll('#chapList input[data-segment]').forEach(cb=>{
+    const [, , segmentName]=cb.dataset.segment.split('||');
+    const subject=cb.dataset.segment.split('||')[0];
+    const boxes=[...cb.closest('.chgroup').querySelectorAll('input[data-ch]')];
+    const on=boxes.filter(b=>b.checked).length;
+    cb.checked=on===boxes.length && on>0; cb.indeterminate=on>0 && on<boxes.length;
+  });
+}
+function refreshSummary(){
+  const n=pool().length;
+  $('#sumAvail').textContent=n;
+  if(cfg.countAuto) cfg.count=Math.min(30,n);
+  cfg.count=Math.min(cfg.count,n);
+  if(cfg.minAuto) cfg.minutes=cfg.count*3;
+  $('#cntIn').max=n; $('#cntIn').value=n?cfg.count:0; $('#minIn').value=cfg.minutes;
+  $('#ordSel').value=cfg.shuffle?'shuf':'seq';
+  const ok = n>0 && cfg.count>0;
+  $('#btnStart').disabled=!ok;
+  $('#startWhy').textContent = ok ? '' : 'Pick at least one chapter and one question type that has questions.';
+}
+function renderHist(){
+  let h=[]; try{ h=JSON.parse(store.get('aits_hist')||'[]'); }catch(e){}
+  $('#histCard').hidden=!h.length;
+  $('#histList').innerHTML=h.slice(0,5).map(x=>'<div><span>'+esc(new Date(x.t).toLocaleDateString(undefined,{day:'numeric',month:'short'}))+'</span><b>'+x.score+'/'+x.max+'</b><span class="muted">'+x.n+' questions, '+x.acc+'% accuracy</span></div>').join('');
+}
+
+/* ---------- build test ---------- */
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildTest(qs,minutes,presetKey,title){
+  qs=qs.slice().sort((a,b)=>subjRank(a.subject)-subjRank(b.subject)||a.subject.localeCompare(b.subject)||TRANK[a.type]-TRANK[b.type]);
+  const preset=PRESETS[presetKey], secs=[], secOf=[], used={};
+  qs.forEach((q,i)=>{
+    let s=secs.find(x=>x.subject===q.subject&&x.type===q.type);
+    if(!s){
+      used[q.subject]=used[q.subject]==null?0:used[q.subject]+1;
+      const L='ABC'[used[q.subject]];
+      s={subject:q.subject,type:q.type,letter:L,name:q.subject+' - Section '+L+' ('+SECLBL[q.type]+')',idx:[]}; secs.push(s);
+    }
+    s.idx.push(i); secOf[i]=secs.indexOf(s);
+  });
+  secs.forEach(s=>{ s.max=s.idx.length*preset[s.type].c; });
+  T={qs, st:qs.map(()=>({visited:false,ans:null,marked:false,time:0,checked:false})), secs, secOf, sec:0, cur:0, minutes, preset, presetKey, title, mode:cfg.mode, name:(store.get('aits_name')||'').trim()||'Candidate', qStart:0, startTs:0, over:false};
+}
+function today(){ return new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}).toUpperCase(); }
+function startFromSetup(){
+  let list=pool(); if(cfg.shuffle) shuffle(list);
+  list=list.slice(0,cfg.count);
+  buildTest(list,cfg.minutes,cfg.preset,'AITS PRACTICE TEST '+today()+' CHAPTER-WISE');
+  renderInstr(); show('scrInstr');
+}
+const negText = m => m.w===0 ? '0' : String(Math.abs(m.w));
+function markText(type){
+  const m=T.preset[type]; const w=m.w<0?'−'+Math.abs(m.w):(m.w===0?'0':'+'+m.w);
+  return '+'+m.c+' / '+w+(type==='multi'?' (partial +'+m.p+' per correct option)':'');
+}
+function marksHtml(type){
+  const m=T.preset[type];
+  return 'Marks for correct answer: <b class="plus">+'+m.c+'</b> | Negative Marks: '+negText(m)+(type==='multi'?' | Partial: +'+m.p+' per correct option':'');
+}
+function renderInstr(){
+  const counts=T.secs.map(s=>s.name+' '+s.idx.length).join(' · ');
+  $('#instSummary').innerHTML='<p style="margin:0 0 12px"><b>'+T.qs.length+' questions</b> ('+esc(counts)+'). '+(T.minutes>0?'Time allowed: <b>'+T.minutes+' minutes</b>.':'This test is <b>untimed</b>.')+'</p>';
+  const types=[...new Set(T.qs.map(q=>q.type))];
+  $('#instList').innerHTML=[
+    T.minutes>0?'The clock at the top of the question area shows the time left in minutes and seconds. The test is submitted automatically when it reaches zero.':'The clock shows the time elapsed. Submit when you are done.',
+    'Each subject has its own sections. Use the section tabs to move between them. The palette on the right shows the questions of the current section, and the counts above it cover the whole paper.',
+    'Multiple Choice: select one option. Multiple correct: select every correct option. Numerical: enter the value with the on-screen keypad or your keyboard.',
+    T.mode==='practice'?'<b>Practice mode:</b> press Check Answer to lock your response and see whether it is right or wrong, the correct answer and the solution. Then press Next to continue.':'<b>Test mode:</b> answers and solutions are shown only after you submit.',
+    'Save &amp; Next records your response and moves ahead. Mark for Review &amp; Next flags the question and keeps any answer you gave. Clear Response removes your answer. You can jump to any question from the palette.',
+    'Marking (correct / wrong): '+types.map(t=>TYPES[t].toLowerCase()+' '+markText(t)).join('; ')+'.'
+  ].map(x=>'<li>'+x+'</li>').join('');
+  $('#instOk').checked=false; $('#btnBegin').disabled=true;
+}
+
+/* ---------- exam ---------- */
+const hasAns=(q,s)=> q.type==='numerical' ? (s.ans!=null && /\d/.test(String(s.ans))) : q.type==='multi' ? !!(s.ans&&s.ans.length) : s.ans!=null;
+function status(i){
+  const s=T.st[i], a=hasAns(T.qs[i],s);
+  if(!s.visited) return 'nv';
+  if(a&&s.marked) return 'am';
+  if(a) return 'an';
+  if(s.marked) return 'mk';
+  return 'na';
+}
+function applyUi(){
+  const px=17*(1+0.12*ui.size)*(ui.mag?1.35:1);
+  $('#scrExam').style.setProperty('--qs',px.toFixed(1)+'px');
+}
+function startExam(){
+  show('scrExam');
+  T.startTs=Date.now(); T.sec=0; T.cur=T.secs[0].idx[0]; T.st[T.cur].visited=true; T.qStart=Date.now();
+  $('#ehTitle').textContent=T.title; $('#rName').textContent=T.name;
+  clearInterval(timerId); applyUi(); tick(); timerId=setInterval(tick,1000);
+  renderTabs(); renderQ(); renderPal();
+}
+function tick(){
+  if(!T || T.over) return;
+  const el=(Date.now()-T.startTs)/1000, t=$('#timer');
+  if(T.minutes>0){
+    const left=T.minutes*60-el; $('#tlLbl').textContent='Time Left : '; t.textContent=mmss(Math.ceil(left));
+    $('#tlWrap').classList.toggle('low',left<=300);
+    if(left<=0) finish(true);
+  } else { $('#tlLbl').textContent='Time Elapsed : '; t.textContent=mmss(el); $('#tlWrap').classList.remove('low'); }
+}
+function renderTabs(){
+  $('#tabs').innerHTML=T.secs.map((s,k)=>'<button class="tab" role="tab" data-sec="'+k+'" aria-selected="'+(k===T.sec)+'">'+esc(s.name)+'<span class="info ico spr i-info" role="button" tabindex="0" data-info="'+k+'" aria-label="Section details"></span></button>').join('');
+}
+function secInfoText(s){
+  const m=T.preset[s.type];
+  return s.idx.length+' questions · '+QT[s.type]+' · Maximum marks '+s.max+' · Correct +'+m.c+', negative '+negText(m)+(s.type==='multi'?', partial +'+m.p+' per correct option':'')+'.';
+}
+function renderQ(){
+  const q=T.qs[T.cur], s=T.st[T.cur], sec=T.secs[T.sec];
+  $('#qType').textContent='Question Type: '+QT[q.type];
+  $('#qMarks').innerHTML=marksHtml(q.type);
+  $('#qNo').textContent='Question No. '+(T.cur+1);
+  let h='<button class="secbox" id="secBox" type="button"><span>'+esc(sec.name)+' (Maximum Marks: '+sec.max+')</span><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="secinfo" id="secInfo" hidden>'+esc(secInfoText(sec))+'</div>';
+  h+='<div class="qtext">'+rich(q.text)+'</div>';
+  q.images.forEach(u=>{ h+=imageMarkup(u,'Question figure'); });
+  const locked=T.mode==='practice' && s.checked, dis=locked?' disabled':'';
+  if(q.type==='numerical'){
+    h+='<div class="numwrap"><input class="numin" id="numIn" type="text" readonly inputmode="none" aria-label="Your numerical answer" value="'+esc(s.ans==null?'':s.ans)+'"><div class="keys">'+
+      ['7','8','9','4','5','6','1','2','3','0','.','−'].map(k=>'<button type="button" data-k="'+k+'"'+dis+'>'+k+'</button>').join('')+
+      '<button type="button" class="half" data-k="bk"'+dis+'>Backspace</button><button type="button" class="half" data-k="clr"'+dis+'>Clear All</button><span></span></div></div>';
+  } else {
+    const multi=q.type==='multi', sel=multi?(s.ans||[]):(s.ans==null?[]:[s.ans]);
+    h+='<div class="opts" role="group" aria-label="Options">'+q.options.map((o,k)=>{
+      const corr=locked&&q.keyOk&&q.ans.includes(k), wr=locked&&sel.includes(k)&&!corr;
+      return '<label class="opt'+(locked?' locked':'')+(corr?' corr':'')+(wr?' wrong':'')+'"><input type="'+(multi?'checkbox':'radio')+'" name="opt" data-o="'+k+'"'+(sel.includes(k)?' checked':'')+dis+'>'+(q.labelOnly?'<span class="ol">'+LET[k]+'</span>':'<span class="ot">'+rich(o)+'</span>')+'</label>';
+    }).join('')+'</div>';
+  }
+  if(locked) h+=feedbackHtml(q,s);
+  const saveBtn=document.querySelector('.xbtn[data-act="save"]');
+  if(saveBtn) saveBtn.innerHTML = T.mode!=='practice' ? 'Save &amp; Next' : (locked ? (T.cur<T.qs.length-1?'Next':'Finish') : 'Check Answer');
+  const clearBtn=document.querySelector('.xbtn[data-act="clear"]');
+  if(clearBtn) clearBtn.disabled=locked;
+  const box=$('#xscroll'); box.innerHTML=h; box.scrollTop=0; hydrateZipImages(box); typeset(box);
+}
+function feedbackHtml(q,s){
+  const r=evaluate(q,s,T.preset);
+  const label={ok:'Correct',bad:'Wrong',part:'Partially correct',skip:'Not attempted',nokey:'Answer key not available'}[r.r];
+  const pc={ok:'ok',bad:'bad',part:'part',skip:'skip',nokey:'skip'}[r.r];
+  return '<div class="fb r-'+r.r+'" role="status"><div class="fbh"><span class="badge '+pc+'">'+label+(r.marks?' '+(r.marks>0?'+':'')+r.marks:'')+'</span>'+
+    '<span>Your answer: <b>'+esc(fmtAns(q,s.ans))+'</b></span><span>Correct answer: <b>'+esc(keyText(q))+'</b></span></div>'+
+    ((q.solution||q.solImages.length)?'<div><b>Solution</b><div style="margin-top:6px">'+rich(q.solution)+q.solImages.map(u=>imageMarkup(u,'Solution figure')).join('')+'</div></div>':'<div class="muted">No written solution is available for this question.</div>')+'</div>';
+}
+function renderPal(){
+  const sec=T.secs[T.sec];
+  $('#rSec').textContent=sec.name;
+  $('#pal').innerHTML=sec.idx.map(gi=>'<button type="button" class="tile s-'+status(gi)+(gi===T.cur?' cur':'')+'" data-q="'+gi+'" aria-label="Question '+(gi+1)+'">'+(gi+1)+'</button>').join('');
+  const c={nv:0,na:0,an:0,mk:0,am:0}; T.qs.forEach((_,i)=>{ c[status(i)]++; });
+  const L=[['an','Answered'],['na','Not Answered'],['nv','Not Visited'],['mk','Marked for Review'],['am','Answered &amp; Marked for Review (will be evaluated)']];
+  $('#rLeg').innerHTML=L.map((x,k)=>'<div'+(k===4?' class="wide"':'')+'><span class="tile sm s-'+x[0]+'">'+c[x[0]]+'</span><span>'+x[1]+'</span></div>').join('');
+}
+function leave(){ const now=Date.now(); if(T.qStart) T.st[T.cur].time+=(now-T.qStart)/1000; T.qStart=now; }
+function goto(i){
+  if(i<0||i>=T.qs.length) return;
+  leave(); T.cur=i; T.st[i].visited=true;
+  const k=T.secOf[i]; if(k!==T.sec){ T.sec=k; renderTabs(); }
+  renderQ(); renderPal(); closeRail();
+}
+function setNum(v){ const s=T.st[T.cur]; s.ans=v===''?null:v; const el=$('#numIn'); if(el) el.value=v; renderPal(); }
+function numKey(k){
+  const s=T.st[T.cur]; if(T.mode==='practice' && s.checked) return;
+  let v=s.ans==null?'':String(s.ans);
+  if(k==='bk') v=v.slice(0,-1);
+  else if(k==='clr') v='';
+  else if(k==='.'){ if(!v.includes('.')) v=(v===''||v==='-')?v+'0.':v+'.'; }
+  else if(k==='−'||k==='-'){ v=v.startsWith('-')?v.slice(1):'-'+v; }
+  else if(/^\d$/.test(k)){ if(v.replace(/[-.]/g,'').length<12) v+=k; }
+  setNum(v);
+}
+function onAction(a){
+  const s=T.st[T.cur];
+  const locked=T.mode==='practice' && s.checked;
+  if(a==='clear'){ if(locked) return; s.ans=null; renderQ(); renderPal(); return; }
+  if(a==='save' && T.mode==='practice' && !s.checked){ s.marked=false; s.checked=true; renderQ(); renderPal(); return; }
+  if(a==='save' && locked && T.cur===T.qs.length-1){ openSubmit(); return; }
+  if(a==='save'){ s.marked=false; if(T.cur<T.qs.length-1) goto(T.cur+1); else renderPal(); return; }
+  if(a==='mark'){ s.marked=true; if(T.cur<T.qs.length-1) goto(T.cur+1); else renderPal(); }
+}
+function openRail(){ $('#rail').classList.add('open'); $('#scrim').classList.add('open'); }
+function closeRail(){ $('#rail').classList.remove('open'); $('#scrim').classList.remove('open'); }
+function openModal(html,wire){ $('#modalBox').innerHTML=html; $('#modal').hidden=false; if(wire) wire(); }
+function closeModal(){ $('#modal').hidden=true; if(T&&!T.over) T.qStart=Date.now(); }
+
+function openSubmit(){
+  leave();
+  const rows=T.secs.map(s=>{ const c={nv:0,na:0,an:0,mk:0,am:0}; s.idx.forEach(i=>c[status(i)]++); return '<tr><td>'+esc(s.name)+'</td><td class="n">'+s.idx.length+'</td><td class="n">'+(c.an+c.am)+'</td><td class="n">'+c.na+'</td><td class="n">'+c.nv+'</td><td class="n">'+(c.mk+c.am)+'</td></tr>'; }).join('');
+  openModal('<h2>Submit test?</h2><div class="scroll"><table><thead><tr><th>Section</th><th class="n">Total</th><th class="n">Answered</th><th class="n">Not answered</th><th class="n">Not visited</th><th class="n">For review</th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="muted" style="margin:10px 0 0">After submitting you cannot change your answers.</p><div class="row"><button class="btn" id="mNo" type="button">Back to test</button><button class="btn danger" id="mYes" type="button">Submit</button></div>',()=>{
+    $('#mNo').onclick=closeModal;
+    $('#mYes').onclick=()=>{ $('#modal').hidden=true; finish(false); };
+  });
+}
+function openAccess(){
+  openModal('<h2>Accessibility</h2><p style="margin:0 0 10px">Question text size</p><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="aMinus" type="button" style="display:inline-flex;align-items:center;gap:6px"><span class="ico spr i-zout" aria-hidden="true"></span>Smaller</button><button class="btn" id="aReset" type="button">Reset</button><button class="btn" id="aPlus" type="button" style="display:inline-flex;align-items:center;gap:6px"><span class="ico spr i-zin" aria-hidden="true"></span>Larger</button></div><div class="row"><button class="btn primary" id="aOk" type="button">Done</button></div>',()=>{
+    $('#aMinus').onclick=()=>{ ui.size=Math.max(-2,ui.size-1); applyUi(); };
+    $('#aPlus').onclick=()=>{ ui.size=Math.min(4,ui.size+1); applyUi(); };
+    $('#aReset').onclick=()=>{ ui.size=0; ui.mag=false; applyUi(); };
+    $('#aOk').onclick=closeModal;
+  });
+}
+
+/* ---------- scoring ---------- */
+function evaluate(q,s,m){
+  if(!hasAns(q,s)) return {r:'skip',marks:0};
+  if(!q.keyOk) return {r:'nokey',marks:0};
+  if(q.type==='single') return q.ans.includes(s.ans) ? {r:'ok',marks:m.single.c} : {r:'bad',marks:m.single.w};
+  if(q.type==='multi'){
+    const ch=s.ans, co=q.ans;
+    if(ch.some(x=>!co.includes(x))) return {r:'bad',marks:m.multi.w};
+    if(ch.length===co.length) return {r:'ok',marks:m.multi.c};
+    return {r:'part',marks:Math.min(ch.length*m.multi.p,m.multi.c-1)};
+  }
+  const v=parseFloat(s.ans); if(!isFinite(v)) return {r:'skip',marks:0};
+  const ok = q.range ? (v>=q.range[0]-1e-9 && v<=q.range[1]+1e-9) : Math.abs(v-q.ans)<=q.tol+1e-9;
+  return ok ? {r:'ok',marks:m.numerical.c} : {r:'bad',marks:m.numerical.w};
+}
+function finish(auto){
+  if(!T||T.over) return;
+  leave(); T.over=true; clearInterval(timerId); closeRail(); $('#modal').hidden=true;
+  const m=T.preset, res=T.qs.map((q,i)=>evaluate(q,T.st[i],m));
+  const max=T.qs.reduce((t,q)=>t+(q.keyOk?m[q.type].c:0),0);
+  const score=res.reduce((t,r)=>t+r.marks,0);
+  const used=Math.min((Date.now()-T.startTs)/1000, T.minutes>0?T.minutes*60:1e9);
+  const att=res.filter(r=>r.r==='ok'||r.r==='bad'||r.r==='part').length, ok=res.filter(r=>r.r==='ok').length;
+  const acc=att?Math.round(ok/att*100):0;
+  lastResult={res,max,score,used,att,ok,acc,auto};
+  let h=[]; try{ h=JSON.parse(store.get('aits_hist')||'[]'); }catch(e){}
+  h.unshift({t:Date.now(),score,max,n:T.qs.length,acc}); store.set('aits_hist',JSON.stringify(h.slice(0,20)));
+  renderResult(); show('scrRes');
+}
+const fmtAns=(q,a)=>{
+  if(a==null||a==='') return '—';
+  if(q.type==='numerical') return String(a);
+  return (Array.isArray(a)?a:[a]).map(k=>LET[k]).join(', ');
+};
+const keyText=q=>{
+  if(!q.keyOk) return 'not available';
+  if(q.type==='numerical') return q.range ? q.range[0]+' to '+q.range[1] : String(q.ans);
+  return q.ans.map(k=>LET[k]).join(', ');
+};
+function renderResult(){
+  const R=lastResult;
+  const chap={}, subj={};
+  T.qs.forEach((q,i)=>{
+    const r=R.res[i].r, t=T.st[i].time;
+    [[subj,q.subject],[chap,q.subject+' · '+q.chapter]].forEach(([o,k])=>{
+      const e=o[k]||(o[k]={total:0,ok:0,bad:0,part:0,skip:0,marks:0,time:0}); e.total++; e.marks+=R.res[i].marks; e.time+=t;
+      if(r==='ok')e.ok++; else if(r==='bad')e.bad++; else if(r==='part')e.part++; else e.skip++;
+    });
+  });
+  const bar=a=>'<div class="bar-t"><i class="'+(a<40?'lo':a<70?'mid':'')+'" style="width:'+a+'%"></i></div>';
+  const row=(k,e)=>{ const at=e.ok+e.bad+e.part, a=at?Math.round(e.ok/at*100):0; return '<tr><td>'+esc(k)+'</td><td class="n">'+e.total+'</td><td class="n">'+e.ok+'</td><td class="n">'+e.part+'</td><td class="n">'+e.bad+'</td><td class="n">'+e.skip+'</td><td class="n">'+e.marks+'</td><td>'+(at?bar(a)+'<span class="muted" style="font-size:12px">'+a+'%</span>':'<span class="muted">—</span>')+'</td><td class="n">'+mmss(e.time/Math.max(e.total,1))+'</td></tr>'; };
+  const head='<thead><tr><th>__</th><th class="n">Qs</th><th class="n">Correct</th><th class="n">Partial</th><th class="n">Wrong</th><th class="n">Skipped</th><th class="n">Marks</th><th>Accuracy</th><th class="n">Avg time</th></tr></thead>';
+  const chRows=Object.keys(chap).sort((a,b)=>{ const f=e=>{ const at=e.ok+e.bad+e.part; return at?e.ok/at:-1; }; return f(chap[a])-f(chap[b]); }).map(k=>row(k,chap[k])).join('');
+  $('#resBody').innerHTML=
+   (R.auto?'<div class="note">Time ran out and the test was submitted automatically.</div>':'')+
+   '<div class="kpis"><div class="kpi"><small>Score</small><b>'+R.score+' / '+R.max+'</b></div><div class="kpi"><small>Accuracy</small><b>'+R.acc+'%</b></div><div class="kpi"><small>Correct</small><b>'+R.ok+'</b></div><div class="kpi"><small>Attempted</small><b>'+R.att+' / '+T.qs.length+'</b></div><div class="kpi"><small>Time used</small><b>'+hms(R.used)+'</b></div></div>'+
+   '<section class="card"><h2>By subject</h2><div class="scroll"><table>'+head.replace('__','Subject')+'<tbody>'+Object.keys(subj).map(k=>row(k,subj[k])).join('')+'</tbody></table></div></section>'+
+   '<section class="card"><h2>By chapter, weakest first</h2><div class="scroll"><table>'+head.replace('__','Chapter')+'<tbody>'+chRows+'</tbody></table></div></section>'+
+   '<section><h2 style="margin:0 0 10px;font-size:17px">Review answers</h2><div class="rvbar" id="rvbar">'+[['all','All'],['ok','Correct'],['bad','Wrong'],['skip','Not attempted'],['mk','Marked for review']].map(f=>'<button class="btn sm" data-f="'+f[0]+'" aria-pressed="'+(f[0]==='all')+'" type="button">'+f[1]+'</button>').join('')+'</div><div id="rvList" style="display:flex;flex-direction:column;gap:12px;margin-top:12px"></div></section>';
+  renderReview('all');
+}
+function renderReview(f){
+  const R=lastResult; $('#rvbar').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===f));
+  let html='';
+  T.qs.forEach((q,i)=>{
+    const r=R.res[i], s=T.st[i];
+    const pass = f==='all' || (f==='ok'&&r.r==='ok') || (f==='bad'&&(r.r==='bad'||r.r==='part')) || (f==='skip'&&r.r==='skip') || (f==='mk'&&s.marked);
+    if(!pass) return;
+    const label={ok:'Correct',bad:'Wrong',part:'Partially correct',skip:'Not attempted',nokey:'No answer key'}[r.r];
+    const pc={ok:'ok',bad:'bad',part:'part',skip:'skip',nokey:'skip'}[r.r];
+    let ob='';
+    if(q.type!=='numerical'){
+      const sel=q.type==='multi'?(s.ans||[]):(s.ans==null?[]:[s.ans]);
+      ob='<div style="display:flex;flex-direction:column;gap:6px">'+q.options.map((o,k)=>{ const corr=q.keyOk&&q.ans.includes(k), wr=sel.includes(k)&&!corr; return '<div class="ropt'+(corr?' corr':'')+(wr?' wrong':'')+'"><b>'+LET[k]+'.</b><span style="min-width:0;overflow-wrap:anywhere">'+(q.labelOnly?'':rich(o))+'</span>'+(sel.includes(k)?'<span class="muted" style="margin-left:auto;white-space:nowrap">your answer</span>':'')+'</div>'; }).join('')+'</div>';
+    }
+    html+='<article class="rv r-'+r.r+'"><header><b>Q'+(i+1)+'</b><span>'+esc(T.secs[T.secOf[i]].name)+'</span><span>'+esc(q.chapter)+'</span><span class="badge '+pc+'">'+label+(r.marks?' '+(r.marks>0?'+':'')+r.marks:'')+'</span><span>'+mmss(s.time)+'</span></header>'+
+      '<div class="qtext">'+rich(q.text)+'</div>'+q.images.map(u=>imageMarkup(u,'Question figure')).join('')+ob+
+      '<div>Your answer: <b>'+esc(fmtAns(q,s.ans))+'</b> · Correct answer: <b>'+esc(keyText(q))+'</b></div>'+
+      ((q.solution||q.solImages.length)?'<details><summary>Solution</summary><div style="margin-top:8px">'+rich(q.solution)+q.solImages.map(u=>imageMarkup(u,'Solution figure')).join('')+'</div></details>':'')+'</article>';
+  });
+  $('#rvList').innerHTML=html||'<div class="muted">Nothing to show for this filter.</div>';
+  hydrateZipImages($('#rvList')); typeset($('#rvList'));
+}
+
+/* ---------- events ---------- */
+document.addEventListener('change',e=>{
+  const t=e.target;
+  if(t.matches('#typeBox input')){ t.checked?cfg.types.add(t.dataset.type):cfg.types.delete(t.dataset.type); renderYears(); renderChapters(); refreshSummary(); }
+  else if(t.matches('#yearBox input')){ t.checked?cfg.years.add(t.dataset.year):cfg.years.delete(t.dataset.year); refreshAll(); }
+  else if(t.matches('#chapList input[data-ch]')){ t.checked?cfg.chapters.add(t.dataset.ch):cfg.chapters.delete(t.dataset.ch); refreshAll(); }
+  else if(t.matches('#chapList input[data-segment]')){
+    const parts=t.dataset.segment.split('||'); const subject=parts[0], segmentName=parts.slice(2).join('||');
+    const chapterSet=new Set((CHAPTER_SEGMENTS.find(g=>g.name===segmentName)||{chapters:[]}).chapters);
+    if(segmentName==='Other Chapters') Object.keys((DB.reduce((acc,q)=>{if(q.subject===subject) acc[q.chapter]=1; return acc;},{}))).filter(c=>!CHAPTER_SEGMENTS.some(g=>g.chapters.includes(c))).forEach(c=>chapterSet.add(c));
+    DB.filter(q=>q.subject===subject && chapterSet.has(q.chapter)).forEach(q=>{const k=q.subject+'||'+q.chapter; t.checked?cfg.chapters.add(k):cfg.chapters.delete(k);});
+    refreshAll();
+  }
+  else if(t.id==='paperSel'){ cfg.paper=t.value; if(t.value==='main'||t.value==='adv'){ cfg.preset=t.value; $('#mrkSel').value=cfg.preset; } refreshAll(); }
+  else if(t.id==='modeSel'){ cfg.mode=t.value; }
+  else if(t.id==='cntIn'){ cfg.count=Math.max(1,Math.min(+t.value||1,pool().length)); cfg.countAuto=false; refreshSummary(); }
+  else if(t.id==='minIn'){ cfg.minutes=Math.max(0,Math.round(+t.value||0)); cfg.minAuto=false; refreshSummary(); }
+  else if(t.id==='ordSel'){ cfg.shuffle=t.value==='shuf'; }
+  else if(t.id==='mrkSel'){ cfg.preset=t.value; }
+  else if(t.id==='candName'){ store.set('aits_name',t.value.trim()); }
+  else if(t.id==='instOk'){ $('#btnBegin').disabled=!t.checked; }
+  else if(t.matches('#xscroll input[data-o]')){
+    const q=T.qs[T.cur], s=T.st[T.cur], k=+t.dataset.o;
+    if(T.mode==='practice' && s.checked){ renderQ(); return; }
+    if(q.type==='multi'){ const a=new Set(s.ans||[]); t.checked?a.add(k):a.delete(k); s.ans=[...a].sort((x,y)=>x-y); if(!s.ans.length) s.ans=null; }
+    else s.ans=k;
+    renderPal();
+  }
+});
+document.addEventListener('input',e=>{ if(e.target.id==='chSearch') renderChapters(); });
+document.addEventListener('click',e=>{
+  const questionImage=e.target.closest('#xscroll img.qimg, #rvList img.qimg');
+  if(questionImage){
+    e.preventDefault();
+    const preview=document.getElementById('imagePreview');
+    const previewImg=preview.querySelector('img');
+    previewImg.src=questionImage.currentSrc||questionImage.src;
+    previewImg.alt=questionImage.alt||'Enlarged question image';
+    preview.classList.add('open');
+    document.getElementById('imagePreviewClose').focus();
+    return;
+  }
+  const inf=e.target.closest('.info');
+  if(inf && T){ e.stopPropagation(); const s=T.secs[+inf.dataset.info]; openModal('<h2>'+esc(s.name)+'</h2><p style="margin:0">'+esc(secInfoText(s))+'</p><div class="row"><button class="btn primary" id="mNo" type="button">Close</button></div>',()=>{ $('#mNo').onclick=closeModal; }); return; }
+  const b=e.target.closest('button'); if(!b) return;
+  if(b.id==='chAll'||b.id==='chNone'){ const term=$('#chSearch').value.trim().toLowerCase(); DB.forEach(q=>{ if(!term||q.chapter.toLowerCase().includes(term)||q.subject.toLowerCase().includes(term)){ const k=q.subject+'||'+q.chapter; b.id==='chAll'?cfg.chapters.add(k):cfg.chapters.delete(k); } }); renderChapters(); renderTypes(); refreshSummary(); }
+  else if(b.id==='cntAll'){ cfg.count=pool().length; cfg.countAuto=false; refreshSummary(); }
+  else if(b.id==='btnStart') startFromSetup();
+  else if(b.id==='instBack') show('scrSetup');
+  else if(b.id==='btnBegin') startExam();
+  else if(b.id==='submitRail') openSubmit();
+  else if(b.id==='palBtn') openRail();
+  else if(b.id==='btnAcc') openAccess();
+  else if(b.id==='btnMag'){ ui.mag=!ui.mag; applyUi(); }
+  else if(b.id==='btnDown'){ const x=$('#xscroll'); x.scrollTo({top:x.scrollHeight,behavior:'smooth'}); }
+  else if(b.id==='secBox'){ const i=$('#secInfo'); i.hidden=!i.hidden; }
+  else if(b.dataset.act && T && !T.over) onAction(b.dataset.act);
+  else if(b.dataset.k && T && !T.over) numKey(b.dataset.k);
+  else if(b.dataset.q!=null && T && !T.over) goto(+b.dataset.q);
+  else if(b.dataset.sec!=null && T && !T.over){ const k=+b.dataset.sec; goto(k===T.sec?T.cur:T.secs[k].idx[0]); }
+  else if(b.dataset.f && lastResult) renderReview(b.dataset.f);
+  else if(b.id==='resNew'){ show('scrSetup'); renderHist(); }
+  else if(b.id==='resRetry'){
+    const redo=T.qs.filter((q,i)=>lastResult.res[i].r!=='ok');
+    if(!redo.length){ openModal('<h2>Nothing to retry</h2><p style="margin:0">Every question was answered correctly.</p><div class="row"><button class="btn primary" id="mNo" type="button">Close</button></div>',()=>{ $('#mNo').onclick=()=>{ $('#modal').hidden=true; }; }); return; }
+    buildTest(redo,redo.length*3,T.presetKey,'AITS PRACTICE TEST '+today()+' RETRY'); renderInstr(); show('scrInstr');
+  }
+});
+const imagePreview=document.getElementById('imagePreview');
+function closeImagePreview(){ imagePreview.classList.remove('open'); imagePreview.querySelector('img').removeAttribute('src'); }
+document.getElementById('imagePreviewClose').addEventListener('click',e=>{e.stopPropagation();closeImagePreview();});
+imagePreview.addEventListener('click',e=>{if(e.target===imagePreview||e.target.tagName==='IMG') closeImagePreview();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&imagePreview.classList.contains('open')) closeImagePreview();});
+$('#scrim').addEventListener('click',closeRail);
+document.addEventListener('keydown',e=>{
+  if(!T||T.over||$('#scrExam').hidden||!$('#modal').hidden) return;
+  if(e.ctrlKey||e.metaKey||e.altKey) return;
+  if(T.qs[T.cur].type==='numerical'){
+    if(/^[0-9.]$/.test(e.key)){ numKey(e.key); e.preventDefault(); return; }
+    if(e.key==='-'){ numKey('−'); e.preventDefault(); return; }
+    if(e.key==='Backspace'){ numKey('bk'); e.preventDefault(); return; }
+  }
+});
+
+/* ---------- reliable bulk selection controls ---------- */
+function applyBulkSelection(buttonId, containerSelector, checkboxSelector, getKey, selected) {
+  const button = document.getElementById(buttonId);
+  if (!button) return;
+  button.addEventListener('click', function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const container = document.querySelector(containerSelector);
+    if (!container) return;
+    container.querySelectorAll(checkboxSelector).forEach(function (checkbox) {
+      const key = getKey(checkbox);
+      if (!key) return;
+      if (selected) {
+        if (containerSelector === '#chapList') cfg.chapters.add(key);
+        else if (containerSelector === '#yearBox') cfg.years.add(key);
+      } else {
+        if (containerSelector === '#chapList') cfg.chapters.delete(key);
+        else if (containerSelector === '#yearBox') cfg.years.delete(key);
+      }
+    });
+    if (containerSelector === '#chapList') refreshAll();
+    else { renderYears(); renderTypes(); refreshSummary(); }
+  });
+}
+applyBulkSelection('chAll', '#chapList', 'input[data-ch]', cb => cb.dataset.ch, true);
+applyBulkSelection('chNone', '#chapList', 'input[data-ch]', cb => cb.dataset.ch, false);
+applyBulkSelection('yrAll', '#yearBox', 'input[data-year]', cb => cb.dataset.year, true);
+applyBulkSelection('yrNone', '#yearBox', 'input[data-year]', cb => cb.dataset.year, false);
+
+/* ---------- boot ---------- */
+(async function(){
+  let ok=false;
+  const remote = (window.AITS_CONFIG && window.AITS_CONFIG.databaseUrl || '').trim();
+  const candidates = remote ? [remote, 'database.json'] : ['database.json'];
+  for(const url of candidates){
+    try{
+      const r=await fetch(url,{cache:'no-store'});
+      if(!r.ok) continue;
+      const raw=await r.json();
+      ok=loadDB(raw, url===remote ? 'Hugging Face database' : 'database.json', false);
+      if(ok) break;
+    }catch(e){}
+  }
+  if(!ok){
+    $('#dbLabel').textContent='Database not loaded';
+    showNote('Could not load the Physics question bank. Set the Hugging Face raw JSON URL in config.js, and make sure the JSON contains question text or image URLs, options, answer keys, and chapter names.');
+    $('#dbStats').innerHTML='';
+    $('#chapList').innerHTML='<div class="muted">No database available.</div>';
+    refreshSummary();
+  }
+})();
+})();
+</script>
+
+</body></html>
