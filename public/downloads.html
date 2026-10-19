@@ -4,8 +4,69 @@
 @media(prefers-color-scheme:dark){:root{--bg:#14181e;--surface:#1c222a;--fg:#e6e9ed;--muted:#9aa6b3;--line:#38424f;--top:#0c0e11;--accent:#4a8fd4;--accent2:#3a7bc0}}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.top{background:var(--top);color:#f6d23c;padding:13px max(16px,calc((100% - 1100px)/2));display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}.brand{font-size:13px;font-weight:700;letter-spacing:.03em;text-transform:uppercase}.back{color:#fff;text-decoration:none;border:1px solid #777;border-radius:4px;padding:6px 11px;font-size:13px}.wrap{max-width:1100px;margin:auto;padding:28px 16px 48px}h1{font-size:clamp(25px,4vw,34px);margin:0 0 6px} .sub{color:var(--muted);margin:0 0 22px}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}.toolbar input,.toolbar select{background:var(--surface);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:10px 12px;font:inherit}.toolbar input{flex:1;min-width:190px}.count{color:var(--muted);font-size:13px;margin-bottom:10px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}.item{background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:15px;display:flex;gap:13px;align-items:center;min-width:0}.num{width:42px;height:42px;flex:none;border-radius:8px;background:color-mix(in srgb,var(--accent) 14%,var(--surface));color:var(--accent);display:grid;place-items:center;font-weight:800}.details{min-width:0;flex:1}.title{font-weight:700;overflow-wrap:anywhere}.desc{color:var(--muted);font-size:13px;margin-top:3px}.download{display:inline-flex;align-items:center;justify-content:center;background:var(--accent);color:white;text-decoration:none;border-radius:5px;padding:8px 11px;font-size:13px;font-weight:700;white-space:nowrap}.download:hover{background:var(--accent2)}.status{color:var(--muted);padding:20px 0}.foot{color:var(--muted);font-size:12px;margin-top:22px}
 </style></head><body><header class="top"><div class="brand">AITS Physics Practice Portal</div><a class="back" href="index.html">← Practice portal</a></header><main class="wrap"><h1>Downloads</h1><p class="sub">Chapter-wise Physics PDFs, arranged in the same numbered order as the chapter list.</p><div class="toolbar"><input id="search" type="search" placeholder="Search chapters…" aria-label="Search downloads"><select id="sort" aria-label="Sort downloads"><option value="number">PDF order (01–26)</option><option value="alpha">Alphabetical</option></select></div><div id="count" class="count">Loading PDFs…</div><section id="list" class="grid" aria-live="polite"></section><p class="foot">PDF files are hosted on Hugging Face. Download links open the original PDF files.</p></main><script>
-const list=document.getElementById('list'),search=document.getElementById('search'),sort=document.getElementById('sort'),count=document.getElementById('count');let files=[];
-function render(){const term=search.value.trim().toLowerCase();const rows=files.filter(x=>(x.title+' '+x.file).toLowerCase().includes(term));rows.sort(sort.value==='alpha'?(a,b)=>a.title.localeCompare(b.title):(a,b)=>a.number-b.number);count.textContent=`${rows.length} PDF${rows.length===1?'':'s'}`;list.innerHTML=rows.map(x=>`<article class="item"><div class="num">${String(x.number).padStart(2,'0')}</div><div class="details"><div class="title">${escapeHtml(x.title)}</div><div class="desc">${escapeHtml(x.description)}</div></div><a class="download" href="${x.url}" target="_blank" rel="noopener" download>Download PDF ↓</a></article>`).join('')||'<p class="status">No PDFs match that search.</p>'}
-function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-search.addEventListener('input',render);sort.addEventListener('change',render);fetch('downloads.json').then(r=>{if(!r.ok)throw new Error('Could not load downloads.json');return r.json()}).then(d=>{files=Array.isArray(d.downloads)?d.downloads:[];render()}).catch(()=>{count.textContent='Could not load the download list.';list.innerHTML='<p class="status">Please try refreshing the page.</p>'});
+(function () {
+  const list = document.getElementById('list');
+  const search = document.getElementById('search');
+  const sort = document.getElementById('sort');
+  const count = document.getElementById('count');
+  let files = [];
+
+  function make(tag, className, text) {
+    const el = document.createElement(tag);
+    if (className) el.className = className;
+    if (text !== undefined && text !== null) el.textContent = String(text);
+    return el;
+  }
+
+  function render() {
+    const term = search.value.trim().toLowerCase();
+    const rows = files.filter(function (item) {
+      return (String(item.title || '') + ' ' + String(item.file || '')).toLowerCase().includes(term);
+    });
+    rows.sort(sort.value === 'alpha'
+      ? function (a, b) { return String(a.title).localeCompare(String(b.title)); }
+      : function (a, b) { return Number(a.number) - Number(b.number); });
+
+    count.textContent = rows.length + ' PDF' + (rows.length === 1 ? '' : 's');
+    list.replaceChildren();
+    if (!rows.length) {
+      list.appendChild(make('p', 'status', files.length ? 'No PDFs match that search.' : 'No PDFs are listed in downloads.json.'));
+      return;
+    }
+
+    rows.forEach(function (item) {
+      const card = make('article', 'item');
+      card.appendChild(make('div', 'num', String(Number(item.number) || 0).padStart(2, '0')));
+      const details = make('div', 'details');
+      details.appendChild(make('div', 'title', item.title || item.file || 'Physics PDF'));
+      details.appendChild(make('div', 'desc', item.description || item.category || 'Chapter PDF'));
+      card.appendChild(details);
+      const link = make('a', 'download', 'Download PDF ↓');
+      link.href = item.url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.setAttribute('download', '');
+      card.appendChild(link);
+      list.appendChild(card);
+    });
+  }
+
+  search.addEventListener('input', render);
+  sort.addEventListener('change', render);
+
+  fetch('/downloads.json', { cache: 'no-store' })
+    .then(function (response) {
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      return response.json();
+    })
+    .then(function (data) {
+      files = Array.isArray(data.downloads) ? data.downloads : [];
+      render();
+    })
+    .catch(function (error) {
+      count.textContent = 'Could not load the download list.';
+      list.replaceChildren(make('p', 'status', 'The page loaded, but downloads.json could not be read. Check that public/downloads.json exists and contains valid JSON.'));
+      console.error('AITS Downloads error:', error);
+    });
+})();
 </script></body></html>
