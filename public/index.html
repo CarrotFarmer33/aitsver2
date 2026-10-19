@@ -229,7 +229,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 </style>
 
 <div id="scrSetup" class="screen">
-  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Physics Practice Portal &ndash; chapter-wise question practice</span><a class="btn sm" href="downloads.html" style="text-decoration:none;white-space:nowrap">Downloads</a></div></div>
+  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Physics Practice Portal &ndash; chapter-wise question practice</span></div></div>
   <main class="wrap setup">
     <section class="card" id="dbCard">
       <div class="dbrow">
@@ -581,46 +581,47 @@ function renderTypes(){
     return '<label class="chk'+(n?'':' zero')+'"><input type="checkbox" data-type="'+k+'"'+(cfg.types.has(k)?' checked':'')+'><span>'+TYPES[k]+'</span><span class="cnt">'+n+'</span></label>';
   }).join('');
 }
-const PDF_CHAPTER_ORDER = [
-  'Units, Dimensions & Measurement', 'Kinematics', 'Laws of Motion',
-  'Work, Energy & Power', 'Centre of Mass, Momentum & Collisions', 'Rotational Motion',
-  'Gravitation', 'Elasticity (Mechanical Properties of Solids)', 'Fluid Mechanics',
-  'Thermal Properties & Heat Transfer', 'Kinetic Theory of Gases', 'Thermodynamics',
-  'Oscillations (SHM)', 'Waves & Sound', 'Electrostatics', 'Capacitance',
-  'Current Electricity', 'Moving Charges & Magnetism', 'Magnetism & Matter',
-  'Electromagnetic Induction', 'Alternating Current', 'Electromagnetic Waves',
-  'Ray Optics & Optical Instruments', 'Wave Optics',
-  'Dual Nature of Matter & Radiation', 'Atoms, Nuclei & Semiconductor Electronics'
+const CHAPTER_SEGMENTS = [
+  {name:'Mechanics', chapters:['Units, Dimensions & Measurement','Kinematics','Laws of Motion','Centre of Mass, Momentum & Collisions','Work, Energy & Power','Rotational Motion','Gravitation']},
+  {name:'Properties of Matter', chapters:['Elasticity (Mechanical Properties of Solids)','Fluid Mechanics']},
+  {name:'Thermal Physics', chapters:['Thermal Properties & Heat Transfer','Thermodynamics','Kinetic Theory of Gases']},
+  {name:'Oscillations & Waves', chapters:['Oscillations (SHM)','Waves & Sound']},
+  {name:'Electrostatics & Current Electricity', chapters:['Electrostatics','Capacitance','Current Electricity']},
+  {name:'Magnetism & Electromagnetism', chapters:['Moving Charges & Magnetism','Magnetism & Matter','Electromagnetic Induction','Alternating Current','Electromagnetic Waves']},
+  {name:'Optics', chapters:['Ray Optics & Optical Instruments','Wave Optics']},
+  {name:'Modern Physics & Electronics', chapters:['Dual Nature of Matter & Radiation','Atoms, Nuclei & Semiconductor Electronics']}
 ];
-function chapterOrderIndex(ch){
-  const norm = v => String(v||'').toLowerCase().replace(/[^a-z0-9]+/g,'');
-  const target = norm(ch);
-  let i = PDF_CHAPTER_ORDER.findIndex(x => norm(x) === target);
-  if(i >= 0) return i;
-  const aliases = {
-    'elasticitymechanicalpropertiesofsolids': 7,
-    'rayopticsopticalinstruments': 22,
-    'atomsnucleisemiconductorelectronics': 25
-  };
-  return aliases[target] ?? 999;
+function chapterSegment(chapter){
+  const found=CHAPTER_SEGMENTS.find(g=>g.chapters.includes(chapter));
+  return found ? found.name : 'Other Chapters';
 }
 function renderChapters(){
   const term=$('#chSearch').value.trim().toLowerCase();
   const groups={};
   DB.forEach(q=>{ const g=groups[q.subject]||(groups[q.subject]={}); const c=g[q.chapter]||(g[q.chapter]={n:0}); if(typeSrcOK(q)) c.n++; });
-  const html=Object.keys(groups).sort((a,b)=>subjRank(a)-subjRank(b)||a.localeCompare(b)).map(s=>{
-    const chs=Object.keys(groups[s]).sort((a,b)=>chapterOrderIndex(a)-chapterOrderIndex(b) || a.localeCompare(b,undefined,{numeric:true}));
-    const shown=chs.filter(c=>!term||c.toLowerCase().includes(term)||s.toLowerCase().includes(term));
-    if(!shown.length) return '';
-    const total=shown.reduce((t,c)=>t+groups[s][c].n,0);
-    return '<div class="chgroup"><div class="gh"><label class="chk" style="flex:1"><input type="checkbox" data-subj="'+esc(s)+'"><span>'+esc(s)+'</span></label><span class="cnt">'+total+'</span></div><div class="chlist">'+
-      shown.map(c=>{ const k=s+'||'+c; return '<label class="chk'+(groups[s][c].n?'':' zero')+'"><input type="checkbox" data-ch="'+esc(k)+'"'+(cfg.chapters.has(k)?' checked':'')+'><span>'+esc(c)+'</span><span class="cnt">'+groups[s][c].n+'</span></label>'; }).join('')+'</div></div>';
+  const subjects=Object.keys(groups).sort((a,b)=>subjRank(a)-subjRank(b)||a.localeCompare(b));
+  const html=subjects.map(subject=>{
+    const available=groups[subject];
+    const orderedSegments=CHAPTER_SEGMENTS.map(g=>({name:g.name,chapters:g.chapters.filter(c=>Object.prototype.hasOwnProperty.call(available,c))})).filter(g=>g.chapters.length);
+    const assigned=new Set(orderedSegments.flatMap(g=>g.chapters));
+    const extras=Object.keys(available).filter(c=>!assigned.has(c)).sort((a,b)=>a.localeCompare(b,undefined,{numeric:true}));
+    if(extras.length) orderedSegments.push({name:'Other Chapters',chapters:extras});
+    return orderedSegments.map(segment=>{
+      const shown=segment.chapters.filter(c=>!term||c.toLowerCase().includes(term)||segment.name.toLowerCase().includes(term)||subject.toLowerCase().includes(term));
+      if(!shown.length) return '';
+      const total=shown.reduce((n,c)=>n+available[c].n,0);
+      const segmentKey=subject+'||SEGMENT||'+segment.name;
+      return '<div class="chgroup"><div class="gh"><label class="chk" style="flex:1"><input type="checkbox" data-segment="'+esc(segmentKey)+'"><span>'+esc(segment.name)+'</span></label><span class="cnt">'+total+'</span></div><div class="chlist">'+
+        shown.map(c=>{ const k=subject+'||'+c; return '<label class="chk'+(available[c].n?'':' zero')+'"><input type="checkbox" data-ch="'+esc(k)+'"'+(cfg.chapters.has(k)?' checked':'')+'><span>'+esc(c)+'</span><span class="cnt">'+available[c].n+'</span></label>'; }).join('')+'</div></div>';
+    }).join('');
   }).join('');
   $('#chapList').innerHTML = html || '<div class="muted">No chapters match your search.</div>';
-  document.querySelectorAll('#chapList input[data-subj]').forEach(cb=>{
+  document.querySelectorAll('#chapList input[data-segment]').forEach(cb=>{
+    const [, , segmentName]=cb.dataset.segment.split('||');
+    const subject=cb.dataset.segment.split('||')[0];
     const boxes=[...cb.closest('.chgroup').querySelectorAll('input[data-ch]')];
     const on=boxes.filter(b=>b.checked).length;
-    cb.checked = on===boxes.length && on>0; cb.indeterminate = on>0 && on<boxes.length;
+    cb.checked=on===boxes.length && on>0; cb.indeterminate=on>0 && on<boxes.length;
   });
 }
 function refreshSummary(){
@@ -908,9 +909,11 @@ document.addEventListener('change',e=>{
   if(t.matches('#typeBox input')){ t.checked?cfg.types.add(t.dataset.type):cfg.types.delete(t.dataset.type); renderYears(); renderChapters(); refreshSummary(); }
   else if(t.matches('#yearBox input')){ t.checked?cfg.years.add(t.dataset.year):cfg.years.delete(t.dataset.year); refreshAll(); }
   else if(t.matches('#chapList input[data-ch]')){ t.checked?cfg.chapters.add(t.dataset.ch):cfg.chapters.delete(t.dataset.ch); refreshAll(); }
-  else if(t.matches('#chapList input[data-subj]')){
-    const term=$('#chSearch').value.trim().toLowerCase();
-    DB.filter(q=>q.subject===t.dataset.subj).forEach(q=>{ const k=q.subject+'||'+q.chapter; if(!term||q.chapter.toLowerCase().includes(term)||q.subject.toLowerCase().includes(term)) t.checked?cfg.chapters.add(k):cfg.chapters.delete(k); });
+  else if(t.matches('#chapList input[data-segment]')){
+    const parts=t.dataset.segment.split('||'); const subject=parts[0], segmentName=parts.slice(2).join('||');
+    const chapterSet=new Set((CHAPTER_SEGMENTS.find(g=>g.name===segmentName)||{chapters:[]}).chapters);
+    if(segmentName==='Other Chapters') Object.keys((DB.reduce((acc,q)=>{if(q.subject===subject) acc[q.chapter]=1; return acc;},{}))).filter(c=>!CHAPTER_SEGMENTS.some(g=>g.chapters.includes(c))).forEach(c=>chapterSet.add(c));
+    DB.filter(q=>q.subject===subject && chapterSet.has(q.chapter)).forEach(q=>{const k=q.subject+'||'+q.chapter; t.checked?cfg.chapters.add(k):cfg.chapters.delete(k);});
     refreshAll();
   }
   else if(t.id==='paperSel'){ cfg.paper=t.value; if(t.value==='main'||t.value==='adv'){ cfg.preset=t.value; $('#mrkSel').value=cfg.preset; } refreshAll(); }
@@ -967,6 +970,35 @@ document.addEventListener('keydown',e=>{
     if(e.key==='Backspace'){ numKey('bk'); e.preventDefault(); return; }
   }
 });
+
+/* ---------- reliable bulk selection controls ---------- */
+function applyBulkSelection(buttonId, containerSelector, checkboxSelector, getKey, selected) {
+  const button = document.getElementById(buttonId);
+  if (!button) return;
+  button.addEventListener('click', function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const container = document.querySelector(containerSelector);
+    if (!container) return;
+    container.querySelectorAll(checkboxSelector).forEach(function (checkbox) {
+      const key = getKey(checkbox);
+      if (!key) return;
+      if (selected) {
+        if (containerSelector === '#chapList') cfg.chapters.add(key);
+        else if (containerSelector === '#yearBox') cfg.years.add(key);
+      } else {
+        if (containerSelector === '#chapList') cfg.chapters.delete(key);
+        else if (containerSelector === '#yearBox') cfg.years.delete(key);
+      }
+    });
+    if (containerSelector === '#chapList') refreshAll();
+    else { renderYears(); renderTypes(); refreshSummary(); }
+  });
+}
+applyBulkSelection('chAll', '#chapList', 'input[data-ch]', cb => cb.dataset.ch, true);
+applyBulkSelection('chNone', '#chapList', 'input[data-ch]', cb => cb.dataset.ch, false);
+applyBulkSelection('yrAll', '#yearBox', 'input[data-year]', cb => cb.dataset.year, true);
+applyBulkSelection('yrNone', '#yearBox', 'input[data-year]', cb => cb.dataset.year, false);
 
 /* ---------- boot ---------- */
 (async function(){
