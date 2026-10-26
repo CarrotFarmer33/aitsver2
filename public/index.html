@@ -536,7 +536,7 @@ function hydrateZipImages(root){ if(root) root.querySelectorAll('img[data-zipimg
 
 const $ = s => document.querySelector(s);
 const rich = s => esc(s).replace(/\n/g,'<br>');
-const SUBJ = ['Physics'];
+const SUBJ = ['Physics','Chemistry'];
 const TYPES = {single:'Single correct', multi:'Multiple correct', numerical:'Numerical'};
 const QT = {single:'Multiple Choice', multi:'Multiple Choice (one or more correct)', numerical:'Numerical Value'};
 const SECLBL = {single:'MCQ', multi:'Multiple Correct', numerical:'Numerical'};
@@ -560,7 +560,8 @@ const subjRank = s => { const i=SUBJ.indexOf(s); return i<0?99:i; };
 function normSubject(s){
   const t=String(s||'').toLowerCase();
   if(/phy/.test(t)) return 'Physics';
-  return /phy/.test(t) ? 'Physics' : 'Other';
+  if(/chem/.test(t)) return 'Chemistry';
+  return 'Other';
 }
 function normType(t){
   const s=String(t==null?'':t).toLowerCase();
@@ -672,7 +673,7 @@ function loadDB(raw,label,isSample){
   const list = extractList(raw);
   if(!list){ showNote('That file is not a list of questions. Expected an array, or an object with a "questions" array.'); return false; }
   const out=[]; let skipped=0;
-  list.forEach((e,i)=>{ const n=normQuestion(e.q,i,e.subject); if(n && n.subject==='Physics') out.push(n); else skipped++; });
+  list.forEach((e,i)=>{ const n=normQuestion(e.q,i,e.subject); if(n && SUBJ.includes(n.subject)) out.push(n); else skipped++; });
   if(!out.length){ showNote('No usable questions were found in that file.'); return false; }
   const seen=new Map();
   out.forEach(q=>{ const c=(seen.get(q.id)||0)+1; seen.set(q.id,c); if(c>1) q.id=q.id+'#'+c; });
