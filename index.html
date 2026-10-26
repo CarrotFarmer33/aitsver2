@@ -1081,9 +1081,43 @@ function renderResult(){
    '<div class="kpis"><div class="kpi"><small>Score</small><b>'+R.score+' / '+R.max+'</b></div><div class="kpi"><small>Accuracy</small><b>'+R.acc+'%</b></div><div class="kpi"><small>Correct</small><b>'+R.ok+'</b></div><div class="kpi"><small>Attempted</small><b>'+R.att+' / '+T.qs.length+'</b></div><div class="kpi"><small>Time used</small><b>'+hms(R.used)+'</b></div></div>'+
    '<section class="card"><h2>By subject</h2><div class="scroll"><table>'+head.replace('__','Subject')+'<tbody>'+Object.keys(subj).map(k=>row(k,subj[k])).join('')+'</tbody></table></div></section>'+
    '<section class="card"><h2>By chapter, weakest first</h2><div class="scroll"><table>'+head.replace('__','Chapter')+'<tbody>'+chRows+'</tbody></table></div></section>'+
-   '<section><h2 style="margin:0 0 10px;font-size:17px">Review answers</h2><div class="rvbar" id="rvbar">'+[['all','All'],['ok','Correct'],['bad','Wrong'],['skip','Not attempted'],['mk','Marked for review']].map(f=>'<button class="btn sm" data-f="'+f[0]+'" aria-pressed="'+(f[0]==='all')+'" type="button">'+f[1]+'</button>').join('')+'</div><div id="rvList" style="display:flex;flex-direction:column;gap:12px;margin-top:12px"></div></section>';
+   '<section><h2 style="margin:0 0 10px;font-size:17px">Review answers</h2><div class="rvbar" id="rvbar">'+[['all','All'],['ok','Correct'],['bad','Wrong'],['skip','Not attempted'],['mk','Marked for review']].map(f=>'<button class="btn sm" data-f="'+f[0]+'" aria-pressed="'+(f[0]==='all')+'" type="button">'+f[1]+'</button>').join('')+'</div><div id="rvList" style="display:flex;flex-direction:column;gap:12px;margin-top:12px"></div></section>'+
+   '<div style="display:flex;justify-content:flex-end;margin:18px 0 28px"><button class="btn primary" id="downloadReviewPdf" type="button">Download PDF Review</button></div>';
   renderReview('all');
 }
+function downloadReviewPDF(){
+  if(!T||!lastResult) return;
+  const win=window.open('about:blank','_blank');
+  if(!win){ alert('Please allow pop-ups for this site to create the PDF review.'); return; }
+  // Export every question, regardless of the review filter currently selected.
+  renderReview('all');
+  const title=(T.title||'AITS Practice Test').replace(/[<>]/g,'');
+  const summary='<header class="report-head"><h1>'+esc(title)+' — Test Review</h1><p>'+esc(new Date().toLocaleString())+'</p><div class="summary"><b>Score: '+lastResult.score+' / '+lastResult.max+'</b><span>Accuracy: '+lastResult.acc+'%</span><span>Correct: '+lastResult.ok+'</span><span>Attempted: '+lastResult.att+' / '+T.qs.length+'</span><span>Time used: '+hms(lastResult.used)+'</span></div></header>';
+  const styles=`
+    @page{size:A4;margin:14mm}*{box-sizing:border-box}body{font:10.5pt Arial,sans-serif;color:#161616;line-height:1.45;margin:0}
+    h1{font-size:20pt;margin:0 0 4px}h2{font-size:14pt}p{margin:4px 0}.report-head{border-bottom:2px solid #333;padding-bottom:12px;margin-bottom:16px}.summary{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:10px}
+    .rv{border:1px solid #aaa;border-left:4px solid #777;padding:10px;margin:0 0 12px;break-inside:avoid-page}.rv.r-ok{border-left-color:#27833a}.rv.r-bad{border-left-color:#b3261e}.rv.r-part{border-left-color:#a36a00}.rv header{display:flex;flex-wrap:wrap;align-items:center;gap:7px;border-bottom:1px solid #ddd;padding-bottom:6px;margin-bottom:8px;font-size:9pt}.badge{border:1px solid #999;border-radius:3px;padding:1px 5px}.qtext{margin:8px 0}.qimg{display:block;max-width:100%!important;height:auto!important;object-fit:contain;margin:8px auto;page-break-inside:avoid}.ropt{display:flex;gap:7px;padding:5px;border:1px solid #ddd;margin:4px 0}.ropt.corr{background:#eaf5eb;border-color:#70a77a}.ropt.wrong{background:#fff0ef;border-color:#cc817b}.muted{color:#555}.rv details{margin-top:8px}.rv summary{font-weight:bold}.rv details>div{margin-top:8px}table{border-collapse:collapse;width:100%}th,td{border:1px solid #aaa;padding:5px;text-align:left}button,.rvbar{display:none!important}img{max-height:none!important}svg{max-width:100%}
+  `;
+  const buildReport=()=>{
+    // ZIP-backed question and solution images are hydrated asynchronously; wait before cloning.
+    const pending=$('#rvList').querySelectorAll('img[data-zipimg]').length;
+    if(pending){setTimeout(buildReport,250);return;}
+    const review=$('#rvList').cloneNode(true);
+    review.querySelectorAll('details').forEach(d=>d.open=true);
+    review.querySelectorAll('img').forEach(img=>{img.style.maxWidth='100%';img.style.height='auto';img.style.cursor='default';});
+    win.document.open();
+    win.document.write('<!doctype html><html><head><meta charset="utf-8"><title>'+esc(title)+' - PDF Review</title><style>'+styles+'</style></head><body>'+summary+'<h2>Question-by-question review</h2>'+review.outerHTML+'</body></html>');
+    win.document.close();
+    const printWhenReady=()=>{
+      const imgs=Array.from(win.document.images);
+      if(imgs.some(img=>!img.complete)){setTimeout(printWhenReady,250);return;}
+      win.focus(); setTimeout(()=>{win.print();},300);
+    };
+    setTimeout(printWhenReady,700);
+  };
+  setTimeout(buildReport,150);
+}
+
 function renderReview(f){
   const R=lastResult; $('#rvbar').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===f));
   let html='';
@@ -1179,6 +1213,7 @@ document.addEventListener('click',e=>{
   else if(b.dataset.q!=null && T && !T.over) goto(+b.dataset.q);
   else if(b.dataset.sec!=null && T && !T.over){ const k=+b.dataset.sec; goto(k===T.sec?T.cur:T.secs[k].idx[0]); }
   else if(b.dataset.f && lastResult) renderReview(b.dataset.f);
+  else if(b.id==='downloadReviewPdf'){ downloadReviewPDF(); }
   else if(b.id==='resNew'){ show('scrSetup'); renderHist(); }
   else if(b.id==='resRetry'){
     const redo=T.qs.filter((q,i)=>lastResult.res[i].r!=='ok');
