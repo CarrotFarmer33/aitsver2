@@ -356,12 +356,12 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 </style>
 
 <div id="scrSetup" class="screen">
-  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Physics Practice Portal &ndash; chapter-wise question practice</span><a class="btn sm" href="downloads.html" style="text-decoration:none;white-space:nowrap">Downloads</a></div></div>
+  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Portal &ndash; chapter-wise Physics and Chemistry practice</span><a class="btn sm" href="downloads.html" style="text-decoration:none;white-space:nowrap">Downloads</a></div></div>
   <main class="wrap setup">
     <section class="card" id="dbCard" hidden style="display:none">
       <div class="dbrow">
         <div><h2 style="margin:0">Question bank</h2><div id="dbLabel" class="muted"></div></div>
-        <div class="muted" style="font-size:13px">Physics question bank · hosted database</div>
+        <div class="muted" style="font-size:13px">Physics + Chemistry question bank · hosted database</div>
       </div>
       <div class="dbstats" id="dbStats"></div>
       <div id="dbNote" class="note" hidden></div>
@@ -536,7 +536,7 @@ function hydrateZipImages(root){ if(root) root.querySelectorAll('img[data-zipimg
 
 const $ = s => document.querySelector(s);
 const rich = s => esc(s).replace(/\n/g,'<br>');
-const SUBJ = ['Physics'];
+const SUBJ = ['Physics','Chemistry'];
 const TYPES = {single:'Single correct', multi:'Multiple correct', numerical:'Numerical'};
 const QT = {single:'Multiple Choice', multi:'Multiple Choice (one or more correct)', numerical:'Numerical Value'};
 const SECLBL = {single:'MCQ', multi:'Multiple Correct', numerical:'Numerical'};
@@ -560,7 +560,8 @@ const subjRank = s => { const i=SUBJ.indexOf(s); return i<0?99:i; };
 function normSubject(s){
   const t=String(s||'').toLowerCase();
   if(/phy/.test(t)) return 'Physics';
-  return /phy/.test(t) ? 'Physics' : 'Other';
+  if(/chem/.test(t)) return 'Chemistry';
+  return 'Other';
 }
 function normType(t){
   const s=String(t==null?'':t).toLowerCase();
@@ -672,7 +673,7 @@ function loadDB(raw,label,isSample){
   const list = extractList(raw);
   if(!list){ showNote('That file is not a list of questions. Expected an array, or an object with a "questions" array.'); return false; }
   const out=[]; let skipped=0;
-  list.forEach((e,i)=>{ const n=normQuestion(e.q,i,e.subject); if(n && n.subject==='Physics') out.push(n); else skipped++; });
+  list.forEach((e,i)=>{ const n=normQuestion(e.q,i,e.subject); if(n && SUBJ.includes(n.subject)) out.push(n); else skipped++; });
   if(!out.length){ showNote('No usable questions were found in that file.'); return false; }
   const seen=new Map();
   out.forEach(q=>{ const c=(seen.get(q.id)||0)+1; seen.set(q.id,c); if(c>1) q.id=q.id+'#'+c; });
@@ -1292,20 +1293,38 @@ applyBulkSelection('yrNone', '#yearBox', 'input[data-year]', cb => cb.dataset.ye
 /* ---------- boot ---------- */
 (async function(){
   let ok=false;
-  const remote = (window.AITS_CONFIG && window.AITS_CONFIG.databaseUrl || '').trim();
-  const candidates = remote ? [remote, 'database.json'] : ['database.json'];
-  for(const url of candidates){
+  const config = window.AITS_CONFIG || {};
+  const sources = Array.isArray(config.databaseUrls)
+    ? config.databaseUrls.filter(Boolean)
+    : [config.databaseUrl, config.chemistryDatabaseUrl].filter(Boolean);
+  const combined=[];
+  let loaded=[];
+  for(const url of sources){
     try{
       const r=await fetch(url,{cache:'no-store'});
       if(!r.ok) continue;
       const raw=await r.json();
-      ok=loadDB(raw, url===remote ? 'Hugging Face database' : 'database.json', false);
-      if(ok) break;
+      const list=extractList(raw);
+      if(list && list.length){ combined.push(...list); loaded.push(url); }
     }catch(e){}
+  }
+  if(!combined.length){
+    for(const url of ['database.json','chemistry.json']){
+      try{
+        const r=await fetch(url,{cache:'no-store'});
+        if(!r.ok) continue;
+        const raw=await r.json();
+        const list=extractList(raw);
+        if(list && list.length){ combined.push(...list); loaded.push(url); }
+      }catch(e){}
+    }
+  }
+  if(combined.length){
+    ok=loadDB(combined.map(e=>e.q ? e.q : e), 'Question banks: '+loaded.map(x=>x.split('/').pop()).join(' + '), false);
   }
   if(!ok){
     $('#dbLabel').textContent='Database not loaded';
-    showNote('Could not load the Physics question bank. Set the Hugging Face raw JSON URL in config.js, and make sure the JSON contains question text or image URLs, options, answer keys, and chapter names.');
+    showNote('Could not load the question bank. Configure the Physics and/or Chemistry JSON URLs, and ensure each JSON contains question text or image URLs, chapter names, and answer keys where available.');
     $('#dbStats').innerHTML='';
     $('#chapList').innerHTML='<div class="muted">No database available.</div>';
     refreshSummary();
