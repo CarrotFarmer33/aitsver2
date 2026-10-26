@@ -356,7 +356,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 </style>
 
 <div id="scrSetup" class="screen">
-  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Physics Practice Portal &ndash; chapter-wise question practice</span><a class="btn sm" href="downloads.html" style="text-decoration:none;white-space:nowrap">Downloads</a></div></div>
+  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Portal &ndash; chapter-wise question practice</span><a class="btn sm" href="downloads.html" style="text-decoration:none;white-space:nowrap">Downloads</a></div></div>
   <main class="wrap setup">
     <section class="card" id="dbCard" hidden style="display:none">
       <div class="dbrow">
@@ -371,6 +371,8 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
       <div class="card">
         <h2>Build your practice set</h2>
         <div class="field"><label for="candName">Candidate name</label><input type="text" id="candName" placeholder="Your name" autocomplete="off"></div>
+        <div id="subjWrap" hidden><h3>Subject</h3>
+        <div class="chips" id="subjBox" role="radiogroup" aria-label="Subject"></div></div>
         <h3>Question type</h3>
         <div class="chips" id="typeBox"></div>
         <h3>Paper</h3>
@@ -490,7 +492,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 
 <div id="scrRes" class="screen" hidden>
   <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Test &ndash; result</span>
-    <span style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" id="resPdf" type="button">Download review PDF</button><button class="btn sm" id="resRetry" type="button">Retry wrong and skipped</button><button class="btn sm" id="resNew" type="button">New test</button></span></div></div>
+    <span style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" id="resRetry" type="button">Retry wrong and skipped</button><button class="btn sm" id="resNew" type="button">New test</button></span></div></div>
   <main class="wrap res" id="resBody"></main>
 </div>
 
@@ -536,7 +538,7 @@ function hydrateZipImages(root){ if(root) root.querySelectorAll('img[data-zipimg
 
 const $ = s => document.querySelector(s);
 const rich = s => esc(s).replace(/\n/g,'<br>');
-const SUBJ = ['Physics'];
+const SUBJ = ['Physics','Chemistry'];
 const TYPES = {single:'Single correct', multi:'Multiple correct', numerical:'Numerical'};
 const QT = {single:'Multiple Choice', multi:'Multiple Choice (one or more correct)', numerical:'Numerical Value'};
 const SECLBL = {single:'MCQ', multi:'Multiple Correct', numerical:'Numerical'};
@@ -560,7 +562,8 @@ const subjRank = s => { const i=SUBJ.indexOf(s); return i<0?99:i; };
 function normSubject(s){
   const t=String(s||'').toLowerCase();
   if(/phy/.test(t)) return 'Physics';
-  return /phy/.test(t) ? 'Physics' : 'Other';
+  if(/chem/.test(t)) return 'Chemistry';
+  return 'Other';
 }
 function normType(t){
   const s=String(t==null?'':t).toLowerCase();
@@ -664,20 +667,28 @@ function extractList(raw){
 
 /* ---------- state ---------- */
 let DB=[], dbLabel='', dbSample=false, dbSkipped=0, dbNoKey=0;
-const cfg = {chapters:new Set(), types:new Set(Object.keys(TYPES)), paper:'all', years:new Set(), count:30, countAuto:true, minutes:90, minAuto:true, shuffle:false, preset:'adv', mode:'test'};
+const cfg = {subject:'Physics', chapters:new Set(), types:new Set(Object.keys(TYPES)), paper:'all', years:new Set(), count:30, countAuto:true, minutes:90, minAuto:true, shuffle:false, preset:'adv', mode:'test'};
 const ui = {mag:false, size:0, theme:(store.get('aits_xtheme')==='dark'?'dark':'light'), invert:store.get('aits_xinvert')==='1'};
 let T=null, timerId=null, lastResult=null;
 
+const CHEM_ALIAS = {
+  'Isomerism':'Isomerism (Structural & Stereoisomerism)',
+  'Metallurgy':'Principles & Processes of Isolation of Metals (Metallurgy)',
+  'p-Block: Group 13 & 14':'p-Block Elements: Group 13 (Boron family) & Group 14 (Carbon family)',
+  'p-Block: Group 15 & 16':'p-Block Elements: Group 15 (Nitrogen family) & Group 16 (Oxygen family)',
+  'p-Block: Group 17 & 18':'p-Block Elements: Group 17 (Halogens) & Group 18 (Noble gases)'
+};
 function loadDB(raw,label,isSample){
   const list = extractList(raw);
   if(!list){ showNote('That file is not a list of questions. Expected an array, or an object with a "questions" array.'); return false; }
   const out=[]; let skipped=0;
-  list.forEach((e,i)=>{ const n=normQuestion(e.q,i,e.subject); if(n && n.subject==='Physics') out.push(n); else skipped++; });
+  list.forEach((e,i)=>{ const n=normQuestion(e.q,i,e.subject); if(n && SUBJ.includes(n.subject)){ if(n.subject==='Chemistry') n.chapter=CHEM_ALIAS[n.chapter]||n.chapter; out.push(n); } else skipped++; });
   if(!out.length){ showNote('No usable questions were found in that file.'); return false; }
   const seen=new Map();
   out.forEach(q=>{ const c=(seen.get(q.id)||0)+1; seen.set(q.id,c); if(c>1) q.id=q.id+'#'+c; });
   DB=out; dbLabel=label; dbSample=!!isSample; dbSkipped=skipped; dbNoKey=out.filter(q=>!q.keyOk).length;
-  cfg.chapters=new Set(DB.map(q=>q.subject+'||'+q.chapter)); cfg.types=new Set(Object.keys(TYPES)); cfg.paper='all';
+  cfg.subject=SUBJ.find(s=>DB.some(q=>q.subject===s))||'Physics';
+  cfg.chapters=new Set(DB.filter(q=>q.subject===cfg.subject).map(q=>q.subject+'||'+q.chapter)); cfg.types=new Set(Object.keys(TYPES)); cfg.paper='all';
   cfg.years=new Set(DB.map(q=>q.year));
   cfg.countAuto=true; cfg.minAuto=true; $('#chSearch').value='';
   renderSetup(); return true;
@@ -711,15 +722,25 @@ function renderSetup(){
   const notes=[];
   if(dbSkipped) notes.push(dbSkipped+' entries had no question text or image and were skipped.');
   showNote(notes.join(' '));
-  const pc={main:0,adv:0}; DB.forEach(q=>{ if(pc[q.paper]!=null) pc[q.paper]++; });
+  renderSubjects();
+  const inSubj=DB.filter(q=>q.subject===cfg.subject);
+  const pc={main:0,adv:0}; inSubj.forEach(q=>{ if(pc[q.paper]!=null) pc[q.paper]++; });
   const sel=$('#paperSel');
-  sel.innerHTML='<option value="all">Mains and Advanced papers ('+DB.length+')</option>'+Object.keys(PAPERS).map(k=>'<option value="'+k+'">'+PAPERS[k]+' ('+pc[k]+')</option>').join('');
+  sel.innerHTML='<option value="all">Mains and Advanced papers ('+inSubj.length+')</option>'+Object.keys(PAPERS).map(k=>'<option value="'+k+'">'+PAPERS[k]+' ('+pc[k]+')</option>').join('');
   sel.value=cfg.paper;
   $('#modeSel').value=cfg.mode;
   $('#mrkSel').innerHTML=Object.keys(PRESETS).map(k=>'<option value="'+k+'">'+esc(PRESETS[k].name)+'</option>').join('');
   $('#mrkSel').value=cfg.preset;
   $('#candName').value = store.get('aits_name')||'';
   renderYears(); renderTypes(); renderChapters(); refreshSummary(); renderHist();
+}
+function renderSubjects(){
+  const have=SUBJ.filter(s=>DB.some(q=>q.subject===s));
+  $('#subjWrap').hidden = have.length<2;
+  $('#subjBox').innerHTML = have.map(s=>{
+    const n=DB.filter(q=>q.subject===s).length;
+    return '<label class="chk"><input type="radio" name="subj" value="'+esc(s)+'"'+(cfg.subject===s?' checked':'')+'><span>'+esc(s)+'</span><span class="cnt">'+n+'</span></label>';
+  }).join('');
 }
 function renderTypes(){
   const base=DB.filter(q=>paperOK(q) && cfg.chapters.has(q.subject+'||'+q.chapter));
@@ -738,6 +759,12 @@ const CHAPTER_SEGMENTS = [
   {name:'Optics', chapters:['Ray Optics & Optical Instruments','Wave Optics']},
   {name:'Modern Physics & Electronics', chapters:['Dual Nature of Matter & Radiation','Atoms, Nuclei & Semiconductor Electronics']}
 ];
+const CHEM_SEGMENTS = [
+  {name:'Physical Chemistry', chapters:['Some Basic Concepts of Chemistry','Atomic Structure','Chemical Bonding & Molecular Structure','Gaseous State','Thermodynamics (Chemical)','Thermochemistry','Chemical Equilibrium','Ionic Equilibrium','Redox Reactions','Liquid Solutions & Colligative Properties','Electrochemistry','Chemical Kinetics','Solid State','Surface Chemistry','Nuclear Chemistry']},
+  {name:'Inorganic Chemistry', chapters:['Periodic Table & Periodicity','Hydrogen','s-Block Elements','p-Block Elements: Group 13 (Boron family) & Group 14 (Carbon family)','p-Block Elements: Group 15 (Nitrogen family) & Group 16 (Oxygen family)','p-Block Elements: Group 17 (Halogens) & Group 18 (Noble gases)','d- and f-Block Elements','Coordination Compounds','Principles & Processes of Isolation of Metals (Metallurgy)','Qualitative Salt Analysis']},
+  {name:'Organic Chemistry', chapters:['General Organic Chemistry (GOC)','Isomerism (Structural & Stereoisomerism)','Hydrocarbons','Haloalkanes & Haloarenes','Alcohols, Phenols & Ethers','Aldehydes, Ketones & Carboxylic Acids','Amines & Diazonium Salts','Biomolecules','Polymers','Chemistry in Everyday Life']}
+];
+const SEGMENTS = {Physics:CHAPTER_SEGMENTS, Chemistry:CHEM_SEGMENTS};
 function chapterSegment(chapter){
   const found=CHAPTER_SEGMENTS.find(g=>g.chapters.includes(chapter));
   return found ? found.name : 'Other Chapters';
@@ -746,10 +773,10 @@ function renderChapters(){
   const term=$('#chSearch').value.trim().toLowerCase();
   const groups={};
   DB.forEach(q=>{ const g=groups[q.subject]||(groups[q.subject]={}); const c=g[q.chapter]||(g[q.chapter]={n:0}); if(typeSrcOK(q)) c.n++; });
-  const subjects=Object.keys(groups).sort((a,b)=>subjRank(a)-subjRank(b)||a.localeCompare(b));
+  const subjects=Object.keys(groups).filter(s=>s===cfg.subject).sort((a,b)=>subjRank(a)-subjRank(b)||a.localeCompare(b));
   const html=subjects.map(subject=>{
     const available=groups[subject];
-    const orderedSegments=CHAPTER_SEGMENTS.map(g=>({name:g.name,chapters:g.chapters.filter(c=>Object.prototype.hasOwnProperty.call(available,c))})).filter(g=>g.chapters.length);
+    const orderedSegments=(SEGMENTS[subject]||[]).map(g=>({name:g.name,chapters:g.chapters.filter(c=>Object.prototype.hasOwnProperty.call(available,c))})).filter(g=>g.chapters.length);
     const assigned=new Set(orderedSegments.flatMap(g=>g.chapters));
     const extras=Object.keys(available).filter(c=>!assigned.has(c)).sort((a,b)=>a.localeCompare(b,undefined,{numeric:true}));
     if(extras.length) orderedSegments.push({name:'Other Chapters',chapters:extras});
@@ -1109,58 +1136,14 @@ function renderReview(f){
   hydrateZipImages($('#rvList')); typeset($('#rvList'));
 }
 
-/* ---------- local test-review PDF (browser print-to-PDF; no server upload) ---------- */
-function downloadReviewPdf(){
-  if(!T || !lastResult) return;
-  const R=lastResult;
-  const report=document.createElement('div');
-  const title=document.createElement('h1'); title.textContent='AITS Practice Test — Review Report'; report.appendChild(title);
-  const summary=document.createElement('p');
-  summary.textContent='Score: '+R.score+' / '+R.max+' | Accuracy: '+R.acc+'% | Correct: '+R.ok+' | Attempted: '+R.att+' / '+T.qs.length+' | Time used: '+hms(R.used);
-  report.appendChild(summary);
-  const note=document.createElement('p'); note.textContent='Each question includes your response, correctness status, the recorded answer key, and any available solution.'; report.appendChild(note);
-  const list=$('#rvList');
-  if(!list){ alert('The review is not available yet.'); return; }
-  const clone=list.cloneNode(true);
-  clone.querySelectorAll('details').forEach(d=>d.open=true);
-  clone.querySelectorAll('button').forEach(b=>b.remove());
-  report.appendChild(clone);
-  const w=window.open('','_blank');
-  if(!w){ alert('Allow pop-ups for this site to generate the PDF.'); return; }
-  const css=`
-    @page { size: A4; margin: 14mm; }
-    * { box-sizing:border-box; }
-    body { font: 10.5pt/1.45 Arial, sans-serif; color:#171717; margin:0; }
-    h1 { font-size:20pt; margin:0 0 8px; } p { margin:5px 0 12px; }
-    article.rv { border:1px solid #bbb; border-radius:5px; padding:10px; margin:0 0 12px; break-inside:avoid-page; }
-    article header { display:flex; flex-wrap:wrap; gap:8px; align-items:center; border-bottom:1px solid #ddd; padding-bottom:6px; margin-bottom:8px; font-size:9pt; }
-    .badge { border:1px solid #999; border-radius:3px; padding:2px 5px; }
-    .qtext { margin:8px 0; white-space:normal; overflow-wrap:anywhere; }
-    .ropt { display:flex; gap:7px; padding:5px 7px; border:1px solid #ddd; margin:4px 0; break-inside:avoid; }
-    .ropt.corr { border-color:#34834a; background:#edf8ef; }
-    .ropt.wrong { border-color:#b43a35; background:#fff0ef; }
-    img { max-width:100%; max-height:420px; object-fit:contain; display:block; margin:7px auto; }
-    details { margin-top:9px; } summary { font-weight:bold; margin-bottom:5px; }
-    table { width:100%; border-collapse:collapse; } .muted { color:#555; }
-    .rvbar { display:none!important; } .qimg { max-width:100%; }
-    .r-ok { border-left:4px solid #34834a!important; } .r-bad,.r-part { border-left:4px solid #b43a35!important; }
-    .r-skip,.r-nokey { border-left:4px solid #777!important; }
-  `;
-  w.document.open();
-  w.document.write('<!doctype html><html><head><meta charset="utf-8"><title>AITS Test Review</title><style>'+css+'</style></head><body></body></html>');
-  w.document.close();
-  w.document.body.appendChild(w.document.importNode(report,true));
-  const imgs=Array.from(w.document.images);
-  Promise.all(imgs.map(img=>img.complete?Promise.resolve():new Promise(resolve=>{img.onload=resolve;img.onerror=resolve;setTimeout(resolve,5000);}))).then(()=>{
-    w.focus(); setTimeout(()=>w.print(),250);
-  });
-}
-$('#resPdf').addEventListener('click',downloadReviewPdf);
-
 /* ---------- events ---------- */
 document.addEventListener('change',e=>{
   const t=e.target;
-  if(t.matches('#typeBox input')){ t.checked?cfg.types.add(t.dataset.type):cfg.types.delete(t.dataset.type); renderYears(); renderChapters(); refreshSummary(); }
+  if(t.name==='subj'){
+    cfg.subject=t.value; cfg.chapters=new Set(DB.filter(q=>q.subject===cfg.subject).map(q=>q.subject+'||'+q.chapter));
+    cfg.paper='all'; cfg.countAuto=true; cfg.minAuto=true; $('#chSearch').value=''; renderSetup();
+  }
+  else if(t.matches('#typeBox input')){ t.checked?cfg.types.add(t.dataset.type):cfg.types.delete(t.dataset.type); renderYears(); renderChapters(); refreshSummary(); }
   else if(t.matches('#yearBox input')){ t.checked?cfg.years.add(t.dataset.year):cfg.years.delete(t.dataset.year); refreshAll(); }
   else if(t.matches('#chapList input[data-ch]')){ t.checked?cfg.chapters.add(t.dataset.ch):cfg.chapters.delete(t.dataset.ch); refreshAll(); }
   else if(t.matches('#chapList input[data-segment]')){
@@ -1208,7 +1191,7 @@ document.addEventListener('click',e=>{
   if(!inf) hideTip();
   if(inf && T){ e.stopPropagation(); if(tipPinned===inf) hideTip(); else { tipPinned=inf; showTip(inf); } return; }
   const b=e.target.closest('button'); if(!b) return;
-  if(b.id==='chAll'||b.id==='chNone'){ const term=$('#chSearch').value.trim().toLowerCase(); DB.forEach(q=>{ if(!term||q.chapter.toLowerCase().includes(term)||q.subject.toLowerCase().includes(term)){ const k=q.subject+'||'+q.chapter; b.id==='chAll'?cfg.chapters.add(k):cfg.chapters.delete(k); } }); renderChapters(); renderTypes(); refreshSummary(); }
+  if(b.id==='chAll'||b.id==='chNone'){ const term=$('#chSearch').value.trim().toLowerCase(); DB.forEach(q=>{ if(q.subject===cfg.subject&&(!term||q.chapter.toLowerCase().includes(term)||q.subject.toLowerCase().includes(term))){ const k=q.subject+'||'+q.chapter; b.id==='chAll'?cfg.chapters.add(k):cfg.chapters.delete(k); } }); renderChapters(); renderTypes(); refreshSummary(); }
   else if(b.id==='cntAll'){ cfg.count=pool().length; cfg.countAuto=false; refreshSummary(); }
   else if(b.id==='btnStart') startFromSetup();
   else if(b.id==='instBack') show('scrSetup');
@@ -1292,20 +1275,26 @@ applyBulkSelection('yrNone', '#yearBox', 'input[data-year]', cb => cb.dataset.ye
 /* ---------- boot ---------- */
 (async function(){
   let ok=false;
-  const remote = (window.AITS_CONFIG && window.AITS_CONFIG.databaseUrl || '').trim();
-  const candidates = remote ? [remote, 'database.json'] : ['database.json'];
-  for(const url of candidates){
-    try{
-      const r=await fetch(url,{cache:'no-store'});
-      if(!r.ok) continue;
-      const raw=await r.json();
-      ok=loadDB(raw, url===remote ? 'Hugging Face database' : 'database.json', false);
-      if(ok) break;
-    }catch(e){}
+  const conf = window.AITS_CONFIG || {};
+  const remote = (conf.databaseUrl || '').trim(), chemRemote = (conf.chemistryUrl || '').trim();
+  async function fetchFirst(urls){
+    for(const url of urls){
+      try{ const r=await fetch(url,{cache:'no-store'}); if(!r.ok) continue; return {raw:await r.json(), url}; }catch(e){}
+    }
+    return null;
+  }
+  const [phys, chem] = await Promise.all([
+    fetchFirst(remote ? [remote, 'database.json'] : ['database.json']),
+    fetchFirst(chemRemote ? [chemRemote, 'chemistry_database.json'] : ['chemistry_database.json'])
+  ]);
+  const parts = [phys, chem].filter(Boolean);
+  if(parts.length){
+    const all = parts.flatMap(x=>(extractList(x.raw)||[]).map(e=>e.q));
+    ok = loadDB(all, phys && phys.url===remote && remote ? 'Hugging Face database' : 'database.json', false);
   }
   if(!ok){
     $('#dbLabel').textContent='Database not loaded';
-    showNote('Could not load the Physics question bank. Set the Hugging Face raw JSON URL in config.js, and make sure the JSON contains question text or image URLs, options, answer keys, and chapter names.');
+    showNote('Could not load the question bank. Set the Hugging Face raw JSON URL in config.js, and make sure the JSON contains question text or image URLs, options, answer keys, and chapter names.');
     $('#dbStats').innerHTML='';
     $('#chapList').innerHTML='<div class="muted">No database available.</div>';
     refreshSummary();
