@@ -1293,20 +1293,38 @@ applyBulkSelection('yrNone', '#yearBox', 'input[data-year]', cb => cb.dataset.ye
 /* ---------- boot ---------- */
 (async function(){
   let ok=false;
-  const remote = (window.AITS_CONFIG && window.AITS_CONFIG.databaseUrl || '').trim();
-  const candidates = remote ? [remote, 'database.json'] : ['database.json'];
-  for(const url of candidates){
+  const config = window.AITS_CONFIG || {};
+  const sources = Array.isArray(config.databaseUrls)
+    ? config.databaseUrls.filter(Boolean)
+    : [config.databaseUrl, config.chemistryDatabaseUrl].filter(Boolean);
+  const combined=[];
+  let loaded=[];
+  for(const url of sources){
     try{
       const r=await fetch(url,{cache:'no-store'});
       if(!r.ok) continue;
       const raw=await r.json();
-      ok=loadDB(raw, url===remote ? 'Hugging Face database' : 'database.json', false);
-      if(ok) break;
+      const list=extractList(raw);
+      if(list && list.length){ combined.push(...list); loaded.push(url); }
     }catch(e){}
+  }
+  if(!combined.length){
+    for(const url of ['database.json','chemistry.json']){
+      try{
+        const r=await fetch(url,{cache:'no-store'});
+        if(!r.ok) continue;
+        const raw=await r.json();
+        const list=extractList(raw);
+        if(list && list.length){ combined.push(...list); loaded.push(url); }
+      }catch(e){}
+    }
+  }
+  if(combined.length){
+    ok=loadDB(combined.map(e=>e.q ? e.q : e), 'Question banks: '+loaded.map(x=>x.split('/').pop()).join(' + '), false);
   }
   if(!ok){
     $('#dbLabel').textContent='Database not loaded';
-    showNote('Could not load the Physics question bank. Set the Hugging Face raw JSON URL in config.js, and make sure the JSON contains question text or image URLs, options, answer keys, and chapter names.');
+    showNote('Could not load the question bank. Configure the Physics and/or Chemistry JSON URLs, and ensure each JSON contains question text or image URLs, chapter names, and answer keys where available.');
     $('#dbStats').innerHTML='';
     $('#chapList').innerHTML='<div class="muted">No database available.</div>';
     refreshSummary();
