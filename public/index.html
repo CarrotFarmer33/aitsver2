@@ -492,7 +492,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 
 <div id="scrRes" class="screen" hidden>
   <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Test &ndash; result</span>
-    <span style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" id="resRetry" type="button">Retry wrong and skipped</button><button class="btn sm" id="resNew" type="button">New test</button></span></div></div>
+    <span style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" id="downloadReviewPdf" type="button">Download PDF Review</button><button class="btn sm" id="resRetry" type="button">Retry wrong and skipped</button><button class="btn sm" id="resNew" type="button">New test</button></span></div></div>
   <main class="wrap res" id="resBody"></main>
 </div>
 
@@ -1111,7 +1111,7 @@ function renderResult(){
    '<section class="card"><h2>By subject</h2><div class="scroll"><table>'+head.replace('__','Subject')+'<tbody>'+Object.keys(subj).map(k=>row(k,subj[k])).join('')+'</tbody></table></div></section>'+
    '<section class="card"><h2>By chapter, weakest first</h2><div class="scroll"><table>'+head.replace('__','Chapter')+'<tbody>'+chRows+'</tbody></table></div></section>'+
    '<section><h2 style="margin:0 0 10px;font-size:17px">Review answers</h2><div class="rvbar" id="rvbar">'+[['all','All'],['ok','Correct'],['bad','Wrong'],['skip','Not attempted'],['mk','Marked for review']].map(f=>'<button class="btn sm" data-f="'+f[0]+'" aria-pressed="'+(f[0]==='all')+'" type="button">'+f[1]+'</button>').join('')+'</div><div id="rvList" style="display:flex;flex-direction:column;gap:12px;margin-top:12px"></div></section>'+
-   '<div style="display:flex;justify-content:flex-end;margin:18px 0 28px"><button class="btn primary" id="downloadReviewPdf" type="button">Download PDF Review</button></div>';
+   '';
   renderReview('all');
 }
 function downloadReviewPDF(){
