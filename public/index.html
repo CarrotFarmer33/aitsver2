@@ -1299,8 +1299,9 @@ document.addEventListener('change',e=>{
   else if(t.matches('#chapList input[data-ch]')){ t.checked?cfg.chapters.add(t.dataset.ch):cfg.chapters.delete(t.dataset.ch); refreshAll(); }
   else if(t.matches('#chapList input[data-segment]')){
     const parts=t.dataset.segment.split('||'); const subject=parts[0], segmentName=parts.slice(2).join('||');
-    const chapterSet=new Set((CHAPTER_SEGMENTS.find(g=>g.name===segmentName)||{chapters:[]}).chapters);
-    if(segmentName==='Other Chapters') Object.keys((DB.reduce((acc,q)=>{if(q.subject===subject) acc[q.chapter]=1; return acc;},{}))).filter(c=>!CHAPTER_SEGMENTS.some(g=>g.chapters.includes(c))).forEach(c=>chapterSet.add(c));
+    const segmentGroups=SEGMENTS[subject]||[];
+    const chapterSet=new Set((segmentGroups.find(g=>g.name===segmentName)||{chapters:[]}).chapters);
+    if(segmentName==='Other Chapters') Object.keys(DB.reduce((acc,q)=>{if(q.subject===subject) acc[q.chapter]=1; return acc;},{})).filter(c=>!segmentGroups.some(g=>g.chapters.includes(c))).forEach(c=>chapterSet.add(c));
     DB.filter(q=>q.subject===subject && chapterSet.has(q.chapter)).forEach(q=>{const k=q.subject+'||'+q.chapter; t.checked?cfg.chapters.add(k):cfg.chapters.delete(k);});
     refreshAll();
   }
