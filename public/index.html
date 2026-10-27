@@ -356,7 +356,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 </style>
 
 <div id="scrSetup" class="screen">
-  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Portal &ndash; chapter-wise question practice</span><a class="btn sm" href="downloads.html" style="text-decoration:none;white-space:nowrap">Downloads</a></div></div>
+  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Portal &ndash; chapter-wise question practice</span><span style="display:flex;gap:8px"><a class="btn sm" href="changelog.html" style="text-decoration:none;white-space:nowrap">Changelog</a><a class="btn sm" href="downloads.html" style="text-decoration:none;white-space:nowrap">Downloads</a></span></div></div>
   <main class="wrap setup">
     <section class="card" id="dbCard" hidden style="display:none">
       <div class="dbrow">
@@ -372,7 +372,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
         <h2>Build your practice set</h2>
         <div class="field"><label for="candName">Candidate name</label><input type="text" id="candName" placeholder="Your name" autocomplete="off"></div>
         <div id="subjWrap" hidden><h3>Subject</h3>
-        <div class="chips" id="subjBox" role="radiogroup" aria-label="Subject"></div></div>
+        <div class="chips" id="subjBox" role="group" aria-label="Subjects"></div></div>
         <h3>Question type</h3>
         <div class="chips" id="typeBox"></div>
         <h3>Paper</h3>
@@ -399,6 +399,8 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
           <div style="display:flex;gap:8px"><input type="number" id="cntIn" min="1" step="1"><button class="btn sm" id="cntAll" type="button">All</button></div></div>
         <div class="field"><label for="ordSel">Order</label>
           <select id="ordSel"><option value="seq">Bank order</option><option value="shuf">Shuffled</option></select></div>
+        <div class="field"><label class="chk" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="unattFirst"><span>New questions first (skip ones already shown)</span></label>
+          <div class="muted" style="font-size:13px;margin-top:6px"><span id="attInfo"></span> <button class="btn sm" id="attReset" type="button" hidden>Reset</button></div></div>
         <div class="field"><label for="minIn">Time limit (minutes, 0 for untimed)</label><input type="number" id="minIn" min="0" step="1"></div>
         <div class="field"><label for="modeSel">Mode</label>
           <select id="modeSel"><option value="test">Take as a test (results at the end)</option><option value="practice">Practice (check answer and solution after each question)</option></select></div>
@@ -492,7 +494,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 
 <div id="scrRes" class="screen" hidden>
   <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Test &ndash; result</span>
-    <span style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" id="downloadReviewPdf" type="button">Download PDF Review</button><button class="btn sm" id="resRetry" type="button">Retry wrong and skipped</button><button class="btn sm" id="resNew" type="button">New test</button></span></div></div>
+    <span style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" id="resRetry" type="button">Retry wrong and skipped</button><button class="btn sm" id="resNew" type="button">New test</button></span></div></div>
   <main class="wrap res" id="resBody"></main>
 </div>
 
@@ -553,6 +555,11 @@ const store = {
   get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } },
   set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
 };
+const ATT_KEY='aits_attempted';
+let ATT=new Set(); try{ ATT=new Set(JSON.parse(store.get(ATT_KEY)||'[]')); }catch(e){}
+const saveAtt=()=>store.set(ATT_KEY,JSON.stringify([...ATT]));
+const markAttempted=q=>{ if(q && !ATT.has(q.id)){ ATT.add(q.id); saveAtt(); } };
+const answered=a=>a!=null && !(Array.isArray(a)&&!a.length) && a!=='';
 const typeset = el => { try{ if(window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise(el?[el]:undefined).catch(()=>{}); }catch(e){} };
 const mmss = s => { s=Math.max(0,Math.floor(s)); return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'); };
 const hms = s => { s=Math.max(0,Math.round(s)); const h=Math.floor(s/3600), m=Math.floor(s%3600/60), x=s%60; return [h,m,x].map(n=>String(n).padStart(2,'0')).join(':'); };
@@ -667,10 +674,12 @@ function extractList(raw){
 
 /* ---------- state ---------- */
 let DB=[], dbLabel='', dbSample=false, dbSkipped=0, dbNoKey=0;
-const cfg = {subject:'Physics', chapters:new Set(), types:new Set(Object.keys(TYPES)), paper:'all', years:new Set(), count:30, countAuto:true, minutes:90, minAuto:true, shuffle:false, preset:'adv', mode:'test'};
+const cfg = {subjects:new Set(['Physics']), chapters:new Set(), types:new Set(Object.keys(TYPES)), paper:'all', years:new Set(), count:30, countAuto:true, minutes:90, minAuto:true, shuffle:false, unattFirst:store.get('aits_unatt')!=='0', preset:'adv', mode:'test'};
 const ui = {mag:false, size:0, theme:(store.get('aits_xtheme')==='dark'?'dark':'light'), invert:store.get('aits_xinvert')==='1'};
 let T=null, timerId=null, lastResult=null;
 
+// Set to false to also show chemistry questions that have no answer key.
+const CHEM_ONLY_KEYED = true;
 const CHEM_ALIAS = {
   'Isomerism':'Isomerism (Structural & Stereoisomerism)',
   'Metallurgy':'Principles & Processes of Isolation of Metals (Metallurgy)',
@@ -682,13 +691,13 @@ function loadDB(raw,label,isSample){
   const list = extractList(raw);
   if(!list){ showNote('That file is not a list of questions. Expected an array, or an object with a "questions" array.'); return false; }
   const out=[]; let skipped=0;
-  list.forEach((e,i)=>{ const n=normQuestion(e.q,i,e.subject); if(n && SUBJ.includes(n.subject)){ if(n.subject==='Chemistry') n.chapter=CHEM_ALIAS[n.chapter]||n.chapter; out.push(n); } else skipped++; });
+  list.forEach((e,i)=>{ const n=normQuestion(e.q,i,e.subject); if(n && SUBJ.includes(n.subject)){ if(n.subject==='Chemistry'){ if(CHEM_ONLY_KEYED && !n.keyOk){ skipped++; return; } n.chapter=CHEM_ALIAS[n.chapter]||n.chapter; } out.push(n); } else skipped++; });
   if(!out.length){ showNote('No usable questions were found in that file.'); return false; }
   const seen=new Map();
   out.forEach(q=>{ const c=(seen.get(q.id)||0)+1; seen.set(q.id,c); if(c>1) q.id=q.id+'#'+c; });
   DB=out; dbLabel=label; dbSample=!!isSample; dbSkipped=skipped; dbNoKey=out.filter(q=>!q.keyOk).length;
-  cfg.subject=SUBJ.find(s=>DB.some(q=>q.subject===s))||'Physics';
-  cfg.chapters=new Set(DB.filter(q=>q.subject===cfg.subject).map(q=>q.subject+'||'+q.chapter)); cfg.types=new Set(Object.keys(TYPES)); cfg.paper='all';
+  cfg.subjects=new Set([SUBJ.find(s=>DB.some(q=>q.subject===s))||'Physics']);
+  cfg.chapters=new Set(DB.filter(q=>cfg.subjects.has(q.subject)).map(q=>q.subject+'||'+q.chapter)); cfg.types=new Set(Object.keys(TYPES)); cfg.paper='all';
   cfg.years=new Set(DB.map(q=>q.year));
   cfg.countAuto=true; cfg.minAuto=true; $('#chSearch').value='';
   renderSetup(); return true;
@@ -723,7 +732,7 @@ function renderSetup(){
   if(dbSkipped) notes.push(dbSkipped+' entries had no question text or image and were skipped.');
   showNote(notes.join(' '));
   renderSubjects();
-  const inSubj=DB.filter(q=>q.subject===cfg.subject);
+  const inSubj=DB.filter(q=>cfg.subjects.has(q.subject));
   const pc={main:0,adv:0}; inSubj.forEach(q=>{ if(pc[q.paper]!=null) pc[q.paper]++; });
   const sel=$('#paperSel');
   sel.innerHTML='<option value="all">Mains and Advanced papers ('+inSubj.length+')</option>'+Object.keys(PAPERS).map(k=>'<option value="'+k+'">'+PAPERS[k]+' ('+pc[k]+')</option>').join('');
@@ -739,7 +748,7 @@ function renderSubjects(){
   $('#subjWrap').hidden = have.length<2;
   $('#subjBox').innerHTML = have.map(s=>{
     const n=DB.filter(q=>q.subject===s).length;
-    return '<label class="chk"><input type="radio" name="subj" value="'+esc(s)+'"'+(cfg.subject===s?' checked':'')+'><span>'+esc(s)+'</span><span class="cnt">'+n+'</span></label>';
+    return '<label class="chk"><input type="checkbox" name="subj" value="'+esc(s)+'"'+(cfg.subjects.has(s)?' checked':'')+'><span>'+esc(s)+'</span><span class="cnt">'+n+'</span></label>';
   }).join('');
 }
 function renderTypes(){
@@ -773,7 +782,7 @@ function renderChapters(){
   const term=$('#chSearch').value.trim().toLowerCase();
   const groups={};
   DB.forEach(q=>{ const g=groups[q.subject]||(groups[q.subject]={}); const c=g[q.chapter]||(g[q.chapter]={n:0}); if(typeSrcOK(q)) c.n++; });
-  const subjects=Object.keys(groups).filter(s=>s===cfg.subject).sort((a,b)=>subjRank(a)-subjRank(b)||a.localeCompare(b));
+  const subjects=Object.keys(groups).filter(s=>cfg.subjects.has(s)).sort((a,b)=>subjRank(a)-subjRank(b)||a.localeCompare(b));
   const html=subjects.map(subject=>{
     const available=groups[subject];
     const orderedSegments=(SEGMENTS[subject]||[]).map(g=>({name:g.name,chapters:g.chapters.filter(c=>Object.prototype.hasOwnProperty.call(available,c))})).filter(g=>g.chapters.length);
@@ -806,6 +815,10 @@ function refreshSummary(){
   if(cfg.minAuto) cfg.minutes=cfg.count*3;
   $('#cntIn').max=n; $('#cntIn').value=n?cfg.count:0; $('#minIn').value=cfg.minutes;
   $('#ordSel').value=cfg.shuffle?'shuf':'seq';
+  $('#unattFirst').checked=cfg.unattFirst;
+  const pl=pool(), done=pl.filter(q=>ATT.has(q.id)).length;
+  $('#attInfo').textContent=done+' of '+pl.length+' matching questions already seen.';
+  $('#attReset').hidden=!ATT.size;
   const ok = n>0 && cfg.count>0;
   $('#btnStart').disabled=!ok;
   $('#startWhy').textContent = ok ? '' : 'Pick at least one chapter and one question type that has questions.';
@@ -835,7 +848,12 @@ function buildTest(qs,minutes,presetKey,title){
 }
 function today(){ return new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}).toUpperCase(); }
 function startFromSetup(){
-  let list=pool(); if(cfg.shuffle) shuffle(list);
+  let list=pool();
+  if(cfg.unattFirst){
+    let a=list.filter(q=>!ATT.has(q.id)), b=list.filter(q=>ATT.has(q.id));
+    if(cfg.shuffle){ shuffle(a); shuffle(b); }
+    list=a.concat(b);
+  } else if(cfg.shuffle) shuffle(list);
   list=list.slice(0,cfg.count);
   buildTest(list,cfg.minutes,cfg.preset,'AITS PRACTICE TEST '+today()+' CHAPTER-WISE');
   renderInstr(); show('scrInstr');
@@ -966,6 +984,7 @@ function secInfoText(s){
 }
 function renderQ(){
   const q=T.qs[T.cur], s=T.st[T.cur];
+  markAttempted(q); /* shown to the user, so it counts as seen even if skipped */
   $('#qType').textContent='Question Type: '+QTS[q.type];
   $('#qMarks').innerHTML=marksHtml(q.type);
   $('#qNo').textContent='Question No. '+(T.cur+1);
@@ -1031,7 +1050,7 @@ function onAction(a){
   const s=T.st[T.cur];
   const locked=T.mode==='practice' && s.checked;
   if(a==='prev'){ goto(T.cur-1); return; }
-  const commit=()=>{ if(s.draft!==undefined){ s.ans=s.draft; s.draft=undefined; } };
+  const commit=()=>{ if(s.draft!==undefined){ s.ans=s.draft; s.draft=undefined; } if(answered(s.ans)) markAttempted(T.qs[T.cur]); };
   if(a==='clear'){ if(locked) return; s.ans=null; s.draft=undefined; renderQ(); renderPal(); return; }
   if(a==='save' && T.mode==='practice' && !s.checked){ commit(); s.marked=false; s.checked=true; renderQ(); renderPal(); return; }
   if(a==='save' && locked && T.cur===T.qs.length-1){ openSubmit(); return; }
@@ -1076,6 +1095,7 @@ function finish(auto){
   const used=Math.min((Date.now()-T.startTs)/1000, T.minutes>0?T.minutes*60:1e9);
   const att=res.filter(r=>r.r==='ok'||r.r==='bad'||r.r==='part').length, ok=res.filter(r=>r.r==='ok').length;
   const acc=att?Math.round(ok/att*100):0;
+  T.qs.forEach((q,i)=>{ if(T.st[i].visited) ATT.add(q.id); }); saveAtt();
   lastResult={res,max,score,used,att,ok,acc,auto};
   let h=[]; try{ h=JSON.parse(store.get('aits_hist')||'[]'); }catch(e){}
   h.unshift({t:Date.now(),score,max,n:T.qs.length,acc}); store.set('aits_hist',JSON.stringify(h.slice(0,20)));
@@ -1110,43 +1130,9 @@ function renderResult(){
    '<div class="kpis"><div class="kpi"><small>Score</small><b>'+R.score+' / '+R.max+'</b></div><div class="kpi"><small>Accuracy</small><b>'+R.acc+'%</b></div><div class="kpi"><small>Correct</small><b>'+R.ok+'</b></div><div class="kpi"><small>Attempted</small><b>'+R.att+' / '+T.qs.length+'</b></div><div class="kpi"><small>Time used</small><b>'+hms(R.used)+'</b></div></div>'+
    '<section class="card"><h2>By subject</h2><div class="scroll"><table>'+head.replace('__','Subject')+'<tbody>'+Object.keys(subj).map(k=>row(k,subj[k])).join('')+'</tbody></table></div></section>'+
    '<section class="card"><h2>By chapter, weakest first</h2><div class="scroll"><table>'+head.replace('__','Chapter')+'<tbody>'+chRows+'</tbody></table></div></section>'+
-   '<section><h2 style="margin:0 0 10px;font-size:17px">Review answers</h2><div class="rvbar" id="rvbar">'+[['all','All'],['ok','Correct'],['bad','Wrong'],['skip','Not attempted'],['mk','Marked for review']].map(f=>'<button class="btn sm" data-f="'+f[0]+'" aria-pressed="'+(f[0]==='all')+'" type="button">'+f[1]+'</button>').join('')+'</div><div id="rvList" style="display:flex;flex-direction:column;gap:12px;margin-top:12px"></div></section>'+
-   '';
+   '<section><h2 style="margin:0 0 10px;font-size:17px">Review answers</h2><div class="rvbar" id="rvbar">'+[['all','All'],['ok','Correct'],['bad','Wrong'],['skip','Not attempted'],['mk','Marked for review']].map(f=>'<button class="btn sm" data-f="'+f[0]+'" aria-pressed="'+(f[0]==='all')+'" type="button">'+f[1]+'</button>').join('')+'</div><div id="rvList" style="display:flex;flex-direction:column;gap:12px;margin-top:12px"></div></section>';
   renderReview('all');
 }
-function downloadReviewPDF(){
-  if(!T||!lastResult) return;
-  const win=window.open('about:blank','_blank');
-  if(!win){ alert('Please allow pop-ups for this site to create the PDF review.'); return; }
-  // Export every question, regardless of the review filter currently selected.
-  renderReview('all');
-  const title=(T.title||'AITS Practice Test').replace(/[<>]/g,'');
-  const summary='<header class="report-head"><h1>'+esc(title)+' — Test Review</h1><p>'+esc(new Date().toLocaleString())+'</p><div class="summary"><b>Score: '+lastResult.score+' / '+lastResult.max+'</b><span>Accuracy: '+lastResult.acc+'%</span><span>Correct: '+lastResult.ok+'</span><span>Attempted: '+lastResult.att+' / '+T.qs.length+'</span><span>Time used: '+hms(lastResult.used)+'</span></div></header>';
-  const styles=`
-    @page{size:A4;margin:14mm}*{box-sizing:border-box}body{font:10.5pt Arial,sans-serif;color:#161616;line-height:1.45;margin:0}
-    h1{font-size:20pt;margin:0 0 4px}h2{font-size:14pt}p{margin:4px 0}.report-head{border-bottom:2px solid #333;padding-bottom:12px;margin-bottom:16px}.summary{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:10px}
-    .rv{border:1px solid #aaa;border-left:4px solid #777;padding:10px;margin:0 0 12px;break-inside:avoid-page}.rv.r-ok{border-left-color:#27833a}.rv.r-bad{border-left-color:#b3261e}.rv.r-part{border-left-color:#a36a00}.rv header{display:flex;flex-wrap:wrap;align-items:center;gap:7px;border-bottom:1px solid #ddd;padding-bottom:6px;margin-bottom:8px;font-size:9pt}.badge{border:1px solid #999;border-radius:3px;padding:1px 5px}.qtext{margin:8px 0}.qimg{display:block;max-width:100%!important;height:auto!important;object-fit:contain;margin:8px auto;page-break-inside:avoid}.ropt{display:flex;gap:7px;padding:5px;border:1px solid #ddd;margin:4px 0}.ropt.corr{background:#eaf5eb;border-color:#70a77a}.ropt.wrong{background:#fff0ef;border-color:#cc817b}.muted{color:#555}.rv details{margin-top:8px}.rv summary{font-weight:bold}.rv details>div{margin-top:8px}table{border-collapse:collapse;width:100%}th,td{border:1px solid #aaa;padding:5px;text-align:left}button,.rvbar{display:none!important}img{max-height:none!important}svg{max-width:100%}
-  `;
-  const buildReport=()=>{
-    // ZIP-backed question and solution images are hydrated asynchronously; wait before cloning.
-    const pending=$('#rvList').querySelectorAll('img[data-zipimg]').length;
-    if(pending){setTimeout(buildReport,250);return;}
-    const review=$('#rvList').cloneNode(true);
-    review.querySelectorAll('details').forEach(d=>d.open=true);
-    review.querySelectorAll('img').forEach(img=>{img.style.maxWidth='100%';img.style.height='auto';img.style.cursor='default';});
-    win.document.open();
-    win.document.write('<!doctype html><html><head><meta charset="utf-8"><title>'+esc(title)+' - PDF Review</title><style>'+styles+'</style></head><body>'+summary+'<h2>Question-by-question review</h2>'+review.outerHTML+'</body></html>');
-    win.document.close();
-    const printWhenReady=()=>{
-      const imgs=Array.from(win.document.images);
-      if(imgs.some(img=>!img.complete)){setTimeout(printWhenReady,250);return;}
-      win.focus(); setTimeout(()=>{win.print();},300);
-    };
-    setTimeout(printWhenReady,700);
-  };
-  setTimeout(buildReport,150);
-}
-
 function renderReview(f){
   const R=lastResult; $('#rvbar').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===f));
   let html='';
@@ -1174,7 +1160,9 @@ function renderReview(f){
 document.addEventListener('change',e=>{
   const t=e.target;
   if(t.name==='subj'){
-    cfg.subject=t.value; cfg.chapters=new Set(DB.filter(q=>q.subject===cfg.subject).map(q=>q.subject+'||'+q.chapter));
+    if(t.checked) cfg.subjects.add(t.value); else if(cfg.subjects.size>1) cfg.subjects.delete(t.value);
+    const all=DB.filter(q=>q.subject===t.value).map(q=>q.subject+'||'+q.chapter);
+    if(cfg.subjects.has(t.value)) all.forEach(k=>cfg.chapters.add(k)); else all.forEach(k=>cfg.chapters.delete(k));
     cfg.paper='all'; cfg.countAuto=true; cfg.minAuto=true; $('#chSearch').value=''; renderSetup();
   }
   else if(t.matches('#typeBox input')){ t.checked?cfg.types.add(t.dataset.type):cfg.types.delete(t.dataset.type); renderYears(); renderChapters(); refreshSummary(); }
@@ -1192,6 +1180,7 @@ document.addEventListener('change',e=>{
   else if(t.id==='cntIn'){ cfg.count=Math.max(1,Math.min(+t.value||1,pool().length)); cfg.countAuto=false; refreshSummary(); }
   else if(t.id==='minIn'){ cfg.minutes=Math.max(0,Math.round(+t.value||0)); cfg.minAuto=false; refreshSummary(); }
   else if(t.id==='ordSel'){ cfg.shuffle=t.value==='shuf'; }
+  else if(t.id==='unattFirst'){ cfg.unattFirst=t.checked; store.set('aits_unatt',t.checked?'1':'0'); }
   else if(t.id==='mrkSel'){ cfg.preset=t.value; }
   else if(t.id==='candName'){ store.set('aits_name',t.value.trim()); }
   else if(t.id==='instOk'){ $('#btnBegin').disabled=!t.checked; }
@@ -1225,7 +1214,8 @@ document.addEventListener('click',e=>{
   if(!inf) hideTip();
   if(inf && T){ e.stopPropagation(); if(tipPinned===inf) hideTip(); else { tipPinned=inf; showTip(inf); } return; }
   const b=e.target.closest('button'); if(!b) return;
-  if(b.id==='chAll'||b.id==='chNone'){ const term=$('#chSearch').value.trim().toLowerCase(); DB.forEach(q=>{ if(q.subject===cfg.subject&&(!term||q.chapter.toLowerCase().includes(term)||q.subject.toLowerCase().includes(term))){ const k=q.subject+'||'+q.chapter; b.id==='chAll'?cfg.chapters.add(k):cfg.chapters.delete(k); } }); renderChapters(); renderTypes(); refreshSummary(); }
+  if(b.id==='chAll'||b.id==='chNone'){ const term=$('#chSearch').value.trim().toLowerCase(); DB.forEach(q=>{ if(cfg.subjects.has(q.subject)&&(!term||q.chapter.toLowerCase().includes(term)||q.subject.toLowerCase().includes(term))){ const k=q.subject+'||'+q.chapter; b.id==='chAll'?cfg.chapters.add(k):cfg.chapters.delete(k); } }); renderChapters(); renderTypes(); refreshSummary(); }
+  else if(b.id==='attReset'){ if(confirm('Forget all attempted questions?')){ ATT.clear(); saveAtt(); refreshSummary(); } }
   else if(b.id==='cntAll'){ cfg.count=pool().length; cfg.countAuto=false; refreshSummary(); }
   else if(b.id==='btnStart') startFromSetup();
   else if(b.id==='instBack') show('scrSetup');
@@ -1246,7 +1236,6 @@ document.addEventListener('click',e=>{
   else if(b.dataset.q!=null && T && !T.over) goto(+b.dataset.q);
   else if(b.dataset.sec!=null && T && !T.over){ const k=+b.dataset.sec; goto(k===T.sec?T.cur:T.secs[k].idx[0]); }
   else if(b.dataset.f && lastResult) renderReview(b.dataset.f);
-  else if(b.id==='downloadReviewPdf'){ downloadReviewPDF(); }
   else if(b.id==='resNew'){ show('scrSetup'); renderHist(); }
   else if(b.id==='resRetry'){
     const redo=T.qs.filter((q,i)=>lastResult.res[i].r!=='ok');
