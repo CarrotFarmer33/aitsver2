@@ -1,25 +1,27 @@
 {
-  "_how_to_add": "Add a new object at the TOP of the 'entries' list. Fields: date (YYYY-MM-DD), title, tag (New | Improved | Fixed), changes (list of lines). Save and push; the page updates by itself.",
-  "entries": [
+  "entries": 
+  [
     {
       "date": "2026-10-27",
       "title": "Seen-question tracking and multi-subject tests and question addition",
       "tag": "New",
-      "changes": [
-        "Added Chemistry Questions (Primarily Advanced).","Physics JEEM AITS Questions added.",
+      "changes": 
+      [
+        "Added Chemistry Questions (Primarily Advanced).",
+        "Physics JEEM AITS Questions added.",
         "Pick Physics, Chemistry or both in one test.",
         "Questions you have already seen are remembered and new ones are shown first (All data is stored locally on your browser, clearing site data will erase it.)."
-     
       ]
     }
-      {
+    
+    {
       "date": "2026-10-23",
       "title": "PDF Review Download",
       "tag": "New",
-      "changes": [
+      "changes": 
+      [
         "Adds the ability to save the test you took as a PDF, which includes a summary, and question wise analysis."
       ]
-    }    
-        
+    }           
   ]
 }
