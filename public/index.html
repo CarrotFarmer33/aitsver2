@@ -46,8 +46,13 @@ button{cursor:pointer}
 .tool{display:flex;align-items:center;gap:6px;background:none;border:0;color:#fff;font-size:12px;padding:2px 0}
 .tool svg{flex:none}
 .menu{position:relative}.menu summary{list-style:none;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center}.menu summary::-webkit-details-marker{display:none}
+.mrow{display:flex;flex-wrap:wrap;align-items:center;gap:6px}.mrow .btn{flex:1}
+.mi{order:-1;flex:none;width:22px;height:22px;border-radius:50%;border:1px solid var(--muted);color:var(--muted);display:grid;place-items:center;font:italic 700 13px Georgia,serif;cursor:help;user-select:none}
+.mi:hover,.mi:focus{background:var(--fg);color:var(--surface);border-color:var(--fg);outline:none}
+.mtip{order:1;display:none;flex-basis:100%;font-size:12px;line-height:1.45;color:var(--muted);background:var(--surface-2);border-radius:4px;padding:7px 9px}
+.mi:hover+.mtip,.mi:focus+.mtip{display:block}
 .menuSep{border:0;border-top:1px solid var(--line);margin:2px 0;width:100%}
-.menuList{position:absolute;right:0;top:calc(100% + 6px);z-index:50;display:flex;flex-direction:column;gap:6px;min-width:170px;padding:8px;background:var(--surface);border:1px solid var(--line);border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.menuList{position:absolute;right:0;top:calc(100% + 6px);z-index:50;display:flex;flex-direction:column;gap:6px;min-width:230px;max-width:calc(100vw - 24px);padding:8px;background:var(--surface);border:1px solid var(--line);border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
 .topbar .menuList .btn{background:var(--surface);color:var(--fg);border-color:var(--line);justify-content:flex-start;text-align:left;text-decoration:none;display:flex;align-items:center;min-height:34px;font-size:13px}
 .topbar .menuList .btn:hover{background:var(--surface-2)}
 .topbar .btn{background:transparent;color:#fff;border-color:#777;min-height:26px;padding:2px 10px;font-size:12px}
@@ -379,7 +384,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 </style>
 
 <div id="scrSetup" class="screen">
-  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Portal &ndash; chapter-wise question practice</span><details class="menu" id="topMenu"><summary class="btn sm">Menu &#9662;</summary><div class="menuList"><button class="btn sm" id="openSaved" type="button">Saved questions</button><a class="btn sm" href="changelog.html">Changelog</a><a class="btn sm" href="downloads.html">Downloads</a><hr class="menuSep"><button class="btn sm" id="expData" type="button">Export my data</button><button class="btn sm" id="impData" type="button">Import data</button><input type="file" id="impFile" accept=".json,application/json" hidden></div></details></div></div>
+  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Portal &ndash; chapter-wise question practice</span><details class="menu" id="topMenu"><summary class="btn sm">Menu &#9662;</summary><div class="menuList"><button class="btn sm" id="openSaved" type="button">Saved questions</button><a class="btn sm" href="changelog.html">Changelog</a><a class="btn sm" href="downloads.html">Downloads</a><hr class="menuSep"><div class="mrow"><button class="btn sm" id="expData" type="button">Export my data</button><span class="mi" tabindex="0" role="note" aria-label="About Export my data">i</span><div class="mtip">Saves a backup file of your bookmarks, mistakes, seen questions and history. Your data lives only in this browser, so export now and then in case it gets cleared.</div></div><div class="mrow"><button class="btn sm" id="impData" type="button">Import data</button><span class="mi" tabindex="0" role="note" aria-label="About Import data">i</span><div class="mtip">Load a backup file you exported earlier. It is merged with your current data, so nothing is overwritten.</div></div><input type="file" id="impFile" accept=".json,application/json" hidden></div></details></div></div>
   <main class="wrap setup">
     <section class="card" id="dbCard" hidden style="display:none">
       <div class="dbrow">
