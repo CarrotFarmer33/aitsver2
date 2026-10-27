@@ -45,6 +45,10 @@ button{cursor:pointer}
 .tb-tools{display:flex;align-items:center;gap:14px;flex:none}
 .tool{display:flex;align-items:center;gap:6px;background:none;border:0;color:#fff;font-size:12px;padding:2px 0}
 .tool svg{flex:none}
+.menu{position:relative}.menu summary{list-style:none;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center}.menu summary::-webkit-details-marker{display:none}
+.menuList{position:absolute;right:0;top:calc(100% + 6px);z-index:50;display:flex;flex-direction:column;gap:6px;min-width:170px;padding:8px;background:var(--surface);border:1px solid var(--line);border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.topbar .menuList .btn{background:var(--surface);color:var(--fg);border-color:var(--line);justify-content:flex-start;text-align:left;text-decoration:none;display:flex;align-items:center;min-height:34px;font-size:13px}
+.topbar .menuList .btn:hover{background:var(--surface-2)}
 .topbar .btn{background:transparent;color:#fff;border-color:#777;min-height:26px;padding:2px 10px;font-size:12px}
 .topbar .btn:hover{background:#444}
 
@@ -200,6 +204,11 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 #scrExam .xview select{width:96px;min-height:0;height:25px;padding:0 4px;border:1px solid rgba(255,255,255,.35);border-radius:2px;background-color:var(--x-select);color:var(--x-selink);font-size:15px;font-weight:700}
 #scrExam .xqno{flex:none;display:flex;justify-content:space-between;align-items:center;gap:8px;height:41px;padding:6px 26px 0 2px;font-size:14px;font-weight:700;color:var(--x-ink)}
 #scrExam .rb{flex:none;display:grid;place-items:center;width:28px;height:28px;padding:0;border:0;border-radius:50%;background:var(--x-circle);box-shadow:0 1px 2px rgba(0,0,0,.25)}
+#scrExam .xqbtns{display:flex;gap:8px;align-items:center}
+#scrExam .rb.bm{color:var(--x-ink)}#scrExam .rb.bm[aria-pressed=true],.bmb[aria-pressed=true]{color:#e0a100}#scrExam .rb.bm[aria-pressed=true] path,.bmb[aria-pressed=true] path{fill:currentColor}
+.bmb{display:inline-grid;place-items:center;width:26px;height:26px;padding:0;border:0;background:transparent;color:var(--muted);cursor:pointer}
+.svgrp>summary{cursor:pointer;font-size:15px;padding:8px 2px;position:sticky;top:0;background:var(--bg);z-index:1}.svgb{display:flex;flex-direction:column;gap:12px;margin:6px 0 14px}
+.svtabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}.svtabs .btn[aria-pressed=true]{background:#286ac7;color:#fff;border-color:transparent}
 #scrExam .rb.up{position:absolute;right:26px;bottom:25%;z-index:2}
 #scrExam .xqwrap{position:relative;flex:1 1 auto;min-height:0;display:flex}
 #scrExam .xscroll{flex:1 1 auto;min-width:0;overflow-x:hidden;overflow-y:scroll;overscroll-behavior:contain;padding:0 12px 20px 11px}
@@ -356,7 +365,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 </style>
 
 <div id="scrSetup" class="screen">
-  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Portal &ndash; chapter-wise question practice</span><span style="display:flex;gap:8px"><a class="btn sm" href="changelog.html" style="text-decoration:none;white-space:nowrap">Changelog</a><a class="btn sm" href="downloads.html" style="text-decoration:none;white-space:nowrap">Downloads</a></span></div></div>
+  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Portal &ndash; chapter-wise question practice</span><details class="menu" id="topMenu"><summary class="btn sm">Menu &#9662;</summary><div class="menuList"><button class="btn sm" id="openSaved" type="button">Saved questions</button><a class="btn sm" href="changelog.html">Changelog</a><a class="btn sm" href="downloads.html">Downloads</a></div></details></div></div>
   <main class="wrap setup">
     <section class="card" id="dbCard" hidden style="display:none">
       <div class="dbrow">
@@ -465,7 +474,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
       <div class="xsections"><span>Sections</span><span class="tl" id="tlWrap"><span id="tlLbl">Time Left : </span><b id="timer">--:--</b></span></div>
       <div class="xtabsrow"><button class="xarr l off" id="tabL" type="button" aria-label="Scroll sections left"></button><div class="tabs" id="tabs" role="tablist"></div><button class="xarr r off" id="tabR" type="button" aria-label="Scroll sections right"></button></div>
       <div class="xqtype"><span id="qType"></span><span id="qMarks" class="qmarks"></span></div>
-      <div class="xqno"><span id="qNo"></span><button class="rb" id="btnDown" type="button" aria-label="Scroll to the end of the question"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v10M3.5 8l4.5 4.5L12.5 8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+      <div class="xqno"><span id="qNo"></span><span class="xqbtns"><button class="rb bm" id="btnBm" type="button" aria-pressed="false" aria-label="Bookmark this question" title="Bookmark this question"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l1.9 4.2 4.6.5-3.4 3.1 1 4.5L8 11.5 3.9 13.8l1-4.5L1.5 6.2l4.6-.5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></button><button class="rb" id="btnDown" type="button" aria-label="Scroll to the end of the question"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v10M3.5 8l4.5 4.5L12.5 8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button></span></div>
       <div class="xqwrap"><div class="xscroll" id="xscroll"></div><button class="rb up" id="btnUp" type="button" aria-label="Scroll to the top of the question"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 14V4M3.5 8L8 3.5 12.5 8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
       <div class="xbottom">
         <button class="xbtn" data-act="mark" type="button">Mark for Review &amp; Next</button>
@@ -490,6 +499,12 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   </div>
   <div class="scrim" id="scrim"></div>
   <div class="floatingInfoTooltip" id="infoTip" hidden></div>
+</div>
+
+<div id="scrSaved" class="screen" hidden>
+  <div class="topbar"><div class="tb-in"><span class="tb-title">Saved questions</span>
+    <span style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" id="svPractice" type="button">Practice these</button><button class="btn sm" id="svBack" type="button">Back</button></span></div></div>
+  <main class="wrap res"><div class="svtabs" id="svTabs"></div><div id="svList" style="display:flex;flex-direction:column;gap:12px"></div></main>
 </div>
 
 <div id="scrRes" class="screen" hidden>
@@ -559,6 +574,9 @@ const ATT_KEY='aits_attempted';
 let ATT=new Set(); try{ ATT=new Set(JSON.parse(store.get(ATT_KEY)||'[]')); }catch(e){}
 const saveAtt=()=>store.set(ATT_KEY,JSON.stringify([...ATT]));
 const markAttempted=q=>{ if(q && !ATT.has(q.id)){ ATT.add(q.id); saveAtt(); } };
+const loadIds=k=>{ try{ return new Set(JSON.parse(store.get(k)||'[]')); }catch(e){ return new Set(); } };
+const BM=loadIds('aits_bookmarks'), MIS=loadIds('aits_mistakes');
+const saveSet=(k,S)=>store.set(k,JSON.stringify([...S]));
 const answered=a=>a!=null && !(Array.isArray(a)&&!a.length) && a!=='';
 const typeset = el => { try{ if(window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise(el?[el]:undefined).catch(()=>{}); }catch(e){} };
 const mmss = s => { s=Math.max(0,Math.floor(s)); return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'); };
@@ -706,7 +724,7 @@ function showNote(t){ const n=$('#dbNote'); n.textContent=t; n.hidden=!t; }
 
 /* ---------- screens ---------- */
 function show(id){
-  ['scrSetup','scrInstr','scrExam','scrRes'].forEach(s=>{ $('#'+s).hidden = s!==id; });
+  ['scrSetup','scrInstr','scrExam','scrRes','scrSaved'].forEach(s=>{ $('#'+s).hidden = s!==id; });
   toggleAcc(false); hideTip();
   window.scrollTo(0,0);
 }
@@ -985,6 +1003,7 @@ function secInfoText(s){
 function renderQ(){
   const q=T.qs[T.cur], s=T.st[T.cur];
   markAttempted(q); /* shown to the user, so it counts as seen even if skipped */
+  { const b=$('#btnBm'); if(b){ b.setAttribute('aria-pressed',String(BM.has(q.id))); b.title=BM.has(q.id)?'Remove bookmark':'Bookmark this question'; } }
   $('#qType').textContent='Question Type: '+QTS[q.type];
   $('#qMarks').innerHTML=marksHtml(q.type);
   $('#qNo').textContent='Question No. '+(T.cur+1);
@@ -1096,11 +1115,14 @@ function finish(auto){
   const att=res.filter(r=>r.r==='ok'||r.r==='bad'||r.r==='part').length, ok=res.filter(r=>r.r==='ok').length;
   const acc=att?Math.round(ok/att*100):0;
   T.qs.forEach((q,i)=>{ if(T.st[i].visited) ATT.add(q.id); }); saveAtt();
+  T.qs.forEach((q,i)=>{ const r=res[i].r; if(r==='bad'||r==='part') MIS.add(q.id); else if(r==='ok') MIS.delete(q.id); }); saveSet('aits_mistakes',MIS);
   lastResult={res,max,score,used,att,ok,acc,auto};
   let h=[]; try{ h=JSON.parse(store.get('aits_hist')||'[]'); }catch(e){}
   h.unshift({t:Date.now(),score,max,n:T.qs.length,acc}); store.set('aits_hist',JSON.stringify(h.slice(0,20)));
   renderResult(); show('scrRes');
 }
+const STAR='<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l1.9 4.2 4.6.5-3.4 3.1 1 4.5L8 11.5 3.9 13.8l1-4.5L1.5 6.2l4.6-.5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>';
+function toggleBm(id){ if(BM.has(id)) BM.delete(id); else BM.add(id); saveSet('aits_bookmarks',BM); }
 const fmtAns=(q,a)=>{
   if(a==null||a==='') return '—';
   if(q.type==='numerical') return String(a);
@@ -1147,13 +1169,37 @@ function renderReview(f){
       const sel=q.type==='multi'?(s.ans||[]):(s.ans==null?[]:[s.ans]);
       ob='<div style="display:flex;flex-direction:column;gap:6px">'+q.options.map((o,k)=>{ const corr=q.keyOk&&q.ans.includes(k), wr=sel.includes(k)&&!corr; return '<div class="ropt'+(corr?' corr':'')+(wr?' wrong':'')+'"><b>'+LET[k]+'.</b><span style="min-width:0;overflow-wrap:anywhere">'+(q.labelOnly?'':rich(o))+'</span>'+(sel.includes(k)?'<span class="muted" style="margin-left:auto;white-space:nowrap">your answer</span>':'')+'</div>'; }).join('')+'</div>';
     }
-    html+='<article class="rv r-'+r.r+'"><header><b>Q'+(i+1)+'</b><span>'+esc(T.secs[T.secOf[i]].name)+'</span><span>'+esc(q.chapter)+'</span><span class="badge '+pc+'">'+label+(r.marks?' '+(r.marks>0?'+':'')+r.marks:'')+'</span><span>'+mmss(s.time)+'</span></header>'+
+    html+='<article class="rv r-'+r.r+'"><header><b>Q'+(i+1)+'</b><button class="bmb" data-bm="'+esc(q.id)+'" type="button" aria-pressed="'+BM.has(q.id)+'" title="Bookmark this question" aria-label="Bookmark this question">'+STAR+'</button><span>'+esc(T.secs[T.secOf[i]].name)+'</span><span>'+esc(q.chapter)+'</span><span class="badge '+pc+'">'+label+(r.marks?' '+(r.marks>0?'+':'')+r.marks:'')+'</span><span>'+mmss(s.time)+'</span></header>'+
       '<div class="qtext">'+rich(q.text)+'</div>'+q.images.map(u=>imageMarkup(u,'Question figure')).join('')+ob+
       '<div>Your answer: <b>'+esc(fmtAns(q,s.ans))+'</b> · Correct answer: <b>'+esc(keyText(q))+'</b></div>'+
       ((q.solution||q.solImages.length)?'<details><summary>Solution</summary><div style="margin-top:8px">'+rich(q.solution)+q.solImages.map(u=>imageMarkup(u,'Solution figure')).join('')+'</div></details>':'')+'</article>';
   });
   $('#rvList').innerHTML=html||'<div class="muted">Nothing to show for this filter.</div>';
   hydrateZipImages($('#rvList')); typeset($('#rvList'));
+}
+
+/* ---------- saved questions ---------- */
+let svTab='bm';
+function svIds(){ return svTab==='bm'?BM:MIS; }
+function svQuestions(){ const m=new Map(DB.map(q=>[q.id,q])); return [...svIds()].map(id=>m.get(id)).filter(Boolean); }
+function renderSaved(){
+  $('#svTabs').innerHTML=[['bm','Bookmarked',BM.size],['mis','Mistakes',MIS.size]].map(x=>'<button class="btn sm" data-svtab="'+x[0]+'" aria-pressed="'+(svTab===x[0])+'" type="button">'+x[1]+' ('+x[2]+')</button>').join('')+'<button class="btn sm" id="svClear" type="button" style="margin-left:auto">Clear this list</button>';
+  const qs=svQuestions();
+  $('#svPractice').disabled=!qs.length;
+  const empty=svTab==='bm'?'No bookmarks yet. Use the star on a question during a test, or on the result review page.':'No mistakes yet. Questions you get wrong in a test are saved here, and removed once you answer them correctly.';
+  const card=q=>{
+    let ob='';
+    if(q.type!=='numerical' && q.options) ob='<div style="display:flex;flex-direction:column;gap:6px">'+q.options.map((o,k)=>{ const corr=q.keyOk&&q.ans.includes(k); return '<div class="ropt'+(corr?' corr':'')+'"><b>'+LET[k]+'.</b><span style="min-width:0;overflow-wrap:anywhere">'+(q.labelOnly?'':rich(o))+'</span></div>'; }).join('')+'</div>';
+    return '<article class="rv"><header><span>'+esc(QTS[q.type]||q.type)+'</span><span>'+esc(q.paperTitle||q.source||'')+'</span><button class="btn sm" data-svrm="'+esc(q.id)+'" type="button" style="margin-left:auto">Remove</button></header>'+
+      '<div class="qtext">'+rich(q.text)+'</div>'+q.images.map(u=>imageMarkup(u,'Question figure')).join('')+ob+
+      '<div>Correct answer: <b>'+esc(keyText(q))+'</b></div>'+
+      ((q.solution||q.solImages.length)?'<details><summary>Solution</summary><div style="margin-top:8px">'+rich(q.solution)+q.solImages.map(u=>imageMarkup(u,'Solution figure')).join('')+'</div></details>':'')+'</article>';
+  };
+  const order=(subj,ch)=>{ const segs=SEGMENTS[subj]||[]; let n=0; for(const g of segs){ const i=g.chapters.indexOf(ch); if(i>=0) return n+i; n+=g.chapters.length; } return 9999; };
+  const groups={}; qs.forEach(q=>{ (groups[q.subject+'||'+q.chapter]=groups[q.subject+'||'+q.chapter]||[]).push(q); });
+  const keys=Object.keys(groups).sort((x,y)=>{ const [s1,c1]=x.split('||'), [s2,c2]=y.split('||'); return subjRank(s1)-subjRank(s2)||s1.localeCompare(s2)||order(s1,c1)-order(s2,c2)||c1.localeCompare(c2); });
+  $('#svList').innerHTML=qs.length?keys.map(k=>{ const [s,c]=k.split('||'); return '<details class="svgrp" open><summary><b>'+esc(s)+'</b> &middot; '+esc(c)+' <span class="muted">('+groups[k].length+')</span></summary><div class="svgb">'+groups[k].map(card).join('')+'</div></details>'; }).join(''):'<div class="muted">'+empty+'</div>';
+  hydrateZipImages($('#svList')); typeset($('#svList'));
 }
 
 /* ---------- events ---------- */
@@ -1236,6 +1282,14 @@ document.addEventListener('click',e=>{
   else if(b.dataset.q!=null && T && !T.over) goto(+b.dataset.q);
   else if(b.dataset.sec!=null && T && !T.over){ const k=+b.dataset.sec; goto(k===T.sec?T.cur:T.secs[k].idx[0]); }
   else if(b.dataset.f && lastResult) renderReview(b.dataset.f);
+  else if(b.id==='btnBm' && T && !T.over){ const q=T.qs[T.cur]; toggleBm(q.id); b.setAttribute('aria-pressed',String(BM.has(q.id))); b.title=BM.has(q.id)?'Remove bookmark':'Bookmark this question'; }
+  else if(b.dataset.bm){ toggleBm(b.dataset.bm); b.setAttribute('aria-pressed',String(BM.has(b.dataset.bm))); }
+  else if(b.id==='openSaved'){ $('#topMenu').open=false; renderSaved(); show('scrSaved'); }
+  else if(b.id==='svBack'){ show('scrSetup'); renderHist(); }
+  else if(b.dataset.svtab){ svTab=b.dataset.svtab; renderSaved(); }
+  else if(b.dataset.svrm){ svIds().delete(b.dataset.svrm); saveSet(svTab==='bm'?'aits_bookmarks':'aits_mistakes',svIds()); renderSaved(); }
+  else if(b.id==='svClear'){ if(svIds().size && confirm('Clear this whole list?')){ svIds().clear(); saveSet(svTab==='bm'?'aits_bookmarks':'aits_mistakes',svIds()); renderSaved(); } }
+  else if(b.id==='svPractice'){ const qs=svQuestions(); if(!qs.length) return; buildTest(qs,qs.length*3,cfg.preset,'AITS PRACTICE TEST '+today()+(svTab==='bm'?' BOOKMARKS':' MISTAKES')); renderInstr(); show('scrInstr'); }
   else if(b.id==='resNew'){ show('scrSetup'); renderHist(); }
   else if(b.id==='resRetry'){
     const redo=T.qs.filter((q,i)=>lastResult.res[i].r!=='ok');
@@ -1244,6 +1298,7 @@ document.addEventListener('click',e=>{
   }
 });
 $('#scrim').addEventListener('click',closeRail);
+document.addEventListener('click',e=>{ const m=$('#topMenu'); if(m&&m.open&&!m.contains(e.target)) m.open=false; });
 $('#tabs').addEventListener('scroll',updateTabArrows);
 window.addEventListener('resize',()=>{ if(T&&!$('#scrExam').hidden) updateTabArrows(); });
 const infoOf=e=>e.target&&e.target.closest?e.target.closest('.info'):null;
