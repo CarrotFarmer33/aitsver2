@@ -574,7 +574,7 @@ function hydrateZipImages(root){ if(root) root.querySelectorAll('img[data-zipimg
 
 const $ = s => document.querySelector(s);
 const rich = s => esc(s).replace(/\n/g,'<br>');
-const SUBJ = ['Physics','Chemistry'];
+const SUBJ = ['Physics','Chemistry','Mathematics'];
 const TYPES = {single:'Single correct', multi:'Multiple correct', numerical:'Numerical'};
 const QT = {single:'Multiple Choice', multi:'Multiple Choice (one or more correct)', numerical:'Numerical Value'};
 const SECLBL = {single:'MCQ', multi:'Multiple Correct', numerical:'Numerical'};
@@ -607,6 +607,7 @@ function normSubject(s){
   const t=String(s||'').toLowerCase();
   if(/phy/.test(t)) return 'Physics';
   if(/chem/.test(t)) return 'Chemistry';
+  if(/math|maths/.test(t)) return 'Mathematics';
   return 'Other';
 }
 function normType(t){
@@ -645,6 +646,11 @@ function parseNum(a){
   const m = String(a).replace(/,/g,'').match(/-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/);
   return m ? parseFloat(m[0]) : null;
 }
+function fixMathZipPath(value){
+  return String(value)
+    .replace(/(?:^|\/)out\/question_zips\//g, '/maths_output/question_zips/')
+    .replace(/(?:^|\/)out\/solution_zips\//g, '/maths_output/solution_zips/');
+}
 function normQuestion(q,i,defSubject){
   if(!q || typeof q!=='object') return null;
   const text = q.question!=null?q.question:(q.text!=null?q.text:(q.statement!=null?q.statement:''));
@@ -677,7 +683,7 @@ function normQuestion(q,i,defSubject){
     id:String(q.id!=null?q.id:(q.question_id!=null?q.question_id:('Q'+(i+1)))),
     subject, chapter, type, text:String(text), options, labelOnly, ans, tol, range, keyOk,
     solution:String(q.solution!=null?q.solution:(q.explanation||'')),
-    images:imgs.map(String), solImages:[].concat(q.solution_images||q.solutionImages||[]).filter(Boolean).map(String),
+    images:imgs.map(v=>fixMathZipPath(String(v))), solImages:[].concat(q.solution_images||q.solutionImages||[]).filter(Boolean).map(v=>fixMathZipPath(String(v))),
     source:String(q.source!=null?q.source:(q.source_paper!=null?q.source_paper:(q.paper!=null?q.paper:(q.test||'')))),
     paper:paperOf(String(q.source||'')+' '+String(q.paperTitle||q.paper_title||'')),
     year:yearOf(q)
@@ -1453,14 +1459,29 @@ applyBulkSelection('yrNone', '#yearBox', 'input[data-year]', cb => cb.dataset.ye
     }
     return null;
   }
-  const [phys, chem] = await Promise.all([
+  const [phys, chem, mathsMain, mathsAdvanced] = await Promise.all([
     fetchFirst(remote ? [remote, 'database.json'] : ['database.json']),
-    fetchFirst(chemRemote ? [chemRemote, 'chemistry_database.json'] : ['chemistry_database.json'])
+    fetchFirst(chemRemote ? [chemRemote, 'chemistry_database.json'] : ['chemistry_database.json']),
+    fetchFirst(['https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/maths_main_database.json']),
+    fetchFirst(['https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/maths_advanced_database.json'])
   ]);
   const parts = [phys, chem].filter(Boolean);
-  if(parts.length){
+  if(parts.length || mathsMain || mathsAdvanced){
     const all = parts.flatMap(x=>(extractList(x.raw)||[]).map(e=>e.q));
-    ok = loadDB(all, phys && phys.url===remote && remote ? 'Hugging Face database' : 'database.json', false);
+    for(const [source, subject] of [[mathsMain,'Mathematics'],[mathsAdvanced,'Mathematics']]){
+      if(!source) continue;
+      const rows=extractList(source.raw)||[];
+      rows.forEach(e=>{
+        const q=e.q && typeof e.q==='object' ? e.q : null;
+        if(q){
+          if(!q.subject) q.subject=subject;
+          // Keep the source's explicit exam metadata for the existing Paper selector.
+          if(!q.source && (q.exam||q.paperTitle||q.paper_title)) q.source=String(q.exam||q.paperTitle||q.paper_title);
+          all.push(q);
+        }
+      });
+    }
+    ok = loadDB(all, 'Physics, Chemistry and Mathematics databases', false);
   }
   if(!ok){
     $('#dbLabel').textContent='Database not loaded';
