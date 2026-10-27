@@ -6,7 +6,8 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 01 PDF",
       "file": "01_Units_Dimensions_Measurement.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/01_Units_Dimensions_Measurement.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/01_Units_Dimensions_Measurement.pdf",
+      "subject": "Physics"
     },
     {
       "number": 2,
@@ -14,7 +15,8 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 02 PDF",
       "file": "02_Kinematics.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/02_Kinematics.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/02_Kinematics.pdf",
+      "subject": "Physics"
     },
     {
       "number": 3,
@@ -22,7 +24,8 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 03 PDF",
       "file": "03_Laws_of_Motion.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/03_Laws_of_Motion.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/03_Laws_of_Motion.pdf",
+      "subject": "Physics"
     },
     {
       "number": 4,
@@ -30,7 +33,8 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 04 PDF",
       "file": "04_Work_Energy_Power.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/04_Work_Energy_Power.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/04_Work_Energy_Power.pdf",
+      "subject": "Physics"
     },
     {
       "number": 5,
@@ -38,7 +42,8 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 05 PDF",
       "file": "05_Centre_of_Mass_Momentum_Collisions.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/05_Centre_of_Mass_Momentum_Collisions.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/05_Centre_of_Mass_Momentum_Collisions.pdf",
+      "subject": "Physics"
     },
     {
       "number": 6,
@@ -46,7 +51,8 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 06 PDF",
       "file": "06_Rotational_Motion.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/06_Rotational_Motion.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/06_Rotational_Motion.pdf",
+      "subject": "Physics"
     },
     {
       "number": 7,
@@ -54,7 +60,8 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 07 PDF",
       "file": "07_Gravitation.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/07_Gravitation.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/07_Gravitation.pdf",
+      "subject": "Physics"
     },
     {
       "number": 8,
@@ -62,7 +69,8 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 08 PDF",
       "file": "08_Elasticity_Mechanical_Properties_of_Solids.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/08_Elasticity_Mechanical_Properties_of_Solids.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/08_Elasticity_Mechanical_Properties_of_Solids.pdf",
+      "subject": "Physics"
     },
     {
       "number": 9,
@@ -70,7 +78,8 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 09 PDF",
       "file": "09_Fluid_Mechanics.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/09_Fluid_Mechanics.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/09_Fluid_Mechanics.pdf",
+      "subject": "Physics"
     },
     {
       "number": 10,
@@ -78,7 +87,8 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 10 PDF",
       "file": "10_Thermal_Properties_Heat_Transfer.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/10_Thermal_Properties_Heat_Transfer.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/10_Thermal_Properties_Heat_Transfer.pdf",
+      "subject": "Physics"
     },
     {
       "number": 11,
@@ -86,7 +96,8 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 11 PDF",
       "file": "11_Kinetic_Theory_of_Gases.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/11_Kinetic_Theory_of_Gases.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/11_Kinetic_Theory_of_Gases.pdf",
+      "subject": "Physics"
     },
     {
       "number": 12,
@@ -94,7 +105,8 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 12 PDF",
       "file": "12_Thermodynamics.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/12_Thermodynamics.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/12_Thermodynamics.pdf",
+      "subject": "Physics"
     },
     {
       "number": 13,
@@ -102,7 +114,8 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 13 PDF",
       "file": "13_Oscillations_SHM.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/13_Oscillations_SHM.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/13_Oscillations_SHM.pdf",
+      "subject": "Physics"
     },
     {
       "number": 14,
@@ -110,7 +123,8 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 14 PDF",
       "file": "14_Waves_Sound.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/14_Waves_Sound.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/14_Waves_Sound.pdf",
+      "subject": "Physics"
     },
     {
       "number": 15,
@@ -118,7 +132,8 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 15 PDF",
       "file": "15_Electrostatics.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/15_Electrostatics.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/15_Electrostatics.pdf",
+      "subject": "Physics"
     },
     {
       "number": 16,
@@ -126,7 +141,8 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 16 PDF",
       "file": "16_Capacitance.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/16_Capacitance.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/16_Capacitance.pdf",
+      "subject": "Physics"
     },
     {
       "number": 17,
@@ -134,7 +150,8 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 17 PDF",
       "file": "17_Current_Electricity.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/17_Current_Electricity.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/17_Current_Electricity.pdf",
+      "subject": "Physics"
     },
     {
       "number": 18,
@@ -142,7 +159,8 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 18 PDF",
       "file": "18_Moving_Charges_Magnetism.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/18_Moving_Charges_Magnetism.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/18_Moving_Charges_Magnetism.pdf",
+      "subject": "Physics"
     },
     {
       "number": 19,
@@ -150,7 +168,8 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 19 PDF",
       "file": "19_Magnetism_Matter.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/19_Magnetism_Matter.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/19_Magnetism_Matter.pdf",
+      "subject": "Physics"
     },
     {
       "number": 20,
@@ -158,7 +177,8 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 20 PDF",
       "file": "20_Electromagnetic_Induction.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/20_Electromagnetic_Induction.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/20_Electromagnetic_Induction.pdf",
+      "subject": "Physics"
     },
     {
       "number": 21,
@@ -166,7 +186,8 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 21 PDF",
       "file": "21_Alternating_Current.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/21_Alternating_Current.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/21_Alternating_Current.pdf",
+      "subject": "Physics"
     },
     {
       "number": 22,
@@ -174,7 +195,8 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 22 PDF",
       "file": "22_Electromagnetic_Waves.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/22_Electromagnetic_Waves.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/22_Electromagnetic_Waves.pdf",
+      "subject": "Physics"
     },
     {
       "number": 23,
@@ -182,7 +204,8 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 23 PDF",
       "file": "23_Ray_Optics_Optical_Instruments.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/23_Ray_Optics_Optical_Instruments.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/23_Ray_Optics_Optical_Instruments.pdf",
+      "subject": "Physics"
     },
     {
       "number": 24,
@@ -190,7 +213,8 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 24 PDF",
       "file": "24_Wave_Optics.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/24_Wave_Optics.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/24_Wave_Optics.pdf",
+      "subject": "Physics"
     },
     {
       "number": 25,
@@ -198,7 +222,8 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 25 PDF",
       "file": "25_Dual_Nature_of_Matter_Radiation.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/25_Dual_Nature_of_Matter_Radiation.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/25_Dual_Nature_of_Matter_Radiation.pdf",
+      "subject": "Physics"
     },
     {
       "number": 26,
@@ -206,7 +231,323 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 26 PDF",
       "file": "26_Atoms_Nuclei_Semiconductor_Electronics.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/26_Atoms_Nuclei_Semiconductor_Electronics.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/26_Atoms_Nuclei_Semiconductor_Electronics.pdf",
+      "subject": "Physics"
+    },
+    {
+      "number": 1,
+      "title": "Some Basic Concepts of Chemistry",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 01 PDF",
+      "file": "01_Some_Basic_Concepts_of_Chemistry.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/01_Some_Basic_Concepts_of_Chemistry.pdf"
+    },
+    {
+      "number": 2,
+      "title": "Atomic Structure",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 02 PDF",
+      "file": "02_Atomic_Structure.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/02_Atomic_Structure.pdf"
+    },
+    {
+      "number": 3,
+      "title": "Periodic Table & Periodicity",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 03 PDF",
+      "file": "03_Periodic_Table_Periodicity.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/03_Periodic_Table_Periodicity.pdf"
+    },
+    {
+      "number": 4,
+      "title": "Chemical Bonding & Molecular Structure",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 04 PDF",
+      "file": "04_Chemical_Bonding_Molecular_Structure.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/04_Chemical_Bonding_Molecular_Structure.pdf"
+    },
+    {
+      "number": 5,
+      "title": "Gaseous State",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 05 PDF",
+      "file": "05_Gaseous_State.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/05_Gaseous_State.pdf"
+    },
+    {
+      "number": 6,
+      "title": "Solid State",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 06 PDF",
+      "file": "06_Solid_State.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/06_Solid_State.pdf"
+    },
+    {
+      "number": 7,
+      "title": "Thermodynamics (Chemical)",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 07 PDF",
+      "file": "07_Thermodynamics_Chemical.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/07_Thermodynamics_Chemical.pdf"
+    },
+    {
+      "number": 8,
+      "title": "Thermochemistry",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 08 PDF",
+      "file": "08_Thermochemistry.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/08_Thermochemistry.pdf"
+    },
+    {
+      "number": 9,
+      "title": "Chemical Equilibrium",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 09 PDF",
+      "file": "09_Chemical_Equilibrium.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/09_Chemical_Equilibrium.pdf"
+    },
+    {
+      "number": 10,
+      "title": "Ionic Equilibrium",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 10 PDF",
+      "file": "10_Ionic_Equilibrium.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/10_Ionic_Equilibrium.pdf"
+    },
+    {
+      "number": 11,
+      "title": "Redox Reactions",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 11 PDF",
+      "file": "11_Redox_Reactions.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/11_Redox_Reactions.pdf"
+    },
+    {
+      "number": 12,
+      "title": "Electrochemistry",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 12 PDF",
+      "file": "12_Electrochemistry.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/12_Electrochemistry.pdf"
+    },
+    {
+      "number": 13,
+      "title": "Chemical Kinetics",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 13 PDF",
+      "file": "13_Chemical_Kinetics.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/13_Chemical_Kinetics.pdf"
+    },
+    {
+      "number": 14,
+      "title": "Liquid Solutions & Colligative Properties",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 14 PDF",
+      "file": "14_Liquid_Solutions_Colligative_Properties.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/14_Liquid_Solutions_Colligative_Properties.pdf"
+    },
+    {
+      "number": 15,
+      "title": "Surface Chemistry",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 15 PDF",
+      "file": "15_Surface_Chemistry.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/15_Surface_Chemistry.pdf"
+    },
+    {
+      "number": 16,
+      "title": "Nuclear Chemistry",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 16 PDF",
+      "file": "16_Nuclear_Chemistry.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/16_Nuclear_Chemistry.pdf"
+    },
+    {
+      "number": 17,
+      "title": "Hydrogen",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 17 PDF",
+      "file": "17_Hydrogen.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/17_Hydrogen.pdf"
+    },
+    {
+      "number": 18,
+      "title": "s-Block Elements",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 18 PDF",
+      "file": "18_s_Block_Elements.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/18_s_Block_Elements.pdf"
+    },
+    {
+      "number": 19,
+      "title": "p-Block Elements: Group 13 (Boron family) & Group 14 (Carbon family)",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 19 PDF",
+      "file": "19_p_Block_Elements_Group_13_Boron_family_Group_14_Carbon_family.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/19_p_Block_Elements_Group_13_Boron_family_Group_14_Carbon_family.pdf"
+    },
+    {
+      "number": 20,
+      "title": "p-Block Elements: Group 15 (Nitrogen family) & Group 16 (Oxygen family)",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 20 PDF",
+      "file": "20_p_Block_Elements_Group_15_Nitrogen_family_Group_16_Oxygen_family.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/20_p_Block_Elements_Group_15_Nitrogen_family_Group_16_Oxygen_family.pdf"
+    },
+    {
+      "number": 21,
+      "title": "p-Block Elements: Group 17 (Halogens) & Group 18 (Noble gases)",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 21 PDF",
+      "file": "21_p_Block_Elements_Group_17_Halogens_Group_18_Noble_gases.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/21_p_Block_Elements_Group_17_Halogens_Group_18_Noble_gases.pdf"
+    },
+    {
+      "number": 22,
+      "title": "d- and f-Block Elements",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 22 PDF",
+      "file": "22_d_and_f_Block_Elements.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/22_d_and_f_Block_Elements.pdf"
+    },
+    {
+      "number": 23,
+      "title": "Coordination Compounds",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 23 PDF",
+      "file": "23_Coordination_Compounds.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/23_Coordination_Compounds.pdf"
+    },
+    {
+      "number": 24,
+      "title": "Principles & Processes of Isolation of Metals (Metallurgy)",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 24 PDF",
+      "file": "24_Principles_Processes_of_Isolation_of_Metals_Metallurgy.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/24_Principles_Processes_of_Isolation_of_Metals_Metallurgy.pdf"
+    },
+    {
+      "number": 25,
+      "title": "Qualitative Salt Analysis",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 25 PDF",
+      "file": "25_Qualitative_Salt_Analysis.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/25_Qualitative_Salt_Analysis.pdf"
+    },
+    {
+      "number": 26,
+      "title": "General Organic Chemistry (GOC)",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 26 PDF",
+      "file": "26_General_Organic_Chemistry_GOC.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/26_General_Organic_Chemistry_GOC.pdf"
+    },
+    {
+      "number": 27,
+      "title": "Isomerism (Structural & Stereoisomerism)",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 27 PDF",
+      "file": "27_Isomerism_Structural_Stereoisomerism.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/27_Isomerism_Structural_Stereoisomerism.pdf"
+    },
+    {
+      "number": 28,
+      "title": "Hydrocarbons",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 28 PDF",
+      "file": "28_Hydrocarbons.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/28_Hydrocarbons.pdf"
+    },
+    {
+      "number": 29,
+      "title": "Haloalkanes & Haloarenes",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 29 PDF",
+      "file": "29_Haloalkanes_Haloarenes.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/29_Haloalkanes_Haloarenes.pdf"
+    },
+    {
+      "number": 30,
+      "title": "Alcohols, Phenols & Ethers",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 30 PDF",
+      "file": "30_Alcohols_Phenols_Ethers.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/30_Alcohols_Phenols_Ethers.pdf"
+    },
+    {
+      "number": 31,
+      "title": "Aldehydes, Ketones & Carboxylic Acids",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 31 PDF",
+      "file": "31_Aldehydes_Ketones_Carboxylic_Acids.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/31_Aldehydes_Ketones_Carboxylic_Acids.pdf"
+    },
+    {
+      "number": 32,
+      "title": "Amines & Diazonium Salts",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 32 PDF",
+      "file": "32_Amines_Diazonium_Salts.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/32_Amines_Diazonium_Salts.pdf"
+    },
+    {
+      "number": 33,
+      "title": "Biomolecules",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 33 PDF",
+      "file": "33_Biomolecules.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/33_Biomolecules.pdf"
+    },
+    {
+      "number": 34,
+      "title": "Polymers",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 34 PDF",
+      "file": "34_Polymers.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/34_Polymers.pdf"
+    },
+    {
+      "number": 35,
+      "title": "Chemistry in Everyday Life",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "description": "Chapter 35 PDF",
+      "file": "35_Chemistry_in_Everyday_Life.pdf",
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/35_Chemistry_in_Everyday_Life.pdf"
     }
   ]
 }
