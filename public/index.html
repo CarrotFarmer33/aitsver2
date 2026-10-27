@@ -46,6 +46,7 @@ button{cursor:pointer}
 .tool{display:flex;align-items:center;gap:6px;background:none;border:0;color:#fff;font-size:12px;padding:2px 0}
 .tool svg{flex:none}
 .menu{position:relative}.menu summary{list-style:none;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center}.menu summary::-webkit-details-marker{display:none}
+.menuSep{border:0;border-top:1px solid var(--line);margin:2px 0;width:100%}
 .menuList{position:absolute;right:0;top:calc(100% + 6px);z-index:50;display:flex;flex-direction:column;gap:6px;min-width:170px;padding:8px;background:var(--surface);border:1px solid var(--line);border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
 .topbar .menuList .btn{background:var(--surface);color:var(--fg);border-color:var(--line);justify-content:flex-start;text-align:left;text-decoration:none;display:flex;align-items:center;min-height:34px;font-size:13px}
 .topbar .menuList .btn:hover{background:var(--surface-2)}
@@ -378,7 +379,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 </style>
 
 <div id="scrSetup" class="screen">
-  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Portal &ndash; chapter-wise question practice</span><details class="menu" id="topMenu"><summary class="btn sm">Menu &#9662;</summary><div class="menuList"><button class="btn sm" id="openSaved" type="button">Saved questions</button><a class="btn sm" href="changelog.html">Changelog</a><a class="btn sm" href="downloads.html">Downloads</a></div></details></div></div>
+  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Portal &ndash; chapter-wise question practice</span><details class="menu" id="topMenu"><summary class="btn sm">Menu &#9662;</summary><div class="menuList"><button class="btn sm" id="openSaved" type="button">Saved questions</button><a class="btn sm" href="changelog.html">Changelog</a><a class="btn sm" href="downloads.html">Downloads</a><hr class="menuSep"><button class="btn sm" id="expData" type="button">Export my data</button><button class="btn sm" id="impData" type="button">Import data</button><input type="file" id="impFile" accept=".json,application/json" hidden></div></details></div></div>
   <main class="wrap setup">
     <section class="card" id="dbCard" hidden style="display:none">
       <div class="dbrow">
@@ -1255,10 +1256,33 @@ function downloadReviewPdf(){
   Promise.race([Promise.all(imgs.map(i=>new Promise(r=>{ i.addEventListener('load',r); i.addEventListener('error',r); }))),new Promise(r=>setTimeout(r,4000))]).then(()=>setTimeout(()=>window.print(),100));
 }
 
+/* ---------- export / import of saved data ---------- */
+function exportData(){
+  const data={};
+  try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(k&&k.indexOf('aits_')===0) data[k]=localStorage.getItem(k); } }catch(e){}
+  const out={app:'aits-practice-portal',version:1,exported:new Date().toISOString(),data};
+  const blob=new Blob([JSON.stringify(out,null,1)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='aits-data-'+new Date().toISOString().slice(0,10)+'.json';
+  document.body.appendChild(a); a.click(); setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); },500);
+}
+function infoModal(title,body){ openModal('<h2>'+esc(title)+'</h2><p style="margin:0">'+body+'</p><div class="row"><button class="btn primary" id="mNo" type="button">Close</button></div>',()=>{ $('#mNo').onclick=closeModal; }); }
+function importData(text){
+  let o; try{ o=JSON.parse(text); }catch(e){ return infoModal('Import failed','That file is not valid JSON.'); }
+  const d=o&&o.app==='aits-practice-portal'&&o.data&&typeof o.data==='object'?o.data:null;
+  if(!d) return infoModal('Import failed','That does not look like a file exported from this site.');
+  const ids=['aits_bookmarks','aits_mistakes','aits_attempted'], nb=BM.size, nm=MIS.size, na=ATT.size;
+  ids.forEach(k=>{ try{ const add=JSON.parse(d[k]||'[]'); if(Array.isArray(add)){ const S=k==='aits_bookmarks'?BM:k==='aits_mistakes'?MIS:ATT; add.forEach(x=>{ if(typeof x==='string') S.add(x); }); store.set(k,JSON.stringify([...S])); } }catch(e){} });
+  try{ const add=JSON.parse(d.aits_hist||'[]'); if(Array.isArray(add)){ let h=[]; try{ h=JSON.parse(store.get('aits_hist')||'[]'); }catch(e){} const seen=new Set(h.map(x=>x.t)); add.forEach(x=>{ if(x&&!seen.has(x.t)) h.push(x); }); h.sort((a,b)=>b.t-a.t); store.set('aits_hist',JSON.stringify(h.slice(0,20))); } }catch(e){}
+  Object.keys(d).forEach(k=>{ if(k.indexOf('aits_')===0 && !ids.includes(k) && k!=='aits_hist' && store.get(k)==null && typeof d[k]==='string') store.set(k,d[k]); });
+  renderHist(); renderSetup();
+  infoModal('Import complete','Added '+(BM.size-nb)+' bookmarks, '+(MIS.size-nm)+' mistakes and '+(ATT.size-na)+' seen questions. Your existing data was kept.');
+}
+
 /* ---------- events ---------- */
 document.addEventListener('change',e=>{
   const t=e.target;
-  if(t.id==='svYearSel'){ svYear=t.value; renderSaved(); }
+  if(t.id==='impFile'){ const f=t.files&&t.files[0]; if(f){ const r=new FileReader(); r.onload=()=>importData(String(r.result)); r.readAsText(f); } t.value=''; }
+  else if(t.id==='svYearSel'){ svYear=t.value; renderSaved(); }
   else if(t.name==='subj'){
     if(t.checked) cfg.subjects.add(t.value); else if(cfg.subjects.size>1) cfg.subjects.delete(t.value);
     const all=DB.filter(q=>q.subject===t.value).map(q=>q.subject+'||'+q.chapter);
@@ -1338,6 +1362,8 @@ document.addEventListener('click',e=>{
   else if(b.dataset.f && lastResult) renderReview(b.dataset.f);
   else if(b.id==='btnBm' && T && !T.over){ const q=T.qs[T.cur]; toggleBm(q.id); b.setAttribute('aria-pressed',String(BM.has(q.id))); b.title=BM.has(q.id)?'Remove bookmark':'Bookmark this question'; }
   else if(b.dataset.bm){ toggleBm(b.dataset.bm); b.setAttribute('aria-pressed',String(BM.has(b.dataset.bm))); }
+  else if(b.id==='expData'){ $('#topMenu').open=false; exportData(); }
+  else if(b.id==='impData'){ $('#topMenu').open=false; $('#impFile').click(); }
   else if(b.id==='openSaved'){ $('#topMenu').open=false; svChap=null; svPick(); renderSaved(); show('scrSaved'); }
   else if(b.id==='svBack'){ if(svChap){ svChap=null; renderSaved(); } else { show('scrSetup'); renderHist(); } }
   else if(b.dataset.svtab){ svTab=b.dataset.svtab; svChap=null; svPaper='all'; svYear='all'; svPick(); renderSaved(); }
