@@ -207,6 +207,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 #scrExam .xqbtns{display:flex;gap:8px;align-items:center}
 #scrExam .rb.bm{color:var(--x-ink)}#scrExam .rb.bm[aria-pressed=true],.bmb[aria-pressed=true]{color:#e0a100}#scrExam .rb.bm[aria-pressed=true] path,.bmb[aria-pressed=true] path{fill:currentColor}
 .bmb{display:inline-grid;place-items:center;width:26px;height:26px;padding:0;border:0;background:transparent;color:var(--muted);cursor:pointer}
+.svchaps{display:flex;flex-direction:column;gap:8px}.svchap{display:flex;justify-content:space-between;align-items:center;gap:12px;text-align:left;background:var(--surface);color:var(--fg);border:1px solid var(--line);border-radius:4px;padding:11px 14px;font:inherit;cursor:pointer}.svchap:hover{border-color:#286ac7}.svchap b{background:var(--surface-2);border-radius:99px;padding:1px 10px;font-size:13px}
 .svgrp>summary{cursor:pointer;font-size:15px;padding:8px 2px;position:sticky;top:0;background:var(--bg);z-index:1}.svgb{display:flex;flex-direction:column;gap:12px;margin:6px 0 14px}
 .svtabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}.svtabs .btn[aria-pressed=true]{background:#286ac7;color:#fff;border-color:transparent}
 #scrExam .rb.up{position:absolute;right:26px;bottom:25%;z-index:2}
@@ -504,7 +505,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 <div id="scrSaved" class="screen" hidden>
   <div class="topbar"><div class="tb-in"><span class="tb-title">Saved questions</span>
     <span style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" id="svPractice" type="button">Practice these</button><button class="btn sm" id="svBack" type="button">Back</button></span></div></div>
-  <main class="wrap res"><div class="svtabs" id="svTabs"></div><div id="svList" style="display:flex;flex-direction:column;gap:12px"></div></main>
+  <main class="wrap res" id="svBody"></main>
 </div>
 
 <div id="scrRes" class="screen" hidden>
@@ -1179,33 +1180,60 @@ function renderReview(f){
 }
 
 /* ---------- saved questions ---------- */
-let svTab='bm';
+let svTab='bm', svSubj='Physics', svChap=null, svPaper='all', svYear='all';
 function svIds(){ return svTab==='bm'?BM:MIS; }
-function svQuestions(){ const m=new Map(DB.map(q=>[q.id,q])); return [...svIds()].map(id=>m.get(id)).filter(Boolean); }
+function svAll(){ const m=new Map(DB.map(q=>[q.id,q])); return [...svIds()].map(id=>m.get(id)).filter(Boolean); }
+function svQuestions(){
+  return svAll().filter(q=>q.subject===svSubj && (!svChap||q.chapter===svChap) && (svPaper==='all'||q.paper===svPaper) && (svYear==='all'||String(q.year)===svYear));
+}
+const svCard=q=>{
+  let ob='';
+  if(q.type!=='numerical' && q.options) ob='<div style="display:flex;flex-direction:column;gap:6px">'+q.options.map((o,k)=>{ const corr=q.keyOk&&q.ans.includes(k); return '<div class="ropt'+(corr?' corr':'')+'"><b>'+LET[k]+'.</b><span style="min-width:0;overflow-wrap:anywhere">'+(q.labelOnly?'':rich(o))+'</span></div>'; }).join('')+'</div>';
+  return '<article class="rv"><header><span>'+esc(QTS[q.type]||q.type)+'</span><span>'+esc(q.paper==='main'?'JEE Main':'JEE Advanced')+(q.year?' '+esc(q.year):'')+'</span><span>'+esc(q.paperTitle||'')+'</span><button class="btn sm" data-svrm="'+esc(q.id)+'" type="button" style="margin-left:auto">Remove</button></header>'+
+    '<div class="qtext">'+rich(q.text)+'</div>'+q.images.map(u=>imageMarkup(u,'Question figure')).join('')+ob+
+    '<div>Correct answer: <b>'+esc(keyText(q))+'</b></div>'+
+    ((q.solution||q.solImages.length)?'<details><summary>Solution</summary><div style="margin-top:8px">'+rich(q.solution)+q.solImages.map(u=>imageMarkup(u,'Solution figure')).join('')+'</div></details>':'')+'</article>';
+};
+function svOrder(subj,ch){ const segs=SEGMENTS[subj]||[]; let n=0; for(const g of segs){ const i=g.chapters.indexOf(ch); if(i>=0) return n+i; n+=g.chapters.length; } return 9999; }
+function svPick(){ const all=svAll(); if(!all.some(q=>q.subject===svSubj)){ const s=SUBJ.find(x=>all.some(q=>q.subject===x)); if(s) svSubj=s; } }
 function renderSaved(){
-  $('#svTabs').innerHTML=[['bm','Bookmarked',BM.size],['mis','Mistakes',MIS.size]].map(x=>'<button class="btn sm" data-svtab="'+x[0]+'" aria-pressed="'+(svTab===x[0])+'" type="button">'+x[1]+' ('+x[2]+')</button>').join('')+'<button class="btn sm" id="svClear" type="button" style="margin-left:auto">Clear this list</button>';
-  const qs=svQuestions();
+  const all=svAll(), subs=SUBJ.filter(s=>DB.some(q=>q.subject===s));
+  if(!subs.includes(svSubj)) svSubj=subs[0];
+  const cnt=s=>all.filter(q=>q.subject===s).length;
+  const btn=(attr,val,label,on)=>'<button class="btn sm" data-'+attr+'="'+esc(val)+'" aria-pressed="'+on+'" type="button">'+label+'</button>';
+  let h='<div class="svtabs">'+btn('svtab','bm','Bookmarked ('+BM.size+')',svTab==='bm')+btn('svtab','mis','Mistakes ('+MIS.size+')',svTab==='mis')+'<button class="btn sm" id="svClear" type="button" style="margin-left:auto">Clear this list</button></div>';
+  h+='<div class="svtabs">'+subs.map(s=>btn('svsubj',s,esc(s)+' ('+cnt(s)+')',svSubj===s)).join('')+'</div>';
+  const inSubj=all.filter(q=>q.subject===svSubj);
+  const empty=svTab==='bm'?'No bookmarks here yet. Use the star on a question during a test, or on the result review page.':'No mistakes here yet. Questions you get wrong in a test are saved here, and removed once you answer them correctly.';
+  let qs=[];
+  if(!svChap){
+    const g={}; inSubj.forEach(q=>{ g[q.chapter]=(g[q.chapter]||0)+1; });
+    const keys=Object.keys(g).sort((a,b)=>svOrder(svSubj,a)-svOrder(svSubj,b)||a.localeCompare(b));
+    h+=keys.length?'<div class="svchaps">'+keys.map(c=>'<button class="svchap" data-svchap="'+esc(c)+'" type="button"><span>'+esc(c)+'</span><b>'+g[c]+'</b></button>').join('')+'</div>':'<div class="muted">'+empty+'</div>';
+    qs=inSubj;
+  } else {
+    const inCh=inSubj.filter(q=>q.chapter===svChap);
+    if(!inCh.length){ svChap=null; return renderSaved(); }
+    const years=[...new Set(inCh.map(q=>q.year).filter(Boolean))].sort((a,b)=>b-a);
+    if(svYear!=='all' && !years.map(String).includes(svYear)) svYear='all';
+    const pc={main:0,adv:0}; inCh.forEach(q=>{ if(pc[q.paper]!=null) pc[q.paper]++; });
+    h+='<div class="svtabs"><button class="btn sm" id="svUp" type="button">&larr; All chapters</button><b style="align-self:center">'+esc(svChap)+'</b></div>';
+    h+='<div class="svtabs">'+[['all','All papers'],['main','JEE Main ('+pc.main+')'],['adv','JEE Advanced ('+pc.adv+')']].map(x=>btn('svpaper',x[0],x[1],svPaper===x[0])).join('')+
+       '<select id="svYearSel" aria-label="Year" class="btn sm"><option value="all">All years</option>'+years.map(y=>'<option value="'+y+'"'+(svYear===String(y)?' selected':'')+'>'+y+'</option>').join('')+'</select></div>';
+    qs=svQuestions();
+    h+='<div id="svCards" style="display:flex;flex-direction:column;gap:12px">'+(qs.length?qs.map(svCard).join(''):'<div class="muted">Nothing matches these filters.</div>')+'</div>';
+  }
+  $('#svBody').innerHTML=h;
   $('#svPractice').disabled=!qs.length;
-  const empty=svTab==='bm'?'No bookmarks yet. Use the star on a question during a test, or on the result review page.':'No mistakes yet. Questions you get wrong in a test are saved here, and removed once you answer them correctly.';
-  const card=q=>{
-    let ob='';
-    if(q.type!=='numerical' && q.options) ob='<div style="display:flex;flex-direction:column;gap:6px">'+q.options.map((o,k)=>{ const corr=q.keyOk&&q.ans.includes(k); return '<div class="ropt'+(corr?' corr':'')+'"><b>'+LET[k]+'.</b><span style="min-width:0;overflow-wrap:anywhere">'+(q.labelOnly?'':rich(o))+'</span></div>'; }).join('')+'</div>';
-    return '<article class="rv"><header><span>'+esc(QTS[q.type]||q.type)+'</span><span>'+esc(q.paperTitle||q.source||'')+'</span><button class="btn sm" data-svrm="'+esc(q.id)+'" type="button" style="margin-left:auto">Remove</button></header>'+
-      '<div class="qtext">'+rich(q.text)+'</div>'+q.images.map(u=>imageMarkup(u,'Question figure')).join('')+ob+
-      '<div>Correct answer: <b>'+esc(keyText(q))+'</b></div>'+
-      ((q.solution||q.solImages.length)?'<details><summary>Solution</summary><div style="margin-top:8px">'+rich(q.solution)+q.solImages.map(u=>imageMarkup(u,'Solution figure')).join('')+'</div></details>':'')+'</article>';
-  };
-  const order=(subj,ch)=>{ const segs=SEGMENTS[subj]||[]; let n=0; for(const g of segs){ const i=g.chapters.indexOf(ch); if(i>=0) return n+i; n+=g.chapters.length; } return 9999; };
-  const groups={}; qs.forEach(q=>{ (groups[q.subject+'||'+q.chapter]=groups[q.subject+'||'+q.chapter]||[]).push(q); });
-  const keys=Object.keys(groups).sort((x,y)=>{ const [s1,c1]=x.split('||'), [s2,c2]=y.split('||'); return subjRank(s1)-subjRank(s2)||s1.localeCompare(s2)||order(s1,c1)-order(s2,c2)||c1.localeCompare(c2); });
-  $('#svList').innerHTML=qs.length?keys.map(k=>{ const [s,c]=k.split('||'); return '<details class="svgrp" open><summary><b>'+esc(s)+'</b> &middot; '+esc(c)+' <span class="muted">('+groups[k].length+')</span></summary><div class="svgb">'+groups[k].map(card).join('')+'</div></details>'; }).join(''):'<div class="muted">'+empty+'</div>';
-  hydrateZipImages($('#svList')); typeset($('#svList'));
+  $('#svPractice').textContent=svChap?'Practice this chapter':'Practice '+svSubj;
+  hydrateZipImages($('#svBody')); typeset($('#svBody'));
 }
 
 /* ---------- events ---------- */
 document.addEventListener('change',e=>{
   const t=e.target;
-  if(t.name==='subj'){
+  if(t.id==='svYearSel'){ svYear=t.value; renderSaved(); }
+  else if(t.name==='subj'){
     if(t.checked) cfg.subjects.add(t.value); else if(cfg.subjects.size>1) cfg.subjects.delete(t.value);
     const all=DB.filter(q=>q.subject===t.value).map(q=>q.subject+'||'+q.chapter);
     if(cfg.subjects.has(t.value)) all.forEach(k=>cfg.chapters.add(k)); else all.forEach(k=>cfg.chapters.delete(k));
@@ -1284,12 +1312,16 @@ document.addEventListener('click',e=>{
   else if(b.dataset.f && lastResult) renderReview(b.dataset.f);
   else if(b.id==='btnBm' && T && !T.over){ const q=T.qs[T.cur]; toggleBm(q.id); b.setAttribute('aria-pressed',String(BM.has(q.id))); b.title=BM.has(q.id)?'Remove bookmark':'Bookmark this question'; }
   else if(b.dataset.bm){ toggleBm(b.dataset.bm); b.setAttribute('aria-pressed',String(BM.has(b.dataset.bm))); }
-  else if(b.id==='openSaved'){ $('#topMenu').open=false; renderSaved(); show('scrSaved'); }
-  else if(b.id==='svBack'){ show('scrSetup'); renderHist(); }
-  else if(b.dataset.svtab){ svTab=b.dataset.svtab; renderSaved(); }
+  else if(b.id==='openSaved'){ $('#topMenu').open=false; svChap=null; svPick(); renderSaved(); show('scrSaved'); }
+  else if(b.id==='svBack'){ if(svChap){ svChap=null; renderSaved(); } else { show('scrSetup'); renderHist(); } }
+  else if(b.dataset.svtab){ svTab=b.dataset.svtab; svChap=null; svPaper='all'; svYear='all'; svPick(); renderSaved(); }
+  else if(b.dataset.svsubj){ svSubj=b.dataset.svsubj; svChap=null; svPaper='all'; svYear='all'; renderSaved(); }
+  else if(b.dataset.svchap){ svChap=b.dataset.svchap; svPaper='all'; svYear='all'; renderSaved(); window.scrollTo(0,0); }
+  else if(b.id==='svUp'){ svChap=null; renderSaved(); }
+  else if(b.dataset.svpaper){ svPaper=b.dataset.svpaper; renderSaved(); }
   else if(b.dataset.svrm){ svIds().delete(b.dataset.svrm); saveSet(svTab==='bm'?'aits_bookmarks':'aits_mistakes',svIds()); renderSaved(); }
   else if(b.id==='svClear'){ if(svIds().size && confirm('Clear this whole list?')){ svIds().clear(); saveSet(svTab==='bm'?'aits_bookmarks':'aits_mistakes',svIds()); renderSaved(); } }
-  else if(b.id==='svPractice'){ const qs=svQuestions(); if(!qs.length) return; buildTest(qs,qs.length*3,cfg.preset,'AITS PRACTICE TEST '+today()+(svTab==='bm'?' BOOKMARKS':' MISTAKES')); renderInstr(); show('scrInstr'); }
+  else if(b.id==='svPractice'){ const qs=svChap?svQuestions():svAll().filter(q=>q.subject===svSubj); if(!qs.length) return; buildTest(qs,qs.length*3,cfg.preset,'AITS PRACTICE TEST '+today()+(svTab==='bm'?' BOOKMARKS':' MISTAKES')); renderInstr(); show('scrInstr'); }
   else if(b.id==='resNew'){ show('scrSetup'); renderHist(); }
   else if(b.id==='resRetry'){
     const redo=T.qs.filter((q,i)=>lastResult.res[i].r!=='ok');
