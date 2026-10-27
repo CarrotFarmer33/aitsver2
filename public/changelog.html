@@ -15,7 +15,7 @@
 .empty{color:var(--muted)}
 </style></head><body>
 <header class="top"><div class="brand">AITS Practice Portal</div><a class="back" href="/index.html">← Practice portal</a></header>
-<main class="wrap"><h1>Changelog</h1><p class="sub">What changed on the site, newest first.</p><div id="list"><p class="empty">Loading…</p></div></main>
+<main class="wrap"><h1>Changelog</h1><p class="sub">Stuff I've changed/added.</p><div id="list"><p class="empty">Loading…</p></div></main>
 <script>
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 fetch('changelog.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
