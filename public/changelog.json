@@ -12,17 +12,6 @@
         "Chemistry questions without an answer key are hidden for now.",
         "Added this changelog page."
       ]
-    },
-    {
-      "date": "2026-10-20",
-      "title": "TCS-style exam interface",
-      "tag": "Improved",
-      "changes": [
-        "New exam screen modelled on the real CBT, with Light and Dark themes under Accessibility.",
-        "Bigger question images and preview, with no width cap.",
-        "Answers are saved only on Save & Next; the palette stays red until saved, then turns green.",
-        "Right-click is blocked on the test screen."
-      ]
-    }
+    }     
   ]
 }
