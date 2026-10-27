@@ -1,0 +1,28 @@
+{
+  "_how_to_add": "Add a new object at the TOP of the 'entries' list. Fields: date (YYYY-MM-DD), title, tag (New | Improved | Fixed), changes (list of lines). Save and push; the page updates by itself.",
+  "entries": [
+    {
+      "date": "2026-10-27",
+      "title": "Chemistry, seen-question tracking and multi-subject tests",
+      "tag": "New",
+      "changes": [
+        "Added the Chemistry question bank with Physical, Inorganic and Organic chapter groups.",
+        "Pick Physics, Chemistry or both in one test.",
+        "Questions you have already seen are remembered and new ones are shown first (with a Reset button).",
+        "Chemistry questions without an answer key are hidden for now.",
+        "Added this changelog page."
+      ]
+    },
+    {
+      "date": "2026-10-20",
+      "title": "TCS-style exam interface",
+      "tag": "Improved",
+      "changes": [
+        "New exam screen modelled on the real CBT, with Light and Dark themes under Accessibility.",
+        "Bigger question images and preview, with no width cap.",
+        "Answers are saved only on Save & Next; the palette stays red until saved, then turns green.",
+        "Right-click is blocked on the test screen."
+      ]
+    }
+  ]
+}
