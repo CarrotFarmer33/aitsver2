@@ -241,7 +241,7 @@
       "subject": "Chemistry",
       "description": "Chapter 01 PDF",
       "file": "01_Some_Basic_Concepts_of_Chemistry.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/01_Some_Basic_Concepts_of_Chemistry.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/01_Some_Basic_Concepts_of_Chemistry.pdf"
     },
     {
       "number": 2,
@@ -250,7 +250,7 @@
       "subject": "Chemistry",
       "description": "Chapter 02 PDF",
       "file": "02_Atomic_Structure.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/02_Atomic_Structure.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/02_Atomic_Structure.pdf"
     },
     {
       "number": 3,
@@ -259,7 +259,7 @@
       "subject": "Chemistry",
       "description": "Chapter 03 PDF",
       "file": "03_Periodic_Table_Periodicity.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/03_Periodic_Table_Periodicity.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/03_Periodic_Table_Periodicity.pdf"
     },
     {
       "number": 4,
@@ -268,7 +268,7 @@
       "subject": "Chemistry",
       "description": "Chapter 04 PDF",
       "file": "04_Chemical_Bonding_Molecular_Structure.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/04_Chemical_Bonding_Molecular_Structure.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/04_Chemical_Bonding_Molecular_Structure.pdf"
     },
     {
       "number": 5,
@@ -277,7 +277,7 @@
       "subject": "Chemistry",
       "description": "Chapter 05 PDF",
       "file": "05_Gaseous_State.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/05_Gaseous_State.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/05_Gaseous_State.pdf"
     },
     {
       "number": 6,
@@ -286,7 +286,7 @@
       "subject": "Chemistry",
       "description": "Chapter 06 PDF",
       "file": "06_Solid_State.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/06_Solid_State.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/06_Solid_State.pdf"
     },
     {
       "number": 7,
@@ -295,7 +295,7 @@
       "subject": "Chemistry",
       "description": "Chapter 07 PDF",
       "file": "07_Thermodynamics_Chemical.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/07_Thermodynamics_Chemical.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/07_Thermodynamics_Chemical.pdf"
     },
     {
       "number": 8,
@@ -304,7 +304,7 @@
       "subject": "Chemistry",
       "description": "Chapter 08 PDF",
       "file": "08_Thermochemistry.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/08_Thermochemistry.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/08_Thermochemistry.pdf"
     },
     {
       "number": 9,
@@ -313,7 +313,7 @@
       "subject": "Chemistry",
       "description": "Chapter 09 PDF",
       "file": "09_Chemical_Equilibrium.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/09_Chemical_Equilibrium.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/09_Chemical_Equilibrium.pdf"
     },
     {
       "number": 10,
@@ -322,7 +322,7 @@
       "subject": "Chemistry",
       "description": "Chapter 10 PDF",
       "file": "10_Ionic_Equilibrium.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/10_Ionic_Equilibrium.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/10_Ionic_Equilibrium.pdf"
     },
     {
       "number": 11,
@@ -331,7 +331,7 @@
       "subject": "Chemistry",
       "description": "Chapter 11 PDF",
       "file": "11_Redox_Reactions.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/11_Redox_Reactions.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/11_Redox_Reactions.pdf"
     },
     {
       "number": 12,
@@ -340,7 +340,7 @@
       "subject": "Chemistry",
       "description": "Chapter 12 PDF",
       "file": "12_Electrochemistry.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/12_Electrochemistry.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/12_Electrochemistry.pdf"
     },
     {
       "number": 13,
@@ -349,7 +349,7 @@
       "subject": "Chemistry",
       "description": "Chapter 13 PDF",
       "file": "13_Chemical_Kinetics.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/13_Chemical_Kinetics.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/13_Chemical_Kinetics.pdf"
     },
     {
       "number": 14,
@@ -358,7 +358,7 @@
       "subject": "Chemistry",
       "description": "Chapter 14 PDF",
       "file": "14_Liquid_Solutions_Colligative_Properties.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/14_Liquid_Solutions_Colligative_Properties.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/14_Liquid_Solutions_Colligative_Properties.pdf"
     },
     {
       "number": 15,
@@ -367,7 +367,7 @@
       "subject": "Chemistry",
       "description": "Chapter 15 PDF",
       "file": "15_Surface_Chemistry.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/15_Surface_Chemistry.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/15_Surface_Chemistry.pdf"
     },
     {
       "number": 16,
@@ -376,7 +376,7 @@
       "subject": "Chemistry",
       "description": "Chapter 16 PDF",
       "file": "16_Nuclear_Chemistry.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/16_Nuclear_Chemistry.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/16_Nuclear_Chemistry.pdf"
     },
     {
       "number": 17,
@@ -385,7 +385,7 @@
       "subject": "Chemistry",
       "description": "Chapter 17 PDF",
       "file": "17_Hydrogen.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/17_Hydrogen.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/17_Hydrogen.pdf"
     },
     {
       "number": 18,
@@ -394,7 +394,7 @@
       "subject": "Chemistry",
       "description": "Chapter 18 PDF",
       "file": "18_s_Block_Elements.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/18_s_Block_Elements.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/18_s_Block_Elements.pdf"
     },
     {
       "number": 19,
@@ -403,7 +403,7 @@
       "subject": "Chemistry",
       "description": "Chapter 19 PDF",
       "file": "19_p_Block_Elements_Group_13_Boron_family_Group_14_Carbon_family.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/19_p_Block_Elements_Group_13_Boron_family_Group_14_Carbon_family.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/19_p_Block_Elements_Group_13_Boron_family_Group_14_Carbon_family.pdf"
     },
     {
       "number": 20,
@@ -412,7 +412,7 @@
       "subject": "Chemistry",
       "description": "Chapter 20 PDF",
       "file": "20_p_Block_Elements_Group_15_Nitrogen_family_Group_16_Oxygen_family.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/20_p_Block_Elements_Group_15_Nitrogen_family_Group_16_Oxygen_family.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/20_p_Block_Elements_Group_15_Nitrogen_family_Group_16_Oxygen_family.pdf"
     },
     {
       "number": 21,
@@ -421,7 +421,7 @@
       "subject": "Chemistry",
       "description": "Chapter 21 PDF",
       "file": "21_p_Block_Elements_Group_17_Halogens_Group_18_Noble_gases.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/21_p_Block_Elements_Group_17_Halogens_Group_18_Noble_gases.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/21_p_Block_Elements_Group_17_Halogens_Group_18_Noble_gases.pdf"
     },
     {
       "number": 22,
@@ -430,7 +430,7 @@
       "subject": "Chemistry",
       "description": "Chapter 22 PDF",
       "file": "22_d_and_f_Block_Elements.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/22_d_and_f_Block_Elements.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/22_d_and_f_Block_Elements.pdf"
     },
     {
       "number": 23,
@@ -439,7 +439,7 @@
       "subject": "Chemistry",
       "description": "Chapter 23 PDF",
       "file": "23_Coordination_Compounds.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/23_Coordination_Compounds.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/23_Coordination_Compounds.pdf"
     },
     {
       "number": 24,
@@ -448,7 +448,7 @@
       "subject": "Chemistry",
       "description": "Chapter 24 PDF",
       "file": "24_Principles_Processes_of_Isolation_of_Metals_Metallurgy.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/24_Principles_Processes_of_Isolation_of_Metals_Metallurgy.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/24_Principles_Processes_of_Isolation_of_Metals_Metallurgy.pdf"
     },
     {
       "number": 25,
@@ -457,7 +457,7 @@
       "subject": "Chemistry",
       "description": "Chapter 25 PDF",
       "file": "25_Qualitative_Salt_Analysis.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/25_Qualitative_Salt_Analysis.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/25_Qualitative_Salt_Analysis.pdf"
     },
     {
       "number": 26,
@@ -466,7 +466,7 @@
       "subject": "Chemistry",
       "description": "Chapter 26 PDF",
       "file": "26_General_Organic_Chemistry_GOC.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/26_General_Organic_Chemistry_GOC.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/26_General_Organic_Chemistry_GOC.pdf"
     },
     {
       "number": 27,
@@ -475,7 +475,7 @@
       "subject": "Chemistry",
       "description": "Chapter 27 PDF",
       "file": "27_Isomerism_Structural_Stereoisomerism.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/27_Isomerism_Structural_Stereoisomerism.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/27_Isomerism_Structural_Stereoisomerism.pdf"
     },
     {
       "number": 28,
@@ -484,7 +484,7 @@
       "subject": "Chemistry",
       "description": "Chapter 28 PDF",
       "file": "28_Hydrocarbons.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/28_Hydrocarbons.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/28_Hydrocarbons.pdf"
     },
     {
       "number": 29,
@@ -493,7 +493,7 @@
       "subject": "Chemistry",
       "description": "Chapter 29 PDF",
       "file": "29_Haloalkanes_Haloarenes.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/29_Haloalkanes_Haloarenes.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/29_Haloalkanes_Haloarenes.pdf"
     },
     {
       "number": 30,
@@ -502,7 +502,7 @@
       "subject": "Chemistry",
       "description": "Chapter 30 PDF",
       "file": "30_Alcohols_Phenols_Ethers.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/30_Alcohols_Phenols_Ethers.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/30_Alcohols_Phenols_Ethers.pdf"
     },
     {
       "number": 31,
@@ -511,7 +511,7 @@
       "subject": "Chemistry",
       "description": "Chapter 31 PDF",
       "file": "31_Aldehydes_Ketones_Carboxylic_Acids.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/31_Aldehydes_Ketones_Carboxylic_Acids.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/31_Aldehydes_Ketones_Carboxylic_Acids.pdf"
     },
     {
       "number": 32,
@@ -520,7 +520,7 @@
       "subject": "Chemistry",
       "description": "Chapter 32 PDF",
       "file": "32_Amines_Diazonium_Salts.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/32_Amines_Diazonium_Salts.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/32_Amines_Diazonium_Salts.pdf"
     },
     {
       "number": 33,
@@ -529,7 +529,7 @@
       "subject": "Chemistry",
       "description": "Chapter 33 PDF",
       "file": "33_Biomolecules.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/33_Biomolecules.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/33_Biomolecules.pdf"
     },
     {
       "number": 34,
@@ -538,7 +538,7 @@
       "subject": "Chemistry",
       "description": "Chapter 34 PDF",
       "file": "34_Polymers.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/34_Polymers.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/34_Polymers.pdf"
     },
     {
       "number": 35,
@@ -547,7 +547,7 @@
       "subject": "Chemistry",
       "description": "Chapter 35 PDF",
       "file": "35_Chemistry_in_Everyday_Life.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/tree/main/output/35_Chemistry_in_Everyday_Life.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/output/35_Chemistry_in_Everyday_Life.pdf"
     }
   ]
 }
