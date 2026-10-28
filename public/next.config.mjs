@@ -8,7 +8,7 @@ const nextConfig = {
   },
   async rewrites() {
     return {
-      beforeFiles: [{ source: '/', destination: '/maintenance.html' }],
+      beforeFiles: [{ source: '/', destination: '/index.html' }],
     }
   },
   async headers() {
