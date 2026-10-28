@@ -45,6 +45,16 @@ button{cursor:pointer}
 .tb-tools{display:flex;align-items:center;gap:14px;flex:none}
 .tool{display:flex;align-items:center;gap:6px;background:none;border:0;color:#fff;font-size:12px;padding:2px 0}
 .tool svg{flex:none}
+.menu{position:relative}.menu summary{list-style:none;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center}.menu summary::-webkit-details-marker{display:none}
+.mrow{display:flex;flex-wrap:wrap;align-items:center;gap:6px}.mrow .btn{flex:1}
+.mi{order:-1;flex:none;width:22px;height:22px;border-radius:50%;border:1px solid var(--muted);color:var(--muted);display:grid;place-items:center;font:italic 700 13px Georgia,serif;cursor:help;user-select:none}
+.mi:hover,.mi:focus{background:var(--fg);color:var(--surface);border-color:var(--fg);outline:none}
+.mtip{order:1;display:none;flex-basis:100%;font-size:12px;line-height:1.45;color:var(--muted);background:var(--surface-2);border-radius:4px;padding:7px 9px}
+.mi:hover+.mtip,.mi:focus+.mtip{display:block}
+.menuSep{border:0;border-top:1px solid var(--line);margin:2px 0;width:100%}
+.menuList{position:absolute;right:0;top:calc(100% + 6px);z-index:50;display:flex;flex-direction:column;gap:6px;min-width:230px;max-width:calc(100vw - 24px);padding:8px;background:var(--surface);border:1px solid var(--line);border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.topbar .menuList .btn{background:var(--surface);color:var(--fg);border-color:var(--line);justify-content:flex-start;text-align:left;text-decoration:none;display:flex;align-items:center;min-height:34px;font-size:13px}
+.topbar .menuList .btn:hover{background:var(--surface-2)}
 .topbar .btn{background:transparent;color:#fff;border-color:#777;min-height:26px;padding:2px 10px;font-size:12px}
 .topbar .btn:hover{background:#444}
 
@@ -200,6 +210,24 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 #scrExam .xview select{width:96px;min-height:0;height:25px;padding:0 4px;border:1px solid rgba(255,255,255,.35);border-radius:2px;background-color:var(--x-select);color:var(--x-selink);font-size:15px;font-weight:700}
 #scrExam .xqno{flex:none;display:flex;justify-content:space-between;align-items:center;gap:8px;height:41px;padding:6px 26px 0 2px;font-size:14px;font-weight:700;color:var(--x-ink)}
 #scrExam .rb{flex:none;display:grid;place-items:center;width:28px;height:28px;padding:0;border:0;border-radius:50%;background:var(--x-circle);box-shadow:0 1px 2px rgba(0,0,0,.25)}
+#scrExam .xqbtns{display:flex;gap:8px;align-items:center}
+#scrExam .rb.bm{color:var(--x-ink)}#scrExam .rb.bm[aria-pressed=true],.bmb[aria-pressed=true]{color:#e0a100}#scrExam .rb.bm[aria-pressed=true] path,.bmb[aria-pressed=true] path{fill:currentColor}
+.bmb{display:inline-grid;place-items:center;width:26px;height:26px;padding:0;border:0;background:transparent;color:var(--muted);cursor:pointer}
+.svchaps{display:flex;flex-direction:column;gap:8px}.svchap{display:flex;justify-content:space-between;align-items:center;gap:12px;text-align:left;background:var(--surface);color:var(--fg);border:1px solid var(--line);border-radius:4px;padding:11px 14px;font:inherit;cursor:pointer}.svchap:hover{border-color:#286ac7}.svchap b{background:var(--surface-2);border-radius:99px;padding:1px 10px;font-size:13px}
+.svgrp>summary{cursor:pointer;font-size:15px;padding:8px 2px;position:sticky;top:0;background:var(--bg);z-index:1}.svgb{display:flex;flex-direction:column;gap:12px;margin:6px 0 14px}
+.printhint{display:none}
+@media print{
+  html.print-review body{background:#fff!important;color:#000!important}
+  html.print-review .topbar,html.print-review .rvbar,html.print-review .bmb,html.print-review #scrSetup,html.print-review #scrInstr,html.print-review #scrExam,html.print-review #scrSaved,html.print-review #modal,html.print-review .scrim{display:none!important}
+  html.print-review #scrRes{display:block!important}
+  html.print-review .wrap{max-width:none;padding:0}
+  html.print-review .rv,html.print-review .card,html.print-review .kpi{break-inside:avoid;box-shadow:none}
+  html.print-review .rv img{max-width:100%;height:auto}
+  html.print-review details>summary{list-style:none}
+  html.print-review .scroll{overflow:visible}
+  html.print-review *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.svtabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}.svtabs .btn[aria-pressed=true]{background:#286ac7;color:#fff;border-color:transparent}
 #scrExam .rb.up{position:absolute;right:26px;bottom:25%;z-index:2}
 #scrExam .xqwrap{position:relative;flex:1 1 auto;min-height:0;display:flex}
 #scrExam .xscroll{flex:1 1 auto;min-width:0;overflow-x:hidden;overflow-y:scroll;overscroll-behavior:contain;padding:0 12px 20px 11px}
@@ -223,7 +251,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 #scrExam .xright{flex:0 0 250px;width:250px;display:flex;flex-direction:column;min-height:0;background:var(--x-rblue);border-left:1px solid var(--x-line)}
 #scrExam .xuser{flex:none;display:flex;height:102px;background:var(--x-rwhite);border-bottom:1px solid var(--x-line2)}
 #scrExam .xavatar{flex:none;width:94px;height:101px;border:1px solid var(--x-line);background:#fff;overflow:hidden}
-#scrExam .xavatar svg{display:block;width:100%;height:100%}
+#scrExam .xavatar img{display:block;width:100%;height:100%;object-fit:cover}
 #scrExam .xname{padding:7px 4px 0 7px;font-size:18px;line-height:23px;font-weight:700;color:var(--x-ink);overflow-wrap:anywhere;min-width:0}
 #scrExam .xlegend{flex:none;display:flex;flex-wrap:wrap;align-content:flex-start;height:155px;padding:23px 0 0 18px;background:var(--x-rwhite);overflow:hidden}
 #scrExam .ltype{display:flex;align-items:flex-start;width:41.5%;min-height:41px}
@@ -280,11 +308,11 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 .palbtn{display:none}
 /* unchanged question and option styles */
 .qtext{font-family:var(--font-q);font-size:var(--qs,17px);margin-top:16px;overflow-wrap:anywhere;line-height:1.55}
-.qimg{display:block;width:auto;max-width:min(76%,760px);max-height:360px;object-fit:contain;object-position:left center;margin:12px 0;background:#fff;cursor:zoom-in;border:1px solid var(--line)}
+.qimg{display:block;width:80%;max-width:100%;height:auto;object-fit:contain;object-position:left center;margin:12px 0;background:#fff;cursor:zoom-in;border:1px solid var(--line)}
 .qimg:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
-.modal .box:has(.image-preview){max-width:96vw;width:max-content;max-height:94dvh;padding:12px}
-.image-preview{display:grid;place-items:center;max-height:calc(94dvh - 70px);overflow:auto;background:var(--surface-2);padding:8px}
-.image-preview img{display:block;width:auto;height:auto;max-width:calc(96vw - 48px);max-height:calc(88dvh - 90px);object-fit:contain;cursor:zoom-out}
+.modal .box:has(.image-preview){max-width:96vw;width:max-content;max-height:92dvh;padding:12px}
+.image-preview{display:grid;place-items:start center;max-height:calc(92dvh - 80px);overflow:auto;background:var(--surface-2);padding:8px}
+.image-preview img{display:block;width:auto;height:auto;max-width:none;max-height:none;cursor:zoom-out}
 .image-preview-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px;font-size:14px;font-weight:600}
 .opts{display:flex;flex-direction:column;gap:2px;margin-top:20px}
 .opt{display:flex;gap:10px;align-items:flex-start;padding:6px 0;cursor:pointer;min-width:0;font-size:calc(var(--qs,17px) * .82)}
@@ -351,16 +379,17 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   #scrExam .xbtn{padding:0 12px;font-size:13px}
 }
 @media (max-width:520px){ #scrExam .xbtn{padding:0 10px} .tb-title{font-size:11px} #scrExam .tab{font-size:13px} #scrExam .gpill{font-size:14px} }
+@media (max-width:900px){ .qimg{width:100%} .modal .box:has(.image-preview){max-width:96vw} }
 @media (prefers-reduced-motion:reduce){.xright{transition:none}}
 </style>
 
 <div id="scrSetup" class="screen">
-  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Physics Practice Portal &ndash; chapter-wise question practice</span><a class="btn sm" href="downloads.html" style="text-decoration:none;white-space:nowrap">Downloads</a></div></div>
+  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Portal &ndash; chapter-wise question practice</span><details class="menu" id="topMenu"><summary class="btn sm">Menu &#9662;</summary><div class="menuList"><button class="btn sm" id="openSaved" type="button">Saved questions</button><a class="btn sm" href="changelog.html">Changelog</a><a class="btn sm" href="downloads.html">Downloads</a><hr class="menuSep"><div class="mrow"><button class="btn sm" id="expData" type="button">Export my data</button><span class="mi" tabindex="0" role="note" aria-label="About Export my data">i</span><div class="mtip">Saves a backup file of your bookmarks, mistakes, seen questions and history. Your data lives only in this browser, so export now and then in case it gets cleared.</div></div><div class="mrow"><button class="btn sm" id="impData" type="button">Import data</button><span class="mi" tabindex="0" role="note" aria-label="About Import data">i</span><div class="mtip">Load a backup file you exported earlier. It is merged with your current data, so nothing is overwritten.</div></div><input type="file" id="impFile" accept=".json,application/json" hidden></div></details></div></div>
   <main class="wrap setup">
-    <section class="card" id="dbCard">
+    <section class="card" id="dbCard" hidden style="display:none">
       <div class="dbrow">
         <div><h2 style="margin:0">Question bank</h2><div id="dbLabel" class="muted"></div></div>
-        <div class="muted" style="font-size:13px">Physics · Chemistry · Mathematics question bank</div>
+        <div class="muted" style="font-size:13px">Physics question bank · hosted database</div>
       </div>
       <div class="dbstats" id="dbStats"></div>
       <div id="dbNote" class="note" hidden></div>
@@ -370,12 +399,8 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
       <div class="card">
         <h2>Build your practice set</h2>
         <div class="field"><label for="candName">Candidate name</label><input type="text" id="candName" placeholder="Your name" autocomplete="off"></div>
-        <h3>Subject</h3>
-        <div class="chtools">
-          <button class="btn sm" id="subjAll" type="button">Select all</button>
-          <button class="btn sm" id="subjNone" type="button">Clear</button>
-        </div>
-        <div class="chips" id="subjBox" role="group" aria-label="Subjects"></div>
+        <div id="subjWrap" hidden><h3>Subject</h3>
+        <div class="chips" id="subjBox" role="group" aria-label="Subjects"></div></div>
         <h3>Question type</h3>
         <div class="chips" id="typeBox"></div>
         <h3>Paper</h3>
@@ -402,6 +427,8 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
           <div style="display:flex;gap:8px"><input type="number" id="cntIn" min="1" step="1"><button class="btn sm" id="cntAll" type="button">All</button></div></div>
         <div class="field"><label for="ordSel">Order</label>
           <select id="ordSel"><option value="seq">Bank order</option><option value="shuf">Shuffled</option></select></div>
+        <div class="field"><label class="chk" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="unattFirst"><span>New questions first (skip ones already shown)</span></label>
+          <div class="muted" style="font-size:13px;margin-top:6px"><span id="attInfo"></span> <button class="btn sm" id="attReset" type="button" hidden>Reset</button></div></div>
         <div class="field"><label for="minIn">Time limit (minutes, 0 for untimed)</label><input type="number" id="minIn" min="0" step="1"></div>
         <div class="field"><label for="modeSel">Mode</label>
           <select id="modeSel"><option value="test">Take as a test (results at the end)</option><option value="practice">Practice (check answer and solution after each question)</option></select></div>
@@ -466,8 +493,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
       <div class="xsections"><span>Sections</span><span class="tl" id="tlWrap"><span id="tlLbl">Time Left : </span><b id="timer">--:--</b></span></div>
       <div class="xtabsrow"><button class="xarr l off" id="tabL" type="button" aria-label="Scroll sections left"></button><div class="tabs" id="tabs" role="tablist"></div><button class="xarr r off" id="tabR" type="button" aria-label="Scroll sections right"></button></div>
       <div class="xqtype"><span id="qType"></span><span id="qMarks" class="qmarks"></span></div>
-      <div class="xview"><label for="langSel">View in :</label><select id="langSel" aria-label="View in"><option>English</option></select></div>
-      <div class="xqno"><span id="qNo"></span><button class="rb" id="btnDown" type="button" aria-label="Scroll to the end of the question"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v10M3.5 8l4.5 4.5L12.5 8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+      <div class="xqno"><span id="qNo"></span><span class="xqbtns"><button class="rb bm" id="btnBm" type="button" aria-pressed="false" aria-label="Bookmark this question" title="Bookmark this question"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l1.9 4.2 4.6.5-3.4 3.1 1 4.5L8 11.5 3.9 13.8l1-4.5L1.5 6.2l4.6-.5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></button><button class="rb" id="btnDown" type="button" aria-label="Scroll to the end of the question"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v10M3.5 8l4.5 4.5L12.5 8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button></span></div>
       <div class="xqwrap"><div class="xscroll" id="xscroll"></div><button class="rb up" id="btnUp" type="button" aria-label="Scroll to the top of the question"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 14V4M3.5 8L8 3.5 12.5 8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
       <div class="xbottom">
         <button class="xbtn" data-act="mark" type="button">Mark for Review &amp; Next</button>
@@ -480,7 +506,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
     <button class="xcollapse" id="xcollapse" type="button" aria-label="Hide question palette" aria-expanded="true"><svg width="8" height="12" viewBox="0 0 8 12" aria-hidden="true"><path d="M1.5 1.5L6.5 6l-5 4.5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     <aside class="xright" id="rail" aria-label="Question palette">
       <div class="xuser">
-        <div class="xavatar"><svg viewBox="0 0 94 101" aria-hidden="true"><defs><linearGradient id="avG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9eef3"/><stop offset="1" stop-color="#7f8d9b"/></linearGradient><radialGradient id="avH" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#f4f7fa"/><stop offset="1" stop-color="#6d7b89"/></radialGradient></defs><rect width="94" height="101" fill="#fff"/><path d="M6 101c0-26 14-38 41-38s41 12 41 38z" fill="url(#avG)" stroke="#4d5a67" stroke-width="2"/><path d="M38 64l9 12 9-12" fill="#fff" stroke="#4d5a67" stroke-width="1.5"/><path d="M44 72h6l3 24-6 4-6-4z" fill="#3c4a58"/><ellipse cx="47" cy="33" rx="19" ry="23" fill="url(#avH)" stroke="#4d5a67" stroke-width="2"/></svg></div>
+        <div class="xavatar"><img src="data:image/jpeg;base64,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" alt="Candidate photo"></div>
         <div class="xname" id="rName"></div>
       </div>
       <div class="xlegend" id="rLeg"></div>
@@ -494,9 +520,15 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   <div class="floatingInfoTooltip" id="infoTip" hidden></div>
 </div>
 
+<div id="scrSaved" class="screen" hidden>
+  <div class="topbar"><div class="tb-in"><span class="tb-title">Saved questions</span>
+    <span style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" id="svPractice" type="button">Practice these</button><button class="btn sm" id="svBack" type="button">Back</button></span></div></div>
+  <main class="wrap res" id="svBody"></main>
+</div>
+
 <div id="scrRes" class="screen" hidden>
   <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Test &ndash; result</span>
-    <span style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" id="downloadReviewPdf" type="button">Download PDF Review</button><button class="btn sm" id="resRetry" type="button">Retry wrong and skipped</button><button class="btn sm" id="resNew" type="button">New test</button></span></div></div>
+    <span style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" id="resPdf" type="button">Download PDF</button><button class="btn sm" id="resRetry" type="button">Retry wrong and skipped</button><button class="btn sm" id="resNew" type="button">New test</button></span></div></div>
   <main class="wrap res" id="resBody"></main>
 </div>
 
@@ -542,9 +574,9 @@ function hydrateZipImages(root){ if(root) root.querySelectorAll('img[data-zipimg
 
 const $ = s => document.querySelector(s);
 const rich = s => esc(s).replace(/\n/g,'<br>');
-const SUBJ = ['Physics', 'Chemistry', 'Mathematics'];
+const SUBJ = ['Physics','Chemistry','Mathematics'];
 const TYPES = {single:'Single correct', multi:'Multiple correct', numerical:'Numerical', paragraph:'Paragraph-based'};
-const QT = {single:'Multiple Choice', multi:'Multiple Choice (one or more correct)', numerical:'Numerical Value', paragraph:'Comprehension / Paragraph'};
+const QT = {single:'Multiple Choice', multi:'Multiple Choice (one or more correct)', numerical:'Numerical Value', paragraph:'Comprehension'};
 const SECLBL = {single:'MCQ', multi:'Multiple Correct', numerical:'Numerical', paragraph:'Comprehension'};
 const TRANK = {single:0, multi:1, numerical:2, paragraph:3};
 const LET = 'ABCDEFGH';
@@ -557,6 +589,14 @@ const store = {
   get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } },
   set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
 };
+const ATT_KEY='aits_attempted';
+let ATT=new Set(); try{ ATT=new Set(JSON.parse(store.get(ATT_KEY)||'[]')); }catch(e){}
+const saveAtt=()=>store.set(ATT_KEY,JSON.stringify([...ATT]));
+const markAttempted=q=>{ if(q && !ATT.has(q.id)){ ATT.add(q.id); saveAtt(); } };
+const loadIds=k=>{ try{ return new Set(JSON.parse(store.get(k)||'[]')); }catch(e){ return new Set(); } };
+const BM=loadIds('aits_bookmarks'), MIS=loadIds('aits_mistakes');
+const saveSet=(k,S)=>store.set(k,JSON.stringify([...S]));
+const answered=a=>a!=null && !(Array.isArray(a)&&!a.length) && a!=='';
 const typeset = el => { try{ if(window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise(el?[el]:undefined).catch(()=>{}); }catch(e){} };
 const mmss = s => { s=Math.max(0,Math.floor(s)); return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'); };
 const hms = s => { s=Math.max(0,Math.round(s)); const h=Math.floor(s/3600), m=Math.floor(s%3600/60), x=s%60; return [h,m,x].map(n=>String(n).padStart(2,'0')).join(':'); };
@@ -616,6 +656,9 @@ function normQuestion(q,i,defSubject){
   let options = normOptions(q.options!=null?q.options:q.choices);
   let type = normType(q.type!=null?q.type:(q.question_type!=null?q.question_type:q.qtype));
   const rawAns = q.answer!=null?q.answer:(q.correct_answer!=null?q.correct_answer:(q.correct!=null?q.correct:q.key));
+  const isPara = !!(q.paragraph || q.passage_images || q.paragraph_id);
+  const rawType = type || 'single';
+  const passageImgs = [].concat(q.passage_images||q.passageImages||[]).filter(Boolean).map(String);
   let labelOnly = false;
   if(type==='numerical') options=null;
   let ans=null, tol=null, range=null, keyOk=false;
@@ -634,9 +677,6 @@ function normQuestion(q,i,defSubject){
     else { ans = parseNum(rawAns); keyOk = ans!=null; }
     tol = q.tolerance!=null ? Math.abs(+q.tolerance)||0 : 0.01;
   }
-  const isPara = !!(q.paragraph || q.passage_images || q.paragraph_id);
-  const rawType = type || 'single';
-  const passageImgs = [].concat(q.passage_images||q.passageImages||[]).filter(Boolean).map(String);
   return {
     id:String(q.id!=null?q.id:(q.question_id!=null?q.question_id:('Q'+(i+1)))),
     subject, chapter, type: isPara ? 'paragraph' : rawType, rawType,
@@ -679,23 +719,30 @@ function extractList(raw){
 
 /* ---------- state ---------- */
 let DB=[], dbLabel='', dbSample=false, dbSkipped=0, dbNoKey=0;
-const cfg = {subjects:new Set(SUBJ), chapters:new Set(), types:new Set(Object.keys(TYPES)), paper:'all', years:new Set(), count:30, countAuto:true, minutes:90, minAuto:true, shuffle:false, preset:'adv', mode:'test'};
+const cfg = {subjects:new Set(['Physics']), chapters:new Set(), types:new Set(Object.keys(TYPES)), paper:'all', years:new Set(), count:30, countAuto:true, minutes:90, minAuto:true, shuffle:false, unattFirst:store.get('aits_unatt')!=='0', preset:'adv', mode:'test'};
 const ui = {mag:false, size:0, theme:(store.get('aits_xtheme')==='dark'?'dark':'light'), invert:store.get('aits_xinvert')==='1'};
 let T=null, timerId=null, lastResult=null;
 
+// Set to false to also show chemistry questions that have no answer key.
+const CHEM_ONLY_KEYED = true;
+const CHEM_ALIAS = {
+  'Isomerism':'Isomerism (Structural & Stereoisomerism)',
+  'Metallurgy':'Principles & Processes of Isolation of Metals (Metallurgy)',
+  'p-Block: Group 13 & 14':'p-Block Elements: Group 13 (Boron family) & Group 14 (Carbon family)',
+  'p-Block: Group 15 & 16':'p-Block Elements: Group 15 (Nitrogen family) & Group 16 (Oxygen family)',
+  'p-Block: Group 17 & 18':'p-Block Elements: Group 17 (Halogens) & Group 18 (Noble gases)'
+};
 function loadDB(raw,label,isSample){
   const list = extractList(raw);
   if(!list){ showNote('That file is not a list of questions. Expected an array, or an object with a "questions" array.'); return false; }
   const out=[]; let skipped=0;
-  list.forEach((e,i)=>{ const n=normQuestion(e.q,i,e.subject); if(n && (n.subject==='Physics' || n.subject==='Mathematics' || n.subject==='Chemistry' || n.subject)) out.push(n); else skipped++; });
+  list.forEach((e,i)=>{ const n=normQuestion(e.q,i,e.subject); if(n && SUBJ.includes(n.subject)){ if(n.subject==='Chemistry'){ if(CHEM_ONLY_KEYED && !n.keyOk){ skipped++; return; } n.chapter=CHEM_ALIAS[n.chapter]||n.chapter; } out.push(n); } else skipped++; });
   if(!out.length){ showNote('No usable questions were found in that file.'); return false; }
   const seen=new Map();
   out.forEach(q=>{ const c=(seen.get(q.id)||0)+1; seen.set(q.id,c); if(c>1) q.id=q.id+'#'+c; });
   DB=out; dbLabel=label; dbSample=!!isSample; dbSkipped=skipped; dbNoKey=out.filter(q=>!q.keyOk).length;
-  cfg.subjects=new Set(DB.map(q=>q.subject));
-  cfg.chapters=new Set(DB.map(q=>q.subject+'||'+q.chapter));
-  cfg.types=new Set(Object.keys(TYPES));
-  cfg.paper='all';
+  cfg.subjects=new Set([SUBJ.find(s=>DB.some(q=>q.subject===s))||'Physics']);
+  cfg.chapters=new Set(DB.filter(q=>cfg.subjects.has(q.subject)).map(q=>q.subject+'||'+q.chapter)); cfg.types=new Set(Object.keys(TYPES)); cfg.paper='all';
   cfg.years=new Set(DB.map(q=>q.year));
   cfg.countAuto=true; cfg.minAuto=true; $('#chSearch').value='';
   renderSetup(); return true;
@@ -704,7 +751,7 @@ function showNote(t){ const n=$('#dbNote'); n.textContent=t; n.hidden=!t; }
 
 /* ---------- screens ---------- */
 function show(id){
-  ['scrSetup','scrInstr','scrExam','scrRes'].forEach(s=>{ $('#'+s).hidden = s!==id; });
+  ['scrSetup','scrInstr','scrExam','scrRes','scrSaved'].forEach(s=>{ $('#'+s).hidden = s!==id; });
   toggleAcc(false); hideTip();
   window.scrollTo(0,0);
 }
@@ -713,23 +760,14 @@ function show(id){
 const paperOnlyOK = q => cfg.paper==='all' || q.paper===cfg.paper;
 const paperOK = q => paperOnlyOK(q) && cfg.years.has(q.year);
 function typeSrcOK(q){ return cfg.types.has(q.type) && paperOK(q); }
-function renderSubjects(){
-  const counts={}; SUBJ.forEach(s=>counts[s]=0);
-  DB.forEach(q=>{ counts[q.subject]=(counts[q.subject]||0)+1; });
-  const subs=Object.keys(counts).filter(s=>counts[s]>0).sort((a,b)=>subjRank(a)-subjRank(b)||a.localeCompare(b));
-  $('#subjBox').innerHTML = subs.map(s=>{
-    const n = counts[s]||0;
-    return '<label class="chk'+(n?'':' zero')+'"><input type="checkbox" data-subj="'+esc(s)+'"'+(cfg.subjects.has(s)?' checked':'')+'><span>'+esc(s)+'</span><span class="cnt">'+n+'</span></label>';
-  }).join('');
-}
 function renderYears(){
   const counts={};
-  DB.forEach(q=>{ if(!(q.year in counts)) counts[q.year]=0; if(cfg.subjects.has(q.subject) && paperOnlyOK(q) && cfg.types.has(q.type) && cfg.chapters.has(q.subject+'||'+q.chapter)) counts[q.year]++; });
+  DB.forEach(q=>{ if(!(q.year in counts)) counts[q.year]=0; if(paperOnlyOK(q) && cfg.types.has(q.type) && cfg.chapters.has(q.subject+'||'+q.chapter)) counts[q.year]++; });
   const years=Object.keys(counts).sort((a,b)=>(a==='Unknown')-(b==='Unknown')||b.localeCompare(a));
   $('#yearBox').innerHTML = years.map(y=>'<label class="chk'+(counts[y]?'':' zero')+'"><input type="checkbox" data-year="'+esc(y)+'"'+(cfg.years.has(y)?' checked':'')+'><span>'+esc(y)+'</span><span class="cnt">'+counts[y]+'</span></label>').join('');
 }
-function refreshAll(){ renderSubjects(); renderYears(); renderTypes(); renderChapters(); refreshSummary(); }
-function pool(){ return DB.filter(q=>cfg.subjects.has(q.subject) && typeSrcOK(q) && cfg.chapters.has(q.subject+'||'+q.chapter)); }
+function refreshAll(){ renderYears(); renderTypes(); renderChapters(); refreshSummary(); }
+function pool(){ return DB.filter(q=>typeSrcOK(q) && cfg.chapters.has(q.subject+'||'+q.chapter)); }
 function renderSetup(){
   $('#dbLabel').textContent = dbSample ? 'Sample questions (replace with your database.json)' : ('Loaded from '+dbLabel);
 
@@ -738,25 +776,34 @@ function renderSetup(){
   const notes=[];
   if(dbSkipped) notes.push(dbSkipped+' entries had no question text or image and were skipped.');
   showNote(notes.join(' '));
-  const pc={main:0,adv:0}; DB.forEach(q=>{ if(pc[q.paper]!=null) pc[q.paper]++; });
+  renderSubjects();
+  const inSubj=DB.filter(q=>cfg.subjects.has(q.subject));
+  const pc={main:0,adv:0}; inSubj.forEach(q=>{ if(pc[q.paper]!=null) pc[q.paper]++; });
   const sel=$('#paperSel');
-  sel.innerHTML='<option value="all">Mains and Advanced papers ('+DB.length+')</option>'+Object.keys(PAPERS).map(k=>'<option value="'+k+'">'+PAPERS[k]+' ('+pc[k]+')</option>').join('');
+  sel.innerHTML='<option value="all">Mains and Advanced papers ('+inSubj.length+')</option>'+Object.keys(PAPERS).map(k=>'<option value="'+k+'">'+PAPERS[k]+' ('+pc[k]+')</option>').join('');
   sel.value=cfg.paper;
   $('#modeSel').value=cfg.mode;
   $('#mrkSel').innerHTML=Object.keys(PRESETS).map(k=>'<option value="'+k+'">'+esc(PRESETS[k].name)+'</option>').join('');
   $('#mrkSel').value=cfg.preset;
   $('#candName').value = store.get('aits_name')||'';
-  renderSubjects(); renderYears(); renderTypes(); renderChapters(); refreshSummary(); renderHist();
+  renderYears(); renderTypes(); renderChapters(); refreshSummary(); renderHist();
+}
+function renderSubjects(){
+  const have=SUBJ.filter(s=>DB.some(q=>q.subject===s));
+  $('#subjWrap').hidden = have.length<2;
+  $('#subjBox').innerHTML = have.map(s=>{
+    const n=DB.filter(q=>q.subject===s).length;
+    return '<label class="chk"><input type="checkbox" name="subj" value="'+esc(s)+'"'+(cfg.subjects.has(s)?' checked':'')+'><span>'+esc(s)+'</span><span class="cnt">'+n+'</span></label>';
+  }).join('');
 }
 function renderTypes(){
-  const base=DB.filter(q=>cfg.subjects.has(q.subject) && paperOK(q) && cfg.chapters.has(q.subject+'||'+q.chapter));
+  const base=DB.filter(q=>paperOK(q) && cfg.chapters.has(q.subject+'||'+q.chapter));
   $('#typeBox').innerHTML = Object.keys(TYPES).map(k=>{
     const n=base.filter(q=>q.type===k).length;
     return '<label class="chk'+(n?'':' zero')+'"><input type="checkbox" data-type="'+k+'"'+(cfg.types.has(k)?' checked':'')+'><span>'+TYPES[k]+'</span><span class="cnt">'+n+'</span></label>';
   }).join('');
 }
 const CHAPTER_SEGMENTS = [
-  // Physics
   {name:'Mechanics', chapters:['Units, Dimensions & Measurement','Kinematics','Laws of Motion','Centre of Mass, Momentum & Collisions','Work, Energy & Power','Rotational Motion','Gravitation']},
   {name:'Properties of Matter', chapters:['Elasticity (Mechanical Properties of Solids)','Fluid Mechanics']},
   {name:'Thermal Physics', chapters:['Thermal Properties & Heat Transfer','Thermodynamics','Kinetic Theory of Gases']},
@@ -764,15 +811,14 @@ const CHAPTER_SEGMENTS = [
   {name:'Electrostatics & Current Electricity', chapters:['Electrostatics','Capacitance','Current Electricity']},
   {name:'Magnetism & Electromagnetism', chapters:['Moving Charges & Magnetism','Magnetism & Matter','Electromagnetic Induction','Alternating Current','Electromagnetic Waves']},
   {name:'Optics', chapters:['Ray Optics & Optical Instruments','Wave Optics']},
-  {name:'Modern Physics & Electronics', chapters:['Dual Nature of Matter & Radiation','Atoms, Nuclei & Semiconductor Electronics']},
-  // Mathematics
-  {name:'Algebra', chapters:['Sets, Relations & Functions','Complex Numbers','Quadratic Equations & Inequalities','Sequences & Series','Permutations & Combinations','Binomial Theorem','Matrices','Determinants','Probability','Statistics']},
-  {name:'Trigonometry', chapters:['Trigonometric Ratios & Identities','Trigonometric Equations','Inverse Trigonometric Functions','Properties of Triangles & Solution of Triangles']},
-  {name:'Coordinate Geometry', chapters:['Straight Lines','Circles','Parabola','Ellipse','Hyperbola']},
-  {name:'Differential Calculus', chapters:['Limits','Continuity & Differentiability','Differentiation','Application of Derivatives']},
-  {name:'Integral Calculus', chapters:['Indefinite Integration','Definite Integration','Area Under Curves','Differential Equations']},
-  {name:'Vectors & 3D Geometry', chapters:['Vector Algebra','Three Dimensional Geometry']}
+  {name:'Modern Physics & Electronics', chapters:['Dual Nature of Matter & Radiation','Atoms, Nuclei & Semiconductor Electronics']}
 ];
+const CHEM_SEGMENTS = [
+  {name:'Physical Chemistry', chapters:['Some Basic Concepts of Chemistry','Atomic Structure','Chemical Bonding & Molecular Structure','Gaseous State','Thermodynamics (Chemical)','Thermochemistry','Chemical Equilibrium','Ionic Equilibrium','Redox Reactions','Liquid Solutions & Colligative Properties','Electrochemistry','Chemical Kinetics','Solid State','Surface Chemistry','Nuclear Chemistry']},
+  {name:'Inorganic Chemistry', chapters:['Periodic Table & Periodicity','Hydrogen','s-Block Elements','p-Block Elements: Group 13 (Boron family) & Group 14 (Carbon family)','p-Block Elements: Group 15 (Nitrogen family) & Group 16 (Oxygen family)','p-Block Elements: Group 17 (Halogens) & Group 18 (Noble gases)','d- and f-Block Elements','Coordination Compounds','Principles & Processes of Isolation of Metals (Metallurgy)','Qualitative Salt Analysis']},
+  {name:'Organic Chemistry', chapters:['General Organic Chemistry (GOC)','Isomerism (Structural & Stereoisomerism)','Hydrocarbons','Haloalkanes & Haloarenes','Alcohols, Phenols & Ethers','Aldehydes, Ketones & Carboxylic Acids','Amines & Diazonium Salts','Biomolecules','Polymers','Chemistry in Everyday Life']}
+];
+const SEGMENTS = {Physics:CHAPTER_SEGMENTS, Chemistry:CHEM_SEGMENTS};
 function chapterSegment(chapter){
   const found=CHAPTER_SEGMENTS.find(g=>g.chapters.includes(chapter));
   return found ? found.name : 'Other Chapters';
@@ -780,16 +826,11 @@ function chapterSegment(chapter){
 function renderChapters(){
   const term=$('#chSearch').value.trim().toLowerCase();
   const groups={};
-  DB.forEach(q=>{
-    if(!cfg.subjects.has(q.subject)) return;
-    const g=groups[q.subject]||(groups[q.subject]={});
-    const c=g[q.chapter]||(g[q.chapter]={n:0});
-    if(typeSrcOK(q)) c.n++;
-  });
-  const subjects=Object.keys(groups).sort((a,b)=>subjRank(a)-subjRank(b)||a.localeCompare(b));
+  DB.forEach(q=>{ const g=groups[q.subject]||(groups[q.subject]={}); const c=g[q.chapter]||(g[q.chapter]={n:0}); if(typeSrcOK(q)) c.n++; });
+  const subjects=Object.keys(groups).filter(s=>cfg.subjects.has(s)).sort((a,b)=>subjRank(a)-subjRank(b)||a.localeCompare(b));
   const html=subjects.map(subject=>{
     const available=groups[subject];
-    const orderedSegments=CHAPTER_SEGMENTS.map(g=>({name:g.name,chapters:g.chapters.filter(c=>Object.prototype.hasOwnProperty.call(available,c))})).filter(g=>g.chapters.length);
+    const orderedSegments=(SEGMENTS[subject]||[]).map(g=>({name:g.name,chapters:g.chapters.filter(c=>Object.prototype.hasOwnProperty.call(available,c))})).filter(g=>g.chapters.length);
     const assigned=new Set(orderedSegments.flatMap(g=>g.chapters));
     const extras=Object.keys(available).filter(c=>!assigned.has(c)).sort((a,b)=>a.localeCompare(b,undefined,{numeric:true}));
     if(extras.length) orderedSegments.push({name:'Other Chapters',chapters:extras});
@@ -819,6 +860,10 @@ function refreshSummary(){
   if(cfg.minAuto) cfg.minutes=cfg.count*3;
   $('#cntIn').max=n; $('#cntIn').value=n?cfg.count:0; $('#minIn').value=cfg.minutes;
   $('#ordSel').value=cfg.shuffle?'shuf':'seq';
+  $('#unattFirst').checked=cfg.unattFirst;
+  const pl=pool(), done=pl.filter(q=>ATT.has(q.id)).length;
+  $('#attInfo').textContent=done+' of '+pl.length+' matching questions already seen.';
+  $('#attReset').hidden=!ATT.size;
   const ok = n>0 && cfg.count>0;
   $('#btnStart').disabled=!ok;
   $('#startWhy').textContent = ok ? '' : 'Pick at least one chapter and one question type that has questions.';
@@ -832,13 +877,30 @@ function renderHist(){
 /* ---------- build test ---------- */
 function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 function buildTest(qs,minutes,presetKey,title){
-  qs=qs.slice().sort((a,b)=>subjRank(a.subject)-subjRank(b.subject)||a.subject.localeCompare(b.subject)||TRANK[a.type]-TRANK[b.type]);
+  const groups=new Map();
+  const nonGrouped=[];
+  qs.forEach(q=>{
+    if(q.paragraphId){
+      if(!groups.has(q.paragraphId)) groups.set(q.paragraphId,[]);
+      groups.get(q.paragraphId).push(q);
+    } else {
+      nonGrouped.push(q);
+    }
+  });
+  let orderedQs = qs;
+  if(groups.size > 0){
+    const reordered=[];
+    nonGrouped.forEach(q=>reordered.push(q));
+    groups.forEach(g=>g.forEach(q=>reordered.push(q)));
+    orderedQs = reordered;
+  }
+  qs=orderedQs.slice().sort((a,b)=>subjRank(a.subject)-subjRank(b.subject)||a.subject.localeCompare(b.subject)||TRANK[a.type]-TRANK[b.type]);
   const preset=PRESETS[presetKey], secs=[], secOf=[], used={};
   qs.forEach((q,i)=>{
     let s=secs.find(x=>x.subject===q.subject&&x.type===q.type);
     if(!s){
       used[q.subject]=used[q.subject]==null?0:used[q.subject]+1;
-      const L='ABCDEFGH'[used[q.subject]] || 'X';
+      const L='ABC'[used[q.subject]];
       s={subject:q.subject,type:q.type,letter:L,name:q.subject+' - Section '+L+' ('+SECLBL[q.type]+')',idx:[]}; secs.push(s);
     }
     s.idx.push(i); secOf[i]=secs.indexOf(s);
@@ -849,21 +911,11 @@ function buildTest(qs,minutes,presetKey,title){
 function today(){ return new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}).toUpperCase(); }
 function startFromSetup(){
   let list=pool();
-  if(cfg.shuffle){
-    const groups=new Map(), singles=[];
-    list.forEach(q=>{
-      if(q.paragraphId){
-        if(!groups.has(q.paragraphId)) groups.set(q.paragraphId,[]);
-        groups.get(q.paragraphId).push(q);
-      } else {
-        singles.push([q]);
-      }
-    });
-    groups.forEach(arr=>arr.sort((a,b)=>(+a.questionNumber||0)-(+b.questionNumber||0)));
-    const clusters=[...singles,...groups.values()];
-    shuffle(clusters);
-    list=clusters.flat();
-  }
+  if(cfg.unattFirst){
+    let a=list.filter(q=>!ATT.has(q.id)), b=list.filter(q=>ATT.has(q.id));
+    if(cfg.shuffle){ shuffle(a); shuffle(b); }
+    list=a.concat(b);
+  } else if(cfg.shuffle) shuffle(list);
   list=list.slice(0,cfg.count);
   buildTest(list,cfg.minutes,cfg.preset,'AITS PRACTICE TEST '+today()+' CHAPTER-WISE');
   renderInstr(); show('scrInstr');
@@ -871,12 +923,12 @@ function startFromSetup(){
 const negText = m => m.w===0 ? '0' : String(Math.abs(m.w));
 function markText(type, rawType){
   const t = rawType || type;
-  const m=T.preset[t] || T.preset.single; const w=m.w<0?'−'+Math.abs(m.w):(m.w===0?'0':'+'+m.w);
+  const m=(T&&T.preset?T.preset[t]:null)||PRESETS[cfg.preset]&&PRESETS[cfg.preset][t]||PRESETS.adv[t]||PRESETS.adv.single; const w=m.w<0?'−'+Math.abs(m.w):(m.w===0?'0':'+'+m.w);
   return '+'+m.c+' / '+w+(t==='multi'?' (partial +'+m.p+' per correct option)':'');
 }
 function marksHtml(type, rawType){
   const t = rawType || type;
-  const m=T.preset[t] || T.preset.single;
+  const m=(T&&T.preset?T.preset[t]:null)||PRESETS[cfg.preset]&&PRESETS[cfg.preset][t]||PRESETS.adv[t]||PRESETS.adv.single;
   return 'Marks for correct answer: <span class="plus">'+m.c+'</span> | Negative Marks: <span class="minus">'+negText(m)+'</span>'+(t==='multi'?' | Partial: +'+m.p+' per correct option':'');
 }
 function renderInstr(){
@@ -895,6 +947,7 @@ function renderInstr(){
 }
 
 /* ---------- exam ---------- */
+const dv=s=>s.draft!==undefined?s.draft:s.ans; /* unsaved selection; s.ans only changes on Save */
 const hasAns=(q,s)=> (q.rawType==='numerical'||q.type==='numerical') ? (s.ans!=null && /\d/.test(String(s.ans))) : (q.rawType==='multi'||q.type==='multi') ? !!(s.ans&&s.ans.length) : s.ans!=null;
 function status(i){
   const s=T.st[i], a=hasAns(T.qs[i],s);
@@ -995,6 +1048,8 @@ function secInfoText(s){
 }
 function renderQ(){
   const q=T.qs[T.cur], s=T.st[T.cur];
+  markAttempted(q); /* shown to the user, so it counts as seen even if skipped */
+  { const b=$('#btnBm'); if(b){ b.setAttribute('aria-pressed',String(BM.has(q.id))); b.title=BM.has(q.id)?'Remove bookmark':'Bookmark this question'; } }
   $('#qType').textContent='Question Type: '+QTS[q.type];
   $('#qMarks').innerHTML=marksHtml(q.type, q.rawType);
   $('#qNo').textContent='Question No. '+(T.cur+1);
@@ -1010,12 +1065,12 @@ function renderQ(){
   const locked=T.mode==='practice' && s.checked, dis=locked?' disabled':'';
   const effectiveType = q.rawType || q.type;
   if(effectiveType==='numerical'){
-    h+='<div class="numwrap"><input class="numin" id="numIn" type="text" readonly inputmode="none" aria-label="Your numerical answer" value="'+esc(s.ans==null?'':s.ans)+'"><div class="keys">'+
+    h+='<div class="numwrap"><input class="numin" id="numIn" type="text" readonly inputmode="none" aria-label="Your numerical answer" value="'+esc(dv(s)==null?'':dv(s))+'"><div class="keys">'+
       ['7','8','9','4','5','6','1','2','3','0','.','−'].map(k=>'<button type="button" data-k="'+k+'"'+dis+'>'+k+'</button>').join('')+
       '<button type="button" class="half" data-k="bk"'+dis+'>Backspace</button><button type="button" class="half" data-k="clr"'+dis+'>Clear All</button><span></span></div></div>';
   } else {
-    const multi=effectiveType==='multi', sel=multi?(s.ans||[]):(s.ans==null?[]:[s.ans]);
-    h+='<div class="opts" role="group" aria-label="Options">'+q.options.map((o,k)=>{
+    const multi=effectiveType==='multi', sel=multi?(dv(s)||[]):(dv(s)==null?[]:[dv(s)]);
+    h+='<div class="opts" role="group" aria-label="Options">'+(q.options||[]).map((o,k)=>{
       const corr=locked&&q.keyOk&&q.ans.includes(k), wr=locked&&sel.includes(k)&&!corr;
       return '<label class="opt'+(locked?' locked':'')+(corr?' corr':'')+(wr?' wrong':'')+'"><input type="'+(multi?'checkbox':'radio')+'" name="opt" data-o="'+k+'"'+(sel.includes(k)?' checked':'')+dis+'>'+(q.labelOnly?'<span class="ol">'+LET[k]+'</span>':'<span class="ot">'+rich(o)+'</span>')+'</label>';
     }).join('')+'</div>';
@@ -1049,14 +1104,14 @@ function renderPal(){
 function leave(){ const now=Date.now(); if(T.qStart) T.st[T.cur].time+=(now-T.qStart)/1000; T.qStart=now; }
 function goto(i){
   if(i<0||i>=T.qs.length) return;
-  leave(); T.cur=i; T.st[i].visited=true;
+  T.st[T.cur].draft=undefined; leave(); T.cur=i; T.st[i].visited=true;
   const k=T.secOf[i]; if(k!==T.sec){ T.sec=k; renderTabs(); }
   renderQ(); renderPal(); closeRail();
 }
-function setNum(v){ const s=T.st[T.cur]; s.ans=v===''?null:v; const el=$('#numIn'); if(el) el.value=v; renderPal(); }
+function setNum(v){ const s=T.st[T.cur]; s.draft=v===''?null:v; const el=$('#numIn'); if(el) el.value=v; renderPal(); }
 function numKey(k){
   const s=T.st[T.cur]; if(T.mode==='practice' && s.checked) return;
-  let v=s.ans==null?'':String(s.ans);
+  let v=dv(s)==null?'':String(dv(s));
   if(k==='bk') v=v.slice(0,-1);
   else if(k==='clr') v='';
   else if(k==='.'){ if(!v.includes('.')) v=(v===''||v==='-')?v+'0.':v+'.'; }
@@ -1068,11 +1123,12 @@ function onAction(a){
   const s=T.st[T.cur];
   const locked=T.mode==='practice' && s.checked;
   if(a==='prev'){ goto(T.cur-1); return; }
-  if(a==='clear'){ if(locked) return; s.ans=null; renderQ(); renderPal(); return; }
-  if(a==='save' && T.mode==='practice' && !s.checked){ s.marked=false; s.checked=true; renderQ(); renderPal(); return; }
+  const commit=()=>{ if(s.draft!==undefined){ s.ans=s.draft; s.draft=undefined; } if(answered(s.ans)) markAttempted(T.qs[T.cur]); };
+  if(a==='clear'){ if(locked) return; s.ans=null; s.draft=undefined; renderQ(); renderPal(); return; }
+  if(a==='save' && T.mode==='practice' && !s.checked){ commit(); s.marked=false; s.checked=true; renderQ(); renderPal(); return; }
   if(a==='save' && locked && T.cur===T.qs.length-1){ openSubmit(); return; }
-  if(a==='save'){ s.marked=false; if(T.cur<T.qs.length-1) goto(T.cur+1); else renderPal(); return; }
-  if(a==='mark'){ s.marked=true; if(T.cur<T.qs.length-1) goto(T.cur+1); else renderPal(); }
+  if(a==='save'){ commit(); s.marked=false; if(T.cur<T.qs.length-1) goto(T.cur+1); else renderPal(); return; }
+  if(a==='mark'){ commit(); s.marked=true; if(T.cur<T.qs.length-1) goto(T.cur+1); else renderPal(); }
 }
 function openRail(){ $('#rail').classList.add('open'); $('#scrim').classList.add('open'); }
 function closeRail(){ $('#rail').classList.remove('open'); $('#scrim').classList.remove('open'); }
@@ -1093,8 +1149,8 @@ function evaluate(q,s,m){
   if(!hasAns(q,s)) return {r:'skip',marks:0};
   if(!q.keyOk) return {r:'nokey',marks:0};
   const t = q.rawType || q.type;
-  if(t==='single') return q.ans.includes(s.ans) ? {r:'ok',marks:m.single.c} : {r:'bad',marks:m.single.w};
-  if(t==='multi'){
+  if(t==='single') return q.ans.includes(s.ans) ? {r:'ok',marks:(m[t]||m.single).c} : {r:'bad',marks:(m[t]||m.single).w};
+  if(q.type==='multi'){
     const ch=s.ans, co=q.ans;
     if(ch.some(x=>!co.includes(x))) return {r:'bad',marks:m.multi.w};
     if(ch.length===co.length) return {r:'ok',marks:m.multi.c};
@@ -1113,11 +1169,15 @@ function finish(auto){
   const used=Math.min((Date.now()-T.startTs)/1000, T.minutes>0?T.minutes*60:1e9);
   const att=res.filter(r=>r.r==='ok'||r.r==='bad'||r.r==='part').length, ok=res.filter(r=>r.r==='ok').length;
   const acc=att?Math.round(ok/att*100):0;
+  T.qs.forEach((q,i)=>{ if(T.st[i].visited) ATT.add(q.id); }); saveAtt();
+  T.qs.forEach((q,i)=>{ const r=res[i].r; if(r==='bad'||r==='part') MIS.add(q.id); else if(r==='ok') MIS.delete(q.id); }); saveSet('aits_mistakes',MIS);
   lastResult={res,max,score,used,att,ok,acc,auto};
   let h=[]; try{ h=JSON.parse(store.get('aits_hist')||'[]'); }catch(e){}
   h.unshift({t:Date.now(),score,max,n:T.qs.length,acc}); store.set('aits_hist',JSON.stringify(h.slice(0,20)));
   renderResult(); show('scrRes');
 }
+const STAR='<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l1.9 4.2 4.6.5-3.4 3.1 1 4.5L8 11.5 3.9 13.8l1-4.5L1.5 6.2l4.6-.5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>';
+function toggleBm(id){ if(BM.has(id)) BM.delete(id); else BM.add(id); saveSet('aits_bookmarks',BM); }
 const fmtAns=(q,a)=>{
   if(a==null||a==='') return '—';
   if(q.type==='numerical') return String(a);
@@ -1147,43 +1207,9 @@ function renderResult(){
    '<div class="kpis"><div class="kpi"><small>Score</small><b>'+R.score+' / '+R.max+'</b></div><div class="kpi"><small>Accuracy</small><b>'+R.acc+'%</b></div><div class="kpi"><small>Correct</small><b>'+R.ok+'</b></div><div class="kpi"><small>Attempted</small><b>'+R.att+' / '+T.qs.length+'</b></div><div class="kpi"><small>Time used</small><b>'+hms(R.used)+'</b></div></div>'+
    '<section class="card"><h2>By subject</h2><div class="scroll"><table>'+head.replace('__','Subject')+'<tbody>'+Object.keys(subj).map(k=>row(k,subj[k])).join('')+'</tbody></table></div></section>'+
    '<section class="card"><h2>By chapter, weakest first</h2><div class="scroll"><table>'+head.replace('__','Chapter')+'<tbody>'+chRows+'</tbody></table></div></section>'+
-   '<section><h2 style="margin:0 0 10px;font-size:17px">Review answers</h2><div class="rvbar" id="rvbar">'+[['all','All'],['ok','Correct'],['bad','Wrong'],['skip','Not attempted'],['mk','Marked for review']].map(f=>'<button class="btn sm" data-f="'+f[0]+'" aria-pressed="'+(f[0]==='all')+'" type="button">'+f[1]+'</button>').join('')+'</div><div id="rvList" style="display:flex;flex-direction:column;gap:12px;margin-top:12px"></div></section>'+
-   '';
+   '<section><h2 style="margin:0 0 10px;font-size:17px">Review answers</h2><div class="rvbar" id="rvbar">'+[['all','All'],['ok','Correct'],['bad','Wrong'],['skip','Not attempted'],['mk','Marked for review']].map(f=>'<button class="btn sm" data-f="'+f[0]+'" aria-pressed="'+(f[0]==='all')+'" type="button">'+f[1]+'</button>').join('')+'</div><div id="rvList" style="display:flex;flex-direction:column;gap:12px;margin-top:12px"></div></section>';
   renderReview('all');
 }
-function downloadReviewPDF(){
-  if(!T||!lastResult) return;
-  const win=window.open('about:blank','_blank');
-  if(!win){ alert('Please allow pop-ups for this site to create the PDF review.'); return; }
-  // Export every question, regardless of the review filter currently selected.
-  renderReview('all');
-  const title=(T.title||'AITS Practice Test').replace(/[<>]/g,'');
-  const summary='<header class="report-head"><h1>'+esc(title)+' — Test Review</h1><p>'+esc(new Date().toLocaleString())+'</p><div class="summary"><b>Score: '+lastResult.score+' / '+lastResult.max+'</b><span>Accuracy: '+lastResult.acc+'%</span><span>Correct: '+lastResult.ok+'</span><span>Attempted: '+lastResult.att+' / '+T.qs.length+'</span><span>Time used: '+hms(lastResult.used)+'</span></div></header>';
-  const styles=`
-    @page{size:A4;margin:14mm}*{box-sizing:border-box}body{font:10.5pt Arial,sans-serif;color:#161616;line-height:1.45;margin:0}
-    h1{font-size:20pt;margin:0 0 4px}h2{font-size:14pt}p{margin:4px 0}.report-head{border-bottom:2px solid #333;padding-bottom:12px;margin-bottom:16px}.summary{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:10px}
-    .rv{border:1px solid #aaa;border-left:4px solid #777;padding:10px;margin:0 0 12px;break-inside:avoid-page}.rv.r-ok{border-left-color:#27833a}.rv.r-bad{border-left-color:#b3261e}.rv.r-part{border-left-color:#a36a00}.rv header{display:flex;flex-wrap:wrap;align-items:center;gap:7px;border-bottom:1px solid #ddd;padding-bottom:6px;margin-bottom:8px;font-size:9pt}.badge{border:1px solid #999;border-radius:3px;padding:1px 5px}.qtext{margin:8px 0}.qimg{display:block;max-width:100%!important;height:auto!important;object-fit:contain;margin:8px auto;page-break-inside:avoid}.ropt{display:flex;gap:7px;padding:5px;border:1px solid #ddd;margin:4px 0}.ropt.corr{background:#eaf5eb;border-color:#70a77a}.ropt.wrong{background:#fff0ef;border-color:#cc817b}.muted{color:#555}.rv details{margin-top:8px}.rv summary{font-weight:bold}.rv details>div{margin-top:8px}table{border-collapse:collapse;width:100%}th,td{border:1px solid #aaa;padding:5px;text-align:left}button,.rvbar{display:none!important}img{max-height:none!important}svg{max-width:100%}
-  `;
-  const buildReport=()=>{
-    // ZIP-backed question and solution images are hydrated asynchronously; wait before cloning.
-    const pending=$('#rvList').querySelectorAll('img[data-zipimg]').length;
-    if(pending){setTimeout(buildReport,250);return;}
-    const review=$('#rvList').cloneNode(true);
-    review.querySelectorAll('details').forEach(d=>d.open=true);
-    review.querySelectorAll('img').forEach(img=>{img.style.maxWidth='100%';img.style.height='auto';img.style.cursor='default';});
-    win.document.open();
-    win.document.write('<!doctype html><html><head><meta charset="utf-8"><title>'+esc(title)+' - PDF Review</title><style>'+styles+'</style></head><body>'+summary+'<h2>Question-by-question review</h2>'+review.outerHTML+'</body></html>');
-    win.document.close();
-    const printWhenReady=()=>{
-      const imgs=Array.from(win.document.images);
-      if(imgs.some(img=>!img.complete)){setTimeout(printWhenReady,250);return;}
-      win.focus(); setTimeout(()=>{win.print();},300);
-    };
-    setTimeout(printWhenReady,700);
-  };
-  setTimeout(buildReport,150);
-}
-
 function renderReview(f){
   const R=lastResult; $('#rvbar').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===f));
   let html='';
@@ -1198,7 +1224,7 @@ function renderReview(f){
       const sel=q.type==='multi'?(s.ans||[]):(s.ans==null?[]:[s.ans]);
       ob='<div style="display:flex;flex-direction:column;gap:6px">'+q.options.map((o,k)=>{ const corr=q.keyOk&&q.ans.includes(k), wr=sel.includes(k)&&!corr; return '<div class="ropt'+(corr?' corr':'')+(wr?' wrong':'')+'"><b>'+LET[k]+'.</b><span style="min-width:0;overflow-wrap:anywhere">'+(q.labelOnly?'':rich(o))+'</span>'+(sel.includes(k)?'<span class="muted" style="margin-left:auto;white-space:nowrap">your answer</span>':'')+'</div>'; }).join('')+'</div>';
     }
-    html+='<article class="rv r-'+r.r+'"><header><b>Q'+(i+1)+'</b><span>'+esc(T.secs[T.secOf[i]].name)+'</span><span>'+esc(q.chapter)+'</span><span class="badge '+pc+'">'+label+(r.marks?' '+(r.marks>0?'+':'')+r.marks:'')+'</span><span>'+mmss(s.time)+'</span></header>'+
+    html+='<article class="rv r-'+r.r+'"><header><b>Q'+(i+1)+'</b><button class="bmb" data-bm="'+esc(q.id)+'" type="button" aria-pressed="'+BM.has(q.id)+'" title="Bookmark this question" aria-label="Bookmark this question">'+STAR+'</button><span>'+esc(T.secs[T.secOf[i]].name)+'</span><span>'+esc(q.chapter)+'</span><span class="badge '+pc+'">'+label+(r.marks?' '+(r.marks>0?'+':'')+r.marks:'')+'</span><span>'+mmss(s.time)+'</span></header>'+
       '<div class="qtext">'+rich(q.text)+'</div>'+q.images.map(u=>imageMarkup(u,'Question figure')).join('')+ob+
       '<div>Your answer: <b>'+esc(fmtAns(q,s.ans))+'</b> · Correct answer: <b>'+esc(keyText(q))+'</b></div>'+
       ((q.solution||q.solImages.length)?'<details><summary>Solution</summary><div style="margin-top:8px">'+rich(q.solution)+q.solImages.map(u=>imageMarkup(u,'Solution figure')).join('')+'</div></details>':'')+'</article>';
@@ -1207,10 +1233,103 @@ function renderReview(f){
   hydrateZipImages($('#rvList')); typeset($('#rvList'));
 }
 
+/* ---------- saved questions ---------- */
+let svTab='bm', svSubj='Physics', svChap=null, svPaper='all', svYear='all';
+function svIds(){ return svTab==='bm'?BM:MIS; }
+function svAll(){ const m=new Map(DB.map(q=>[q.id,q])); return [...svIds()].map(id=>m.get(id)).filter(Boolean); }
+function svQuestions(){
+  return svAll().filter(q=>q.subject===svSubj && (!svChap||q.chapter===svChap) && (svPaper==='all'||q.paper===svPaper) && (svYear==='all'||String(q.year)===svYear));
+}
+const svCard=q=>{
+  let ob='';
+  if(q.type!=='numerical' && q.options) ob='<div style="display:flex;flex-direction:column;gap:6px">'+q.options.map((o,k)=>{ const corr=q.keyOk&&q.ans.includes(k); return '<div class="ropt'+(corr?' corr':'')+'"><b>'+LET[k]+'.</b><span style="min-width:0;overflow-wrap:anywhere">'+(q.labelOnly?'':rich(o))+'</span></div>'; }).join('')+'</div>';
+  return '<article class="rv"><header><span>'+esc(QTS[q.type]||q.type)+'</span><span>'+esc(q.paper==='main'?'JEE Main':'JEE Advanced')+(q.year?' '+esc(q.year):'')+'</span><span>'+esc(q.paperTitle||'')+'</span><button class="btn sm" data-svrm="'+esc(q.id)+'" type="button" style="margin-left:auto">Remove</button></header>'+
+    '<div class="qtext">'+rich(q.text)+'</div>'+q.images.map(u=>imageMarkup(u,'Question figure')).join('')+ob+
+    '<div>Correct answer: <b>'+esc(keyText(q))+'</b></div>'+
+    ((q.solution||q.solImages.length)?'<details><summary>Solution</summary><div style="margin-top:8px">'+rich(q.solution)+q.solImages.map(u=>imageMarkup(u,'Solution figure')).join('')+'</div></details>':'')+'</article>';
+};
+function svOrder(subj,ch){ const segs=SEGMENTS[subj]||[]; let n=0; for(const g of segs){ const i=g.chapters.indexOf(ch); if(i>=0) return n+i; n+=g.chapters.length; } return 9999; }
+function svPick(){ const all=svAll(); if(!all.some(q=>q.subject===svSubj)){ const s=SUBJ.find(x=>all.some(q=>q.subject===x)); if(s) svSubj=s; } }
+function renderSaved(){
+  const all=svAll(), subs=SUBJ.filter(s=>DB.some(q=>q.subject===s));
+  if(!subs.includes(svSubj)) svSubj=subs[0];
+  const cnt=s=>all.filter(q=>q.subject===s).length;
+  const btn=(attr,val,label,on)=>'<button class="btn sm" data-'+attr+'="'+esc(val)+'" aria-pressed="'+on+'" type="button">'+label+'</button>';
+  let h='<div class="svtabs">'+btn('svtab','bm','Bookmarked ('+BM.size+')',svTab==='bm')+btn('svtab','mis','Mistakes ('+MIS.size+')',svTab==='mis')+'<button class="btn sm" id="svClear" type="button" style="margin-left:auto">Clear this list</button></div>';
+  h+='<div class="svtabs">'+subs.map(s=>btn('svsubj',s,esc(s)+' ('+cnt(s)+')',svSubj===s)).join('')+'</div>';
+  const inSubj=all.filter(q=>q.subject===svSubj);
+  const empty=svTab==='bm'?'No bookmarks here yet. Use the star on a question during a test, or on the result review page.':'No mistakes here yet. Questions you get wrong in a test are saved here, and removed once you answer them correctly.';
+  let qs=[];
+  if(!svChap){
+    const g={}; inSubj.forEach(q=>{ g[q.chapter]=(g[q.chapter]||0)+1; });
+    const keys=Object.keys(g).sort((a,b)=>svOrder(svSubj,a)-svOrder(svSubj,b)||a.localeCompare(b));
+    h+=keys.length?'<div class="svchaps">'+keys.map(c=>'<button class="svchap" data-svchap="'+esc(c)+'" type="button"><span>'+esc(c)+'</span><b>'+g[c]+'</b></button>').join('')+'</div>':'<div class="muted">'+empty+'</div>';
+    qs=inSubj;
+  } else {
+    const inCh=inSubj.filter(q=>q.chapter===svChap);
+    if(!inCh.length){ svChap=null; return renderSaved(); }
+    const years=[...new Set(inCh.map(q=>q.year).filter(Boolean))].sort((a,b)=>b-a);
+    if(svYear!=='all' && !years.map(String).includes(svYear)) svYear='all';
+    const pc={main:0,adv:0}; inCh.forEach(q=>{ if(pc[q.paper]!=null) pc[q.paper]++; });
+    h+='<div class="svtabs"><button class="btn sm" id="svUp" type="button">&larr; All chapters</button><b style="align-self:center">'+esc(svChap)+'</b></div>';
+    h+='<div class="svtabs">'+[['all','All papers'],['main','JEE Main ('+pc.main+')'],['adv','JEE Advanced ('+pc.adv+')']].map(x=>btn('svpaper',x[0],x[1],svPaper===x[0])).join('')+
+       '<select id="svYearSel" aria-label="Year" class="btn sm"><option value="all">All years</option>'+years.map(y=>'<option value="'+y+'"'+(svYear===String(y)?' selected':'')+'>'+y+'</option>').join('')+'</select></div>';
+    qs=svQuestions();
+    h+='<div id="svCards" style="display:flex;flex-direction:column;gap:12px">'+(qs.length?qs.map(svCard).join(''):'<div class="muted">Nothing matches these filters.</div>')+'</div>';
+  }
+  $('#svBody').innerHTML=h;
+  $('#svPractice').disabled=!qs.length;
+  $('#svPractice').textContent=svChap?'Practice this chapter':'Practice '+svSubj;
+  hydrateZipImages($('#svBody')); typeset($('#svBody'));
+}
+
+/* ---------- PDF review ---------- */
+function downloadReviewPdf(){
+  renderReview('all');
+  const list=$('#rvList'); list.querySelectorAll('details').forEach(d=>d.open=true);
+  const root=document.documentElement, old=document.title;
+  document.title='AITS Practice Test Review '+new Date().toISOString().slice(0,10);
+  root.classList.add('print-review');
+  const done=()=>{ root.classList.remove('print-review'); document.title=old; window.removeEventListener('afterprint',done); };
+  window.addEventListener('afterprint',done);
+  /* wait for images to finish so they appear in the PDF */
+  const imgs=[...list.querySelectorAll('img')].filter(i=>!i.complete);
+  Promise.race([Promise.all(imgs.map(i=>new Promise(r=>{ i.addEventListener('load',r); i.addEventListener('error',r); }))),new Promise(r=>setTimeout(r,4000))]).then(()=>setTimeout(()=>window.print(),100));
+}
+
+/* ---------- export / import of saved data ---------- */
+function exportData(){
+  const data={};
+  try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(k&&k.indexOf('aits_')===0) data[k]=localStorage.getItem(k); } }catch(e){}
+  const out={app:'aits-practice-portal',version:1,exported:new Date().toISOString(),data};
+  const blob=new Blob([JSON.stringify(out,null,1)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='aits-data-'+new Date().toISOString().slice(0,10)+'.json';
+  document.body.appendChild(a); a.click(); setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); },500);
+}
+function infoModal(title,body){ openModal('<h2>'+esc(title)+'</h2><p style="margin:0">'+body+'</p><div class="row"><button class="btn primary" id="mNo" type="button">Close</button></div>',()=>{ $('#mNo').onclick=closeModal; }); }
+function importData(text){
+  let o; try{ o=JSON.parse(text); }catch(e){ return infoModal('Import failed','That file is not valid JSON.'); }
+  const d=o&&o.app==='aits-practice-portal'&&o.data&&typeof o.data==='object'?o.data:null;
+  if(!d) return infoModal('Import failed','That does not look like a file exported from this site.');
+  const ids=['aits_bookmarks','aits_mistakes','aits_attempted'], nb=BM.size, nm=MIS.size, na=ATT.size;
+  ids.forEach(k=>{ try{ const add=JSON.parse(d[k]||'[]'); if(Array.isArray(add)){ const S=k==='aits_bookmarks'?BM:k==='aits_mistakes'?MIS:ATT; add.forEach(x=>{ if(typeof x==='string') S.add(x); }); store.set(k,JSON.stringify([...S])); } }catch(e){} });
+  try{ const add=JSON.parse(d.aits_hist||'[]'); if(Array.isArray(add)){ let h=[]; try{ h=JSON.parse(store.get('aits_hist')||'[]'); }catch(e){} const seen=new Set(h.map(x=>x.t)); add.forEach(x=>{ if(x&&!seen.has(x.t)) h.push(x); }); h.sort((a,b)=>b.t-a.t); store.set('aits_hist',JSON.stringify(h.slice(0,20))); } }catch(e){}
+  Object.keys(d).forEach(k=>{ if(k.indexOf('aits_')===0 && !ids.includes(k) && k!=='aits_hist' && store.get(k)==null && typeof d[k]==='string') store.set(k,d[k]); });
+  renderHist(); renderSetup();
+  infoModal('Import complete','Added '+(BM.size-nb)+' bookmarks, '+(MIS.size-nm)+' mistakes and '+(ATT.size-na)+' seen questions. Your existing data was kept.');
+}
+
 /* ---------- events ---------- */
 document.addEventListener('change',e=>{
   const t=e.target;
-  if(t.matches('#subjBox input')){ t.checked?cfg.subjects.add(t.dataset.subj):cfg.subjects.delete(t.dataset.subj); refreshAll(); }
+  if(t.id==='impFile'){ const f=t.files&&t.files[0]; if(f){ const r=new FileReader(); r.onload=()=>importData(String(r.result)); r.readAsText(f); } t.value=''; }
+  else if(t.id==='svYearSel'){ svYear=t.value; renderSaved(); }
+  else if(t.name==='subj'){
+    if(t.checked) cfg.subjects.add(t.value); else if(cfg.subjects.size>1) cfg.subjects.delete(t.value);
+    const all=DB.filter(q=>q.subject===t.value).map(q=>q.subject+'||'+q.chapter);
+    if(cfg.subjects.has(t.value)) all.forEach(k=>cfg.chapters.add(k)); else all.forEach(k=>cfg.chapters.delete(k));
+    cfg.paper='all'; cfg.countAuto=true; cfg.minAuto=true; $('#chSearch').value=''; renderSetup();
+  }
   else if(t.matches('#typeBox input')){ t.checked?cfg.types.add(t.dataset.type):cfg.types.delete(t.dataset.type); renderYears(); renderChapters(); refreshSummary(); }
   else if(t.matches('#yearBox input')){ t.checked?cfg.years.add(t.dataset.year):cfg.years.delete(t.dataset.year); refreshAll(); }
   else if(t.matches('#chapList input[data-ch]')){ t.checked?cfg.chapters.add(t.dataset.ch):cfg.chapters.delete(t.dataset.ch); refreshAll(); }
@@ -1226,6 +1345,7 @@ document.addEventListener('change',e=>{
   else if(t.id==='cntIn'){ cfg.count=Math.max(1,Math.min(+t.value||1,pool().length)); cfg.countAuto=false; refreshSummary(); }
   else if(t.id==='minIn'){ cfg.minutes=Math.max(0,Math.round(+t.value||0)); cfg.minAuto=false; refreshSummary(); }
   else if(t.id==='ordSel'){ cfg.shuffle=t.value==='shuf'; }
+  else if(t.id==='unattFirst'){ cfg.unattFirst=t.checked; store.set('aits_unatt',t.checked?'1':'0'); }
   else if(t.id==='mrkSel'){ cfg.preset=t.value; }
   else if(t.id==='candName'){ store.set('aits_name',t.value.trim()); }
   else if(t.id==='instOk'){ $('#btnBegin').disabled=!t.checked; }
@@ -1235,8 +1355,9 @@ document.addEventListener('change',e=>{
   else if(t.matches('#xscroll input[data-o]')){
     const q=T.qs[T.cur], s=T.st[T.cur], k=+t.dataset.o;
     if(T.mode==='practice' && s.checked){ renderQ(); return; }
-    if(q.type==='multi'){ const a=new Set(s.ans||[]); t.checked?a.add(k):a.delete(k); s.ans=[...a].sort((x,y)=>x-y); if(!s.ans.length) s.ans=null; }
-    else s.ans=k;
+    const multi = (q.rawType || q.type) === 'multi';
+    if(multi){ const a=new Set(dv(s)||[]); t.checked?a.add(k):a.delete(k); s.draft=[...a].sort((x,y)=>x-y); if(!s.draft.length) s.draft=null; }
+    else s.draft=k;
     renderPal();
   }
 });
@@ -1259,7 +1380,8 @@ document.addEventListener('click',e=>{
   if(!inf) hideTip();
   if(inf && T){ e.stopPropagation(); if(tipPinned===inf) hideTip(); else { tipPinned=inf; showTip(inf); } return; }
   const b=e.target.closest('button'); if(!b) return;
-  if(b.id==='chAll'||b.id==='chNone'){ const term=$('#chSearch').value.trim().toLowerCase(); DB.forEach(q=>{ if(!term||q.chapter.toLowerCase().includes(term)||q.subject.toLowerCase().includes(term)){ const k=q.subject+'||'+q.chapter; b.id==='chAll'?cfg.chapters.add(k):cfg.chapters.delete(k); } }); renderChapters(); renderTypes(); refreshSummary(); }
+  if(b.id==='chAll'||b.id==='chNone'){ const term=$('#chSearch').value.trim().toLowerCase(); DB.forEach(q=>{ if(cfg.subjects.has(q.subject)&&(!term||q.chapter.toLowerCase().includes(term)||q.subject.toLowerCase().includes(term))){ const k=q.subject+'||'+q.chapter; b.id==='chAll'?cfg.chapters.add(k):cfg.chapters.delete(k); } }); renderChapters(); renderTypes(); refreshSummary(); }
+  else if(b.id==='attReset'){ if(confirm('Forget all attempted questions?')){ ATT.clear(); saveAtt(); refreshSummary(); } }
   else if(b.id==='cntAll'){ cfg.count=pool().length; cfg.countAuto=false; refreshSummary(); }
   else if(b.id==='btnStart') startFromSetup();
   else if(b.id==='instBack') show('scrSetup');
@@ -1280,7 +1402,21 @@ document.addEventListener('click',e=>{
   else if(b.dataset.q!=null && T && !T.over) goto(+b.dataset.q);
   else if(b.dataset.sec!=null && T && !T.over){ const k=+b.dataset.sec; goto(k===T.sec?T.cur:T.secs[k].idx[0]); }
   else if(b.dataset.f && lastResult) renderReview(b.dataset.f);
-  else if(b.id==='downloadReviewPdf'){ downloadReviewPDF(); }
+  else if(b.id==='btnBm' && T && !T.over){ const q=T.qs[T.cur]; toggleBm(q.id); b.setAttribute('aria-pressed',String(BM.has(q.id))); b.title=BM.has(q.id)?'Remove bookmark':'Bookmark this question'; }
+  else if(b.dataset.bm){ toggleBm(b.dataset.bm); b.setAttribute('aria-pressed',String(BM.has(b.dataset.bm))); }
+  else if(b.id==='expData'){ $('#topMenu').open=false; exportData(); }
+  else if(b.id==='impData'){ $('#topMenu').open=false; $('#impFile').click(); }
+  else if(b.id==='openSaved'){ $('#topMenu').open=false; svChap=null; svPick(); renderSaved(); show('scrSaved'); }
+  else if(b.id==='svBack'){ if(svChap){ svChap=null; renderSaved(); } else { show('scrSetup'); renderHist(); } }
+  else if(b.dataset.svtab){ svTab=b.dataset.svtab; svChap=null; svPaper='all'; svYear='all'; svPick(); renderSaved(); }
+  else if(b.dataset.svsubj){ svSubj=b.dataset.svsubj; svChap=null; svPaper='all'; svYear='all'; renderSaved(); }
+  else if(b.dataset.svchap){ svChap=b.dataset.svchap; svPaper='all'; svYear='all'; renderSaved(); window.scrollTo(0,0); }
+  else if(b.id==='svUp'){ svChap=null; renderSaved(); }
+  else if(b.dataset.svpaper){ svPaper=b.dataset.svpaper; renderSaved(); }
+  else if(b.dataset.svrm){ svIds().delete(b.dataset.svrm); saveSet(svTab==='bm'?'aits_bookmarks':'aits_mistakes',svIds()); renderSaved(); }
+  else if(b.id==='svClear'){ if(svIds().size && confirm('Clear this whole list?')){ svIds().clear(); saveSet(svTab==='bm'?'aits_bookmarks':'aits_mistakes',svIds()); renderSaved(); } }
+  else if(b.id==='svPractice'){ const qs=svChap?svQuestions():svAll().filter(q=>q.subject===svSubj); if(!qs.length) return; buildTest(qs,qs.length*3,cfg.preset,'AITS PRACTICE TEST '+today()+(svTab==='bm'?' BOOKMARKS':' MISTAKES')); renderInstr(); show('scrInstr'); }
+  else if(b.id==='resPdf' && lastResult){ downloadReviewPdf(); }
   else if(b.id==='resNew'){ show('scrSetup'); renderHist(); }
   else if(b.id==='resRetry'){
     const redo=T.qs.filter((q,i)=>lastResult.res[i].r!=='ok');
@@ -1289,6 +1425,7 @@ document.addEventListener('click',e=>{
   }
 });
 $('#scrim').addEventListener('click',closeRail);
+document.addEventListener('click',e=>{ const m=$('#topMenu'); if(m&&m.open&&!m.contains(e.target)) m.open=false; });
 $('#tabs').addEventListener('scroll',updateTabArrows);
 window.addEventListener('resize',()=>{ if(T&&!$('#scrExam').hidden) updateTabArrows(); });
 const infoOf=e=>e.target&&e.target.closest?e.target.closest('.info'):null;
@@ -1300,6 +1437,7 @@ document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){ toggleAcc(false); hideTip(); closeRail(); return; }
   const i=infoOf(e); if(i&&(e.key==='Enter'||e.key===' ')){ e.preventDefault(); i.click(); }
 });
+document.addEventListener('contextmenu',e=>{ if(!$('#scrExam').hidden||!$('#modal').hidden&&T&&!T.over) e.preventDefault(); });
 applyUi();
 document.addEventListener('keydown',e=>{
   if(!T||T.over||$('#scrExam').hidden||!$('#modal').hidden) return;
@@ -1324,20 +1462,17 @@ function applyBulkSelection(buttonId, containerSelector, checkboxSelector, getKe
       const key = getKey(checkbox);
       if (!key) return;
       if (selected) {
-        if (containerSelector === '#subjBox') cfg.subjects.add(key);
-        else if (containerSelector === '#chapList') cfg.chapters.add(key);
+        if (containerSelector === '#chapList') cfg.chapters.add(key);
         else if (containerSelector === '#yearBox') cfg.years.add(key);
       } else {
-        if (containerSelector === '#subjBox') cfg.subjects.delete(key);
-        else if (containerSelector === '#chapList') cfg.chapters.delete(key);
+        if (containerSelector === '#chapList') cfg.chapters.delete(key);
         else if (containerSelector === '#yearBox') cfg.years.delete(key);
       }
     });
-    refreshAll();
+    if (containerSelector === '#chapList') refreshAll();
+    else { renderYears(); renderTypes(); refreshSummary(); }
   });
 }
-applyBulkSelection('subjAll', '#subjBox', 'input[data-subj]', cb => cb.dataset.subj, true);
-applyBulkSelection('subjNone', '#subjBox', 'input[data-subj]', cb => cb.dataset.subj, false);
 applyBulkSelection('chAll', '#chapList', 'input[data-ch]', cb => cb.dataset.ch, true);
 applyBulkSelection('chNone', '#chapList', 'input[data-ch]', cb => cb.dataset.ch, false);
 applyBulkSelection('yrAll', '#yearBox', 'input[data-year]', cb => cb.dataset.year, true);
@@ -1346,40 +1481,31 @@ applyBulkSelection('yrNone', '#yearBox', 'input[data-year]', cb => cb.dataset.ye
 /* ---------- boot ---------- */
 (async function(){
   let ok=false;
-  const cfg = window.AITS_CONFIG || {};
-  const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
-  const dbUrls = [
-    { url: isLocal ? 'database.json' : (cfg.databaseUrl || 'database.json'), fallback: 'database.json' },
-    { url: isLocal ? 'chemistry_database.json' : (cfg.chemistryUrl || 'chemistry_database.json'), fallback: 'chemistry_database.json' },
-    { url: isLocal ? 'maths_advanced_database.json' : (cfg.mathsAdvancedUrl || 'maths_advanced_database.json'), fallback: 'maths_advanced_database.json' },
-    { url: isLocal ? 'maths_main_database.json' : (cfg.mathsMainUrl || 'maths_main_database.json'), fallback: 'maths_main_database.json' }
-  ];
-
-  let allQuestions = [];
-  for(const entry of dbUrls){
-    let raw = null;
-    try {
-      const r = await fetch(entry.url, {cache:'no-store'});
-      if(r.ok) raw = await r.json();
-    } catch(e){}
-    if(!raw && entry.fallback){
-      try {
-        const r = await fetch(entry.fallback, {cache:'no-store'});
-        if(r.ok) raw = await r.json();
-      } catch(e){}
+  const conf = window.AITS_CONFIG || {};
+  const remote = (conf.databaseUrl || '').trim();
+  const chemRemote = (conf.chemistryUrl || '').trim();
+  const mathAdvRemote = (conf.mathsAdvancedUrl || '').trim();
+  const mathMainRemote = (conf.mathsMainUrl || '').trim();
+  async function fetchFirst(urls){
+    for(const url of urls){
+      try{ const r=await fetch(url,{cache:'no-store'}); if(!r.ok) continue; return {raw:await r.json(), url}; }catch(e){}
     }
-    if(raw){
-      const items = Array.isArray(raw) ? raw : (raw.questions || raw.records || raw.data || raw.items || []);
-      if(Array.isArray(items) && items.length) allQuestions.push(...items);
-    }
+    return null;
   }
-
-  if(allQuestions.length){
-    ok = loadDB(allQuestions, 'AITS Database', false);
+  const [phys, chem, mathAdv, mathMain] = await Promise.all([
+    fetchFirst(remote ? [remote, 'database.json'] : ['database.json']),
+    fetchFirst(chemRemote ? [chemRemote, 'chemistry_database.json'] : ['chemistry_database.json']),
+    fetchFirst(mathAdvRemote ? [mathAdvRemote, 'maths_advanced_database.json'] : ['maths_advanced_database.json']),
+    fetchFirst(mathMainRemote ? [mathMainRemote, 'maths_main_database.json'] : ['maths_main_database.json'])
+  ]);
+  const parts = [phys, chem, mathAdv, mathMain].filter(Boolean);
+  if(parts.length){
+    const all = parts.flatMap(x=>(extractList(x.raw)||[]).map(e=>e.q));
+    ok = loadDB(all, phys && phys.url===remote && remote ? 'Hugging Face database' : 'database.json', false);
   }
   if(!ok){
     $('#dbLabel').textContent='Database not loaded';
-    showNote('Could not load the question bank. Check databaseUrl in config.js or ensure database.json is present.');
+    showNote('Could not load the question bank. Set the Hugging Face raw JSON URL in config.js, and make sure the JSON contains question text or image URLs, options, answer keys, and chapter names.');
     $('#dbStats').innerHTML='';
     $('#chapList').innerHTML='<div class="muted">No database available.</div>';
     refreshSummary();
