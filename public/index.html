@@ -360,7 +360,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
     <section class="card" id="dbCard">
       <div class="dbrow">
         <div><h2 style="margin:0">Question bank</h2><div id="dbLabel" class="muted"></div></div>
-        <div class="muted" style="font-size:13px">Physics question bank · hosted database</div>
+        <div class="muted" style="font-size:13px">Physics · Chemistry · Mathematics question bank</div>
       </div>
       <div class="dbstats" id="dbStats"></div>
       <div id="dbNote" class="note" hidden></div>
@@ -370,6 +370,12 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
       <div class="card">
         <h2>Build your practice set</h2>
         <div class="field"><label for="candName">Candidate name</label><input type="text" id="candName" placeholder="Your name" autocomplete="off"></div>
+        <h3>Subject</h3>
+        <div class="chtools">
+          <button class="btn sm" id="subjAll" type="button">Select all</button>
+          <button class="btn sm" id="subjNone" type="button">Clear</button>
+        </div>
+        <div class="chips" id="subjBox" role="group" aria-label="Subjects"></div>
         <h3>Question type</h3>
         <div class="chips" id="typeBox"></div>
         <h3>Paper</h3>
@@ -673,7 +679,7 @@ function extractList(raw){
 
 /* ---------- state ---------- */
 let DB=[], dbLabel='', dbSample=false, dbSkipped=0, dbNoKey=0;
-const cfg = {chapters:new Set(), types:new Set(Object.keys(TYPES)), paper:'all', years:new Set(), count:30, countAuto:true, minutes:90, minAuto:true, shuffle:false, preset:'adv', mode:'test'};
+const cfg = {subjects:new Set(SUBJ), chapters:new Set(), types:new Set(Object.keys(TYPES)), paper:'all', years:new Set(), count:30, countAuto:true, minutes:90, minAuto:true, shuffle:false, preset:'adv', mode:'test'};
 const ui = {mag:false, size:0, theme:(store.get('aits_xtheme')==='dark'?'dark':'light'), invert:store.get('aits_xinvert')==='1'};
 let T=null, timerId=null, lastResult=null;
 
@@ -686,7 +692,10 @@ function loadDB(raw,label,isSample){
   const seen=new Map();
   out.forEach(q=>{ const c=(seen.get(q.id)||0)+1; seen.set(q.id,c); if(c>1) q.id=q.id+'#'+c; });
   DB=out; dbLabel=label; dbSample=!!isSample; dbSkipped=skipped; dbNoKey=out.filter(q=>!q.keyOk).length;
-  cfg.chapters=new Set(DB.map(q=>q.subject+'||'+q.chapter)); cfg.types=new Set(Object.keys(TYPES)); cfg.paper='all';
+  cfg.subjects=new Set(DB.map(q=>q.subject));
+  cfg.chapters=new Set(DB.map(q=>q.subject+'||'+q.chapter));
+  cfg.types=new Set(Object.keys(TYPES));
+  cfg.paper='all';
   cfg.years=new Set(DB.map(q=>q.year));
   cfg.countAuto=true; cfg.minAuto=true; $('#chSearch').value='';
   renderSetup(); return true;
@@ -704,14 +713,23 @@ function show(id){
 const paperOnlyOK = q => cfg.paper==='all' || q.paper===cfg.paper;
 const paperOK = q => paperOnlyOK(q) && cfg.years.has(q.year);
 function typeSrcOK(q){ return cfg.types.has(q.type) && paperOK(q); }
+function renderSubjects(){
+  const counts={}; SUBJ.forEach(s=>counts[s]=0);
+  DB.forEach(q=>{ counts[q.subject]=(counts[q.subject]||0)+1; });
+  const subs=Object.keys(counts).filter(s=>counts[s]>0).sort((a,b)=>subjRank(a)-subjRank(b)||a.localeCompare(b));
+  $('#subjBox').innerHTML = subs.map(s=>{
+    const n = counts[s]||0;
+    return '<label class="chk'+(n?'':' zero')+'"><input type="checkbox" data-subj="'+esc(s)+'"'+(cfg.subjects.has(s)?' checked':'')+'><span>'+esc(s)+'</span><span class="cnt">'+n+'</span></label>';
+  }).join('');
+}
 function renderYears(){
   const counts={};
-  DB.forEach(q=>{ if(!(q.year in counts)) counts[q.year]=0; if(paperOnlyOK(q) && cfg.types.has(q.type) && cfg.chapters.has(q.subject+'||'+q.chapter)) counts[q.year]++; });
+  DB.forEach(q=>{ if(!(q.year in counts)) counts[q.year]=0; if(cfg.subjects.has(q.subject) && paperOnlyOK(q) && cfg.types.has(q.type) && cfg.chapters.has(q.subject+'||'+q.chapter)) counts[q.year]++; });
   const years=Object.keys(counts).sort((a,b)=>(a==='Unknown')-(b==='Unknown')||b.localeCompare(a));
   $('#yearBox').innerHTML = years.map(y=>'<label class="chk'+(counts[y]?'':' zero')+'"><input type="checkbox" data-year="'+esc(y)+'"'+(cfg.years.has(y)?' checked':'')+'><span>'+esc(y)+'</span><span class="cnt">'+counts[y]+'</span></label>').join('');
 }
-function refreshAll(){ renderYears(); renderTypes(); renderChapters(); refreshSummary(); }
-function pool(){ return DB.filter(q=>typeSrcOK(q) && cfg.chapters.has(q.subject+'||'+q.chapter)); }
+function refreshAll(){ renderSubjects(); renderYears(); renderTypes(); renderChapters(); refreshSummary(); }
+function pool(){ return DB.filter(q=>cfg.subjects.has(q.subject) && typeSrcOK(q) && cfg.chapters.has(q.subject+'||'+q.chapter)); }
 function renderSetup(){
   $('#dbLabel').textContent = dbSample ? 'Sample questions (replace with your database.json)' : ('Loaded from '+dbLabel);
 
@@ -728,10 +746,10 @@ function renderSetup(){
   $('#mrkSel').innerHTML=Object.keys(PRESETS).map(k=>'<option value="'+k+'">'+esc(PRESETS[k].name)+'</option>').join('');
   $('#mrkSel').value=cfg.preset;
   $('#candName').value = store.get('aits_name')||'';
-  renderYears(); renderTypes(); renderChapters(); refreshSummary(); renderHist();
+  renderSubjects(); renderYears(); renderTypes(); renderChapters(); refreshSummary(); renderHist();
 }
 function renderTypes(){
-  const base=DB.filter(q=>paperOK(q) && cfg.chapters.has(q.subject+'||'+q.chapter));
+  const base=DB.filter(q=>cfg.subjects.has(q.subject) && paperOK(q) && cfg.chapters.has(q.subject+'||'+q.chapter));
   $('#typeBox').innerHTML = Object.keys(TYPES).map(k=>{
     const n=base.filter(q=>q.type===k).length;
     return '<label class="chk'+(n?'':' zero')+'"><input type="checkbox" data-type="'+k+'"'+(cfg.types.has(k)?' checked':'')+'><span>'+TYPES[k]+'</span><span class="cnt">'+n+'</span></label>';
@@ -762,7 +780,12 @@ function chapterSegment(chapter){
 function renderChapters(){
   const term=$('#chSearch').value.trim().toLowerCase();
   const groups={};
-  DB.forEach(q=>{ const g=groups[q.subject]||(groups[q.subject]={}); const c=g[q.chapter]||(g[q.chapter]={n:0}); if(typeSrcOK(q)) c.n++; });
+  DB.forEach(q=>{
+    if(!cfg.subjects.has(q.subject)) return;
+    const g=groups[q.subject]||(groups[q.subject]={});
+    const c=g[q.chapter]||(g[q.chapter]={n:0});
+    if(typeSrcOK(q)) c.n++;
+  });
   const subjects=Object.keys(groups).sort((a,b)=>subjRank(a)-subjRank(b)||a.localeCompare(b));
   const html=subjects.map(subject=>{
     const available=groups[subject];
@@ -976,7 +999,7 @@ function renderQ(){
   $('#qMarks').innerHTML=marksHtml(q.type, q.rawType);
   $('#qNo').textContent='Question No. '+(T.cur+1);
   let h='';
-  if(q.paragraph && q.passageImages && q.passageImages.length && q.images.length && q.images[0] !== q.passageImages[0]){
+  if(q.paragraph && q.passageImages && q.passageImages.length && (!q.images.length || q.images[0] !== q.passageImages[0])){
     h+='<div class="passage-box" style="margin-bottom:14px;padding:12px;background:rgba(255,165,0,0.06);border:1px solid rgba(255,165,0,0.3);border-radius:8px;">'+
        '<div style="font-weight:700;margin-bottom:8px;font-size:14px;color:var(--x-main,#0066cc);">Common Paragraph / Passage:</div>';
     q.passageImages.forEach(u=>{ h+=imageMarkup(u,'Common passage'); });
@@ -1187,7 +1210,8 @@ function renderReview(f){
 /* ---------- events ---------- */
 document.addEventListener('change',e=>{
   const t=e.target;
-  if(t.matches('#typeBox input')){ t.checked?cfg.types.add(t.dataset.type):cfg.types.delete(t.dataset.type); renderYears(); renderChapters(); refreshSummary(); }
+  if(t.matches('#subjBox input')){ t.checked?cfg.subjects.add(t.dataset.subj):cfg.subjects.delete(t.dataset.subj); refreshAll(); }
+  else if(t.matches('#typeBox input')){ t.checked?cfg.types.add(t.dataset.type):cfg.types.delete(t.dataset.type); renderYears(); renderChapters(); refreshSummary(); }
   else if(t.matches('#yearBox input')){ t.checked?cfg.years.add(t.dataset.year):cfg.years.delete(t.dataset.year); refreshAll(); }
   else if(t.matches('#chapList input[data-ch]')){ t.checked?cfg.chapters.add(t.dataset.ch):cfg.chapters.delete(t.dataset.ch); refreshAll(); }
   else if(t.matches('#chapList input[data-segment]')){
@@ -1300,17 +1324,20 @@ function applyBulkSelection(buttonId, containerSelector, checkboxSelector, getKe
       const key = getKey(checkbox);
       if (!key) return;
       if (selected) {
-        if (containerSelector === '#chapList') cfg.chapters.add(key);
+        if (containerSelector === '#subjBox') cfg.subjects.add(key);
+        else if (containerSelector === '#chapList') cfg.chapters.add(key);
         else if (containerSelector === '#yearBox') cfg.years.add(key);
       } else {
-        if (containerSelector === '#chapList') cfg.chapters.delete(key);
+        if (containerSelector === '#subjBox') cfg.subjects.delete(key);
+        else if (containerSelector === '#chapList') cfg.chapters.delete(key);
         else if (containerSelector === '#yearBox') cfg.years.delete(key);
       }
     });
-    if (containerSelector === '#chapList') refreshAll();
-    else { renderYears(); renderTypes(); refreshSummary(); }
+    refreshAll();
   });
 }
+applyBulkSelection('subjAll', '#subjBox', 'input[data-subj]', cb => cb.dataset.subj, true);
+applyBulkSelection('subjNone', '#subjBox', 'input[data-subj]', cb => cb.dataset.subj, false);
 applyBulkSelection('chAll', '#chapList', 'input[data-ch]', cb => cb.dataset.ch, true);
 applyBulkSelection('chNone', '#chapList', 'input[data-ch]', cb => cb.dataset.ch, false);
 applyBulkSelection('yrAll', '#yearBox', 'input[data-year]', cb => cb.dataset.year, true);
@@ -1320,10 +1347,13 @@ applyBulkSelection('yrNone', '#yearBox', 'input[data-year]', cb => cb.dataset.ye
 (async function(){
   let ok=false;
   const cfg = window.AITS_CONFIG || {};
-  const dbUrls = [];
-  if(cfg.databaseUrl) dbUrls.push({url:cfg.databaseUrl, fallback:'database.json'});
-  else dbUrls.push({url:'database.json', fallback:null});
-  if(cfg.chemistryUrl) dbUrls.push({url:cfg.chemistryUrl, fallback:'chemistry_database.json'});
+  const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
+  const dbUrls = [
+    { url: isLocal ? 'database.json' : (cfg.databaseUrl || 'database.json'), fallback: 'database.json' },
+    { url: isLocal ? 'chemistry_database.json' : (cfg.chemistryUrl || 'chemistry_database.json'), fallback: 'chemistry_database.json' },
+    { url: isLocal ? 'maths_advanced_database.json' : (cfg.mathsAdvancedUrl || 'maths_advanced_database.json'), fallback: 'maths_advanced_database.json' },
+    { url: isLocal ? 'maths_main_database.json' : (cfg.mathsMainUrl || 'maths_main_database.json'), fallback: 'maths_main_database.json' }
+  ];
 
   let allQuestions = [];
   for(const entry of dbUrls){
@@ -1339,8 +1369,8 @@ applyBulkSelection('yrNone', '#yearBox', 'input[data-year]', cb => cb.dataset.ye
       } catch(e){}
     }
     if(raw){
-      const list = extractList(raw);
-      if(list && list.length) allQuestions.push(...list);
+      const items = Array.isArray(raw) ? raw : (raw.questions || raw.records || raw.data || raw.items || []);
+      if(Array.isArray(items) && items.length) allQuestions.push(...items);
     }
   }
 
