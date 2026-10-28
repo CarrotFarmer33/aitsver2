@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#17191f">
+  <title>Maintenance | AITS Practice Portal</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f4f6f9;
+      --surface: #fff;
+      --fg: #20242b;
+      --muted: #667085;
+      --line: #dfe3e8;
+      --top: #17191f;
+      --accent: #286ac7;
+      --accent-hover: #1e54a0;
+      --warning: #b45309;
+      --warning-bg: #fef3c7;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #11151b;
+        --surface: #1b222c;
+        --fg: #edf1f7;
+        --muted: #a5afbd;
+        --line: #343e4b;
+        --top: #090b0f;
+        --accent: #4c8de4;
+        --accent-hover: #6ca5f1;
+        --warning: #f59e0b;
+        --warning-bg: #292010;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font: 15px/1.5 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .top {
+      background: var(--top);
+      color: #f6d23c;
+      padding: 14px max(16px, calc((100% - 800px) / 2));
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .brand {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .back {
+      color: #fff;
+      text-decoration: none;
+      border: 1px solid #737780;
+      border-radius: 7px;
+      padding: 7px 11px;
+      font-size: 13px;
+    }
+    .wrap {
+      max-width: 800px;
+      margin: auto;
+      padding: 30px 16px 52px;
+    }
+    h1 {
+      font-size: clamp(27px, 4vw, 36px);
+      margin: 0 0 5px;
+      letter-spacing: -.03em;
+    }
+    .sub {
+      color: var(--muted);
+      margin: 0 0 23px;
+    }
+    .entry {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      padding: 20px 22px;
+      margin-bottom: 14px;
+    }
+    .tag {
+      background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+      color: var(--accent);
+      border-radius: 99px;
+      padding: 2px 10px;
+      font-weight: 700;
+      font-size: 12px;
+      display: inline-block;
+    }
+    .tag-warn {
+      background: color-mix(in srgb, var(--warning) 16%, var(--surface));
+      color: var(--warning);
+    }
+    .entry h2 {
+      margin: 10px 0 8px;
+      font-size: 19px;
+    }
+    .entry p {
+      margin: 0 0 12px;
+      line-height: 1.55;
+    }
+    .entry p:last-of-type {
+      margin-bottom: 0;
+    }
+    .actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 7px;
+      padding: 9px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn:hover {
+      background: var(--accent-hover);
+    }
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--fg);
+      border: 1px solid var(--line);
+    }
+    .btn-secondary:hover {
+      background: color-mix(in srgb, var(--fg) 5%, var(--surface));
+    }
+    .status-msg {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .foot {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 24px;
+    }
+    .foot a {
+      color: inherit;
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="brand">AITS Practice Portal</div>
+    <a class="back" href="/downloads.html">Chapter PDFs →</a>
+  </header>
+
+  <main class="wrap">
+    <h1>Maintenance in Progress</h1>
+    <p class="sub">The practice portal is temporarily offline for scheduled updates.</p>
+
+    <article class="entry">
+      <span class="tag tag-warn">Maintenance Mode</span>
+      <h2>Portal updates underway</h2>
+      <p>I'm currently updating the portal question bank databases and working on maintenance. Normal test practice will be back online shortly.</p>
+      <p>If you need to study in the meantime, chapter-wise question PDFs remain available to view and download.</p>
+
+      <div class="actions">
+        <button class="btn" id="check-btn" onclick="checkStatus()">Check if site is back</button>
+        <a class="btn btn-secondary" href="/downloads.html">Download Chapter PDFs</a>
+        <span class="status-msg" id="status-msg">Auto-checking every 30s</span>
+      </div>
+    </article>
+
+    <p class="foot">
+      Admin: <a href="/index.html?bypass=true">Bypass to live portal</a>
+    </p>
+  </main>
+
+  <script>
+    async function checkStatus() {
+      const btn = document.getElementById('check-btn');
+      const msg = document.getElementById('status-msg');
+      btn.disabled = true;
+      msg.textContent = 'Checking status…';
+
+      try {
+        const res = await fetch('config.js?t=' + Date.now(), { cache: 'no-store' });
+        if (res.ok) {
+          const txt = await res.text();
+          if (!/maintenanceMode\s*:\s*true/.test(txt)) {
+            msg.textContent = 'Portal is back! Redirecting…';
+            setTimeout(function() {
+              window.location.href = '/index.html?bypass=true';
+            }, 800);
+            return;
+          }
+        }
+        msg.textContent = 'Still under maintenance. Checked just now.';
+      } catch (err) {
+        msg.textContent = 'Server updating. Will retry shortly.';
+      } finally {
+        setTimeout(function() { btn.disabled = false; }, 1000);
+      }
+    }
+
+    setInterval(checkStatus, 30000);
+  </script>
+</body>
+</html>
