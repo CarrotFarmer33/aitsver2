@@ -3,6 +3,15 @@
   [
     {
       "date": "2026-10-27",
+      "title": "Added Maths and other bug fixes",
+      "tag": "New",
+      "changes": 
+      [
+        "Advanced Maths questions of AITS have been added to the site.", "Fixed paragraph type questions (They will appear in their separate section now.", "Fixed bug where NAT type questions are found in SAT section"
+      ]
+    },
+    {
+      "date": "2026-10-27",
       "title": "PDF Download of Chemistry Questions",
       "tag": "New",
       "changes": 
