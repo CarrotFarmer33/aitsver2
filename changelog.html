@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#17191f"><title>Changelog | AITS Practice Portal</title><style>
+:root{color-scheme:light dark;--bg:#f4f6f9;--surface:#fff;--fg:#20242b;--muted:#667085;--line:#dfe3e8;--top:#17191f;--accent:#286ac7}
+@media(prefers-color-scheme:dark){:root{--bg:#11151b;--surface:#1b222c;--fg:#edf1f7;--muted:#a5afbd;--line:#343e4b;--top:#090b0f;--accent:#4c8de4}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+.top{background:var(--top);color:#f6d23c;padding:14px max(16px,calc((100% - 800px)/2));display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.brand{font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.back{color:#fff;text-decoration:none;border:1px solid #737780;border-radius:7px;padding:7px 11px;font-size:13px}
+.wrap{max-width:800px;margin:auto;padding:30px 16px 52px}h1{font-size:clamp(27px,4vw,36px);margin:0 0 5px;letter-spacing:-.03em}
+.sub{color:var(--muted);margin:0 0 23px}
+.entry{background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:16px 18px;margin-bottom:14px}
+.meta{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:13px}
+.tag{background:color-mix(in srgb,var(--accent) 14%,var(--surface));color:var(--accent);border-radius:99px;padding:1px 9px;font-weight:700;font-size:12px}
+.entry h2{margin:6px 0 8px;font-size:18px}.entry ul{margin:0;padding-left:20px}.entry li{margin:3px 0}
+.empty{color:var(--muted)}
+</style></head><body>
+<header class="top"><div class="brand">AITS Practice Portal</div><a class="back" href="/index.html">← Practice portal</a></header>
+<main class="wrap"><h1>Changelog</h1><p class="sub">Stuff I've changed/added.</p><div id="list"><p class="empty">Loading…</p></div></main>
+<script>
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+fetch('changelog.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
+  const es=(d.entries||[]).slice().sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+  document.getElementById('list').innerHTML=es.length?es.map(e=>{
+    const dt=new Date(e.date+'T00:00:00'), ds=isNaN(dt)?esc(e.date):dt.toLocaleDateString(undefined,{day:'numeric',month:'long',year:'numeric'});
+    return '<article class="entry"><div class="meta"><span>'+ds+'</span>'+(e.tag?'<span class="tag">'+esc(e.tag)+'</span>':'')+'</div><h2>'+esc(e.title)+'</h2><ul>'+(e.changes||[]).map(c=>'<li>'+esc(c)+'</li>').join('')+'</ul></article>';
+  }).join(''):'<p class="empty">No entries yet.</p>';
+}).catch(()=>{document.getElementById('list').innerHTML='<p class="empty">Could not load the changelog.</p>';});
+</script></body></html>

@@ -1,56 +1,49 @@
 {
-  "entries": 
-  [
+  "entries": [
     {
-      "date": "2026-10-27",
-      "title": "Added Maths and other bug fixes",
+      "date": "2026-10-28",
+      "title": "Question Reporting",
       "tag": "New",
-      "changes": 
-      [
-        "Advanced Maths questions of AITS have been added to the site.", "Fixed paragraph type questions (They will appear in their separate section now.", "Fixed bug where NAT type questions are found in SAT section"
+      "changes": [
+        "Added Report Question button to flag incorrect answer keys, typos, or cropped images during tests or reviews."
       ]
     },
     {
       "date": "2026-10-27",
       "title": "PDF Download of Chemistry Questions",
       "tag": "New",
-      "changes": 
-      [
-        "Downloads of Chemistry Question are available (printable format)", "Reformatted downloads page"
+      "changes": [
+        "Downloads of Chemistry Question are available (printable format)",
+        "Reformatted downloads page"
       ]
     },
     {
       "date": "2026-10-27",
       "title": "Mistakes and Bookmarked questions",
       "tag": "New",
-      "changes": 
-      [
+      "changes": [
         "Added option to view mistakes and saved questions (star button in tests and review)",
         "Added option to import/export your saved questions and question attempted history (it's good to keep a backup of your data once in a while)"
       ]
     },
-    
     {
       "date": "2026-10-27",
       "title": "Seen-question tracking and multi-subject tests and question addition",
       "tag": "New",
-      "changes": 
-      [
+      "changes": [
         "Added Chemistry Questions (Primarily Advanced).",
         "Physics JEEM AITS Questions added.",
         "Pick Physics, Chemistry or both in one test.",
         "Questions you have already seen are remembered and new ones are shown first (All data is stored locally on your browser, clearing site data will erase it.)."
       ]
     },
-    
     {
       "date": "2026-10-23",
       "title": "PDF Review Download",
       "tag": "New",
-      "changes": 
-      [
+      "changes": [
         "Adds the ability to save the test you took as a PDF, which includes a summary, and question wise analysis."
       ]
-    }           
+    }
   ]
 }

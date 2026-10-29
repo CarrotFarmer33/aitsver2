@@ -212,13 +212,16 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 #scrExam .rb{flex:none;display:grid;place-items:center;width:28px;height:28px;padding:0;border:0;border-radius:50%;background:var(--x-circle);box-shadow:0 1px 2px rgba(0,0,0,.25)}
 #scrExam .xqbtns{display:flex;gap:8px;align-items:center}
 #scrExam .rb.bm{color:var(--x-ink)}#scrExam .rb.bm[aria-pressed=true],.bmb[aria-pressed=true]{color:#e0a100}#scrExam .rb.bm[aria-pressed=true] path,.bmb[aria-pressed=true] path{fill:currentColor}
+#scrExam .rb.report{color:var(--x-ink);cursor:pointer}#scrExam .rb.report:hover{color:#d32f2f}#scrExam .rb.report[aria-pressed=true]{color:#d32f2f}#scrExam .rb.report[aria-pressed=true] path{fill:#d32f2f}
+.rpt-item{background:var(--surface-2);border:1px solid var(--line);border-radius:4px;padding:12px;margin-bottom:10px}
+.rpt-badge{display:inline-block;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600;background:rgba(211,47,47,.12);color:#d32f2f;border:1px solid rgba(211,47,47,.25)}
 .bmb{display:inline-grid;place-items:center;width:26px;height:26px;padding:0;border:0;background:transparent;color:var(--muted);cursor:pointer}
 .svchaps{display:flex;flex-direction:column;gap:8px}.svchap{display:flex;justify-content:space-between;align-items:center;gap:12px;text-align:left;background:var(--surface);color:var(--fg);border:1px solid var(--line);border-radius:4px;padding:11px 14px;font:inherit;cursor:pointer}.svchap:hover{border-color:#286ac7}.svchap b{background:var(--surface-2);border-radius:99px;padding:1px 10px;font-size:13px}
 .svgrp>summary{cursor:pointer;font-size:15px;padding:8px 2px;position:sticky;top:0;background:var(--bg);z-index:1}.svgb{display:flex;flex-direction:column;gap:12px;margin:6px 0 14px}
 .printhint{display:none}
 @media print{
   html.print-review body{background:#fff!important;color:#000!important}
-  html.print-review .topbar,html.print-review .rvbar,html.print-review .bmb,html.print-review #scrSetup,html.print-review #scrInstr,html.print-review #scrExam,html.print-review #scrSaved,html.print-review #modal,html.print-review .scrim{display:none!important}
+  html.print-review .topbar,html.print-review .rvbar,html.print-review .bmb,html.print-review .report-btn,html.print-review [data-rpt],html.print-review #scrSetup,html.print-review #scrInstr,html.print-review #scrExam,html.print-review #scrSaved,html.print-review #modal,html.print-review .scrim{display:none!important}
   html.print-review #scrRes{display:block!important}
   html.print-review .wrap{max-width:none;padding:0}
   html.print-review .rv,html.print-review .card,html.print-review .kpi{break-inside:avoid;box-shadow:none}
@@ -384,7 +387,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 </style>
 
 <div id="scrSetup" class="screen">
-  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Portal &ndash; chapter-wise question practice</span><details class="menu" id="topMenu"><summary class="btn sm">Menu &#9662;</summary><div class="menuList"><button class="btn sm" id="openSaved" type="button">Saved questions</button><a class="btn sm" href="changelog.html">Changelog</a><a class="btn sm" href="downloads.html">Downloads</a><hr class="menuSep"><div class="mrow"><button class="btn sm" id="expData" type="button">Export my data</button><span class="mi" tabindex="0" role="note" aria-label="About Export my data">i</span><div class="mtip">Saves a backup file of your bookmarks, mistakes, seen questions and history. Your data lives only in this browser, so export now and then in case it gets cleared.</div></div><div class="mrow"><button class="btn sm" id="impData" type="button">Import data</button><span class="mi" tabindex="0" role="note" aria-label="About Import data">i</span><div class="mtip">Load a backup file you exported earlier. It is merged with your current data, so nothing is overwritten.</div></div><input type="file" id="impFile" accept=".json,application/json" hidden></div></details></div></div>
+  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Portal &ndash; chapter-wise question practice</span><details class="menu" id="topMenu"><summary class="btn sm">Menu &#9662;</summary><div class="menuList"><button class="btn sm" id="openSaved" type="button">Saved questions</button><button class="btn sm" id="openReports" type="button" style="display:flex;align-items:center;justify-content:space-between">Reported questions <span id="rptBadge" style="display:none;background:#d32f2f;color:#fff;border-radius:10px;padding:0 6px;font-size:11px;font-weight:700">0</span></button><a class="btn sm" href="changelog.html">Changelog</a><a class="btn sm" href="downloads.html">Downloads</a><hr class="menuSep"><div class="mrow"><button class="btn sm" id="expData" type="button">Export my data</button><span class="mi" tabindex="0" role="note" aria-label="About Export my data">i</span><div class="mtip">Saves a backup file of your bookmarks, mistakes, seen questions and history. Your data lives only in this browser, so export now and then in case it gets cleared.</div></div><div class="mrow"><button class="btn sm" id="impData" type="button">Import data</button><span class="mi" tabindex="0" role="note" aria-label="About Import data">i</span><div class="mtip">Load a backup file you exported earlier. It is merged with your current data, so nothing is overwritten.</div></div><input type="file" id="impFile" accept=".json,application/json" hidden></div></details></div></div>
   <main class="wrap setup">
     <section class="card" id="dbCard" hidden style="display:none">
       <div class="dbrow">
@@ -420,23 +423,42 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
         <div id="chapList"></div>
       </div>
 
-      <aside class="card sticky">
-        <h2>Test summary</h2>
-        <div class="sum"><span>Matching questions</span><b class="big" id="sumAvail">0</b></div>
-        <div class="field" style="margin-top:12px"><label for="cntIn">Number of questions</label>
-          <div style="display:flex;gap:8px"><input type="number" id="cntIn" min="1" step="1"><button class="btn sm" id="cntAll" type="button">All</button></div></div>
-        <div class="field"><label for="ordSel">Order</label>
-          <select id="ordSel"><option value="seq">Bank order</option><option value="shuf">Shuffled</option></select></div>
-        <div class="field"><label class="chk" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="unattFirst"><span>New questions first (skip ones already shown)</span></label>
-          <div class="muted" style="font-size:13px;margin-top:6px"><span id="attInfo"></span> <button class="btn sm" id="attReset" type="button" hidden>Reset</button></div></div>
-        <div class="field"><label for="minIn">Time limit (minutes, 0 for untimed)</label><input type="number" id="minIn" min="0" step="1"></div>
-        <div class="field"><label for="modeSel">Mode</label>
-          <select id="modeSel"><option value="test">Take as a test (results at the end)</option><option value="practice">Practice (check answer and solution after each question)</option></select></div>
-        <div class="field"><label for="mrkSel">Marking scheme</label><select id="mrkSel"></select></div>
-        <button class="btn primary" id="btnStart" type="button" style="width:100%">Continue to instructions</button>
-        <div id="startWhy" class="muted" style="font-size:13px;margin-top:8px"></div>
-        <div id="histCard" hidden><h3>Recent tests</h3><div class="hist" id="histList"></div></div>
-      </aside>
+      <div class="setup-side sticky" style="display:flex;flex-direction:column;gap:16px">
+        <aside class="card">
+          <h2>Test summary</h2>
+          <div class="sum"><span>Matching questions</span><b class="big" id="sumAvail">0</b></div>
+          <div class="field" style="margin-top:12px"><label for="cntIn">Number of questions</label>
+            <div style="display:flex;gap:8px"><input type="number" id="cntIn" min="1" step="1"><button class="btn sm" id="cntAll" type="button">All</button></div></div>
+          <div class="field"><label for="ordSel">Order</label>
+            <select id="ordSel"><option value="seq">Bank order</option><option value="shuf">Shuffled</option></select></div>
+          <div class="field"><label class="chk" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="unattFirst"><span>New questions first (skip ones already shown)</span></label>
+            <div class="muted" style="font-size:13px;margin-top:6px"><span id="attInfo"></span> <button class="btn sm" id="attReset" type="button" hidden>Reset</button></div></div>
+          <div class="field"><label for="minIn">Time limit (minutes, 0 for untimed)</label><input type="number" id="minIn" min="0" step="1"></div>
+          <div class="field"><label for="modeSel">Mode</label>
+            <select id="modeSel"><option value="test">Take as a test (results at the end)</option><option value="practice">Practice (check answer and solution after each question)</option></select></div>
+          <div class="field"><label for="mrkSel">Marking scheme</label><select id="mrkSel"></select></div>
+          <button class="btn primary" id="btnStart" type="button" style="width:100%">Continue to instructions</button>
+          <div id="startWhy" class="muted" style="font-size:13px;margin-top:8px"></div>
+          <div id="histCard" hidden><h3>Recent tests</h3><div class="hist" id="histList"></div></div>
+        </aside>
+
+        <section class="card" id="changelogCard" style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <h3 style="margin:0;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)">Changelog</h3>
+            <span id="clTag" style="display:none;background:rgba(40,106,199,.12);color:var(--accent,#286ac7);border-radius:99px;padding:1px 8px;font-size:11px;font-weight:700"></span>
+          </div>
+          <div id="clBody">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+              <b id="clTitle" style="font-size:14px;color:var(--fg)">Loading...</b>
+              <span id="clDate" class="muted" style="font-size:11px;white-space:nowrap"></span>
+            </div>
+            <ul id="clList" style="margin:6px 0 0;padding-left:18px;font-size:12.5px;color:var(--fg);line-height:1.45"></ul>
+          </div>
+          <div style="margin-top:2px;border-top:1px solid var(--line);padding-top:8px;display:flex;justify-content:flex-end">
+            <a href="changelog.html" style="font-size:12px;color:var(--accent,#286ac7);text-decoration:none;font-weight:600">All updates &rarr;</a>
+          </div>
+        </section>
+      </div>
     </div>
   </main>
 </div>
@@ -493,7 +515,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
       <div class="xsections"><span>Sections</span><span class="tl" id="tlWrap"><span id="tlLbl">Time Left : </span><b id="timer">--:--</b></span></div>
       <div class="xtabsrow"><button class="xarr l off" id="tabL" type="button" aria-label="Scroll sections left"></button><div class="tabs" id="tabs" role="tablist"></div><button class="xarr r off" id="tabR" type="button" aria-label="Scroll sections right"></button></div>
       <div class="xqtype"><span id="qType"></span><span id="qMarks" class="qmarks"></span></div>
-      <div class="xqno"><span id="qNo"></span><span class="xqbtns"><button class="rb bm" id="btnBm" type="button" aria-pressed="false" aria-label="Bookmark this question" title="Bookmark this question"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l1.9 4.2 4.6.5-3.4 3.1 1 4.5L8 11.5 3.9 13.8l1-4.5L1.5 6.2l4.6-.5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></button><button class="rb" id="btnDown" type="button" aria-label="Scroll to the end of the question"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v10M3.5 8l4.5 4.5L12.5 8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button></span></div>
+      <div class="xqno"><span id="qNo"></span><span class="xqbtns"><button class="rb bm" id="btnBm" type="button" aria-pressed="false" aria-label="Bookmark this question" title="Bookmark this question"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l1.9 4.2 4.6.5-3.4 3.1 1 4.5L8 11.5 3.9 13.8l1-4.5L1.5 6.2l4.6-.5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></button><button class="rb report" id="btnReport" type="button" aria-pressed="false" aria-label="Report issue with this question" title="Report an issue with this question"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2v12M3 3h9l-2 3.5 2 3.5H3"/></svg></button><button class="rb" id="btnDown" type="button" aria-label="Scroll to the end of the question"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v10M3.5 8l4.5 4.5L12.5 8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button></span></div>
       <div class="xqwrap"><div class="xscroll" id="xscroll"></div><button class="rb up" id="btnUp" type="button" aria-label="Scroll to the top of the question"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 14V4M3.5 8L8 3.5 12.5 8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
       <div class="xbottom">
         <button class="xbtn" data-act="mark" type="button">Mark for Review &amp; Next</button>
@@ -595,6 +617,12 @@ const saveAtt=()=>store.set(ATT_KEY,JSON.stringify([...ATT]));
 const markAttempted=q=>{ if(q && !ATT.has(q.id)){ ATT.add(q.id); saveAtt(); } };
 const loadIds=k=>{ try{ return new Set(JSON.parse(store.get(k)||'[]')); }catch(e){ return new Set(); } };
 const BM=loadIds('aits_bookmarks'), MIS=loadIds('aits_mistakes');
+const RPT_KEY='aits_reported_questions';
+function getReports(){ try{ return JSON.parse(store.get(RPT_KEY)||'[]'); }catch(e){ return []; } }
+function saveReports(list){ store.set(RPT_KEY,JSON.stringify(list)); updateReportBadge(); }
+function isQuestionReported(qId){ if(!qId) return false; return getReports().some(r=>r.questionId===qId); }
+function updateReportBadge(){ const badge=$('#rptBadge'); if(!badge) return; const count=getReports().length; badge.textContent=count; badge.style.display=count>0?'inline-block':'none'; }
+function findQuestionById(id){ if(!id) return null; if(T&&T.qs){ const found=T.qs.find(q=>q.id===id); if(found) return found; } return DB.find(q=>q.id===id)||null; }
 const saveSet=(k,S)=>store.set(k,JSON.stringify([...S]));
 const answered=a=>a!=null && !(Array.isArray(a)&&!a.length) && a!=='';
 const typeset = el => { try{ if(window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise(el?[el]:undefined).catch(()=>{}); }catch(e){} };
@@ -786,7 +814,7 @@ function renderSetup(){
   $('#mrkSel').innerHTML=Object.keys(PRESETS).map(k=>'<option value="'+k+'">'+esc(PRESETS[k].name)+'</option>').join('');
   $('#mrkSel').value=cfg.preset;
   $('#candName').value = store.get('aits_name')||'';
-  renderYears(); renderTypes(); renderChapters(); refreshSummary(); renderHist();
+  renderYears(); renderTypes(); renderChapters(); refreshSummary(); renderHist(); renderRecentChangelog();
 }
 function renderSubjects(){
   const have=SUBJ.filter(s=>DB.some(q=>q.subject===s));
@@ -868,6 +896,55 @@ function refreshSummary(){
   $('#btnStart').disabled=!ok;
   $('#startWhy').textContent = ok ? '' : 'Pick at least one chapter and one question type that has questions.';
 }
+async function renderRecentChangelog(){
+  const titleEl = $('#clTitle'), dateEl = $('#clDate'), listEl = $('#clList'), tagEl = $('#clTag');
+  if(!titleEl) return;
+  let entry = null;
+  for(const u of ['changelog.json', 'public/changelog.json']){
+    try {
+      const r = await fetch(u, {cache: 'no-store'});
+      if(r.ok){
+        const d = await r.json();
+        if(d && Array.isArray(d.entries) && d.entries.length){
+          const sorted = d.entries.slice().sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+          entry = sorted[0];
+          break;
+        }
+      }
+    } catch(e){}
+  }
+
+  if(!entry){
+    entry = {
+      date: '2026-10-28',
+      title: 'Question Reporting',
+      tag: 'New',
+      changes: [
+        'Added Report Question button to flag incorrect answer keys, typos, or cropped images during tests or reviews.'
+      ]
+    };
+  }
+
+  titleEl.textContent = entry.title || 'Latest Update';
+  if(entry.date){
+    const dt = new Date(entry.date + 'T00:00:00');
+    dateEl.textContent = isNaN(dt) ? entry.date : dt.toLocaleDateString(undefined, {month: 'short', day: 'numeric', year: 'numeric'});
+  } else {
+    dateEl.textContent = '';
+  }
+  if(entry.tag){
+    tagEl.textContent = entry.tag;
+    tagEl.style.display = 'inline-block';
+  } else {
+    tagEl.style.display = 'none';
+  }
+  if(Array.isArray(entry.changes) && entry.changes.length){
+    listEl.innerHTML = entry.changes.map(c => '<li>' + esc(c) + '</li>').join('');
+  } else {
+    listEl.innerHTML = '';
+  }
+}
+
 function renderHist(){
   let h=[]; try{ h=JSON.parse(store.get('aits_hist')||'[]'); }catch(e){}
   $('#histCard').hidden=!h.length;
@@ -1049,7 +1126,7 @@ function secInfoText(s){
 function renderQ(){
   const q=T.qs[T.cur], s=T.st[T.cur];
   markAttempted(q); /* shown to the user, so it counts as seen even if skipped */
-  { const b=$('#btnBm'); if(b){ b.setAttribute('aria-pressed',String(BM.has(q.id))); b.title=BM.has(q.id)?'Remove bookmark':'Bookmark this question'; } }
+  { const b=$('#btnBm'); if(b){ b.setAttribute('aria-pressed',String(BM.has(q.id))); b.title=BM.has(q.id)?'Remove bookmark':'Bookmark this question'; } } { const r=$('#btnReport'); if(r){ const isRpt=isQuestionReported(q.id); r.setAttribute('aria-pressed',String(isRpt)); r.title=isRpt?'Question reported (click to view/edit)':'Report an issue with this question'; } }
   $('#qType').textContent='Question Type: '+QTS[q.type];
   $('#qMarks').innerHTML=marksHtml(q.type, q.rawType);
   $('#qNo').textContent='Question No. '+(T.cur+1);
@@ -1224,7 +1301,8 @@ function renderReview(f){
       const sel=q.type==='multi'?(s.ans||[]):(s.ans==null?[]:[s.ans]);
       ob='<div style="display:flex;flex-direction:column;gap:6px">'+q.options.map((o,k)=>{ const corr=q.keyOk&&q.ans.includes(k), wr=sel.includes(k)&&!corr; return '<div class="ropt'+(corr?' corr':'')+(wr?' wrong':'')+'"><b>'+LET[k]+'.</b><span style="min-width:0;overflow-wrap:anywhere">'+(q.labelOnly?'':rich(o))+'</span>'+(sel.includes(k)?'<span class="muted" style="margin-left:auto;white-space:nowrap">your answer</span>':'')+'</div>'; }).join('')+'</div>';
     }
-    html+='<article class="rv r-'+r.r+'"><header><b>Q'+(i+1)+'</b><button class="bmb" data-bm="'+esc(q.id)+'" type="button" aria-pressed="'+BM.has(q.id)+'" title="Bookmark this question" aria-label="Bookmark this question">'+STAR+'</button><span>'+esc(T.secs[T.secOf[i]].name)+'</span><span>'+esc(q.chapter)+'</span><span class="badge '+pc+'">'+label+(r.marks?' '+(r.marks>0?'+':'')+r.marks:'')+'</span><span>'+mmss(s.time)+'</span></header>'+
+    const isRpt=isQuestionReported(q.id);
+    html+='<article class="rv r-'+r.r+'"><header><b>Q'+(i+1)+'</b><button class="bmb" data-bm="'+esc(q.id)+'" type="button" aria-pressed="'+BM.has(q.id)+'" title="Bookmark this question" aria-label="Bookmark this question">'+STAR+'</button><span>'+esc(T.secs[T.secOf[i]].name)+'</span><span>'+esc(q.chapter)+'</span><span class="badge '+pc+'">'+label+(r.marks?' '+(r.marks>0?'+':'')+r.marks:'')+'</span><span>'+mmss(s.time)+'</span><button class="btn sm report-btn" data-rpt="'+esc(q.id)+'" type="button" style="margin-left:auto;display:inline-flex;align-items:center;gap:4px;padding:2px 8px;font-size:12px'+(isRpt?';color:#d32f2f;border-color:#d32f2f':'')+'" title="Report issue with this question">🚩 '+(isRpt?'Reported':'Report')+'</button></header>+'
       '<div class="qtext">'+rich(q.text)+'</div>'+q.images.map(u=>imageMarkup(u,'Question figure')).join('')+ob+
       '<div>Your answer: <b>'+esc(fmtAns(q,s.ans))+'</b> · Correct answer: <b>'+esc(keyText(q))+'</b></div>'+
       ((q.solution||q.solImages.length)?'<details><summary>Solution</summary><div style="margin-top:8px">'+rich(q.solution)+q.solImages.map(u=>imageMarkup(u,'Solution figure')).join('')+'</div></details>':'')+'</article>';
@@ -1243,7 +1321,7 @@ function svQuestions(){
 const svCard=q=>{
   let ob='';
   if(q.type!=='numerical' && q.options) ob='<div style="display:flex;flex-direction:column;gap:6px">'+q.options.map((o,k)=>{ const corr=q.keyOk&&q.ans.includes(k); return '<div class="ropt'+(corr?' corr':'')+'"><b>'+LET[k]+'.</b><span style="min-width:0;overflow-wrap:anywhere">'+(q.labelOnly?'':rich(o))+'</span></div>'; }).join('')+'</div>';
-  return '<article class="rv"><header><span>'+esc(QTS[q.type]||q.type)+'</span><span>'+esc(q.paper==='main'?'JEE Main':'JEE Advanced')+(q.year?' '+esc(q.year):'')+'</span><span>'+esc(q.paperTitle||'')+'</span><button class="btn sm" data-svrm="'+esc(q.id)+'" type="button" style="margin-left:auto">Remove</button></header>'+
+  return '<article class="rv"><header><span>'+esc(QTS[q.type]||q.type)+'</span><span>'+esc(q.paper==='main'?'JEE Main':'JEE Advanced')+(q.year?' '+esc(q.year):'')+'</span><span>'+esc(q.paperTitle||'')+'</span><span style="margin-left:auto;display:inline-flex;gap:6px"><button class="btn sm report-btn" data-rpt="'+esc(q.id)+'" type="button" style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;font-size:12px'+(isQuestionReported(q.id)?';color:#d32f2f;border-color:#d32f2f':'')+'" title="Report issue with this question">🚩 '+(isQuestionReported(q.id)?'Reported':'Report')+'</button><button class="btn sm" data-svrm="'+esc(q.id)+'" type="button">Remove</button></span></header>'+
     '<div class="qtext">'+rich(q.text)+'</div>'+q.images.map(u=>imageMarkup(u,'Question figure')).join('')+ob+
     '<div>Correct answer: <b>'+esc(keyText(q))+'</b></div>'+
     ((q.solution||q.solImages.length)?'<details><summary>Solution</summary><div style="margin-top:8px">'+rich(q.solution)+q.solImages.map(u=>imageMarkup(u,'Solution figure')).join('')+'</div></details>':'')+'</article>';
@@ -1319,6 +1397,265 @@ function importData(text){
   infoModal('Import complete','Added '+(BM.size-nb)+' bookmarks, '+(MIS.size-nm)+' mistakes and '+(ATT.size-na)+' seen questions. Your existing data was kept.');
 }
 
+/* ---------- reporting modal & management ---------- */
+function openReportModal(q){
+  if(!q) return;
+  const isRpt = isQuestionReported(q.id);
+  const paperTitle = (q.paper === 'main' ? 'JEE Main' : 'JEE Advanced') + (q.year ? ' ' + q.year : '') + (q.paperTitle ? ' · ' + q.paperTitle : '');
+  const keyDisp = keyText(q);
+
+  const html = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">' +
+    '<h2 style="margin:0;display:flex;align-items:center;gap:8px"><span>🚩</span> Report Question</h2>' +
+    '<button class="btn sm" id="rptCloseX" type="button" style="padding:2px 8px;font-size:16px;line-height:1">✕</button>' +
+    '</div>' +
+    '<p class="muted" style="margin:0 0 12px;font-size:13px">Found an issue or typo? Let us know so it can be reviewed and corrected.</p>' +
+    '<div style="background:var(--surface-2);border:1px solid var(--line);border-radius:4px;padding:8px 12px;margin-bottom:14px;font-size:13px;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:6px 12px">' +
+      '<div><span class="muted">ID:</span> <b>' + esc(q.id) + '</b></div>' +
+      '<div><span class="muted">Subject:</span> <b>' + esc(q.subject || '—') + '</b></div>' +
+      '<div><span class="muted">Chapter:</span> <b>' + esc(q.chapter || '—') + '</b></div>' +
+      '<div><span class="muted">Type:</span> <b>' + esc(QTS[q.type] || q.type || '—') + '</b></div>' +
+      '<div><span class="muted">Current Key:</span> <b>' + esc(keyDisp) + '</b></div>' +
+      '<div style="grid-column:1/-1"><span class="muted">Paper:</span> <b>' + esc(paperTitle) + '</b></div>' +
+    '</div>' +
+    (isRpt ? '<div class="note" style="margin-bottom:12px;background:rgba(211,47,47,.08);border-left:4px solid #d32f2f;padding:8px 10px;font-size:13px">You previously reported this question. Submitting will record an updated report.</div>' : '') +
+    '<form id="rptForm" style="display:flex;flex-direction:column;gap:12px">' +
+      '<div>' +
+        '<label style="font-size:13px;font-weight:700;display:block;margin-bottom:6px">Select Issue Type :</label>' +
+        '<div style="display:flex;flex-direction:column;gap:8px;font-size:13px">' +
+          '<label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="radio" name="rptType" value="Incorrect Answer Key" checked> <span><b>Incorrect Answer Key</b> (mismatch with official key or solution)</span></label>' +
+          '<label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="radio" name="rptType" value="Wrong Chapter / Subject"> <span><b>Wrong Chapter / Subject</b> (misclassified syllabus topic)</span></label>' +
+          '<label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="radio" name="rptType" value="Broken / Unreadable Image"> <span><b>Broken / Unreadable Image</b> (cropped diagram, text cut off, blurry)</span></label>' +
+          '<label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="radio" name="rptType" value="Question Incomplete / Typo"> <span><b>Question Incomplete / Typo</b> (missing formula, truncated sentence)</span></label>' +
+          '<label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="radio" name="rptType" value="Duplicate Question"> <span><b>Duplicate Question</b> (already seen in another paper)</span></label>' +
+          '<label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="radio" name="rptType" value="Other Issue"> <span><b>Other Issue</b></span></label>' +
+        '</div>' +
+      '</div>' +
+      '<div>' +
+        '<label for="rptDetails" style="font-size:13px;font-weight:700;display:block;margin-bottom:4px">Details / Notes (optional) :</label>' +
+        '<textarea id="rptDetails" rows="3" style="width:100%;box-sizing:border-box;border:1px solid var(--line);border-radius:4px;padding:8px;background:var(--surface);color:var(--fg);font:inherit;resize:vertical" placeholder="Describe what is wrong (e.g. Correct answer should be 4, option (B) is cut off, formula missing...)" maxlength="500"></textarea>' +
+      '</div>' +
+      '<div class="row" style="margin-top:4px">' +
+        '<button class="btn" id="rptCancelBtn" type="button">Cancel</button>' +
+        '<button class="btn primary" id="rptSubmitBtn" type="submit" style="background:#d32f2f;border-color:#d32f2f;color:#fff">Submit Report</button>' +
+      '</div>' +
+    '</form>';
+
+  openModal(html, () => {
+    $('#rptCloseX').onclick = closeModal;
+    $('#rptCancelBtn').onclick = closeModal;
+    $('#rptForm').onsubmit = (e) => {
+      e.preventDefault();
+      const typeEl = e.target.querySelector('input[name="rptType"]:checked');
+      const issueType = typeEl ? typeEl.value : 'Other Issue';
+      const details = ($('#rptDetails').value || '').trim();
+
+      const report = {
+        id: 'rpt_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7),
+        questionId: q.id,
+        subject: q.subject || '',
+        chapter: q.chapter || '',
+        paper: paperTitle,
+        type: q.type || '',
+        currentKey: keyDisp,
+        issueType: issueType,
+        details: details,
+        reportedAt: new Date().toISOString()
+      };
+
+      const list = getReports();
+      list.unshift(report);
+      saveReports(list);
+
+      if(window.AITS_CONFIG && window.AITS_CONFIG.reportWebhookUrl){
+        try{
+          fetch(window.AITS_CONFIG.reportWebhookUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain' },
+            body: JSON.stringify(report)
+          }).catch(err => console.warn('Report webhook error:', err));
+        }catch(err){}
+      }
+
+      const btnRpt = $('#btnReport');
+      if(btnRpt && T && !T.over && T.qs[T.cur] && T.qs[T.cur].id === q.id){
+        btnRpt.setAttribute('aria-pressed', 'true');
+        btnRpt.title = 'Question reported (click to view/edit)';
+      }
+      try{
+        document.querySelectorAll('[data-rpt="' + CSS.escape(q.id) + '"]').forEach(b => {
+          b.style.color = '#d32f2f';
+          b.style.borderColor = '#d32f2f';
+          b.textContent = '🚩 Reported';
+        });
+      }catch(err){}
+
+      const successHtml = '<div style="text-align:center;padding:16px 8px">' +
+        '<div style="font-size:36px;margin-bottom:8px">✅</div>' +
+        '<h2 style="margin:0 0 6px;font-size:18px">Report Submitted</h2>' +
+        '<p class="muted" style="margin:0 0 16px;font-size:14px">Thank you! Question <b>' + esc(q.id) + '</b> has been logged for correction.</p>' +
+        '<div class="row" style="justify-content:center">' +
+          '<button class="btn primary" id="rptOkBtn" type="button">Done</button>' +
+        '</div>' +
+      '</div>';
+      $('#modalBox').innerHTML = successHtml;
+      $('#rptOkBtn').onclick = closeModal;
+    };
+  });
+}
+
+function formatReportsSummary(list){
+  if(!list || !list.length) return 'No reported questions.';
+  let text = '=== AITS Question Reports (' + list.length + ' reported) ===\n\n';
+  list.forEach((r, i) => {
+    text += (i+1) + '. [' + r.subject + ' | ' + r.chapter + '] ID: ' + r.questionId + '\n';
+    text += '   Issue: ' + r.issueType + '\n';
+    text += '   Paper: ' + r.paper + '\n';
+    text += '   Key: ' + (r.currentKey || '—') + '\n';
+    if(r.details) text += '   Details: ' + r.details + '\n';
+    text += '   Reported: ' + new Date(r.reportedAt).toLocaleString() + '\n\n';
+  });
+  return text;
+}
+
+function exportReportsJson(){
+  const list = getReports();
+  const blob = new Blob([JSON.stringify(list, null, 2)], {type: 'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'aits-reported-questions-' + new Date().toISOString().slice(0, 10) + '.json';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+
+function exportReportsCsv(){
+  const list = getReports();
+  const headers = ['Report ID', 'Reported At', 'Question ID', 'Subject', 'Chapter', 'Paper', 'Type', 'Current Key', 'Issue Type', 'Details'];
+  const escCsv = val => '"' + String(val == null ? '' : val).replace(/"/g, '""') + '"';
+  const rows = [headers.map(escCsv).join(',')];
+  list.forEach(r => {
+    rows.push([
+      r.id,
+      r.reportedAt,
+      r.questionId,
+      r.subject,
+      r.chapter,
+      r.paper,
+      r.type,
+      r.currentKey,
+      r.issueType,
+      r.details
+    ].map(escCsv).join(','));
+  });
+  const blob = new Blob([rows.join('\r\n')], {type: 'text/csv;charset=utf-8;'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'aits-reported-questions-' + new Date().toISOString().slice(0, 10) + '.csv';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+
+function openReportsModal(){
+  const list = getReports();
+  let itemsHtml = '';
+  if(!list.length){
+    itemsHtml = '<div class="muted" style="text-align:center;padding:32px 16px">No questions have been reported yet. When you encounter an issue during a test or review, use the 🚩 Report button to flag it.</div>';
+  } else {
+    itemsHtml = list.map((r) => {
+      const dt = new Date(r.reportedAt);
+      const timeStr = isNaN(dt) ? r.reportedAt : dt.toLocaleString(undefined, {month:'short', day:'numeric', year:'numeric', hour:'2-digit', minute:'2-digit'});
+      return '<div class="rpt-item" data-rptid="' + esc(r.id) + '">' +
+        '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:6px">' +
+          '<div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px">' +
+            '<span class="rpt-badge">' + esc(r.issueType) + '</span>' +
+            '<b>' + esc(r.subject) + '</b>' +
+            '<span class="muted">&bull;</span>' +
+            '<span>' + esc(r.chapter) + '</span>' +
+            '<span class="muted" style="font-size:12px">(' + esc(r.questionId) + ')</span>' +
+          '</div>' +
+          '<button class="btn sm" data-delrpt="' + esc(r.id) + '" type="button" style="color:var(--nok);padding:2px 8px;font-size:12px" title="Delete this report">Delete</button>' +
+        '</div>' +
+        '<div style="font-size:12px;color:var(--muted);margin-bottom:4px">' +
+          '<span>Paper: ' + esc(r.paper) + '</span> &bull; <span>Key: ' + esc(r.currentKey || '—') + '</span> &bull; <span>' + esc(timeStr) + '</span>' +
+        '</div>' +
+        (r.details ? '<div style="font-size:13px;background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:6px 10px;margin-top:6px;white-space:pre-wrap">' + esc(r.details) + '</div>' : '') +
+      '</div>';
+    }).join('');
+  }
+
+  const html = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">' +
+    '<h2 style="margin:0;display:flex;align-items:center;gap:8px"><span>🚩</span> Reported Questions (' + list.length + ')</h2>' +
+    '<button class="btn sm" id="rptCloseModal" type="button" style="padding:2px 8px;font-size:16px;line-height:1">✕</button>' +
+    '</div>' +
+    (list.length ? '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px">' +
+      '<button class="btn sm" id="btnCopyRpts" type="button">📋 Copy Summary</button>' +
+      '<button class="btn sm" id="btnExpRptsJson" type="button">💾 Export JSON</button>' +
+      '<button class="btn sm" id="btnExpRptsCsv" type="button">📊 Export CSV</button>' +
+      '<button class="btn sm" id="btnClearRpts" type="button" style="color:var(--nok);margin-left:auto">Clear All</button>' +
+    '</div>' : '') +
+    '<div id="rptsContainer" style="max-height:60vh;overflow-y:auto;padding-right:4px">' +
+      itemsHtml +
+    '</div>' +
+    '<div class="row" style="margin-top:14px">' +
+      '<button class="btn primary" id="rptDoneBtn" type="button">Close</button>' +
+    '</div>';
+
+  openModal(html, () => {
+    const box = $('#modalBox');
+    box.classList.add('wide');
+    $('#rptCloseModal').onclick = closeModal;
+    $('#rptDoneBtn').onclick = closeModal;
+
+    const copyBtn = $('#btnCopyRpts');
+    if(copyBtn){
+      copyBtn.onclick = () => {
+        const text = formatReportsSummary(getReports());
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(text).then(() => {
+            copyBtn.textContent = '✓ Copied!';
+            setTimeout(() => { copyBtn.textContent = '📋 Copy Summary'; }, 2000);
+          });
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          ta.remove();
+          copyBtn.textContent = '✓ Copied!';
+          setTimeout(() => { copyBtn.textContent = '📋 Copy Summary'; }, 2000);
+        }
+      };
+    }
+
+    const jsonBtn = $('#btnExpRptsJson');
+    if(jsonBtn) jsonBtn.onclick = () => exportReportsJson();
+
+    const csvBtn = $('#btnExpRptsCsv');
+    if(csvBtn) csvBtn.onclick = () => exportReportsCsv();
+
+    const clearBtn = $('#btnClearRpts');
+    if(clearBtn){
+      clearBtn.onclick = () => {
+        if(confirm('Clear all reported questions? This cannot be undone.')){
+          saveReports([]);
+          openReportsModal();
+        }
+      };
+    }
+
+    box.querySelectorAll('[data-delrpt]').forEach(btn => {
+      btn.onclick = (e) => {
+        const id = e.currentTarget.dataset.delrpt;
+        const remaining = getReports().filter(r => r.id !== id);
+        saveReports(remaining);
+        openReportsModal();
+      };
+    });
+  });
+}
 /* ---------- events ---------- */
 document.addEventListener('change',e=>{
   const t=e.target;
@@ -1403,6 +1740,9 @@ document.addEventListener('click',e=>{
   else if(b.dataset.sec!=null && T && !T.over){ const k=+b.dataset.sec; goto(k===T.sec?T.cur:T.secs[k].idx[0]); }
   else if(b.dataset.f && lastResult) renderReview(b.dataset.f);
   else if(b.id==='btnBm' && T && !T.over){ const q=T.qs[T.cur]; toggleBm(q.id); b.setAttribute('aria-pressed',String(BM.has(q.id))); b.title=BM.has(q.id)?'Remove bookmark':'Bookmark this question'; }
+  else if(b.id==='btnReport' && T && !T.over){ const q=T.qs[T.cur]; if(q) openReportModal(q); }
+  else if(b.dataset.rpt){ const q=findQuestionById(b.dataset.rpt); if(q) openReportModal(q); }
+  else if(b.id==='openReports'){ $('#topMenu').open=false; openReportsModal(); }
   else if(b.dataset.bm){ toggleBm(b.dataset.bm); b.setAttribute('aria-pressed',String(BM.has(b.dataset.bm))); }
   else if(b.id==='expData'){ $('#topMenu').open=false; exportData(); }
   else if(b.id==='impData'){ $('#topMenu').open=false; $('#impFile').click(); }
@@ -1439,6 +1779,8 @@ document.addEventListener('keydown',e=>{
 });
 document.addEventListener('contextmenu',e=>{ if(!$('#scrExam').hidden||!$('#modal').hidden&&T&&!T.over) e.preventDefault(); });
 applyUi();
+updateReportBadge();
+renderRecentChangelog();
 document.addEventListener('keydown',e=>{
   if(!T||T.over||$('#scrExam').hidden||!$('#modal').hidden) return;
   if(e.ctrlKey||e.metaKey||e.altKey) return;
