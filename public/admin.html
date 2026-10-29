@@ -1312,6 +1312,19 @@
       }
 
       // Render Feed
+      function formatSafeDate(val) {
+        if (!val) return 'Unknown date';
+        try {
+          const d = new Date(val);
+          if (!isNaN(d.getTime())) {
+            return d.toLocaleString(undefined, {
+              month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit'
+            });
+          }
+        } catch(e) {}
+        return String(val);
+      }
+
       function renderFeed() {
         const feed = document.getElementById('reportsFeed');
         const list = getFilteredReports();
@@ -1335,9 +1348,7 @@
           const status = mod.status || 'pending';
           const q = questionBank.get(r.questionId) || null;
 
-          const dateStr = r.reportedAt ? new Date(r.reportedAt).toLocaleString(undefined, {
-            month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit'
-          }) : 'Unknown date';
+          const dateStr = formatSafeDate(r.reportedAt);
 
           const subjClass = (r.subject || '').toLowerCase().includes('chem') ? 'chemistry' : ((r.subject || '').toLowerCase().includes('math') ? 'maths' : 'physics');
 
