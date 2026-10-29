@@ -91,6 +91,77 @@
     a { color: var(--brand); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
+    /* Auth Gate Overlay */
+    #authGate {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .auth-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 32px 28px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.15);
+    }
+    .auth-icon {
+      font-size: 40px;
+      margin-bottom: 12px;
+      line-height: 1;
+    }
+    .auth-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 0 0 6px;
+    }
+    .auth-sub {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0 0 20px;
+    }
+    .auth-input {
+      width: 100%;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 10px 14px;
+      font: inherit;
+      color: inherit;
+      margin-bottom: 12px;
+      box-sizing: border-box;
+    }
+    .auth-input:focus {
+      outline: 2px solid var(--brand);
+      background: var(--surface);
+    }
+    .auth-btn {
+      width: 100%;
+      background: var(--brand);
+      border: 1px solid var(--brand);
+      color: #fff;
+      padding: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .auth-btn:hover { background: var(--brand-hover); }
+    .auth-err {
+      color: var(--nok);
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 10px;
+      min-height: 18px;
+    }
+
     /* Top Navigation Bar */
     .topbar {
       position: sticky;
@@ -641,6 +712,23 @@
 </head>
 <body>
 
+  <!-- Password Protection Gate -->
+  <div id="authGate">
+    <div class="auth-card">
+      <div class="auth-icon">🔒</div>
+      <h2 class="auth-title">Admin Access</h2>
+      <p class="auth-sub">Enter your administrator passcode to continue.</p>
+      <form id="authForm" onsubmit="return false;">
+        <input type="password" id="authPassInput" class="auth-input" placeholder="Enter password..." autocomplete="current-password" autofocus required>
+        <button type="submit" id="authSubmitBtn" class="auth-btn">Unlock Portal</button>
+        <div id="authError" class="auth-err"></div>
+      </form>
+      <div style="margin-top: 14px;">
+        <a href="index.html" style="font-size: 12px; color: var(--muted);">← Return to Portal</a>
+      </div>
+    </div>
+  </div>
+
   <!-- Top Bar -->
   <header class="topbar">
     <div class="topbar-left">
@@ -650,6 +738,7 @@
       </a>
     </div>
     <div class="topbar-right">
+      <button class="btn sm" id="btnLogout" type="button" title="Lock admin portal">🔒 Lock</button>
       <a class="btn sm" href="index.html">← Practice Portal</a>
       <button class="btn sm" id="themeToggle" type="button" title="Toggle dark mode">🌙 / ☀️</button>
     </div>
@@ -750,6 +839,63 @@
     (function(){
       "use strict";
 
+      // SHA-256 hash of the admin password
+      const AUTH_HASH = "77d148f7491cfa712bd61b6ade5232e0906d677c11131bfb314bb2791fdc720f";
+
+      async function sha256(str) {
+        const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+        return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+      }
+
+      const authGate = document.getElementById('authGate');
+      const authForm = document.getElementById('authForm');
+      const authInput = document.getElementById('authPassInput');
+      const authError = document.getElementById('authError');
+      const btnLogout = document.getElementById('btnLogout');
+
+      function checkAuth() {
+        if (sessionStorage.getItem('aits_admin_auth') === 'true') {
+          authGate.style.display = 'none';
+          return true;
+        } else {
+          authGate.style.display = 'flex';
+          authInput.focus();
+          return false;
+        }
+      }
+
+      async function attemptLogin() {
+        const pass = (authInput.value || '').trim();
+        if (!pass) return;
+        const hash = await sha256(pass);
+        if (hash === AUTH_HASH) {
+          sessionStorage.setItem('aits_admin_auth', 'true');
+          authGate.style.display = 'none';
+          authError.textContent = '';
+          authInput.value = '';
+          showToast('Admin access verified');
+        } else {
+          authError.textContent = 'Incorrect password. Access denied.';
+          authInput.select();
+        }
+      }
+
+      authForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        attemptLogin();
+      });
+
+      btnLogout.addEventListener('click', () => {
+        sessionStorage.removeItem('aits_admin_auth');
+        authGate.style.display = 'flex';
+        authInput.value = '';
+        authError.textContent = '';
+        authInput.focus();
+        showToast('Admin portal locked');
+      });
+
+      checkAuth();
+
       // State
       let allReports = [];
       let questionBank = new Map(); // questionId -> normalized question object
@@ -839,18 +985,6 @@
           return ['A','B','C','D'].map(k => raw[k] || raw[k.toLowerCase()]).filter(Boolean).map(String);
         }
         return null;
-      }
-
-      function parseChoice(raw) {
-        if (raw == null) return null;
-        if (Array.isArray(raw)) return raw.map(x => parseChoice(x)).flat().filter(x => x != null);
-        const s = String(raw).trim().toUpperCase();
-        const map = { 'A':0, 'B':1, 'C':2, 'D':3, '1':0, '2':1, '3':2, '4':3 };
-        const res = [];
-        for (let ch of s) {
-          if (map[ch] !== undefined && !res.includes(map[ch])) res.push(map[ch]);
-        }
-        return res.length ? res : null;
       }
 
       function normQuestion(q, i) {
@@ -956,7 +1090,6 @@
 
         showToast('Connecting to report service...');
         try {
-          // Attempt GET request with fallback
           const res = await fetch(url + (url.includes('?') ? '&' : '?') + 'action=get', { mode: 'cors' });
           if (res.ok) {
             const data = await res.json();
@@ -970,7 +1103,6 @@
           console.warn('Direct live fetch failed (CORS or doGet format):', err);
         }
 
-        // If direct GET failed, offer to load local or import
         showToast('Remote GET requires doGet() in script. Loaded local reports.');
         loadLocalStorageReports();
       }
@@ -1299,7 +1431,6 @@
 
       // Event Listeners for Cards
       document.addEventListener('change', (e) => {
-        // Status dropdown change
         if (e.target.dataset.statusFor) {
           const id = e.target.dataset.statusFor;
           if (!moderatorData[id]) moderatorData[id] = {};
@@ -1315,7 +1446,6 @@
       });
 
       document.addEventListener('input', (e) => {
-        // Mod note change
         if (e.target.dataset.noteFor) {
           const id = e.target.dataset.noteFor;
           if (!moderatorData[id]) moderatorData[id] = {};
@@ -1330,7 +1460,6 @@
       });
 
       document.addEventListener('click', (e) => {
-        // Copy question ID
         if (e.target.dataset.copy) {
           navigator.clipboard.writeText(e.target.dataset.copy).then(() => {
             showToast('Copied ID: ' + e.target.dataset.copy);
@@ -1338,7 +1467,6 @@
           return;
         }
 
-        // Status Tabs click
         const tab = e.target.closest('.status-tab');
         if (tab) {
           document.querySelectorAll('.status-tab').forEach(t => t.classList.remove('active'));
@@ -1348,7 +1476,6 @@
           return;
         }
 
-        // Image Click Lightbox
         const img = e.target.closest('img.qimg');
         if (img) {
           const src = img.currentSrc || img.src;
@@ -1361,7 +1488,6 @@
           return;
         }
 
-        // Generate Fix Patch
         if (e.target.dataset.patchFor) {
           const qid = e.target.dataset.patchFor;
           const q = questionBank.get(qid);
@@ -1382,7 +1508,6 @@
           return;
         }
 
-        // Close Lightbox
         if (e.target.id === 'imgLightbox') {
           e.target.style.display = 'none';
         }
@@ -1468,7 +1593,6 @@
         }
       };
 
-      // Init Theme
       try {
         const savedTheme = localStorage.getItem('aits_admin_theme');
         if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -1476,7 +1600,6 @@
         }
       } catch(e){}
 
-      // Boot sequence
       loadAllDatabases().then(() => {
         loadLocalStorageReports();
       });
