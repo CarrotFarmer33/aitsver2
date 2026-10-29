@@ -1266,53 +1266,72 @@ function evaluate(q,s,m){
   if(!hasAns(q,s)) return {r:'skip',marks:0};
   if(!q.keyOk) return {r:'nokey',marks:0};
   const t = q.rawType || q.type;
-  if(t==='single') return q.ans.includes(s.ans) ? {r:'ok',marks:(m[t]||m.single).c} : {r:'bad',marks:(m[t]||m.single).w};
+  if(t==='single'){
+    const co = Array.isArray(q.ans) ? q.ans : (q.ans!=null ? [q.ans] : []);
+    return co.includes(s.ans) ? {r:'ok',marks:(m[t]||m.single).c} : {r:'bad',marks:(m[t]||m.single).w};
+  }
   if(q.type==='multi'){
-    const ch=s.ans, co=q.ans;
+    const ch = Array.isArray(s.ans) ? s.ans : (s.ans!=null ? [s.ans] : []);
+    const co = Array.isArray(q.ans) ? q.ans : (q.ans!=null ? [q.ans] : []);
     if(ch.some(x=>!co.includes(x))) return {r:'bad',marks:m.multi.w};
     if(ch.length===co.length) return {r:'ok',marks:m.multi.c};
     return {r:'part',marks:Math.min(ch.length*m.multi.p,m.multi.c-1)};
   }
   const v=parseFloat(s.ans); if(!isFinite(v)) return {r:'skip',marks:0};
-  const ok = q.range ? (v>=q.range[0]-1e-9 && v<=q.range[1]+1e-9) : Math.abs(v-q.ans)<=q.tol+1e-9;
-  return ok ? {r:'ok',marks:m.numerical.c} : {r:'bad',marks:m.numerical.w};
+  const ok = q.range ? (v>=q.range[0]-1e-9 && v<=q.range[1]+1e-9) : Math.abs(v-q.ans)<=((q.tol||0)+1e-9);
+  return ok ? {r:'ok',marks:(m.numerical||m.single).c} : {r:'bad',marks:(m.numerical||m.single).w};
 }
 function finish(auto){
   if(!T||T.over) return;
   leave(); T.over=true; clearInterval(timerId); closeRail(); $('#modal').hidden=true;
-  const m=T.preset, res=T.qs.map((q,i)=>evaluate(q,T.st[i],m));
-  const max=T.qs.reduce((t,q)=>t+(q.keyOk?(m[q.rawType||q.type]||m.single).c:0),0);
-  const score=res.reduce((t,r)=>t+r.marks,0);
-  const used=Math.min((Date.now()-T.startTs)/1000, T.minutes>0?T.minutes*60:1e9);
-  const att=res.filter(r=>r.r==='ok'||r.r==='bad'||r.r==='part').length, ok=res.filter(r=>r.r==='ok').length;
-  const acc=att?Math.round(ok/att*100):0;
-  T.qs.forEach((q,i)=>{ if(T.st[i].visited) ATT.add(q.id); }); saveAtt();
-  T.qs.forEach((q,i)=>{ const r=res[i].r; if(r==='bad'||r==='part') MIS.add(q.id); else if(r==='ok') MIS.delete(q.id); }); saveSet('aits_mistakes',MIS);
-  lastResult={res,max,score,used,att,ok,acc,auto};
-  let h=[]; try{ h=JSON.parse(store.get('aits_hist')||'[]'); }catch(e){}
-  h.unshift({t:Date.now(),score,max,n:T.qs.length,acc}); store.set('aits_hist',JSON.stringify(h.slice(0,20)));
-  renderResult(); show('scrRes');
+  try {
+    const m=T.preset, res=T.qs.map((q,i)=>evaluate(q,T.st[i],m));
+    const max=T.qs.reduce((t,q)=>t+(q.keyOk?(m[q.rawType||q.type]||m.single).c:0),0);
+    const score=res.reduce((t,r)=>t+r.marks,0);
+    const used=Math.min((Date.now()-T.startTs)/1000, T.minutes>0?T.minutes*60:1e9);
+    const att=res.filter(r=>r.r==='ok'||r.r==='bad'||r.r==='part').length, ok=res.filter(r=>r.r==='ok').length;
+    const acc=att?Math.round(ok/att*100):0;
+    T.qs.forEach((q,i)=>{ if(T.st[i]&&T.st[i].visited) ATT.add(q.id); }); saveAtt();
+    T.qs.forEach((q,i)=>{ const r=res[i].r; if(r==='bad'||r==='part') MIS.add(q.id); else if(r==='ok') MIS.delete(q.id); }); saveSet('aits_mistakes',MIS);
+    lastResult={res,max,score,used,att,ok,acc,auto};
+    let h=[]; try{ h=JSON.parse(store.get('aits_hist')||'[]'); }catch(e){}
+    h.unshift({t:Date.now(),score,max,n:T.qs.length,acc}); store.set('aits_hist',JSON.stringify(h.slice(0,20)));
+    renderResult();
+  } catch(err) {
+    console.error('Error during test submission:', err);
+  } finally {
+    show('scrRes');
+  }
 }
 const STAR='<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l1.9 4.2 4.6.5-3.4 3.1 1 4.5L8 11.5 3.9 13.8l1-4.5L1.5 6.2l4.6-.5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>';
 function toggleBm(id){ if(BM.has(id)) BM.delete(id); else BM.add(id); saveSet('aits_bookmarks',BM); }
 const fmtAns=(q,a)=>{
   if(a==null||a==='') return '—';
-  if(q.type==='numerical') return String(a);
-  return (Array.isArray(a)?a:[a]).map(k=>LET[k]).join(', ');
+  const t = q.rawType || q.type;
+  if(t==='numerical') return String(a);
+  if(Array.isArray(a)) return a.map(k=>LET[k]||k).join(', ');
+  if(typeof a==='number') return LET[a]||String(a);
+  return String(a);
 };
 const keyText=q=>{
   if(!q.keyOk) return 'not available';
-  if(q.type==='numerical') return q.range ? q.range[0]+' to '+q.range[1] : String(q.ans);
-  return q.ans.map(k=>LET[k]).join(', ');
+  const t = q.rawType || q.type;
+  if(t==='numerical') return q.range ? q.range[0]+' to '+q.range[1] : String(q.ans);
+  if(Array.isArray(q.ans)) return q.ans.map(k=>LET[k]||k).join(', ');
+  if(typeof q.ans==='number') return LET[q.ans]||String(q.ans);
+  return String(q.ans);
 };
 function renderResult(){
   const R=lastResult;
+  if(!R) return;
   const chap={}, subj={};
   T.qs.forEach((q,i)=>{
-    const r=R.res[i].r, t=T.st[i].time;
-    [[subj,q.subject],[chap,q.subject+' · '+q.chapter]].forEach(([o,k])=>{
-      const e=o[k]||(o[k]={total:0,ok:0,bad:0,part:0,skip:0,marks:0,time:0}); e.total++; e.marks+=R.res[i].marks; e.time+=t;
-      if(r==='ok')e.ok++; else if(r==='bad')e.bad++; else if(r==='part')e.part++; else e.skip++;
+    const r=(R.res&&R.res[i])||{r:'skip',marks:0}, t=(T.st[i]&&T.st[i].time)||0;
+    const sName = q.subject || 'General';
+    const cName = q.chapter ? (sName+' · '+q.chapter) : sName;
+    [[subj,sName],[chap,cName]].forEach(([o,k])=>{
+      const e=o[k]||(o[k]={total:0,ok:0,bad:0,part:0,skip:0,marks:0,time:0}); e.total++; e.marks+=r.marks; e.time+=t;
+      if(r.r==='ok')e.ok++; else if(r.r==='bad')e.bad++; else if(r.r==='part')e.part++; else e.skip++;
     });
   });
   const bar=a=>'<div class="bar-t"><i class="'+(a<40?'lo':a<70?'mid':'')+'" style="width:'+a+'%"></i></div>';
@@ -1328,29 +1347,42 @@ function renderResult(){
   renderReview('all');
 }
 function renderReview(f){
-  const R=lastResult; $('#rvbar').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===f));
+  const R=lastResult;
+  if(!R) return;
+  $('#rvbar').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===f));
   let html='';
   T.qs.forEach((q,i)=>{
-    const r=R.res[i], s=T.st[i];
+    const r=(R.res&&R.res[i])||{r:'skip',marks:0}, s=T.st[i]||{ans:null,time:0};
     const pass = f==='all' || (f==='ok'&&r.r==='ok') || (f==='bad'&&(r.r==='bad'||r.r==='part')) || (f==='skip'&&r.r==='skip') || (f==='mk'&&s.marked);
     if(!pass) return;
-    const label={ok:'Correct',bad:'Wrong',part:'Partially correct',skip:'Not attempted',nokey:'No answer key'}[r.r];
-    const pc={ok:'ok',bad:'bad',part:'part',skip:'skip',nokey:'skip'}[r.r];
+    const label={ok:'Correct',bad:'Wrong',part:'Partially correct',skip:'Not attempted',nokey:'No answer key'}[r.r] || 'Unknown';
+    const pc={ok:'ok',bad:'bad',part:'part',skip:'skip',nokey:'skip'}[r.r] || 'skip';
     let ob='';
-    if(q.type!=='numerical'){
-      const sel=q.type==='multi'?(s.ans||[]):(s.ans==null?[]:[s.ans]);
-      ob='<div style="display:flex;flex-direction:column;gap:6px">'+q.options.map((o,k)=>{ const corr=q.keyOk&&q.ans.includes(k), wr=sel.includes(k)&&!corr; return '<div class="ropt'+(corr?' corr':'')+(wr?' wrong':'')+'"><b>'+LET[k]+'.</b><span style="min-width:0;overflow-wrap:anywhere">'+(q.labelOnly?'':rich(o))+'</span>'+(sel.includes(k)?'<span class="muted" style="margin-left:auto;white-space:nowrap">your answer</span>':'')+'</div>'; }).join('')+'</div>';
+    const isNum = (q.rawType||q.type) === 'numerical';
+    if(!isNum && Array.isArray(q.options) && q.options.length>0){
+      const sel=q.type==='multi'?(Array.isArray(s.ans)?s.ans:(s.ans!=null?[s.ans]:[])):(s.ans==null?[]:[s.ans]);
+      const co=Array.isArray(q.ans)?q.ans:(q.ans!=null?[q.ans]:[]);
+      ob='<div style="display:flex;flex-direction:column;gap:6px">'+q.options.map((o,k)=>{
+        const corr=q.keyOk&&co.includes(k);
+        const wr=sel.includes(k)&&!corr;
+        return '<div class="ropt'+(corr?' corr':'')+(wr?' wrong':'')+'"><b>'+LET[k]+'.</b><span style="min-width:0;overflow-wrap:anywhere">'+(q.labelOnly?'':rich(o))+'</span>'+(sel.includes(k)?'<span class="muted" style="margin-left:auto;white-space:nowrap">your answer</span>':'')+'</div>';
+      }).join('')+'</div>';
     }
     const isRpt=isQuestionReported(q.id);
-    html+='<article class="rv r-'+r.r+'"><header><b>Q'+(i+1)+'</b><button class="bmb" data-bm="'+esc(q.id)+'" type="button" aria-pressed="'+BM.has(q.id)+'" title="Bookmark this question" aria-label="Bookmark this question">'+STAR+'</button><span>'+esc(T.secs[T.secOf[i]].name)+'</span><span>'+esc(q.chapter)+'</span><span class="badge '+pc+'">'+label+(r.marks?' '+(r.marks>0?'+':'')+r.marks:'')+'</span><span>'+mmss(s.time)+'</span><button class="btn sm report-btn" data-rpt="'+esc(q.id)+'" type="button" style="margin-left:auto;display:inline-flex;align-items:center;gap:4px;padding:2px 8px;font-size:12px'+(isRpt?';color:#d32f2f;border-color:#d32f2f':'')+'" title="Report issue with this question">🚩 '+(isRpt?'Reported':'Report')+'</button></header>+'
-      '<div class="qtext">'+rich(q.text)+'</div>'+q.images.map(u=>imageMarkup(u,'Question figure')).join('')+ob+
+    const secName = (T.secs && T.secOf && T.secs[T.secOf[i]]) ? T.secs[T.secOf[i]].name : (q.subject || '');
+    html+='<article class="rv r-'+r.r+'"><header><b>Q'+(i+1)+'</b><button class="bmb" data-bm="'+esc(q.id)+'" type="button" aria-pressed="'+BM.has(q.id)+'" title="Bookmark this question" aria-label="Bookmark this question">'+STAR+'</button><span>'+esc(secName)+'</span><span>'+esc(q.chapter||'')+'</span><span class="badge '+pc+'">'+label+(r.marks?' '+(r.marks>0?'+':'')+r.marks:'')+'</span><span>'+mmss(s.time||0)+'</span><button class="btn sm report-btn" data-rpt="'+esc(q.id)+'" type="button" style="margin-left:auto;display:inline-flex;align-items:center;gap:4px;padding:2px 8px;font-size:12px'+(isRpt?';color:#d32f2f;border-color:#d32f2f':'')+'" title="Report issue with this question">🚩 '+(isRpt?'Reported':'Report')+'</button></header>'+
+      '<div class="qtext">'+rich(q.text||'')+'</div>'+(q.images||[]).map(u=>imageMarkup(u,'Question figure')).join('')+ob+
       '<div>Your answer: <b>'+esc(fmtAns(q,s.ans))+'</b> · Correct answer: <b>'+esc(keyText(q))+'</b></div>'+
-      ((q.solution||q.solImages.length)?'<details><summary>Solution</summary><div style="margin-top:8px">'+rich(q.solution)+q.solImages.map(u=>imageMarkup(u,'Solution figure')).join('')+'</div></details>':'')+'</article>';
+      (((q.solution&&q.solution.length)||(q.solImages&&q.solImages.length))?'<details><summary>Solution</summary><div style="margin-top:8px">'+rich(q.solution||'')+((q.solImages||[]).map(u=>imageMarkup(u,'Solution figure')).join(''))+'</div></details>':'')+'</article>';
   });
   $('#rvList').innerHTML=html||'<div class="muted">Nothing to show for this filter.</div>';
-  hydrateZipImages($('#rvList')); typeset($('#rvList'));
+  try {
+    hydrateZipImages($('#rvList'));
+    typeset($('#rvList'));
+  } catch(e) {
+    console.warn('Post-render error:', e);
+  }
 }
-
 /* ---------- saved questions ---------- */
 let svTab='bm', svSubj='Physics', svChap=null, svPaper='all', svYear='all';
 function svIds(){ return svTab==='bm'?BM:MIS; }
