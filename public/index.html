@@ -1755,9 +1755,18 @@ document.addEventListener('change',e=>{
   else if(t.matches('#chapList input[data-ch]')){ t.checked?cfg.chapters.add(t.dataset.ch):cfg.chapters.delete(t.dataset.ch); refreshAll(); }
   else if(t.matches('#chapList input[data-segment]')){
     const parts=t.dataset.segment.split('||'); const subject=parts[0], segmentName=parts.slice(2).join('||');
-    const chapterSet=new Set((CHAPTER_SEGMENTS.find(g=>g.name===segmentName)||{chapters:[]}).chapters);
-    if(segmentName==='Other Chapters') Object.keys((DB.reduce((acc,q)=>{if(q.subject===subject) acc[q.chapter]=1; return acc;},{}))).filter(c=>!CHAPTER_SEGMENTS.some(g=>g.chapters.includes(c))).forEach(c=>chapterSet.add(c));
-    DB.filter(q=>q.subject===subject && chapterSet.has(q.chapter)).forEach(q=>{const k=q.subject+'||'+q.chapter; t.checked?cfg.chapters.add(k):cfg.chapters.delete(k);});
+    const segList = SEGMENTS[subject] || CHAPTER_SEGMENTS;
+    const group = segList.find(g=>g.name===segmentName);
+    const chapterSet = new Set(group ? group.chapters : []);
+    if(segmentName==='Other Chapters'){
+      const known = new Set(segList.flatMap(g=>g.chapters));
+      DB.forEach(q=>{ if(q.subject===subject && !known.has(q.chapter)) chapterSet.add(q.chapter); });
+    }
+    chapterSet.forEach(ch=>{
+      const k = subject + '||' + ch;
+      if(t.checked) cfg.chapters.add(k);
+      else cfg.chapters.delete(k);
+    });
     refreshAll();
   }
   else if(t.id==='paperSel'){ cfg.paper=t.value; if(t.value==='main'||t.value==='adv'){ cfg.preset=t.value; $('#mrkSel').value=cfg.preset; } refreshAll(); }
