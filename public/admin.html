@@ -769,13 +769,9 @@
     <!-- Sync and Data Controls -->
     <section class="action-bar">
       <div class="action-group">
-        <button class="btn primary" id="btnFetchRemote" type="button">🔄 Fetch Live Reports</button>
-        <button class="btn" id="btnLoadLocal" type="button">📂 Load Local Storage</button>
-        <label class="btn" style="cursor:pointer;margin:0">
-          📥 Import CSV / JSON
-          <input type="file" id="fileImport" accept=".csv,.json" style="display:none">
-        </label>
-        <button class="btn" id="btnLoadSample" type="button">🧪 Load Sample Reports</button>
+        <button class="btn primary" id="btnFetchRemote" type="button">🔄 Refresh Live Reports</button>
+        <button class="btn danger" id="btnClearAllReports" type="button">🗑️ Clear All Reports</button>
+        <button class="btn sm" id="btnRestoreDeleted" type="button" style="display:none">↩ Restore Deleted (<span id="delCount">0</span>)</button>
       </div>
 
       <div class="action-group">
@@ -1112,152 +1108,125 @@
         renderFeed();
       }
 
-      // Load Local Storage Reports
-      function loadLocalStorageReports() {
+            // Deleted reports tracking
+      let deletedReportIds = new Set();
+      try {
+        deletedReportIds = new Set(JSON.parse(localStorage.getItem('aits_deleted_report_ids') || '[]'));
+      } catch(e) { deletedReportIds = new Set(); }
+
+      function saveDeletedIds() {
         try {
-          const raw = localStorage.getItem('aits_reported_questions');
-          if (raw) {
-            const list = JSON.parse(raw);
-            if (Array.isArray(list) && list.length) {
-              mergeReports(list);
-            }
-          }
-        } catch(e) {}
+          localStorage.setItem('aits_deleted_report_ids', JSON.stringify([...deletedReportIds]));
+        } catch(e){}
+        updateRestoreBtn();
       }
 
-      // Fetch Live Reports from Apps Script or Webhook
+      function updateRestoreBtn() {
+        const btn = document.getElementById('btnRestoreDeleted');
+        const countSpan = document.getElementById('delCount');
+        if (!btn || !countSpan) return;
+        if (deletedReportIds.size > 0) {
+          btn.style.display = 'inline-flex';
+          countSpan.textContent = deletedReportIds.size;
+        } else {
+          btn.style.display = 'none';
+        }
+      }
+
+      // Fetch Live Reports from Apps Script / Google Sheet
       async function fetchLiveReports() {
         const conf = window.AITS_CONFIG || {};
         const url = conf.reportWebhookUrl;
         if (!url) {
           showToast('No reportWebhookUrl configured in config.js');
-          loadLocalStorageReports();
           return;
         }
 
-        showToast('Connecting to Google Sheet reports...');
+        showToast('Connecting to Google Sheet...');
         try {
           const res = await fetch(url, { cache: 'no-store' });
           if (res.ok) {
             const data = await res.json();
-            if (Array.isArray(data) && data.length) {
+            if (Array.isArray(data)) {
               mergeReports(data);
-              loadLocalStorageReports();
-              showToast('✓ Loaded ' + data.length + ' live reports from Google Sheet!');
+              showToast('✓ Loaded ' + allReports.length + ' live reports!');
               return;
             }
           }
         } catch(err) {
-          console.warn('Direct live fetch error:', err);
+          console.warn('Live fetch error:', err);
+          showToast('Failed to fetch from Google Sheet');
         }
-
-        // Fallback to local storage if network fails
-        showToast('Offline or fetch error: loaded local reports.');
-        loadLocalStorageReports();
       }
 
-      // Sample Reports Generator
-      function loadSampleReports() {
-        const samples = [
-          {
-            id: 'sample_rpt_1',
-            questionId: '2024_adv_p1_p_q1',
-            subject: 'Physics',
-            chapter: 'Rotational Motion',
-            paper: 'JEE Advanced 2024 · Paper 1',
-            type: 'single',
-            currentKey: 'C',
-            issueType: 'Incorrect Answer Key',
-            details: 'According to official final answer key released by IIT Madras, the correct answer for this question is (B), but portal marks it as (C).',
-            reportedAt: new Date(Date.now() - 3600000 * 2).toISOString()
-          },
-          {
-            id: 'sample_rpt_2',
-            questionId: '2023_adv_p2_c_q14',
-            subject: 'Chemistry',
-            chapter: 'Chemical Kinetics',
-            paper: 'JEE Advanced 2023 · Paper 2',
-            type: 'numerical',
-            currentKey: '4.5',
-            issueType: 'Incorrect Answer Key',
-            details: 'The reaction order tolerance should allow 4.45 to 4.55. My answer was 4.48 and was marked wrong.',
-            reportedAt: new Date(Date.now() - 3600000 * 12).toISOString()
-          },
-          {
-            id: 'sample_rpt_3',
-            questionId: '2022_main_25jul_s1_m_q8',
-            subject: 'Mathematics',
-            chapter: 'Definite Integration',
-            paper: 'JEE Main 2022 · 25 July Shift 1',
-            type: 'single',
-            currentKey: 'A',
-            issueType: 'Broken / Unreadable Image',
-            details: 'The lower limit on the integral in the question figure is cut off and blurry.',
-            reportedAt: new Date(Date.now() - 3600000 * 24).toISOString()
+      function mergeReports(incoming) {
+        const existingIds = new Set(allReports.map(r => r.id));
+        const existingQids = new Set(allReports.map(r => r.questionId + '_' + r.reportedAt));
+        let added = 0;
+        incoming.forEach(raw => {
+          const r = normReportItem(raw);
+          if (!r) return;
+          // Skip if previously deleted by admin
+          if (deletedReportIds.has(r.id) || deletedReportIds.has(r.questionId + '_' + r.reportedAt)) {
+            return;
           }
-        ];
-        mergeReports(samples);
-        showToast('Sample test reports loaded!');
-      }
-
-      // Import CSV / JSON parser
-      function parseCSV(text) {
-        const lines = text.split(/\r?\n/).filter(l => l.trim().length);
-        if (lines.length < 2) return [];
-        const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, '').toLowerCase());
-        const result = [];
-
-        for (let i = 1; i < lines.length; i++) {
-          const row = [];
-          let insideQuote = false, entry = '';
-          for (let ch of lines[i]) {
-            if (ch === '"') { insideQuote = !insideQuote; }
-            else if (ch === ',' && !insideQuote) { row.push(entry); entry = ''; }
-            else { entry += ch; }
-          }
-          row.push(entry);
-
-          const obj = {};
-          headers.forEach((h, idx) => {
-            let val = (row[idx] || '').trim().replace(/^"|"$/g, '').replace(/""/g, '"');
-            if (h.includes('question') && h.includes('id')) obj.questionId = val;
-            else if (h.includes('subject')) obj.subject = val;
-            else if (h.includes('chapter')) obj.chapter = val;
-            else if (h.includes('issue')) obj.issueType = val;
-            else if (h.includes('detail') || h.includes('note') || h.includes('complaint')) obj.details = val;
-            else if (h.includes('key')) obj.currentKey = val;
-            else if (h.includes('paper')) obj.paper = val;
-            else if (h.includes('report') && h.includes('at')) obj.reportedAt = val;
-            else if (h === 'id' || h.includes('report id')) obj.id = val;
-          });
-          if (obj.questionId) result.push(obj);
-        }
-        return result;
-      }
-
-      document.getElementById('fileImport').addEventListener('change', (e) => {
-        const file = e.target.files && e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = () => {
-          try {
-            const content = String(reader.result);
-            if (file.name.endsWith('.json')) {
-              const data = JSON.parse(content);
-              mergeReports(Array.isArray(data) ? data : (data.reports || []));
-              showToast('Imported JSON reports successfully!');
-            } else {
-              const list = parseCSV(content);
-              mergeReports(list);
-              showToast('Imported ' + list.length + ' reports from CSV!');
+          if (!existingIds.has(r.id) && !existingQids.has(r.questionId + '_' + r.reportedAt)) {
+            allReports.push(r);
+            existingIds.add(r.id);
+            existingQids.add(r.questionId + '_' + r.reportedAt);
+            if (!moderatorData[r.id] && r.status !== 'pending') {
+              moderatorData[r.id] = { status: r.status, note: '' };
             }
-          } catch(err) {
-            alert('Failed to parse file: ' + err.message);
+            added++;
           }
-        };
-        reader.readAsText(file);
-        e.target.value = '';
-      });
+        });
+        updateStats();
+        updateRestoreBtn();
+        renderFeed();
+      }
+
+      function removeReport(id) {
+        const r = allReports.find(x => x.id === id);
+        if (!r) return;
+        if (confirm('Are you sure you want to remove this report?')) {
+          deletedReportIds.add(r.id);
+          deletedReportIds.add(r.questionId + '_' + r.reportedAt);
+          saveDeletedIds();
+          allReports = allReports.filter(x => x.id !== id);
+          updateStats();
+          renderFeed();
+          showToast('Report removed');
+        }
+      }
+
+      function clearAllReports() {
+        if (!allReports.length) {
+          showToast('No reports to clear');
+          return;
+        }
+        if (confirm('Are you sure you want to remove all ' + allReports.length + ' reports from view?')) {
+          allReports.forEach(r => {
+            deletedReportIds.add(r.id);
+            deletedReportIds.add(r.questionId + '_' + r.reportedAt);
+          });
+          saveDeletedIds();
+          allReports = [];
+          updateStats();
+          renderFeed();
+          showToast('All reports removed');
+        }
+      }
+
+      function restoreDeletedReports() {
+        if (!deletedReportIds.size) return;
+        if (confirm('Restore ' + deletedReportIds.size + ' deleted report(s) and re-sync from Google Sheet?')) {
+          deletedReportIds.clear();
+          saveDeletedIds();
+          allReports = [];
+          fetchLiveReports();
+          showToast('Deleted reports restored!');
+        }
+      }
 
       // Update KPI Statistics
       function updateStats() {
@@ -1332,13 +1301,13 @@
         if (!list.length) {
           feed.innerHTML = `
             <div class="empty-state">
-              <h3>No matching reports found</h3>
-              <p>There are currently no reports matching your filters. You can click <b>"Load Sample Reports"</b> or <b>"Import CSV / JSON"</b> above to test the system.</p>
-              <button class="btn primary" id="btnEmptySample" type="button">🧪 Load Sample Test Reports</button>
+              <h3>No reports found</h3>
+              <p>There are currently no active reports matching your filters. Click <b>"Refresh Live Reports"</b> above to sync from your Google Sheet.</p>
+              <button class="btn primary" id="btnEmptyRefresh" type="button">🔄 Refresh Live Reports</button>
             </div>
           `;
-          const emptyBtn = document.getElementById('btnEmptySample');
-          if (emptyBtn) emptyBtn.onclick = loadSampleReports;
+          const emptyBtn = document.getElementById('btnEmptyRefresh');
+          if (emptyBtn) emptyBtn.onclick = fetchLiveReports;
           return;
         }
 
@@ -1374,6 +1343,7 @@
                     <option value="resolved" ${status === 'resolved' ? 'selected' : ''}>✅ Fixed / Resolved</option>
                     <option value="ignored" ${status === 'ignored' ? 'selected' : ''}>✕ Ignored / Invalid</option>
                   </select>
+                  <button class="btn sm danger" data-del-report="${esc(r.id)}" type="button" title="Remove this report from view">🗑️ Remove</button>
                 </div>
               </div>
 
@@ -1505,6 +1475,10 @@
       });
 
       document.addEventListener('click', (e) => {
+        if (e.target.dataset.delReport) {
+          removeReport(e.target.dataset.delReport);
+          return;
+        }
         if (e.target.dataset.copy) {
           navigator.clipboard.writeText(e.target.dataset.copy).then(() => {
             showToast('Copied ID: ' + e.target.dataset.copy);
@@ -1621,9 +1595,12 @@
       };
 
       // Buttons
-      document.getElementById('btnFetchRemote').onclick = fetchLiveReports;
-      document.getElementById('btnLoadLocal').onclick = loadLocalStorageReports;
-      document.getElementById('btnLoadSample').onclick = loadSampleReports;
+      document.getElementById('btnFetchRemote').onclick = () => {
+        allReports = [];
+        fetchLiveReports();
+      };
+      document.getElementById('btnClearAllReports').onclick = clearAllReports;
+      document.getElementById('btnRestoreDeleted').onclick = restoreDeletedReports;
 
       // Dark Mode Toggle
       const themeBtn = document.getElementById('themeToggle');
