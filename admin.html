@@ -1063,6 +1063,55 @@
         renderFeed();
       }
 
+            // Report normalization helper (handles Google Sheets column names and camelCase)
+      function normReportItem(r) {
+        if (!r || typeof r !== 'object') return null;
+        const qid = String(r.questionId || r['Question ID'] || r['QuestionId'] || r.qid || r.id || '').trim();
+        if (!qid) return null;
+        const dateStr = String(r.reportedAt || r['Timestamp'] || r['Date'] || r.timestamp || new Date().toISOString());
+        const id = String(r.id || r['Report ID'] || ('rpt_' + qid + '_' + dateStr));
+        const rawDetails = r.details != null ? r.details : (r['Student Notes'] != null ? r['Student Notes'] : (r['Details'] != null ? r['Details'] : (r.notes || '')));
+        const details = (String(rawDetails).trim() === '#ERROR!') ? '' : String(rawDetails);
+        const stRaw = String(r.status || r['Status'] || 'pending').toLowerCase();
+        let status = 'pending';
+        if (stRaw.includes('resolv') || stRaw.includes('fix')) status = 'resolved';
+        else if (stRaw.includes('ignor') || stRaw.includes('reject')) status = 'ignored';
+
+        return {
+          id: id,
+          questionId: qid,
+          subject: String(r.subject || r['Subject'] || ''),
+          chapter: String(r.chapter || r['Chapter'] || ''),
+          paper: String(r.paper || r['Paper'] || ''),
+          type: String(r.type || r['Type'] || ''),
+          currentKey: String(r.currentKey != null ? r.currentKey : (r['Current Key'] != null ? r['Current Key'] : '')),
+          issueType: String(r.issueType || r['Issue Type'] || 'Other Issue'),
+          details: details,
+          reportedAt: dateStr,
+          status: status
+        };
+      }
+
+      function mergeReports(incoming) {
+        const existingIds = new Set(allReports.map(r => r.id));
+        const existingQids = new Set(allReports.map(r => r.questionId + '_' + r.reportedAt));
+        let added = 0;
+        incoming.forEach(raw => {
+          const r = normReportItem(raw);
+          if (r && !existingIds.has(r.id) && !existingQids.has(r.questionId + '_' + r.reportedAt)) {
+            allReports.push(r);
+            existingIds.add(r.id);
+            existingQids.add(r.questionId + '_' + r.reportedAt);
+            if (!moderatorData[r.id] && r.status !== 'pending') {
+              moderatorData[r.id] = { status: r.status, note: '' };
+            }
+            added++;
+          }
+        });
+        updateStats();
+        renderFeed();
+      }
+
       // Load Local Storage Reports
       function loadLocalStorageReports() {
         try {
@@ -1071,12 +1120,9 @@
             const list = JSON.parse(raw);
             if (Array.isArray(list) && list.length) {
               mergeReports(list);
-              showToast('Loaded ' + list.length + ' reports from browser storage');
-              return;
             }
           }
         } catch(e) {}
-        showToast('No reports found in local browser storage');
       }
 
       // Fetch Live Reports from Apps Script or Webhook
@@ -1085,41 +1131,29 @@
         const url = conf.reportWebhookUrl;
         if (!url) {
           showToast('No reportWebhookUrl configured in config.js');
+          loadLocalStorageReports();
           return;
         }
 
-        showToast('Connecting to report service...');
+        showToast('Connecting to Google Sheet reports...');
         try {
-          const res = await fetch(url + (url.includes('?') ? '&' : '?') + 'action=get', { mode: 'cors' });
+          const res = await fetch(url, { cache: 'no-store' });
           if (res.ok) {
             const data = await res.json();
             if (Array.isArray(data) && data.length) {
               mergeReports(data);
-              showToast('Fetched ' + data.length + ' live reports!');
+              loadLocalStorageReports();
+              showToast('✓ Loaded ' + data.length + ' live reports from Google Sheet!');
               return;
             }
           }
         } catch(err) {
-          console.warn('Direct live fetch failed (CORS or doGet format):', err);
+          console.warn('Direct live fetch error:', err);
         }
 
-        showToast('Remote GET requires doGet() in script. Loaded local reports.');
+        // Fallback to local storage if network fails
+        showToast('Offline or fetch error: loaded local reports.');
         loadLocalStorageReports();
-      }
-
-      function mergeReports(incoming) {
-        const existingIds = new Set(allReports.map(r => r.id || (r.questionId + '_' + r.reportedAt)));
-        let added = 0;
-        incoming.forEach(r => {
-          const key = r.id || (r.questionId + '_' + r.reportedAt);
-          if (!existingIds.has(key)) {
-            allReports.push(r);
-            existingIds.add(key);
-            added++;
-          }
-        });
-        updateStats();
-        renderFeed();
       }
 
       // Sample Reports Generator
@@ -1601,7 +1635,7 @@
       } catch(e){}
 
       loadAllDatabases().then(() => {
-        loadLocalStorageReports();
+        fetchLiveReports();
       });
 
     })();
