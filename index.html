@@ -585,7 +585,17 @@ async function resolveZipImage(img){
     if(!f){ const match=Object.keys(zip.files).find(k=>!zip.files[k].dir && (k===fileName || k.endsWith('/'+fileName))); if(match) f=zip.file(match); }
     if(!f) throw new Error('Image not found in ZIP: '+fileName);
     const blob=await f.async('blob');
-    img.src=URL.createObjectURL(blob); img.removeAttribute('data-zipimg');
+    const isSecondary = /__--__[2-9]\.png/i.test(fileName);
+    const checkFooter = () => {
+      if(isSecondary && img.naturalHeight > 0 && img.naturalHeight <= 140 && (img.naturalWidth / img.naturalHeight) >= 9.5){
+        img.remove();
+      }
+    };
+    img.onload = checkFooter;
+    img.src = URL.createObjectURL(blob);
+    img.removeAttribute('data-zipimg');
+    if(img.complete && img.naturalWidth) checkFooter();
+    else if(img.decode){ img.decode().then(checkFooter).catch(()=>{}); }
   }catch(e){ img.alt='Unable to load image: '+fileName; img.style.display='none'; console.warn(e); }
 }
 function hydrateZipImages(root){ if(root) root.querySelectorAll('img[data-zipimg]').forEach(resolveZipImage); }
