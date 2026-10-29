@@ -725,7 +725,7 @@ function normQuestion(q,i,defSubject){
     solution:String(q.solution!=null?q.solution:(q.explanation||'')),
     images:imgs.map(String), solImages:[].concat(q.solution_images||q.solutionImages||[]).filter(Boolean).map(String),
     source:String(q.source!=null?q.source:(q.source_paper!=null?q.source_paper:(q.paper!=null?q.paper:(q.test||'')))),
-    paper:paperOf(String(q.source||'')+' '+String(q.paperTitle||q.paper_title||'')),
+    paper: (q.exam ? (q.exam==='advanced'?'adv':(q.exam==='main'?'main':q.exam)) : paperOf(String(q.source||'')+' '+String(q.paperTitle||q.paper_title||''))),
     year:yearOf(q)
   };
 }
