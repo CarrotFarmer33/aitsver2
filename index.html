@@ -987,15 +987,55 @@ function buildTest(qs,minutes,presetKey,title){
 }
 function today(){ return new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}).toUpperCase(); }
 function startFromSetup(){
-  let list=pool();
-  if(cfg.unattFirst){
-    let a=list.filter(q=>!ATT.has(q.id)), b=list.filter(q=>ATT.has(q.id));
-    if(cfg.shuffle){ shuffle(a); shuffle(b); }
-    list=a.concat(b);
-  } else if(cfg.shuffle) shuffle(list);
-  list=list.slice(0,cfg.count);
-  buildTest(list,cfg.minutes,cfg.preset,'AITS PRACTICE TEST '+today()+' CHAPTER-WISE');
-  renderInstr(); show('scrInstr');
+  const allPool = pool();
+  if(!allPool.length) return;
+
+  // Group matching questions by subject
+  const subjectPools = {};
+  allPool.forEach(q => {
+    if(!subjectPools[q.subject]) subjectPools[q.subject] = [];
+    subjectPools[q.subject].push(q);
+  });
+
+  // Sort subjects in standard JEE order (Physics, Chemistry, Mathematics, others)
+  const activeSubjects = Object.keys(subjectPools).sort((a,b) => subjRank(a) - subjRank(b) || a.localeCompare(b));
+
+  const targetCount = Math.min(cfg.count, allPool.length);
+  const quotas = {};
+  activeSubjects.forEach(s => { quotas[s] = 0; });
+
+  // Distribute targetCount equally across subjects (difference of at most 1 or 2 for remainder)
+  let remaining = targetCount;
+  while(remaining > 0){
+    let allocatedAny = false;
+    for(const s of activeSubjects){
+      if(remaining <= 0) break;
+      if(quotas[s] < subjectPools[s].length){
+        quotas[s]++;
+        remaining--;
+        allocatedAny = true;
+      }
+    }
+    if(!allocatedAny) break;
+  }
+
+  // For each subject, pick its quota with proportional chapter distribution
+  let finalList = [];
+  activeSubjects.forEach(s => {
+    let subList = subjectPools[s];
+    if(cfg.unattFirst){
+      let a = subList.filter(q => !ATT.has(q.id)), b = subList.filter(q => ATT.has(q.id));
+      if(cfg.shuffle){ shuffle(a); shuffle(b); }
+      subList = a.concat(b);
+    } else if(cfg.shuffle){
+      shuffle(subList);
+    }
+    finalList = finalList.concat(subList.slice(0, quotas[s]));
+  });
+
+  buildTest(finalList, cfg.minutes, cfg.preset, 'AITS PRACTICE TEST ' + today() + ' CHAPTER-WISE');
+  renderInstr();
+  show('scrInstr');
 }
 const negText = m => m.w===0 ? '0' : String(Math.abs(m.w));
 function markText(type, rawType){
