@@ -1856,7 +1856,19 @@ renderRecentChangelog();
 document.addEventListener('keydown',e=>{
   if(!T||T.over||$('#scrExam').hidden||!$('#modal').hidden) return;
   if(e.ctrlKey||e.metaKey||e.altKey) return;
-  if(T.qs[T.cur].type==='numerical'){
+  if(e.target && e.target.matches('input:not([readonly]), textarea, [contenteditable]')) return;
+  if(e.key==='ArrowLeft'){
+    if(T.cur>0) goto(T.cur-1);
+    e.preventDefault();
+    return;
+  }
+  if(e.key==='ArrowRight'){
+    if(T.cur<T.qs.length-1) goto(T.cur+1);
+    e.preventDefault();
+    return;
+  }
+  const effectiveType = T.qs[T.cur].rawType || T.qs[T.cur].type;
+  if(effectiveType==='numerical'){
     if(/^[0-9.]$/.test(e.key)){ numKey(e.key); e.preventDefault(); return; }
     if(e.key==='-'){ numKey('−'); e.preventDefault(); return; }
     if(e.key==='Backspace'){ numKey('bk'); e.preventDefault(); return; }
