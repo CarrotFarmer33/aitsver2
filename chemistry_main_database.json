@@ -663,7 +663,7 @@
     {
       "id": "chem_main_31",
       "subject": "Chemistry",
-      "chapter": "Chemical Thermodynamics",
+      "chapter": "Thermodynamics (Chemical)",
       "type": "single",
       "question": "",
       "options": null,
@@ -685,7 +685,7 @@
     {
       "id": "chem_main_32",
       "subject": "Chemistry",
-      "chapter": "Equilibrium",
+      "chapter": "Chemical Equilibrium",
       "type": "single",
       "question": "",
       "options": null,
@@ -707,7 +707,7 @@
     {
       "id": "chem_main_33",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Oxygen (Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic Acids)",
+      "chapter": "Aldehydes, Ketones & Carboxylic Acids",
       "type": "single",
       "question": "",
       "options": null,
@@ -751,7 +751,7 @@
     {
       "id": "chem_main_35",
       "subject": "Chemistry",
-      "chapter": "Purification and Characterisation of Organic Compounds & General Organic Chemistry (GOC)",
+      "chapter": "General Organic Chemistry (GOC)",
       "type": "single",
       "question": "",
       "options": null,
@@ -773,7 +773,7 @@
     {
       "id": "chem_main_36",
       "subject": "Chemistry",
-      "chapter": "p-Block Elements: Group 13 to Group 18",
+      "chapter": "p-Block Elements: Group 15 (Nitrogen family) & Group 16 (Oxygen family)",
       "type": "single",
       "question": "",
       "options": null,
@@ -795,7 +795,7 @@
     {
       "id": "chem_main_37",
       "subject": "Chemistry",
-      "chapter": "p-Block Elements: Group 13 to Group 18",
+      "chapter": "p-Block Elements: Group 15 (Nitrogen family) & Group 16 (Oxygen family)",
       "type": "single",
       "question": "",
       "options": null,
@@ -817,7 +817,7 @@
     {
       "id": "chem_main_38",
       "subject": "Chemistry",
-      "chapter": "Chemical Thermodynamics",
+      "chapter": "Thermodynamics (Chemical)",
       "type": "single",
       "question": "",
       "options": null,
@@ -861,7 +861,7 @@
     {
       "id": "chem_main_40",
       "subject": "Chemistry",
-      "chapter": "Redox Reactions & Electrochemistry",
+      "chapter": "Electrochemistry",
       "type": "single",
       "question": "",
       "options": null,
@@ -883,7 +883,7 @@
     {
       "id": "chem_main_41",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Halogens (Haloalkanes & Haloarenes)",
+      "chapter": "Haloalkanes & Haloarenes",
       "type": "single",
       "question": "",
       "options": null,
@@ -905,7 +905,7 @@
     {
       "id": "chem_main_42",
       "subject": "Chemistry",
-      "chapter": "p-Block Elements: Group 13 to Group 18",
+      "chapter": "p-Block Elements: Group 15 (Nitrogen family) & Group 16 (Oxygen family)",
       "type": "single",
       "question": "",
       "options": null,
@@ -949,7 +949,7 @@
     {
       "id": "chem_main_44",
       "subject": "Chemistry",
-      "chapter": "General Principles and Processes of Isolation of Metals (Metallurgy)",
+      "chapter": "Principles & Processes of Isolation of Metals (Metallurgy)",
       "type": "single",
       "question": "",
       "options": null,
@@ -1015,7 +1015,7 @@
     {
       "id": "chem_main_47",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Oxygen (Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic Acids)",
+      "chapter": "Aldehydes, Ketones & Carboxylic Acids",
       "type": "single",
       "question": "",
       "options": null,
@@ -1059,7 +1059,7 @@
     {
       "id": "chem_main_49",
       "subject": "Chemistry",
-      "chapter": "Purification and Characterisation of Organic Compounds & General Organic Chemistry (GOC)",
+      "chapter": "General Organic Chemistry (GOC)",
       "type": "single",
       "question": "",
       "options": null,
@@ -1103,7 +1103,7 @@
     {
       "id": "chem_main_51",
       "subject": "Chemistry",
-      "chapter": "Chemical Thermodynamics",
+      "chapter": "Thermodynamics (Chemical)",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -1125,7 +1125,7 @@
     {
       "id": "chem_main_52",
       "subject": "Chemistry",
-      "chapter": "Equilibrium",
+      "chapter": "Chemical Equilibrium",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -1147,7 +1147,7 @@
     {
       "id": "chem_main_53",
       "subject": "Chemistry",
-      "chapter": "Equilibrium",
+      "chapter": "Chemical Equilibrium",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -1169,7 +1169,7 @@
     {
       "id": "chem_main_54",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Oxygen (Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic Acids)",
+      "chapter": "Aldehydes, Ketones & Carboxylic Acids",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -1191,7 +1191,7 @@
     {
       "id": "chem_main_55",
       "subject": "Chemistry",
-      "chapter": "Purification and Characterisation of Organic Compounds & General Organic Chemistry (GOC)",
+      "chapter": "General Organic Chemistry (GOC)",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -1279,7 +1279,7 @@
     {
       "id": "chem_main_59",
       "subject": "Chemistry",
-      "chapter": "Solutions",
+      "chapter": "Liquid Solutions & Colligative Properties",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -1301,7 +1301,7 @@
     {
       "id": "chem_main_60",
       "subject": "Chemistry",
-      "chapter": "p-Block Elements: Group 13 to Group 18",
+      "chapter": "p-Block Elements: Group 15 (Nitrogen family) & Group 16 (Oxygen family)",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -1323,7 +1323,7 @@
     {
       "id": "chem_main_61",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Halogens (Haloalkanes & Haloarenes)",
+      "chapter": "Haloalkanes & Haloarenes",
       "type": "single",
       "question": "",
       "options": null,
@@ -1345,7 +1345,7 @@
     {
       "id": "chem_main_62",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Oxygen (Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic Acids)",
+      "chapter": "Aldehydes, Ketones & Carboxylic Acids",
       "type": "single",
       "question": "",
       "options": null,
@@ -1389,7 +1389,7 @@
     {
       "id": "chem_main_64",
       "subject": "Chemistry",
-      "chapter": "p-Block Elements: Group 13 to Group 18",
+      "chapter": "p-Block Elements: Group 15 (Nitrogen family) & Group 16 (Oxygen family)",
       "type": "single",
       "question": "",
       "options": null,
@@ -1433,7 +1433,7 @@
     {
       "id": "chem_main_66",
       "subject": "Chemistry",
-      "chapter": "Chemical Thermodynamics",
+      "chapter": "Thermodynamics (Chemical)",
       "type": "single",
       "question": "",
       "options": null,
@@ -1455,7 +1455,7 @@
     {
       "id": "chem_main_67",
       "subject": "Chemistry",
-      "chapter": "Principles Related to Practical Chemistry (Salt Analysis)",
+      "chapter": "Qualitative Salt Analysis",
       "type": "single",
       "question": "",
       "options": null,
@@ -1477,7 +1477,7 @@
     {
       "id": "chem_main_68",
       "subject": "Chemistry",
-      "chapter": "Equilibrium",
+      "chapter": "Chemical Equilibrium",
       "type": "single",
       "question": "",
       "options": null,
@@ -1521,7 +1521,7 @@
     {
       "id": "chem_main_70",
       "subject": "Chemistry",
-      "chapter": "Redox Reactions & Electrochemistry",
+      "chapter": "Electrochemistry",
       "type": "single",
       "question": "",
       "options": null,
@@ -1587,7 +1587,7 @@
     {
       "id": "chem_main_73",
       "subject": "Chemistry",
-      "chapter": "Redox Reactions & Electrochemistry",
+      "chapter": "Electrochemistry",
       "type": "single",
       "question": "",
       "options": null,
@@ -1609,7 +1609,7 @@
     {
       "id": "chem_main_74",
       "subject": "Chemistry",
-      "chapter": "Solutions",
+      "chapter": "Liquid Solutions & Colligative Properties",
       "type": "single",
       "question": "",
       "options": null,
@@ -1653,7 +1653,7 @@
     {
       "id": "chem_main_76",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Oxygen (Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic Acids)",
+      "chapter": "Aldehydes, Ketones & Carboxylic Acids",
       "type": "single",
       "question": "",
       "options": null,
@@ -1675,7 +1675,7 @@
     {
       "id": "chem_main_77",
       "subject": "Chemistry",
-      "chapter": "General Principles and Processes of Isolation of Metals (Metallurgy)",
+      "chapter": "Principles & Processes of Isolation of Metals (Metallurgy)",
       "type": "single",
       "question": "",
       "options": null,
@@ -1697,7 +1697,7 @@
     {
       "id": "chem_main_78",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -1741,7 +1741,7 @@
     {
       "id": "chem_main_80",
       "subject": "Chemistry",
-      "chapter": "s-Block Elements (Alkali and Alkaline Earth Metals)",
+      "chapter": "s-Block Elements",
       "type": "single",
       "question": "",
       "options": null,
@@ -1785,7 +1785,7 @@
     {
       "id": "chem_main_82",
       "subject": "Chemistry",
-      "chapter": "Equilibrium",
+      "chapter": "Chemical Equilibrium",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -1851,7 +1851,7 @@
     {
       "id": "chem_main_85",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Oxygen (Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic Acids)",
+      "chapter": "Aldehydes, Ketones & Carboxylic Acids",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -1873,7 +1873,7 @@
     {
       "id": "chem_main_86",
       "subject": "Chemistry",
-      "chapter": "Principles Related to Practical Chemistry (Salt Analysis)",
+      "chapter": "Qualitative Salt Analysis",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -1939,7 +1939,7 @@
     {
       "id": "chem_main_89",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Nitrogen (Amines & Diazonium Salts)",
+      "chapter": "Amines & Diazonium Salts",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -1961,7 +1961,7 @@
     {
       "id": "chem_main_90",
       "subject": "Chemistry",
-      "chapter": "p-Block Elements: Group 13 to Group 18",
+      "chapter": "p-Block Elements: Group 15 (Nitrogen family) & Group 16 (Oxygen family)",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -1983,7 +1983,7 @@
     {
       "id": "chem_main_91",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Oxygen (Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic Acids)",
+      "chapter": "Aldehydes, Ketones & Carboxylic Acids",
       "type": "single",
       "question": "",
       "options": null,
@@ -2005,7 +2005,7 @@
     {
       "id": "chem_main_92",
       "subject": "Chemistry",
-      "chapter": "Redox Reactions & Electrochemistry",
+      "chapter": "Electrochemistry",
       "type": "single",
       "question": "",
       "options": null,
@@ -2027,7 +2027,7 @@
     {
       "id": "chem_main_93",
       "subject": "Chemistry",
-      "chapter": "Principles Related to Practical Chemistry (Salt Analysis)",
+      "chapter": "Qualitative Salt Analysis",
       "type": "single",
       "question": "",
       "options": null,
@@ -2071,7 +2071,7 @@
     {
       "id": "chem_main_95",
       "subject": "Chemistry",
-      "chapter": "Equilibrium",
+      "chapter": "Chemical Equilibrium",
       "type": "single",
       "question": "",
       "options": null,
@@ -2137,7 +2137,7 @@
     {
       "id": "chem_main_98",
       "subject": "Chemistry",
-      "chapter": "Solutions",
+      "chapter": "Liquid Solutions & Colligative Properties",
       "type": "single",
       "question": "",
       "options": null,
@@ -2181,7 +2181,7 @@
     {
       "id": "chem_main_100",
       "subject": "Chemistry",
-      "chapter": "General Principles and Processes of Isolation of Metals (Metallurgy)",
+      "chapter": "Principles & Processes of Isolation of Metals (Metallurgy)",
       "type": "single",
       "question": "",
       "options": null,
@@ -2203,7 +2203,7 @@
     {
       "id": "chem_main_101",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Oxygen (Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic Acids)",
+      "chapter": "Aldehydes, Ketones & Carboxylic Acids",
       "type": "single",
       "question": "",
       "options": null,
@@ -2225,7 +2225,7 @@
     {
       "id": "chem_main_102",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Oxygen (Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic Acids)",
+      "chapter": "Aldehydes, Ketones & Carboxylic Acids",
       "type": "single",
       "question": "",
       "options": null,
@@ -2247,7 +2247,7 @@
     {
       "id": "chem_main_103",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Oxygen (Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic Acids)",
+      "chapter": "Aldehydes, Ketones & Carboxylic Acids",
       "type": "single",
       "question": "",
       "options": null,
@@ -2269,7 +2269,7 @@
     {
       "id": "chem_main_104",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Nitrogen (Amines & Diazonium Salts)",
+      "chapter": "Amines & Diazonium Salts",
       "type": "single",
       "question": "",
       "options": null,
@@ -2291,7 +2291,7 @@
     {
       "id": "chem_main_105",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Oxygen (Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic Acids)",
+      "chapter": "Aldehydes, Ketones & Carboxylic Acids",
       "type": "single",
       "question": "",
       "options": null,
@@ -2313,7 +2313,7 @@
     {
       "id": "chem_main_106",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Oxygen (Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic Acids)",
+      "chapter": "Aldehydes, Ketones & Carboxylic Acids",
       "type": "single",
       "question": "",
       "options": null,
@@ -2335,7 +2335,7 @@
     {
       "id": "chem_main_107",
       "subject": "Chemistry",
-      "chapter": "Equilibrium",
+      "chapter": "Chemical Equilibrium",
       "type": "single",
       "question": "",
       "options": null,
@@ -2357,7 +2357,7 @@
     {
       "id": "chem_main_108",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Nitrogen (Amines & Diazonium Salts)",
+      "chapter": "Amines & Diazonium Salts",
       "type": "single",
       "question": "",
       "options": null,
@@ -2379,7 +2379,7 @@
     {
       "id": "chem_main_109",
       "subject": "Chemistry",
-      "chapter": "Equilibrium",
+      "chapter": "Chemical Equilibrium",
       "type": "single",
       "question": "",
       "options": null,
@@ -2423,7 +2423,7 @@
     {
       "id": "chem_main_111",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Oxygen (Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic Acids)",
+      "chapter": "Aldehydes, Ketones & Carboxylic Acids",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -2445,7 +2445,7 @@
     {
       "id": "chem_main_112",
       "subject": "Chemistry",
-      "chapter": "Principles Related to Practical Chemistry (Salt Analysis)",
+      "chapter": "Qualitative Salt Analysis",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -2467,7 +2467,7 @@
     {
       "id": "chem_main_113",
       "subject": "Chemistry",
-      "chapter": "Redox Reactions & Electrochemistry",
+      "chapter": "Electrochemistry",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -2489,7 +2489,7 @@
     {
       "id": "chem_main_114",
       "subject": "Chemistry",
-      "chapter": "Solutions",
+      "chapter": "Liquid Solutions & Colligative Properties",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -2511,7 +2511,7 @@
     {
       "id": "chem_main_115",
       "subject": "Chemistry",
-      "chapter": "General Principles and Processes of Isolation of Metals (Metallurgy)",
+      "chapter": "Principles & Processes of Isolation of Metals (Metallurgy)",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -2533,7 +2533,7 @@
     {
       "id": "chem_main_116",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Oxygen (Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic Acids)",
+      "chapter": "Aldehydes, Ketones & Carboxylic Acids",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -2555,7 +2555,7 @@
     {
       "id": "chem_main_117",
       "subject": "Chemistry",
-      "chapter": "Equilibrium",
+      "chapter": "Chemical Equilibrium",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -2599,7 +2599,7 @@
     {
       "id": "chem_main_119",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Oxygen (Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic Acids)",
+      "chapter": "Aldehydes, Ketones & Carboxylic Acids",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -2621,7 +2621,7 @@
     {
       "id": "chem_main_120",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Oxygen (Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic Acids)",
+      "chapter": "Aldehydes, Ketones & Carboxylic Acids",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -2643,7 +2643,7 @@
     {
       "id": "chem_main_121",
       "subject": "Chemistry",
-      "chapter": "Solutions",
+      "chapter": "Liquid Solutions & Colligative Properties",
       "type": "single",
       "question": "",
       "options": null,
@@ -2687,7 +2687,7 @@
     {
       "id": "chem_main_123",
       "subject": "Chemistry",
-      "chapter": "Principles Related to Practical Chemistry (Salt Analysis)",
+      "chapter": "Qualitative Salt Analysis",
       "type": "single",
       "question": "",
       "options": null,
@@ -2797,7 +2797,7 @@
     {
       "id": "chem_main_128",
       "subject": "Chemistry",
-      "chapter": "Purification and Characterisation of Organic Compounds & General Organic Chemistry (GOC)",
+      "chapter": "General Organic Chemistry (GOC)",
       "type": "single",
       "question": "",
       "options": null,
@@ -2819,7 +2819,7 @@
     {
       "id": "chem_main_129",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Halogens (Haloalkanes & Haloarenes)",
+      "chapter": "Haloalkanes & Haloarenes",
       "type": "single",
       "question": "",
       "options": null,
@@ -2841,7 +2841,7 @@
     {
       "id": "chem_main_130",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Halogens (Haloalkanes & Haloarenes)",
+      "chapter": "Haloalkanes & Haloarenes",
       "type": "single",
       "question": "",
       "options": null,
@@ -2863,7 +2863,7 @@
     {
       "id": "chem_main_131",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Oxygen (Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic Acids)",
+      "chapter": "Aldehydes, Ketones & Carboxylic Acids",
       "type": "single",
       "question": "",
       "options": null,
@@ -2885,7 +2885,7 @@
     {
       "id": "chem_main_132",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Oxygen (Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic Acids)",
+      "chapter": "Aldehydes, Ketones & Carboxylic Acids",
       "type": "single",
       "question": "",
       "options": null,
@@ -2929,7 +2929,7 @@
     {
       "id": "chem_main_134",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Oxygen (Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic Acids)",
+      "chapter": "Aldehydes, Ketones & Carboxylic Acids",
       "type": "single",
       "question": "",
       "options": null,
@@ -2951,7 +2951,7 @@
     {
       "id": "chem_main_135",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Oxygen (Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic Acids)",
+      "chapter": "Aldehydes, Ketones & Carboxylic Acids",
       "type": "single",
       "question": "",
       "options": null,
@@ -2995,7 +2995,7 @@
     {
       "id": "chem_main_137",
       "subject": "Chemistry",
-      "chapter": "General Principles and Processes of Isolation of Metals (Metallurgy)",
+      "chapter": "Principles & Processes of Isolation of Metals (Metallurgy)",
       "type": "single",
       "question": "",
       "options": null,
@@ -3017,7 +3017,7 @@
     {
       "id": "chem_main_138",
       "subject": "Chemistry",
-      "chapter": "p-Block Elements: Group 13 to Group 18",
+      "chapter": "p-Block Elements: Group 15 (Nitrogen family) & Group 16 (Oxygen family)",
       "type": "single",
       "question": "",
       "options": null,
@@ -3039,7 +3039,7 @@
     {
       "id": "chem_main_139",
       "subject": "Chemistry",
-      "chapter": "p-Block Elements: Group 13 to Group 18",
+      "chapter": "p-Block Elements: Group 15 (Nitrogen family) & Group 16 (Oxygen family)",
       "type": "single",
       "question": "",
       "options": null,
@@ -3061,7 +3061,7 @@
     {
       "id": "chem_main_140",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Halogens (Haloalkanes & Haloarenes)",
+      "chapter": "Haloalkanes & Haloarenes",
       "type": "single",
       "question": "",
       "options": null,
@@ -3083,7 +3083,7 @@
     {
       "id": "chem_main_141",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Nitrogen (Amines & Diazonium Salts)",
+      "chapter": "Amines & Diazonium Salts",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -3127,7 +3127,7 @@
     {
       "id": "chem_main_143",
       "subject": "Chemistry",
-      "chapter": "Chemical Thermodynamics",
+      "chapter": "Thermodynamics (Chemical)",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -3149,7 +3149,7 @@
     {
       "id": "chem_main_144",
       "subject": "Chemistry",
-      "chapter": "Classification of Elements & Periodicity in Properties",
+      "chapter": "Periodic Table & Periodicity",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -3171,7 +3171,7 @@
     {
       "id": "chem_main_145",
       "subject": "Chemistry",
-      "chapter": "Solutions",
+      "chapter": "Liquid Solutions & Colligative Properties",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -3193,7 +3193,7 @@
     {
       "id": "chem_main_146",
       "subject": "Chemistry",
-      "chapter": "Principles Related to Practical Chemistry (Salt Analysis)",
+      "chapter": "Qualitative Salt Analysis",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -3215,7 +3215,7 @@
     {
       "id": "chem_main_147",
       "subject": "Chemistry",
-      "chapter": "Chemical Thermodynamics",
+      "chapter": "Thermodynamics (Chemical)",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -3237,7 +3237,7 @@
     {
       "id": "chem_main_148",
       "subject": "Chemistry",
-      "chapter": "p-Block Elements: Group 13 to Group 18",
+      "chapter": "p-Block Elements: Group 15 (Nitrogen family) & Group 16 (Oxygen family)",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -3259,7 +3259,7 @@
     {
       "id": "chem_main_149",
       "subject": "Chemistry",
-      "chapter": "Purification and Characterisation of Organic Compounds & General Organic Chemistry (GOC)",
+      "chapter": "General Organic Chemistry (GOC)",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -3303,7 +3303,7 @@
     {
       "id": "chem_main_151",
       "subject": "Chemistry",
-      "chapter": "Equilibrium",
+      "chapter": "Chemical Equilibrium",
       "type": "single",
       "question": "",
       "options": null,
@@ -3347,7 +3347,7 @@
     {
       "id": "chem_main_153",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Halogens (Haloalkanes & Haloarenes)",
+      "chapter": "Haloalkanes & Haloarenes",
       "type": "single",
       "question": "",
       "options": null,
@@ -3369,7 +3369,7 @@
     {
       "id": "chem_main_154",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Oxygen (Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic Acids)",
+      "chapter": "Aldehydes, Ketones & Carboxylic Acids",
       "type": "single",
       "question": "",
       "options": null,
@@ -3413,7 +3413,7 @@
     {
       "id": "chem_main_156",
       "subject": "Chemistry",
-      "chapter": "Chemical Thermodynamics",
+      "chapter": "Thermodynamics (Chemical)",
       "type": "single",
       "question": "",
       "options": null,
@@ -3435,7 +3435,7 @@
     {
       "id": "chem_main_157",
       "subject": "Chemistry",
-      "chapter": "s-Block Elements (Alkali and Alkaline Earth Metals)",
+      "chapter": "s-Block Elements",
       "type": "single",
       "question": "",
       "options": null,
@@ -3479,7 +3479,7 @@
     {
       "id": "chem_main_159",
       "subject": "Chemistry",
-      "chapter": "p-Block Elements: Group 13 to Group 18",
+      "chapter": "p-Block Elements: Group 15 (Nitrogen family) & Group 16 (Oxygen family)",
       "type": "single",
       "question": "",
       "options": null,
@@ -3501,7 +3501,7 @@
     {
       "id": "chem_main_160",
       "subject": "Chemistry",
-      "chapter": "Solutions",
+      "chapter": "Liquid Solutions & Colligative Properties",
       "type": "single",
       "question": "",
       "options": null,
@@ -3523,7 +3523,7 @@
     {
       "id": "chem_main_161",
       "subject": "Chemistry",
-      "chapter": "p-Block Elements: Group 13 to Group 18",
+      "chapter": "p-Block Elements: Group 15 (Nitrogen family) & Group 16 (Oxygen family)",
       "type": "single",
       "question": "",
       "options": null,
@@ -3567,7 +3567,7 @@
     {
       "id": "chem_main_163",
       "subject": "Chemistry",
-      "chapter": "p-Block Elements: Group 13 to Group 18",
+      "chapter": "p-Block Elements: Group 15 (Nitrogen family) & Group 16 (Oxygen family)",
       "type": "single",
       "question": "",
       "options": null,
@@ -3655,7 +3655,7 @@
     {
       "id": "chem_main_167",
       "subject": "Chemistry",
-      "chapter": "Equilibrium",
+      "chapter": "Chemical Equilibrium",
       "type": "single",
       "question": "",
       "options": null,
@@ -3677,7 +3677,7 @@
     {
       "id": "chem_main_168",
       "subject": "Chemistry",
-      "chapter": "Solutions",
+      "chapter": "Liquid Solutions & Colligative Properties",
       "type": "single",
       "question": "",
       "options": null,
@@ -3699,7 +3699,7 @@
     {
       "id": "chem_main_169",
       "subject": "Chemistry",
-      "chapter": "Redox Reactions & Electrochemistry",
+      "chapter": "Electrochemistry",
       "type": "single",
       "question": "",
       "options": null,
@@ -3743,7 +3743,7 @@
     {
       "id": "chem_main_171",
       "subject": "Chemistry",
-      "chapter": "p-Block Elements: Group 13 to Group 18",
+      "chapter": "p-Block Elements: Group 15 (Nitrogen family) & Group 16 (Oxygen family)",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -3765,7 +3765,7 @@
     {
       "id": "chem_main_172",
       "subject": "Chemistry",
-      "chapter": "General Principles and Processes of Isolation of Metals (Metallurgy)",
+      "chapter": "Principles & Processes of Isolation of Metals (Metallurgy)",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -3787,7 +3787,7 @@
     {
       "id": "chem_main_173",
       "subject": "Chemistry",
-      "chapter": "Principles Related to Practical Chemistry (Salt Analysis)",
+      "chapter": "Qualitative Salt Analysis",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -3831,7 +3831,7 @@
     {
       "id": "chem_main_175",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Oxygen (Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic Acids)",
+      "chapter": "Aldehydes, Ketones & Carboxylic Acids",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -3853,7 +3853,7 @@
     {
       "id": "chem_main_176",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Nitrogen (Amines & Diazonium Salts)",
+      "chapter": "Amines & Diazonium Salts",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -3897,7 +3897,7 @@
     {
       "id": "chem_main_178",
       "subject": "Chemistry",
-      "chapter": "Purification and Characterisation of Organic Compounds & General Organic Chemistry (GOC)",
+      "chapter": "General Organic Chemistry (GOC)",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -3919,7 +3919,7 @@
     {
       "id": "chem_main_179",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Oxygen (Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic Acids)",
+      "chapter": "Aldehydes, Ketones & Carboxylic Acids",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -3941,7 +3941,7 @@
     {
       "id": "chem_main_180",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Halogens (Haloalkanes & Haloarenes)",
+      "chapter": "Haloalkanes & Haloarenes",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -3985,7 +3985,7 @@
     {
       "id": "chem_main_182",
       "subject": "Chemistry",
-      "chapter": "General Principles and Processes of Isolation of Metals (Metallurgy)",
+      "chapter": "Principles & Processes of Isolation of Metals (Metallurgy)",
       "type": "single",
       "question": "",
       "options": null,
@@ -4007,7 +4007,7 @@
     {
       "id": "chem_main_183",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Nitrogen (Amines & Diazonium Salts)",
+      "chapter": "Amines & Diazonium Salts",
       "type": "single",
       "question": "",
       "options": null,
@@ -4029,7 +4029,7 @@
     {
       "id": "chem_main_184",
       "subject": "Chemistry",
-      "chapter": "Purification and Characterisation of Organic Compounds & General Organic Chemistry (GOC)",
+      "chapter": "General Organic Chemistry (GOC)",
       "type": "single",
       "question": "",
       "options": null,
@@ -4073,7 +4073,7 @@
     {
       "id": "chem_main_186",
       "subject": "Chemistry",
-      "chapter": "Equilibrium",
+      "chapter": "Chemical Equilibrium",
       "type": "single",
       "question": "",
       "options": null,
@@ -4117,7 +4117,7 @@
     {
       "id": "chem_main_188",
       "subject": "Chemistry",
-      "chapter": "Redox Reactions & Electrochemistry",
+      "chapter": "Electrochemistry",
       "type": "single",
       "question": "",
       "options": null,
@@ -4161,7 +4161,7 @@
     {
       "id": "chem_main_190",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Oxygen (Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic Acids)",
+      "chapter": "Aldehydes, Ketones & Carboxylic Acids",
       "type": "single",
       "question": "",
       "options": null,
@@ -4227,7 +4227,7 @@
     {
       "id": "chem_main_193",
       "subject": "Chemistry",
-      "chapter": "Solutions",
+      "chapter": "Liquid Solutions & Colligative Properties",
       "type": "single",
       "question": "",
       "options": null,
@@ -4249,7 +4249,7 @@
     {
       "id": "chem_main_194",
       "subject": "Chemistry",
-      "chapter": "Chemical Thermodynamics",
+      "chapter": "Thermodynamics (Chemical)",
       "type": "single",
       "question": "",
       "options": null,
@@ -4271,7 +4271,7 @@
     {
       "id": "chem_main_195",
       "subject": "Chemistry",
-      "chapter": "Chemical Thermodynamics",
+      "chapter": "Thermodynamics (Chemical)",
       "type": "single",
       "question": "",
       "options": null,
@@ -4315,7 +4315,7 @@
     {
       "id": "chem_main_197",
       "subject": "Chemistry",
-      "chapter": "Equilibrium",
+      "chapter": "Chemical Equilibrium",
       "type": "single",
       "question": "",
       "options": null,
@@ -4337,7 +4337,7 @@
     {
       "id": "chem_main_198",
       "subject": "Chemistry",
-      "chapter": "Equilibrium",
+      "chapter": "Chemical Equilibrium",
       "type": "single",
       "question": "",
       "options": null,
@@ -4381,7 +4381,7 @@
     {
       "id": "chem_main_200",
       "subject": "Chemistry",
-      "chapter": "Redox Reactions & Electrochemistry",
+      "chapter": "Electrochemistry",
       "type": "single",
       "question": "",
       "options": null,
@@ -4403,7 +4403,7 @@
     {
       "id": "chem_main_201",
       "subject": "Chemistry",
-      "chapter": "Principles Related to Practical Chemistry (Salt Analysis)",
+      "chapter": "Qualitative Salt Analysis",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -4469,7 +4469,7 @@
     {
       "id": "chem_main_204",
       "subject": "Chemistry",
-      "chapter": "Purification and Characterisation of Organic Compounds & General Organic Chemistry (GOC)",
+      "chapter": "General Organic Chemistry (GOC)",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -4491,7 +4491,7 @@
     {
       "id": "chem_main_205",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -4579,7 +4579,7 @@
     {
       "id": "chem_main_209",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Oxygen (Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic Acids)",
+      "chapter": "Aldehydes, Ketones & Carboxylic Acids",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -4601,7 +4601,7 @@
     {
       "id": "chem_main_210",
       "subject": "Chemistry",
-      "chapter": "Organic Compounds Containing Oxygen (Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic Acids)",
+      "chapter": "Aldehydes, Ketones & Carboxylic Acids",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -14325,7 +14325,7 @@
     {
       "id": "chem_main_652",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -15139,7 +15139,7 @@
     {
       "id": "chem_main_689",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -15205,7 +15205,7 @@
     {
       "id": "chem_main_692",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -20991,7 +20991,7 @@
     {
       "id": "chem_main_955",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -25061,7 +25061,7 @@
     {
       "id": "chem_main_1140",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -26051,7 +26051,7 @@
     {
       "id": "chem_main_1185",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -39955,7 +39955,7 @@
     {
       "id": "chem_main_1817",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -40417,7 +40417,7 @@
     {
       "id": "chem_main_1838",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -43585,7 +43585,7 @@
     {
       "id": "chem_main_1982",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -44135,7 +44135,7 @@
     {
       "id": "chem_main_2007",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -47875,7 +47875,7 @@
     {
       "id": "chem_main_2177",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -49129,7 +49129,7 @@
     {
       "id": "chem_main_2234",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -63495,7 +63495,7 @@
     {
       "id": "chem_main_2887",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -67565,7 +67565,7 @@
     {
       "id": "chem_main_3072",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -67961,7 +67961,7 @@
     {
       "id": "chem_main_3090",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -70777,7 +70777,7 @@
     {
       "id": "chem_main_3218",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -71701,7 +71701,7 @@
     {
       "id": "chem_main_3260",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -72185,7 +72185,7 @@
     {
       "id": "chem_main_3282",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -73901,7 +73901,7 @@
     {
       "id": "chem_main_3360",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -76035,7 +76035,7 @@
     {
       "id": "chem_main_3457",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -80259,7 +80259,7 @@
     {
       "id": "chem_main_3649",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -80699,7 +80699,7 @@
     {
       "id": "chem_main_3669",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -80721,7 +80721,7 @@
     {
       "id": "chem_main_3670",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -83251,7 +83251,7 @@
     {
       "id": "chem_main_3785",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -84109,7 +84109,7 @@
     {
       "id": "chem_main_3824",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -84879,7 +84879,7 @@
     {
       "id": "chem_main_3859",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -87233,7 +87233,7 @@
     {
       "id": "chem_main_3966",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -88377,7 +88377,7 @@
     {
       "id": "chem_main_4018",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "numerical",
       "question": "",
       "options": null,
@@ -88641,7 +88641,7 @@
     {
       "id": "chem_main_4030",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -89433,7 +89433,7 @@
     {
       "id": "chem_main_4066",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -89455,7 +89455,7 @@
     {
       "id": "chem_main_4067",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -92491,7 +92491,7 @@
     {
       "id": "chem_main_4205",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
@@ -92513,7 +92513,7 @@
     {
       "id": "chem_main_4206",
       "subject": "Chemistry",
-      "chapter": "Environmental Chemistry",
+      "chapter": "Chemistry in Everyday Life",
       "type": "single",
       "question": "",
       "options": null,
