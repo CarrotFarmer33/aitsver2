@@ -1,0 +1,1487 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>AITS Admin · Question Reports Reviewer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' },
+      startup: { typeset: false }
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="config.js"></script>
+  <style>
+    :root {
+      --bg: #f5f7fa;
+      --surface: #ffffff;
+      --surface-2: #f0f3f8;
+      --surface-3: #e4e8f0;
+      --fg: #1e2530;
+      --muted: #626d7f;
+      --line: #d3d9e4;
+      --top: #151922;
+      --top-ink: #f6d23c;
+      --brand: #2563eb;
+      --brand-hover: #1d4ed8;
+      --brand-ink: #ffffff;
+      --brand-tint: #eff6ff;
+      --ok: #16a34a;
+      --ok-bg: #f0fdf4;
+      --ok-line: #bbf7d0;
+      --warn: #d97706;
+      --warn-bg: #fffbeb;
+      --warn-line: #fde68a;
+      --nok: #dc2626;
+      --nok-bg: #fef2f2;
+      --nok-line: #fecaca;
+      --blue-bg: #eff6ff;
+      --blue-line: #bfdbfe;
+      --font-ui: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-mono: "JetBrains Mono", Consolas, monospace;
+      --radius: 8px;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0f1319;
+      --surface: #181d26;
+      --surface-2: #212834;
+      --surface-3: #2c3545;
+      --fg: #e2e8f0;
+      --muted: #94a3b8;
+      --line: #334155;
+      --top: #0a0c10;
+      --top-ink: #f6d23c;
+      --brand: #3b82f6;
+      --brand-hover: #60a5fa;
+      --brand-tint: #1e293b;
+      --ok: #22c55e;
+      --ok-bg: #062b14;
+      --ok-line: #166534;
+      --warn: #f59e0b;
+      --warn-bg: #341a04;
+      --warn-line: #78350f;
+      --nok: #ef4444;
+      --nok-bg: #350f0f;
+      --nok-line: #7f1d1d;
+      --blue-bg: #0f2444;
+      --blue-line: #1e3a8a;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-ui);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    a { color: var(--brand); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Top Navigation Bar */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--top);
+      color: #fff;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo {
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--top-ink);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-badge {
+      background: #dc2626;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--fg);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .btn:hover { background: var(--surface-2); }
+    .btn.primary {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: #fff;
+    }
+    .btn.primary:hover { background: var(--brand-hover); }
+    .btn.sm { padding: 4px 10px; font-size: 12px; }
+    .btn.danger { background: var(--nok-bg); color: var(--nok); border-color: var(--nok-line); }
+    .btn.danger:hover { background: var(--nok); color: #fff; }
+    .btn.success { background: var(--ok-bg); color: var(--ok); border-color: var(--ok-line); }
+    .btn.success:hover { background: var(--ok); color: #fff; }
+
+    /* Layout */
+    .container {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 24px 20px 60px;
+    }
+
+    /* Stats Ribbon */
+    .stats-ribbon {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .stat-card .label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .stat-card .val {
+      font-size: 26px;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.1;
+    }
+    .stat-card.amber .val { color: var(--warn); }
+    .stat-card.green .val { color: var(--ok); }
+    .stat-card.red .val { color: var(--nok); }
+    .stat-card.blue .val { color: var(--brand); }
+
+    /* Sync & Action Bar */
+    .action-bar {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .action-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+    .db-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      background: var(--surface-2);
+      padding: 5px 10px;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #94a3b8;
+    }
+    .status-dot.green { background: #22c55e; }
+    .status-dot.amber { background: #f59e0b; }
+
+    /* Filters Bar */
+    .filter-bar {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+    .search-input {
+      flex: 1 1 280px;
+      min-width: 200px;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px 12px;
+      font: inherit;
+      color: inherit;
+    }
+    .search-input:focus {
+      outline: 2px solid var(--brand);
+      background: var(--surface);
+    }
+    .filter-select {
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px 12px;
+      font: inherit;
+      color: inherit;
+      cursor: pointer;
+    }
+    .filter-select:focus { outline: 2px solid var(--brand); }
+
+    /* Status Pills / Tabs */
+    .status-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .status-tab {
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .status-tab.active {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: #fff;
+    }
+    .status-tab .badge {
+      background: rgba(0,0,0,0.12);
+      padding: 1px 6px;
+      border-radius: 10px;
+      font-size: 11px;
+    }
+    .status-tab.active .badge {
+      background: rgba(255,255,255,0.25);
+    }
+
+    /* Reports Container */
+    .reports-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Individual Report Card */
+    .report-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .report-card:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+    .report-card.pending { border-left: 5px solid var(--warn); }
+    .report-card.resolved { border-left: 5px solid var(--ok); }
+    .report-card.ignored { border-left: 5px solid var(--muted); opacity: 0.85; }
+
+    /* Report Card Header */
+    .rc-header {
+      background: var(--surface-2);
+      padding: 12px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+    .rc-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+    }
+    .rc-qid {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--fg);
+      background: var(--surface-3);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .rc-tag {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.03em;
+    }
+    .rc-tag.physics { background: #dbeafe; color: #1e40af; }
+    .rc-tag.chemistry { background: #fce7f3; color: #9d174d; }
+    .rc-tag.maths { background: #fef3c7; color: #92400e; }
+    .rc-tag.issue { background: var(--nok-bg); color: var(--nok); border: 1px solid var(--nok-line); }
+
+    .rc-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .status-select {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--fg);
+      cursor: pointer;
+    }
+
+    /* Complaint Banner */
+    .complaint-box {
+      margin: 16px 18px 12px;
+      background: var(--nok-bg);
+      border: 1px solid var(--nok-line);
+      border-radius: 8px;
+      padding: 12px 16px;
+    }
+    .complaint-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .complaint-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--nok);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .complaint-text {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--fg);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .complaint-key-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px dashed var(--nok-line);
+      padding-top: 6px;
+    }
+
+    /* Two-Column Question vs Solution Comparison */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-top: 1px solid var(--line);
+    }
+    @media (max-width: 900px) {
+      .comparison-grid { grid-template-columns: 1fr; }
+    }
+
+    .col-question, .col-solution {
+      padding: 18px;
+      overflow-x: auto;
+    }
+    .col-question {
+      border-right: 1px solid var(--line);
+      background: var(--surface);
+    }
+    .col-solution {
+      background: var(--surface-2);
+    }
+    @media (max-width: 900px) {
+      .col-question { border-right: 0; border-bottom: 1px solid var(--line); }
+    }
+
+    .col-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .passage-box {
+      margin-bottom: 14px;
+      padding: 12px;
+      background: var(--warn-bg);
+      border: 1px solid var(--warn-line);
+      border-radius: 6px;
+      font-size: 13px;
+    }
+    .qtext {
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+    .qimg {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      margin: 8px 0;
+      background: #fff;
+      cursor: zoom-in;
+    }
+
+    /* Options Display */
+    .options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .option-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      font-size: 14px;
+    }
+    .option-item.correct {
+      background: var(--ok-bg);
+      border-color: var(--ok-line);
+      font-weight: 600;
+    }
+    .option-letter {
+      flex: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--surface-3);
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .option-item.correct .option-letter {
+      background: var(--ok);
+      color: #fff;
+    }
+
+    /* Solution Column */
+    .key-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--ok-bg);
+      border: 1px solid var(--ok-line);
+      color: var(--ok);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    /* Admin Footer / Notes */
+    .rc-footer {
+      background: var(--surface);
+      border-top: 1px solid var(--line);
+      padding: 12px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .mod-notes-wrap {
+      flex: 1 1 340px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .mod-input {
+      flex: 1;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 6px 10px;
+      font: inherit;
+      font-size: 13px;
+      color: inherit;
+    }
+    .mod-input:focus { outline: 2px solid var(--brand); background: var(--surface); }
+
+    /* Modal Lightbox for images */
+    .lightbox-scrim {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .lightbox-scrim img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 8px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      background: #fff;
+    }
+
+    /* Empty state */
+    .empty-state {
+      background: var(--surface);
+      border: 1px dashed var(--line);
+      border-radius: 10px;
+      padding: 48px 24px;
+      text-align: center;
+    }
+    .empty-state h3 { margin: 0 0 8px; font-size: 18px; }
+    .empty-state p { color: var(--muted); margin: 0 0 16px; font-size: 14px; }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--top);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      z-index: 300;
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <a href="index.html" class="logo">
+        <span>AITS Question Reports</span>
+        <span class="logo-badge">Admin Reviewer</span>
+      </a>
+    </div>
+    <div class="topbar-right">
+      <a class="btn sm" href="index.html">← Practice Portal</a>
+      <button class="btn sm" id="themeToggle" type="button" title="Toggle dark mode">🌙 / ☀️</button>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- KPI / Statistics Ribbon -->
+    <div class="stats-ribbon">
+      <div class="stat-card blue">
+        <span class="label">Total Reports</span>
+        <span class="val" id="statTotal">0</span>
+      </div>
+      <div class="stat-card amber">
+        <span class="label">Pending Action</span>
+        <span class="val" id="statPending">0</span>
+      </div>
+      <div class="stat-card green">
+        <span class="label">Resolved / Fixed</span>
+        <span class="val" id="statResolved">0</span>
+      </div>
+      <div class="stat-card red">
+        <span class="label">Wrong Key Reports</span>
+        <span class="val" id="statWrongKey">0</span>
+      </div>
+    </div>
+
+    <!-- Sync and Data Controls -->
+    <section class="action-bar">
+      <div class="action-group">
+        <button class="btn primary" id="btnFetchRemote" type="button">🔄 Fetch Live Reports</button>
+        <button class="btn" id="btnLoadLocal" type="button">📂 Load Local Storage</button>
+        <label class="btn" style="cursor:pointer;margin:0">
+          📥 Import CSV / JSON
+          <input type="file" id="fileImport" accept=".csv,.json" style="display:none">
+        </label>
+        <button class="btn" id="btnLoadSample" type="button">🧪 Load Sample Reports</button>
+      </div>
+
+      <div class="action-group">
+        <div class="db-status">
+          <span class="status-dot" id="dbDot"></span>
+          <span id="dbStatusText">Loading Question Databases...</span>
+        </div>
+        <button class="btn sm" id="btnExportCsv" type="button">📊 Export CSV</button>
+        <button class="btn sm" id="btnExportPatch" type="button">💾 Export Fix Patch</button>
+      </div>
+    </section>
+
+    <!-- Filters & Search Toolbar -->
+    <section class="filter-bar">
+      <div class="filter-row">
+        <!-- Status Tabs -->
+        <div class="status-tabs" id="statusTabs">
+          <button class="status-tab active" data-status="all">All <span class="badge" id="tabCountAll">0</span></button>
+          <button class="status-tab" data-status="pending">Pending <span class="badge" id="tabCountPending">0</span></button>
+          <button class="status-tab" data-status="resolved">Resolved <span class="badge" id="tabCountResolved">0</span></button>
+          <button class="status-tab" data-status="ignored">Ignored <span class="badge" id="tabCountIgnored">0</span></button>
+        </div>
+
+        <input type="search" class="search-input" id="searchInput" placeholder="Search by Question ID, Chapter, or complaint text...">
+
+        <select class="filter-select" id="subjFilter">
+          <option value="all">All Subjects</option>
+          <option value="Physics">Physics</option>
+          <option value="Chemistry">Chemistry</option>
+          <option value="Mathematics">Mathematics</option>
+        </select>
+
+        <select class="filter-select" id="issueFilter">
+          <option value="all">All Issue Types</option>
+          <option value="Incorrect Answer Key">Incorrect Answer Key</option>
+          <option value="Broken / Unreadable Image">Broken / Unreadable Image</option>
+          <option value="Wrong Chapter / Subject">Wrong Chapter / Subject</option>
+          <option value="Question Incomplete / Typo">Question Incomplete / Typo</option>
+          <option value="Duplicate Question">Duplicate Question</option>
+          <option value="Other Issue">Other Issue</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Reports Feed -->
+    <section class="reports-list" id="reportsFeed">
+      <!-- Cards rendered dynamically -->
+    </section>
+
+  </main>
+
+  <!-- Image Lightbox Modal -->
+  <div id="imgLightbox" class="lightbox-scrim" style="display:none">
+    <img id="lightboxImg" src="" alt="Enlarged view">
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast"></div>
+
+  <script>
+    (function(){
+      "use strict";
+
+      // State
+      let allReports = [];
+      let questionBank = new Map(); // questionId -> normalized question object
+      let dbLoaded = false;
+      let activeStatusFilter = 'all';
+      let moderatorData = {}; // reportId -> { status: 'pending'|'resolved'|'ignored', note: '', newKey: '' }
+
+      const zipCache = new Map();
+      const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+      const rich = s => esc(s).replace(/\n/g, '<br>');
+
+      // Load saved moderator status from localStorage
+      try {
+        moderatorData = JSON.parse(localStorage.getItem('aits_admin_mod_data') || '{}');
+      } catch(e) { moderatorData = {}; }
+
+      function saveModData() {
+        try { localStorage.setItem('aits_admin_mod_data', JSON.stringify(moderatorData)); } catch(e){}
+      }
+
+      function showToast(msg) {
+        const el = document.getElementById('toast');
+        if(!el) return;
+        el.textContent = msg;
+        el.style.display = 'flex';
+        clearTimeout(el._timer);
+        el._timer = setTimeout(() => { el.style.display = 'none'; }, 2500);
+      }
+
+      // MathJax typesetting helper
+      function typeset(container) {
+        try {
+          if (window.MathJax && MathJax.typesetPromise) {
+            MathJax.typesetPromise(container ? [container] : undefined).catch(() => {});
+          }
+        } catch(e) {}
+      }
+
+      // ZIP Image Resolver
+      async function resolveZipImage(img) {
+        const ref = img.dataset.zipimg;
+        if (!ref) return;
+        const hash = ref.lastIndexOf('#');
+        if (hash < 0) return;
+        const zipUrl = ref.slice(0, hash), fileName = decodeURIComponent(ref.slice(hash + 1));
+        try {
+          if (!window.JSZip) throw new Error('JSZip not ready');
+          if (!zipCache.has(zipUrl)) {
+            zipCache.set(zipUrl, fetch(zipUrl).then(r => {
+              if(!r.ok) throw new Error('Could not fetch ZIP ('+r.status+')');
+              return r.arrayBuffer();
+            }).then(b => JSZip.loadAsync(b)));
+          }
+          const zip = await zipCache.get(zipUrl);
+          let f = zip.file(fileName);
+          if (!f) {
+            const match = Object.keys(zip.files).find(k => !zip.files[k].dir && (k === fileName || k.endsWith('/' + fileName)));
+            if (match) f = zip.file(match);
+          }
+          if (!f) throw new Error('Image not found in zip: ' + fileName);
+          const blob = await f.async('blob');
+          img.src = URL.createObjectURL(blob);
+          img.removeAttribute('data-zipimg');
+        } catch(e) {
+          img.style.display = 'none';
+        }
+      }
+
+      function hydrateZipImages(root) {
+        if (!root) return;
+        root.querySelectorAll('img[data-zipimg]').forEach(resolveZipImage);
+      }
+
+      function imageMarkup(u, alt) {
+        const x = String(u || '');
+        if (x.startsWith('zipimg:')) {
+          return '<img class="qimg" alt="' + esc(alt || 'Figure') + '" data-zipimg="' + esc(x.slice(7)) + '" src="data:,">';
+        }
+        return '<img class="qimg" alt="' + esc(alt || 'Figure') + '" src="' + esc(x) + '">';
+      }
+
+      // Normalization
+      function normOptions(raw) {
+        if (!raw) return null;
+        if (Array.isArray(raw)) return raw.map(String);
+        if (typeof raw === 'object') {
+          return ['A','B','C','D'].map(k => raw[k] || raw[k.toLowerCase()]).filter(Boolean).map(String);
+        }
+        return null;
+      }
+
+      function parseChoice(raw) {
+        if (raw == null) return null;
+        if (Array.isArray(raw)) return raw.map(x => parseChoice(x)).flat().filter(x => x != null);
+        const s = String(raw).trim().toUpperCase();
+        const map = { 'A':0, 'B':1, 'C':2, 'D':3, '1':0, '2':1, '3':2, '4':3 };
+        const res = [];
+        for (let ch of s) {
+          if (map[ch] !== undefined && !res.includes(map[ch])) res.push(map[ch]);
+        }
+        return res.length ? res : null;
+      }
+
+      function normQuestion(q, i) {
+        if (!q || typeof q !== 'object') return null;
+        const text = q.question != null ? q.question : (q.text != null ? q.text : (q.statement != null ? q.statement : ''));
+        const imgs = [].concat(q.images || q.question_images || q.image || []).filter(Boolean);
+        const subject = String(q.subject || 'Physics');
+        const chapter = String(q.chapter || q.topic || 'Unsorted');
+        const rawAns = q.answer != null ? q.answer : (q.correct_answer != null ? q.correct_answer : (q.correct != null ? q.correct : q.key));
+        const options = normOptions(q.options || q.choices);
+        const passageImgs = [].concat(q.passage_images || q.passageImages || []).filter(Boolean).map(String);
+        const id = String(q.id != null ? q.id : (q.question_id != null ? q.question_id : ('Q' + (i+1))));
+        return {
+          id,
+          subject,
+          chapter,
+          text: String(text),
+          options,
+          ans: rawAns,
+          solution: String(q.solution != null ? q.solution : (q.explanation || '')),
+          images: imgs.map(String),
+          passageImages: passageImgs,
+          solImages: [].concat(q.solution_images || q.solutionImages || []).filter(Boolean).map(String),
+          raw: q
+        };
+      }
+
+      function extractList(raw) {
+        if (Array.isArray(raw)) return raw;
+        if (raw && typeof raw === 'object') {
+          for (const k of ['questions', 'data', 'items', 'database']) {
+            if (Array.isArray(raw[k])) return raw[k];
+          }
+        }
+        return [];
+      }
+
+      // Load Databases
+      async function loadAllDatabases() {
+        const dot = document.getElementById('dbDot');
+        const lbl = document.getElementById('dbStatusText');
+        dot.className = 'status-dot amber';
+        lbl.textContent = 'Loading question databases...';
+
+        const conf = window.AITS_CONFIG || {};
+        const sources = [
+          { name: 'Physics', urls: [conf.databaseUrl, 'database.json'].filter(Boolean) },
+          { name: 'Chemistry', urls: [conf.chemistryUrl, 'chemistry_database.json'].filter(Boolean) },
+          { name: 'Maths Adv', urls: [conf.mathsAdvancedUrl, 'maths_advanced_database.json'].filter(Boolean) },
+          { name: 'Maths Main', urls: [conf.mathsMainUrl, 'maths_main_database.json'].filter(Boolean) }
+        ];
+
+        let totalLoaded = 0;
+        await Promise.all(sources.map(async (src) => {
+          for (let u of src.urls) {
+            try {
+              const res = await fetch(u, { cache: 'no-store' });
+              if (!res.ok) continue;
+              const json = await res.json();
+              const list = extractList(json);
+              list.forEach((item, idx) => {
+                const norm = normQuestion(item, idx);
+                if (norm && norm.id) {
+                  questionBank.set(norm.id, norm);
+                  totalLoaded++;
+                }
+              });
+              break;
+            } catch(e) {}
+          }
+        }));
+
+        dbLoaded = true;
+        dot.className = 'status-dot green';
+        lbl.textContent = '✓ ' + questionBank.size.toLocaleString() + ' questions indexed';
+        renderFeed();
+      }
+
+      // Load Local Storage Reports
+      function loadLocalStorageReports() {
+        try {
+          const raw = localStorage.getItem('aits_reported_questions');
+          if (raw) {
+            const list = JSON.parse(raw);
+            if (Array.isArray(list) && list.length) {
+              mergeReports(list);
+              showToast('Loaded ' + list.length + ' reports from browser storage');
+              return;
+            }
+          }
+        } catch(e) {}
+        showToast('No reports found in local browser storage');
+      }
+
+      // Fetch Live Reports from Apps Script or Webhook
+      async function fetchLiveReports() {
+        const conf = window.AITS_CONFIG || {};
+        const url = conf.reportWebhookUrl;
+        if (!url) {
+          showToast('No reportWebhookUrl configured in config.js');
+          return;
+        }
+
+        showToast('Connecting to report service...');
+        try {
+          // Attempt GET request with fallback
+          const res = await fetch(url + (url.includes('?') ? '&' : '?') + 'action=get', { mode: 'cors' });
+          if (res.ok) {
+            const data = await res.json();
+            if (Array.isArray(data) && data.length) {
+              mergeReports(data);
+              showToast('Fetched ' + data.length + ' live reports!');
+              return;
+            }
+          }
+        } catch(err) {
+          console.warn('Direct live fetch failed (CORS or doGet format):', err);
+        }
+
+        // If direct GET failed, offer to load local or import
+        showToast('Remote GET requires doGet() in script. Loaded local reports.');
+        loadLocalStorageReports();
+      }
+
+      function mergeReports(incoming) {
+        const existingIds = new Set(allReports.map(r => r.id || (r.questionId + '_' + r.reportedAt)));
+        let added = 0;
+        incoming.forEach(r => {
+          const key = r.id || (r.questionId + '_' + r.reportedAt);
+          if (!existingIds.has(key)) {
+            allReports.push(r);
+            existingIds.add(key);
+            added++;
+          }
+        });
+        updateStats();
+        renderFeed();
+      }
+
+      // Sample Reports Generator
+      function loadSampleReports() {
+        const samples = [
+          {
+            id: 'sample_rpt_1',
+            questionId: '2024_adv_p1_p_q1',
+            subject: 'Physics',
+            chapter: 'Rotational Motion',
+            paper: 'JEE Advanced 2024 · Paper 1',
+            type: 'single',
+            currentKey: 'C',
+            issueType: 'Incorrect Answer Key',
+            details: 'According to official final answer key released by IIT Madras, the correct answer for this question is (B), but portal marks it as (C).',
+            reportedAt: new Date(Date.now() - 3600000 * 2).toISOString()
+          },
+          {
+            id: 'sample_rpt_2',
+            questionId: '2023_adv_p2_c_q14',
+            subject: 'Chemistry',
+            chapter: 'Chemical Kinetics',
+            paper: 'JEE Advanced 2023 · Paper 2',
+            type: 'numerical',
+            currentKey: '4.5',
+            issueType: 'Incorrect Answer Key',
+            details: 'The reaction order tolerance should allow 4.45 to 4.55. My answer was 4.48 and was marked wrong.',
+            reportedAt: new Date(Date.now() - 3600000 * 12).toISOString()
+          },
+          {
+            id: 'sample_rpt_3',
+            questionId: '2022_main_25jul_s1_m_q8',
+            subject: 'Mathematics',
+            chapter: 'Definite Integration',
+            paper: 'JEE Main 2022 · 25 July Shift 1',
+            type: 'single',
+            currentKey: 'A',
+            issueType: 'Broken / Unreadable Image',
+            details: 'The lower limit on the integral in the question figure is cut off and blurry.',
+            reportedAt: new Date(Date.now() - 3600000 * 24).toISOString()
+          }
+        ];
+        mergeReports(samples);
+        showToast('Sample test reports loaded!');
+      }
+
+      // Import CSV / JSON parser
+      function parseCSV(text) {
+        const lines = text.split(/\r?\n/).filter(l => l.trim().length);
+        if (lines.length < 2) return [];
+        const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, '').toLowerCase());
+        const result = [];
+
+        for (let i = 1; i < lines.length; i++) {
+          const row = [];
+          let insideQuote = false, entry = '';
+          for (let ch of lines[i]) {
+            if (ch === '"') { insideQuote = !insideQuote; }
+            else if (ch === ',' && !insideQuote) { row.push(entry); entry = ''; }
+            else { entry += ch; }
+          }
+          row.push(entry);
+
+          const obj = {};
+          headers.forEach((h, idx) => {
+            let val = (row[idx] || '').trim().replace(/^"|"$/g, '').replace(/""/g, '"');
+            if (h.includes('question') && h.includes('id')) obj.questionId = val;
+            else if (h.includes('subject')) obj.subject = val;
+            else if (h.includes('chapter')) obj.chapter = val;
+            else if (h.includes('issue')) obj.issueType = val;
+            else if (h.includes('detail') || h.includes('note') || h.includes('complaint')) obj.details = val;
+            else if (h.includes('key')) obj.currentKey = val;
+            else if (h.includes('paper')) obj.paper = val;
+            else if (h.includes('report') && h.includes('at')) obj.reportedAt = val;
+            else if (h === 'id' || h.includes('report id')) obj.id = val;
+          });
+          if (obj.questionId) result.push(obj);
+        }
+        return result;
+      }
+
+      document.getElementById('fileImport').addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          try {
+            const content = String(reader.result);
+            if (file.name.endsWith('.json')) {
+              const data = JSON.parse(content);
+              mergeReports(Array.isArray(data) ? data : (data.reports || []));
+              showToast('Imported JSON reports successfully!');
+            } else {
+              const list = parseCSV(content);
+              mergeReports(list);
+              showToast('Imported ' + list.length + ' reports from CSV!');
+            }
+          } catch(err) {
+            alert('Failed to parse file: ' + err.message);
+          }
+        };
+        reader.readAsText(file);
+        e.target.value = '';
+      });
+
+      // Update KPI Statistics
+      function updateStats() {
+        let total = allReports.length;
+        let pending = 0, resolved = 0, ignored = 0, wrongKey = 0;
+
+        allReports.forEach(r => {
+          const st = (moderatorData[r.id] && moderatorData[r.id].status) || 'pending';
+          if (st === 'resolved') resolved++;
+          else if (st === 'ignored') ignored++;
+          else pending++;
+
+          if (r.issueType && r.issueType.includes('Key')) wrongKey++;
+        });
+
+        document.getElementById('statTotal').textContent = total;
+        document.getElementById('statPending').textContent = pending;
+        document.getElementById('statResolved').textContent = resolved;
+        document.getElementById('statWrongKey').textContent = wrongKey;
+
+        document.getElementById('tabCountAll').textContent = total;
+        document.getElementById('tabCountPending').textContent = pending;
+        document.getElementById('tabCountResolved').textContent = resolved;
+        document.getElementById('tabCountIgnored').textContent = ignored;
+      }
+
+      // Filter & Search Logic
+      function getFilteredReports() {
+        const search = document.getElementById('searchInput').value.trim().toLowerCase();
+        const subj = document.getElementById('subjFilter').value;
+        const issue = document.getElementById('issueFilter').value;
+
+        return allReports.filter(r => {
+          const st = (moderatorData[r.id] && moderatorData[r.id].status) || 'pending';
+          if (activeStatusFilter !== 'all' && st !== activeStatusFilter) return false;
+          if (subj !== 'all' && r.subject !== subj) return false;
+          if (issue !== 'all' && r.issueType !== issue) return false;
+
+          if (search) {
+            const hay = [
+              r.questionId,
+              r.subject,
+              r.chapter,
+              r.issueType,
+              r.details,
+              (moderatorData[r.id] && moderatorData[r.id].note)
+            ].join(' ').toLowerCase();
+            if (!hay.includes(search)) return false;
+          }
+          return true;
+        });
+      }
+
+      // Render Feed
+      function renderFeed() {
+        const feed = document.getElementById('reportsFeed');
+        const list = getFilteredReports();
+
+        if (!list.length) {
+          feed.innerHTML = `
+            <div class="empty-state">
+              <h3>No matching reports found</h3>
+              <p>There are currently no reports matching your filters. You can click <b>"Load Sample Reports"</b> or <b>"Import CSV / JSON"</b> above to test the system.</p>
+              <button class="btn primary" id="btnEmptySample" type="button">🧪 Load Sample Test Reports</button>
+            </div>
+          `;
+          const emptyBtn = document.getElementById('btnEmptySample');
+          if (emptyBtn) emptyBtn.onclick = loadSampleReports;
+          return;
+        }
+
+        let html = '';
+        list.forEach((r) => {
+          const mod = moderatorData[r.id] || { status: 'pending', note: '', newKey: '' };
+          const status = mod.status || 'pending';
+          const q = questionBank.get(r.questionId) || null;
+
+          const dateStr = r.reportedAt ? new Date(r.reportedAt).toLocaleString(undefined, {
+            month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit'
+          }) : 'Unknown date';
+
+          const subjClass = (r.subject || '').toLowerCase().includes('chem') ? 'chemistry' : ((r.subject || '').toLowerCase().includes('math') ? 'maths' : 'physics');
+
+          html += `
+            <article class="report-card ${esc(status)}" id="card_${esc(r.id)}">
+              <!-- Header Bar -->
+              <div class="rc-header">
+                <div class="rc-meta">
+                  <span class="rc-qid">
+                    <span>${esc(r.questionId)}</span>
+                    <button class="btn sm" style="padding:1px 6px;font-size:11px" data-copy="${esc(r.questionId)}" type="button" title="Copy Question ID">📋</button>
+                  </span>
+                  <span class="rc-tag ${subjClass}">${esc(r.subject || 'Subject')}</span>
+                  <span class="rc-tag issue">${esc(r.issueType || 'Issue')}</span>
+                  <span class="muted" style="font-size:12px">• ${esc(r.chapter || '')}</span>
+                  <span class="muted" style="font-size:12px">• ${esc(dateStr)}</span>
+                </div>
+
+                <div class="rc-actions">
+                  <label style="font-size:12px;font-weight:600;color:var(--muted)">Status:</label>
+                  <select class="status-select" data-status-for="${esc(r.id)}">
+                    <option value="pending" ${status === 'pending' ? 'selected' : ''}>⏳ Pending</option>
+                    <option value="resolved" ${status === 'resolved' ? 'selected' : ''}>✅ Fixed / Resolved</option>
+                    <option value="ignored" ${status === 'ignored' ? 'selected' : ''}>✕ Ignored / Invalid</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Complaint Banner -->
+              <div class="complaint-box">
+                <div class="complaint-header">
+                  <span class="complaint-title">🚩 User Complaint (${esc(r.issueType || 'Reported')})</span>
+                  <span class="muted" style="font-size:12px">${esc(r.paper || '')}</span>
+                </div>
+                <div class="complaint-text">${r.details ? esc(r.details) : '<em>(No additional written note provided by student)</em>'}</div>
+                <div class="complaint-key-row">
+                  <span>Current Portal Key: <b>${esc(r.currentKey || '—')}</b></span>
+                  ${q && q.ans != null ? `<span>Database Key Value: <b>${esc(JSON.stringify(q.ans))}</b></span>` : ''}
+                </div>
+              </div>
+
+              <!-- Question vs Solution Grid -->
+              <div class="comparison-grid">
+                <!-- Question Column -->
+                <div class="col-question">
+                  <div class="col-title">
+                    <span>Question Preview</span>
+                    <span style="font-size:11px;font-weight:600;text-transform:none;color:var(--muted)">${q ? 'Found in DB' : '⚠️ Question ID not in local DB'}</span>
+                  </div>
+
+                  ${q ? `
+                    ${q.passageImages && q.passageImages.length ? `
+                      <div class="passage-box">
+                        <b>Common Passage / Paragraph:</b><br>
+                        ${q.passageImages.map(u => imageMarkup(u, 'Passage figure')).join('')}
+                      </div>
+                    ` : ''}
+
+                    <div class="qtext">${rich(q.text || '')}</div>
+                    <div>${(q.images || []).map(u => imageMarkup(u, 'Question figure')).join('')}</div>
+
+                    ${q.options && q.options.length ? `
+                      <div class="options-group">
+                        ${q.options.map((opt, idx) => {
+                          const letter = 'ABCD'[idx] || String(idx + 1);
+                          const isKey = (q.ans === idx || (Array.isArray(q.ans) && q.ans.includes(idx)) || String(q.ans).toUpperCase().includes(letter));
+                          return `
+                            <div class="option-item ${isKey ? 'correct' : ''}">
+                              <span class="option-letter">${letter}</span>
+                              <div style="flex:1">${rich(opt)}</div>
+                              ${isKey ? '<span style="font-size:11px;color:var(--ok);font-weight:700">CURRENT KEY</span>' : ''}
+                            </div>
+                          `;
+                        }).join('')}
+                      </div>
+                    ` : ''}
+                  ` : `
+                    <div class="muted" style="padding:20px;text-align:center">
+                      Question data could not be found for <code>${esc(r.questionId)}</code> in the loaded database files.
+                    </div>
+                  `}
+                </div>
+
+                <!-- Solution Column -->
+                <div class="col-solution">
+                  <div class="col-title">
+                    <span>Official Solution & Key</span>
+                  </div>
+
+                  <div class="key-badge">
+                    <span>🔑 Current Answer Key:</span>
+                    <b>${esc(r.currentKey || (q ? JSON.stringify(q.ans) : '—'))}</b>
+                  </div>
+
+                  ${q && (q.solution || (q.solImages && q.solImages.length)) ? `
+                    <div class="qtext">${rich(q.solution || '')}</div>
+                    <div>${(q.solImages || []).map(u => imageMarkup(u, 'Solution figure')).join('')}</div>
+                  ` : `
+                    <div class="muted" style="padding:16px 0">
+                      <em>No written solution text or solution diagram attached to this question in database.</em>
+                    </div>
+                  `}
+                </div>
+              </div>
+
+              <!-- Admin Action & Patch Footer -->
+              <div class="rc-footer">
+                <div class="mod-notes-wrap">
+                  <label style="font-size:12px;font-weight:700;color:var(--muted)">Mod Note:</label>
+                  <input type="text" class="mod-input" data-note-for="${esc(r.id)}" value="${esc(mod.note || '')}" placeholder="Add private note (e.g., 'Checked NTA key, will change to B')">
+                </div>
+
+                <div style="display:flex;gap:8px">
+                  <button class="btn sm" data-patch-for="${esc(r.questionId)}" type="button" title="View or copy JSON fix">🛠️ Generate Fix Patch</button>
+                </div>
+              </div>
+            </article>
+          `;
+        });
+
+        feed.innerHTML = html;
+        hydrateZipImages(feed);
+        typeset(feed);
+      }
+
+      // Event Listeners for Cards
+      document.addEventListener('change', (e) => {
+        // Status dropdown change
+        if (e.target.dataset.statusFor) {
+          const id = e.target.dataset.statusFor;
+          if (!moderatorData[id]) moderatorData[id] = {};
+          moderatorData[id].status = e.target.value;
+          saveModData();
+          updateStats();
+          const card = document.getElementById('card_' + id);
+          if (card) {
+            card.classList.remove('pending', 'resolved', 'ignored');
+            card.classList.add(e.target.value);
+          }
+        }
+      });
+
+      document.addEventListener('input', (e) => {
+        // Mod note change
+        if (e.target.dataset.noteFor) {
+          const id = e.target.dataset.noteFor;
+          if (!moderatorData[id]) moderatorData[id] = {};
+          moderatorData[id].note = e.target.value;
+          saveModData();
+        }
+        if (e.target.id === 'searchInput') renderFeed();
+      });
+
+      document.addEventListener('change', (e) => {
+        if (e.target.id === 'subjFilter' || e.target.id === 'issueFilter') renderFeed();
+      });
+
+      document.addEventListener('click', (e) => {
+        // Copy question ID
+        if (e.target.dataset.copy) {
+          navigator.clipboard.writeText(e.target.dataset.copy).then(() => {
+            showToast('Copied ID: ' + e.target.dataset.copy);
+          });
+          return;
+        }
+
+        // Status Tabs click
+        const tab = e.target.closest('.status-tab');
+        if (tab) {
+          document.querySelectorAll('.status-tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          activeStatusFilter = tab.dataset.status;
+          renderFeed();
+          return;
+        }
+
+        // Image Click Lightbox
+        const img = e.target.closest('img.qimg');
+        if (img) {
+          const src = img.currentSrc || img.src;
+          if (src && src !== 'data:,') {
+            const box = document.getElementById('imgLightbox');
+            const lImg = document.getElementById('lightboxImg');
+            lImg.src = src;
+            box.style.display = 'flex';
+          }
+          return;
+        }
+
+        // Generate Fix Patch
+        if (e.target.dataset.patchFor) {
+          const qid = e.target.dataset.patchFor;
+          const q = questionBank.get(qid);
+          const currentAns = q ? JSON.stringify(q.ans) : '""';
+          const newKey = prompt(`Enter corrected answer key for ${qid} (currently ${currentAns}):`, q ? q.ans : '');
+          if (newKey !== null) {
+            const patchObj = {
+              question_id: qid,
+              corrected_answer: newKey,
+              verified_at: new Date().toISOString()
+            };
+            const jsonStr = JSON.stringify(patchObj, null, 2);
+            navigator.clipboard.writeText(jsonStr).then(() => {
+              showToast('Copied JSON Patch to clipboard!');
+            });
+            alert('Generated Patch for ' + qid + ' (Copied to Clipboard):\n\n' + jsonStr);
+          }
+          return;
+        }
+
+        // Close Lightbox
+        if (e.target.id === 'imgLightbox') {
+          e.target.style.display = 'none';
+        }
+      });
+
+      // Export CSV
+      document.getElementById('btnExportCsv').onclick = () => {
+        if (!allReports.length) { showToast('No reports to export'); return; }
+        const headers = ['Report ID', 'Reported At', 'Question ID', 'Subject', 'Chapter', 'Paper', 'Issue Type', 'Current Key', 'Details', 'Admin Status', 'Admin Note'];
+        const escCsv = val => '"' + String(val == null ? '' : val).replace(/"/g, '""') + '"';
+        const rows = [headers.map(escCsv).join(',')];
+
+        allReports.forEach(r => {
+          const mod = moderatorData[r.id] || {};
+          rows.push([
+            r.id,
+            r.reportedAt,
+            r.questionId,
+            r.subject,
+            r.chapter,
+            r.paper,
+            r.issueType,
+            r.currentKey,
+            r.details,
+            mod.status || 'pending',
+            mod.note || ''
+          ].map(escCsv).join(','));
+        });
+
+        const blob = new Blob([rows.join('\r\n')], { type: 'text/csv;charset=utf-8;' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'aits-moderated-reports-' + new Date().toISOString().slice(0, 10) + '.csv';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+      };
+
+      // Export Patch JSON
+      document.getElementById('btnExportPatch').onclick = () => {
+        const fixes = [];
+        allReports.forEach(r => {
+          const mod = moderatorData[r.id];
+          if (mod && mod.status === 'resolved') {
+            fixes.push({
+              question_id: r.questionId,
+              issue_type: r.issueType,
+              admin_note: mod.note || 'Marked resolved in admin portal',
+              resolved_at: new Date().toISOString()
+            });
+          }
+        });
+
+        if (!fixes.length) {
+          alert('No reports are currently marked as "Fixed / Resolved". Mark resolved reports first to export a patch list.');
+          return;
+        }
+
+        const blob = new Blob([JSON.stringify(fixes, null, 2)], { type: 'application/json' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'aits-database-fixes-patch-' + new Date().toISOString().slice(0, 10) + '.json';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+      };
+
+      // Buttons
+      document.getElementById('btnFetchRemote').onclick = fetchLiveReports;
+      document.getElementById('btnLoadLocal').onclick = loadLocalStorageReports;
+      document.getElementById('btnLoadSample').onclick = loadSampleReports;
+
+      // Dark Mode Toggle
+      const themeBtn = document.getElementById('themeToggle');
+      themeBtn.onclick = () => {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (isDark) {
+          document.documentElement.removeAttribute('data-theme');
+          try { localStorage.setItem('aits_admin_theme', 'light'); } catch(e){}
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          try { localStorage.setItem('aits_admin_theme', 'dark'); } catch(e){}
+        }
+      };
+
+      // Init Theme
+      try {
+        const savedTheme = localStorage.getItem('aits_admin_theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      } catch(e){}
+
+      // Boot sequence
+      loadAllDatabases().then(() => {
+        loadLocalStorageReports();
+      });
+
+    })();
+  </script>
+</body>
+</html>

@@ -1181,14 +1181,15 @@ function renderQ(){
   $('#qMarks').innerHTML=marksHtml(q.type, q.rawType);
   $('#qNo').textContent='Question No. '+(T.cur+1);
   let h='';
-  if(q.paragraph && q.passageImages && q.passageImages.length && (!q.images.length || q.images[0] !== q.passageImages[0])){
+  if(q.paragraph && q.passageImages && q.passageImages.length){
     h+='<div class="passage-box" style="margin-bottom:14px;padding:12px;background:rgba(255,165,0,0.06);border:1px solid rgba(255,165,0,0.3);border-radius:8px;">'+
        '<div style="font-weight:700;margin-bottom:8px;font-size:14px;color:var(--x-main,#0066cc);">Common Paragraph / Passage:</div>';
     q.passageImages.forEach(u=>{ h+=imageMarkup(u,'Common passage'); });
     h+='</div>';
   }
   h+='<div class="qtext">'+rich(q.text)+'</div>';
-  q.images.forEach(u=>{ h+=imageMarkup(u,'Question figure'); });
+  const qImgs = (q.images||[]).filter(u=>!(q.passageImages||[]).includes(u));
+  qImgs.forEach(u=>{ h+=imageMarkup(u,'Question figure'); });
   const locked=T.mode==='practice' && s.checked, dis=locked?' disabled':'';
   const effectiveType = q.rawType || q.type;
   if(effectiveType==='numerical'){
@@ -1917,8 +1918,9 @@ applyBulkSelection('yrNone', '#yearBox', 'input[data-year]', cb => cb.dataset.ye
 /* ---------- boot ---------- */
 (async function(){
   let ok=false;
+  const isLocal = window.location.hostname==='localhost' || window.location.hostname==='127.0.0.1' || window.location.protocol==='file:';
   const conf = window.AITS_CONFIG || {};
-  const remote = (conf.databaseUrl || '').trim();
+  const remote = isLocal ? '' : (conf.databaseUrl || '').trim();
   const chemRemote = (conf.chemistryUrl || '').trim();
   const mathAdvRemote = (conf.mathsAdvancedUrl || '').trim();
   const mathMainRemote = (conf.mathsMainUrl || '').trim();
