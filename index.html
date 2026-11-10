@@ -3063,13 +3063,12 @@ async function buildCustomSheet(){
     }
 
     const fullPdfUrl = (data.pdfUrl.startsWith('http') ? data.pdfUrl : (baseUrl + data.pdfUrl));
-    const frame = #sheetPdfFrame;
-    frame.src = fullPdfUrl + '#toolbar=1&navpanes=0&view=FitH';
-    #sheetDownloadBtn.href = fullPdfUrl;
-    #sheetDownloadBtn.download = data.filename || 'practice_sheet.pdf';
-    #sheetOpenTabBtn.href = fullPdfUrl;
-    $('#sheetDownloadBtn').download = data.filename || 'practice_sheet.pdf';
-    $('#sheetOpenTabBtn').href = data.pdfUrl;
+    const frame = $('#sheetPdfFrame');
+    if(frame) frame.src = fullPdfUrl + '#toolbar=1&navpanes=0&view=FitH';
+    const dlBtn = $('#sheetDownloadBtn');
+    if(dlBtn){ dlBtn.href = fullPdfUrl; dlBtn.download = data.filename || 'practice_sheet.pdf'; }
+    const tabBtn = $('#sheetOpenTabBtn');
+    if(tabBtn) tabBtn.href = fullPdfUrl;
     $('#sheetDocTitle').textContent = title + ' (' + data.totalQuestions + ' Qs, ' + data.totalPages + ' Pages)';
 
     $('#tbStatusNote').textContent = 'Vector PDF created successfully! (' + data.totalQuestions + ' Qs, ' + data.totalPages + ' pages)';
