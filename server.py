@@ -137,8 +137,16 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
                 target_r = fitz.Rect(0, cur_y, w, cur_y + h)
                 temp_page.show_pdf_page(target_r, doc, pno, clip=clip_r)
                 cur_y += h
-            svg = temp_page.get_svg_image(text_as_path=0)
+            # Use text_as_path=1 to preserve the authentic original exam typography,
+            # exact font shapes, equations, and serif glyphs from the paper.
+            svg = temp_page.get_svg_image(text_as_path=1)
             temp_doc.close()
+
+            # Ensure crisp opaque white background card so text is never transparent against dark modals/surfaces
+            insert_pos = svg.find(">") + 1
+            if insert_pos > 0:
+                bg_rect = f'<rect width="{w}" height="{tot_h}" fill="#ffffff"/>'
+                svg = svg[:insert_pos] + bg_rect + svg[insert_pos:]
             
             body = svg.encode("utf-8")
             self.send_response(200)
