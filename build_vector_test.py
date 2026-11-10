@@ -8,7 +8,7 @@ margin/header banners are automatically removed.
 For JEE Main pattern:
 Strictly generates 25 Single Choice Questions (SCQ / Section A) and 5 Numerical Type (NAT / Section B) per subject.
 
-Can be run via CLI or imported as a module by the local HTTP server.
+Optimized with O(1) pre-computed segments cache for sub-second test generation.
 """
 
 import argparse
@@ -32,10 +32,10 @@ from build_chem_sheets import chem_segments
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 SOURCE_DIR = os.path.join(ROOT_DIR, "source")
 DB_PATHS = [
-    os.path.join(ROOT_DIR, "aitsver2-main", "database.json"),
-    os.path.join(ROOT_DIR, "aitsver2-main", "chemistry_database.json"),
-    os.path.join(ROOT_DIR, "aitsver2-main", "maths_advanced_database.json"),
-    os.path.join(ROOT_DIR, "aitsver2-main", "maths_main_database.json"),
+    os.path.join(ROOT_DIR, "database.json"),
+    os.path.join(ROOT_DIR, "chemistry_database.json"),
+    os.path.join(ROOT_DIR, "maths_advanced_database.json"),
+    os.path.join(ROOT_DIR, "maths_main_database.json"),
 ]
 
 TYPE_ORDER = [
@@ -53,6 +53,16 @@ TYPE_NAME.update({
 
 def norm(s):
     return re.sub(r"[^a-z0-9]", "", str(s or "").lower())
+
+def has_valid_answer(q):
+    """Check if question has a confirmed, non-empty answer in the database."""
+    a = q.get("answer") or q.get("ans") or q.get("correct_answer") or q.get("correct") or q.get("key")
+    if a is None:
+        return False
+    if isinstance(a, list):
+        return len(a) > 0 and any(str(x).strip() not in ("", "-", "None", "null", "?") for x in a)
+    s = str(a).strip()
+    return s not in ("", "-", "None", "null", "?", "NA", "N/A", "none")
 
 def get_paper(q, db_path=""):
     exam = q.get("exam")
@@ -90,23 +100,23 @@ class QuestionManager:
         self.nkeys = {}      # stem -> normalized stem
         self.doc_cache = {}  # stem -> (doc, by_sub, by_no)
         self.sol_cache = {}  # stem -> (doc, s_sub, s_no)
+        self.segments_cache = {}
         self._load_databases()
         self._index_pdfs()
+        self._load_segments_cache()
 
     def _load_databases(self):
         t0 = time.time()
         for p in DB_PATHS:
             if not os.path.exists(p):
-                alt = os.path.join(ROOT_DIR, os.path.basename(p))
-                if os.path.exists(alt):
-                    p = alt
-                else:
-                    continue
+                continue
             try:
                 with open(p, "r", encoding="utf-8") as f:
                     data = json.load(f)
                 qs = data.get("questions", data if isinstance(data, list) else [])
                 for q in qs:
+                    if not has_valid_answer(q):
+                        continue
                     qid = q.get("id")
                     if qid and qid not in self.q_by_id:
                         q["paper"] = get_paper(q, p)
@@ -140,6 +150,19 @@ class QuestionManager:
 
         print(f"Indexed {len(self.pdfs)} question PDFs, {len(self.sol_files)} solution PDFs in {time.time()-t0:.2f}s")
 
+    def _load_segments_cache(self):
+        cache_path = os.path.join(ROOT_DIR, "segments_cache.json")
+        if os.path.exists(cache_path):
+            try:
+                t0 = time.time()
+                with open(cache_path, "r", encoding="utf-8") as f:
+                    self.segments_cache = json.load(f)
+                q_count = len(self.segments_cache.get("questions", {}))
+                s_count = len(self.segments_cache.get("solutions", {}))
+                print(f"Loaded instant segments cache ({q_count} questions, {s_count} solutions) in {time.time()-t0:.2f}s")
+            except Exception as e:
+                print(f"Warning: could not load segments_cache.json: {e}")
+
     def find_pdf_key(self, q):
         hay = (
             norm(q.get("zipName")),
@@ -150,7 +173,7 @@ class QuestionManager:
         return max(c, key=lambda k: len(self.nkeys[k])) if c else None
 
 def fmt_answer(x):
-    a = x.get("answer") or x.get("ans")
+    a = x.get("answer") or x.get("ans") or x.get("correct_answer") or x.get("correct") or x.get("key")
     if a is None or a == "":
         return "-"
     if isinstance(a, list):
@@ -172,7 +195,7 @@ def build_test_pdf(
     out_pdf=None,
     shuffle=True
 ):
-    """Builds a vector test PDF matching the exact build_sheets format."""
+    """Builds a vector test PDF with sub-second generation using pre-computed segments cache."""
     qm = QuestionManager.get_instance()
 
     # 1. Filter candidates
@@ -183,7 +206,6 @@ def build_test_pdf(
         for qid in selected_qids:
             if qid in qm.q_by_id:
                 q = qm.q_by_id[qid]
-                # If JEE Main pattern, strictly exclude comprehension/paragraph & multi-correct
                 if pattern == "main":
                     t_str = str(q.get("rawType") or q.get("type", "")).lower()
                     if "para" in t_str or "comp" in t_str or "multi" in t_str or "msq" in t_str:
@@ -200,7 +222,6 @@ def build_test_pdf(
             if not target_subjs:
                 target_subjs = ["physics"]
 
-            # Strictly 25 questions per subject: 20 SCQ + 5 Numerical
             per_sub_scq = 20
             per_sub_nat = 5
             if count is not None and count != 25 * len(target_subjs):
@@ -221,7 +242,6 @@ def build_test_pdf(
                             continue
                     sub_pool.append(q)
 
-                # Strictly exclude paragraph / comprehension / multi
                 scq_cands = []
                 nat_cands = []
                 for q in sub_pool:
@@ -240,7 +260,6 @@ def build_test_pdf(
                     random.shuffle(scq_cands)
                     random.shuffle(nat_cands)
 
-                # Cluster by paper to minimize PDF opens and maximize generation speed
                 def cluster_by_paper(cands, needed):
                     by_paper = collections.defaultdict(list)
                     for q in cands:
@@ -275,24 +294,47 @@ def build_test_pdf(
                     q_sub = str(q.get("subject", "")).strip().lower()
                     if q_sub not in subj_set:
                         continue
-
+                if paper != "all" and q.get("paper") != paper:
+                    continue
                 if chap_set:
                     q_ch = str(q.get("chapter", "")).strip().lower()
                     if not any(c in q_ch or q_ch in c for c in chap_set):
                         continue
-
                 matched.append(q)
 
             if shuffle:
                 random.seed(int(time.time() * 1000) % 100000)
                 random.shuffle(matched)
 
+            # Paper clustering for variety and speed
+            by_paper = collections.defaultdict(list)
+            for q in matched:
+                k = qm.find_pdf_key(q)
+                if k:
+                    by_paper[k].append(q)
+            clustered = []
+            papers = list(by_paper.keys())
+            if shuffle:
+                random.shuffle(papers)
+            for _ in range(5):
+                for p in papers:
+                    if by_paper[p]:
+                        clustered.append(by_paper[p].pop(0))
+                        if len(clustered) >= (target_count or 30) + 15:
+                            break
+                if len(clustered) >= (target_count or 30) + 15:
+                    break
+            if len(clustered) < (target_count or 30):
+                for rem in by_paper.values():
+                    clustered.extend(rem)
+            matched = clustered if clustered else matched
+
     if not matched:
         raise ValueError("No questions found matching your selection criteria.")
 
     # Filter to questions that actually have matching PDFs
     valid_candidates = []
-    pool_limit = max(target_count * 3, len(matched))
+    pool_limit = max((target_count or 30) * 2, 20)
     for q in matched:
         key = qm.find_pdf_key(q)
         if key:
@@ -303,26 +345,65 @@ def build_test_pdf(
     if not valid_candidates:
         raise ValueError("Could not find source papers for the selected questions.")
 
-    # 2. Open documents and segment questions
+    # 2. Document & Segment cache helpers
     doc_cache = {}
     seg_cache = {}
-    sol_open = {}
+    sol_cache = {}
+
+    def get_segments_for_question(key):
+        if key in seg_cache:
+            return seg_cache[key]
+        
+        # 1. Check pre-computed segments cache (instant O(1))
+        q_cache = qm.segments_cache.get("questions", {})
+        if key in q_cache:
+            sub_d = {tuple(k.split("||", 1)): parts for k, parts in q_cache[key]["by_sub"].items()}
+            no_d = {int(k): parts for k, parts in q_cache[key]["by_no"].items()}
+            seg_cache[key] = (sub_d, no_d)
+            return seg_cache[key]
+
+        # 2. Fallback: on-the-fly scan
+        if key not in doc_cache:
+            doc_cache[key] = open_pdf(qm.pdfs[key])
+        doc = doc_cache[key]
+        if doc:
+            try:
+                sub_d, no_d = chem_segments(doc)
+            except Exception:
+                sub_d, no_d = {}, {}
+            seg_cache[key] = (sub_d, no_d)
+        else:
+            seg_cache[key] = ({}, {})
+        return seg_cache[key]
 
     def get_sol(k):
         if k not in qm.sol_paths:
             return None
-        if k in qm.sol_cache:
-            return qm.sol_cache[k]
+        if k in sol_cache:
+            return sol_cache[k]
+        
+        sol_stem = os.path.splitext(os.path.basename(qm.sol_paths[k]))[0]
+        s_cache = qm.segments_cache.get("solutions", {})
+        
+        # 1. Check pre-computed segments cache (instant O(1))
+        if sol_stem in s_cache:
+            s_sub = {tuple(s.split("||", 1)): parts for s, parts in s_cache[sol_stem]["by_sub"].items()}
+            s_no = {int(s): parts for s, parts in s_cache[sol_stem]["by_no"].items()}
+            sol_doc = open_pdf(qm.sol_paths[k])
+            sol_cache[k] = (sol_doc, s_sub, s_no)
+            return sol_cache[k]
+
+        # 2. Fallback: on-the-fly scan
         sol_doc = open_pdf(qm.sol_paths[k])
         if sol_doc:
             try:
                 s_sub, s_no = chem_segments(sol_doc)
-                qm.sol_cache[k] = (sol_doc, s_sub, s_no)
+                sol_cache[k] = (sol_doc, s_sub, s_no)
             except Exception:
-                qm.sol_cache[k] = None
+                sol_cache[k] = None
         else:
-            qm.sol_cache[k] = None
-        return qm.sol_cache[k]
+            sol_cache[k] = None
+        return sol_cache[k]
 
     placed_questions = []  # (q, key, doc, parts, qno)
     placed_counts = collections.defaultdict(lambda: {"scq": 0, "nat": 0})
@@ -337,31 +418,21 @@ def build_test_pdf(
                 continue
             if not is_nat and placed_counts[sub_key]["scq"] >= per_sub_scq:
                 continue
-        elif len(placed_questions) >= target_count:
+        elif target_count and len(placed_questions) >= target_count:
             break
 
-        if key in qm.doc_cache:
-            doc, by_sub, by_no = qm.doc_cache[key]
-        else:
-            doc = open_pdf(qm.pdfs[key])
-            if doc:
-                try:
-                    by_sub, by_no = chem_segments(doc)
-                except Exception:
-                    by_sub, by_no = {}, {}
-                qm.doc_cache[key] = (doc, by_sub, by_no)
-            else:
-                qm.doc_cache[key] = (None, {}, {})
-                doc, by_sub, by_no = None, {}, {}
-
-        if not doc:
-            continue
+        by_sub, by_no = get_segments_for_question(key)
         qno = q.get("questionNumber") or q.get("number") or 1
         sub_name = str(q.get("subject", "")).strip().lower()
 
-        # Try subject-specific segment first, then global question number
         parts = by_sub.get((sub_name, qno)) or by_no.get(qno)
         if not parts:
+            continue
+
+        if key not in doc_cache:
+            doc_cache[key] = open_pdf(qm.pdfs[key])
+        doc = doc_cache[key]
+        if not doc:
             continue
 
         placed_questions.append((q, key, doc, parts, qno))
@@ -380,7 +451,6 @@ def build_test_pdf(
         s_rank = subj_order.get(str(q.get("subject", "")).lower(), 9)
         t_str = str(q.get("rawType") or q.get("type", "")).lower()
         if pattern == "main":
-            # For Main: Section A (MCQ) is 0, Section B (Numerical) is 1
             t_rank = 0 if ("single" in t_str or "mcq" in t_str) else 1
         else:
             t_rank = 0 if "single" in t_str or "mcq" in t_str else (1 if "multi" in t_str or "msq" in t_str else (2 if "num" in t_str or "nat" in t_str else 3))
@@ -390,9 +460,9 @@ def build_test_pdf(
 
     # 4. Generate Sheet
     if not out_pdf:
-        os.makedirs(os.path.join(ROOT_DIR, "aitsver2-main", "generated_tests"), exist_ok=True)
-        ts = int(time.time())
-        out_pdf = os.path.join(ROOT_DIR, "aitsver2-main", "generated_tests", f"test_{ts}.pdf")
+        os.makedirs(os.path.join(ROOT_DIR, "generated_tests"), exist_ok=True)
+        ts = int(time.time() * 1000)
+        out_pdf = os.path.join(ROOT_DIR, "generated_tests", f"test_{ts}.pdf")
 
     sh = Sheet(title, subtitle)
     sh.cover(len(placed_questions), 1)
@@ -478,6 +548,7 @@ def main():
     parser.add_argument("--subjects", nargs="*", default=[], help="Subjects to include")
     parser.add_argument("--count", type=int, default=30, help="Number of questions")
     parser.add_argument("--pattern", choices=["adv", "main", "custom"], default="adv", help="Exam pattern")
+    parser.add_argument("--paper", choices=["all", "main", "adv"], default="all", help="Paper source")
     parser.add_argument("--title", default="JEE ADVANCED PRACTICE TEST", help="Test title")
     parser.add_argument("--subtitle", default="Chapter-wise Practice Sheet | Questions cropped from source papers", help="Test subtitle")
     parser.add_argument("--no-solutions", action="store_true", help="Omit worked solutions")
@@ -489,6 +560,7 @@ def main():
         subjects=args.subjects,
         count=args.count,
         pattern=args.pattern,
+        paper=args.paper,
         title=args.title,
         subtitle=args.subtitle,
         include_solutions=not args.no_solutions,
