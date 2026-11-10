@@ -3221,15 +3221,23 @@ function startCbtFromBuilder(){
   const mathMainRemote = (conf.mathsMainUrl || '').trim();
   async function fetchFirst(urls){
     for(const url of urls){
-      try{ const r=await fetch(url,{cache:'no-store'}); if(!r.ok) continue; return {raw:await r.json(), url}; }catch(e){}
+      try{
+        const r = await fetch(url);
+        if(!r.ok) continue;
+        return {raw: await r.json(), url};
+      } catch(e){
+        console.warn('Failed to load database from', url, e);
+      }
     }
     return null;
   }
+  // Try bundled database files first for instant same-origin loading with zero CORS issues,
+  // falling back to Hugging Face remote URLs only if bundled files are not present.
   const [phys, chem, mathAdv, mathMain] = await Promise.all([
-    fetchFirst(remote ? [remote, 'database.json'] : ['database.json']),
-    fetchFirst(chemRemote ? [chemRemote, 'chemistry_database.json'] : ['chemistry_database.json']),
-    fetchFirst(mathAdvRemote ? [mathAdvRemote, 'maths_advanced_database.json'] : ['maths_advanced_database.json']),
-    fetchFirst(mathMainRemote ? [mathMainRemote, 'maths_main_database.json'] : ['maths_main_database.json'])
+    fetchFirst(['database.json', remote].filter(Boolean)),
+    fetchFirst(['chemistry_database.json', chemRemote].filter(Boolean)),
+    fetchFirst(['maths_advanced_database.json', mathAdvRemote].filter(Boolean)),
+    fetchFirst(['maths_main_database.json', mathMainRemote].filter(Boolean))
   ]);
   const parts = [phys, chem, mathAdv, mathMain].filter(Boolean);
   if(parts.length){
