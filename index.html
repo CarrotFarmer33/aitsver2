@@ -1124,17 +1124,47 @@ async function resolveZipImage(img){
     if(!f) throw new Error('Image not found in ZIP: '+fileName);
     const blob=await f.async('blob');
     const isSecondary = /__--__[2-9]\.png/i.test(fileName);
-    const checkFooter = () => {
-      // Remove FIITJEE watermark footers or banner slices
+    const cleanWatermark = () => {
+      // 1. Remove separate footer or banner slice images
       if((isSecondary || /footer|banner/i.test(fileName)) && img.naturalHeight > 0 && img.naturalHeight <= 160 && (img.naturalWidth / img.naturalHeight) >= 6.5){
         img.remove();
+        return;
       }
+      // 2. Remove faint diagonal FIITJEE background watermark from question & solution images
+      if(img.dataset.cleaned) return;
+      try {
+        if(img.naturalWidth > 0 && img.naturalHeight > 0){
+          const cvs = document.createElement('canvas');
+          cvs.width = img.naturalWidth;
+          cvs.height = img.naturalHeight;
+          const ctx = cvs.getContext('2d', { willReadFrequently: true });
+          ctx.drawImage(img, 0, 0);
+          const imgData = ctx.getImageData(0, 0, cvs.width, cvs.height);
+          const d = imgData.data;
+          let modified = false;
+          for(let i = 0; i < d.length; i += 4){
+            const r = d[i], g = d[i+1], b = d[i+2];
+            // Faint grey watermark background pixels (175 <= r <= 246 with neutral grey balance)
+            if(r >= 175 && r <= 246 && Math.abs(r - g) <= 12 && Math.abs(g - b) <= 12 && Math.abs(r - b) <= 12){
+              d[i] = 255;
+              d[i+1] = 255;
+              d[i+2] = 255;
+              modified = true;
+            }
+          }
+          if(modified){
+            ctx.putImageData(imgData, 0, 0);
+            img.dataset.cleaned = 'true';
+            img.src = cvs.toDataURL('image/png');
+          }
+        }
+      } catch(e){}
     };
-    img.onload = checkFooter;
+    img.onload = cleanWatermark;
     img.src = URL.createObjectURL(blob);
     img.removeAttribute('data-zipimg');
-    if(img.complete && img.naturalWidth) checkFooter();
-    else if(img.decode){ img.decode().then(checkFooter).catch(()=>{}); }
+    if(img.complete && img.naturalWidth) cleanWatermark();
+    else if(img.decode){ img.decode().then(cleanWatermark).catch(()=>{}); }
   }catch(e){ img.alt='Unable to load image: '+fileName; img.style.display='none'; console.warn(e); }
 }
 function hydrateZipImages(root){ if(root) root.querySelectorAll('img[data-zipimg]').forEach(resolveZipImage); }
@@ -3065,11 +3095,14 @@ function openBuilderScreen(){
   refreshBuilderSummary();
   show('scrTestBuilder');
 
-  // Pre-warm cloud vector PDF engine if configured
-  if(window.AITS_CONFIG && window.AITS_CONFIG.vectorEngineUrl){
-    try {
-      fetch(window.AITS_CONFIG.vectorEngineUrl.replace(/\/+$/, '') + '/api/status', { mode: 'no-cors' }).catch(()=>{});
-    } catch(e){}
+  // Pre-warm engines in background
+  if(window.AITS_CONFIG){
+    if(window.AITS_CONFIG.localVectorEngineUrl){
+      try { fetch(window.AITS_CONFIG.localVectorEngineUrl.replace(/\/+$/, '') + '/health').catch(()=>{}); } catch(e){}
+    }
+    if(window.AITS_CONFIG.vectorEngineUrl){
+      try { fetch(window.AITS_CONFIG.vectorEngineUrl.replace(/\/+$/, '') + '/health', { mode: 'no-cors' }).catch(()=>{}); } catch(e){}
+    }
   }
 }
 
@@ -3329,27 +3362,60 @@ async function buildCustomSheet(){
       qids: qids
     });
 
+    const isLocalhost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
     const cloudEngine = (window.AITS_CONFIG && window.AITS_CONFIG.vectorEngineUrl) ? window.AITS_CONFIG.vectorEngineUrl.replace(/\/+$/, '') : '';
-    const endpoints = [
-      cloudEngine ? `${cloudEngine}/api/build-test` : null,
-      '/api/build-test',
-      'http://localhost:8000/api/build-test',
-      'http://127.0.0.1:8000/api/build-test'
-    ].filter(Boolean);
+    const localEngine = (window.AITS_CONFIG && window.AITS_CONFIG.localVectorEngineUrl) ? window.AITS_CONFIG.localVectorEngineUrl.replace(/\/+$/, '') : 'http://localhost:8000';
 
-    let resp = null, usedBaseUrl = '';
+    // Prioritize local engine for instant (1-2s) generation without waiting for Render cold boot
+    const candidateEndpoints = [];
+    if (isLocalhost) {
+      candidateEndpoints.push({ url: '/api/build-test', type: 'local', label: 'Local Server' });
+    }
+    candidateEndpoints.push({ url: `${localEngine}/api/build-test`, type: 'local', label: 'Local Server (port 8000)' });
+    candidateEndpoints.push({ url: 'http://127.0.0.1:8000/api/build-test', type: 'local', label: 'Local Server (127.0.0.1:8000)' });
+    if (!isLocalhost) {
+      candidateEndpoints.push({ url: '/api/build-test', type: 'same-origin', label: 'Same-Origin API' });
+    }
+    if (cloudEngine) {
+      candidateEndpoints.push({ url: `${cloudEngine}/api/build-test`, type: 'cloud', label: 'Cloud Engine (Render)' });
+    }
+
+    const seenUrls = new Set();
+    const endpoints = candidateEndpoints.filter(ep => {
+      if (!ep.url || seenUrls.has(ep.url)) return false;
+      seenUrls.add(ep.url);
+      return true;
+    });
+
+    let resp = null, usedBaseUrl = '', usedEndpoint = null;
     let lastErr = null;
 
     for (const ep of endpoints) {
       try {
-        const r = await fetch(ep, {
+        if (ep.type === 'cloud') {
+          if (pStage) pStage.textContent = 'Connecting to Cloud Engine (Render)...';
+          if (pDetail) pDetail.textContent = 'Free cloud container may take 30-60s to wake up if asleep...';
+        } else {
+          if (pStage) pStage.textContent = 'Connecting to Local Engine...';
+          if (pDetail) pDetail.textContent = 'Generating vector PDF on local machine...';
+        }
+
+        const controller = new AbortController();
+        const timeoutMs = (ep.type === 'cloud') ? 120000 : 7000;
+        const tid = setTimeout(() => controller.abort(), timeoutMs);
+
+        const r = await fetch(ep.url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: payload
+          body: payload,
+          signal: controller.signal
         });
+        clearTimeout(tid);
+
         if (r.ok || (r.status < 500 && r.status !== 404)) {
           resp = r;
-          usedBaseUrl = ep.startsWith('http') ? new URL(ep).origin : '';
+          usedEndpoint = ep;
+          usedBaseUrl = ep.url.startsWith('http') ? new URL(ep.url).origin : '';
           break;
         }
       } catch (err) {
@@ -3369,7 +3435,7 @@ async function buildCustomSheet(){
     if(pBar) pBar.style.width = '100%';
     if(pPct) pPct.textContent = '100%';
     if(pStage) pStage.textContent = 'Test sheet ready!';
-    if(pDetail) pDetail.textContent = 'Loading vector PDF preview...';
+    if(pDetail) pDetail.textContent = (usedEndpoint && usedEndpoint.type === 'local') ? ('Generated via fast local engine in ' + (data.durationSeconds || '1') + 's') : 'Loading vector PDF preview...';
 
     const fullPdfUrl = (data.pdfUrl.startsWith('http') ? data.pdfUrl : (usedBaseUrl + data.pdfUrl));
     const frame = $('#sheetPdfFrame');
