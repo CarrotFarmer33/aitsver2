@@ -444,7 +444,7 @@
       "id": "chem_main_21",
       "subject": "Chemistry",
       "chapter": "General Organic Chemistry (GOC)",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "C",
@@ -466,7 +466,7 @@
       "id": "chem_main_22",
       "subject": "Chemistry",
       "chapter": "Aldehydes, Ketones & Carboxylic Acids",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "C",
@@ -488,7 +488,7 @@
       "id": "chem_main_23",
       "subject": "Chemistry",
       "chapter": "p-Block Elements: Group 15 (Nitrogen family) & Group 16 (Oxygen family)",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "D",
@@ -510,7 +510,7 @@
       "id": "chem_main_24",
       "subject": "Chemistry",
       "chapter": "p-Block Elements: Group 13 (Boron family) & Group 14 (Carbon family)",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "B",
@@ -532,7 +532,7 @@
       "id": "chem_main_25",
       "subject": "Chemistry",
       "chapter": "Redox Reactions",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "C",
@@ -554,7 +554,7 @@
       "id": "chem_main_26",
       "subject": "Chemistry",
       "chapter": "Coordination Compounds",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "C",
@@ -576,7 +576,7 @@
       "id": "chem_main_27",
       "subject": "Chemistry",
       "chapter": "Redox Reactions",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "D",
@@ -598,7 +598,7 @@
       "id": "chem_main_28",
       "subject": "Chemistry",
       "chapter": "Gaseous State",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "B",
@@ -620,7 +620,7 @@
       "id": "chem_main_29",
       "subject": "Chemistry",
       "chapter": "s-Block Elements",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "C",
@@ -642,7 +642,7 @@
       "id": "chem_main_30",
       "subject": "Chemistry",
       "chapter": "s-Block Elements",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "A",
@@ -1236,7 +1236,7 @@
       "id": "chem_main_57",
       "subject": "Chemistry",
       "chapter": "Biomolecules",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "B",
@@ -1764,7 +1764,7 @@
       "id": "chem_main_81",
       "subject": "Chemistry",
       "chapter": "Chemical Bonding & Molecular Structure",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "C",
@@ -1786,7 +1786,7 @@
       "id": "chem_main_82",
       "subject": "Chemistry",
       "chapter": "Chemical Equilibrium",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "B",
@@ -1808,7 +1808,7 @@
       "id": "chem_main_83",
       "subject": "Chemistry",
       "chapter": "Hydrocarbons",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "D",
@@ -1830,7 +1830,7 @@
       "id": "chem_main_84",
       "subject": "Chemistry",
       "chapter": "Chemical Kinetics",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "D",
@@ -1852,7 +1852,7 @@
       "id": "chem_main_85",
       "subject": "Chemistry",
       "chapter": "Aldehydes, Ketones & Carboxylic Acids",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "C",
@@ -1874,7 +1874,7 @@
       "id": "chem_main_86",
       "subject": "Chemistry",
       "chapter": "Qualitative Salt Analysis",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "A",
@@ -1896,7 +1896,7 @@
       "id": "chem_main_87",
       "subject": "Chemistry",
       "chapter": "Biomolecules",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "B",
@@ -1918,7 +1918,7 @@
       "id": "chem_main_88",
       "subject": "Chemistry",
       "chapter": "Polymers",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "C",
@@ -1940,7 +1940,7 @@
       "id": "chem_main_89",
       "subject": "Chemistry",
       "chapter": "Amines & Diazonium Salts",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "A",
@@ -1962,7 +1962,7 @@
       "id": "chem_main_90",
       "subject": "Chemistry",
       "chapter": "p-Block Elements: Group 15 (Nitrogen family) & Group 16 (Oxygen family)",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "A",
@@ -3084,7 +3084,7 @@
       "id": "chem_main_141",
       "subject": "Chemistry",
       "chapter": "Amines & Diazonium Salts",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "A",
@@ -3106,7 +3106,7 @@
       "id": "chem_main_142",
       "subject": "Chemistry",
       "chapter": "Coordination Compounds",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "A",
@@ -3128,7 +3128,7 @@
       "id": "chem_main_143",
       "subject": "Chemistry",
       "chapter": "Thermodynamics (Chemical)",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "D",
@@ -3150,7 +3150,7 @@
       "id": "chem_main_144",
       "subject": "Chemistry",
       "chapter": "Periodic Table & Periodicity",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "D",
@@ -3172,7 +3172,7 @@
       "id": "chem_main_145",
       "subject": "Chemistry",
       "chapter": "Liquid Solutions & Colligative Properties",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "C",
@@ -3194,7 +3194,7 @@
       "id": "chem_main_146",
       "subject": "Chemistry",
       "chapter": "Qualitative Salt Analysis",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "C",
@@ -3216,7 +3216,7 @@
       "id": "chem_main_147",
       "subject": "Chemistry",
       "chapter": "Thermodynamics (Chemical)",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "A",
@@ -3238,7 +3238,7 @@
       "id": "chem_main_148",
       "subject": "Chemistry",
       "chapter": "p-Block Elements: Group 15 (Nitrogen family) & Group 16 (Oxygen family)",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "A",
@@ -3260,7 +3260,7 @@
       "id": "chem_main_149",
       "subject": "Chemistry",
       "chapter": "General Organic Chemistry (GOC)",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "B",
@@ -3282,7 +3282,7 @@
       "id": "chem_main_150",
       "subject": "Chemistry",
       "chapter": "Hydrogen",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "B",
@@ -3744,7 +3744,7 @@
       "id": "chem_main_171",
       "subject": "Chemistry",
       "chapter": "p-Block Elements: Group 15 (Nitrogen family) & Group 16 (Oxygen family)",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "B",
@@ -3766,7 +3766,7 @@
       "id": "chem_main_172",
       "subject": "Chemistry",
       "chapter": "Principles & Processes of Isolation of Metals (Metallurgy)",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "B",
@@ -3788,7 +3788,7 @@
       "id": "chem_main_173",
       "subject": "Chemistry",
       "chapter": "Qualitative Salt Analysis",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "D",
@@ -3810,7 +3810,7 @@
       "id": "chem_main_174",
       "subject": "Chemistry",
       "chapter": "Chemical Bonding & Molecular Structure",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "B",
@@ -3832,7 +3832,7 @@
       "id": "chem_main_175",
       "subject": "Chemistry",
       "chapter": "Aldehydes, Ketones & Carboxylic Acids",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "D",
@@ -3854,7 +3854,7 @@
       "id": "chem_main_176",
       "subject": "Chemistry",
       "chapter": "Amines & Diazonium Salts",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "B",
@@ -3876,7 +3876,7 @@
       "id": "chem_main_177",
       "subject": "Chemistry",
       "chapter": "Polymers",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "D",
@@ -3898,7 +3898,7 @@
       "id": "chem_main_178",
       "subject": "Chemistry",
       "chapter": "General Organic Chemistry (GOC)",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "D",
@@ -3920,7 +3920,7 @@
       "id": "chem_main_179",
       "subject": "Chemistry",
       "chapter": "Aldehydes, Ketones & Carboxylic Acids",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "C",
@@ -3942,7 +3942,7 @@
       "id": "chem_main_180",
       "subject": "Chemistry",
       "chapter": "Haloalkanes & Haloarenes",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "D",
@@ -4404,7 +4404,7 @@
       "id": "chem_main_201",
       "subject": "Chemistry",
       "chapter": "Qualitative Salt Analysis",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "D",
@@ -4426,7 +4426,7 @@
       "id": "chem_main_202",
       "subject": "Chemistry",
       "chapter": "Coordination Compounds",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "D",
@@ -4448,7 +4448,7 @@
       "id": "chem_main_203",
       "subject": "Chemistry",
       "chapter": "Atomic Structure",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "C",
@@ -4470,7 +4470,7 @@
       "id": "chem_main_204",
       "subject": "Chemistry",
       "chapter": "General Organic Chemistry (GOC)",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "D",
@@ -4492,7 +4492,7 @@
       "id": "chem_main_205",
       "subject": "Chemistry",
       "chapter": "Chemistry in Everyday Life",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "A",
@@ -4514,7 +4514,7 @@
       "id": "chem_main_206",
       "subject": "Chemistry",
       "chapter": "Chemistry in Everyday Life",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "C",
@@ -4536,7 +4536,7 @@
       "id": "chem_main_207",
       "subject": "Chemistry",
       "chapter": "Biomolecules",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "D",
@@ -4558,7 +4558,7 @@
       "id": "chem_main_208",
       "subject": "Chemistry",
       "chapter": "Hydrocarbons",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "C",
@@ -4580,7 +4580,7 @@
       "id": "chem_main_209",
       "subject": "Chemistry",
       "chapter": "Aldehydes, Ketones & Carboxylic Acids",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "A",
@@ -4602,7 +4602,7 @@
       "id": "chem_main_210",
       "subject": "Chemistry",
       "chapter": "Aldehydes, Ketones & Carboxylic Acids",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "D",
@@ -5064,7 +5064,7 @@
       "id": "chem_main_231",
       "subject": "Chemistry",
       "chapter": "Thermodynamics (Chemical)",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "C",
@@ -5086,7 +5086,7 @@
       "id": "chem_main_232",
       "subject": "Chemistry",
       "chapter": "Some Basic Concepts of Chemistry",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "B",
@@ -5108,7 +5108,7 @@
       "id": "chem_main_233",
       "subject": "Chemistry",
       "chapter": "Chemical Kinetics",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "D",
@@ -5130,7 +5130,7 @@
       "id": "chem_main_234",
       "subject": "Chemistry",
       "chapter": "Ionic Equilibrium",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "D",
@@ -5152,7 +5152,7 @@
       "id": "chem_main_235",
       "subject": "Chemistry",
       "chapter": "Electrochemistry",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "C",
@@ -5174,7 +5174,7 @@
       "id": "chem_main_236",
       "subject": "Chemistry",
       "chapter": "Atomic Structure",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "A",
@@ -5196,7 +5196,7 @@
       "id": "chem_main_237",
       "subject": "Chemistry",
       "chapter": "p-Block Elements: Group 15 (Nitrogen family) & Group 16 (Oxygen family)",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "B",
@@ -5218,7 +5218,7 @@
       "id": "chem_main_238",
       "subject": "Chemistry",
       "chapter": "Solid State",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "C",
@@ -5240,7 +5240,7 @@
       "id": "chem_main_239",
       "subject": "Chemistry",
       "chapter": "Gaseous State",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "A",
@@ -5262,7 +5262,7 @@
       "id": "chem_main_240",
       "subject": "Chemistry",
       "chapter": "Liquid Solutions & Colligative Properties",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "A",
@@ -9904,10 +9904,10 @@
       "id": "chem_main_451",
       "subject": "Chemistry",
       "chapter": "p-Block Elements: Group 13 (Boron family) & Group 14 (Carbon family)",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": null,
+      "answer": "2",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AIITS_2016_HCT_VI_JEEM_JEEA-Advanced-PAPER-1-Questions-PAPER.zip#Chemistry Section 1__--__1__--__1.png"
@@ -9926,10 +9926,10 @@
       "id": "chem_main_452",
       "subject": "Chemistry",
       "chapter": "p-Block Elements: Group 13 (Boron family) & Group 14 (Carbon family)",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "D",
+      "answer": "3",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AIITS_2016_HCT_VI_JEEM_JEEA-Advanced-PAPER-1-Questions-PAPER.zip#Chemistry Section 1__--__2__--__1.png"
@@ -9948,10 +9948,10 @@
       "id": "chem_main_453",
       "subject": "Chemistry",
       "chapter": "Haloalkanes & Haloarenes",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": null,
+      "answer": "2",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AIITS_2016_HCT_VI_JEEM_JEEA-Advanced-PAPER-1-Questions-PAPER.zip#Chemistry Section 1__--__3__--__1.png"
@@ -9970,10 +9970,10 @@
       "id": "chem_main_454",
       "subject": "Chemistry",
       "chapter": "Some Basic Concepts of Chemistry",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": null,
+      "answer": "2",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AIITS_2016_HCT_VI_JEEM_JEEA-Advanced-PAPER-1-Questions-PAPER.zip#Chemistry Section 1__--__4__--__1.png"
@@ -10168,10 +10168,10 @@
       "id": "chem_main_463",
       "subject": "Chemistry",
       "chapter": "Chemical Bonding & Molecular Structure",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": null,
+      "answer": "2",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AIITS_2016_HCT_VI_JEEM_JEEA-Advanced-PAPER-2-Questions-PAPER.zip#Chemistry Section 1__--__2__--__1.png"
@@ -10190,10 +10190,10 @@
       "id": "chem_main_464",
       "subject": "Chemistry",
       "chapter": "Atomic Structure",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": null,
+      "answer": "2",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AIITS_2016_HCT_VI_JEEM_JEEA-Advanced-PAPER-2-Questions-PAPER.zip#Chemistry Section 1__--__3__--__1.png"
@@ -10212,10 +10212,10 @@
       "id": "chem_main_465",
       "subject": "Chemistry",
       "chapter": "Chemical Equilibrium",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": null,
+      "answer": "2",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AIITS_2016_HCT_VI_JEEM_JEEA-Advanced-PAPER-2-Questions-PAPER.zip#Chemistry Section 1__--__4__--__1.png"
@@ -11048,10 +11048,10 @@
       "id": "chem_main_503",
       "subject": "Chemistry",
       "chapter": "Some Basic Concepts of Chemistry",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": null,
+      "answer": "4",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AIITS_2016_HCT_VII_JEEM_JEEA-Advanced-PAPER-2-Questions-PAPER.zip#Chemistry Section 1__--__1__--__1.png"
@@ -11070,10 +11070,10 @@
       "id": "chem_main_504",
       "subject": "Chemistry",
       "chapter": "Some Basic Concepts of Chemistry",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "B",
+      "answer": "4",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AIITS_2016_HCT_VII_JEEM_JEEA-Advanced-PAPER-2-Questions-PAPER.zip#Chemistry Section 1__--__2__--__1.png"
@@ -11092,10 +11092,10 @@
       "id": "chem_main_505",
       "subject": "Chemistry",
       "chapter": "Hydrogen",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "A",
+      "answer": "2",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AIITS_2016_HCT_VII_JEEM_JEEA-Advanced-PAPER-2-Questions-PAPER.zip#Chemistry Section 1__--__3__--__1.png"
@@ -11114,10 +11114,10 @@
       "id": "chem_main_506",
       "subject": "Chemistry",
       "chapter": "Some Basic Concepts of Chemistry",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": null,
+      "answer": "3",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AIITS_2016_HCT_VII_JEEM_JEEA-Advanced-PAPER-2-Questions-PAPER.zip#Chemistry Section 1__--__4__--__1.png"
@@ -11136,10 +11136,10 @@
       "id": "chem_main_507",
       "subject": "Chemistry",
       "chapter": "Some Basic Concepts of Chemistry",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "A",
+      "answer": "4",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AIITS_2016_HCT_VII_JEEM_JEEA-Advanced-PAPER-2-Questions-PAPER.zip#Chemistry Section 1__--__5__--__1.png"
@@ -11158,10 +11158,10 @@
       "id": "chem_main_508",
       "subject": "Chemistry",
       "chapter": "s-Block Elements",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": null,
+      "answer": "5",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AIITS_2016_HCT_VII_JEEM_JEEA-Advanced-PAPER-2-Questions-PAPER.zip#Chemistry Section 1__--__6__--__1.png"
@@ -11180,10 +11180,10 @@
       "id": "chem_main_509",
       "subject": "Chemistry",
       "chapter": "Some Basic Concepts of Chemistry",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": null,
+      "answer": "2",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AIITS_2016_HCT_VII_JEEM_JEEA-Advanced-PAPER-2-Questions-PAPER.zip#Chemistry Section 1__--__7__--__1.png"
@@ -12151,7 +12151,7 @@
       "type": "single",
       "question": "",
       "options": null,
-      "answer": "C",
+      "answer": "D",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AIITS-1416-PT-III-JEEM-JEEA-Advanced-PAPER-1-Questions-PAPER.zip#Chemistry Section 1__--__4__--__1.png"
@@ -27790,10 +27790,10 @@
       "id": "chem_main_1264",
       "subject": "Chemistry",
       "chapter": "Chemical Kinetics",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "A",
+      "answer": "10",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1819-CRT-III-JEEM.zip#Chemistry Section 1__--__40__--__1.png"
@@ -29990,10 +29990,10 @@
       "id": "chem_main_1364",
       "subject": "Chemistry",
       "chapter": "Ionic Equilibrium",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "B",
+      "answer": "4200",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1819-FT-III-JEEM.zip#Chemistry Section 1__--__50__--__1.png"
@@ -30650,10 +30650,10 @@
       "id": "chem_main_1394",
       "subject": "Chemistry",
       "chapter": "Principles & Processes of Isolation of Metals (Metallurgy)",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "C",
+      "answer": "3",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1819-FT-IV-JEEM.zip#Chemistry Section 1__--__50__--__1.png"
@@ -32894,10 +32894,10 @@
       "id": "chem_main_1496",
       "subject": "Chemistry",
       "chapter": "Redox Reactions",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "C",
+      "answer": "0.2",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1819-FT-VIII-JEEM.zip#Chemistry Section 1__--__32__--__1.png"
@@ -33070,10 +33070,10 @@
       "id": "chem_main_1504",
       "subject": "Chemistry",
       "chapter": "Gaseous State",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "D",
+      "answer": "100",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1819-FT-VIII-JEEM.zip#Chemistry Section 1__--__40__--__1.png"
@@ -35339,7 +35339,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00002.12",
+      "answer": "2.12",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-CRT-I-JEEM.zip#Chemistry Section 2__--__48__--__1.png"
@@ -35361,7 +35361,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "18332.37",
+      "answer": "18332.4",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-CRT-I-JEEM.zip#Chemistry Section 2__--__49__--__1.png"
@@ -35383,7 +35383,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00146.50",
+      "answer": "146.5",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-CRT-I-JEEM.zip#Chemistry Section 2__--__50__--__1.png"
@@ -35889,7 +35889,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00028.66",
+      "answer": "28.66",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-CRT-II-JEEM.zip#Chemistry Section 2__--__48__--__1.png"
@@ -35911,7 +35911,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00001.50",
+      "answer": "1.5",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-CRT-II-JEEM.zip#Chemistry Section 2__--__49__--__1.png"
@@ -36439,7 +36439,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00004.00",
+      "answer": "4",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AlTS-1920-CRT-III-JEEM.zip#Chemistry Section 2__--__48__--__1.png"
@@ -36461,7 +36461,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00003.00",
+      "answer": "3",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AlTS-1920-CRT-III-JEEM.zip#Chemistry Section 2__--__49__--__1.png"
@@ -36483,7 +36483,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00008.00",
+      "answer": "8",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AlTS-1920-CRT-III-JEEM.zip#Chemistry Section 2__--__50__--__1.png"
@@ -36989,7 +36989,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00058.00",
+      "answer": "58",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-CRT-IV-JEEM.zip#Chemistry Section 2__--__48__--__1.png"
@@ -37011,7 +37011,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00284.90",
+      "answer": "284.9",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-CRT-IV-JEEM.zip#Chemistry Section 2__--__49__--__1.png"
@@ -37033,7 +37033,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00009.74",
+      "answer": "9.74",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-CRT-IV-JEEM.zip#Chemistry Section 2__--__50__--__1.png"
@@ -37539,7 +37539,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00069.16",
+      "answer": "69.16",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-FT-I-JEEM.zip#Chemistry Section 2__--__48__--__1.png"
@@ -37561,7 +37561,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00045.92",
+      "answer": "45.92",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-FT-I-JEEM.zip#Chemistry Section 2__--__49__--__1.png"
@@ -37583,7 +37583,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00009.25",
+      "answer": "9.25",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-FT-I-JEEM.zip#Chemistry Section 2__--__50__--__1.png"
@@ -38111,7 +38111,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00003.25",
+      "answer": "3.25",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-FT-II-JEEM.zip#Chemistry Section 2__--__49__--__1.png"
@@ -38133,7 +38133,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00004.25",
+      "answer": "4.25",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-FT-II-JEEM.zip#Chemistry Section 2__--__50__--__1.png"
@@ -38639,7 +38639,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00200.00",
+      "answer": "200",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-FT-III-JEEM_.zip#Chemistry Section 2__--__48__--__1.png"
@@ -38661,7 +38661,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00085.40",
+      "answer": "85.4",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-FT-III-JEEM_.zip#Chemistry Section 2__--__49__--__1.png"
@@ -38683,7 +38683,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00006.50",
+      "answer": "6.5",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-FT-III-JEEM_.zip#Chemistry Section 2__--__50__--__1.png"
@@ -39189,7 +39189,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00003.87",
+      "answer": "3.87",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-FT-IV-JEEM.zip#Chemistry Section 2__--__48__--__1.png"
@@ -39233,7 +39233,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00043.25",
+      "answer": "43.25",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-FT-IV-JEEM.zip#Chemistry Section 2__--__50__--__1.png"
@@ -39739,7 +39739,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "27.00",
+      "answer": "27",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-FT-V-JEEM.zip#Chemistry Section 2__--__48__--__1.png"
@@ -39761,7 +39761,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00039.00",
+      "answer": "39",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-FT-V-JEEM.zip#Chemistry Section 2__--__49__--__1.png"
@@ -40289,7 +40289,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00000.96",
+      "answer": "0.96",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-OT-JEEM_.zip#Chemistry Section 2__--__48__--__1.png"
@@ -40311,7 +40311,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00299.50",
+      "answer": "299.5",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-OT-JEEM_.zip#Chemistry Section 2__--__49__--__1.png"
@@ -40333,7 +40333,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00015.99",
+      "answer": "15.99",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-OT-JEEM_.zip#Chemistry Section 2__--__50__--__1.png"
@@ -40572,10 +40572,10 @@
       "id": "chem_main_1845",
       "subject": "Chemistry",
       "chapter": "Ionic Equilibrium",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "B",
+      "answer": "1000",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-FT-VII-JEEM.zip#Chemistry Section 1__--__36__--__1.png"
@@ -40839,7 +40839,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00014.14",
+      "answer": "14.14",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-FT-VII-JEEM.zip#Chemistry Section 2__--__48__--__1.png"
@@ -40861,7 +40861,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00007.65",
+      "answer": "7.65",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-FT-VII-JEEM.zip#Chemistry Section 2__--__49__--__1.png"
@@ -40883,7 +40883,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00000.17",
+      "answer": "144",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-FT-VII-JEEM.zip#Chemistry Section 2__--__50__--__1.png"
@@ -41411,7 +41411,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00010.60",
+      "answer": "10.6",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-FT-VIII-JEEM.zip#Chemistry Section 2__--__49__--__1.png"
@@ -41433,7 +41433,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00002.69",
+      "answer": "2.69",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-FT-VIII-JEEM.zip#Chemistry Section 2__--__50__--__1.png"
@@ -42599,7 +42599,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00006.67",
+      "answer": "6.67",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-PT-I-JEEM-TD.zip#Chemistry Section 2__--__48__--__1.png"
@@ -42621,7 +42621,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00000.71",
+      "answer": "0.71",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-PT-I-JEEM-TD.zip#Chemistry Section 2__--__49__--__1.png"
@@ -42643,7 +42643,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00001.30",
+      "answer": "1.3",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-PT-I-JEEM-TD.zip#Chemistry Section 2__--__50__--__1.png"
@@ -43149,7 +43149,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "83.00",
+      "answer": "83",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-PT-II-JEEM.zip#Chemistry Section 2__--__48__--__1.png"
@@ -43171,7 +43171,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "99.40",
+      "answer": "99.4",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-PT-II-JEEM.zip#Chemistry Section 2__--__49__--__1.png"
@@ -43193,7 +43193,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "14.40",
+      "answer": "14.4",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-PT-II-JEEM.zip#Chemistry Section 2__--__50__--__1.png"
@@ -43256,10 +43256,10 @@
       "id": "chem_main_1967",
       "subject": "Chemistry",
       "chapter": "Electrochemistry",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "C",
+      "answer": "59",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-PT-III-JEEM.zip#Chemistry Section 1__--__28__--__1.png"
@@ -43278,10 +43278,10 @@
       "id": "chem_main_1968",
       "subject": "Chemistry",
       "chapter": "Biomolecules",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "A",
+      "answer": "61",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-PT-III-JEEM.zip#Chemistry Section 1__--__29__--__1.png"
@@ -43699,7 +43699,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00036.85",
+      "answer": "36.85",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-PT-III-JEEM.zip#Chemistry Section 2__--__48__--__1.png"
@@ -43721,7 +43721,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00018.60",
+      "answer": "18.6",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-PT-III-JEEM.zip#Chemistry Section 2__--__49__--__1.png"
@@ -43743,7 +43743,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00001.09",
+      "answer": "0.025",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-1920-PT-III-JEEM.zip#Chemistry Section 2__--__50__--__1.png"
@@ -44249,7 +44249,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00039.30",
+      "answer": "48",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AIITS-1921-HCT-V-JEEM.zip#Chemistry Section 2__--__48__--__1.png"
@@ -44865,7 +44865,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00001.20",
+      "answer": "1.2",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-11_JEE_MAIN_17.02.2021_CRT-1_.zip#Chemistry Section 2__--__56__--__1.png"
@@ -44887,7 +44887,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00000.09",
+      "answer": "0.09",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-11_JEE_MAIN_17.02.2021_CRT-1_.zip#Chemistry Section 2__--__57__--__1.png"
@@ -44909,7 +44909,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00025.00",
+      "answer": "25",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-11_JEE_MAIN_17.02.2021_CRT-1_.zip#Chemistry Section 2__--__58__--__1.png"
@@ -44931,7 +44931,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00038.70",
+      "answer": "38.7",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-11_JEE_MAIN_17.02.2021_CRT-1_.zip#Chemistry Section 2__--__59__--__1.png"
@@ -44953,7 +44953,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00000.75",
+      "answer": "60",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-11_JEE_MAIN_17.02.2021_CRT-1_.zip#Chemistry Section 2__--__60__--__1.png"
@@ -45525,7 +45525,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00000.25",
+      "answer": "0.25",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-12_JEE_MAIN_17.02.2021_CRT-2_.zip#Chemistry Section 2__--__56__--__1.png"
@@ -45547,7 +45547,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00013.32",
+      "answer": "13.32",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-12_JEE_MAIN_17.02.2021_CRT-2_.zip#Chemistry Section 2__--__57__--__1.png"
@@ -45569,7 +45569,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00006.15",
+      "answer": "6.15",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-12_JEE_MAIN_17.02.2021_CRT-2_.zip#Chemistry Section 2__--__58__--__1.png"
@@ -45591,7 +45591,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00001.20",
+      "answer": "1.2",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-12_JEE_MAIN_17.02.2021_CRT-2_.zip#Chemistry Section 2__--__59__--__1.png"
@@ -45613,7 +45613,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00018.00",
+      "answer": "18",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-12_JEE_MAIN_17.02.2021_CRT-2_.zip#Chemistry Section 2__--__60__--__1.png"
@@ -46185,7 +46185,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00015.38",
+      "answer": "15.38",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-19_JEE_MAIN_09.05.2021_CRT-3_.zip#Chemistry Section 2__--__56__--__1.png"
@@ -46207,7 +46207,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00001.00",
+      "answer": "1",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-19_JEE_MAIN_09.05.2021_CRT-3_.zip#Chemistry Section 2__--__57__--__1.png"
@@ -46229,7 +46229,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00003.00",
+      "answer": "3",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-19_JEE_MAIN_09.05.2021_CRT-3_.zip#Chemistry Section 2__--__58__--__1.png"
@@ -46251,7 +46251,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00003.00",
+      "answer": "3",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-19_JEE_MAIN_09.05.2021_CRT-3_.zip#Chemistry Section 2__--__59__--__1.png"
@@ -46273,7 +46273,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00002.00",
+      "answer": "2",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-19_JEE_MAIN_09.05.2021_CRT-3_.zip#Chemistry Section 2__--__60__--__1.png"
@@ -46845,7 +46845,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00005.00",
+      "answer": "5",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-20_JEE_MAIN_16.05.2021_CRT-4_.zip#Chemistry Section 2__--__56__--__1.png"
@@ -46867,7 +46867,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00001.00",
+      "answer": "1",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-20_JEE_MAIN_16.05.2021_CRT-4_.zip#Chemistry Section 2__--__57__--__1.png"
@@ -46889,7 +46889,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00004.00",
+      "answer": "4",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-20_JEE_MAIN_16.05.2021_CRT-4_.zip#Chemistry Section 2__--__58__--__1.png"
@@ -46911,7 +46911,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00006.00",
+      "answer": "6",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-20_JEE_MAIN_16.05.2021_CRT-4_.zip#Chemistry Section 2__--__59__--__1.png"
@@ -46933,7 +46933,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00003.00",
+      "answer": "3",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-20_JEE_MAIN_16.05.2021_CRT-4_.zip#Chemistry Section 2__--__60__--__1.png"
@@ -58370,7 +58370,7 @@
       "id": "chem_main_2654",
       "subject": "Chemistry",
       "chapter": "Chemical Equilibrium",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "answer": "B",
@@ -60595,7 +60595,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00009.00",
+      "answer": "9",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_CRT-1_JEE_MAIN_17.02.2022.zip#Chemistry Section 2__--__56__--__1.png"
@@ -60617,7 +60617,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00003.00",
+      "answer": "3",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_CRT-1_JEE_MAIN_17.02.2022.zip#Chemistry Section 2__--__57__--__1.png"
@@ -60639,7 +60639,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00012.00",
+      "answer": "12",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_CRT-1_JEE_MAIN_17.02.2022.zip#Chemistry Section 2__--__58__--__1.png"
@@ -60661,7 +60661,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00003.00",
+      "answer": "3",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_CRT-1_JEE_MAIN_17.02.2022.zip#Chemistry Section 2__--__59__--__1.png"
@@ -60683,7 +60683,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00008.00",
+      "answer": "8",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_CRT-1_JEE_MAIN_17.02.2022.zip#Chemistry Section 2__--__60__--__1.png"
@@ -61255,7 +61255,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00000.45",
+      "answer": "0.45",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_CRT-2_JEE_MAIN_17.02.2022.zip#Chemistry Section 2__--__56__--__1.png"
@@ -61277,7 +61277,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00150.00",
+      "answer": "150",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_CRT-2_JEE_MAIN_17.02.2022.zip#Chemistry Section 2__--__57__--__1.png"
@@ -61299,7 +61299,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00000.20",
+      "answer": "0.2",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_CRT-2_JEE_MAIN_17.02.2022.zip#Chemistry Section 2__--__58__--__1.png"
@@ -61321,7 +61321,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00002.85",
+      "answer": "2.85",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_CRT-2_JEE_MAIN_17.02.2022.zip#Chemistry Section 2__--__59__--__1.png"
@@ -61343,7 +61343,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00335.00",
+      "answer": "3",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_CRT-2_JEE_MAIN_17.02.2022.zip#Chemistry Section 2__--__60__--__1.png"
@@ -61915,7 +61915,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00001.65",
+      "answer": "1.65",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_CRT-3_JEE_MAIN_01.06.2022.zip#Chemistry Section 2__--__56__--__1.png"
@@ -61937,7 +61937,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00003.52",
+      "answer": "3.52",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_CRT-3_JEE_MAIN_01.06.2022.zip#Chemistry Section 2__--__57__--__1.png"
@@ -61959,7 +61959,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00008.00",
+      "answer": "8",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_CRT-3_JEE_MAIN_01.06.2022.zip#Chemistry Section 2__--__58__--__1.png"
@@ -61981,7 +61981,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00008.00",
+      "answer": "8",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_CRT-3_JEE_MAIN_01.06.2022.zip#Chemistry Section 2__--__59__--__1.png"
@@ -62003,7 +62003,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00006.00",
+      "answer": "6",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_CRT-3_JEE_MAIN_01.06.2022.zip#Chemistry Section 2__--__60__--__1.png"
@@ -62575,7 +62575,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00004.00",
+      "answer": "4",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-10_JEE_MAIN_10.04.2022.zip#Chemistry Section 2__--__56__--__1.png"
@@ -62597,7 +62597,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00006.00",
+      "answer": "6",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-10_JEE_MAIN_10.04.2022.zip#Chemistry Section 2__--__57__--__1.png"
@@ -62619,7 +62619,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00007.48",
+      "answer": "7.48",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-10_JEE_MAIN_10.04.2022.zip#Chemistry Section 2__--__58__--__1.png"
@@ -62641,7 +62641,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00004.00",
+      "answer": "4",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-10_JEE_MAIN_10.04.2022.zip#Chemistry Section 2__--__59__--__1.png"
@@ -62663,7 +62663,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00006.00",
+      "answer": "6",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-10_JEE_MAIN_10.04.2022.zip#Chemistry Section 2__--__60__--__1.png"
@@ -62814,10 +62814,10 @@
       "id": "chem_main_2856",
       "subject": "Chemistry",
       "chapter": "Some Basic Concepts of Chemistry",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "B",
+      "answer": "39",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-11_JEE_MAIN_17.04.2022.zip#Chemistry Section 1__--__37__--__1.png"
@@ -62858,10 +62858,10 @@
       "id": "chem_main_2858",
       "subject": "Chemistry",
       "chapter": "Some Basic Concepts of Chemistry",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "D",
+      "answer": "17",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-11_JEE_MAIN_17.04.2022.zip#Chemistry Section 1__--__39__--__1.png"
@@ -63235,7 +63235,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00006.46",
+      "answer": "6.46",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-11_JEE_MAIN_17.04.2022.zip#Chemistry Section 2__--__56__--__1.png"
@@ -63257,7 +63257,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00055.87",
+      "answer": "55.87",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-11_JEE_MAIN_17.04.2022.zip#Chemistry Section 2__--__57__--__1.png"
@@ -63279,7 +63279,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00101.785",
+      "answer": "101.785",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-11_JEE_MAIN_17.04.2022.zip#Chemistry Section 2__--__58__--__1.png"
@@ -63301,7 +63301,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00135.96",
+      "answer": "135.96",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-11_JEE_MAIN_17.04.2022.zip#Chemistry Section 2__--__59__--__1.png"
@@ -63323,7 +63323,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00002.66",
+      "answer": "2.66",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-11_JEE_MAIN_17.04.2022.zip#Chemistry Section 2__--__60__--__1.png"
@@ -63895,7 +63895,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00009.00",
+      "answer": "9",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-12_JEE_MAIN_22.05.2022.zip#Chemistry Section 2__--__56__--__1.png"
@@ -63917,7 +63917,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00003.00",
+      "answer": "3",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-12_JEE_MAIN_22.05.2022.zip#Chemistry Section 2__--__57__--__1.png"
@@ -63939,7 +63939,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00002.00",
+      "answer": "2",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-12_JEE_MAIN_22.05.2022.zip#Chemistry Section 2__--__58__--__1.png"
@@ -63961,7 +63961,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00003.00",
+      "answer": "3",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-12_JEE_MAIN_22.05.2022.zip#Chemistry Section 2__--__59__--__1.png"
@@ -63983,7 +63983,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00004.00",
+      "answer": "4",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-12_JEE_MAIN_22.05.2022.zip#Chemistry Section 2__--__60__--__1.png"
@@ -64555,7 +64555,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00003.00",
+      "answer": "3",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-13_JEE_MAIN_31.05.2022.zip#Chemistry Section 2__--__56__--__1.png"
@@ -64577,7 +64577,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00004.00",
+      "answer": "4",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-13_JEE_MAIN_31.05.2022.zip#Chemistry Section 2__--__57__--__1.png"
@@ -64599,7 +64599,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00004.00",
+      "answer": "4",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-13_JEE_MAIN_31.05.2022.zip#Chemistry Section 2__--__58__--__1.png"
@@ -64621,7 +64621,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00003.00",
+      "answer": "3",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-13_JEE_MAIN_31.05.2022.zip#Chemistry Section 2__--__59__--__1.png"
@@ -64643,7 +64643,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00000.40",
+      "answer": "0.4",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-13_JEE_MAIN_31.05.2022.zip#Chemistry Section 2__--__60__--__1.png"
@@ -65215,7 +65215,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00010.00",
+      "answer": "10",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-14_JEE_MAIN_09.06.2022.zip#Chemistry Section 2__--__56__--__1.png"
@@ -65237,7 +65237,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00024.10",
+      "answer": "24.1",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-14_JEE_MAIN_09.06.2022.zip#Chemistry Section 2__--__57__--__1.png"
@@ -65259,7 +65259,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00030.00",
+      "answer": "30",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-14_JEE_MAIN_09.06.2022.zip#Chemistry Section 2__--__58__--__1.png"
@@ -65281,7 +65281,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00080.00",
+      "answer": "80",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-14_JEE_MAIN_09.06.2022.zip#Chemistry Section 2__--__59__--__1.png"
@@ -65303,7 +65303,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00016.00",
+      "answer": "16",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-14_JEE_MAIN_09.06.2022.zip#Chemistry Section 2__--__60__--__1.png"
@@ -65875,7 +65875,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00004.00",
+      "answer": "4",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-15_JEE_MAIN_15.06.2022.zip#Chemistry Section 2__--__56__--__1.png"
@@ -65897,7 +65897,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00003.00",
+      "answer": "3",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-15_JEE_MAIN_15.06.2022.zip#Chemistry Section 2__--__57__--__1.png"
@@ -65919,7 +65919,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00054.00",
+      "answer": "54",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-15_JEE_MAIN_15.06.2022.zip#Chemistry Section 2__--__58__--__1.png"
@@ -65941,7 +65941,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00053.61",
+      "answer": "53.61",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-15_JEE_MAIN_15.06.2022.zip#Chemistry Section 2__--__59__--__1.png"
@@ -65963,7 +65963,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00030.00",
+      "answer": "30",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-15_JEE_MAIN_15.06.2022.zip#Chemistry Section 2__--__60__--__1.png"
@@ -66535,7 +66535,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00004.00",
+      "answer": "4",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-5_JEE_MAIN_06.02.2022.zip#Chemistry Section 2__--__56__--__1.png"
@@ -66557,7 +66557,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00005.00",
+      "answer": "5",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-5_JEE_MAIN_06.02.2022.zip#Chemistry Section 2__--__57__--__1.png"
@@ -66579,7 +66579,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00004.07",
+      "answer": "4.07",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-5_JEE_MAIN_06.02.2022.zip#Chemistry Section 2__--__58__--__1.png"
@@ -66601,7 +66601,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00005.50",
+      "answer": "5.5",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-5_JEE_MAIN_06.02.2022.zip#Chemistry Section 2__--__59__--__1.png"
@@ -66623,7 +66623,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00007.00",
+      "answer": "7",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-5_JEE_MAIN_06.02.2022.zip#Chemistry Section 2__--__60__--__1.png"
@@ -67195,7 +67195,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00003.95",
+      "answer": "3.95",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-7_JEE_MAIN_27.02.2022.zip#Chemistry Section 2__--__56__--__1.png"
@@ -67217,7 +67217,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00017.84",
+      "answer": "17.84",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-7_JEE_MAIN_27.02.2022.zip#Chemistry Section 2__--__57__--__1.png"
@@ -67239,7 +67239,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00028.90",
+      "answer": "28.9",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-7_JEE_MAIN_27.02.2022.zip#Chemistry Section 2__--__58__--__1.png"
@@ -67261,7 +67261,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00009.00",
+      "answer": "9",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-7_JEE_MAIN_27.02.2022.zip#Chemistry Section 2__--__59__--__1.png"
@@ -67283,7 +67283,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00349.66",
+      "answer": "349.66",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-7_JEE_MAIN_27.02.2022.zip#Chemistry Section 2__--__60__--__1.png"
@@ -67855,7 +67855,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00003.20",
+      "answer": "3.2",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-8_JEE_MAIN_06.03.2022.zip#Chemistry Section 2__--__56__--__1.png"
@@ -67899,7 +67899,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00001.50",
+      "answer": "1.5",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-8_JEE_MAIN_06.03.2022.zip#Chemistry Section 2__--__58__--__1.png"
@@ -67921,7 +67921,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00001.25",
+      "answer": "1.25",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-8_JEE_MAIN_06.03.2022.zip#Chemistry Section 2__--__59__--__1.png"
@@ -67943,7 +67943,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00002.62",
+      "answer": "2.62",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-8_JEE_MAIN_06.03.2022.zip#Chemistry Section 2__--__60__--__1.png"
@@ -68515,7 +68515,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00118.75",
+      "answer": "118.75",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-9_JEE_MAIN_03.04.2022.zip#Chemistry Section 2__--__56__--__1.png"
@@ -68537,7 +68537,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00031.02",
+      "answer": "31.02",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-9_JEE_MAIN_03.04.2022.zip#Chemistry Section 2__--__57__--__1.png"
@@ -68603,7 +68603,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00023.39",
+      "answer": "23.39",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_FT-9_JEE_MAIN_03.04.2022.zip#Chemistry Section 2__--__60__--__1.png"
@@ -68999,7 +68999,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00002.00",
+      "answer": "2",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_PT-1_JEE_MAIN_20.11.2021.zip#Chemistry Section 1__--__48__--__1.png"
@@ -69021,7 +69021,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00003.25",
+      "answer": "3.25",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS_PT-1_JEE_MAIN_20.11.2021.zip#Chemistry Section 1__--__49__--__1.png"
@@ -69480,10 +69480,10 @@
       "id": "chem_main_3159",
       "subject": "Chemistry",
       "chapter": "Some Basic Concepts of Chemistry",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "A",
+      "answer": "40",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-PT-I-JEEM-TD-OFFLINE.zip#Chemistry Section 1__--__40__--__1.png"
@@ -69747,7 +69747,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00001.25",
+      "answer": "1",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-PT-I-JEEM-TD-OFFLINE.zip#Chemistry Section 2__--__52__--__1.png"
@@ -69835,7 +69835,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00002.00",
+      "answer": "2",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-PT-I-JEEM-TD-OFFLINE.zip#Chemistry Section 2__--__56__--__1.png"
@@ -69857,7 +69857,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00011.00",
+      "answer": "11",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-PT-I-JEEM-TD-OFFLINE.zip#Chemistry Section 2__--__57__--__1.png"
@@ -69879,7 +69879,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00002.75",
+      "answer": "2.75",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-PT-I-JEEM-TD-OFFLINE.zip#Chemistry Section 2__--__58__--__1.png"
@@ -69901,7 +69901,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00006.20",
+      "answer": "6.2",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-PT-I-JEEM-TD-OFFLINE.zip#Chemistry Section 2__--__59__--__1.png"
@@ -69920,10 +69920,10 @@
       "id": "chem_main_3179",
       "subject": "Chemistry",
       "chapter": "Chemical Equilibrium",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
-      "answer": "00040.24",
+      "answer": "C",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-PT-I-JEEM-TD-OFFLINE.zip#Chemistry Section 2__--__60__--__1.png"
@@ -70495,7 +70495,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00004.00",
+      "answer": "4",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-V-JEEM.zip#Chemistry Section 2__--__56__--__1.png"
@@ -70517,7 +70517,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00005.00",
+      "answer": "5",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-V-JEEM.zip#Chemistry Section 2__--__57__--__1.png"
@@ -70539,7 +70539,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00004.07",
+      "answer": "4.07",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-V-JEEM.zip#Chemistry Section 2__--__58__--__1.png"
@@ -70561,7 +70561,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00005.50",
+      "answer": "5.5",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-V-JEEM.zip#Chemistry Section 2__--__59__--__1.png"
@@ -70583,7 +70583,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00007.00",
+      "answer": "7",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-V-JEEM.zip#Chemistry Section 2__--__60__--__1.png"
@@ -71155,7 +71155,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00001.00",
+      "answer": "1",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-VI-JEEM.zip#Chemistry Section 2__--__56__--__1.png"
@@ -71177,7 +71177,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00004.36",
+      "answer": "4.36",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-VI-JEEM.zip#Chemistry Section 2__--__57__--__1.png"
@@ -71199,7 +71199,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00001.07",
+      "answer": "1.07",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-VI-JEEM.zip#Chemistry Section 2__--__58__--__1.png"
@@ -71221,7 +71221,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00008.13",
+      "answer": "8.13",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-VI-JEEM.zip#Chemistry Section 2__--__59__--__1.png"
@@ -71243,7 +71243,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00000.20",
+      "answer": "0.2",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-VI-JEEM.zip#Chemistry Section 2__--__60__--__1.png"
@@ -71815,7 +71815,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00003.95",
+      "answer": "3.95",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-VII-JEEM.zip#Chemistry Section 2__--__56__--__1.png"
@@ -71837,7 +71837,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00017.84",
+      "answer": "17.84",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-VII-JEEM.zip#Chemistry Section 2__--__57__--__1.png"
@@ -71859,7 +71859,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00028.90",
+      "answer": "28.9",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-VII-JEEM.zip#Chemistry Section 2__--__58__--__1.png"
@@ -71881,7 +71881,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00009.00",
+      "answer": "9",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-VII-JEEM.zip#Chemistry Section 2__--__59__--__1.png"
@@ -71903,7 +71903,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00349.66",
+      "answer": "349.66",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-VII-JEEM.zip#Chemistry Section 2__--__60__--__1.png"
@@ -72475,7 +72475,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00003.20",
+      "answer": "3.2",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-VIII-JEEM.zip#Chemistry Section 2__--__56__--__1.png"
@@ -72519,7 +72519,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00001.50",
+      "answer": "1.5",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-VIII-JEEM.zip#Chemistry Section 2__--__58__--__1.png"
@@ -72541,7 +72541,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00001.25",
+      "answer": "1.25",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-VIII-JEEM.zip#Chemistry Section 2__--__59__--__1.png"
@@ -72563,7 +72563,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00002.62",
+      "answer": "2.62",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-VIII-JEEM.zip#Chemistry Section 2__--__60__--__1.png"
@@ -73135,7 +73135,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00009.00",
+      "answer": "9",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-CRT-I-JEEM.zip#Chemistry Section 2__--__56__--__1.png"
@@ -73157,7 +73157,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00003.00",
+      "answer": "3",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-CRT-I-JEEM.zip#Chemistry Section 2__--__57__--__1.png"
@@ -73179,7 +73179,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00012.00",
+      "answer": "12",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-CRT-I-JEEM.zip#Chemistry Section 2__--__58__--__1.png"
@@ -73201,7 +73201,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00003.00",
+      "answer": "3",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-CRT-I-JEEM.zip#Chemistry Section 2__--__59__--__1.png"
@@ -73223,7 +73223,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00008.00",
+      "answer": "8",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-CRT-I-JEEM.zip#Chemistry Section 2__--__60__--__1.png"
@@ -73795,7 +73795,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00000.45",
+      "answer": "0.45",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-CRT-II-JEEM.zip#Chemistry Section 2__--__56__--__1.png"
@@ -73817,7 +73817,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00150.00",
+      "answer": "150",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-CRT-II-JEEM.zip#Chemistry Section 2__--__57__--__1.png"
@@ -73839,7 +73839,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00000.20",
+      "answer": "0.2",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-CRT-II-JEEM.zip#Chemistry Section 2__--__58__--__1.png"
@@ -73861,7 +73861,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00002.85",
+      "answer": "2.85",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-CRT-II-JEEM.zip#Chemistry Section 2__--__59__--__1.png"
@@ -73883,7 +73883,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00335.00",
+      "answer": "3",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-CRT-II-JEEM.zip#Chemistry Section 2__--__60__--__1.png"
@@ -74455,7 +74455,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00118.75",
+      "answer": "118.75",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-IX-JEEM.zip#Chemistry Section 2__--__56__--__1.png"
@@ -74477,7 +74477,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00031.02",
+      "answer": "31.02",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-IX-JEEM.zip#Chemistry Section 2__--__57__--__1.png"
@@ -74543,7 +74543,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00023.39",
+      "answer": "23.39",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-IX-JEEM.zip#Chemistry Section 2__--__60__--__1.png"
@@ -75115,7 +75115,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00004.00",
+      "answer": "4",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-X-JEEM.zip#Chemistry Section 2__--__56__--__1.png"
@@ -75137,7 +75137,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00006.00",
+      "answer": "6",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-X-JEEM.zip#Chemistry Section 2__--__57__--__1.png"
@@ -75159,7 +75159,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00007.48",
+      "answer": "7.48",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-X-JEEM.zip#Chemistry Section 2__--__58__--__1.png"
@@ -75181,7 +75181,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00004.00",
+      "answer": "4",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-X-JEEM.zip#Chemistry Section 2__--__59__--__1.png"
@@ -75203,7 +75203,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00006.00",
+      "answer": "6",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-X-JEEM.zip#Chemistry Section 2__--__60__--__1.png"
@@ -75354,10 +75354,10 @@
       "id": "chem_main_3426",
       "subject": "Chemistry",
       "chapter": "Electrochemistry",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "B",
+      "answer": "39",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XI-JEEM.zip#Chemistry Section 1__--__37__--__1.png"
@@ -75398,10 +75398,10 @@
       "id": "chem_main_3428",
       "subject": "Chemistry",
       "chapter": "Thermodynamics (Chemical)",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "D",
+      "answer": "17",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XI-JEEM.zip#Chemistry Section 1__--__39__--__1.png"
@@ -75775,7 +75775,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00006.46",
+      "answer": "6.46",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XI-JEEM.zip#Chemistry Section 2__--__56__--__1.png"
@@ -75797,7 +75797,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00055.87",
+      "answer": "55.87",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XI-JEEM.zip#Chemistry Section 2__--__57__--__1.png"
@@ -75819,7 +75819,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00101.785",
+      "answer": "101.785",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XI-JEEM.zip#Chemistry Section 2__--__58__--__1.png"
@@ -75841,7 +75841,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00135.96",
+      "answer": "135.96",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XI-JEEM.zip#Chemistry Section 2__--__59__--__1.png"
@@ -75863,7 +75863,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00002.66",
+      "answer": "2.66",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XI-JEEM.zip#Chemistry Section 2__--__60__--__1.png"
@@ -76435,7 +76435,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00009.00",
+      "answer": "9",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XII-JEEM.zip#Chemistry Section 2__--__56__--__1.png"
@@ -76457,7 +76457,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00003.00",
+      "answer": "3",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XII-JEEM.zip#Chemistry Section 2__--__57__--__1.png"
@@ -76479,7 +76479,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00002.00",
+      "answer": "2",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XII-JEEM.zip#Chemistry Section 2__--__58__--__1.png"
@@ -76501,7 +76501,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00003.00",
+      "answer": "3",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XII-JEEM.zip#Chemistry Section 2__--__59__--__1.png"
@@ -76523,7 +76523,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00004.00",
+      "answer": "4",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XII-JEEM.zip#Chemistry Section 2__--__60__--__1.png"
@@ -77095,7 +77095,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00003.00",
+      "answer": "3",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XIII-JEEM.zip#Chemistry Section 2__--__56__--__1.png"
@@ -77117,7 +77117,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00004.00",
+      "answer": "4",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XIII-JEEM.zip#Chemistry Section 2__--__57__--__1.png"
@@ -77139,7 +77139,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00004.00",
+      "answer": "4",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XIII-JEEM.zip#Chemistry Section 2__--__58__--__1.png"
@@ -77161,7 +77161,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00003.00",
+      "answer": "3",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XIII-JEEM.zip#Chemistry Section 2__--__59__--__1.png"
@@ -77183,7 +77183,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00000.40",
+      "answer": "0.4",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XIII-JEEM.zip#Chemistry Section 2__--__60__--__1.png"
@@ -77755,7 +77755,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00001.65",
+      "answer": "1.65",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-CRT-III-JEEM.zip#Chemistry Section 2__--__56__--__1.png"
@@ -77777,7 +77777,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00003.52",
+      "answer": "3.52",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-CRT-III-JEEM.zip#Chemistry Section 2__--__57__--__1.png"
@@ -77799,7 +77799,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00008.00",
+      "answer": "8",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-CRT-III-JEEM.zip#Chemistry Section 2__--__58__--__1.png"
@@ -77821,7 +77821,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00008.00",
+      "answer": "8",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-CRT-III-JEEM.zip#Chemistry Section 2__--__59__--__1.png"
@@ -77843,7 +77843,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00006.00",
+      "answer": "6",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-CRT-III-JEEM.zip#Chemistry Section 2__--__60__--__1.png"
@@ -78415,7 +78415,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00010.00",
+      "answer": "10",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XIV-JEEM.zip#Chemistry Section 2__--__56__--__1.png"
@@ -78437,7 +78437,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00024.10",
+      "answer": "24.1",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XIV-JEEM.zip#Chemistry Section 2__--__57__--__1.png"
@@ -78459,7 +78459,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00030.00",
+      "answer": "30",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XIV-JEEM.zip#Chemistry Section 2__--__58__--__1.png"
@@ -78481,7 +78481,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00080.00",
+      "answer": "80",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XIV-JEEM.zip#Chemistry Section 2__--__59__--__1.png"
@@ -78503,7 +78503,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00016.00",
+      "answer": "16",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XIV-JEEM.zip#Chemistry Section 2__--__60__--__1.png"
@@ -79075,7 +79075,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00004.00",
+      "answer": "4",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XV-JEEM.zip#Chemistry Section 2__--__56__--__1.png"
@@ -79097,7 +79097,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00003.00",
+      "answer": "3",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XV-JEEM.zip#Chemistry Section 2__--__57__--__1.png"
@@ -79119,7 +79119,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00054.00",
+      "answer": "54",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XV-JEEM.zip#Chemistry Section 2__--__58__--__1.png"
@@ -79141,7 +79141,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00053.61",
+      "answer": "53.61",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XV-JEEM.zip#Chemistry Section 2__--__59__--__1.png"
@@ -79163,7 +79163,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00030.00",
+      "answer": "30",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XV-JEEM.zip#Chemistry Section 2__--__60__--__1.png"
@@ -79735,7 +79735,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00036.00",
+      "answer": "36",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XVI-JEEM.zip#Chemistry Section 2__--__56__--__1.png"
@@ -79757,7 +79757,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "-00089.40",
+      "answer": "-89.4",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XVI-JEEM.zip#Chemistry Section 2__--__57__--__1.png"
@@ -79779,7 +79779,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00008.00",
+      "answer": "8",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XVI-JEEM.zip#Chemistry Section 2__--__58__--__1.png"
@@ -79801,7 +79801,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00009.00",
+      "answer": "9",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XVI-JEEM.zip#Chemistry Section 2__--__59__--__1.png"
@@ -80395,7 +80395,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00022.00",
+      "answer": "22",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-CRT-IV-JEEM.zip#Chemistry Section 2__--__56__--__1.png"
@@ -80417,7 +80417,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00060.00",
+      "answer": "60",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-CRT-IV-JEEM.zip#Chemistry Section 2__--__57__--__1.png"
@@ -80439,7 +80439,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00006.61",
+      "answer": "6.61",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-CRT-IV-JEEM.zip#Chemistry Section 2__--__58__--__1.png"
@@ -80461,7 +80461,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00004.27",
+      "answer": "4.27",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-CRT-IV-JEEM.zip#Chemistry Section 2__--__59__--__1.png"
@@ -80483,7 +80483,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00007.00",
+      "answer": "180",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-CRT-IV-JEEM.zip#Chemistry Section 2__--__60__--__1.png"
@@ -81055,7 +81055,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00263.12",
+      "answer": "263.12",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XVII-TD-JEEM.zip#Chemistry Section 2__--__56__--__1.png"
@@ -81077,7 +81077,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00029.10",
+      "answer": "29.1",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XVII-TD-JEEM.zip#Chemistry Section 2__--__57__--__1.png"
@@ -81099,7 +81099,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00241.50",
+      "answer": "241.5",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XVII-TD-JEEM.zip#Chemistry Section 2__--__58__--__1.png"
@@ -81121,7 +81121,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00048.30",
+      "answer": "48.3",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XVII-TD-JEEM.zip#Chemistry Section 2__--__59__--__1.png"
@@ -81143,7 +81143,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "00056.00",
+      "answer": "56",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2122-FT-XVII-TD-JEEM.zip#Chemistry Section 2__--__60__--__1.png"
@@ -86225,7 +86225,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "73",
+      "answer": null,
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2223-FT-II-JEEM-TD-7-1-23.zip#Chemistry Section 2__--__51__--__1.png"
@@ -86247,7 +86247,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "48",
+      "answer": null,
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2223-FT-II-JEEM-TD-7-1-23.zip#Chemistry Section 2__--__52__--__1.png"
@@ -88227,7 +88227,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "83",
+      "answer": null,
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2223-FT-V-JEEM-OFFLINE.zip#Chemistry Section 2__--__52__--__1.png"
@@ -89500,10 +89500,10 @@
       "id": "chem_main_4069",
       "subject": "Chemistry",
       "chapter": "Chemical Equilibrium",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "C",
+      "answer": "10",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2223-FT-VII-JEEM-OFFLINE.zip#Chemistry Section 1__--__50__--__1.png"
@@ -89723,7 +89723,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "3",
+      "answer": "6",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2223-FT-VII-JEEM-OFFLINE.zip#Chemistry Section 2__--__60__--__1.png"
@@ -91128,10 +91128,10 @@
       "id": "chem_main_4143",
       "subject": "Chemistry",
       "chapter": "Redox Reactions",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "A",
+      "answer": "28",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2223-PT-I-JEEM_.zip#Chemistry Section 1__--__34__--__1.png"
@@ -91593,7 +91593,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "64",
+      "answer": null,
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2223-PT-I-JEEM_.zip#Chemistry Section 2__--__55__--__1.png"
@@ -91659,7 +91659,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "33",
+      "answer": null,
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2223-PT-I-JEEM_.zip#Chemistry Section 2__--__58__--__1.png"
@@ -91703,7 +91703,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "1",
+      "answer": "4",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2223-PT-I-JEEM_.zip#Chemistry Section 2__--__60__--__1.png"
@@ -95465,7 +95465,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "33",
+      "answer": null,
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__REVISED-AITS-2324-FT-II-JEEM-TD-OFFLINE.zip#Chemistry Section 2__--__51__--__1.png"
@@ -96147,7 +96147,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "62",
+      "answer": null,
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2324-FT-III-JEEM-TD-OFFLINE.zip#Chemistry Section 2__--__52__--__1.png"
@@ -96983,7 +96983,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "12",
+      "answer": "60",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC___bohring_bot_JEE_Tests_AITS-2324-FT-IX-JEEM.zip#Chemistry Section 2__--__60__--__1.png"
@@ -98149,7 +98149,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "86",
+      "answer": null,
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2324-FT-VI-JEEM-TD-OFFLINE.zip#Chemistry Section 2__--__53__--__1.png"
@@ -98171,7 +98171,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "39",
+      "answer": null,
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2324-FT-VI-JEEM-TD-OFFLINE.zip#Chemistry Section 2__--__54__--__1.png"
@@ -100789,7 +100789,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "78",
+      "answer": null,
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC___bohring_bot_JEE_Tests_AITS-2324-FT-X-JEEM.zip#Chemistry Section 2__--__53__--__1.png"
@@ -102769,7 +102769,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "50",
+      "answer": null,
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2324-PT-I-JEEM-TD-OFFLINE.zip#Chemistry Section 2__--__53__--__1.png"
@@ -102813,7 +102813,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "33",
+      "answer": null,
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2324-PT-I-JEEM-TD-OFFLINE.zip#Chemistry Section 2__--__55__--__1.png"
@@ -102835,7 +102835,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "7",
+      "answer": "56",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2324-PT-I-JEEM-TD-OFFLINE.zip#Chemistry Section 2__--__56__--__1.png"
@@ -102857,7 +102857,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "2",
+      "answer": "1",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2324-PT-I-JEEM-TD-OFFLINE.zip#Chemistry Section 2__--__57__--__1.png"
@@ -102923,7 +102923,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "3",
+      "answer": "0.693",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2324-PT-I-JEEM-TD-OFFLINE.zip#Chemistry Section 2__--__60__--__1.png"
@@ -104089,7 +104089,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "88",
+      "answer": null,
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2324-PT-III-JEEM-TD-17-12-2023.zip#Chemistry Section 2__--__53__--__1.png"
@@ -107320,10 +107320,10 @@
       "id": "chem_main_4879",
       "subject": "Chemistry",
       "chapter": "Ionic Equilibrium",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "D",
+      "answer": "0.5",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2425-FT-II-JEEM-OFFLINE.zip#Chemistry Section 1__--__40__--__1.png"
@@ -108115,7 +108115,7 @@
       "type": "single",
       "question": "",
       "options": null,
-      "answer": "A",
+      "answer": "C",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2425-OPEN-TEST-JEEM.zip#Chemistry Section 1__--__26__--__1.png"
@@ -108750,10 +108750,10 @@
       "id": "chem_main_4944",
       "subject": "Chemistry",
       "chapter": "Some Basic Concepts of Chemistry",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "A",
+      "answer": "58.16",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2425-FT-V-TD-JEEM-OFFLINE.zip#Chemistry Section 1__--__30__--__1.png"
@@ -109300,10 +109300,10 @@
       "id": "chem_main_4969",
       "subject": "Chemistry",
       "chapter": "Some Basic Concepts of Chemistry",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "B",
+      "answer": "200",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2425-FT-VI-TD-JEEM-OFFLINE.zip#Chemistry Section 1__--__30__--__1.png"
@@ -109520,10 +109520,10 @@
       "id": "chem_main_4979",
       "subject": "Chemistry",
       "chapter": "Some Basic Concepts of Chemistry",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "A",
+      "answer": "80",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2425-FT-VI-TD-JEEM-OFFLINE.zip#Chemistry Section 1__--__40__--__1.png"
@@ -109743,7 +109743,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "3",
+      "answer": "40",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2425-FT-VI-TD-JEEM-OFFLINE.zip#Chemistry Section 2__--__50__--__1.png"

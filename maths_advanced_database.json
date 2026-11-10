@@ -15620,7 +15620,7 @@
       "zipName": "FIITJEE AITS 2015 (39 TP)_CRT-3_CRT-III-Paper-I.zip",
       "questionNumber": 1,
       "section": 1,
-      "answer": "A",
+      "answer": "C",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202015%20%2839%20TP%29_CRT-3_CRT-III-Paper-I.zip#sol_Mathematics%20Section%201__--__1__--__1.png"
       ]
@@ -15642,7 +15642,7 @@
       "zipName": "FIITJEE AITS 2015 (39 TP)_CRT-3_CRT-III-Paper-I.zip",
       "questionNumber": 2,
       "section": 1,
-      "answer": "C",
+      "answer": "D",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202015%20%2839%20TP%29_CRT-3_CRT-III-Paper-I.zip#sol_Mathematics%20Section%201__--__2__--__1.png"
       ]
@@ -15803,7 +15803,7 @@
       "zipName": "FIITJEE AITS 2015 (39 TP)_CRT-3_CRT-III-Paper-I.zip",
       "questionNumber": 9,
       "section": 1,
-      "answer": "A,C,D",
+      "answer": "C",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202015%20%2839%20TP%29_CRT-3_CRT-III-Paper-I.zip#sol_Mathematics%20Section%201__--__9__--__1.png"
       ]
@@ -15825,7 +15825,7 @@
       "zipName": "FIITJEE AITS 2015 (39 TP)_CRT-3_CRT-III-Paper-I.zip",
       "questionNumber": 10,
       "section": 1,
-      "answer": "A,D",
+      "answer": "C",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202015%20%2839%20TP%29_CRT-3_CRT-III-Paper-I.zip#sol_Mathematics%20Section%201__--__10__--__1.png"
       ]
@@ -15847,7 +15847,7 @@
       "zipName": "FIITJEE AITS 2015 (39 TP)_CRT-3_CRT-III-Paper-I.zip",
       "questionNumber": 11,
       "section": 1,
-      "answer": "A,B,D",
+      "answer": "B",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202015%20%2839%20TP%29_CRT-3_CRT-III-Paper-I.zip#sol_Mathematics%20Section%201__--__11__--__1.png"
       ]
@@ -15869,7 +15869,7 @@
       "zipName": "FIITJEE AITS 2015 (39 TP)_CRT-3_CRT-III-Paper-I.zip",
       "questionNumber": 12,
       "section": 1,
-      "answer": "A,B,D",
+      "answer": "C",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202015%20%2839%20TP%29_CRT-3_CRT-III-Paper-I.zip#sol_Mathematics%20Section%201__--__12__--__1.png"
       ]
@@ -16113,7 +16113,7 @@
       "zipName": "FIITJEE AITS 2015 (39 TP)_CRT-3_CRT-III-Paper-I.zip",
       "questionNumber": 1,
       "section": 2,
-      "answer": "A",
+      "answer": "C",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202015%20%2839%20TP%29_CRT-3_CRT-III-Paper-I.zip#sol_Mathematics%20Section%202__--__1__--__1.png"
       ],
@@ -16137,7 +16137,7 @@
       "zipName": "FIITJEE AITS 2015 (39 TP)_CRT-3_CRT-III-Paper-I.zip",
       "questionNumber": 2,
       "section": 2,
-      "answer": "C",
+      "answer": "D",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202015%20%2839%20TP%29_CRT-3_CRT-III-Paper-I.zip#sol_Mathematics%20Section%202__--__2__--__1.png"
       ],
@@ -24944,7 +24944,7 @@
       "id": "q_FIITJEE_AITS_2015_39_TP_HCT_8_HCT_VIII_Paper_I_Mathematics_Section_1_1_1",
       "subject": "Mathematics",
       "chapter": "Quadratic Equations & Inequalities",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
       "images": [
@@ -24957,7 +24957,7 @@
       "zipName": "FIITJEE AITS 2015 (39 TP)_HCT-8_HCT-VIII-Paper-I.zip",
       "questionNumber": 1,
       "section": 1,
-      "answer": "A",
+      "answer": "3",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202015%20%2839%20TP%29_HCT-8_HCT-VIII-Paper-I.zip#sol_Mathematics%20Section%201__--__1__--__1.png"
       ]
@@ -24979,7 +24979,7 @@
       "zipName": "FIITJEE AITS 2015 (39 TP)_HCT-8_HCT-VIII-Paper-I.zip",
       "questionNumber": 5,
       "section": 1,
-      "answer": "6",
+      "answer": "2",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202015%20%2839%20TP%29_HCT-8_HCT-VIII-Paper-I.zip#sol_Mathematics%20Section%201__--__5__--__1.png"
       ]
@@ -25010,7 +25010,7 @@
       "id": "q_FIITJEE_AITS_2015_39_TP_HCT_8_HCT_VIII_Paper_I_Mathematics_Section_1_11_1",
       "subject": "Mathematics",
       "chapter": "Complex Numbers",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
       "images": [
@@ -25023,7 +25023,7 @@
       "zipName": "FIITJEE AITS 2015 (39 TP)_HCT-8_HCT-VIII-Paper-I.zip",
       "questionNumber": 11,
       "section": 1,
-      "answer": "A",
+      "answer": "1",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202015%20%2839%20TP%29_HCT-8_HCT-VIII-Paper-I.zip#sol_Mathematics%20Section%201__--__11__--__1.png"
       ]
@@ -25032,7 +25032,7 @@
       "id": "q_FIITJEE_AITS_2015_39_TP_HCT_8_HCT_VIII_Paper_I_Mathematics_Section_2_1_1",
       "subject": "Mathematics",
       "chapter": "Ellipse",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
       "images": [
@@ -25045,7 +25045,7 @@
       "zipName": "FIITJEE AITS 2015 (39 TP)_HCT-8_HCT-VIII-Paper-I.zip",
       "questionNumber": 1,
       "section": 2,
-      "answer": "A",
+      "answer": "3",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202015%20%2839%20TP%29_HCT-8_HCT-VIII-Paper-I.zip#sol_Mathematics%20Section%202__--__1__--__1.png"
       ]
@@ -25054,7 +25054,7 @@
       "id": "q_FIITJEE_AITS_2015_39_TP_HCT_8_HCT_VIII_Paper_II_Mathematics_Section_1_3_1",
       "subject": "Mathematics",
       "chapter": "Parabola",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
       "images": [
@@ -25067,7 +25067,7 @@
       "zipName": "FIITJEE AITS 2015 (39 TP)_HCT-8_HCT-VIII-Paper-II.zip",
       "questionNumber": 3,
       "section": 1,
-      "answer": "B",
+      "answer": "2",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202015%20%2839%20TP%29_HCT-8_HCT-VIII-Paper-II.zip#sol_Mathematics%20Section%201__--__3__--__1.png"
       ]
@@ -25111,7 +25111,7 @@
       "zipName": "FIITJEE AITS 2015 (39 TP)_HCT-8_HCT-VIII-Paper-II.zip",
       "questionNumber": 3,
       "section": 3,
-      "answer": "8",
+      "answer": "2",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202015%20%2839%20TP%29_HCT-8_HCT-VIII-Paper-II.zip#sol_Mathematics%20Section%203__--__3__--__1.png"
       ],
@@ -25157,7 +25157,7 @@
       "zipName": "FIITJEE AITS 2015 (39 TP)_PT-3_PT-III-Paper-I.zip",
       "questionNumber": 1,
       "section": 1,
-      "answer": "A",
+      "answer": "B",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202015%20%2839%20TP%29_PT-3_PT-III-Paper-I.zip#sol_Mathematics%20Section%201__--__1__--__1.png"
       ]
@@ -25179,7 +25179,7 @@
       "zipName": "FIITJEE AITS 2015 (39 TP)_PT-3_PT-III-Paper-I.zip",
       "questionNumber": 2,
       "section": 1,
-      "answer": "A",
+      "answer": "B",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202015%20%2839%20TP%29_PT-3_PT-III-Paper-I.zip#sol_Mathematics%20Section%201__--__2__--__1.png"
       ]
@@ -25487,7 +25487,7 @@
       "zipName": "FIITJEE AITS 2015 (39 TP)_PT-3_PT-III-Paper-I.zip",
       "questionNumber": 1,
       "section": 2,
-      "answer": "A",
+      "answer": "B",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202015%20%2839%20TP%29_PT-3_PT-III-Paper-I.zip#sol_Mathematics%20Section%202__--__1__--__1.png"
       ],
@@ -25511,7 +25511,7 @@
       "zipName": "FIITJEE AITS 2015 (39 TP)_PT-3_PT-III-Paper-I.zip",
       "questionNumber": 2,
       "section": 2,
-      "answer": "A",
+      "answer": "B",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202015%20%2839%20TP%29_PT-3_PT-III-Paper-I.zip#sol_Mathematics%20Section%202__--__2__--__1.png"
       ],
@@ -25606,7 +25606,7 @@
       "zipName": "FIITJEE AITS 2015 (39 TP)_PT-3_PT-III-Paper-II.zip",
       "questionNumber": 1,
       "section": 1,
-      "answer": "A",
+      "answer": "A,D",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202015%20%2839%20TP%29_PT-3_PT-III-Paper-II.zip#sol_Mathematics%20Section%201__--__1__--__1.png"
       ]
@@ -27109,7 +27109,7 @@
       "zipName": "FIITJEE AITS 2016 (20 TP)_HCT 8_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-1-Questions-PAPER.zip",
       "questionNumber": 1,
       "section": 1,
-      "answer": "C",
+      "answer": "B",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202016%20%2820%20TP%29_HCT%208_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-1-Questions-PAPER.zip#sol_Mathematics%20Section%201__--__1__--__1.png"
       ]
@@ -27131,7 +27131,7 @@
       "zipName": "FIITJEE AITS 2016 (20 TP)_HCT 8_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-1-Questions-PAPER.zip",
       "questionNumber": 2,
       "section": 1,
-      "answer": "B",
+      "answer": "A",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202016%20%2820%20TP%29_HCT%208_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-1-Questions-PAPER.zip#sol_Mathematics%20Section%201__--__2__--__1.png"
       ]
@@ -27153,7 +27153,7 @@
       "zipName": "FIITJEE AITS 2016 (20 TP)_HCT 8_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-1-Questions-PAPER.zip",
       "questionNumber": 3,
       "section": 1,
-      "answer": "A",
+      "answer": "C",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202016%20%2820%20TP%29_HCT%208_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-1-Questions-PAPER.zip#sol_Mathematics%20Section%201__--__3__--__1.png"
       ]
@@ -27263,7 +27263,7 @@
       "zipName": "FIITJEE AITS 2016 (20 TP)_HCT 8_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-1-Questions-PAPER.zip",
       "questionNumber": 8,
       "section": 1,
-      "answer": "A,B,D",
+      "answer": "D",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202016%20%2820%20TP%29_HCT%208_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-1-Questions-PAPER.zip#sol_Mathematics%20Section%201__--__8__--__1.png"
       ]
@@ -27285,7 +27285,7 @@
       "zipName": "FIITJEE AITS 2016 (20 TP)_HCT 8_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-1-Questions-PAPER.zip",
       "questionNumber": 9,
       "section": 1,
-      "answer": "A,B,C,D",
+      "answer": "D",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202016%20%2820%20TP%29_HCT%208_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-1-Questions-PAPER.zip#sol_Mathematics%20Section%201__--__9__--__1.png"
       ]
@@ -27477,7 +27477,7 @@
       "zipName": "FIITJEE AITS 2016 (20 TP)_HCT 8_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-1-Questions-PAPER.zip",
       "questionNumber": 1,
       "section": 2,
-      "answer": "C",
+      "answer": "B",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202016%20%2820%20TP%29_HCT%208_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-1-Questions-PAPER.zip#sol_Mathematics%20Section%202__--__1__--__1.png"
       ]
@@ -27499,7 +27499,7 @@
       "zipName": "FIITJEE AITS 2016 (20 TP)_HCT 8_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-1-Questions-PAPER.zip",
       "questionNumber": 2,
       "section": 2,
-      "answer": "B",
+      "answer": "A",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202016%20%2820%20TP%29_HCT%208_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-1-Questions-PAPER.zip#sol_Mathematics%20Section%202__--__2__--__1.png"
       ]
@@ -27521,7 +27521,7 @@
       "zipName": "FIITJEE AITS 2016 (20 TP)_HCT 8_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-1-Questions-PAPER.zip",
       "questionNumber": 1,
       "section": 3,
-      "answer": "C",
+      "answer": "B",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202016%20%2820%20TP%29_HCT%208_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-1-Questions-PAPER.zip#sol_Mathematics%20Section%203__--__1__--__1.png"
       ],
@@ -27545,7 +27545,7 @@
       "zipName": "FIITJEE AITS 2016 (20 TP)_HCT 8_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-1-Questions-PAPER.zip",
       "questionNumber": 2,
       "section": 3,
-      "answer": "B",
+      "answer": "A",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202016%20%2820%20TP%29_HCT%208_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-1-Questions-PAPER.zip#sol_Mathematics%20Section%203__--__2__--__1.png"
       ],
@@ -27569,7 +27569,7 @@
       "zipName": "FIITJEE AITS 2016 (20 TP)_HCT 8_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-1-Questions-PAPER.zip",
       "questionNumber": 3,
       "section": 3,
-      "answer": "A",
+      "answer": "C",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202016%20%2820%20TP%29_HCT%208_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-1-Questions-PAPER.zip#sol_Mathematics%20Section%203__--__3__--__1.png"
       ],
@@ -27641,7 +27641,7 @@
       "zipName": "FIITJEE AITS 2016 (20 TP)_HCT 8_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-2-Questions-PAPER.zip",
       "questionNumber": 1,
       "section": 1,
-      "answer": "C",
+      "answer": "B",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202016%20%2820%20TP%29_HCT%208_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-2-Questions-PAPER.zip#sol_Mathematics%20Section%201__--__1__--__1.png"
       ]
@@ -27663,7 +27663,7 @@
       "zipName": "FIITJEE AITS 2016 (20 TP)_HCT 8_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-2-Questions-PAPER.zip",
       "questionNumber": 2,
       "section": 1,
-      "answer": "B",
+      "answer": "A",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202016%20%2820%20TP%29_HCT%208_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-2-Questions-PAPER.zip#sol_Mathematics%20Section%201__--__2__--__1.png"
       ]
@@ -27685,7 +27685,7 @@
       "zipName": "FIITJEE AITS 2016 (20 TP)_HCT 8_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-2-Questions-PAPER.zip",
       "questionNumber": 3,
       "section": 1,
-      "answer": "A",
+      "answer": "C",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202016%20%2820%20TP%29_HCT%208_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-2-Questions-PAPER.zip#sol_Mathematics%20Section%201__--__3__--__1.png"
       ]
@@ -27795,7 +27795,7 @@
       "zipName": "FIITJEE AITS 2016 (20 TP)_HCT 8_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-2-Questions-PAPER.zip",
       "questionNumber": 8,
       "section": 1,
-      "answer": "A,B,D",
+      "answer": "D",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202016%20%2820%20TP%29_HCT%208_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-2-Questions-PAPER.zip#sol_Mathematics%20Section%201__--__8__--__1.png"
       ]
@@ -27817,7 +27817,7 @@
       "zipName": "FIITJEE AITS 2016 (20 TP)_HCT 8_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-2-Questions-PAPER.zip",
       "questionNumber": 9,
       "section": 1,
-      "answer": "A,B,C,D",
+      "answer": "D",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202016%20%2820%20TP%29_HCT%208_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-2-Questions-PAPER.zip#sol_Mathematics%20Section%201__--__9__--__1.png"
       ]
@@ -28027,7 +28027,7 @@
       "zipName": "FIITJEE AITS 2016 (20 TP)_HCT 8_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-2-Questions-PAPER.zip",
       "questionNumber": 1,
       "section": 2,
-      "answer": "C",
+      "answer": "B",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202016%20%2820%20TP%29_HCT%208_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-2-Questions-PAPER.zip#sol_Mathematics%20Section%202__--__1__--__1.png"
       ]
@@ -28049,7 +28049,7 @@
       "zipName": "FIITJEE AITS 2016 (20 TP)_HCT 8_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-2-Questions-PAPER.zip",
       "questionNumber": 2,
       "section": 2,
-      "answer": "B",
+      "answer": "A",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202016%20%2820%20TP%29_HCT%208_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-2-Questions-PAPER.zip#sol_Mathematics%20Section%202__--__2__--__1.png"
       ]
@@ -28071,7 +28071,7 @@
       "zipName": "FIITJEE AITS 2016 (20 TP)_HCT 8_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-2-Questions-PAPER.zip",
       "questionNumber": 1,
       "section": 3,
-      "answer": "C",
+      "answer": "B",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202016%20%2820%20TP%29_HCT%208_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-2-Questions-PAPER.zip#sol_Mathematics%20Section%203__--__1__--__1.png"
       ],
@@ -28095,7 +28095,7 @@
       "zipName": "FIITJEE AITS 2016 (20 TP)_HCT 8_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-2-Questions-PAPER.zip",
       "questionNumber": 2,
       "section": 3,
-      "answer": "B",
+      "answer": "A",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202016%20%2820%20TP%29_HCT%208_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-2-Questions-PAPER.zip#sol_Mathematics%20Section%203__--__2__--__1.png"
       ],
@@ -28119,7 +28119,7 @@
       "zipName": "FIITJEE AITS 2016 (20 TP)_HCT 8_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-2-Questions-PAPER.zip",
       "questionNumber": 3,
       "section": 3,
-      "answer": "A",
+      "answer": "C",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202016%20%2820%20TP%29_HCT%208_AIITS-2016-HCT-VIII-JEEA-Advanced-PAPER-2-Questions-PAPER.zip#sol_Mathematics%20Section%203__--__3__--__1.png"
       ],
@@ -31043,7 +31043,7 @@
       "zipName": "FIITJEE AITS 2017 (24 TP)_FT-1_JEE Advanced Full Test 1 Paper 1.zip",
       "questionNumber": 1,
       "section": 1,
-      "answer": "D",
+      "answer": "C",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202017%20%2824%20TP%29_FT-1_JEE%20Advanced%20Full%20Test%201%20Paper%201.zip#sol_Mathematics%20Section%201__--__1__--__1.png"
       ]
@@ -31065,7 +31065,7 @@
       "zipName": "FIITJEE AITS 2017 (24 TP)_FT-1_JEE Advanced Full Test 1 Paper 1.zip",
       "questionNumber": 2,
       "section": 1,
-      "answer": "B",
+      "answer": "A",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202017%20%2824%20TP%29_FT-1_JEE%20Advanced%20Full%20Test%201%20Paper%201.zip#sol_Mathematics%20Section%201__--__2__--__1.png"
       ]
@@ -31087,7 +31087,7 @@
       "zipName": "FIITJEE AITS 2017 (24 TP)_FT-1_JEE Advanced Full Test 1 Paper 1.zip",
       "questionNumber": 3,
       "section": 1,
-      "answer": "A",
+      "answer": "C",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202017%20%2824%20TP%29_FT-1_JEE%20Advanced%20Full%20Test%201%20Paper%201.zip#sol_Mathematics%20Section%201__--__3__--__1.png"
       ]
@@ -31109,7 +31109,7 @@
       "zipName": "FIITJEE AITS 2017 (24 TP)_FT-1_JEE Advanced Full Test 1 Paper 1.zip",
       "questionNumber": 4,
       "section": 1,
-      "answer": "C",
+      "answer": "A",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202017%20%2824%20TP%29_FT-1_JEE%20Advanced%20Full%20Test%201%20Paper%201.zip#sol_Mathematics%20Section%201__--__4__--__1.png"
       ]
@@ -31131,7 +31131,7 @@
       "zipName": "FIITJEE AITS 2017 (24 TP)_FT-1_JEE Advanced Full Test 1 Paper 1.zip",
       "questionNumber": 5,
       "section": 1,
-      "answer": "C",
+      "answer": "B",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202017%20%2824%20TP%29_FT-1_JEE%20Advanced%20Full%20Test%201%20Paper%201.zip#sol_Mathematics%20Section%201__--__5__--__1.png"
       ]
@@ -31153,7 +31153,7 @@
       "zipName": "FIITJEE AITS 2017 (24 TP)_FT-1_JEE Advanced Full Test 1 Paper 1.zip",
       "questionNumber": 6,
       "section": 1,
-      "answer": "A",
+      "answer": "C",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202017%20%2824%20TP%29_FT-1_JEE%20Advanced%20Full%20Test%201%20Paper%201.zip#sol_Mathematics%20Section%201__--__6__--__1.png"
       ]
@@ -31175,7 +31175,7 @@
       "zipName": "FIITJEE AITS 2017 (24 TP)_FT-1_JEE Advanced Full Test 1 Paper 1.zip",
       "questionNumber": 7,
       "section": 1,
-      "answer": "A,B,D",
+      "answer": "1",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202017%20%2824%20TP%29_FT-1_JEE%20Advanced%20Full%20Test%201%20Paper%201.zip#sol_Mathematics%20Section%201__--__7__--__1.png"
       ]
@@ -31315,7 +31315,7 @@
       "zipName": "FIITJEE AITS 2017 (24 TP)_FT-1_JEE Advanced Full Test 1 Paper 1.zip",
       "questionNumber": 12,
       "section": 1,
-      "answer": "C",
+      "answer": "A",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202017%20%2824%20TP%29_FT-1_JEE%20Advanced%20Full%20Test%201%20Paper%201.zip#sol_Mathematics%20Section%201__--__12__--__1.png"
       ],
@@ -31374,7 +31374,7 @@
       "zipName": "FIITJEE AITS 2017 (24 TP)_FT-1_JEE Advanced Full Test 1 Paper 1.zip",
       "questionNumber": 14,
       "section": 1,
-      "answer": "A",
+      "answer": "B",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202017%20%2824%20TP%29_FT-1_JEE%20Advanced%20Full%20Test%201%20Paper%201.zip#sol_Mathematics%20Section%201__--__14__--__1.png"
       ],
@@ -31411,7 +31411,7 @@
       "zipName": "FIITJEE AITS 2017 (24 TP)_FT-1_JEE Advanced Full Test 1 Paper 1.zip",
       "questionNumber": 1,
       "section": 2,
-      "answer": "D",
+      "answer": "C",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202017%20%2824%20TP%29_FT-1_JEE%20Advanced%20Full%20Test%201%20Paper%201.zip#sol_Mathematics%20Section%202__--__1__--__1.png"
       ]
@@ -31433,7 +31433,7 @@
       "zipName": "FIITJEE AITS 2017 (24 TP)_FT-1_JEE Advanced Full Test 1 Paper 1.zip",
       "questionNumber": 2,
       "section": 2,
-      "answer": "B",
+      "answer": "A",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202017%20%2824%20TP%29_FT-1_JEE%20Advanced%20Full%20Test%201%20Paper%201.zip#sol_Mathematics%20Section%202__--__2__--__1.png"
       ]
@@ -31455,7 +31455,7 @@
       "zipName": "FIITJEE AITS 2017 (24 TP)_FT-1_JEE Advanced Full Test 1 Paper 1.zip",
       "questionNumber": 1,
       "section": 3,
-      "answer": "D",
+      "answer": "C",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202017%20%2824%20TP%29_FT-1_JEE%20Advanced%20Full%20Test%201%20Paper%201.zip#sol_Mathematics%20Section%203__--__1__--__1.png"
       ]
@@ -31477,7 +31477,7 @@
       "zipName": "FIITJEE AITS 2017 (24 TP)_FT-1_JEE Advanced Full Test 1 Paper 1.zip",
       "questionNumber": 2,
       "section": 3,
-      "answer": "B",
+      "answer": "A",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202017%20%2824%20TP%29_FT-1_JEE%20Advanced%20Full%20Test%201%20Paper%201.zip#sol_Mathematics%20Section%203__--__2__--__1.png"
       ]
@@ -31499,7 +31499,7 @@
       "zipName": "FIITJEE AITS 2017 (24 TP)_FT-1_JEE Advanced Full Test 1 Paper 1.zip",
       "questionNumber": 3,
       "section": 3,
-      "answer": "A",
+      "answer": "C",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202017%20%2824%20TP%29_FT-1_JEE%20Advanced%20Full%20Test%201%20Paper%201.zip#sol_Mathematics%20Section%203__--__3__--__1.png"
       ]
@@ -31521,7 +31521,7 @@
       "zipName": "FIITJEE AITS 2017 (24 TP)_FT-1_JEE Advanced Full Test 1 Paper 1.zip",
       "questionNumber": 4,
       "section": 3,
-      "answer": "C",
+      "answer": "A",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202017%20%2824%20TP%29_FT-1_JEE%20Advanced%20Full%20Test%201%20Paper%201.zip#sol_Mathematics%20Section%203__--__4__--__1.png"
       ]
@@ -31543,7 +31543,7 @@
       "zipName": "FIITJEE AITS 2017 (24 TP)_FT-1_JEE Advanced Full Test 1 Paper 1.zip",
       "questionNumber": 5,
       "section": 3,
-      "answer": "C",
+      "answer": "B",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202017%20%2824%20TP%29_FT-1_JEE%20Advanced%20Full%20Test%201%20Paper%201.zip#sol_Mathematics%20Section%203__--__5__--__1.png"
       ]
@@ -47941,7 +47941,7 @@
       "id": "q_FIITJEE_AITS_2018_53_TP_FT_X_AITS_1718_FT_X_JEE_ADV_Paper_2_Mathematics_Section_1_56_1",
       "subject": "Mathematics",
       "chapter": "Complex Numbers",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "images": [
@@ -51969,7 +51969,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_CRT-1_AITS-1819-CRT-I-JEEA-Paper-1.zip",
       "questionNumber": 47,
       "section": 2,
-      "answer": "00008.00",
+      "answer": "8",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_CRT-1_AITS-1819-CRT-I-JEEA-Paper-1.zip#sol_Mathematics%20Section%202__--__47__--__1.png"
       ]
@@ -51991,7 +51991,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_CRT-1_AITS-1819-CRT-I-JEEA-Paper-1.zip",
       "questionNumber": 48,
       "section": 2,
-      "answer": "00008.00",
+      "answer": "8",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_CRT-1_AITS-1819-CRT-I-JEEA-Paper-1.zip#sol_Mathematics%20Section%202__--__48__--__1.png"
       ]
@@ -52035,7 +52035,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_CRT-1_AITS-1819-CRT-I-JEEA-Paper-1.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00007.00",
+      "answer": "7",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_CRT-1_AITS-1819-CRT-I-JEEA-Paper-1.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -52365,7 +52365,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_CRT-1_AITS-1819-CRT-I-JEEA-Paper-2.zip",
       "questionNumber": 47,
       "section": 2,
-      "answer": "67676.00",
+      "answer": "67676",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_CRT-1_AITS-1819-CRT-I-JEEA-Paper-2.zip#sol_Mathematics%20Section%202__--__47__--__1.png"
       ]
@@ -52821,7 +52821,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_CRT-2_AITS-1819-CRT-II-JEEA-Paper-1.zip",
       "questionNumber": 47,
       "section": 2,
-      "answer": "00001.62",
+      "answer": "1.62",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_CRT-2_AITS-1819-CRT-II-JEEA-Paper-1.zip#sol_Mathematics%20Section%202__--__47__--__1.png"
       ]
@@ -52843,7 +52843,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_CRT-2_AITS-1819-CRT-II-JEEA-Paper-1.zip",
       "questionNumber": 48,
       "section": 2,
-      "answer": "00008.00",
+      "answer": "8",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_CRT-2_AITS-1819-CRT-II-JEEA-Paper-1.zip#sol_Mathematics%20Section%202__--__48__--__1.png"
       ]
@@ -52887,7 +52887,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_CRT-2_AITS-1819-CRT-II-JEEA-Paper-1.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00001.00",
+      "answer": "1",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_CRT-2_AITS-1819-CRT-II-JEEA-Paper-1.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -53261,7 +53261,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_CRT-2_AITS-1819-CRT-II-JEEA-Paper-2.zip",
       "questionNumber": 49,
       "section": 2,
-      "answer": "00007.56",
+      "answer": "7.56",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_CRT-2_AITS-1819-CRT-II-JEEA-Paper-2.zip#sol_Mathematics%20Section%202__--__49__--__1.png"
       ]
@@ -54237,7 +54237,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_CRT-3_AITS-1819-CRT-III-JEEA-Paper-2.zip",
       "questionNumber": 67,
       "section": 3,
-      "answer": "02008.00",
+      "answer": "2008",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_CRT-3_AITS-1819-CRT-III-JEEA-Paper-2.zip#sol_Mathematics%20Section%203__--__67__--__1.png"
       ]
@@ -54259,7 +54259,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_CRT-3_AITS-1819-CRT-III-JEEA-Paper-2.zip",
       "questionNumber": 68,
       "section": 3,
-      "answer": "01008.00",
+      "answer": "1008",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_CRT-3_AITS-1819-CRT-III-JEEA-Paper-2.zip#sol_Mathematics%20Section%203__--__68__--__1.png"
       ]
@@ -54281,7 +54281,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_CRT-3_AITS-1819-CRT-III-JEEA-Paper-2.zip",
       "questionNumber": 69,
       "section": 3,
-      "answer": "01210.00",
+      "answer": "1210",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_CRT-3_AITS-1819-CRT-III-JEEA-Paper-2.zip#sol_Mathematics%20Section%203__--__69__--__1.png"
       ]
@@ -55169,7 +55169,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_CRT-4_AITS-1819-CRT-IV-JEEA-Paper-2.zip",
       "questionNumber": 67,
       "section": 3,
-      "answer": "00003.50",
+      "answer": "3.5",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_CRT-4_AITS-1819-CRT-IV-JEEA-Paper-2.zip#sol_Mathematics%20Section%203__--__67__--__1.png"
       ]
@@ -55191,7 +55191,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_CRT-4_AITS-1819-CRT-IV-JEEA-Paper-2.zip",
       "questionNumber": 68,
       "section": 3,
-      "answer": "00011.40",
+      "answer": "11.4",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_CRT-4_AITS-1819-CRT-IV-JEEA-Paper-2.zip#sol_Mathematics%20Section%203__--__68__--__1.png"
       ]
@@ -55213,7 +55213,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_CRT-4_AITS-1819-CRT-IV-JEEA-Paper-2.zip",
       "questionNumber": 69,
       "section": 3,
-      "answer": "00265.00",
+      "answer": "265",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_CRT-4_AITS-1819-CRT-IV-JEEA-Paper-2.zip#sol_Mathematics%20Section%203__--__69__--__1.png"
       ]
@@ -55587,7 +55587,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-1_AITS-1819-FT-I-JEEA-Paper-1.zip",
       "questionNumber": 59,
       "section": 3,
-      "answer": "5",
+      "answer": "10",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-1_AITS-1819-FT-I-JEEA-Paper-1.zip#sol_Mathematics%20Section%203__--__59__--__1.png"
       ]
@@ -56411,7 +56411,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-10_AITS-1819-FT-X-ADV-PAPER-1.zip",
       "questionNumber": 47,
       "section": 2,
-      "answer": "00004.00",
+      "answer": "4",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-10_AITS-1819-FT-X-ADV-PAPER-1.zip#sol_Mathematics%20Section%202__--__47__--__1.png"
       ]
@@ -56433,7 +56433,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-10_AITS-1819-FT-X-ADV-PAPER-1.zip",
       "questionNumber": 48,
       "section": 2,
-      "answer": "00005.00",
+      "answer": "5",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-10_AITS-1819-FT-X-ADV-PAPER-1.zip#sol_Mathematics%20Section%202__--__48__--__1.png"
       ]
@@ -56807,7 +56807,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-10_AITS-1819-FT-X-ADV-PAPER-2.zip",
       "questionNumber": 47,
       "section": 2,
-      "answer": "00002.00",
+      "answer": "2",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-10_AITS-1819-FT-X-ADV-PAPER-2.zip#sol_Mathematics%20Section%202__--__47__--__1.png"
       ]
@@ -56829,7 +56829,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-10_AITS-1819-FT-X-ADV-PAPER-2.zip",
       "questionNumber": 48,
       "section": 2,
-      "answer": "00002.00",
+      "answer": "2",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-10_AITS-1819-FT-X-ADV-PAPER-2.zip#sol_Mathematics%20Section%202__--__48__--__1.png"
       ]
@@ -56873,7 +56873,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-10_AITS-1819-FT-X-ADV-PAPER-2.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00007.00",
+      "answer": "7",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-10_AITS-1819-FT-X-ADV-PAPER-2.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -57263,7 +57263,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-11_AITS-1819-JEEA-FT-XI-Paper-1.zip",
       "questionNumber": 47,
       "section": 2,
-      "answer": "00001.00",
+      "answer": "1",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-11_AITS-1819-JEEA-FT-XI-Paper-1.zip#sol_Mathematics%20Section%202__--__47__--__1.png"
       ]
@@ -57329,7 +57329,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-11_AITS-1819-JEEA-FT-XI-Paper-1.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00003.00",
+      "answer": "3",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-11_AITS-1819-JEEA-FT-XI-Paper-1.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -57659,7 +57659,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-11_AITS-1819-JEEA-FT-XI-Paper-2.zip",
       "questionNumber": 47,
       "section": 2,
-      "answer": "00000.00",
+      "answer": "0",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-11_AITS-1819-JEEA-FT-XI-Paper-2.zip#sol_Mathematics%20Section%202__--__47__--__1.png"
       ]
@@ -57681,7 +57681,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-11_AITS-1819-JEEA-FT-XI-Paper-2.zip",
       "questionNumber": 48,
       "section": 2,
-      "answer": "00002.00",
+      "answer": "2",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-11_AITS-1819-JEEA-FT-XI-Paper-2.zip#sol_Mathematics%20Section%202__--__48__--__1.png"
       ]
@@ -57703,7 +57703,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-11_AITS-1819-JEEA-FT-XI-Paper-2.zip",
       "questionNumber": 49,
       "section": 2,
-      "answer": "00008.00",
+      "answer": "8",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-11_AITS-1819-JEEA-FT-XI-Paper-2.zip#sol_Mathematics%20Section%202__--__49__--__1.png"
       ]
@@ -57725,7 +57725,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-11_AITS-1819-JEEA-FT-XI-Paper-2.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00007.50",
+      "answer": "7.5",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-11_AITS-1819-JEEA-FT-XI-Paper-2.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -58679,7 +58679,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-2_AITS-1819-FT-II-JEEA-Paper-2.zip",
       "questionNumber": 68,
       "section": 3,
-      "answer": null,
+      "answer": "31",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-2_AITS-1819-FT-II-JEEA-Paper-2.zip#sol_Mathematics%20Section%203__--__68__--__1.png"
       ]
@@ -58701,7 +58701,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-2_AITS-1819-FT-II-JEEA-Paper-2.zip",
       "questionNumber": 69,
       "section": 3,
-      "answer": "00833.33",
+      "answer": "833.33",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-2_AITS-1819-FT-II-JEEA-Paper-2.zip#sol_Mathematics%20Section%203__--__69__--__1.png"
       ]
@@ -59025,7 +59025,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-3_AITS-1819-FT-III-JEEA-Paper-1.zip",
       "questionNumber": 48,
       "section": 2,
-      "answer": "00010.00",
+      "answer": "10",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-3_AITS-1819-FT-III-JEEA-Paper-1.zip#sol_Mathematics%20Section%202__--__48__--__1.png"
       ]
@@ -59069,7 +59069,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-3_AITS-1819-FT-III-JEEA-Paper-1.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00025.00",
+      "answer": "25",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-3_AITS-1819-FT-III-JEEA-Paper-1.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -59399,7 +59399,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-3_AITS-1819-FT-III-JEEA-Paper-2.zip",
       "questionNumber": 47,
       "section": 2,
-      "answer": "00007.00",
+      "answer": "7",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-3_AITS-1819-FT-III-JEEA-Paper-2.zip#sol_Mathematics%20Section%202__--__47__--__1.png"
       ]
@@ -59421,7 +59421,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-3_AITS-1819-FT-III-JEEA-Paper-2.zip",
       "questionNumber": 48,
       "section": 2,
-      "answer": "00032.00",
+      "answer": "32",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-3_AITS-1819-FT-III-JEEA-Paper-2.zip#sol_Mathematics%20Section%202__--__48__--__1.png"
       ]
@@ -60463,7 +60463,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-4_AITS-1819-FT-IV-JEEA-Paper-2.zip",
       "questionNumber": 68,
       "section": 3,
-      "answer": "00540.00",
+      "answer": "540",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-4_AITS-1819-FT-IV-JEEA-Paper-2.zip#sol_Mathematics%20Section%203__--__68__--__1.png"
       ]
@@ -60485,7 +60485,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-4_AITS-1819-FT-IV-JEEA-Paper-2.zip",
       "questionNumber": 69,
       "section": 3,
-      "answer": "00000.75",
+      "answer": "0.75",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-4_AITS-1819-FT-IV-JEEA-Paper-2.zip#sol_Mathematics%20Section%203__--__69__--__1.png"
       ]
@@ -60787,7 +60787,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-5_AITS-1819-FT-V-ADV-PAPER-1.zip",
       "questionNumber": 47,
       "section": 2,
-      "answer": "00000.00",
+      "answer": "0",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-5_AITS-1819-FT-V-ADV-PAPER-1.zip#sol_Mathematics%20Section%202__--__47__--__1.png"
       ]
@@ -60853,7 +60853,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-5_AITS-1819-FT-V-ADV-PAPER-1.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00002.00",
+      "answer": "2",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-5_AITS-1819-FT-V-ADV-PAPER-1.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -61183,7 +61183,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-5_AITS-1819-FT-V-ADV-PAPER-2.zip",
       "questionNumber": 47,
       "section": 2,
-      "answer": "00004.00",
+      "answer": "4",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-5_AITS-1819-FT-V-ADV-PAPER-2.zip#sol_Mathematics%20Section%202__--__47__--__1.png"
       ]
@@ -61227,7 +61227,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-5_AITS-1819-FT-V-ADV-PAPER-2.zip",
       "questionNumber": 49,
       "section": 2,
-      "answer": "00000.50",
+      "answer": "0.5",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-5_AITS-1819-FT-V-ADV-PAPER-2.zip#sol_Mathematics%20Section%202__--__49__--__1.png"
       ]
@@ -61249,7 +61249,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-5_AITS-1819-FT-V-ADV-PAPER-2.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00008.00",
+      "answer": "8",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-5_AITS-1819-FT-V-ADV-PAPER-2.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -61639,7 +61639,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-6 (OT)_AITS-1819-OT-JEEA-PAPER-1.zip",
       "questionNumber": 47,
       "section": 2,
-      "answer": "00010.00",
+      "answer": "10",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-6%20%28OT%29_AITS-1819-OT-JEEA-PAPER-1.zip#sol_Mathematics%20Section%202__--__47__--__1.png"
       ]
@@ -61661,7 +61661,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-6 (OT)_AITS-1819-OT-JEEA-PAPER-1.zip",
       "questionNumber": 48,
       "section": 2,
-      "answer": "00009.00",
+      "answer": "9",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-6%20%28OT%29_AITS-1819-OT-JEEA-PAPER-1.zip#sol_Mathematics%20Section%202__--__48__--__1.png"
       ]
@@ -61683,7 +61683,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-6 (OT)_AITS-1819-OT-JEEA-PAPER-1.zip",
       "questionNumber": 49,
       "section": 2,
-      "answer": "00002.25",
+      "answer": "2.25",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-6%20%28OT%29_AITS-1819-OT-JEEA-PAPER-1.zip#sol_Mathematics%20Section%202__--__49__--__1.png"
       ]
@@ -62491,7 +62491,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-7_AITS-1819-FullTest-VII-JEEA-Paper-1.zip",
       "questionNumber": 47,
       "section": 2,
-      "answer": "00014.60",
+      "answer": "14.6",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-7_AITS-1819-FullTest-VII-JEEA-Paper-1.zip#sol_Mathematics%20Section%202__--__47__--__1.png"
       ]
@@ -62513,7 +62513,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-7_AITS-1819-FullTest-VII-JEEA-Paper-1.zip",
       "questionNumber": 48,
       "section": 2,
-      "answer": "00005.50",
+      "answer": "5.5",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-7_AITS-1819-FullTest-VII-JEEA-Paper-1.zip#sol_Mathematics%20Section%202__--__48__--__1.png"
       ]
@@ -62764,7 +62764,7 @@
       "id": "q_FIITJEE_AITS_2019_50_TP_FT_7_AITS_1819_FullTest_VII_JEEA_Paper_2_Mathematics_Section_1_44_1",
       "subject": "Mathematics",
       "chapter": "Properties of Triangles & Solution of Triangles",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
       "images": [
@@ -62777,7 +62777,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-7_AITS-1819-FullTest-VII-JEEA-Paper-2.zip",
       "questionNumber": 44,
       "section": 1,
-      "answer": "A",
+      "answer": "0",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-7_AITS-1819-FullTest-VII-JEEA-Paper-2.zip#sol_Mathematics%20Section%201__--__44__--__1.png"
       ]
@@ -62843,7 +62843,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-7_AITS-1819-FullTest-VII-JEEA-Paper-2.zip",
       "questionNumber": 47,
       "section": 2,
-      "answer": "00002.00",
+      "answer": "2",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-7_AITS-1819-FullTest-VII-JEEA-Paper-2.zip#sol_Mathematics%20Section%202__--__47__--__1.png"
       ]
@@ -62909,7 +62909,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-7_AITS-1819-FullTest-VII-JEEA-Paper-2.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00002.00",
+      "answer": "2",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-7_AITS-1819-FullTest-VII-JEEA-Paper-2.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -63299,7 +63299,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-8_AITS-1819-FullTest-VIII-JEEA-Paper-1.zip",
       "questionNumber": 47,
       "section": 2,
-      "answer": "00021.61",
+      "answer": "21.61",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-8_AITS-1819-FullTest-VIII-JEEA-Paper-1.zip#sol_Mathematics%20Section%202__--__47__--__1.png"
       ]
@@ -63321,7 +63321,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-8_AITS-1819-FullTest-VIII-JEEA-Paper-1.zip",
       "questionNumber": 48,
       "section": 2,
-      "answer": "00006.28",
+      "answer": "6.28",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-8_AITS-1819-FullTest-VIII-JEEA-Paper-1.zip#sol_Mathematics%20Section%202__--__48__--__1.png"
       ]
@@ -63365,7 +63365,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-8_AITS-1819-FullTest-VIII-JEEA-Paper-1.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00000.02",
+      "answer": "0.02",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-8_AITS-1819-FullTest-VIII-JEEA-Paper-1.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -63717,7 +63717,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-8_AITS-1819-FullTest-VIII-JEEA-Paper-2.zip",
       "questionNumber": 48,
       "section": 2,
-      "answer": "00002.00",
+      "answer": "2",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-8_AITS-1819-FullTest-VIII-JEEA-Paper-2.zip#sol_Mathematics%20Section%202__--__48__--__1.png"
       ]
@@ -63761,7 +63761,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-8_AITS-1819-FullTest-VIII-JEEA-Paper-2.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00007.00",
+      "answer": "7",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-8_AITS-1819-FullTest-VIII-JEEA-Paper-2.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -64173,7 +64173,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-9_AITS-1819-FT-IX-JEEA-PAPER-1-PCM.zip",
       "questionNumber": 48,
       "section": 2,
-      "answer": "02000.00",
+      "answer": "2000",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-9_AITS-1819-FT-IX-JEEA-PAPER-1-PCM.zip#sol_Mathematics%20Section%202__--__48__--__1.png"
       ]
@@ -64195,7 +64195,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-9_AITS-1819-FT-IX-JEEA-PAPER-1-PCM.zip",
       "questionNumber": 49,
       "section": 2,
-      "answer": "00021.00",
+      "answer": "7",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-9_AITS-1819-FT-IX-JEEA-PAPER-1-PCM.zip#sol_Mathematics%20Section%202__--__49__--__1.png"
       ]
@@ -64217,7 +64217,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-9_AITS-1819-FT-IX-JEEA-PAPER-1-PCM.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00503.50",
+      "answer": "503.5",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-9_AITS-1819-FT-IX-JEEA-PAPER-1-PCM.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -64569,7 +64569,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-9_AITS-1819-FT-IX-JEEA-PAPER-2-PCM.zip",
       "questionNumber": 48,
       "section": 2,
-      "answer": "00003.00",
+      "answer": "3",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-9_AITS-1819-FT-IX-JEEA-PAPER-2-PCM.zip#sol_Mathematics%20Section%202__--__48__--__1.png"
       ]
@@ -64591,7 +64591,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-9_AITS-1819-FT-IX-JEEA-PAPER-2-PCM.zip",
       "questionNumber": 49,
       "section": 2,
-      "answer": "07921.00",
+      "answer": "7921",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-9_AITS-1819-FT-IX-JEEA-PAPER-2-PCM.zip#sol_Mathematics%20Section%202__--__49__--__1.png"
       ]
@@ -64613,7 +64613,7 @@
       "zipName": "FIITJEE AITS 2019 (50 TP)_FT-9_AITS-1819-FT-IX-JEEA-PAPER-2-PCM.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00512.00",
+      "answer": "512",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202019%20%2850%20TP%29_FT-9_AITS-1819-FT-IX-JEEA-PAPER-2-PCM.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -66726,7 +66726,7 @@
       "zipName": "FIITJEE AITS 2020 (52 TP)_CRT-1_AITS-1920-CRT-I-JEEA-Paper-2.zip",
       "questionNumber": 49,
       "section": 1,
-      "answer": "A,B,C,D",
+      "answer": "48",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202020%20%2852%20TP%29_CRT-1_AITS-1920-CRT-I-JEEA-Paper-2.zip#sol_Mathematics%20Section%201__--__49__--__1.png"
       ]
@@ -69156,7 +69156,7 @@
       "zipName": "FIITJEE AITS 2020 (52 TP)_CRT-4_AITS-1920-CRT-IV-JEEA-Paper-2.zip",
       "questionNumber": 49,
       "section": 2,
-      "answer": "00024.00",
+      "answer": "24",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202020%20%2852%20TP%29_CRT-4_AITS-1920-CRT-IV-JEEA-Paper-2.zip#sol_Mathematics%20Section%202__--__49__--__1.png"
       ]
@@ -70360,7 +70360,7 @@
       "zipName": "FIITJEE AITS 2020 (52 TP)_FT-10_AITS-1920-FT-X-JEEA-PAPER-1.zip",
       "questionNumber": 49,
       "section": 2,
-      "answer": "00002.00",
+      "answer": "2",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202020%20%2852%20TP%29_FT-10_AITS-1920-FT-X-JEEA-PAPER-1.zip#sol_Mathematics%20Section%202__--__49__--__1.png"
       ]
@@ -70382,7 +70382,7 @@
       "zipName": "FIITJEE AITS 2020 (52 TP)_FT-10_AITS-1920-FT-X-JEEA-PAPER-1.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00007.00",
+      "answer": "7",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202020%20%2852%20TP%29_FT-10_AITS-1920-FT-X-JEEA-PAPER-1.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -70778,7 +70778,7 @@
       "zipName": "FIITJEE AITS 2020 (52 TP)_FT-10_AITS-1920-FT-X-JEEA-PAPER-2.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00045.00",
+      "answer": "45",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202020%20%2852%20TP%29_FT-10_AITS-1920-FT-X-JEEA-PAPER-2.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -71570,7 +71570,7 @@
       "zipName": "FIITJEE AITS 2020 (52 TP)_FT-11_AITS-1920-FT-XI-JEEA-PAPER-2.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00005.00",
+      "answer": "5",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202020%20%2852%20TP%29_FT-11_AITS-1920-FT-XI-JEEA-PAPER-2.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -71966,7 +71966,7 @@
       "zipName": "FIITJEE AITS 2020 (52 TP)_FT-2_AITS-1920-FT-II-JEEA-PAPER-1.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00009.00",
+      "answer": "9",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202020%20%2852%20TP%29_FT-2_AITS-1920-FT-II-JEEA-PAPER-1.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -72362,7 +72362,7 @@
       "zipName": "FIITJEE AITS 2020 (52 TP)_FT-2_AITS-1920-FT-II-JEEA-PAPER-2.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00031.00",
+      "answer": "31",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202020%20%2852%20TP%29_FT-2_AITS-1920-FT-II-JEEA-PAPER-2.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -73588,7 +73588,7 @@
       "zipName": "FIITJEE AITS 2020 (52 TP)_FT-4_AITS-1920-FT-IV-JEEA-PAPER-1.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00006.00",
+      "answer": "6",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202020%20%2852%20TP%29_FT-4_AITS-1920-FT-IV-JEEA-PAPER-1.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -73984,7 +73984,7 @@
       "zipName": "FIITJEE AITS 2020 (52 TP)_FT-4_AITS-1920-FT-IV-JEEA-PAPER-2.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00003.00",
+      "answer": "3",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202020%20%2852%20TP%29_FT-4_AITS-1920-FT-IV-JEEA-PAPER-2.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -75210,7 +75210,7 @@
       "zipName": "FIITJEE AITS 2020 (52 TP)_FT-6 (OT)_AITS-1920-OPEN TEST-JEEA-PAPER-1.zip",
       "questionNumber": 49,
       "section": 2,
-      "answer": "00011.11",
+      "answer": "11.11",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202020%20%2852%20TP%29_FT-6%20%28OT%29_AITS-1920-OPEN%20TEST-JEEA-PAPER-1.zip#sol_Mathematics%20Section%202__--__49__--__1.png"
       ]
@@ -75232,7 +75232,7 @@
       "zipName": "FIITJEE AITS 2020 (52 TP)_FT-6 (OT)_AITS-1920-OPEN TEST-JEEA-PAPER-1.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00002.83",
+      "answer": "2.83",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202020%20%2852%20TP%29_FT-6%20%28OT%29_AITS-1920-OPEN%20TEST-JEEA-PAPER-1.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -75606,7 +75606,7 @@
       "zipName": "FIITJEE AITS 2020 (52 TP)_FT-6 (OT)_AITS-1920-OPEN TEST-JEEA-PAPER-2.zip",
       "questionNumber": 49,
       "section": 2,
-      "answer": "00002.33",
+      "answer": "2",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202020%20%2852%20TP%29_FT-6%20%28OT%29_AITS-1920-OPEN%20TEST-JEEA-PAPER-2.zip#sol_Mathematics%20Section%202__--__49__--__1.png"
       ]
@@ -75628,7 +75628,7 @@
       "zipName": "FIITJEE AITS 2020 (52 TP)_FT-6 (OT)_AITS-1920-OPEN TEST-JEEA-PAPER-2.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00007.00",
+      "answer": "1",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202020%20%2852%20TP%29_FT-6%20%28OT%29_AITS-1920-OPEN%20TEST-JEEA-PAPER-2.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -76398,7 +76398,7 @@
       "zipName": "FIITJEE AITS 2020 (52 TP)_FT-7_AITS-1920-FT-VII-JEEA-Paper-2.zip",
       "questionNumber": 49,
       "section": 1,
-      "answer": "B",
+      "answer": "0",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202020%20%2852%20TP%29_FT-7_AITS-1920-FT-VII-JEEA-Paper-2.zip#sol_Mathematics%20Section%201__--__49__--__1.png"
       ]
@@ -76810,7 +76810,7 @@
       "zipName": "FIITJEE AITS 2020 (52 TP)_FT-8_AITS-1920-FT-VIII-JEEA-PAPER-1.zip",
       "questionNumber": 48,
       "section": 1,
-      "answer": "A,C,D",
+      "answer": "52",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202020%20%2852%20TP%29_FT-8_AITS-1920-FT-VIII-JEEA-PAPER-1.zip#sol_Mathematics%20Section%201__--__48__--__1.png"
       ]
@@ -77646,7 +77646,7 @@
       "zipName": "FIITJEE AITS 2020 (52 TP)_FT-9_AITS-1920-FT-IX-JEEA-PAPER-1.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "01854.00",
+      "answer": "1854",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202020%20%2852%20TP%29_FT-9_AITS-1920-FT-IX-JEEA-PAPER-1.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -78416,7 +78416,7 @@
       "zipName": "FIITJEE AITS 2020 (52 TP)_PT-1_AITS-1920-PT-I-JEEA-Paper-1.zip",
       "questionNumber": 49,
       "section": 2,
-      "answer": "00002.00",
+      "answer": "2",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202020%20%2852%20TP%29_PT-1_AITS-1920-PT-I-JEEA-Paper-1.zip#sol_Mathematics%20Section%202__--__49__--__1.png"
       ]
@@ -78438,7 +78438,7 @@
       "zipName": "FIITJEE AITS 2020 (52 TP)_PT-1_AITS-1920-PT-I-JEEA-Paper-1.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00000.20",
+      "answer": "0.2",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202020%20%2852%20TP%29_PT-1_AITS-1920-PT-I-JEEA-Paper-1.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -78812,7 +78812,7 @@
       "zipName": "FIITJEE AITS 2020 (52 TP)_PT-1_AITS-1920-PT-I-JEEA-Paper-2.zip",
       "questionNumber": 49,
       "section": 2,
-      "answer": "00011.00",
+      "answer": "11",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202020%20%2852%20TP%29_PT-1_AITS-1920-PT-I-JEEA-Paper-2.zip#sol_Mathematics%20Section%202__--__49__--__1.png"
       ]
@@ -78834,7 +78834,7 @@
       "zipName": "FIITJEE AITS 2020 (52 TP)_PT-1_AITS-1920-PT-I-JEEA-Paper-2.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00001.00",
+      "answer": "1",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202020%20%2852%20TP%29_PT-1_AITS-1920-PT-I-JEEA-Paper-2.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -80060,7 +80060,7 @@
       "zipName": "FIITJEE AITS 2020 (52 TP)_PT-3_AITS-1920-PT-III -JEEA-PAPER-1.zip",
       "questionNumber": 49,
       "section": 2,
-      "answer": "00163.00",
+      "answer": "163",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202020%20%2852%20TP%29_PT-3_AITS-1920-PT-III%20-JEEA-PAPER-1.zip#sol_Mathematics%20Section%202__--__49__--__1.png"
       ]
@@ -80082,7 +80082,7 @@
       "zipName": "FIITJEE AITS 2020 (52 TP)_PT-3_AITS-1920-PT-III -JEEA-PAPER-1.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00000.75",
+      "answer": "0.75",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202020%20%2852%20TP%29_PT-3_AITS-1920-PT-III%20-JEEA-PAPER-1.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -80456,7 +80456,7 @@
       "zipName": "FIITJEE AITS 2020 (52 TP)_PT-3_AITS-1920-PT-III -JEEA-PAPER-2.zip",
       "questionNumber": 49,
       "section": 2,
-      "answer": "00589.00",
+      "answer": "589",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202020%20%2852%20TP%29_PT-3_AITS-1920-PT-III%20-JEEA-PAPER-2.zip#sol_Mathematics%20Section%202__--__49__--__1.png"
       ]
@@ -80478,7 +80478,7 @@
       "zipName": "FIITJEE AITS 2020 (52 TP)_PT-3_AITS-1920-PT-III -JEEA-PAPER-2.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00000.72",
+      "answer": "0.72",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202020%20%2852%20TP%29_PT-3_AITS-1920-PT-III%20-JEEA-PAPER-2.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -81726,7 +81726,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_CRT-1_AITS-11 JEE ADVANCED PAPER-1 06.06.2021 [CRT-1].zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00002.00",
+      "answer": "2",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_CRT-1_AITS-11%20JEE%20ADVANCED%20PAPER-1%2006.06.2021%20%5BCRT-1%5D.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -82100,7 +82100,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_CRT-1_AITS-11 JEE ADVANCED PAPER-2 06.06.2021 [CRT-1].zip",
       "questionNumber": 49,
       "section": 3,
-      "answer": "00064.00",
+      "answer": "17",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_CRT-1_AITS-11%20JEE%20ADVANCED%20PAPER-2%2006.06.2021%20%5BCRT-1%5D.zip#sol_Mathematics%20Section%203__--__49__--__1.png"
       ]
@@ -82122,7 +82122,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_CRT-1_AITS-11 JEE ADVANCED PAPER-2 06.06.2021 [CRT-1].zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "00002.00",
+      "answer": "2",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_CRT-1_AITS-11%20JEE%20ADVANCED%20PAPER-2%2006.06.2021%20%5BCRT-1%5D.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -82892,7 +82892,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_CRT-2_AITS-12 JEE ADVANCED PAPER-2 13.06.2021 [CRT-2].zip",
       "questionNumber": 49,
       "section": 3,
-      "answer": "2",
+      "answer": "17",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_CRT-2_AITS-12%20JEE%20ADVANCED%20PAPER-2%2013.06.2021%20%5BCRT-2%5D.zip#sol_Mathematics%20Section%203__--__49__--__1.png"
       ]
@@ -82914,7 +82914,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_CRT-2_AITS-12 JEE ADVANCED PAPER-2 13.06.2021 [CRT-2].zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "00009.00",
+      "answer": "2",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_CRT-2_AITS-12%20JEE%20ADVANCED%20PAPER-2%2013.06.2021%20%5BCRT-2%5D.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -83288,7 +83288,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_CRT-3_AITS-19 JEE ADVANCED PAPER-1 04.07.2021 [CRT-3].zip",
       "questionNumber": 49,
       "section": 2,
-      "answer": "00005.33",
+      "answer": "5.33",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_CRT-3_AITS-19%20JEE%20ADVANCED%20PAPER-1%2004.07.2021%20%5BCRT-3%5D.zip#sol_Mathematics%20Section%202__--__49__--__1.png"
       ]
@@ -83684,7 +83684,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_CRT-3_AITS-19 JEE ADVANCED PAPER-2 04.07.2021 [CRT-3].zip",
       "questionNumber": 49,
       "section": 3,
-      "answer": "00005.33",
+      "answer": "5.33",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_CRT-3_AITS-19%20JEE%20ADVANCED%20PAPER-2%2004.07.2021%20%5BCRT-3%5D.zip#sol_Mathematics%20Section%203__--__49__--__1.png"
       ]
@@ -84102,7 +84102,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_CRT-4_AITS-20 JEE ADVANCED PAPER-1 01.08.2021 [CRT-4].zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00002.50",
+      "answer": "2.5",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_CRT-4_AITS-20%20JEE%20ADVANCED%20PAPER-1%2001.08.2021%20%5BCRT-4%5D.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -84498,7 +84498,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_CRT-4_AITS-20 JEE ADVANCED PAPER-2 01.08.2021 [CRT-4].zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "00002.50",
+      "answer": "2.5",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_CRT-4_AITS-20%20JEE%20ADVANCED%20PAPER-2%2001.08.2021%20%5BCRT-4%5D.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -84894,7 +84894,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_FT-1_AITS-4 JEE ADVANCED PAPER-1 23.12.2020.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": null,
+      "answer": "31",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_FT-1_AITS-4%20JEE%20ADVANCED%20PAPER-1%2023.12.2020.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -85290,7 +85290,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_FT-1_AITS-4 JEE ADVANCED PAPER-2 23.12.2020.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "8",
+      "answer": "31",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_FT-1_AITS-4%20JEE%20ADVANCED%20PAPER-2%2023.12.2020.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -85686,7 +85686,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_FT-10_AITS-17 JEE ADVANCED PAPER-1 19.09.2021.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00216.00",
+      "answer": "216",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_FT-10_AITS-17%20JEE%20ADVANCED%20PAPER-1%2019.09.2021.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -86082,7 +86082,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_FT-10_AITS-17 JEE ADVANCED PAPER-2 19.09.2021.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "00216.00",
+      "answer": "216",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_FT-10_AITS-17%20JEE%20ADVANCED%20PAPER-2%2019.09.2021.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -86465,7 +86465,7 @@
       "id": "q_FIITJEE_AITS_2021_64_TP_FT_11_AITS_18_JEE_ADVANCED_PAPER_1_26_09_2021_Mathematics_Section_2_50_1",
       "subject": "Mathematics",
       "chapter": "Vector Algebra",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "images": [
@@ -86478,7 +86478,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_FT-11_AITS-18 JEE ADVANCED PAPER-1 26.09.2021.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00000.90",
+      "answer": "C",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_FT-11_AITS-18%20JEE%20ADVANCED%20PAPER-1%2026.09.2021.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -86861,7 +86861,7 @@
       "id": "q_FIITJEE_AITS_2021_64_TP_FT_11_AITS_18_JEE_ADVANCED_PAPER_2_26_09_2021_Mathematics_Section_3_50_1",
       "subject": "Mathematics",
       "chapter": "Quadratic Equations & Inequalities",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "images": [
@@ -86874,7 +86874,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_FT-11_AITS-18 JEE ADVANCED PAPER-2 26.09.2021.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "00000.90",
+      "answer": "C",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_FT-11_AITS-18%20JEE%20ADVANCED%20PAPER-2%2026.09.2021.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -87248,7 +87248,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_FT-2_AITS-5 JEE ADVANCED PAPER-1 04.01.2021.zip",
       "questionNumber": 49,
       "section": 2,
-      "answer": "00002.25",
+      "answer": "2.25",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_FT-2_AITS-5%20JEE%20ADVANCED%20PAPER-1%2004.01.2021.zip#sol_Mathematics%20Section%202__--__49__--__1.png"
       ]
@@ -87270,7 +87270,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_FT-2_AITS-5 JEE ADVANCED PAPER-1 04.01.2021.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00900.50",
+      "answer": "900.5",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_FT-2_AITS-5%20JEE%20ADVANCED%20PAPER-1%2004.01.2021.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -87644,7 +87644,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_FT-2_AITS-5 JEE ADVANCED PAPER-2 04.01.2021.zip",
       "questionNumber": 49,
       "section": 3,
-      "answer": "00002.25",
+      "answer": "2.25",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_FT-2_AITS-5%20JEE%20ADVANCED%20PAPER-2%2004.01.2021.zip#sol_Mathematics%20Section%203__--__49__--__1.png"
       ]
@@ -87666,7 +87666,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_FT-2_AITS-5 JEE ADVANCED PAPER-2 04.01.2021.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "00900.50",
+      "answer": "900.5",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_FT-2_AITS-5%20JEE%20ADVANCED%20PAPER-2%2004.01.2021.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -88062,7 +88062,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_FT-3_AITS-6 JEE ADVANCED PAPER-1 18.01.2021.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00000.80",
+      "answer": "0.8",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_FT-3_AITS-6%20JEE%20ADVANCED%20PAPER-1%2018.01.2021.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -88458,7 +88458,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_FT-3_AITS-6 JEE ADVANCED PAPER-2 18.01.2021.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "00000.80",
+      "answer": "0.8",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_FT-3_AITS-6%20JEE%20ADVANCED%20PAPER-2%2018.01.2021.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -89646,7 +89646,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_FT-7_AITS-13 JEE ADVANCED PAPER-1 30.05.2021.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00024.00",
+      "answer": "24",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_FT-7_AITS-13%20JEE%20ADVANCED%20PAPER-1%2030.05.2021.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -90042,7 +90042,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_FT-7_AITS-13 JEE ADVANCED PAPER-2 30.05.2021.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "00024.00",
+      "answer": "24",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_FT-7_AITS-13%20JEE%20ADVANCED%20PAPER-2%2030.05.2021.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -90438,7 +90438,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_FT-8_AITS-14 JEE ADVANCED PAPER-1 04.09.2021.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00001.50",
+      "answer": "1.5",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_FT-8_AITS-14%20JEE%20ADVANCED%20PAPER-1%2004.09.2021.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -90834,7 +90834,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_FT-8_AITS-14 JEE ADVANCED PAPER-2 04.09.2021.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "00001.50",
+      "answer": "1.5",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_FT-8_AITS-14%20JEE%20ADVANCED%20PAPER-2%2004.09.2021.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -91230,7 +91230,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_FT-9_AITS-16 JEE ADVANCED PAPER-1 11.09.2021.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00011.00",
+      "answer": "11",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_FT-9_AITS-16%20JEE%20ADVANCED%20PAPER-1%2011.09.2021.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -91626,7 +91626,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_FT-9_AITS-16 JEE ADVANCED PAPER-2 11.09.2021.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "00011.00",
+      "answer": "11",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_FT-9_AITS-16%20JEE%20ADVANCED%20PAPER-2%2011.09.2021.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -92792,7 +92792,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_OT-2_AITS-15 JEE ADVANCED PAPER-1 21.03.2021.zip",
       "questionNumber": 49,
       "section": 2,
-      "answer": "00011.11",
+      "answer": "11.11",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_OT-2_AITS-15%20JEE%20ADVANCED%20PAPER-1%2021.03.2021.zip#sol_Mathematics%20Section%202__--__49__--__1.png"
       ]
@@ -92814,7 +92814,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_OT-2_AITS-15 JEE ADVANCED PAPER-1 21.03.2021.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00002.83",
+      "answer": "2.83",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_OT-2_AITS-15%20JEE%20ADVANCED%20PAPER-1%2021.03.2021.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -93188,7 +93188,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_OT-2_AITS-15 JEE ADVANCED PAPER-2 21.03.2021.zip",
       "questionNumber": 49,
       "section": 2,
-      "answer": "00011.11",
+      "answer": "11.11",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_OT-2_AITS-15%20JEE%20ADVANCED%20PAPER-2%2021.03.2021.zip#sol_Mathematics%20Section%202__--__49__--__1.png"
       ]
@@ -93210,7 +93210,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_OT-2_AITS-15 JEE ADVANCED PAPER-2 21.03.2021.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00002.83",
+      "answer": "2.83",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_OT-2_AITS-15%20JEE%20ADVANCED%20PAPER-2%2021.03.2021.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -93584,7 +93584,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_PT-1_AITS-1 JEE ADVANCED PAPER-1 06.12.2020.zip",
       "questionNumber": 49,
       "section": 2,
-      "answer": "00000.00",
+      "answer": "0",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_PT-1_AITS-1%20JEE%20ADVANCED%20PAPER-1%2006.12.2020.zip#sol_Mathematics%20Section%202__--__49__--__1.png"
       ]
@@ -93606,7 +93606,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_PT-1_AITS-1 JEE ADVANCED PAPER-1 06.12.2020.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00012.50",
+      "answer": "12.5",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_PT-1_AITS-1%20JEE%20ADVANCED%20PAPER-1%2006.12.2020.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -93980,7 +93980,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_PT-1_AITS-1 JEE ADVANCED PAPER-2 06.12.2020.zip",
       "questionNumber": 49,
       "section": 3,
-      "answer": "00000.00",
+      "answer": "0",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_PT-1_AITS-1%20JEE%20ADVANCED%20PAPER-2%2006.12.2020.zip#sol_Mathematics%20Section%203__--__49__--__1.png"
       ]
@@ -94002,7 +94002,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_PT-1_AITS-1 JEE ADVANCED PAPER-2 06.12.2020.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "00012.50",
+      "answer": "12.5",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_PT-1_AITS-1%20JEE%20ADVANCED%20PAPER-2%2006.12.2020.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -94376,7 +94376,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_PT-2_AITS-2 JEE Advanced Paper-1 13.12.2020.zip",
       "questionNumber": 49,
       "section": 2,
-      "answer": "00065.72",
+      "answer": "65.72",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_PT-2_AITS-2%20JEE%20Advanced%20Paper-1%2013.12.2020.zip#sol_Mathematics%20Section%202__--__49__--__1.png"
       ]
@@ -94398,7 +94398,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_PT-2_AITS-2 JEE Advanced Paper-1 13.12.2020.zip",
       "questionNumber": 50,
       "section": 2,
-      "answer": "00001.34",
+      "answer": "1.34",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_PT-2_AITS-2%20JEE%20Advanced%20Paper-1%2013.12.2020.zip#sol_Mathematics%20Section%202__--__50__--__1.png"
       ]
@@ -94772,7 +94772,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_PT-2_AITS-2 JEE Advanced Paper-2 13.12.2020.zip",
       "questionNumber": 49,
       "section": 3,
-      "answer": "00065.72",
+      "answer": "65.72",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_PT-2_AITS-2%20JEE%20Advanced%20Paper-2%2013.12.2020.zip#sol_Mathematics%20Section%203__--__49__--__1.png"
       ]
@@ -94794,7 +94794,7 @@
       "zipName": "FIITJEE AITS 2021 (64 TP)_PT-2_AITS-2 JEE Advanced Paper-2 13.12.2020.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "00001.34",
+      "answer": "1.34",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202021%20%2864%20TP%29_PT-2_AITS-2%20JEE%20Advanced%20Paper-2%2013.12.2020.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -95916,7 +95916,7 @@
       "zipName": "FIITJEE AITS 2022 (21M+18A)_AITS OT-2_AITS OT-2 JEE ADV PAPER-1 20.03.2022.zip",
       "questionNumber": 49,
       "section": 3,
-      "answer": "77",
+      "answer": null,
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202022%20%2821M%2B18A%29_AITS%20OT-2_AITS%20OT-2%20JEE%20ADV%20PAPER-1%2020.03.2022.zip#sol_Mathematics%20Section%203__--__49__--__1.png"
       ]
@@ -96394,7 +96394,7 @@
       "zipName": "FIITJEE AITS 2022 (21M+18A)_AITS OT-2_AITS OT-2 JEE ADV PAPER-2 20.03.2022.zip",
       "questionNumber": 49,
       "section": 3,
-      "answer": "77",
+      "answer": null,
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202022%20%2821M%2B18A%29_AITS%20OT-2_AITS%20OT-2%20JEE%20ADV%20PAPER-2%2020.03.2022.zip#sol_Mathematics%20Section%203__--__49__--__1.png"
       ]
@@ -97727,7 +97727,7 @@
       "zipName": "FIITJEE AITS 2022 (42TP)_J12 (12)_AITS-2122-FT-II-JEEA-04-01-2022-PDF_AITS-2122-FT-II-JEEA-LD-PAPER-1.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "3"
+      "answer": "50"
     },
     {
       "id": "q_FIITJEE_AITS_2022_42TP_J12_12_AITS_2122_FT_II_JEEA_04_01_2022_PDF_AITS_2122_FT_II_JEEA_LD_PAPER_1_Mathematics_Section_3_51_1",
@@ -98169,7 +98169,7 @@
       "zipName": "FIITJEE AITS 2022 (42TP)_J12 (12)_AITS-2122-FT-II-JEEA-04-01-2022-PDF_AITS-2122-FT-II-JEEA-LD-PAPER-2.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "4"
+      "answer": "50"
     },
     {
       "id": "q_FIITJEE_AITS_2022_42TP_J12_12_AITS_2122_FT_II_JEEA_04_01_2022_PDF_AITS_2122_FT_II_JEEA_LD_PAPER_2_Mathematics_Section_3_51_1",
@@ -98566,7 +98566,7 @@
       "zipName": "FIITJEE AITS 2022 (42TP)_J12 (13)_AITS-2122-OT-I-JEEA-TD-23-01-2021_AITS-2122-OT-I-JEEA-Paper-1.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "6",
+      "answer": "50",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202022%20%2842TP%29_J12%20%2813%29_AITS-2122-OT-I-JEEA-TD-23-01-2021_AITS-2122-OT-I-JEEA-Paper-1.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -99029,7 +99029,7 @@
       "zipName": "FIITJEE AITS 2022 (42TP)_J12 (13)_AITS-2122-OT-I-JEEA-TD-23-01-2021_AITS-2122-OT-I-JEEA-Paper-2.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "1",
+      "answer": "50",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202022%20%2842TP%29_J12%20%2813%29_AITS-2122-OT-I-JEEA-TD-23-01-2021_AITS-2122-OT-I-JEEA-Paper-2.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -99438,7 +99438,7 @@
       "zipName": "FIITJEE AITS 2022 (42TP)_J12 (14)_AITS-2122-FT-III-JEEA-LD-18-01-2021-PDF_AITS-2122-FT-III-JEEA-Paper-1.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "8",
+      "answer": "50",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202022%20%2842TP%29_J12%20%2814%29_AITS-2122-FT-III-JEEA-LD-18-01-2021-PDF_AITS-2122-FT-III-JEEA-Paper-1.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -99910,7 +99910,7 @@
       "zipName": "FIITJEE AITS 2022 (42TP)_J12 (14)_AITS-2122-FT-III-JEEA-LD-18-01-2021-PDF_AITS-2122-FT-III-JEEA-Paper-2.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "2",
+      "answer": "50",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202022%20%2842TP%29_J12%20%2814%29_AITS-2122-FT-III-JEEA-LD-18-01-2021-PDF_AITS-2122-FT-III-JEEA-Paper-2.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -100325,7 +100325,7 @@
       "zipName": "FIITJEE AITS 2022 (42TP)_J12 (15)_AITS-2122-FT-IV-JEEA-LD-18-01-2022-PDF_AITS-2122-FT-IV-JEEA-Paper-1.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "3",
+      "answer": "50",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202022%20%2842TP%29_J12%20%2815%29_AITS-2122-FT-IV-JEEA-LD-18-01-2022-PDF_AITS-2122-FT-IV-JEEA-Paper-1.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -100794,7 +100794,7 @@
       "zipName": "FIITJEE AITS 2022 (42TP)_J12 (15)_AITS-2122-FT-IV-JEEA-LD-18-01-2022-PDF_AITS-2122-FT-IV-JEEA-Paper-2.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "3",
+      "answer": "50",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202022%20%2842TP%29_J12%20%2815%29_AITS-2122-FT-IV-JEEA-LD-18-01-2022-PDF_AITS-2122-FT-IV-JEEA-Paper-2.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -102086,7 +102086,7 @@
       "zipName": "FIITJEE AITS 2022 (42TP)_J12 (22)_AITS-2122-OT-II-JEEA-TD-20-03-2022-PDF_AITS-2122-OT-II-JEEA-Paper-1.zip",
       "questionNumber": 49,
       "section": 3,
-      "answer": "77",
+      "answer": null,
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202022%20%2842TP%29_J12%20%2822%29_AITS-2122-OT-II-JEEA-TD-20-03-2022-PDF_AITS-2122-OT-II-JEEA-Paper-1.zip#sol_Mathematics%20Section%203__--__49__--__1.png"
       ]
@@ -102718,7 +102718,7 @@
       "zipName": "FIITJEE AITS 2022 (42TP)_J12 (22)_AITS-2122-OT-II-JEEA-TD-20-03-2022-PDF_AITS-2122-OT-II-JEEA-Paper-2.zip",
       "questionNumber": 56,
       "section": 4,
-      "answer": "14.48",
+      "answer": "84",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202022%20%2842TP%29_J12%20%2822%29_AITS-2122-OT-II-JEEA-TD-20-03-2022-PDF_AITS-2122-OT-II-JEEA-Paper-2.zip#sol_Mathematics%20Section%204__--__56__--__1.png"
       ]
@@ -105202,7 +105202,7 @@
       "id": "q_FIITJEE_AITS_2022_42TP_J12_36_AITS_2122_CRT_III_JEEA_LD_31_07_2022_PDF_AITS_2122_CRT_III_JEEA_LD_Paper_2_Mathematics_Section_2_48_1",
       "subject": "Mathematics",
       "chapter": "Application of Derivatives",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
       "images": [
@@ -105215,7 +105215,7 @@
       "zipName": "FIITJEE AITS 2022 (42TP)_J12 (36)_AITS-2122-CRT-III-JEEA-LD-31-07-2022-PDF_AITS-2122-CRT-III-JEEA-LD-Paper-2.zip",
       "questionNumber": 48,
       "section": 2,
-      "answer": "B",
+      "answer": "3",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202022%20%2842TP%29_J12%20%2836%29_AITS-2122-CRT-III-JEEA-LD-31-07-2022-PDF_AITS-2122-CRT-III-JEEA-LD-Paper-2.zip#sol_Mathematics%20Section%202__--__48__--__1.png"
       ],
@@ -105846,7 +105846,7 @@
       "zipName": "FIITJEE AITS 2022 (42TP)_J12 (37)_AITS-2122-CRT-IV-JEEA-LD-31-07-2022-PDF_AITS-2122-CRT-IV-JEEA-LD-Paper-1.zip",
       "questionNumber": 57,
       "section": 4,
-      "answer": "0.50",
+      "answer": "0.5",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202022%20%2842TP%29_J12%20%2837%29_AITS-2122-CRT-IV-JEEA-LD-31-07-2022-PDF_AITS-2122-CRT-IV-JEEA-LD-Paper-1.zip#sol_Mathematics%20Section%204__--__57__--__1.png"
       ]
@@ -107053,7 +107053,7 @@
       "id": "q_FIITJEE_AITS_2022_42TP_J12_38_AITS_2122_FT_VII_JEEA_TD_07_08_2022_AITS_2122_FT_VII_JEEA_Paper_2_Mathematics_Section_3_50_1",
       "subject": "Mathematics",
       "chapter": "Complex Numbers",
-      "type": "single",
+      "type": "numerical",
       "question": "",
       "options": null,
       "images": [
@@ -107066,7 +107066,7 @@
       "zipName": "FIITJEE AITS 2022 (42TP)_J12 (38)_AITS-2122-FT-VII-JEEA-TD-07-08-2022_AITS-2122-FT-VII-JEEA-Paper-2.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "A",
+      "answer": "226",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202022%20%2842TP%29_J12%20%2838%29_AITS-2122-FT-VII-JEEA-TD-07-08-2022_AITS-2122-FT-VII-JEEA-Paper-2.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -107088,7 +107088,7 @@
       "zipName": "FIITJEE AITS 2022 (42TP)_J12 (38)_AITS-2122-FT-VII-JEEA-TD-07-08-2022_AITS-2122-FT-VII-JEEA-Paper-2.zip",
       "questionNumber": 51,
       "section": 3,
-      "answer": "50",
+      "answer": null,
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202022%20%2842TP%29_J12%20%2838%29_AITS-2122-FT-VII-JEEA-TD-07-08-2022_AITS-2122-FT-VII-JEEA-Paper-2.zip#sol_Mathematics%20Section%203__--__51__--__1.png"
       ]
@@ -111481,7 +111481,7 @@
       "zipName": "FIITJEE AITS 2022 (42TP)_J12 (42)_AITS-2122-FT-XI-JEEA-TD-23-08-2022-PDF_AITS-2122-FT-XI-JEEA-Paper-2.zip",
       "questionNumber": 49,
       "section": 3,
-      "answer": "10",
+      "answer": "4",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202022%20%2842TP%29_J12%20%2842%29_AITS-2122-FT-XI-JEEA-TD-23-08-2022-PDF_AITS-2122-FT-XI-JEEA-Paper-2.zip#sol_Mathematics%20Section%203__--__49__--__1.png"
       ]
@@ -111921,7 +111921,7 @@
       "zipName": "FIITJEE AITS 2022 (42TP)_J12 (6)_AITS-2122-PT-III-JEEA-TD-19-12-2021-F_AITS-2122-PT-III-JEEA-Paper-1.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "4",
+      "answer": "50",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202022%20%2842TP%29_J12%20%286%29_AITS-2122-PT-III-JEEA-TD-19-12-2021-F_AITS-2122-PT-III-JEEA-Paper-1.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -112390,7 +112390,7 @@
       "zipName": "FIITJEE AITS 2022 (42TP)_J12 (6)_AITS-2122-PT-III-JEEA-TD-19-12-2021-F_AITS-2122-PT-III-JEEA-Paper-2.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "139",
+      "answer": "50",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202022%20%2842TP%29_J12%20%286%29_AITS-2122-PT-III-JEEA-TD-19-12-2021-F_AITS-2122-PT-III-JEEA-Paper-2.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -112805,7 +112805,7 @@
       "zipName": "FIITJEE AITS 2022 (42TP)_J12 (9)_AITS-2122-FT-I-JEEA-LD-23-12-2021-PDF_AITS-2122-FT-I-JEEA-Paper-1.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "5",
+      "answer": "50",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202022%20%2842TP%29_J12%20%289%29_AITS-2122-FT-I-JEEA-LD-23-12-2021-PDF_AITS-2122-FT-I-JEEA-Paper-1.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -113280,7 +113280,7 @@
       "zipName": "FIITJEE AITS 2022 (42TP)_J12 (9)_AITS-2122-FT-I-JEEA-LD-23-12-2021-PDF_AITS-2122-FT-I-JEEA-Paper-2.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "3",
+      "answer": "50",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202022%20%2842TP%29_J12%20%289%29_AITS-2122-FT-I-JEEA-LD-23-12-2021-PDF_AITS-2122-FT-I-JEEA-Paper-2.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -113742,7 +113742,7 @@
       "zipName": "FIITJEE AITS 2023_Concept Recapitulation Test__JEE Advanced__AITS-2223-CRT-IV-JEEA-LD-Paper-1.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "8.00",
+      "answer": "8",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Concept%20Recapitulation%20Test__JEE%20Advanced__AITS-2223-CRT-IV-JEEA-LD-Paper-1.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -114072,7 +114072,7 @@
       "zipName": "FIITJEE AITS 2023_Concept Recapitulation Test__JEE Advanced__CRT - 1_AITS-2223-CRT-I-JEEA-LD-Paper-1.zip",
       "questionNumber": 47,
       "section": 3,
-      "answer": "12.00",
+      "answer": "12",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Concept%20Recapitulation%20Test__JEE%20Advanced__CRT%20-%201_AITS-2223-CRT-I-JEEA-LD-Paper-1.zip#sol_Mathematics%20Section%203__--__47__--__1.png"
       ]
@@ -114908,7 +114908,7 @@
       "zipName": "FIITJEE AITS 2023_Concept Recapitulation Test__JEE Advanced__CRT - 2_AITS-2223-CRT-II-JEEA-LD-Paper-1.zip",
       "questionNumber": 49,
       "section": 3,
-      "answer": "16.00",
+      "answer": "2",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Concept%20Recapitulation%20Test__JEE%20Advanced__CRT%20-%202_AITS-2223-CRT-II-JEEA-LD-Paper-1.zip#sol_Mathematics%20Section%203__--__49__--__1.png"
       ]
@@ -114930,7 +114930,7 @@
       "zipName": "FIITJEE AITS 2023_Concept Recapitulation Test__JEE Advanced__CRT - 2_AITS-2223-CRT-II-JEEA-LD-Paper-1.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "0.75",
+      "answer": "1",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Concept%20Recapitulation%20Test__JEE%20Advanced__CRT%20-%202_AITS-2223-CRT-II-JEEA-LD-Paper-1.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -115687,7 +115687,7 @@
       "id": "q_FIITJEE_AITS_2023_Concept_Recapitulation_Test_JEE_Advanced_CRT_3_AITS_2223_CRT_III_JEEA_LD_Paper_1_Mathematics_Section_3_49_1",
       "subject": "Mathematics",
       "chapter": "Matrices",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "images": [
@@ -115700,7 +115700,7 @@
       "zipName": "FIITJEE AITS 2023_Concept Recapitulation Test__JEE Advanced__CRT - 3_AITS-2223-CRT-III-JEEA-LD-Paper-1.zip",
       "questionNumber": 49,
       "section": 3,
-      "answer": "13.00",
+      "answer": "A",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Concept%20Recapitulation%20Test__JEE%20Advanced__CRT%20-%203_AITS-2223-CRT-III-JEEA-LD-Paper-1.zip#sol_Mathematics%20Section%203__--__49__--__1.png"
       ]
@@ -116844,7 +116844,7 @@
       "zipName": "FIITJEE AITS 2023_Full Test_JEE Advanced__FT - 1_AITS-2223-FT-I-JEEA-Paper-1-OFFLINE.zip",
       "questionNumber": 47,
       "section": 3,
-      "answer": "8.00",
+      "answer": "8",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Full%20Test_JEE%20Advanced__FT%20-%201_AITS-2223-FT-I-JEEA-Paper-1-OFFLINE.zip#sol_Mathematics%20Section%203__--__47__--__1.png"
       ]
@@ -117240,7 +117240,7 @@
       "zipName": "FIITJEE AITS 2023_Full Test_JEE Advanced__FT - 1_AITS-2223-FT-I-JEEA-Paper-2-OFFLINE.zip",
       "questionNumber": 47,
       "section": 3,
-      "answer": "8.00",
+      "answer": "8",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Full%20Test_JEE%20Advanced__FT%20-%201_AITS-2223-FT-I-JEEA-Paper-2-OFFLINE.zip#sol_Mathematics%20Section%203__--__47__--__1.png"
       ]
@@ -117636,7 +117636,7 @@
       "zipName": "FIITJEE AITS 2023_Full Test_JEE Advanced__FT - 10_AITS-2223-FT-X-JEEA-Paper-1.zip",
       "questionNumber": 47,
       "section": 3,
-      "answer": "8.00",
+      "answer": "8",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Full%20Test_JEE%20Advanced__FT%20-%2010_AITS-2223-FT-X-JEEA-Paper-1.zip#sol_Mathematics%20Section%203__--__47__--__1.png"
       ]
@@ -117702,7 +117702,7 @@
       "zipName": "FIITJEE AITS 2023_Full Test_JEE Advanced__FT - 10_AITS-2223-FT-X-JEEA-Paper-1.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "5.00",
+      "answer": "5",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Full%20Test_JEE%20Advanced__FT%20-%2010_AITS-2223-FT-X-JEEA-Paper-1.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -118428,7 +118428,7 @@
       "zipName": "FIITJEE AITS 2023_Full Test_JEE Advanced__FT - 11_AITS-2223-FT-XI-JEEA-TD-Paper-1-OFFLINE.zip",
       "questionNumber": 47,
       "section": 3,
-      "answer": "8.00",
+      "answer": "8",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Full%20Test_JEE%20Advanced__FT%20-%2011_AITS-2223-FT-XI-JEEA-TD-Paper-1-OFFLINE.zip#sol_Mathematics%20Section%203__--__47__--__1.png"
       ]
@@ -118824,7 +118824,7 @@
       "zipName": "FIITJEE AITS 2023_Full Test_JEE Advanced__FT - 11_AITS-2223-FT-XI-JEEA-TD-Paper-2-OFFLINE.zip",
       "questionNumber": 47,
       "section": 3,
-      "answer": "8.00",
+      "answer": "8",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Full%20Test_JEE%20Advanced__FT%20-%2011_AITS-2223-FT-XI-JEEA-TD-Paper-2-OFFLINE.zip#sol_Mathematics%20Section%203__--__47__--__1.png"
       ]
@@ -119220,7 +119220,7 @@
       "zipName": "FIITJEE AITS 2023_Full Test_JEE Advanced__FT - 2 - OT - 1_AITS-2223-OT-I-JEEA-TD-Paper-1-OFFLINE.zip",
       "questionNumber": 47,
       "section": 3,
-      "answer": "8.00",
+      "answer": "8",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Full%20Test_JEE%20Advanced__FT%20-%202%20-%20OT%20-%201_AITS-2223-OT-I-JEEA-TD-Paper-1-OFFLINE.zip#sol_Mathematics%20Section%203__--__47__--__1.png"
       ]
@@ -119616,7 +119616,7 @@
       "zipName": "FIITJEE AITS 2023_Full Test_JEE Advanced__FT - 2 - OT - 1_AITS-2223-OT-I-JEEA-TD-Paper-2-OFFLINE.zip",
       "questionNumber": 47,
       "section": 3,
-      "answer": "8.00",
+      "answer": "8",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Full%20Test_JEE%20Advanced__FT%20-%202%20-%20OT%20-%201_AITS-2223-OT-I-JEEA-TD-Paper-2-OFFLINE.zip#sol_Mathematics%20Section%203__--__47__--__1.png"
       ]
@@ -120012,7 +120012,7 @@
       "zipName": "FIITJEE AITS 2023_Full Test_JEE Advanced__FT - 3_AITS-2223-FT-III-JEEA-Paper-1-OFFLINE.zip",
       "questionNumber": 47,
       "section": 3,
-      "answer": "8.00",
+      "answer": "8",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Full%20Test_JEE%20Advanced__FT%20-%203_AITS-2223-FT-III-JEEA-Paper-1-OFFLINE.zip#sol_Mathematics%20Section%203__--__47__--__1.png"
       ]
@@ -120408,7 +120408,7 @@
       "zipName": "FIITJEE AITS 2023_Full Test_JEE Advanced__FT - 3_AITS-2223-FT-III-JEEA-Paper-2-OFFLINE.zip",
       "questionNumber": 47,
       "section": 3,
-      "answer": "8.00",
+      "answer": "8",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Full%20Test_JEE%20Advanced__FT%20-%203_AITS-2223-FT-III-JEEA-Paper-2-OFFLINE.zip#sol_Mathematics%20Section%203__--__47__--__1.png"
       ]
@@ -120804,7 +120804,7 @@
       "zipName": "FIITJEE AITS 2023_Full Test_JEE Advanced__FT - 4_AITS-2223-FT-IV-JEEA-Paper-1-OFFLINE.zip",
       "questionNumber": 47,
       "section": 3,
-      "answer": "8.00",
+      "answer": "8",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Full%20Test_JEE%20Advanced__FT%20-%204_AITS-2223-FT-IV-JEEA-Paper-1-OFFLINE.zip#sol_Mathematics%20Section%203__--__47__--__1.png"
       ]
@@ -121178,7 +121178,7 @@
       "zipName": "FIITJEE AITS 2023_Full Test_JEE Advanced__FT - 4_AITS-2223-FT-IV-JEEA-Paper-2-OFFLINE.zip",
       "questionNumber": 47,
       "section": 3,
-      "answer": "8.00",
+      "answer": "8",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Full%20Test_JEE%20Advanced__FT%20-%204_AITS-2223-FT-IV-JEEA-Paper-2-OFFLINE.zip#sol_Mathematics%20Section%203__--__47__--__1.png"
       ]
@@ -121574,7 +121574,7 @@
       "zipName": "FIITJEE AITS 2023_Full Test_JEE Advanced__FT - 5_AITS-2223-FT-V-JEEA-Paper-1-OFFLINE.zip",
       "questionNumber": 47,
       "section": 3,
-      "answer": "8.00",
+      "answer": "8",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Full%20Test_JEE%20Advanced__FT%20-%205_AITS-2223-FT-V-JEEA-Paper-1-OFFLINE.zip#sol_Mathematics%20Section%203__--__47__--__1.png"
       ]
@@ -121948,7 +121948,7 @@
       "zipName": "FIITJEE AITS 2023_Full Test_JEE Advanced__FT - 5_AITS-2223-FT-V-JEEA-Paper-2-OFFLINE.zip",
       "questionNumber": 47,
       "section": 3,
-      "answer": "8.00",
+      "answer": "8",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Full%20Test_JEE%20Advanced__FT%20-%205_AITS-2223-FT-V-JEEA-Paper-2-OFFLINE.zip#sol_Mathematics%20Section%203__--__47__--__1.png"
       ]
@@ -122344,7 +122344,7 @@
       "zipName": "FIITJEE AITS 2023_Full Test_JEE Advanced__FT - 6 - OT - 2_AITS-2223-OT-II-JEEA-TD-Paper-1.zip",
       "questionNumber": 47,
       "section": 3,
-      "answer": "200.00",
+      "answer": "200",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Full%20Test_JEE%20Advanced__FT%20-%206%20-%20OT%20-%202_AITS-2223-OT-II-JEEA-TD-Paper-1.zip#sol_Mathematics%20Section%203__--__47__--__1.png"
       ]
@@ -122397,7 +122397,7 @@
       "id": "q_FIITJEE_AITS_2023_Full_Test_JEE_Advanced_FT_6_OT_2_AITS_2223_OT_II_JEEA_TD_Paper_1_Mathematics_Section_3_50_1",
       "subject": "Mathematics",
       "chapter": "Probability",
-      "type": "numerical",
+      "type": "single",
       "question": "",
       "options": null,
       "images": [
@@ -122410,7 +122410,7 @@
       "zipName": "FIITJEE AITS 2023_Full Test_JEE Advanced__FT - 6 - OT - 2_AITS-2223-OT-II-JEEA-TD-Paper-1.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "0.49",
+      "answer": "B",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Full%20Test_JEE%20Advanced__FT%20-%206%20-%20OT%20-%202_AITS-2223-OT-II-JEEA-TD-Paper-1.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -123136,7 +123136,7 @@
       "zipName": "FIITJEE AITS 2023_Full Test_JEE Advanced__FT - 7_AITS-2223-FT-VII-JEEA-Paper-1-OFFLINE.zip",
       "questionNumber": 47,
       "section": 3,
-      "answer": "8.00",
+      "answer": "8",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Full%20Test_JEE%20Advanced__FT%20-%207_AITS-2223-FT-VII-JEEA-Paper-1-OFFLINE.zip#sol_Mathematics%20Section%203__--__47__--__1.png"
       ]
@@ -123466,7 +123466,7 @@
       "zipName": "FIITJEE AITS 2023_Full Test_JEE Advanced__FT - 7_AITS-2223-FT-VII-JEEA-Paper-2-OFFLINE.zip",
       "questionNumber": 47,
       "section": 3,
-      "answer": "8.00",
+      "answer": "8",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Full%20Test_JEE%20Advanced__FT%20-%207_AITS-2223-FT-VII-JEEA-Paper-2-OFFLINE.zip#sol_Mathematics%20Section%203__--__47__--__1.png"
       ]
@@ -123862,7 +123862,7 @@
       "zipName": "FIITJEE AITS 2023_Full Test_JEE Advanced__FT - 8_AITS-2223-FT-VIII-JEEA-Paper-1.zip",
       "questionNumber": 47,
       "section": 3,
-      "answer": "3.00",
+      "answer": "3",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Full%20Test_JEE%20Advanced__FT%20-%208_AITS-2223-FT-VIII-JEEA-Paper-1.zip#sol_Mathematics%20Section%203__--__47__--__1.png"
       ]
@@ -123884,7 +123884,7 @@
       "zipName": "FIITJEE AITS 2023_Full Test_JEE Advanced__FT - 8_AITS-2223-FT-VIII-JEEA-Paper-1.zip",
       "questionNumber": 48,
       "section": 3,
-      "answer": "10.50",
+      "answer": "10.5",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Full%20Test_JEE%20Advanced__FT%20-%208_AITS-2223-FT-VIII-JEEA-Paper-1.zip#sol_Mathematics%20Section%203__--__48__--__1.png"
       ]
@@ -123906,7 +123906,7 @@
       "zipName": "FIITJEE AITS 2023_Full Test_JEE Advanced__FT - 8_AITS-2223-FT-VIII-JEEA-Paper-1.zip",
       "questionNumber": 49,
       "section": 3,
-      "answer": "9.00",
+      "answer": "9",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Full%20Test_JEE%20Advanced__FT%20-%208_AITS-2223-FT-VIII-JEEA-Paper-1.zip#sol_Mathematics%20Section%203__--__49__--__1.png"
       ]
@@ -123928,7 +123928,7 @@
       "zipName": "FIITJEE AITS 2023_Full Test_JEE Advanced__FT - 8_AITS-2223-FT-VIII-JEEA-Paper-1.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "0.00",
+      "answer": "0",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Full%20Test_JEE%20Advanced__FT%20-%208_AITS-2223-FT-VIII-JEEA-Paper-1.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -124676,7 +124676,7 @@
       "zipName": "FIITJEE AITS 2023_Full Test_JEE Advanced__FT - 9_AITS-2223-FT-IX-JEEA-Paper-1.zip",
       "questionNumber": 48,
       "section": 3,
-      "answer": "4.25",
+      "answer": "64",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Full%20Test_JEE%20Advanced__FT%20-%209_AITS-2223-FT-IX-JEEA-Paper-1.zip#sol_Mathematics%20Section%203__--__48__--__1.png"
       ]
@@ -124720,7 +124720,7 @@
       "zipName": "FIITJEE AITS 2023_Full Test_JEE Advanced__FT - 9_AITS-2223-FT-IX-JEEA-Paper-1.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "5.00",
+      "answer": "5",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Full%20Test_JEE%20Advanced__FT%20-%209_AITS-2223-FT-IX-JEEA-Paper-1.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -125468,7 +125468,7 @@
       "zipName": "FIITJEE AITS 2023_Part Test__JEE Advanced__PT - 1_AITS-2223-PT-I-JEEA-TD-Paper-1.zip",
       "questionNumber": 48,
       "section": 3,
-      "answer": "5.00",
+      "answer": "5",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Part%20Test__JEE%20Advanced__PT%20-%201_AITS-2223-PT-I-JEEA-TD-Paper-1.zip#sol_Mathematics%20Section%203__--__48__--__1.png"
       ]
@@ -125490,7 +125490,7 @@
       "zipName": "FIITJEE AITS 2023_Part Test__JEE Advanced__PT - 1_AITS-2223-PT-I-JEEA-TD-Paper-1.zip",
       "questionNumber": 49,
       "section": 3,
-      "answer": "4.50",
+      "answer": "4.5",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Part%20Test__JEE%20Advanced__PT%20-%201_AITS-2223-PT-I-JEEA-TD-Paper-1.zip#sol_Mathematics%20Section%203__--__49__--__1.png"
       ]
@@ -126260,7 +126260,7 @@
       "zipName": "FIITJEE AITS 2023_Part Test__JEE Advanced__PT - 2_AITS-2223-PT-II-JEEA-TD-Paper-1.zip",
       "questionNumber": 48,
       "section": 3,
-      "answer": "1011.00",
+      "answer": "1011",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Part%20Test__JEE%20Advanced__PT%20-%202_AITS-2223-PT-II-JEEA-TD-Paper-1.zip#sol_Mathematics%20Section%203__--__48__--__1.png"
       ]
@@ -126304,7 +126304,7 @@
       "zipName": "FIITJEE AITS 2023_Part Test__JEE Advanced__PT - 2_AITS-2223-PT-II-JEEA-TD-Paper-1.zip",
       "questionNumber": 50,
       "section": 3,
-      "answer": "34937.00",
+      "answer": "34937",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Part%20Test__JEE%20Advanced__PT%20-%202_AITS-2223-PT-II-JEEA-TD-Paper-1.zip#sol_Mathematics%20Section%203__--__50__--__1.png"
       ]
@@ -127030,7 +127030,7 @@
       "zipName": "FIITJEE AITS 2023_Part Test__JEE Advanced__PT - 3_AITS-2223-PT-III-JEEA-Paper-1.zip",
       "questionNumber": 47,
       "section": 3,
-      "answer": "95.00",
+      "answer": "95",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Part%20Test__JEE%20Advanced__PT%20-%203_AITS-2223-PT-III-JEEA-Paper-1.zip#sol_Mathematics%20Section%203__--__47__--__1.png"
       ]
@@ -127052,7 +127052,7 @@
       "zipName": "FIITJEE AITS 2023_Part Test__JEE Advanced__PT - 3_AITS-2223-PT-III-JEEA-Paper-1.zip",
       "questionNumber": 48,
       "section": 3,
-      "answer": "81.00",
+      "answer": "81",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Part%20Test__JEE%20Advanced__PT%20-%203_AITS-2223-PT-III-JEEA-Paper-1.zip#sol_Mathematics%20Section%203__--__48__--__1.png"
       ]
@@ -127074,7 +127074,7 @@
       "zipName": "FIITJEE AITS 2023_Part Test__JEE Advanced__PT - 3_AITS-2223-PT-III-JEEA-Paper-1.zip",
       "questionNumber": 49,
       "section": 3,
-      "answer": "220.00",
+      "answer": "220",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202023_Part%20Test__JEE%20Advanced__PT%20-%203_AITS-2223-PT-III-JEEA-Paper-1.zip#sol_Mathematics%20Section%203__--__49__--__1.png"
       ]
@@ -131142,7 +131142,7 @@
       "zipName": "FIITJEE AITS 2024_Full Tests & Open Tests_FT I_AITS-2324-FT-I-JEEA-LD-28-12-2023-OFFLINE_AITS-2324-FT-I-JEEA-Paper-1-OFFLINE.zip",
       "questionNumber": 51,
       "section": 4,
-      "answer": "72",
+      "answer": null,
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20I_AITS-2324-FT-I-JEEA-LD-28-12-2023-OFFLINE_AITS-2324-FT-I-JEEA-Paper-1-OFFLINE.zip#sol_Mathematics%20Section%204__--__51__--__1.png"
       ]
@@ -131561,7 +131561,7 @@
       "zipName": "FIITJEE AITS 2024_Full Tests & Open Tests_FT I_AITS-2324-FT-I-JEEA-LD-28-12-2023-OFFLINE_AITS-2324-FT-I-JEEA-Paper-2-OFFLINE.zip",
       "questionNumber": 51,
       "section": 4,
-      "answer": "72",
+      "answer": null,
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20I_AITS-2324-FT-I-JEEA-LD-28-12-2023-OFFLINE_AITS-2324-FT-I-JEEA-Paper-2-OFFLINE.zip#sol_Mathematics%20Section%204__--__51__--__1.png"
       ],
@@ -131950,7 +131950,7 @@
       "zipName": "FIITJEE AITS 2024_Full Tests & Open Tests_FT III_AITS-2324-FT-III-JEEA-LD-08-02-2024-OFFLINE_AITS-2324-FT-III-JEEA-Paper-1-OFFLINE.zip",
       "questionNumber": 51,
       "section": 4,
-      "answer": "72",
+      "answer": null,
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20III_AITS-2324-FT-III-JEEA-LD-08-02-2024-OFFLINE_AITS-2324-FT-III-JEEA-Paper-1-OFFLINE.zip#sol_Mathematics%20Section%204__--__51__--__1.png"
       ]
@@ -132369,7 +132369,7 @@
       "zipName": "FIITJEE AITS 2024_Full Tests & Open Tests_FT III_AITS-2324-FT-III-JEEA-LD-08-02-2024-OFFLINE_AITS-2324-FT-III-JEEA-Paper-2-OFFLINE.zip",
       "questionNumber": 51,
       "section": 4,
-      "answer": "72",
+      "answer": null,
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20III_AITS-2324-FT-III-JEEA-LD-08-02-2024-OFFLINE_AITS-2324-FT-III-JEEA-Paper-2-OFFLINE.zip#sol_Mathematics%20Section%204__--__51__--__1.png"
       ],
@@ -132758,7 +132758,7 @@
       "zipName": "FIITJEE AITS 2024_Full Tests & Open Tests_FT IV_AITS-2324-FT-IV-JEEA-LD-08-02-2024-OFFLINE_AITS-2324-FT-IV-JEEA-Paper-1-OFFLINE.zip",
       "questionNumber": 51,
       "section": 4,
-      "answer": "72",
+      "answer": null,
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IV_AITS-2324-FT-IV-JEEA-LD-08-02-2024-OFFLINE_AITS-2324-FT-IV-JEEA-Paper-1-OFFLINE.zip#sol_Mathematics%20Section%204__--__51__--__1.png"
       ]
@@ -133177,7 +133177,7 @@
       "zipName": "FIITJEE AITS 2024_Full Tests & Open Tests_FT IV_AITS-2324-FT-IV-JEEA-LD-08-02-2024-OFFLINE_AITS-2324-FT-IV-JEEA-Paper-2-OFFLINE.zip",
       "questionNumber": 51,
       "section": 4,
-      "answer": "72",
+      "answer": null,
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IV_AITS-2324-FT-IV-JEEA-LD-08-02-2024-OFFLINE_AITS-2324-FT-IV-JEEA-Paper-2-OFFLINE.zip#sol_Mathematics%20Section%204__--__51__--__1.png"
       ],
@@ -133566,7 +133566,7 @@
       "zipName": "FIITJEE AITS 2024_Full Tests & Open Tests_FT IX_AITS-2324-FT-IX-JEEA-TD-12-05-2024-OFFLINE_AITS-2324-FT-IX-JEEA-Paper-1-OFFLINE.zip",
       "questionNumber": 51,
       "section": 4,
-      "answer": "72",
+      "answer": null,
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_AITS-2324-FT-IX-JEEA-TD-12-05-2024-OFFLINE_AITS-2324-FT-IX-JEEA-Paper-1-OFFLINE.zip#sol_Mathematics%20Section%204__--__51__--__1.png"
       ]
@@ -133985,7 +133985,7 @@
       "zipName": "FIITJEE AITS 2024_Full Tests & Open Tests_FT IX_AITS-2324-FT-IX-JEEA-TD-12-05-2024-OFFLINE_AITS-2324-FT-IX-JEEA-Paper-2-OFFLINE.zip",
       "questionNumber": 51,
       "section": 4,
-      "answer": "72",
+      "answer": null,
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_AITS-2324-FT-IX-JEEA-TD-12-05-2024-OFFLINE_AITS-2324-FT-IX-JEEA-Paper-2-OFFLINE.zip#sol_Mathematics%20Section%204__--__51__--__1.png"
       ],
@@ -134374,7 +134374,7 @@
       "zipName": "FIITJEE AITS 2024_Full Tests & Open Tests_FT V_AITS-2324-FT-V-JEEA-LD-08-02-2024-OFFLINE_AITS-2324-FT-V-JEEA-Paper-1-OFFLINE.zip",
       "questionNumber": 51,
       "section": 4,
-      "answer": "72",
+      "answer": null,
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20V_AITS-2324-FT-V-JEEA-LD-08-02-2024-OFFLINE_AITS-2324-FT-V-JEEA-Paper-1-OFFLINE.zip#sol_Mathematics%20Section%204__--__51__--__1.png"
       ]
@@ -135101,7 +135101,7 @@
       "zipName": "FIITJEE AITS 2024_Full Tests & Open Tests_FT VII_Advanced_AITS-2324-FT-VII-JEEA-Paper-1-OFFLINE-.zip",
       "questionNumber": 51,
       "section": 4,
-      "answer": "72",
+      "answer": null,
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Advanced_AITS-2324-FT-VII-JEEA-Paper-1-OFFLINE-.zip#sol_Mathematics%20Section%204__--__51__--__1.png"
       ]
@@ -135520,7 +135520,7 @@
       "zipName": "FIITJEE AITS 2024_Full Tests & Open Tests_FT VII_Advanced_AITS-2324-FT-VII-JEEA-Paper-2-OFFLINE.zip",
       "questionNumber": 51,
       "section": 4,
-      "answer": "72",
+      "answer": null,
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Advanced_AITS-2324-FT-VII-JEEA-Paper-2-OFFLINE.zip#sol_Mathematics%20Section%204__--__51__--__1.png"
       ],
@@ -135909,7 +135909,7 @@
       "zipName": "FIITJEE AITS 2024_Full Tests & Open Tests_FT VIII_AITS-2324-FT-VIII-JEEA-TD-05-05-2024-OFFLINE_AITS-2324-FT-VIII-JEEA-Paper-1-OFFLINE.zip",
       "questionNumber": 51,
       "section": 4,
-      "answer": "72",
+      "answer": null,
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_AITS-2324-FT-VIII-JEEA-TD-05-05-2024-OFFLINE_AITS-2324-FT-VIII-JEEA-Paper-1-OFFLINE.zip#sol_Mathematics%20Section%204__--__51__--__1.png"
       ]
@@ -136328,7 +136328,7 @@
       "zipName": "FIITJEE AITS 2024_Full Tests & Open Tests_FT VIII_AITS-2324-FT-VIII-JEEA-TD-05-05-2024-OFFLINE_AITS-2324-FT-VIII-JEEA-Paper-2-OFFLINE.zip",
       "questionNumber": 51,
       "section": 4,
-      "answer": "72",
+      "answer": null,
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_AITS-2324-FT-VIII-JEEA-TD-05-05-2024-OFFLINE_AITS-2324-FT-VIII-JEEA-Paper-2-OFFLINE.zip#sol_Mathematics%20Section%204__--__51__--__1.png"
       ],
@@ -136717,7 +136717,7 @@
       "zipName": "FIITJEE AITS 2024_Full Tests & Open Tests_FT X_AITS-2324-FT-X-JEEA-TD-15-05-2024-OFFLINE_AITS-2324-FT-X-JEEA-Paper-1-OFFLINE.zip",
       "questionNumber": 51,
       "section": 4,
-      "answer": "72",
+      "answer": null,
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_AITS-2324-FT-X-JEEA-TD-15-05-2024-OFFLINE_AITS-2324-FT-X-JEEA-Paper-1-OFFLINE.zip#sol_Mathematics%20Section%204__--__51__--__1.png"
       ]
@@ -137136,7 +137136,7 @@
       "zipName": "FIITJEE AITS 2024_Full Tests & Open Tests_FT X_AITS-2324-FT-X-JEEA-TD-15-05-2024-OFFLINE_AITS-2324-FT-X-JEEA-Paper-2-OFFLINE.zip",
       "questionNumber": 51,
       "section": 4,
-      "answer": "72",
+      "answer": null,
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_AITS-2324-FT-X-JEEA-TD-15-05-2024-OFFLINE_AITS-2324-FT-X-JEEA-Paper-2-OFFLINE.zip#sol_Mathematics%20Section%204__--__51__--__1.png"
       ],
@@ -137525,7 +137525,7 @@
       "zipName": "FIITJEE AITS 2024_Full Tests & Open Tests_FT XI_AITS-2324-FT-XI-JEEA-TD-19-05-2024-OFFLINE_AITS-2324-FT-XI-JEEA-Paper-1-OFFLINE.zip",
       "questionNumber": 51,
       "section": 4,
-      "answer": "72",
+      "answer": null,
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20XI_AITS-2324-FT-XI-JEEA-TD-19-05-2024-OFFLINE_AITS-2324-FT-XI-JEEA-Paper-1-OFFLINE.zip#sol_Mathematics%20Section%204__--__51__--__1.png"
       ]
@@ -137944,7 +137944,7 @@
       "zipName": "FIITJEE AITS 2024_Full Tests & Open Tests_FT XI_AITS-2324-FT-XI-JEEA-TD-19-05-2024-OFFLINE_AITS-2324-FT-XI-JEEA-Paper-2-OFFLINE.zip",
       "questionNumber": 51,
       "section": 4,
-      "answer": "72",
+      "answer": null,
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20XI_AITS-2324-FT-XI-JEEA-TD-19-05-2024-OFFLINE_AITS-2324-FT-XI-JEEA-Paper-2-OFFLINE.zip#sol_Mathematics%20Section%204__--__51__--__1.png"
       ],
@@ -138678,7 +138678,7 @@
       "zipName": "FIITJEE AITS 2024_Full Tests & Open Tests_OT I_AITS-2324-OT-I-JEEA-TD-04-02-2024-OFFLINE_AITS-2324-OT-I-JEEA-TD-Paper-2-OFFLINE.zip",
       "questionNumber": 49,
       "section": 4,
-      "answer": "8.00",
+      "answer": "7",
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_OT%20I_AITS-2324-OT-I-JEEA-TD-04-02-2024-OFFLINE_AITS-2324-OT-I-JEEA-TD-Paper-2-OFFLINE.zip#sol_Mathematics%20Section%204__--__49__--__1.png"
       ],
@@ -139141,7 +139141,7 @@
       "zipName": "FIITJEE AITS 2024_Full Tests & Open Tests_OT II_AITS-2324-OT-II-JEEA-Paper-1-OFFLINE-.zip",
       "questionNumber": 51,
       "section": 4,
-      "answer": "72",
+      "answer": null,
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_OT%20II_AITS-2324-OT-II-JEEA-Paper-1-OFFLINE-.zip#sol_Mathematics%20Section%204__--__51__--__1.png"
       ]
@@ -139560,7 +139560,7 @@
       "zipName": "FIITJEE AITS 2024_Full Tests & Open Tests_OT II_AITS-2324-OT-II-JEEA-Paper-2-OFFLINE.zip",
       "questionNumber": 51,
       "section": 4,
-      "answer": "72",
+      "answer": null,
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/solution_zips/SOLM__FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_OT%20II_AITS-2324-OT-II-JEEA-Paper-2-OFFLINE.zip#sol_Mathematics%20Section%204__--__51__--__1.png"
       ],
