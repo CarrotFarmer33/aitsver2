@@ -771,8 +771,8 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
         <div class="field"><label for="candName">Candidate name</label><input type="text" id="candName" placeholder="Your name" autocomplete="off"></div>
         <div id="subjWrap" hidden><h3>Subject</h3>
         <div class="chips" id="subjBox" role="group" aria-label="Subjects"></div></div>
-        <h3>Question type</h3>
-        <div class="chips" id="typeBox"></div>
+        <h3>Question type &amp; counts</h3>
+        <div id="typeBox" style="display:flex;flex-direction:column;gap:6px;margin:6px 0 12px"></div>
         <h3>Paper</h3>
         <div class="field"><select id="paperSel" aria-label="Paper"></select></div>
         <h3>Years</h3>
@@ -1002,12 +1002,36 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
             </div>
           </div>
 
-          <div class="field" style="margin-top:12px"><label>Question Types</label>
-            <div style="display:flex;flex-direction:column;gap:6px" id="tbTypesBox">
-              <label class="chk"><input type="checkbox" data-tbtype="single" checked> <span>Single Correct (MCQ)</span></label>
-              <label class="chk"><input type="checkbox" data-tbtype="multi" checked> <span>One or More Correct (MSQ)</span></label>
-              <label class="chk"><input type="checkbox" data-tbtype="numerical" checked> <span>Numerical / Integer (NAT)</span></label>
-              <label class="chk"><input type="checkbox" data-tbtype="paragraph" checked> <span>Comprehension / Paragraph</span></label>
+          <div class="field" style="margin-top:12px"><label>Question Types &amp; Counts</label>
+            <div style="display:flex;flex-direction:column;gap:8px" id="tbTypesBox">
+              <div class="tb-type-row" style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+                <label class="chk" style="display:inline-flex;align-items:center;gap:6px;margin:0;flex:1"><input type="checkbox" data-tbtype="single" checked> <span>Single Correct (MCQ)</span></label>
+                <div style="display:inline-flex;align-items:center;gap:4px">
+                  <input type="number" class="tb-type-cnt-in" data-tbtype-cnt="single" min="0" placeholder="Auto" style="width:68px;padding:3px 6px;font-size:12px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--fg);text-align:center" title="Specify how many Single Correct questions you need">
+                  <span class="muted" style="font-size:11px">Qs</span>
+                </div>
+              </div>
+              <div class="tb-type-row" style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+                <label class="chk" style="display:inline-flex;align-items:center;gap:6px;margin:0;flex:1"><input type="checkbox" data-tbtype="multi" checked> <span>One or More Correct (MSQ)</span></label>
+                <div style="display:inline-flex;align-items:center;gap:4px">
+                  <input type="number" class="tb-type-cnt-in" data-tbtype-cnt="multi" min="0" placeholder="Auto" style="width:68px;padding:3px 6px;font-size:12px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--fg);text-align:center" title="Specify how many Multiple Correct questions you need">
+                  <span class="muted" style="font-size:11px">Qs</span>
+                </div>
+              </div>
+              <div class="tb-type-row" style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+                <label class="chk" style="display:inline-flex;align-items:center;gap:6px;margin:0;flex:1"><input type="checkbox" data-tbtype="numerical" checked> <span>Numerical / Integer (NAT)</span></label>
+                <div style="display:inline-flex;align-items:center;gap:4px">
+                  <input type="number" class="tb-type-cnt-in" data-tbtype-cnt="numerical" min="0" placeholder="Auto" style="width:68px;padding:3px 6px;font-size:12px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--fg);text-align:center" title="Specify how many Numerical questions you need">
+                  <span class="muted" style="font-size:11px">Qs</span>
+                </div>
+              </div>
+              <div class="tb-type-row" style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+                <label class="chk" style="display:inline-flex;align-items:center;gap:6px;margin:0;flex:1"><input type="checkbox" data-tbtype="paragraph" checked> <span>Comprehension / Paragraph</span></label>
+                <div style="display:inline-flex;align-items:center;gap:4px">
+                  <input type="number" class="tb-type-cnt-in" data-tbtype-cnt="paragraph" min="0" placeholder="Auto" style="width:68px;padding:3px 6px;font-size:12px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--fg);text-align:center" title="Specify how many Comprehension questions you need">
+                  <span class="muted" style="font-size:11px">Qs</span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1272,7 +1296,7 @@ function extractList(raw){
 
 /* ---------- state ---------- */
 let DB=[], dbLabel='', dbSample=false, dbSkipped=0, dbNoKey=0;
-const cfg = {subjects:new Set(['Physics']), chapters:new Set(), types:new Set(Object.keys(TYPES)), paper:'all', years:new Set(), count:30, countAuto:true, minutes:90, minAuto:true, shuffle:false, unattFirst:store.get('aits_unatt')!=='0', preset:'adv', mode:'test'};
+const cfg = {subjects:new Set(['Physics']), chapters:new Set(), types:new Set(Object.keys(TYPES)), typeCounts:{single:null, multi:null, numerical:null, paragraph:null}, paper:'all', years:new Set(), count:30, countAuto:true, minutes:90, minAuto:true, shuffle:false, unattFirst:store.get('aits_unatt')!=='0', preset:'adv', mode:'test'};
 const ui = {mag:false, size:0, theme:(store.get('aits_xtheme')==='dark'?'dark':'light'), invert:store.get('aits_xinvert')==='1'};
 let T=null, timerId=null, lastResult=null;
 
@@ -1367,7 +1391,18 @@ function renderTypes(){
   const base=DB.filter(q=>paperOK(q) && cfg.chapters.has(q.subject+'||'+q.chapter));
   $('#typeBox').innerHTML = Object.keys(TYPES).map(k=>{
     const n=base.filter(q=>q.type===k).length;
-    return '<label class="chk'+(n?'':' zero')+'"><input type="checkbox" data-type="'+k+'"'+(cfg.types.has(k)?' checked':'')+'><span>'+TYPES[k]+'</span><span class="cnt">'+n+'</span></label>';
+    const val = (cfg.typeCounts && cfg.typeCounts[k] != null) ? cfg.typeCounts[k] : '';
+    return '<div class="type-row" style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:3px 0">' +
+      '<label class="chk'+(n?'':' zero')+'" style="display:inline-flex;align-items:center;gap:6px;margin:0;flex:1">' +
+        '<input type="checkbox" data-type="'+k+'"'+(cfg.types.has(k)?' checked':'')+'>' +
+        '<span>'+TYPES[k]+'</span>' +
+        '<span class="cnt">'+n+'</span>' +
+      '</label>' +
+      '<div style="display:inline-flex;align-items:center;gap:4px">' +
+        '<input type="number" class="type-cnt-in" data-type-cnt="'+k+'" min="0" max="'+n+'" placeholder="Auto" value="'+val+'" style="width:64px;padding:2px 6px;font-size:12px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--fg);text-align:center" title="Specify how many '+TYPES[k]+' questions you need">' +
+        '<span class="muted" style="font-size:11px">Qs</span>' +
+      '</div>' +
+    '</div>';
   }).join('');
 }
 const CHAPTER_SEGMENTS = [
@@ -1429,8 +1464,14 @@ function renderChapters(){
 function refreshSummary(){
   const n=pool().length;
   $('#sumAvail').textContent=n;
-  if(cfg.countAuto) cfg.count=Math.min(30,n);
-  cfg.count=Math.min(cfg.count,n);
+  const explicitSum = cfg.typeCounts ? Object.values(cfg.typeCounts).filter(v => v != null && v > 0).reduce((a, b) => a + b, 0) : 0;
+  if(explicitSum > 0){
+    cfg.count = Math.min(explicitSum, n);
+    cfg.countAuto = false;
+  } else {
+    if(cfg.countAuto) cfg.count=Math.min(30,n);
+    cfg.count=Math.min(cfg.count,n);
+  }
   if(cfg.minAuto) cfg.minutes=cfg.count*3;
   $('#cntIn').max=n; $('#cntIn').value=n?cfg.count:0; $('#minIn').value=cfg.minutes;
   $('#ordSel').value=cfg.shuffle?'shuf':'seq';
@@ -1535,6 +1576,72 @@ function today(){ return new Date().toLocaleDateString('en-GB',{day:'numeric',mo
 function startFromSetup(){
   const allPool = pool();
   if(!allPool.length) return;
+
+  const hasTypeCounts = Object.keys(TYPES).some(k => cfg.typeCounts && cfg.typeCounts[k] != null && cfg.typeCounts[k] > 0);
+
+  if(hasTypeCounts){
+    let picked = [];
+    const chosenTypes = Object.keys(TYPES).filter(t => cfg.types.has(t));
+    for(const t of chosenTypes){
+      const reqCount = cfg.typeCounts[t];
+      if(reqCount != null && reqCount > 0){
+        const tPool = allPool.filter(q => q.type === t);
+        const activeSubjs = [...new Set(tPool.map(q => q.subject))].sort((a,b) => subjRank(a) - subjRank(b) || a.localeCompare(b));
+        const perSubj = Math.max(1, Math.floor(reqCount / Math.max(1, activeSubjs.length)));
+        let rem = reqCount;
+        for(const s of activeSubjs){
+          if(rem <= 0) break;
+          let subList = tPool.filter(q => q.subject === s);
+          if(cfg.unattFirst){
+            let a = subList.filter(q => !ATT.has(q.id)), b = subList.filter(q => ATT.has(q.id));
+            if(cfg.shuffle){ shuffle(a); shuffle(b); }
+            subList = a.concat(b);
+          } else if(cfg.shuffle){
+            shuffle(subList);
+          }
+          const take = Math.min(perSubj, subList.length, rem);
+          picked = picked.concat(subList.slice(0, take));
+          rem -= take;
+        }
+        if(rem > 0){
+          for(const s of activeSubjs){
+            if(rem <= 0) break;
+            const subList = tPool.filter(q => q.subject === s && !picked.includes(q));
+            const take = Math.min(rem, subList.length);
+            picked = picked.concat(subList.slice(0, take));
+            rem -= take;
+          }
+        }
+      }
+    }
+
+    const unspecTypes = chosenTypes.filter(t => cfg.typeCounts[t] == null);
+    const targetTotal = cfg.count || picked.length;
+    let remTotal = Math.max(0, targetTotal - picked.length);
+    if(unspecTypes.length && remTotal > 0){
+      const perType = Math.max(1, Math.floor(remTotal / unspecTypes.length));
+      for(const t of unspecTypes){
+        if(remTotal <= 0) break;
+        const tPool = allPool.filter(q => q.type === t && !picked.includes(q));
+        let list = tPool.slice();
+        if(cfg.unattFirst){
+          let a = list.filter(q => !ATT.has(q.id)), b = list.filter(q => ATT.has(q.id));
+          if(cfg.shuffle){ shuffle(a); shuffle(b); }
+          list = a.concat(b);
+        } else if(cfg.shuffle){
+          shuffle(list);
+        }
+        const take = Math.min(perType, list.length, remTotal);
+        picked = picked.concat(list.slice(0, take));
+        remTotal -= take;
+      }
+    }
+
+    buildTest(picked, cfg.minutes, cfg.preset, 'AITS PRACTICE TEST ' + today() + ' CHAPTER-WISE');
+    renderInstr();
+    show('scrInstr');
+    return;
+  }
 
   // Group matching questions by subject
   const subjectPools = {};
@@ -1890,13 +1997,22 @@ function renderResult(){
    '<div class="kpis"><div class="kpi"><small>Score</small><b>'+R.score+' / '+R.max+'</b></div><div class="kpi"><small>Accuracy</small><b>'+R.acc+'%</b></div><div class="kpi"><small>Correct</small><b>'+R.ok+'</b></div><div class="kpi"><small>Attempted</small><b>'+R.att+' / '+T.qs.length+'</b></div><div class="kpi"><small>Time used</small><b>'+hms(R.used)+'</b></div></div>'+
    '<section class="card"><h2>By subject</h2><div class="scroll"><table>'+head.replace('__','Subject')+'<tbody>'+Object.keys(subj).map(k=>row(k,subj[k])).join('')+'</tbody></table></div></section>'+
    '<section class="card"><h2>By chapter, weakest first</h2><div class="scroll"><table>'+head.replace('__','Chapter')+'<tbody>'+chRows+'</tbody></table></div></section>'+
-   '<section><h2 style="margin:0 0 10px;font-size:17px">Review answers</h2><div class="rvbar" id="rvbar">'+[['all','All'],['ok','Correct'],['bad','Wrong'],['skip','Not attempted'],['mk','Marked for review']].map(f=>'<button class="btn sm" data-f="'+f[0]+'" aria-pressed="'+(f[0]==='all')+'" type="button">'+f[1]+'</button>').join('')+'</div><div id="rvList" style="display:flex;flex-direction:column;gap:12px;margin-top:12px"></div></section>';
+   '<section><h2 style="margin:0 0 10px;font-size:17px">Review answers</h2><div class="rvbar" id="rvbar">'+[['all','All'],['ok','Correct'],['bad','Wrong'],['skip','Not attempted'],['mk','Marked for review']].map(f=>'<button class="btn sm" data-f="'+f[0]+'" aria-pressed="'+(f[0]==='all')+'" type="button">'+f[1]+'</button>').join('')+'<button class="btn sm" id="btnToggleAllSols" type="button" style="margin-left:auto">Toggle All Solutions</button></div><div id="rvList" style="display:flex;flex-direction:column;gap:12px;margin-top:12px"></div></section>';
+  const tBtn = $('#btnToggleAllSols');
+  if(tBtn){
+    tBtn.onclick = () => {
+      const dets = $('#rvList').querySelectorAll('details.sol-details');
+      const anyOpen = Array.from(dets).some(d => d.open);
+      dets.forEach(d => { d.open = !anyOpen; });
+      tBtn.textContent = anyOpen ? 'Show All Solutions' : 'Hide All Solutions';
+    };
+  }
   renderReview('all');
 }
 function renderReview(f){
   const R=lastResult;
   if(!R) return;
-  $('#rvbar').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===f));
+  $('#rvbar').querySelectorAll('button[data-f]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===f));
   let html='';
   T.qs.forEach((q,i)=>{
     const r=(R.res&&R.res[i])||{r:'skip',marks:0}, s=T.st[i]||{ans:null,time:0};
@@ -1917,10 +2033,14 @@ function renderReview(f){
     }
     const isRpt=isQuestionReported(q.id);
     const secName = (T.secs && T.secOf && T.secs[T.secOf[i]]) ? T.secs[T.secOf[i]].name : (q.subject || '');
+    const hasSol = (q.solution && q.solution.length) || (q.solImages && q.solImages.length);
+    const solMarkup = hasSol ?
+      '<details class="sol-details" open><summary style="cursor:pointer;font-weight:600;margin-top:8px">Solution</summary><div style="margin-top:8px">'+rich(q.solution||'')+((q.solImages||[]).map(u=>imageMarkup(u,'Solution figure')).join(''))+'</div></details>' :
+      '<details class="sol-details" open><summary style="cursor:pointer;font-weight:600;margin-top:8px">Solution</summary><div class="muted" style="margin-top:8px;font-size:13px">Official Answer Key: <b>'+esc(keyText(q))+'</b><br><span style="opacity:0.8">Step-by-step worked solution image was not provided in the original paper archive.</span></div></details>';
     html+='<article class="rv r-'+r.r+'"><header><b>Q'+(i+1)+'</b><button class="bmb" data-bm="'+esc(q.id)+'" type="button" aria-pressed="'+BM.has(q.id)+'" title="Bookmark this question" aria-label="Bookmark this question">'+STAR+'</button><span>'+esc(secName)+'</span><span>'+esc(q.chapter||'')+'</span><span class="badge '+pc+'">'+label+(r.marks?' '+(r.marks>0?'+':'')+r.marks:'')+'</span><span>'+mmss(s.time||0)+'</span><button class="btn sm report-btn" data-rpt="'+esc(q.id)+'" type="button" style="margin-left:auto;display:inline-flex;align-items:center;gap:4px;padding:2px 8px;font-size:12px'+(isRpt?';color:#d32f2f;border-color:#d32f2f':'')+'" title="Report issue with this question">🚩 '+(isRpt?'Reported':'Report')+'</button></header>'+
       '<div class="qtext">'+rich(q.text||'')+'</div>'+(q.images||[]).map(u=>imageMarkup(u,'Question figure')).join('')+ob+
       '<div>Your answer: <b>'+esc(fmtAns(q,s.ans))+'</b> · Correct answer: <b>'+esc(keyText(q))+'</b></div>'+
-      (((q.solution&&q.solution.length)||(q.solImages&&q.solImages.length))?'<details><summary>Solution</summary><div style="margin-top:8px">'+rich(q.solution||'')+((q.solImages||[]).map(u=>imageMarkup(u,'Solution figure')).join(''))+'</div></details>':'')+'</article>';
+      solMarkup+'</article>';
   });
   $('#rvList').innerHTML=html||'<div class="muted">Nothing to show for this filter.</div>';
   try {
@@ -1943,7 +2063,7 @@ const svCard=q=>{
   return '<article class="rv"><header><span>'+esc(QTS[q.type]||q.type)+'</span><span>'+esc(q.paper==='main'?'JEE Main':'JEE Advanced')+(q.year?' '+esc(q.year):'')+'</span><span>'+esc(q.paperTitle||'')+'</span><span style="margin-left:auto;display:inline-flex;gap:6px"><button class="btn sm report-btn" data-rpt="'+esc(q.id)+'" type="button" style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;font-size:12px'+(isQuestionReported(q.id)?';color:#d32f2f;border-color:#d32f2f':'')+'" title="Report issue with this question">🚩 '+(isQuestionReported(q.id)?'Reported':'Report')+'</button><button class="btn sm" data-svrm="'+esc(q.id)+'" type="button">Remove</button></span></header>'+
     '<div class="qtext">'+rich(q.text)+'</div>'+q.images.map(u=>imageMarkup(u,'Question figure')).join('')+ob+
     '<div>Correct answer: <b>'+esc(keyText(q))+'</b></div>'+
-    ((q.solution||q.solImages.length)?'<details><summary>Solution</summary><div style="margin-top:8px">'+rich(q.solution)+q.solImages.map(u=>imageMarkup(u,'Solution figure')).join('')+'</div></details>':'')+'</article>';
+    ((q.solution||q.solImages.length)?'<details open><summary style="cursor:pointer;font-weight:600;margin-top:8px">Solution</summary><div style="margin-top:8px">'+rich(q.solution)+q.solImages.map(u=>imageMarkup(u,'Solution figure')).join('')+'</div></details>':'<details open><summary style="cursor:pointer;font-weight:600;margin-top:8px">Solution</summary><div class="muted" style="margin-top:8px;font-size:13px">Official Answer Key: <b>'+esc(keyText(q))+'</b><br><span style="opacity:0.8">Step-by-step worked solution image was not provided in the original paper archive.</span></div></details>')+'</article>';
 };
 function svOrder(subj,ch){ const segs=SEGMENTS[subj]||[]; let n=0; for(const g of segs){ const i=g.chapters.indexOf(ch); if(i>=0) return n+i; n+=g.chapters.length; } return 9999; }
 function svPick(){ const all=svAll(); if(!all.some(q=>q.subject===svSubj)){ const s=SUBJ.find(x=>all.some(q=>q.subject===x)); if(s) svSubj=s; } }
@@ -2286,7 +2406,41 @@ document.addEventListener('change',e=>{
     if(cfg.subjects.has(t.value)) all.forEach(k=>cfg.chapters.add(k)); else all.forEach(k=>cfg.chapters.delete(k));
     cfg.paper='all'; cfg.countAuto=true; cfg.minAuto=true; $('#chSearch').value=''; renderSetup();
   }
-  else if(t.matches('#typeBox input')){ t.checked?cfg.types.add(t.dataset.type):cfg.types.delete(t.dataset.type); renderYears(); renderChapters(); refreshSummary(); }
+  else if(t.matches('#typeBox input[type="checkbox"][data-type]')){
+    if(t.checked){
+      cfg.types.add(t.dataset.type);
+    } else {
+      cfg.types.delete(t.dataset.type);
+      if(cfg.typeCounts) cfg.typeCounts[t.dataset.type] = null;
+      const cntBox = document.querySelector(`#typeBox input[data-type-cnt="${t.dataset.type}"]`);
+      if(cntBox) cntBox.value = '';
+    }
+    renderYears(); renderChapters(); refreshSummary();
+  }
+  else if(t.matches('#typeBox input[data-type-cnt]')){
+    const k = t.dataset.typeCnt;
+    const val = parseInt(t.value, 10);
+    if(!isNaN(val) && val > 0){
+      cfg.typeCounts[k] = val;
+      cfg.types.add(k);
+      const cb = document.querySelector(`#typeBox input[data-type="${k}"]`);
+      if(cb) cb.checked = true;
+    } else {
+      cfg.typeCounts[k] = null;
+      if(t.value === '0'){
+        cfg.types.delete(k);
+        const cb = document.querySelector(`#typeBox input[data-type="${k}"]`);
+        if(cb) cb.checked = false;
+      }
+    }
+    const sum = Object.values(cfg.typeCounts).filter(v => v != null).reduce((a, b) => a + b, 0);
+    if(sum > 0){
+      cfg.count = sum;
+      cfg.countAuto = false;
+      $('#cntIn').value = sum;
+    }
+    refreshSummary();
+  }
   else if(t.matches('#yearBox input')){ t.checked?cfg.years.add(t.dataset.year):cfg.years.delete(t.dataset.year); refreshAll(); }
   else if(t.matches('#chapList input[data-ch]')){ t.checked?cfg.chapters.add(t.dataset.ch):cfg.chapters.delete(t.dataset.ch); refreshAll(); }
   else if(t.matches('#chapList input[data-segment]')){
@@ -2419,8 +2573,9 @@ document.addEventListener('click',e=>{
         const isMains = (cb.dataset.tbtype === 'single' || cb.dataset.tbtype === 'numerical');
         cb.checked = isMains;
         cb.disabled = !isMains;
-        cb.parentElement.style.opacity = isMains ? '1' : '0.4';
-        cb.parentElement.style.pointerEvents = isMains ? 'auto' : 'none';
+        const row = cb.closest('.tb-type-row') || cb.parentElement;
+        row.style.opacity = isMains ? '1' : '0.4';
+        row.style.pointerEvents = isMains ? 'auto' : 'none';
       });
       const activeCount = Math.max(1, tbCfg.subjects.size);
       $('#tbCountIn').value = activeCount * 25;
@@ -2434,8 +2589,9 @@ document.addEventListener('click',e=>{
       document.querySelectorAll('#tbTypesBox input[data-tbtype]').forEach(cb => {
         cb.checked = true;
         cb.disabled = false;
-        cb.parentElement.style.opacity = '1';
-        cb.parentElement.style.pointerEvents = 'auto';
+        const row = cb.closest('.tb-type-row') || cb.parentElement;
+        row.style.opacity = '1';
+        row.style.pointerEvents = 'auto';
       });
     } else {
       tbCfg.paper = 'adv';
@@ -2446,8 +2602,9 @@ document.addEventListener('click',e=>{
       document.querySelectorAll('#tbTypesBox input[data-tbtype]').forEach(cb => {
         cb.checked = true;
         cb.disabled = false;
-        cb.parentElement.style.opacity = '1';
-        cb.parentElement.style.pointerEvents = 'auto';
+        const row = cb.closest('.tb-type-row') || cb.parentElement;
+        row.style.opacity = '1';
+        row.style.pointerEvents = 'auto';
       });
       if(!$('#tbCountIn').value || +$('#tbCountIn').value === 90){
         $('#tbCountIn').value = 54;
@@ -2589,11 +2746,65 @@ document.addEventListener('change', e => {
 });
 $('#tbTypesBox').addEventListener('change', e => {
   const cb = e.target.closest('input[data-tbtype]');
-  if(!cb) return;
-  if(cb.checked) tbCfg.types.add(cb.dataset.tbtype);
-  else tbCfg.types.delete(cb.dataset.tbtype);
-  renderBuilderChapters();
-  refreshBuilderSummary();
+  if(cb){
+    if(cb.checked){
+      tbCfg.types.add(cb.dataset.tbtype);
+    } else {
+      tbCfg.types.delete(cb.dataset.tbtype);
+      if(tbCfg.typeCounts) tbCfg.typeCounts[cb.dataset.tbtype] = null;
+      const countInput = $(`#tbTypesBox input[data-tbtype-cnt="${cb.dataset.tbtype}"]`);
+      if(countInput) countInput.value = '';
+    }
+    renderBuilderChapters();
+    refreshBuilderSummary();
+    return;
+  }
+  const cntIn = e.target.closest('input[data-tbtype-cnt]');
+  if(cntIn){
+    const t = cntIn.dataset.tbtypeCnt;
+    const val = parseInt(cntIn.value, 10);
+    if(!isNaN(val) && val > 0){
+      tbCfg.typeCounts[t] = val;
+      tbCfg.types.add(t);
+      const cb = $(`#tbTypesBox input[data-tbtype="${t}"]`);
+      if(cb) cb.checked = true;
+    } else {
+      tbCfg.typeCounts[t] = null;
+      if(cntIn.value === '0'){
+        tbCfg.types.delete(t);
+        const cb = $(`#tbTypesBox input[data-tbtype="${t}"]`);
+        if(cb) cb.checked = false;
+      }
+    }
+    const sum = Object.values(tbCfg.typeCounts).filter(v => v != null).reduce((a, b) => a + b, 0);
+    if(sum > 0){
+      tbCfg.count = sum;
+      $('#tbCountIn').value = sum;
+    }
+    renderBuilderChapters();
+    refreshBuilderSummary();
+  }
+});
+$('#tbTypesBox').addEventListener('input', e => {
+  const cntIn = e.target.closest('input[data-tbtype-cnt]');
+  if(cntIn){
+    const t = cntIn.dataset.tbtypeCnt;
+    const val = parseInt(cntIn.value, 10);
+    if(!isNaN(val) && val > 0){
+      tbCfg.typeCounts[t] = val;
+      tbCfg.types.add(t);
+      const cb = $(`#tbTypesBox input[data-tbtype="${t}"]`);
+      if(cb) cb.checked = true;
+    } else {
+      tbCfg.typeCounts[t] = null;
+    }
+    const sum = Object.values(tbCfg.typeCounts).filter(v => v != null).reduce((a, b) => a + b, 0);
+    if(sum > 0){
+      tbCfg.count = sum;
+      $('#tbCountIn').value = sum;
+    }
+    refreshBuilderSummary();
+  }
 });
 $('#tbChapList').addEventListener('change', e => {
   const segCb = e.target.closest('input[data-tbsegment]');
@@ -2660,6 +2871,7 @@ const tbCfg = {
   subjects: new Set(['Physics', 'Chemistry', 'Mathematics']),
   chapters: new Set(),
   types: new Set(['single', 'multi', 'numerical', 'paragraph']),
+  typeCounts: { single: null, multi: null, numerical: null, paragraph: null },
   count: 30,
   distMode: 'balanced',
   optAnsKey: true,
@@ -2769,18 +2981,33 @@ function refreshBuilderSummary(){
   const avail = pool.length;
   $('#tbSumAvail').textContent = avail;
   $('#tbCountIn').max = avail;
-  if(tbCfg.count > avail && avail > 0) tbCfg.count = avail;
-  $('#tbCountIn').value = Math.min(tbCfg.count || 30, Math.max(avail, 1));
+  const explicitSum = tbCfg.typeCounts ? Object.values(tbCfg.typeCounts).filter(v => v != null && v > 0).reduce((a, b) => a + b, 0) : 0;
+  if(explicitSum > 0){
+    tbCfg.count = explicitSum;
+    $('#tbCountIn').value = explicitSum;
+  } else {
+    if(tbCfg.count > avail && avail > 0) tbCfg.count = avail;
+    $('#tbCountIn').value = Math.min(tbCfg.count || 30, Math.max(avail, 1));
+  }
 
   const ok = avail > 0;
   $('#btnGenSheet').disabled = !ok;
   $('#btnGenCbt').disabled = !ok;
   if(tbCfg.pattern === 'main'){
     const activeSubjs = ['Physics', 'Chemistry', 'Mathematics'].filter(s => tbCfg.subjects.has(s));
-    const reqTotal = activeSubjs.length * 25;
-    $('#tbStatusNote').textContent = 'JEE Main Pattern: Strictly 20 SCQ + 5 Numerical per subject (25 Qs/subj, ' + reqTotal + ' total Qs).';
+    if(explicitSum > 0){
+      $('#tbStatusNote').textContent = 'Custom counts: ' + (tbCfg.typeCounts.single || 'Auto') + ' SCQ, ' + (tbCfg.typeCounts.numerical || 'Auto') + ' NAT (' + explicitSum + ' total Qs).';
+    } else {
+      const reqTotal = activeSubjs.length * 25;
+      $('#tbStatusNote').textContent = 'JEE Main Pattern: Strictly 20 SCQ + 5 Numerical per subject (25 Qs/subj, ' + reqTotal + ' total Qs).';
+    }
   } else {
-    $('#tbStatusNote').textContent = ok ? (avail + ' questions match your criteria.') : 'Select at least one chapter and question type.';
+    if(explicitSum > 0){
+      const parts = Object.keys(tbCfg.typeCounts).filter(k => tbCfg.typeCounts[k] != null && tbCfg.typeCounts[k] > 0).map(k => tbCfg.typeCounts[k] + ' ' + (TYPES[k] || k));
+      $('#tbStatusNote').textContent = 'Custom pattern: ' + parts.join(', ') + ' (' + avail + ' available in pool).';
+    } else {
+      $('#tbStatusNote').textContent = ok ? (avail + ' questions match your criteria.') : 'Select at least one chapter and question type.';
+    }
   }
 }
 
@@ -2847,19 +3074,81 @@ function openBuilderScreen(){
 }
 
 function getSelectedBuilderQuestions(){
-  if(tbCfg.pattern === 'main'){
-    const activeSubjs = ['Physics', 'Chemistry', 'Mathematics'].filter(s => tbCfg.subjects.has(s));
-    if(!activeSubjs.length) return [];
+  const activeSubjs = ['Physics', 'Chemistry', 'Mathematics'].filter(s => tbCfg.subjects.has(s));
+  if(!activeSubjs.length) return [];
 
+  const unattFirst = $('#tbOptUnattFirst') ? $('#tbOptUnattFirst').checked : true;
+  const distMode = $('#tbDistMode') ? $('#tbDistMode').value : 'balanced';
+
+  function pickFrom(pool, count){
+    if(!pool.length || count <= 0) return [];
+    if(distMode === 'balanced'){
+      const byCh = {};
+      pool.forEach(q => { if(!byCh[q.chapter]) byCh[q.chapter] = []; byCh[q.chapter].push(q); });
+      const chs = Object.keys(byCh);
+      const perCh = Math.max(1, Math.floor(count / Math.max(1, chs.length)));
+      const chPools = {};
+      chs.forEach(k => {
+        let list = byCh[k].slice();
+        if(unattFirst){
+          const a = list.filter(q => !ATT.has(q.id)), b = list.filter(q => ATT.has(q.id));
+          shuffle(a); shuffle(b); list = a.concat(b);
+        } else {
+          shuffle(list);
+        }
+        chPools[k] = list;
+      });
+
+      let res = [], rem = count;
+      for(const k of chs){
+        if(rem <= 0) break;
+        const take = Math.min(perCh, chPools[k].length, rem);
+        res = res.concat(chPools[k].slice(0, take));
+        chPools[k] = chPools[k].slice(take);
+        rem -= take;
+      }
+      if(rem > 0){
+        for(const k of chs){
+          if(rem <= 0) break;
+          const take = Math.min(rem, chPools[k].length);
+          res = res.concat(chPools[k].slice(0, take));
+          chPools[k] = chPools[k].slice(take);
+          rem -= take;
+        }
+      }
+      return res;
+    } else {
+      let list = pool.slice();
+      if(unattFirst){
+        const a = list.filter(q => !ATT.has(q.id)), b = list.filter(q => ATT.has(q.id));
+        shuffle(a); shuffle(b); list = a.concat(b);
+      } else {
+        shuffle(list);
+      }
+      return list.slice(0, count);
+    }
+  }
+
+  const hasTypeCounts = tbCfg.typeCounts && Object.values(tbCfg.typeCounts).some(v => v != null && v > 0);
+
+  if(tbCfg.pattern === 'main'){
     const totalTarget = +($('#tbCountIn').value) || (activeSubjs.length * 25);
-    const perSubjTotal = Math.max(1, Math.floor(totalTarget / activeSubjs.length));
-    const perSubjScq = perSubjTotal === 25 ? 20 : Math.round(perSubjTotal * (20 / 25));
-    const perSubjNat = perSubjTotal === 25 ? 5 : Math.max(1, perSubjTotal - perSubjScq);
+    const hasExplicitScq = tbCfg.typeCounts && tbCfg.typeCounts.single != null && tbCfg.typeCounts.single > 0;
+    const hasExplicitNat = tbCfg.typeCounts && tbCfg.typeCounts.numerical != null && tbCfg.typeCounts.numerical > 0;
+
+    let perSubjScq, perSubjNat;
+    if(hasExplicitScq || hasExplicitNat){
+      const totalScq = hasExplicitScq ? tbCfg.typeCounts.single : Math.max(0, totalTarget - (hasExplicitNat ? tbCfg.typeCounts.numerical : 0));
+      const totalNat = hasExplicitNat ? tbCfg.typeCounts.numerical : Math.max(0, totalTarget - totalScq);
+      perSubjScq = Math.max(0, Math.floor(totalScq / activeSubjs.length));
+      perSubjNat = Math.max(0, Math.floor(totalNat / activeSubjs.length));
+    } else {
+      const perSubjTotal = Math.max(1, Math.floor(totalTarget / activeSubjs.length));
+      perSubjScq = perSubjTotal === 25 ? 20 : Math.round(perSubjTotal * (20 / 25));
+      perSubjNat = perSubjTotal === 25 ? 5 : Math.max(1, perSubjTotal - perSubjScq);
+    }
 
     let mainPicked = [];
-    const unattFirst = $('#tbOptUnattFirst').checked;
-    const distMode = $('#tbDistMode').value;
-
     for(const subj of activeSubjs){
       const subPool = DB.filter(q => {
         if(q.subject !== subj) return false;
@@ -2879,56 +3168,6 @@ function getSelectedBuilderQuestions(){
         return t === 'numerical' || t === 'nat';
       });
 
-      function pickFrom(pool, count){
-        if(!pool.length || count <= 0) return [];
-        if(distMode === 'balanced'){
-          const byCh = {};
-          pool.forEach(q => { if(!byCh[q.chapter]) byCh[q.chapter] = []; byCh[q.chapter].push(q); });
-          const chs = Object.keys(byCh);
-          const perCh = Math.max(1, Math.floor(count / chs.length));
-          const chPools = {};
-          chs.forEach(k => {
-            let list = byCh[k].slice();
-            if(unattFirst){
-              const a = list.filter(q => !ATT.has(q.id)), b = list.filter(q => ATT.has(q.id));
-              shuffle(a); shuffle(b); list = a.concat(b);
-            } else {
-              shuffle(list);
-            }
-            chPools[k] = list;
-          });
-
-          let res = [], rem = count;
-          for(const k of chs){
-            if(rem <= 0) break;
-            const take = Math.min(perCh, chPools[k].length, rem);
-            res = res.concat(chPools[k].slice(0, take));
-            chPools[k] = chPools[k].slice(take);
-            rem -= take;
-          }
-          if(rem > 0){
-            for(const k of chs){
-              if(rem <= 0) break;
-              const take = Math.min(rem, chPools[k].length);
-              res = res.concat(chPools[k].slice(0, take));
-              chPools[k] = chPools[k].slice(take);
-              rem -= take;
-            }
-          }
-          return res;
-        } else {
-          let list = pool.slice();
-          if(unattFirst){
-            const a = list.filter(q => !ATT.has(q.id)), b = list.filter(q => ATT.has(q.id));
-            shuffle(a); shuffle(b); list = a.concat(b);
-          } else {
-            shuffle(list);
-          }
-          return list.slice(0, count);
-        }
-      }
-
-      // Strictly pick 25 SCQ and 5 NAT
       const pickedScq = pickFrom(scqPool, perSubjScq);
       const pickedNat = pickFrom(natPool, perSubjNat);
 
@@ -2949,63 +3188,52 @@ function getSelectedBuilderQuestions(){
   if(!pool.length) return [];
 
   const targetCount = Math.min(+($('#tbCountIn').value) || 30, pool.length);
-  const unattFirst = $('#tbOptUnattFirst').checked;
-  const distMode = $('#tbDistMode').value;
-
-  // Group by chapter
-  const byChap = {};
-  pool.forEach(q => {
-    const k = q.subject + '||' + q.chapter;
-    if(!byChap[k]) byChap[k] = [];
-    byChap[k].push(q);
-  });
-  const chKeys = Object.keys(byChap);
 
   let picked = [];
-  if(distMode === 'balanced' && chKeys.length){
-    // Even distribution across chosen chapters
-    const perChap = Math.max(1, Math.floor(targetCount / chKeys.length));
-    const chPools = {};
-    chKeys.forEach(k => {
-      let list = byChap[k].slice();
-      if(unattFirst){
-        const a = list.filter(q => !ATT.has(q.id)), b = list.filter(q => ATT.has(q.id));
-        shuffle(a); shuffle(b); list = a.concat(b);
-      } else {
-        shuffle(list);
+  if(hasTypeCounts){
+    const chosenTypes = ['single', 'multi', 'numerical', 'paragraph'].filter(t => tbCfg.types.has(t));
+    for(const t of chosenTypes){
+      const reqCount = tbCfg.typeCounts[t];
+      if(reqCount != null && reqCount > 0){
+        const tPool = pool.filter(q => (q.rawType || q.type) === t || q.type === t);
+        const subjsWithPool = activeSubjs.filter(s => tPool.some(q => q.subject === s));
+        const numSubjs = Math.max(1, subjsWithPool.length);
+        const perSubj = Math.max(1, Math.floor(reqCount / numSubjs));
+        let rem = reqCount;
+        for(const s of subjsWithPool){
+          if(rem <= 0) break;
+          const sPool = tPool.filter(q => q.subject === s && !picked.includes(q));
+          const take = Math.min(perSubj, sPool.length, rem);
+          const subPicked = pickFrom(sPool, take);
+          picked = picked.concat(subPicked);
+          rem -= subPicked.length;
+        }
+        if(rem > 0){
+          for(const s of subjsWithPool){
+            if(rem <= 0) break;
+            const sPool = tPool.filter(q => q.subject === s && !picked.includes(q));
+            const take = Math.min(rem, sPool.length);
+            const subPicked = pickFrom(sPool, take);
+            picked = picked.concat(subPicked);
+            rem -= subPicked.length;
+          }
+        }
       }
-      chPools[k] = list;
-    });
-
-    let remaining = targetCount;
-    // Round 1: equal slice
-    for(const k of chKeys){
-      if(remaining <= 0) break;
-      const take = Math.min(perChap, chPools[k].length, remaining);
-      picked = picked.concat(chPools[k].slice(0, take));
-      chPools[k] = chPools[k].slice(take);
-      remaining -= take;
     }
-    // Round 2: leftover from remaining pools
-    if(remaining > 0){
-      for(const k of chKeys){
-        if(remaining <= 0) break;
-        const take = Math.min(remaining, chPools[k].length);
-        picked = picked.concat(chPools[k].slice(0, take));
-        chPools[k] = chPools[k].slice(take);
-        remaining -= take;
+    const unspecTypes = chosenTypes.filter(t => tbCfg.typeCounts[t] == null);
+    let remTotal = Math.max(0, targetCount - picked.length);
+    if(unspecTypes.length && remTotal > 0){
+      const perType = Math.max(1, Math.floor(remTotal / unspecTypes.length));
+      for(const t of unspecTypes){
+        if(remTotal <= 0) break;
+        const tPool = pool.filter(q => ((q.rawType || q.type) === t || q.type === t) && !picked.includes(q));
+        const subPicked = pickFrom(tPool, Math.min(perType, remTotal));
+        picked = picked.concat(subPicked);
+        remTotal -= subPicked.length;
       }
     }
   } else {
-    // Proportional or random
-    let list = pool.slice();
-    if(unattFirst){
-      const a = list.filter(q => !ATT.has(q.id)), b = list.filter(q => ATT.has(q.id));
-      shuffle(a); shuffle(b); list = a.concat(b);
-    } else {
-      shuffle(list);
-    }
-    picked = list.slice(0, targetCount);
+    picked = pickFrom(pool, targetCount);
   }
 
   // Sort picked questions into standard test sections
