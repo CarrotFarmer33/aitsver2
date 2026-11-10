@@ -3366,19 +3366,29 @@ async function buildCustomSheet(){
     const cloudEngine = (window.AITS_CONFIG && window.AITS_CONFIG.vectorEngineUrl) ? window.AITS_CONFIG.vectorEngineUrl.replace(/\/+$/, '') : '';
     const localEngine = (window.AITS_CONFIG && window.AITS_CONFIG.localVectorEngineUrl) ? window.AITS_CONFIG.localVectorEngineUrl.replace(/\/+$/, '') : 'http://localhost:8000';
 
-    // Prioritize local engine for instant (1-2s) generation without waiting for Render cold boot
+    // Fast probe to detect if local server is responsive
+    let isLocalUp = false;
+    try {
+      const probeCtrl = new AbortController();
+      const probeTid = setTimeout(() => probeCtrl.abort(), 1000);
+      const probeRes = await fetch(`${localEngine}/health`, { signal: probeCtrl.signal });
+      clearTimeout(probeTid);
+      if (probeRes.ok) isLocalUp = true;
+    } catch (_) {
+      isLocalUp = false;
+    }
+
     const candidateEndpoints = [];
+    if (isLocalUp) {
+      candidateEndpoints.push({ url: `${localEngine}/api/build-test`, type: 'local', label: 'Local Server' });
+    }
     if (isLocalhost) {
       candidateEndpoints.push({ url: '/api/build-test', type: 'local', label: 'Local Server' });
-    }
-    candidateEndpoints.push({ url: `${localEngine}/api/build-test`, type: 'local', label: 'Local Server (port 8000)' });
-    candidateEndpoints.push({ url: 'http://127.0.0.1:8000/api/build-test', type: 'local', label: 'Local Server (127.0.0.1:8000)' });
-    if (!isLocalhost) {
-      candidateEndpoints.push({ url: '/api/build-test', type: 'same-origin', label: 'Same-Origin API' });
     }
     if (cloudEngine) {
       candidateEndpoints.push({ url: `${cloudEngine}/api/build-test`, type: 'cloud', label: 'Cloud Engine (Render)' });
     }
+    candidateEndpoints.push({ url: `${localEngine}/api/build-test`, type: 'local', label: 'Local Server' });
 
     const seenUrls = new Set();
     const endpoints = candidateEndpoints.filter(ep => {
@@ -3396,13 +3406,12 @@ async function buildCustomSheet(){
           if (pStage) pStage.textContent = 'Connecting to Cloud Engine (Render)...';
           if (pDetail) pDetail.textContent = 'Free cloud container may take 30-60s to wake up if asleep...';
         } else {
-          if (pStage) pStage.textContent = 'Connecting to Local Engine...';
-          if (pDetail) pDetail.textContent = 'Generating vector PDF on local machine...';
+          if (pStage) pStage.textContent = 'Generating vector test on local machine...';
+          if (pDetail) pDetail.textContent = 'Cropping vector questions and assembling PDF...';
         }
 
         const controller = new AbortController();
-        const timeoutMs = (ep.type === 'cloud') ? 120000 : 7000;
-        const tid = setTimeout(() => controller.abort(), timeoutMs);
+        const tid = setTimeout(() => controller.abort(), 180000);
 
         const r = await fetch(ep.url, {
           method: 'POST',
