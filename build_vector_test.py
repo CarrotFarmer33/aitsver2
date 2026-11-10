@@ -591,7 +591,8 @@ def build_test_pdf(
         sec_heading = f"{q_sub} &ndash; {type_lbl}" if has_multiple_subjects else type_lbl
         if sec_heading != current_sec:
             current_sec = sec_heading
-            sh.begin_section(current_sec.replace("&ndash;", "-"))
+            # Do not draw synthesized section header bars ('Section A', 'Section B', 'Numerical', etc.)
+            # Keep question layout continuous and clean.
 
         label = f"Q{idx}"
         yr = str(q.get("year", ""))

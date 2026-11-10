@@ -325,6 +325,37 @@
   font-family: Helvetica, Arial, sans-serif;
 }
 
+/* Preview & Curator Styles */
+@keyframes swapPulse {
+  0% { background: #fef08a; border-color: #ca8a04; transform: translateY(-2px); box-shadow: 0 4px 14px rgba(202,138,4,0.3); }
+  50% { background: #fef9c3; border-color: #eab308; }
+  100% { background: var(--surface); border-color: var(--line); transform: translateY(0); box-shadow: none; }
+}
+.preview-q-card {
+  position: relative;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 6px;
+  padding: 16px;
+}
+.preview-q-card:hover {
+  border-color: #94a3b8;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+.preview-q-card.swapped {
+  animation: swapPulse 0.8s ease-out;
+}
+.preview-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11.5px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
 /* Print Styles */
 @media print {
   body {
@@ -333,7 +364,7 @@
     margin: 0 !important;
     padding: 0 !important;
   }
-  .topbar, .sheet-toolbar, #scrSetup, #scrInstr, #scrExam, #scrRes, #scrSaved, #scrTestBuilder, #modal, .scrim {
+  .topbar, .sheet-toolbar, #scrSetup, #scrInstr, #scrExam, #scrRes, #scrSaved, #scrTestBuilder, #scrTestPreview, #modal, .scrim, #tbToast {
     display: none !important;
   }
   #scrSheetView {
@@ -1052,7 +1083,10 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
           </div>
 
           <div style="margin-top:20px;display:flex;flex-direction:column;gap:8px">
-            <button class="btn primary" id="btnGenSheet" type="button" style="width:100%;font-size:15px;padding:12px">📄 Generate Test Sheet (Build Sheets Format)</button>
+            <button class="btn primary" id="btnPreviewSheet" type="button" style="width:100%;font-size:15px;padding:12px;display:flex;align-items:center;justify-content:center;gap:8px">
+              <span>🔍</span> <span>Preview &amp; Customize Questions (with Swap)</span>
+            </button>
+            <button class="btn" id="btnGenSheet" type="button" style="width:100%;font-size:13px;padding:9px">📄 Quick Generate PDF (Without Preview)</button>
             <div id="tbProgressWrap" style="display:none;margin-top:4px;padding:12px 14px;border:1px solid var(--line);border-radius:6px;background:var(--surface);box-shadow:0 2px 8px rgba(0,0,0,0.15)">
               <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:600;margin-bottom:6px">
                 <span id="tbProgressStage" style="color:var(--ink)">Connecting to vector engine...</span>
@@ -1075,9 +1109,56 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   </main>
 </div>
 
+<div id="scrTestPreview" class="screen" hidden>
+  <div class="topbar"><div class="tb-in" style="width:100%">
+    <div style="display:flex;align-items:center;gap:10px;min-width:0">
+      <button class="btn sm" id="tbPrevBackBtn" type="button">&larr; Back to Builder</button>
+      <span class="tb-title" id="tbPrevDocTitle">Test Questions Preview</span>
+      <span class="muted mono" id="tbPrevCountBadge" style="background:var(--tint);color:var(--brand-deep);padding:2px 8px;border-radius:10px;font-size:12px;font-weight:600">0 Qs</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+      <button class="btn sm" id="tbPrevShuffleAllBtn" type="button" title="Reshuffle and replace all questions with another random set">🔄 Shuffle All</button>
+      <button class="btn sm" id="tbPrevAddBtn" type="button" title="Add another random question to this test">➕ Add Question</button>
+      <button class="btn sm primary" id="tbPrevGenPdfBtn" type="button" style="font-weight:700">📄 Generate Vector PDF</button>
+      <button class="btn sm" id="tbPrevStartCbtBtn" type="button">▶ Take as CBT</button>
+    </div>
+  </div></div>
+
+  <main class="wrap" style="max-width:1000px;margin:20px auto;padding:0 16px 80px 16px">
+    <!-- Preview Banner / Summary -->
+    <div class="card" style="margin-bottom:16px;background:var(--tint);border-color:var(--brand);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <div style="display:flex;flex-direction:column;gap:3px">
+        <div style="font-weight:700;font-size:14px;color:var(--brand-deep);display:flex;align-items:center;gap:6px">
+          <span>💡 Question Staging &amp; Curation</span>
+        </div>
+        <div style="font-size:12.5px;color:var(--fg);opacity:0.9">
+          Review your selected questions below. Click <b style="color:var(--brand-deep)">🔄 Replace</b> beside any question to instantly swap it with another random question from that same topic/type. Click <b style="color:var(--brand-deep)">👁️ Solution</b> to inspect answers.
+        </div>
+      </div>
+      <div id="tbPrevSubjSummary" style="display:flex;gap:6px;flex-wrap:wrap"></div>
+    </div>
+
+    <!-- Cards container -->
+    <div id="tbPrevCardsList" style="display:flex;flex-direction:column;gap:14px"></div>
+
+    <!-- Bottom Action Bar -->
+    <div style="margin-top:20px;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:4px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-weight:600">Total Questions: <span id="tbPrevBottomCount" class="mono" style="color:var(--brand)">0</span></span>
+        <button class="btn sm" id="tbPrevBottomAddBtn" type="button">➕ Add Random Question</button>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn sm" id="tbPrevBottomBackBtn" type="button">&larr; Back to Builder</button>
+        <button class="btn primary" id="tbPrevBottomGenPdfBtn" type="button" style="padding:8px 18px;font-size:14px;font-weight:700">📄 Generate Vector PDF</button>
+      </div>
+    </div>
+  </main>
+</div>
+
 <div id="scrSheetView" class="screen" hidden>
   <div class="topbar sheet-toolbar"><div class="tb-in" style="width:100%"><div class="sheet-tools-left">
     <button class="btn sm" id="sheetBackBtn" type="button">&larr; Back to Builder</button>
+    <button class="btn sm" id="sheetEditQuestionsBtn" type="button" style="background:#2563eb;color:#fff;border-color:#2563eb;font-weight:600" title="Return to question preview to swap questions and rebuild PDF">✏️ Preview &amp; Swap Questions</button>
     <span class="tb-title" id="sheetDocTitle">Vector Test Sheet Preview</span>
   </div><div class="sheet-tools-right">
     <a class="btn sm primary" id="sheetDownloadBtn" href="#" download="test_sheet.pdf">📥 Download PDF</a>
@@ -1091,6 +1172,8 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
     <div id="sheetDocContainer" style="display:none"></div>
   </div>
 </div>
+
+<div id="tbToast" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9999;background:#1e293b;color:#f8fafc;padding:10px 18px;border-radius:6px;box-shadow:0 6px 20px rgba(0,0,0,0.35);font-size:13px;font-weight:600;display:none;align-items:center;gap:8px;pointer-events:none;transition:opacity 0.2s ease;opacity:0"></div>
 
 <div id="modal" class="modal" hidden><div class="box" id="modalBox"></div></div>
 
@@ -1372,7 +1455,7 @@ function showNote(t){ const n=$('#dbNote'); n.textContent=t; n.hidden=!t; }
 
 /* ---------- screens ---------- */
 function show(id){
-  ['scrSetup','scrInstr','scrExam','scrRes','scrSaved','scrTestBuilder','scrSheetView'].forEach(s=>{ const el=$('#'+s); if(el) el.hidden = s!==id; });
+  ['scrSetup','scrInstr','scrExam','scrRes','scrSaved','scrTestBuilder','scrSheetView','scrTestPreview'].forEach(s=>{ const el=$('#'+s); if(el) el.hidden = s!==id; });
   toggleAcc(false); hideTip();
   window.scrollTo(0,0);
 }
@@ -2567,6 +2650,38 @@ document.addEventListener('click',e=>{
   else if(b.id==='tbBackBtn'){ show('scrSetup'); renderHist(); }
   else if(b.id==='sheetBackBtn'){ show('scrTestBuilder'); }
   else if(b.id==='btnGenSheet'){ buildCustomSheet(); }
+  else if(b.id==='btnPreviewSheet'){ openBuilderPreview(); }
+  else if(b.id==='tbPrevBackBtn' || b.id==='tbPrevBottomBackBtn'){ show('scrTestBuilder'); }
+  else if(b.id==='tbPrevGenPdfBtn' || b.id==='tbPrevBottomGenPdfBtn'){ buildCustomSheet(tbCfg.builtQs); }
+  else if(b.id==='tbPrevStartCbtBtn'){ startCbtFromBuilder(); }
+  else if(b.id==='tbPrevShuffleAllBtn'){ shuffleAllBuilderPreview(); }
+  else if(b.id==='tbPrevAddBtn' || b.id==='tbPrevBottomAddBtn'){ addBuilderQuestion(); }
+  else if(b.id==='sheetEditQuestionsBtn'){
+    if(tbCfg.builtQs && tbCfg.builtQs.length){ renderTestPreview(); show('scrTestPreview'); }
+    else { openBuilderPreview(); }
+  }
+  else if(b.closest('.tb-replace-btn')){
+    const rep = b.closest('.tb-replace-btn');
+    const idx = parseInt(rep.dataset.idx, 10);
+    if(!isNaN(idx)) swapBuilderQuestion(idx);
+  }
+  else if(b.closest('.tb-sol-btn')){
+    const sol = b.closest('.tb-sol-btn');
+    const idx = sol.dataset.idx;
+    const box = document.getElementById('prevSol_' + idx);
+    if(box){
+      const isHidden = (box.style.display === 'none' || !box.style.display);
+      box.style.display = isHidden ? 'block' : 'none';
+      sol.classList.toggle('active', isHidden);
+    }
+  }
+  else if(b.closest('.tb-remove-btn')){
+    const rem = b.closest('.tb-remove-btn');
+    const idx = parseInt(rem.dataset.idx, 10);
+    if(!isNaN(idx)){
+      removeBuilderQuestion(idx);
+    }
+  }
   else if(b.id==='btnGenCbt' || b.id==='sheetStartCbtBtn'){ startCbtFromBuilder(); }
   else if(b.id==='sheetPrintBtn'){
     const frame = $('#sheetPdfFrame');
@@ -3021,8 +3136,9 @@ function refreshBuilderSummary(){
   }
 
   const ok = avail > 0;
-  $('#btnGenSheet').disabled = !ok;
-  $('#btnGenCbt').disabled = !ok;
+  if($('#btnGenSheet')) $('#btnGenSheet').disabled = !ok;
+  if($('#btnPreviewSheet')) $('#btnPreviewSheet').disabled = !ok;
+  if($('#btnGenCbt')) $('#btnGenCbt').disabled = !ok;
   if(tbCfg.pattern === 'main'){
     const activeSubjs = ['Physics', 'Chemistry', 'Mathematics'].filter(s => tbCfg.subjects.has(s));
     if(explicitSum > 0){
@@ -3275,9 +3391,9 @@ function getSelectedBuilderQuestions(){
   return picked;
 }
 
-async function buildCustomSheet(){
-  const qs = getSelectedBuilderQuestions();
-  if(!qs.length){
+async function buildCustomSheet(customQs){
+  const qs = (customQs && customQs.length) ? customQs : ((tbCfg.builtQs && tbCfg.builtQs.length) ? tbCfg.builtQs : getSelectedBuilderQuestions());
+  if(!qs || !qs.length){
     alert('No questions match your selection. Please select at least one chapter with available questions.');
     return;
   }
@@ -3289,9 +3405,16 @@ async function buildCustomSheet(){
   const noWatermark = $('#tbOptNoWatermark').checked;
 
   const btn = $('#btnGenSheet');
-  const origBtnText = btn.innerHTML;
-  btn.disabled = true;
-  btn.innerHTML = '⏳ Generating Vector PDF Sheet...';
+  const prevBtn = $('#btnPreviewSheet');
+  const tbPrevPdfBtn = $('#tbPrevGenPdfBtn');
+  const tbPrevBottomPdfBtn = $('#tbPrevBottomGenPdfBtn');
+  const origBtnText = btn ? btn.innerHTML : '📄 Quick Generate PDF (Without Preview)';
+  const origPrevPdfText = tbPrevPdfBtn ? tbPrevPdfBtn.innerHTML : '📄 Generate Vector PDF';
+
+  if(btn){ btn.disabled = true; btn.innerHTML = '⏳ Generating PDF...'; }
+  if(prevBtn) prevBtn.disabled = true;
+  if(tbPrevPdfBtn){ tbPrevPdfBtn.disabled = true; tbPrevPdfBtn.innerHTML = '⏳ Compiling Vector PDF...'; }
+  if(tbPrevBottomPdfBtn){ tbPrevBottomPdfBtn.disabled = true; tbPrevBottomPdfBtn.innerHTML = '⏳ Compiling Vector PDF...'; }
   $('#tbStatusNote').textContent = '';
 
   const pWrap = $('#tbProgressWrap');
@@ -3463,12 +3586,287 @@ async function buildCustomSheet(){
     $('#tbStatusNote').textContent = 'Error: ' + err.message;
   } finally {
     clearInterval(timerInterval);
-    btn.disabled = false;
-    btn.innerHTML = origBtnText;
+    if(btn){ btn.disabled = false; btn.innerHTML = origBtnText; }
+    if(prevBtn) prevBtn.disabled = false;
+    if(tbPrevPdfBtn){ tbPrevPdfBtn.disabled = false; tbPrevPdfBtn.innerHTML = origPrevPdfText; }
+    if(tbPrevBottomPdfBtn){ tbPrevBottomPdfBtn.disabled = false; tbPrevBottomPdfBtn.innerHTML = '📄 Generate Vector PDF'; }
     if(pWrap){
       setTimeout(() => { pWrap.style.display = 'none'; }, 600);
     }
   }
+}
+
+/* ==================== TEST BUILDER: INTERACTIVE PREVIEW & SWAP ==================== */
+function showToast(msg, duration = 3000){
+  const t = $('#tbToast');
+  if(!t) return;
+  t.innerHTML = msg;
+  t.style.display = 'inline-flex';
+  void t.offsetWidth;
+  t.style.opacity = '1';
+  clearTimeout(t._tid);
+  t._tid = setTimeout(() => {
+    t.style.opacity = '0';
+    setTimeout(() => { t.style.display = 'none'; }, 220);
+  }, duration);
+}
+
+function openBuilderPreview(){
+  const qs = (tbCfg.builtQs && tbCfg.builtQs.length) ? tbCfg.builtQs : getSelectedBuilderQuestions();
+  if(!qs || !qs.length){
+    alert('No questions match your current selection. Please select at least one chapter with available questions.');
+    return;
+  }
+  tbCfg.builtQs = qs;
+  renderTestPreview();
+  show('scrTestPreview');
+}
+
+function renderTestPreview(){
+  const qs = tbCfg.builtQs || [];
+  const title = ($('#tbTestTitle').value || '').trim() || 'AITS Custom Practice Test';
+  $('#tbPrevDocTitle').textContent = title;
+  $('#tbPrevCountBadge').textContent = qs.length + ' Qs';
+  $('#tbPrevBottomCount').textContent = qs.length;
+
+  // Render subject summary badges
+  const subMap = {};
+  qs.forEach(q => {
+    const s = q.subject || 'Other';
+    subMap[s] = (subMap[s] || 0) + 1;
+  });
+  const sumEl = $('#tbPrevSubjSummary');
+  if(sumEl){
+    sumEl.innerHTML = Object.entries(subMap).map(([s, n]) => 
+      '<span style="background:var(--surface);border:1px solid var(--brand);color:var(--brand-deep);padding:3px 9px;border-radius:12px;font-size:12px;font-weight:600">' + esc(s) + ': ' + n + '</span>'
+    ).join('');
+  }
+
+  const container = $('#tbPrevCardsList');
+  if(!container) return;
+
+  if(!qs.length){
+    container.innerHTML = '<div class="card muted" style="text-align:center;padding:32px">No questions selected. Click "Add Question" or return to Builder to select chapters.</div>';
+    return;
+  }
+
+  container.innerHTML = qs.map((q, idx) => renderPreviewCardHtml(q, idx)).join('');
+  hydrateZipImages(container);
+  typeset(container);
+}
+
+function renderPreviewCardHtml(q, idx){
+  const effType = q.rawType || q.type || 'single';
+  const typeLabel = (window.TYPE_NAME && window.TYPE_NAME[effType]) || TYPES[effType] || (effType === 'numerical' ? 'Numerical Answer' : (effType === 'multi' ? 'Multiple Correct' : 'Single Correct'));
+  const sourceTag = cleanSourceTag(q);
+  const qNum = idx + 1;
+
+  let passageHtml = '';
+  if(q.paragraph && q.passageImages && q.passageImages.length){
+    passageHtml = '<div style="margin-bottom:10px;padding:8px 12px;background:var(--surface-2);border-left:3px solid var(--brand);border-radius:0 4px 4px 0;font-size:12.5px">' +
+      '<div style="font-weight:700;color:var(--brand);margin-bottom:6px">Common Paragraph / Passage:</div>' +
+      (q.passageText ? '<div style="margin-bottom:6px">' + rich(stripWatermarks(q.passageText)) + '</div>' : '') +
+      q.passageImages.map(u => imageMarkup(u, 'Passage figure')).join('') +
+    '</div>';
+  }
+
+  const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
+  const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure')).join('');
+
+  let optionsHtml = '';
+  if(q.options && q.options.length && !q.labelOnly){
+    optionsHtml = '<div class="sheet-qoptions" style="margin-top:10px;margin-bottom:4px">' +
+      q.options.map((opt, oIdx) => 
+        '<div class="sheet-qopt"><span class="sheet-qopt-key">(' + (LET[oIdx] || (oIdx+1)) + ')</span> <span>' + rich(stripWatermarks(opt)) + '</span></div>'
+      ).join('') +
+    '</div>';
+  }
+
+  let solMarkup = '';
+  if(q.solution || (q.solImages && q.solImages.length)){
+    solMarkup = '<div style="margin-top:6px;font-size:13px">' +
+      (q.solution ? '<div style="margin-bottom:6px">' + rich(stripWatermarks(q.solution)) + '</div>' : '') +
+      (q.solImages ? q.solImages.map(u => imageMarkup(u, 'Solution figure')).join('') : '') +
+    '</div>';
+  } else {
+    solMarkup = '<div class="muted" style="margin-top:4px;font-size:12px">No worked solution diagrams available; official key is provided above.</div>';
+  }
+
+  return '<article class="preview-q-card" id="prevCard_' + idx + '" data-qid="' + esc(q.id) + '" style="background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,0.04)">' +
+    '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding-bottom:10px;margin-bottom:12px;border-bottom:1px solid var(--line);flex-wrap:wrap">' +
+      '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">' +
+        '<span class="preview-q-num" style="font-weight:700;font-size:15px;color:var(--brand)">Q' + qNum + '</span>' +
+        '<span class="preview-badge" style="background:var(--tint);color:var(--brand-deep);font-weight:600">' + esc(q.subject) + '</span>' +
+        '<span class="preview-badge" style="background:var(--surface-2);color:var(--fg);font-weight:500">' + esc(q.chapter || 'General') + '</span>' +
+        '<span class="preview-badge" style="background:var(--surface-2);color:var(--muted)">' + esc(typeLabel) + '</span>' +
+        '<span class="preview-badge" style="background:var(--surface-2);color:var(--muted)" title="Paper Source">' + esc(sourceTag) + '</span>' +
+      '</div>' +
+      '<div style="display:inline-flex;align-items:center;gap:6px">' +
+        '<button type="button" class="btn sm tb-replace-btn" data-idx="' + idx + '" title="Replace with another random question from ' + esc(q.chapter || q.subject) + '" style="display:inline-flex;align-items:center;gap:5px;font-weight:600;color:var(--brand);border-color:var(--brand)">' +
+          '<span>🔄</span> <span>Replace</span>' +
+        '</button>' +
+        '<button type="button" class="btn sm tb-sol-btn" data-idx="' + idx + '" title="Toggle answer key and worked solution" style="display:inline-flex;align-items:center;gap:4px">' +
+          '<span>👁️</span> <span>Solution</span>' +
+        '</button>' +
+        '<button type="button" class="btn sm tb-remove-btn" data-idx="' + idx + '" title="Remove this question" style="color:var(--bad);padding:2px 8px" aria-label="Remove question">' +
+          '✕' +
+        '</button>' +
+      '</div>' +
+    '</div>' +
+    '<div class="preview-q-body">' +
+      passageHtml +
+      '<div class="qtext" style="font-size:14px;line-height:1.6;margin-bottom:8px">' + rich(stripWatermarks(q.text || '')) + '</div>' +
+      imgsHtml +
+      optionsHtml +
+    '</div>' +
+    '<div class="preview-sol-box" id="prevSol_' + idx + '" style="display:none;margin-top:14px;padding:10px 14px;background:var(--surface-2);border-left:3px solid var(--brand);border-radius:0 4px 4px 0">' +
+      '<div style="font-weight:700;font-size:13px;margin-bottom:6px;display:flex;align-items:center;gap:8px">' +
+        '<span>Correct Answer:</span>' +
+        '<span style="color:var(--good);background:var(--good-bg);padding:2px 8px;border-radius:3px">' + esc(keyText(q) || 'N/A') + '</span>' +
+      '</div>' +
+      solMarkup +
+    '</div>' +
+  '</article>';
+}
+
+function swapBuilderQuestion(idx){
+  if(!tbCfg.builtQs || !tbCfg.builtQs[idx]) return;
+  const currentQ = tbCfg.builtQs[idx];
+  const curEffType = (currentQ.rawType || currentQ.type || '').toLowerCase();
+  const curSubj = currentQ.subject;
+  const curChap = currentQ.chapter;
+
+  const currentIds = new Set(tbCfg.builtQs.map(q => q.id));
+
+  const matchType = (q) => {
+    const t = (q.rawType || q.type || '').toLowerCase();
+    if(curEffType === 'single' || curEffType === 'mcq') return t === 'single' || t === 'mcq';
+    if(curEffType === 'multi' || curEffType === 'msq') return t === 'multi' || t === 'msq';
+    if(curEffType === 'numerical' || curEffType === 'nat') return t === 'numerical' || t === 'nat';
+    if(curEffType.includes('para') || curEffType.includes('comp')) return t.includes('para') || t.includes('comp');
+    return t === curEffType;
+  };
+
+  // 1. Exact same chapter, subject, and question type
+  let candidates = DB.filter(q => {
+    if(currentIds.has(q.id)) return false;
+    if(q.subject !== curSubj) return false;
+    if(q.chapter !== curChap) return false;
+    if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return false;
+    return matchType(q);
+  });
+
+  // 2. Search other selected chapters of this subject with the same type
+  if(!candidates.length){
+    candidates = DB.filter(q => {
+      if(currentIds.has(q.id)) return false;
+      if(q.subject !== curSubj) return false;
+      if(!tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
+      if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return false;
+      return matchType(q);
+    });
+  }
+
+  // 3. Search any chapter of this subject with the same type
+  if(!candidates.length){
+    candidates = DB.filter(q => {
+      if(currentIds.has(q.id)) return false;
+      if(q.subject !== curSubj) return false;
+      if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return false;
+      return matchType(q);
+    });
+  }
+
+  // 4. Fallback: any question in this chapter
+  if(!candidates.length){
+    candidates = DB.filter(q => {
+      if(currentIds.has(q.id)) return false;
+      if(q.subject !== curSubj) return false;
+      if(q.chapter !== curChap) return false;
+      return true;
+    });
+  }
+
+  if(!candidates.length){
+    alert('No alternative question available in the database for ' + curSubj + ' - ' + curChap + '.');
+    return;
+  }
+
+  const newQ = candidates[Math.floor(Math.random() * candidates.length)];
+  tbCfg.builtQs[idx] = newQ;
+
+  // Replace card in DOM with highlight pulse
+  const oldCard = document.getElementById('prevCard_' + idx);
+  if(oldCard){
+    const temp = document.createElement('div');
+    temp.innerHTML = renderPreviewCardHtml(newQ, idx);
+    const newCard = temp.firstElementChild;
+    newCard.classList.add('swapped');
+    oldCard.replaceWith(newCard);
+    hydrateZipImages(newCard);
+    typeset(newCard);
+  } else {
+    renderTestPreview();
+  }
+
+  showToast('🔄 Replaced Q' + (idx + 1) + ' with question from <b>' + esc(newQ.chapter || newQ.subject) + '</b> (' + esc(cleanSourceTag(newQ)) + ')');
+}
+
+function removeBuilderQuestion(idx){
+  if(!tbCfg.builtQs || !tbCfg.builtQs[idx]) return;
+  const removed = tbCfg.builtQs.splice(idx, 1)[0];
+  $('#tbCountIn').value = tbCfg.builtQs.length;
+  tbCfg.count = tbCfg.builtQs.length;
+  renderTestPreview();
+  showToast('Removed question Q' + (idx + 1) + '. (' + tbCfg.builtQs.length + ' Qs remaining)');
+}
+
+function addBuilderQuestion(){
+  const currentIds = new Set((tbCfg.builtQs || []).map(q => q.id));
+  const activeSubjs = ['Physics', 'Chemistry', 'Mathematics'].filter(s => tbCfg.subjects.has(s));
+
+  const candidates = DB.filter(q => {
+    if(currentIds.has(q.id)) return false;
+    if(activeSubjs.length && !activeSubjs.includes(q.subject)) return false;
+    if(tbCfg.chapters.size && !tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
+    if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return false;
+    const effType = q.rawType || q.type;
+    if(tbCfg.pattern === 'main'){
+      if(effType.includes('para') || effType.includes('comp') || effType.includes('multi') || effType.includes('msq')) return false;
+      return effType === 'single' || effType === 'mcq' || effType === 'numerical' || effType === 'nat';
+    }
+    return tbCfg.types.has(effType) || tbCfg.types.has(q.type);
+  });
+
+  if(!candidates.length){
+    alert('No more unselected questions match your active subjects and chapters.');
+    return;
+  }
+
+  const newQ = candidates[Math.floor(Math.random() * candidates.length)];
+  tbCfg.builtQs.push(newQ);
+  $('#tbCountIn').value = tbCfg.builtQs.length;
+  tbCfg.count = tbCfg.builtQs.length;
+  renderTestPreview();
+
+  const lastCard = document.getElementById('prevCard_' + (tbCfg.builtQs.length - 1));
+  if(lastCard){
+    lastCard.classList.add('swapped');
+    lastCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  showToast('➕ Added Q' + tbCfg.builtQs.length + ' from <b>' + esc(newQ.chapter || newQ.subject) + '</b>');
+}
+
+function shuffleAllBuilderPreview(){
+  const qs = getSelectedBuilderQuestions();
+  if(!qs || !qs.length){
+    alert('Cannot reshuffle: no questions match current criteria.');
+    return;
+  }
+  tbCfg.builtQs = qs;
+  renderTestPreview();
+  showToast('🔄 Reshuffled all ' + qs.length + ' questions.');
 }
 
 function renderSheetDoc(qs, opts){
