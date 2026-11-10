@@ -1946,7 +1946,11 @@ function renderQ(){
   h+='<div class="qtext">'+rich(q.text)+'</div>';
   if(q.id){
     // HD Vector (SVG) Render with seamless automatic fallback to zipimg PNG
-    const svgUrl = '/api/question-svg/' + encodeURIComponent(q.id);
+    const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+    const backendBase = isLocal
+      ? ((window.AITS_CONFIG && window.AITS_CONFIG.localVectorEngineUrl) || 'http://localhost:8000')
+      : ((window.AITS_CONFIG && window.AITS_CONFIG.vectorEngineUrl) || 'https://aitsver2.onrender.com');
+    const svgUrl = backendBase.replace(/\/+$/, '') + '/api/question-svg/' + encodeURIComponent(q.id);
     const fallbackImgs = (q.images||[]).filter(u=>!(q.passageImages||[]).includes(u));
     const fallbackHtml = fallbackImgs.map(u=>imageMarkup(u,'Question figure')).join('');
     h += '<div class="vector-q-container" style="margin:8px 0;width:100%;max-width:820px;">' +
