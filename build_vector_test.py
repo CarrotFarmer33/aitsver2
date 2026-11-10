@@ -204,6 +204,9 @@ def find_question_parts(by_sub, by_no, sub_name, qno):
             return by_sub[(s, num)]
         if (s, str(num)) in by_sub and by_sub[(s, str(num))]:
             return by_sub[(s, str(num))]
+        str_key = f"{s}||{num}"
+        if str_key in by_sub and by_sub[str_key]:
+            return by_sub[str_key]
         return None
 
     # 1. Exact subject match in by_sub (checks both int and string keys)
