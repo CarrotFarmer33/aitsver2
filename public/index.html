@@ -1029,6 +1029,19 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 
           <div style="margin-top:20px;display:flex;flex-direction:column;gap:8px">
             <button class="btn primary" id="btnGenSheet" type="button" style="width:100%;font-size:15px;padding:12px">📄 Generate Test Sheet (Build Sheets Format)</button>
+            <div id="tbProgressWrap" style="display:none;margin-top:4px;padding:12px 14px;border:1px solid var(--line);border-radius:6px;background:var(--surface);box-shadow:0 2px 8px rgba(0,0,0,0.15)">
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:600;margin-bottom:6px">
+                <span id="tbProgressStage" style="color:var(--ink)">Connecting to vector engine...</span>
+                <span id="tbProgressPct" style="color:var(--brand);font-weight:700">0%</span>
+              </div>
+              <div style="width:100%;height:8px;background:var(--surface-2);border-radius:4px;overflow:hidden">
+                <div id="tbProgressBar" style="width:0%;height:100%;background:linear-gradient(90deg, #2563eb, #38bdf8);border-radius:4px;transition:width 0.25s ease"></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-size:11px" class="muted">
+                <span id="tbProgressDetail">Looking up question segments...</span>
+                <span id="tbProgressTimer" style="font-family:monospace;font-weight:600">0.0s</span>
+              </div>
+            </div>
             <button class="btn" id="btnGenCbt" type="button" style="width:100%">▶ Take as CBT Online Exam</button>
             <div id="tbStatusNote" class="muted" style="font-size:12px;text-align:center"></div>
           </div>
@@ -3018,7 +3031,57 @@ async function buildCustomSheet(){
   const origBtnText = btn.innerHTML;
   btn.disabled = true;
   btn.innerHTML = '⏳ Generating Vector PDF Sheet...';
-  $('#tbStatusNote').textContent = 'Generating 100% vector PDF (cropping from source papers, removing watermarks)...';
+  $('#tbStatusNote').textContent = '';
+
+  const pWrap = $('#tbProgressWrap');
+  const pBar = $('#tbProgressBar');
+  const pPct = $('#tbProgressPct');
+  const pStage = $('#tbProgressStage');
+  const pDetail = $('#tbProgressDetail');
+  const pTimer = $('#tbProgressTimer');
+
+  if(pWrap){
+    pWrap.style.display = 'block';
+    pBar.style.width = '12%';
+    pPct.textContent = '12%';
+    pStage.textContent = 'Connecting to vector engine...';
+    pDetail.textContent = 'Matching candidate questions and loading segments...';
+    pTimer.textContent = '0.0s';
+  }
+
+  const startTime = Date.now();
+  const timerInterval = setInterval(() => {
+    const elapsedSec = ((Date.now() - startTime) / 1000).toFixed(1);
+    if(pTimer) pTimer.textContent = elapsedSec + 's';
+    const num = parseFloat(elapsedSec);
+
+    if(num < 1.0){
+      if(pBar) pBar.style.width = '25%';
+      if(pPct) pPct.textContent = '25%';
+      if(pStage) pStage.textContent = 'Connecting to cloud vector engine...';
+      if(pDetail) pDetail.textContent = 'Loading pre-computed question segment cache...';
+    } else if(num < 3.0){
+      if(pBar) pBar.style.width = '55%';
+      if(pPct) pPct.textContent = '55%';
+      if(pStage) pStage.textContent = 'Cropping vector questions from source papers...';
+      if(pDetail) pDetail.textContent = 'Extracting crisp vector text, math formulas, and diagrams...';
+    } else if(num < 6.0){
+      if(pBar) pBar.style.width = '80%';
+      if(pPct) pPct.textContent = '80%';
+      if(pStage) pStage.textContent = 'Assembling answer key & worked solutions...';
+      if(pDetail) pDetail.textContent = 'Removing FIITJEE watermarks and stitching pages...';
+    } else if(num < 15.0){
+      if(pBar) pBar.style.width = '92%';
+      if(pPct) pPct.textContent = '92%';
+      if(pStage) pStage.textContent = 'Compiling final vector PDF stream...';
+      if(pDetail) pDetail.textContent = 'Almost ready...';
+    } else {
+      if(pBar) pBar.style.width = '95%';
+      if(pPct) pPct.textContent = '95%';
+      if(pStage) pStage.textContent = 'Cloud server was sleeping, waking container (~30s)...';
+      if(pDetail) pDetail.textContent = 'Container is spinning up and will download momentarily...';
+    }
+  }, 100);
 
   try {
     const qids = qs.map(q => q.id);
@@ -3051,9 +3114,6 @@ async function buildCustomSheet(){
 
     for (const ep of endpoints) {
       try {
-        if(ep.includes('onrender.com')) {
-          $('#tbStatusNote').textContent = 'Generating vector PDF on cloud engine (may take ~30s if waking up)...';
-        }
         const r = await fetch(ep, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -3078,6 +3138,11 @@ async function buildCustomSheet(){
       throw new Error(data.error || 'Server error generating vector test');
     }
 
+    if(pBar) pBar.style.width = '100%';
+    if(pPct) pPct.textContent = '100%';
+    if(pStage) pStage.textContent = 'Test sheet ready!';
+    if(pDetail) pDetail.textContent = 'Loading vector PDF preview...';
+
     const fullPdfUrl = (data.pdfUrl.startsWith('http') ? data.pdfUrl : (usedBaseUrl + data.pdfUrl));
     const frame = $('#sheetPdfFrame');
     if(frame) frame.src = fullPdfUrl + '#toolbar=1&navpanes=0&view=FitH';
@@ -3091,10 +3156,16 @@ async function buildCustomSheet(){
     show('scrSheetView');
   } catch(err){
     console.error('Vector sheet build error:', err);
-    alert('Error generating vector test sheet: ' + err.message + '\n\nPlease ensure the local server (python server.py) is running on localhost:8000.');
+    alert('Error generating vector test sheet: ' + err.message + '\n\nPlease ensure the local server or cloud engine is running.');
     $('#tbStatusNote').textContent = 'Error: ' + err.message;
   } finally {
+    clearInterval(timerInterval);
     btn.disabled = false;
+    btn.innerHTML = origBtnText;
+    if(pWrap){
+      setTimeout(() => { pWrap.style.display = 'none'; }, 600);
+    }
+  }
     btn.innerHTML = origBtnText;
   }
 }
