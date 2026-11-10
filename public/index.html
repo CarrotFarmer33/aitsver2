@@ -2824,6 +2824,13 @@ function openBuilderScreen(){
   renderBuilderChapters();
   refreshBuilderSummary();
   show('scrTestBuilder');
+
+  // Pre-warm cloud vector PDF engine if configured
+  if(window.AITS_CONFIG && window.AITS_CONFIG.vectorEngineUrl){
+    try {
+      fetch(window.AITS_CONFIG.vectorEngineUrl.replace(/\/+$/, '') + '/api/status', { mode: 'no-cors' }).catch(()=>{});
+    } catch(e){}
+  }
 }
 
 function getSelectedBuilderQuestions(){
@@ -3031,30 +3038,39 @@ async function buildCustomSheet(){
       qids: qids
     });
 
-    let resp = null, baseUrl = '';
-    try {
-      const r = await fetch('/api/build-test', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: payload
-      });
-      if(r.ok || (r.status < 500 && r.status !== 404)){
-        resp = r;
-      } else {
-        throw new Error('Endpoint not available on this host');
-      }
-    } catch(e){
+    const cloudEngine = (window.AITS_CONFIG && window.AITS_CONFIG.vectorEngineUrl) ? window.AITS_CONFIG.vectorEngineUrl.replace(/\/+$/, '') : '';
+    const endpoints = [
+      cloudEngine ? `${cloudEngine}/api/build-test` : null,
+      '/api/build-test',
+      'http://localhost:8000/api/build-test',
+      'http://127.0.0.1:8000/api/build-test'
+    ].filter(Boolean);
+
+    let resp = null, usedBaseUrl = '';
+    let lastErr = null;
+
+    for (const ep of endpoints) {
       try {
-        const r2 = await fetch('http://localhost:8000/api/build-test', {
+        if(ep.includes('onrender.com')) {
+          $('#tbStatusNote').textContent = 'Generating vector PDF on cloud engine (may take ~30s if waking up)...';
+        }
+        const r = await fetch(ep, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: payload
         });
-        resp = r2;
-        baseUrl = 'http://localhost:8000';
-      } catch(err2){
-        throw new Error('Cannot reach vector test engine. Please ensure python server.py is running on localhost:8000.');
+        if (r.ok || (r.status < 500 && r.status !== 404)) {
+          resp = r;
+          usedBaseUrl = ep.startsWith('http') ? new URL(ep).origin : '';
+          break;
+        }
+      } catch (err) {
+        lastErr = err;
       }
+    }
+
+    if (!resp) {
+      throw new Error(lastErr ? lastErr.message : 'Cannot reach vector test engine backend.');
     }
 
     const data = await resp.json();
@@ -3062,7 +3078,7 @@ async function buildCustomSheet(){
       throw new Error(data.error || 'Server error generating vector test');
     }
 
-    const fullPdfUrl = (data.pdfUrl.startsWith('http') ? data.pdfUrl : (baseUrl + data.pdfUrl));
+    const fullPdfUrl = (data.pdfUrl.startsWith('http') ? data.pdfUrl : (usedBaseUrl + data.pdfUrl));
     const frame = $('#sheetPdfFrame');
     if(frame) frame.src = fullPdfUrl + '#toolbar=1&navpanes=0&view=FitH';
     const dlBtn = $('#sheetDownloadBtn');

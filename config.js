@@ -4,5 +4,6 @@ window.AITS_CONFIG = {
   chemistryUrl: 'https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/chemistry_database.json?v=4',
   mathsAdvancedUrl: 'https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/maths_advanced_database.json',
   mathsMainUrl: 'https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/maths_main_database.json',
-  reportWebhookUrl: 'https://script.google.com/macros/s/AKfycbz22mMoGU674mjLTxD-ttP0vJnppoq9qVOZDHqWEBPT9pJgMJVDo5sbttujc0QRP1w/exec'
+  reportWebhookUrl: 'https://script.google.com/macros/s/AKfycbz22mMoGU674mjLTxD-ttP0vJnppoq9qVOZDHqWEBPT9pJgMJVDo5sbttujc0QRP1w/exec',
+  vectorEngineUrl: 'https://aits-engine.onrender.com' // Cloud vector PDF engine (Render)
 };
