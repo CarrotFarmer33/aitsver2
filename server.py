@@ -16,6 +16,8 @@ import time
 import urllib.parse
 
 from build_vector_test import build_test_pdf, QuestionManager
+from build_sheets import CROP_X0, CROP_X1, remove_watermarks, open_pdf
+import pymupdf as fitz
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 SITE_DIR = os.path.join(ROOT_DIR, "aitsver2-main")
@@ -33,22 +35,35 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
         # Enable CORS for local testing
         self.send_header("Access-Control-Allow-Origin", "*")
         self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization, Accept")
         super().end_headers()
 
     def do_OPTIONS(self):
         self.send_response(200)
+        self.send_header("Content-Length", "0")
         self.end_headers()
 
     def do_GET(self):
         parsed = urllib.parse.urlparse(self.path)
         path = parsed.path
 
-        if path == "/api/status":
+        if path in ("/health", "/api/health"):
+            self.send_json({
+                "ok": True,
+                "service": "AITS Practice Portal Server",
+                "status": "online",
+                "timestamp": int(time.time())
+            })
+            return
+        elif path == "/api/status":
             self.handle_status()
             return
         elif path == "/api/chapters":
             self.handle_chapters()
+            return
+        elif path.startswith("/api/question-svg/"):
+            qid = path.split("/api/question-svg/")[1].strip()
+            self.handle_question_svg(qid)
             return
 
         # Serve static files from SITE_DIR
@@ -84,6 +99,58 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
         
         result = {sub: sorted(list(chs)) for sub, chs in by_sub.items()}
         self.send_json({"ok": True, "subjects": result})
+
+    def handle_question_svg(self, qid):
+        import build_vector_test as bvt
+        qm = QuestionManager.get_instance()
+        q = qm.q_by_id.get(qid)
+        if not q:
+            self.send_error(404, "Question not found")
+            return
+        key = qm.find_pdf_key(q)
+        if not key or key not in qm.pdfs:
+            self.send_error(404, "PDF paper not found for question")
+            return
+        q_cache = qm.segments_cache.get("questions", {}).get(key, {})
+        by_sub = q_cache.get("by_sub", {})
+        by_no = q_cache.get("by_no", {})
+        qno = q.get("questionNumber") or q.get("number") or 1
+        sub_name = str(q.get("subject", "")).strip().lower()
+        parts = bvt.find_question_parts(by_sub, by_no, sub_name, qno)
+        if not parts:
+            self.send_error(404, "Crop parts not found for question")
+            return
+        doc = open_pdf(qm.pdfs[key])
+        if not doc:
+            self.send_error(500, "Could not open source PDF")
+            return
+        try:
+            remove_watermarks(doc)
+            w = CROP_X1 - CROP_X0
+            tot_h = sum(b - a for _, a, b in parts)
+            temp_doc = fitz.open()
+            temp_page = temp_doc.new_page(width=w, height=tot_h)
+            cur_y = 0
+            for pno, a, b in parts:
+                h = b - a
+                clip_r = fitz.Rect(CROP_X0, a, CROP_X1, b)
+                target_r = fitz.Rect(0, cur_y, w, cur_y + h)
+                temp_page.show_pdf_page(target_r, doc, pno, clip=clip_r)
+                cur_y += h
+            svg = temp_page.get_svg_image(text_as_path=0)
+            temp_doc.close()
+            
+            body = svg.encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "image/svg+xml; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "public, max-age=86400")
+            self.end_headers()
+            self.wfile.write(body)
+        except Exception as e:
+            self.send_error(500, f"Error rendering SVG: {e}")
+        finally:
+            doc.close()
 
     def handle_build_test(self):
         content_len = int(self.headers.get("Content-Length", 0))

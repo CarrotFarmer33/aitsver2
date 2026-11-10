@@ -1944,8 +1944,20 @@ function renderQ(){
     h+='</div>';
   }
   h+='<div class="qtext">'+rich(q.text)+'</div>';
-  const qImgs = (q.images||[]).filter(u=>!(q.passageImages||[]).includes(u));
-  qImgs.forEach(u=>{ h+=imageMarkup(u,'Question figure'); });
+  if(q.id){
+    // HD Vector (SVG) Render with seamless automatic fallback to zipimg PNG
+    const svgUrl = '/api/question-svg/' + encodeURIComponent(q.id);
+    const fallbackImgs = (q.images||[]).filter(u=>!(q.passageImages||[]).includes(u));
+    const fallbackHtml = fallbackImgs.map(u=>imageMarkup(u,'Question figure')).join('');
+    h += '<div class="vector-q-container" style="margin:8px 0;width:100%;max-width:820px;">' +
+         '<img class="qimg vector-qimg" alt="Question figure (Vector HD)" src="' + svgUrl + '" style="display:block;width:100%;height:auto;max-width:100%;" ' +
+         'onerror="this.onerror=null;this.style.display=\'none\';var f=this.nextElementSibling;if(f){f.style.display=\'block\';hydrateZipImages(f);typeset(f);}">' +
+         '<div class="raster-fallback" style="display:none;">' + fallbackHtml + '</div>' +
+         '</div>';
+  } else {
+    const qImgs = (q.images||[]).filter(u=>!(q.passageImages||[]).includes(u));
+    qImgs.forEach(u=>{ h+=imageMarkup(u,'Question figure'); });
+  }
   const locked=T.mode==='practice' && s.checked, dis=locked?' disabled':'';
   const effectiveType = q.rawType || q.type;
   if(effectiveType==='numerical'){
