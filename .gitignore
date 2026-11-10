@@ -19,3 +19,5 @@ node_modules
 paras/
 public/paras/
 
+
+generated_tests/

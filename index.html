@@ -1,4 +1,371 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
+/* ==================== TEST BUILDER & BUILD SHEET STYLES ==================== */
+:root {
+  --sheet-navy: #1a3a5c;
+  --sheet-rule: #b0c4d8;
+  --sheet-tint: #ebf2fa;
+  --sheet-grey: #737373;
+  --sheet-head: #cccccc;
+  --sheet-alt: #ededed;
+}
+
+.builder-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+  gap: 16px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .builder-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+.pattern-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.pattern-pill {
+  flex: 1;
+  min-width: 110px;
+  text-align: center;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+.pattern-pill:hover { background: var(--surface-2); }
+.pattern-pill.active {
+  background: var(--brand);
+  color: var(--brand-ink);
+  border-color: var(--brand);
+}
+
+.preset-counts {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+.preset-count-btn {
+  padding: 3px 9px;
+  font-size: 12px;
+  border-radius: 3px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  cursor: pointer;
+}
+.preset-count-btn:hover { background: var(--line); }
+
+/* Build Sheet Document Container */
+.sheet-view-wrap {
+  padding: 20px 16px 60px 16px;
+  background: #525659;
+  min-height: calc(100vh - 40px);
+}
+.sheet-toolbar {
+  position: sticky;
+  top: calc(36px + env(safe-area-inset-top, 0px));
+  z-index: 45;
+  background: #323639;
+  color: #fff;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+.sheet-tools-left, .sheet-tools-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.sheet-toolbar .btn {
+  background: #4a4e51;
+  color: #fff;
+  border-color: #5f6368;
+  min-height: 32px;
+  padding: 4px 12px;
+  font-size: 13px;
+}
+.sheet-toolbar .btn:hover { background: #606468; }
+.sheet-toolbar .btn.primary {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+.sheet-toolbar .btn.primary:hover { background: #1d4ed8; }
+
+/* Exact A4 Sheet Page (Exact replica of build_sheets.py) */
+.sheet-page {
+  width: 210mm;
+  min-height: 297mm;
+  padding: 50pt; /* Exact MX, TOP = 50pt */
+  margin: 0 auto 24px auto;
+  background: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  box-sizing: border-box;
+  position: relative;
+  font-family: "Open Sans", Arial, sans-serif;
+}
+@media (max-width: 820px) {
+  .sheet-page {
+    width: 100%;
+    min-height: auto;
+    padding: 24px 16px;
+  }
+}
+
+.sheet-cover-title {
+  font-size: 24pt;
+  font-weight: 700;
+  color: #000000;
+  line-height: 1.15;
+  margin: 0 0 6pt 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.sheet-cover-sub {
+  font-size: 10.5pt;
+  color: #737373;
+  margin: 0 0 16pt 0;
+  line-height: 1.4;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.sheet-cover-meta {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8pt;
+  padding: 7pt 0;
+  border-top: 1px solid #b0c4d8;
+  border-bottom: 1px solid #b0c4d8;
+  font-size: 9pt;
+  color: #333333;
+  margin-bottom: 24pt;
+}
+
+/* Signature Double Navy Rules for Section Headings */
+.sheet-sec-hdr {
+  margin: 22pt 0 14pt 0;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.sheet-sec-lines {
+  position: relative;
+  height: 6px;
+  margin-bottom: 8pt;
+}
+.sheet-sec-lines-top {
+  height: 1.6pt;
+  background: #1a3a5c;
+  width: 100%;
+}
+.sheet-sec-lines-bot {
+  height: 0.5pt;
+  background: #1a3a5c;
+  width: 100%;
+  margin-top: 2.8pt;
+}
+.sheet-sec-title {
+  font-size: 12pt;
+  font-weight: 700;
+  color: #1a3a5c;
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 0.01em;
+}
+
+/* Question Rows */
+.sheet-qrow {
+  display: flex;
+  gap: 12pt;
+  margin-bottom: 14pt;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.sheet-qlab-col {
+  flex: 0 0 46pt;
+  width: 46pt;
+  display: flex;
+  flex-direction: column;
+}
+.sheet-qlab {
+  font-size: 10.5pt;
+  font-weight: 700;
+  color: #1a3a5c;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.2;
+}
+.sheet-qtag {
+  font-size: 6.2pt;
+  color: #737373;
+  font-family: Helvetica, Arial, sans-serif;
+  line-height: 1.25;
+  margin-top: 3pt;
+  word-break: break-word;
+}
+.sheet-qbody-col {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 10pt;
+  line-height: 1.5;
+  color: #000000;
+}
+.sheet-qbody-col img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 5pt 0;
+}
+.sheet-qbody-text {
+  font-size: 10pt;
+  line-height: 1.5;
+  color: #000000;
+  margin-bottom: 6pt;
+  word-break: break-word;
+}
+.sheet-qoptions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210pt, 1fr));
+  gap: 4pt 12pt;
+  margin-top: 6pt;
+  font-size: 9.5pt;
+}
+.sheet-qopt {
+  display: flex;
+  gap: 6pt;
+  align-items: baseline;
+}
+.sheet-qopt-key {
+  font-weight: 700;
+}
+
+/* Answer Key Table (Exact 10-column Grid) */
+.sheet-key-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 0.6pt solid #000000;
+  margin-top: 10pt;
+  font-size: 9pt;
+  font-family: Helvetica, Arial, sans-serif;
+}
+.sheet-key-table th {
+  background: #cccccc;
+  border: 0.6pt solid #000000;
+  padding: 4pt 6pt;
+  font-weight: 700;
+  text-align: center;
+  color: #000000;
+  font-size: 9pt;
+}
+.sheet-key-table td {
+  border: 0.6pt solid #000000;
+  padding: 4pt 6pt;
+  text-align: center;
+  height: 20pt;
+  box-sizing: border-box;
+  color: #000000;
+  font-size: 9pt;
+}
+.sheet-key-table tr:nth-child(even) td {
+  background: #ededed;
+}
+.sheet-key-table tr:nth-child(odd) td {
+  background: #ffffff;
+}
+.sheet-key-q {
+  font-weight: 700;
+}
+.sheet-key-ans {
+  font-weight: 600;
+}
+
+/* Solutions Section */
+.sheet-sol-item {
+  display: flex;
+  gap: 12pt;
+  margin-bottom: 14pt;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.sheet-sol-body {
+  flex: 1 1 auto;
+  font-size: 9.5pt;
+  line-height: 1.5;
+  color: #111;
+}
+.sheet-sol-body img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 5pt 0;
+}
+
+/* Page Break & Numbering */
+.sheet-break-after {
+  page-break-after: always;
+  break-after: page;
+}
+.sheet-page-footer {
+  position: absolute;
+  bottom: 18pt;
+  left: 0; right: 0;
+  text-align: center;
+  font-size: 8.5pt;
+  color: #737373;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+/* Print Styles */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .topbar, .sheet-toolbar, #scrSetup, #scrInstr, #scrExam, #scrRes, #scrSaved, #scrTestBuilder, #modal, .scrim {
+    display: none !important;
+  }
+  #scrSheetView {
+    display: block !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+  }
+  .sheet-view-wrap {
+    padding: 0 !important;
+    background: #ffffff !important;
+  }
+  .sheet-page {
+    width: 100% !important;
+    min-height: 297mm !important;
+    padding: 50pt !important;
+    margin: 0 auto !important;
+    box-shadow: none !important;
+    border: none !important;
+    page-break-after: always !important;
+    break-after: page !important;
+  }
+  .sheet-page:last-child {
+    page-break-after: auto !important;
+    break-after: auto !important;
+  }
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+
+</style></head><body>
 <title>AITS Practice Portal</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -387,7 +754,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 </style>
 
 <div id="scrSetup" class="screen">
-  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Portal &ndash; chapter-wise question practice</span><details class="menu" id="topMenu"><summary class="btn sm">Menu &#9662;</summary><div class="menuList"><button class="btn sm" id="openSaved" type="button">Saved questions</button><button class="btn sm" id="openReports" type="button" style="display:flex;align-items:center;justify-content:space-between">Reported questions <span id="rptBadge" style="display:none;background:#d32f2f;color:#fff;border-radius:10px;padding:0 6px;font-size:11px;font-weight:700">0</span></button><a class="btn sm" href="changelog.html">Changelog</a><a class="btn sm" href="downloads.html">Downloads</a><hr class="menuSep"><div class="mrow"><button class="btn sm" id="expData" type="button">Export my data</button><span class="mi" tabindex="0" role="note" aria-label="About Export my data">i</span><div class="mtip">Saves a backup file of your bookmarks, mistakes, seen questions and history. Your data lives only in this browser, so export now and then in case it gets cleared.</div></div><div class="mrow"><button class="btn sm" id="impData" type="button">Import data</button><span class="mi" tabindex="0" role="note" aria-label="About Import data">i</span><div class="mtip">Load a backup file you exported earlier. It is merged with your current data, so nothing is overwritten.</div></div><input type="file" id="impFile" accept=".json,application/json" hidden></div></details></div></div>
+  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Portal &ndash; chapter-wise question practice</span><div style="display:flex;align-items:center;gap:8px"><button class="btn sm" id="navBuilder" type="button" style="background:#286ac7;color:#fff;border-color:#286ac7">🛠️ Test Builder</button><details class="menu" id="topMenu"><summary class="btn sm">Menu &#9662;</summary><div class="menuList"><button class="btn sm" id="openBuilderMenu" type="button" style="color:var(--brand);font-weight:700">🛠️ Test Builder</button><button class="btn sm" id="openSaved" type="button">Saved questions</button><button class="btn sm" id="openReports" type="button" style="display:flex;align-items:center;justify-content:space-between">Reported questions <span id="rptBadge" style="display:none;background:#d32f2f;color:#fff;border-radius:10px;padding:0 6px;font-size:11px;font-weight:700">0</span></button><a class="btn sm" href="changelog.html">Changelog</a><a class="btn sm" href="downloads.html">Downloads</a><hr class="menuSep"><div class="mrow"><button class="btn sm" id="expData" type="button">Export my data</button><span class="mi" tabindex="0" role="note" aria-label="About Export my data">i</span><div class="mtip">Saves a backup file of your bookmarks, mistakes, seen questions and history. Your data lives only in this browser, so export now and then in case it gets cleared.</div></div><div class="mrow"><button class="btn sm" id="impData" type="button">Import data</button><span class="mi" tabindex="0" role="note" aria-label="About Import data">i</span><div class="mtip">Load a backup file you exported earlier. It is merged with your current data, so nothing is overwritten.</div></div><input type="file" id="impFile" accept=".json,application/json" hidden></div></details></div></div></div>
   <main class="wrap setup">
     <section class="card" id="dbCard" hidden style="display:none">
       <div class="dbrow">
@@ -438,7 +805,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
             <select id="modeSel"><option value="test">Take as a test (results at the end)</option><option value="practice">Practice (check answer and solution after each question)</option></select></div>
           <div class="field"><label for="mrkSel">Marking scheme</label><select id="mrkSel"></select></div>
           <button class="btn primary" id="btnStart" type="button" style="width:100%">Continue to instructions</button>
-          <div id="startWhy" class="muted" style="font-size:13px;margin-top:8px"></div>
+          <div id="startWhy" class="muted" style="font-size:13px;margin-top:8px"></div><button class="btn" id="openBuilderFromSetup" type="button" style="width:100%;margin-top:10px;border-color:var(--brand);color:var(--brand);font-weight:600">📄 Custom Test Builder (Build Sheets Format)</button>
           <div id="histCard" hidden><h3>Recent tests</h3><div class="hist" id="histList"></div></div>
         </aside>
 
@@ -554,6 +921,140 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   <main class="wrap res" id="resBody"></main>
 </div>
 
+
+<div id="scrTestBuilder" class="screen" hidden>
+  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Test Builder &ndash; Build Custom Question Sheets</span><button class="btn sm" id="tbBackBtn" type="button">&larr; Practice portal</button></div></div>
+  <main class="wrap setup">
+    <div class="builder-grid">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <section class="card">
+          <h2>1. Exam Pattern &amp; Paper Source</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:12px">
+            <div class="field"><label>Exam Pattern</label>
+              <div class="pattern-pills" id="tbPatternPills">
+                <button type="button" class="pattern-pill active" data-pattern="adv">JEE Advanced</button>
+                <button type="button" class="pattern-pill" data-pattern="main">JEE Main</button>
+                <button type="button" class="pattern-pill" data-pattern="custom">Custom Practice</button>
+              </div>
+            </div>
+            <div class="field"><label for="tbPaperSel">Question Source / Paper</label>
+              <div class="pattern-pills" id="tbPaperPills">
+                <button type="button" class="pattern-pill active" data-paper="all">Mains + Adv</button>
+                <button type="button" class="pattern-pill" data-paper="main">Mains</button>
+                <button type="button" class="pattern-pill" data-paper="adv">Adv</button>
+              </div>
+              <div style="margin-top:6px">
+                <select id="tbPaperSel" aria-label="Question Source"></select>
+              </div>
+            </div>
+          </div>
+          <div class="field"><label for="tbTestTitle">Test Paper Title</label>
+            <input type="text" id="tbTestTitle" value="JEE ADVANCED PRACTICE TEST">
+          </div>
+          <div class="field"><label for="tbTestSubtitle">Subtitle / Description</label>
+            <input type="text" id="tbTestSubtitle" value="Chapter-wise Practice Sheet | Questions cropped from source papers">
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="field"><label for="tbCandName">Candidate Name</label>
+              <input type="text" id="tbCandName" placeholder="Your name">
+            </div>
+            <div class="field"><label for="tbTimeLimit">Time Limit (minutes, 0 for untimed)</label>
+              <input type="number" id="tbTimeLimit" value="90" min="0" step="5">
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <h2 style="margin:0">2. Select Subjects &amp; Chapters</h2>
+            <div style="font-size:13px;color:var(--muted)"><span id="tbChapSelectedCnt">0</span> chapters selected</div>
+          </div>
+          <div class="field"><label>Subjects</label>
+            <div class="chips" id="tbSubjBox">
+              <label class="chk"><input type="checkbox" data-tbsubj="Physics" checked> <span>Physics</span></label>
+              <label class="chk"><input type="checkbox" data-tbsubj="Chemistry" checked> <span>Chemistry</span></label>
+              <label class="chk"><input type="checkbox" data-tbsubj="Mathematics" checked> <span>Mathematics</span></label>
+            </div>
+          </div>
+          <div class="chtools" style="margin-top:12px">
+            <input type="text" id="tbChSearch" placeholder="Search chapters..." autocomplete="off">
+            <button class="btn sm" id="tbChAll" type="button">Select all</button>
+            <button class="btn sm" id="tbChNone" type="button">Clear</button>
+          </div>
+          <div id="tbChapList" style="max-height:480px;overflow-y:auto;border:1px solid var(--line);padding:8px;border-radius:3px"></div>
+        </section>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:16px" class="sticky">
+        <section class="card">
+          <h2>3. Questions &amp; Distribution</h2>
+          <div class="sum"><span>Available Questions</span><b class="big" id="tbSumAvail">0</b></div>
+          <div class="field" style="margin-top:12px"><label for="tbCountIn">Total Questions</label>
+            <div style="display:flex;gap:8px">
+              <input type="number" id="tbCountIn" value="30" min="1" step="1">
+              <button class="btn sm" id="tbCountAll" type="button">Max</button>
+            </div>
+            <div class="preset-counts">
+              <button class="preset-count-btn" type="button" data-cnt="15">15 Qs</button>
+              <button class="preset-count-btn" type="button" data-cnt="25">25 Qs (1 Subj: 20+5)</button>
+              <button class="preset-count-btn" type="button" data-cnt="54">54 Qs (Adv Full)</button>
+              <button class="preset-count-btn" type="button" data-cnt="75">75 Qs (Main: 20+5 per subj)</button>
+            </div>
+          </div>
+
+          <div class="field" style="margin-top:12px"><label>Question Types</label>
+            <div style="display:flex;flex-direction:column;gap:6px" id="tbTypesBox">
+              <label class="chk"><input type="checkbox" data-tbtype="single" checked> <span>Single Correct (MCQ)</span></label>
+              <label class="chk"><input type="checkbox" data-tbtype="multi" checked> <span>One or More Correct (MSQ)</span></label>
+              <label class="chk"><input type="checkbox" data-tbtype="numerical" checked> <span>Numerical / Integer (NAT)</span></label>
+              <label class="chk"><input type="checkbox" data-tbtype="paragraph" checked> <span>Comprehension / Paragraph</span></label>
+            </div>
+          </div>
+
+          <div class="field" style="margin-top:12px"><label for="tbDistMode">Distribution Mode</label>
+            <select id="tbDistMode">
+              <option value="balanced">Equal / Balanced across selected chapters</option>
+              <option value="proportional">Proportional to chapter bank size</option>
+              <option value="shuffle">Random / Shuffled</option>
+            </select>
+          </div>
+
+          <h3 style="margin-top:16px">Format &amp; Clean Options</h3>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <label class="chk"><input type="checkbox" id="tbOptAnsKey" checked> <span>Include Answer Key Grid at end</span></label>
+            <label class="chk"><input type="checkbox" id="tbOptSolutions" checked> <span>Include Worked Solutions at end</span></label>
+            <label class="chk"><input type="checkbox" id="tbOptNoWatermark" checked> <span><b>Remove FIITJEE watermarks &amp; footers</b></span></label>
+            <label class="chk"><input type="checkbox" id="tbOptUnattFirst"> <span>Unattempted questions first</span></label>
+          </div>
+
+          <div style="margin-top:20px;display:flex;flex-direction:column;gap:8px">
+            <button class="btn primary" id="btnGenSheet" type="button" style="width:100%;font-size:15px;padding:12px">📄 Generate Test Sheet (Build Sheets Format)</button>
+            <button class="btn" id="btnGenCbt" type="button" style="width:100%">▶ Take as CBT Online Exam</button>
+            <div id="tbStatusNote" class="muted" style="font-size:12px;text-align:center"></div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="scrSheetView" class="screen" hidden>
+  <div class="topbar sheet-toolbar"><div class="tb-in" style="width:100%"><div class="sheet-tools-left">
+    <button class="btn sm" id="sheetBackBtn" type="button">&larr; Back to Builder</button>
+    <span class="tb-title" id="sheetDocTitle">Vector Test Sheet Preview</span>
+  </div><div class="sheet-tools-right">
+    <a class="btn sm primary" id="sheetDownloadBtn" href="#" download="test_sheet.pdf">📥 Download PDF</a>
+    <a class="btn sm" id="sheetOpenTabBtn" href="#" target="_blank">↗️ Open in New Tab</a>
+    <button class="btn sm" id="sheetPrintBtn" type="button">🖨️ Print</button>
+    <button class="btn sm" id="sheetStartCbtBtn" type="button">▶ Take as CBT Online Exam</button>
+  </div></div></div>
+
+  <div class="sheet-view-wrap" style="padding:0;height:calc(100vh - 56px);overflow:hidden;background:#525659">
+    <iframe id="sheetPdfFrame" src="about:blank" style="width:100%;height:100%;border:none;background:#525659;display:block"></iframe>
+    <div id="sheetDocContainer" style="display:none"></div>
+  </div>
+</div>
+
 <div id="modal" class="modal" hidden><div class="box" id="modalBox"></div></div>
 
 <script>
@@ -587,7 +1088,8 @@ async function resolveZipImage(img){
     const blob=await f.async('blob');
     const isSecondary = /__--__[2-9]\.png/i.test(fileName);
     const checkFooter = () => {
-      if(isSecondary && img.naturalHeight > 0 && img.naturalHeight <= 140 && (img.naturalWidth / img.naturalHeight) >= 9.5){
+      // Remove FIITJEE watermark footers or banner slices
+      if((isSecondary || /footer|banner/i.test(fileName)) && img.naturalHeight > 0 && img.naturalHeight <= 160 && (img.naturalWidth / img.naturalHeight) >= 6.5){
         img.remove();
       }
     };
@@ -725,7 +1227,7 @@ function normQuestion(q,i,defSubject){
     solution:String(q.solution!=null?q.solution:(q.explanation||'')),
     images:imgs.map(String), solImages:[].concat(q.solution_images||q.solutionImages||[]).filter(Boolean).map(String),
     source:String(q.source!=null?q.source:(q.source_paper!=null?q.source_paper:(q.paper!=null?q.paper:(q.test||'')))),
-    paper: (q.exam ? (q.exam==='advanced'?'adv':(q.exam==='main'?'main':q.exam)) : paperOf(String(q.source||'')+' '+String(q.paperTitle||q.paper_title||''))),
+    paper: (q.exam ? (/adv/i.test(q.exam)?'adv':(/main/i.test(q.exam)?'main':q.exam)) : paperOf(String(q.source||'')+' '+String(q.paperTitle||q.paper_title||''))),
     year:yearOf(q)
   };
 }
@@ -803,7 +1305,7 @@ function showNote(t){ const n=$('#dbNote'); n.textContent=t; n.hidden=!t; }
 
 /* ---------- screens ---------- */
 function show(id){
-  ['scrSetup','scrInstr','scrExam','scrRes','scrSaved'].forEach(s=>{ $('#'+s).hidden = s!==id; });
+  ['scrSetup','scrInstr','scrExam','scrRes','scrSaved','scrTestBuilder','scrSheetView'].forEach(s=>{ const el=$('#'+s); if(el) el.hidden = s!==id; });
   toggleAcc(false); hideTip();
   window.scrollTo(0,0);
 }
@@ -870,7 +1372,14 @@ const CHEM_SEGMENTS = [
   {name:'Inorganic Chemistry', chapters:['Periodic Table & Periodicity','Hydrogen','s-Block Elements','p-Block Elements: Group 13 (Boron family) & Group 14 (Carbon family)','p-Block Elements: Group 15 (Nitrogen family) & Group 16 (Oxygen family)','p-Block Elements: Group 17 (Halogens) & Group 18 (Noble gases)','d- and f-Block Elements','Coordination Compounds','Principles & Processes of Isolation of Metals (Metallurgy)','Qualitative Salt Analysis']},
   {name:'Organic Chemistry', chapters:['General Organic Chemistry (GOC)','Isomerism (Structural & Stereoisomerism)','Hydrocarbons','Haloalkanes & Haloarenes','Alcohols, Phenols & Ethers','Aldehydes, Ketones & Carboxylic Acids','Amines & Diazonium Salts','Biomolecules','Polymers','Chemistry in Everyday Life']}
 ];
-const SEGMENTS = {Physics:CHAPTER_SEGMENTS, Chemistry:CHEM_SEGMENTS};
+const MATH_SEGMENTS = [
+  {name:'Algebra', chapters:['Quadratic Equations & Complex Numbers','Sequences & Series (AP, GP, HP)','Binomial Theorem & Mathematical Induction','Permutations & Combinations','Matrices & Determinants','Probability','Mathematical Reasoning']},
+  {name:'Calculus', chapters:['Functions, Relations & Limits','Continuity & Differentiability','Application of Derivatives (AOD)','Indefinite Integration','Definite Integration & Area Under Curves','Differential Equations']},
+  {name:'Coordinate Geometry', chapters:['Straight Lines & Pair of Lines','Circles','Parabola','Ellipse & Hyperbola']},
+  {name:'Trigonometry', chapters:['Trigonometric Ratios & Identities','Trigonometric Equations','Inverse Trigonometric Functions','Properties of Triangles']},
+  {name:'Vectors & 3D Geometry', chapters:['Vector Algebra','Three Dimensional Geometry (3D)']}
+];
+const SEGMENTS = {Physics:CHAPTER_SEGMENTS, Chemistry:CHEM_SEGMENTS, Mathematics:MATH_SEGMENTS};
 function chapterSegment(chapter){
   const found=CHAPTER_SEGMENTS.find(g=>g.chapters.includes(chapter));
   return found ? found.name : 'Other Chapters';
@@ -1822,7 +2331,7 @@ document.addEventListener('click',e=>{
   const inf=e.target.closest('.info');
   if(!inf) hideTip();
   if(inf && T){ e.stopPropagation(); if(tipPinned===inf) hideTip(); else { tipPinned=inf; showTip(inf); } return; }
-  const b=e.target.closest('button'); if(!b) return;
+  const b=e.target.closest('button, .pattern-pill'); if(!b) return;
   if(b.id==='chAll'||b.id==='chNone'){ const term=$('#chSearch').value.trim().toLowerCase(); DB.forEach(q=>{ if(cfg.subjects.has(q.subject)&&(!term||q.chapter.toLowerCase().includes(term)||q.subject.toLowerCase().includes(term))){ const k=q.subject+'||'+q.chapter; b.id==='chAll'?cfg.chapters.add(k):cfg.chapters.delete(k); } }); renderChapters(); renderTypes(); refreshSummary(); }
   else if(b.id==='attReset'){ if(confirm('Forget all attempted questions?')){ ATT.clear(); saveAtt(); refreshSummary(); } }
   else if(b.id==='cntAll'){ cfg.count=pool().length; cfg.countAuto=false; refreshSummary(); }
@@ -1852,6 +2361,116 @@ document.addEventListener('click',e=>{
   else if(b.dataset.bm){ toggleBm(b.dataset.bm); b.setAttribute('aria-pressed',String(BM.has(b.dataset.bm))); }
   else if(b.id==='expData'){ $('#topMenu').open=false; exportData(); }
   else if(b.id==='impData'){ $('#topMenu').open=false; $('#impFile').click(); }
+  
+  // Test Builder navigation & actions
+  else if(b.id==='navBuilder' || b.id==='openBuilderMenu' || b.id==='openBuilderBtn' || b.id==='openBuilderFromSetup'){
+    const m = $('#topMenu'); if(m) m.open = false;
+    openBuilderScreen();
+  }
+  else if(b.id==='tbBackBtn'){ show('scrSetup'); renderHist(); }
+  else if(b.id==='sheetBackBtn'){ show('scrTestBuilder'); }
+  else if(b.id==='btnGenSheet'){ buildCustomSheet(); }
+  else if(b.id==='btnGenCbt' || b.id==='sheetStartCbtBtn'){ startCbtFromBuilder(); }
+  else if(b.id==='sheetPrintBtn'){
+    const frame = $('#sheetPdfFrame');
+    if(frame && frame.contentWindow){
+      try { frame.contentWindow.focus(); frame.contentWindow.print(); } catch(e){ window.print(); }
+    } else {
+      window.print();
+    }
+  }
+  else if(b.id==='sheetToggleSolBtn'){
+    const sol = document.querySelector('.sheet-sol-section');
+    if(sol){
+      sol.hidden = !sol.hidden;
+      b.textContent = sol.hidden ? 'Show Solutions' : 'Hide Solutions';
+    }
+  }
+  else if(b.id==='sheetToggleKeyBtn'){
+    const key = document.querySelector('.sheet-ans-section');
+    if(key){
+      key.hidden = !key.hidden;
+      b.textContent = key.hidden ? 'Show Answer Key' : 'Hide Answer Key';
+    }
+  }
+  else if(b.dataset.pattern){
+    document.querySelectorAll('#tbPatternPills .pattern-pill').forEach(p => p.classList.toggle('active', p === b));
+    tbCfg.pattern = b.dataset.pattern;
+    if(tbCfg.pattern === 'main'){
+      tbCfg.paper = 'main';
+      $('#tbTestTitle').value = 'JEE MAIN PRACTICE TEST';
+      $('#tbTestSubtitle').value = 'JEE Main Practice Sheet | 20 SCQ + 5 Numerical (25 per subject)';
+      $('#tbTimeLimit').value = 180;
+      tbCfg.types = new Set(['single', 'numerical']);
+      document.querySelectorAll('#tbTypesBox input[data-tbtype]').forEach(cb => {
+        const isMains = (cb.dataset.tbtype === 'single' || cb.dataset.tbtype === 'numerical');
+        cb.checked = isMains;
+        cb.disabled = !isMains;
+        cb.parentElement.style.opacity = isMains ? '1' : '0.4';
+        cb.parentElement.style.pointerEvents = isMains ? 'auto' : 'none';
+      });
+      const activeCount = Math.max(1, tbCfg.subjects.size);
+      $('#tbCountIn').value = activeCount * 25;
+      tbCfg.count = activeCount * 25;
+    } else if(tbCfg.pattern === 'custom'){
+      tbCfg.paper = 'all';
+      $('#tbTestTitle').value = 'CUSTOM PRACTICE TEST';
+      $('#tbTestSubtitle').value = 'Custom Practice Sheet | Questions cropped from source papers';
+      $('#tbTimeLimit').value = 60;
+      tbCfg.types = new Set(['single', 'multi', 'numerical', 'paragraph']);
+      document.querySelectorAll('#tbTypesBox input[data-tbtype]').forEach(cb => {
+        cb.checked = true;
+        cb.disabled = false;
+        cb.parentElement.style.opacity = '1';
+        cb.parentElement.style.pointerEvents = 'auto';
+      });
+    } else {
+      tbCfg.paper = 'adv';
+      $('#tbTestTitle').value = 'JEE ADVANCED PRACTICE TEST';
+      $('#tbTestSubtitle').value = 'Chapter-wise Practice Sheet | Questions cropped from source papers';
+      $('#tbTimeLimit').value = 90;
+      tbCfg.types = new Set(['single', 'multi', 'numerical', 'paragraph']);
+      document.querySelectorAll('#tbTypesBox input[data-tbtype]').forEach(cb => {
+        cb.checked = true;
+        cb.disabled = false;
+        cb.parentElement.style.opacity = '1';
+        cb.parentElement.style.pointerEvents = 'auto';
+      });
+      if(!$('#tbCountIn').value || +$('#tbCountIn').value === 90){
+        $('#tbCountIn').value = 54;
+        tbCfg.count = 54;
+      }
+    }
+    updateBuilderPaperOptions();
+    renderBuilderChapters();
+    refreshBuilderSummary();
+  }
+  else if(b.dataset.paper){
+    tbCfg.paper = b.dataset.paper;
+    updateBuilderPaperOptions();
+    renderBuilderChapters();
+    refreshBuilderSummary();
+  }
+  else if(b.dataset.cnt){
+    $('#tbCountIn').value = b.dataset.cnt;
+    tbCfg.count = +b.dataset.cnt;
+    refreshBuilderSummary();
+  }
+  else if(b.id==='tbCountAll'){
+    $('#tbCountIn').value = $('#tbSumAvail').textContent;
+    tbCfg.count = +($('#tbCountIn').value);
+  }
+  else if(b.id==='tbChAll'){
+    document.querySelectorAll('#tbChapList input[data-tbch]').forEach(cb => { cb.checked = true; tbCfg.chapters.add(cb.dataset.tbch); });
+    renderBuilderChapters();
+    refreshBuilderSummary();
+  }
+  else if(b.id==='tbChNone'){
+    document.querySelectorAll('#tbChapList input[data-tbch]').forEach(cb => { cb.checked = false; tbCfg.chapters.delete(cb.dataset.tbch); });
+    renderBuilderChapters();
+    refreshBuilderSummary();
+  }
+
   else if(b.id==='openSaved'){ $('#topMenu').open=false; svChap=null; svPick(); renderSaved(); show('scrSaved'); }
   else if(b.id==='svBack'){ if(svChap){ svChap=null; renderSaved(); } else { show('scrSetup'); renderHist(); } }
   else if(b.dataset.svtab){ svTab=b.dataset.svtab; svChap=null; svPaper='all'; svYear='all'; svPick(); renderSaved(); }
@@ -1936,7 +2555,635 @@ function applyBulkSelection(buttonId, containerSelector, checkboxSelector, getKe
 applyBulkSelection('chAll', '#chapList', 'input[data-ch]', cb => cb.dataset.ch, true);
 applyBulkSelection('chNone', '#chapList', 'input[data-ch]', cb => cb.dataset.ch, false);
 applyBulkSelection('yrAll', '#yearBox', 'input[data-year]', cb => cb.dataset.year, true);
+
+// Setup Test Builder listeners
+$('#tbSubjBox').addEventListener('change', e => {
+  const cb = e.target.closest('input[data-tbsubj]');
+  if(!cb) return;
+  if(cb.checked) tbCfg.subjects.add(cb.dataset.tbsubj);
+  else tbCfg.subjects.delete(cb.dataset.tbsubj);
+  updateBuilderPaperOptions();
+  renderBuilderChapters();
+  refreshBuilderSummary();
+});
+document.addEventListener('change', e => {
+  if(e.target && e.target.id === 'tbPaperSel'){
+    tbCfg.paper = e.target.value;
+    updateBuilderPaperOptions();
+    renderBuilderChapters();
+    refreshBuilderSummary();
+  }
+});
+$('#tbTypesBox').addEventListener('change', e => {
+  const cb = e.target.closest('input[data-tbtype]');
+  if(!cb) return;
+  if(cb.checked) tbCfg.types.add(cb.dataset.tbtype);
+  else tbCfg.types.delete(cb.dataset.tbtype);
+  renderBuilderChapters();
+  refreshBuilderSummary();
+});
+$('#tbChapList').addEventListener('change', e => {
+  const segCb = e.target.closest('input[data-tbsegment]');
+  if(segCb){
+    const group = segCb.closest('.chgroup');
+    group.querySelectorAll('input[data-tbch]').forEach(cb => {
+      cb.checked = segCb.checked;
+      if(segCb.checked) tbCfg.chapters.add(cb.dataset.tbch);
+      else tbCfg.chapters.delete(cb.dataset.tbch);
+    });
+    renderBuilderChapters();
+    refreshBuilderSummary();
+    return;
+  }
+  const chCb = e.target.closest('input[data-tbch]');
+  if(chCb){
+    if(chCb.checked) tbCfg.chapters.add(chCb.dataset.tbch);
+    else tbCfg.chapters.delete(chCb.dataset.tbch);
+    renderBuilderChapters();
+    refreshBuilderSummary();
+  }
+});
+$('#tbChSearch').addEventListener('input', () => { renderBuilderChapters(); });
+$('#tbCountIn').addEventListener('input', () => { tbCfg.count = +($('#tbCountIn').value) || 30; });
+window.addEventListener('hashchange', () => {
+  if(window.location.hash === '#builder' || window.location.hash === '#test-builder') openBuilderScreen();
+});
+
 applyBulkSelection('yrNone', '#yearBox', 'input[data-year]', cb => cb.dataset.year, false);
+
+
+/* ==================== TEST BUILDER & BUILD SHEETS IMPLEMENTATION ==================== */
+function stripWatermarks(text){
+  if(!text) return '';
+  return String(text)
+    .replace(/(?:FIITJEE\s*Ltd\.?|FIITJEE\s*House)[^\n<]*/gi, '')
+    .replace(/website:\s*www\.fiitjee\.com[^\n<]*/gi, '')
+    .replace(/For More Join:\s*@\S+/gi, '')
+    .replace(/@FIITJEE\S*/gi, '')
+    .replace(/Kalu\s*Sarai[^\n<]*/gi, '')
+    .replace(/Sarvapriya\s*Vihar[^\n<]*/gi, '')
+    .replace(/\b\d{4}\s*FIITJEE\s*Students[^\n<]*/gi, '')
+    .trim();
+}
+
+function cleanSourceTag(q){
+  let yr = q.year || '';
+  let s = q.source || q.paperTitle || '';
+  s = s.replace(/^q_/i, '').replace(/^QM__/i, '').replace(/FIITJEE\s*AITS\s*/i, '');
+  let m = s.match(/(?:FT|CRT|PT|OT)[-_ ]*(?:[IVX\d]+)/i);
+  let ptype = m ? m[0].toUpperCase() : (q.paper === 'adv' ? 'JEE Adv' : (q.paper === 'main' ? 'JEE Main' : 'AITS'));
+  let qn = q.questionNumber ? 'Q' + q.questionNumber : (q.id ? String(q.id).split('_').pop() : '');
+  if(!qn || isNaN(+qn.replace(/\D/g, ''))) qn = '';
+  else qn = 'Q' + parseInt(qn.replace(/\D/g, ''), 10);
+  if(yr && qn) return yr + ' | ' + qn;
+  if(yr && ptype) return yr + ' | ' + ptype;
+  return (yr ? yr + ' | ' : '') + (q.chapter ? q.chapter.slice(0, 18) : 'AITS');
+}
+
+const tbCfg = {
+  pattern: 'adv',
+  paper: 'all',
+  subjects: new Set(['Physics', 'Chemistry', 'Mathematics']),
+  chapters: new Set(),
+  types: new Set(['single', 'multi', 'numerical', 'paragraph']),
+  count: 30,
+  distMode: 'balanced',
+  optAnsKey: true,
+  optSolutions: true,
+  optNoWatermark: true,
+  optUnattFirst: false,
+  builtQs: []
+};
+
+function updateBuilderPaperOptions(){
+  const inSubj = DB.filter(q => tbCfg.subjects.has(q.subject));
+  let mainCnt = 0, advCnt = 0;
+  inSubj.forEach(q => {
+    if(q.paper === 'main') mainCnt++;
+    else if(q.paper === 'adv') advCnt++;
+  });
+  const total = inSubj.length;
+  const sel = $('#tbPaperSel');
+  if(sel){
+    sel.innerHTML = '<option value="all">Mains and Advanced papers (' + total + ')</option>' +
+                    '<option value="main">Mains paper (' + mainCnt + ')</option>' +
+                    '<option value="adv">Advanced paper (' + advCnt + ')</option>';
+    sel.value = tbCfg.paper;
+  }
+  document.querySelectorAll('#tbPaperPills .pattern-pill').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.paper === tbCfg.paper);
+  });
+}
+
+function renderBuilderChapters(){
+  const term = ($('#tbChSearch').value || '').trim().toLowerCase();
+  const groups = {};
+  DB.forEach(q => {
+    if(!groups[q.subject]) groups[q.subject] = {};
+    const c = groups[q.subject][q.chapter] || (groups[q.subject][q.chapter] = {n: 0});
+    if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return;
+    const effType = q.rawType || q.type;
+    if(tbCfg.pattern === 'main'){
+      if(effType.includes('para') || effType.includes('comp') || effType.includes('multi') || effType.includes('msq')) return;
+      if(effType === 'single' || effType === 'mcq' || effType === 'numerical' || effType === 'nat') c.n++;
+    } else {
+      if(tbCfg.types.has(effType) || tbCfg.types.has(q.type)) c.n++;
+    }
+  });
+
+  const subjects = Object.keys(groups).filter(s => tbCfg.subjects.has(s)).sort((a,b) => subjRank(a) - subjRank(b) || a.localeCompare(b));
+  let totalSelected = 0;
+
+  const html = subjects.map(subject => {
+    const available = groups[subject];
+    const orderedSegments = (SEGMENTS[subject] || []).map(g => ({
+      name: g.name,
+      chapters: g.chapters.filter(c => Object.prototype.hasOwnProperty.call(available, c))
+    })).filter(g => g.chapters.length);
+    const assigned = new Set(orderedSegments.flatMap(g => g.chapters));
+    const extras = Object.keys(available).filter(c => !assigned.has(c)).sort((a,b) => a.localeCompare(b, undefined, {numeric:true}));
+    if(extras.length) orderedSegments.push({name: 'Other Chapters', chapters: extras});
+
+    return orderedSegments.map(segment => {
+      const shown = segment.chapters.filter(c => !term || c.toLowerCase().includes(term) || segment.name.toLowerCase().includes(term) || subject.toLowerCase().includes(term));
+      if(!shown.length) return '';
+      const total = shown.reduce((n, c) => n + (available[c] ? available[c].n : 0), 0);
+      const segmentKey = subject + '||SEGMENT||' + segment.name;
+      return '<div class="chgroup" style="margin-bottom:8px;border:1px solid var(--line);border-radius:3px;overflow:hidden">' +
+        '<div class="gh" style="display:flex;align-items:center;padding:5px 10px;background:var(--brand);color:#fff;font-weight:700;font-size:13px">' +
+          '<label class="chk" style="flex:1;cursor:pointer"><input type="checkbox" data-tbsegment="' + esc(segmentKey) + '" style="accent-color:#fff"> <span>' + esc(subject) + ' &ndash; ' + esc(segment.name) + '</span></label>' +
+          '<span class="cnt" style="font-size:12px">' + total + '</span>' +
+        '</div>' +
+        '<div class="chlist" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:2px 14px;padding:6px 10px">' +
+          shown.map(c => {
+            const k = subject + '||' + c;
+            const isChecked = tbCfg.chapters.has(k);
+            if(isChecked) totalSelected++;
+            const cnt = available[c] ? available[c].n : 0;
+            return '<label class="chk' + (cnt ? '' : ' zero') + '" style="cursor:pointer;font-size:13px"><input type="checkbox" data-tbch="' + esc(k) + '"' + (isChecked ? ' checked' : '') + '> <span>' + esc(c) + '</span><span class="cnt">' + cnt + '</span></label>';
+          }).join('') +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }).join('');
+
+  $('#tbChapList').innerHTML = html || '<div class="muted" style="padding:12px;text-align:center">No chapters found. Please enable at least one Subject.</div>';
+  $('#tbChapSelectedCnt').textContent = totalSelected;
+
+  // Sync segment master checkboxes
+  document.querySelectorAll('#tbChapList input[data-tbsegment]').forEach(cb => {
+    const boxes = [...cb.closest('.chgroup').querySelectorAll('input[data-tbch]')];
+    const on = boxes.filter(b => b.checked).length;
+    cb.checked = on === boxes.length && on > 0;
+    cb.indeterminate = on > 0 && on < boxes.length;
+  });
+}
+
+function refreshBuilderSummary(){
+  const pool = DB.filter(q => {
+    if(!tbCfg.subjects.has(q.subject)) return false;
+    if(!tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
+    if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return false;
+    const effType = q.rawType || q.type;
+    if(tbCfg.pattern === 'main'){
+      if(effType.includes('para') || effType.includes('comp') || effType.includes('multi') || effType.includes('msq')) return false;
+      return effType === 'single' || effType === 'mcq' || effType === 'numerical' || effType === 'nat';
+    }
+    return tbCfg.types.has(effType) || tbCfg.types.has(q.type);
+  });
+
+  const avail = pool.length;
+  $('#tbSumAvail').textContent = avail;
+  $('#tbCountIn').max = avail;
+  if(tbCfg.count > avail && avail > 0) tbCfg.count = avail;
+  $('#tbCountIn').value = Math.min(tbCfg.count || 30, Math.max(avail, 1));
+
+  const ok = avail > 0;
+  $('#btnGenSheet').disabled = !ok;
+  $('#btnGenCbt').disabled = !ok;
+  if(tbCfg.pattern === 'main'){
+    const activeSubjs = ['Physics', 'Chemistry', 'Mathematics'].filter(s => tbCfg.subjects.has(s));
+    const reqTotal = activeSubjs.length * 25;
+    $('#tbStatusNote').textContent = 'JEE Main Pattern: Strictly 20 SCQ + 5 Numerical per subject (25 Qs/subj, ' + reqTotal + ' total Qs).';
+  } else {
+    $('#tbStatusNote').textContent = ok ? (avail + ' questions match your criteria.') : 'Select at least one chapter and question type.';
+  }
+}
+
+function openBuilderScreen(){
+  if(!tbCfg.chapters.size && DB.length){
+    // Select all chapters of active subjects by default
+    DB.forEach(q => {
+      if(tbCfg.subjects.has(q.subject)) tbCfg.chapters.add(q.subject + '||' + q.chapter);
+    });
+  }
+  updateBuilderPaperOptions();
+  renderBuilderChapters();
+  refreshBuilderSummary();
+  show('scrTestBuilder');
+}
+
+function getSelectedBuilderQuestions(){
+  if(tbCfg.pattern === 'main'){
+    const activeSubjs = ['Physics', 'Chemistry', 'Mathematics'].filter(s => tbCfg.subjects.has(s));
+    if(!activeSubjs.length) return [];
+
+    const totalTarget = +($('#tbCountIn').value) || (activeSubjs.length * 25);
+    const perSubjTotal = Math.max(1, Math.floor(totalTarget / activeSubjs.length));
+    const perSubjScq = perSubjTotal === 25 ? 20 : Math.round(perSubjTotal * (20 / 25));
+    const perSubjNat = perSubjTotal === 25 ? 5 : Math.max(1, perSubjTotal - perSubjScq);
+
+    let mainPicked = [];
+    const unattFirst = $('#tbOptUnattFirst').checked;
+    const distMode = $('#tbDistMode').value;
+
+    for(const subj of activeSubjs){
+      const subPool = DB.filter(q => {
+        if(q.subject !== subj) return false;
+        if(!tbCfg.chapters.has(subj + '||' + q.chapter)) return false;
+        if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return false;
+        return true;
+      });
+      // Strictly exclude any comprehension / paragraph or multi-correct
+      const scqPool = subPool.filter(q => {
+        const t = (q.rawType || q.type || '').toLowerCase();
+        if(t.includes('para') || t.includes('comp') || t.includes('multi') || t.includes('msq')) return false;
+        return t === 'single' || t === 'mcq';
+      });
+      const natPool = subPool.filter(q => {
+        const t = (q.rawType || q.type || '').toLowerCase();
+        if(t.includes('para') || t.includes('comp') || t.includes('multi') || t.includes('msq')) return false;
+        return t === 'numerical' || t === 'nat';
+      });
+
+      function pickFrom(pool, count){
+        if(!pool.length || count <= 0) return [];
+        if(distMode === 'balanced'){
+          const byCh = {};
+          pool.forEach(q => { if(!byCh[q.chapter]) byCh[q.chapter] = []; byCh[q.chapter].push(q); });
+          const chs = Object.keys(byCh);
+          const perCh = Math.max(1, Math.floor(count / chs.length));
+          const chPools = {};
+          chs.forEach(k => {
+            let list = byCh[k].slice();
+            if(unattFirst){
+              const a = list.filter(q => !ATT.has(q.id)), b = list.filter(q => ATT.has(q.id));
+              shuffle(a); shuffle(b); list = a.concat(b);
+            } else {
+              shuffle(list);
+            }
+            chPools[k] = list;
+          });
+
+          let res = [], rem = count;
+          for(const k of chs){
+            if(rem <= 0) break;
+            const take = Math.min(perCh, chPools[k].length, rem);
+            res = res.concat(chPools[k].slice(0, take));
+            chPools[k] = chPools[k].slice(take);
+            rem -= take;
+          }
+          if(rem > 0){
+            for(const k of chs){
+              if(rem <= 0) break;
+              const take = Math.min(rem, chPools[k].length);
+              res = res.concat(chPools[k].slice(0, take));
+              chPools[k] = chPools[k].slice(take);
+              rem -= take;
+            }
+          }
+          return res;
+        } else {
+          let list = pool.slice();
+          if(unattFirst){
+            const a = list.filter(q => !ATT.has(q.id)), b = list.filter(q => ATT.has(q.id));
+            shuffle(a); shuffle(b); list = a.concat(b);
+          } else {
+            shuffle(list);
+          }
+          return list.slice(0, count);
+        }
+      }
+
+      // Strictly pick 25 SCQ and 5 NAT
+      const pickedScq = pickFrom(scqPool, perSubjScq);
+      const pickedNat = pickFrom(natPool, perSubjNat);
+
+      // Section A (SCQ) first, then Section B (NAT)
+      mainPicked = mainPicked.concat(pickedScq).concat(pickedNat);
+    }
+
+    return mainPicked;
+  }
+
+  const pool = DB.filter(q => {
+    if(!tbCfg.subjects.has(q.subject)) return false;
+    if(!tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
+    if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return false;
+    const effType = q.rawType || q.type;
+    return tbCfg.types.has(effType) || tbCfg.types.has(q.type);
+  });
+  if(!pool.length) return [];
+
+  const targetCount = Math.min(+($('#tbCountIn').value) || 30, pool.length);
+  const unattFirst = $('#tbOptUnattFirst').checked;
+  const distMode = $('#tbDistMode').value;
+
+  // Group by chapter
+  const byChap = {};
+  pool.forEach(q => {
+    const k = q.subject + '||' + q.chapter;
+    if(!byChap[k]) byChap[k] = [];
+    byChap[k].push(q);
+  });
+  const chKeys = Object.keys(byChap);
+
+  let picked = [];
+  if(distMode === 'balanced' && chKeys.length){
+    // Even distribution across chosen chapters
+    const perChap = Math.max(1, Math.floor(targetCount / chKeys.length));
+    const chPools = {};
+    chKeys.forEach(k => {
+      let list = byChap[k].slice();
+      if(unattFirst){
+        const a = list.filter(q => !ATT.has(q.id)), b = list.filter(q => ATT.has(q.id));
+        shuffle(a); shuffle(b); list = a.concat(b);
+      } else {
+        shuffle(list);
+      }
+      chPools[k] = list;
+    });
+
+    let remaining = targetCount;
+    // Round 1: equal slice
+    for(const k of chKeys){
+      if(remaining <= 0) break;
+      const take = Math.min(perChap, chPools[k].length, remaining);
+      picked = picked.concat(chPools[k].slice(0, take));
+      chPools[k] = chPools[k].slice(take);
+      remaining -= take;
+    }
+    // Round 2: leftover from remaining pools
+    if(remaining > 0){
+      for(const k of chKeys){
+        if(remaining <= 0) break;
+        const take = Math.min(remaining, chPools[k].length);
+        picked = picked.concat(chPools[k].slice(0, take));
+        chPools[k] = chPools[k].slice(take);
+        remaining -= take;
+      }
+    }
+  } else {
+    // Proportional or random
+    let list = pool.slice();
+    if(unattFirst){
+      const a = list.filter(q => !ATT.has(q.id)), b = list.filter(q => ATT.has(q.id));
+      shuffle(a); shuffle(b); list = a.concat(b);
+    } else {
+      shuffle(list);
+    }
+    picked = list.slice(0, targetCount);
+  }
+
+  // Sort picked questions into standard test sections
+  // Rank by Subject -> Question Type (MCQ, MSQ, NAT, Paragraph)
+  picked.sort((a,b) => subjRank(a.subject) - subjRank(b.subject) || a.subject.localeCompare(b.subject) || TRANK[a.type] - TRANK[b.type]);
+  return picked;
+}
+
+async function buildCustomSheet(){
+  const qs = getSelectedBuilderQuestions();
+  if(!qs.length){
+    alert('No questions match your selection. Please select at least one chapter with available questions.');
+    return;
+  }
+  tbCfg.builtQs = qs;
+
+  const title = ($('#tbTestTitle').value || '').trim() || 'JEE ADVANCED PRACTICE TEST';
+  const subtitle = ($('#tbTestSubtitle').value || '').trim() || 'Chapter-wise Practice Sheet | Questions cropped from source papers';
+  const includeSol = $('#tbOptSolutions').checked;
+  const noWatermark = $('#tbOptNoWatermark').checked;
+
+  const btn = $('#btnGenSheet');
+  const origBtnText = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '⏳ Generating Vector PDF Sheet...';
+  $('#tbStatusNote').textContent = 'Generating 100% vector PDF (cropping from source papers, removing watermarks)...';
+
+  try {
+    const qids = qs.map(q => q.id);
+    const chaps = [...new Set(qs.map(q => q.chapter))];
+    const subjs = [...new Set(qs.map(q => q.subject))];
+
+    const resp = await fetch('/api/build-test', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chapters: chaps,
+        subjects: subjs,
+        count: qs.length,
+        pattern: tbCfg.pattern,
+        paper: tbCfg.paper,
+        title: title,
+        subtitle: subtitle,
+        includeSolutions: includeSol,
+        removeWatermark: noWatermark,
+        qids: qids
+      })
+    });
+
+    const data = await resp.json();
+    if(!data.ok){
+      throw new Error(data.error || 'Server error generating vector test');
+    }
+
+    const frame = $('#sheetPdfFrame');
+    frame.src = data.pdfUrl + '#toolbar=1&navpanes=0&view=FitH';
+    $('#sheetDownloadBtn').href = data.pdfUrl;
+    $('#sheetDownloadBtn').download = data.filename || 'practice_sheet.pdf';
+    $('#sheetOpenTabBtn').href = data.pdfUrl;
+    $('#sheetDocTitle').textContent = title + ' (' + data.totalQuestions + ' Qs, ' + data.totalPages + ' Pages)';
+
+    $('#tbStatusNote').textContent = 'Vector PDF created successfully! (' + data.totalQuestions + ' Qs, ' + data.totalPages + ' pages)';
+    show('scrSheetView');
+  } catch(err){
+    console.error('Vector sheet build error:', err);
+    alert('Error generating vector test sheet: ' + err.message + '\n\nPlease ensure the local server (python server.py) is running on localhost:8000.');
+    $('#tbStatusNote').textContent = 'Error: ' + err.message;
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = origBtnText;
+  }
+}
+
+function renderSheetDoc(qs, opts){
+  $('#sheetDocTitle').textContent = opts.title + ' (' + qs.length + ' Qs)';
+  const container = $('#sheetDocContainer');
+  container.innerHTML = '';
+
+  // Group questions by section
+  const sections = [];
+  const secMap = new Map();
+  qs.forEach(q => {
+    const effType = q.rawType || q.type;
+    const secKey = (opts.pattern === 'main' ? q.subject + ' &ndash; ' + (effType === 'numerical' ? 'Section B (Numerical)' : 'Section A (MCQ)') : q.subject + ' &ndash; ' + (SECLBL[effType] || SECLBL[q.type] || 'Questions'));
+    if(!secMap.has(secKey)){
+      secMap.set(secKey, {title: secKey, qs: []});
+      sections.push(secMap.get(secKey));
+    }
+    secMap.get(secKey).qs.push(q);
+  });
+
+  // Calculate total marks based on pattern
+  const preset = PRESETS[opts.pattern] || PRESETS.adv;
+  const totalMarks = qs.reduce((acc, q) => acc + (preset[q.rawType||q.type]||preset.single).c, 0);
+
+  // Distinct subjects and chapters
+  const subjs = [...new Set(qs.map(q => q.subject))].join(', ');
+  const chaps = [...new Set(qs.map(q => q.chapter))];
+  const chapsText = chaps.length <= 4 ? chaps.join(', ') : chaps.slice(0, 3).join(', ') + ' &amp; ' + (chaps.length - 3) + ' more';
+
+  let qGlobalNum = 1;
+  const keyRows = [];
+  const solRows = [];
+
+  // PAGE 1: COVER & FIRST SECTION
+  let html = '<div class="sheet-page" data-page="1">' +
+    '<h1 class="sheet-cover-title">' + esc(opts.title) + '</h1>' +
+    '<div class="sheet-cover-sub">' + esc(opts.subtitle) + '</div>' +
+    '<div class="sheet-cover-meta">' +
+      '<div><b>Subjects:</b> ' + esc(subjs) + '</div>' +
+      '<div><b>Chapters:</b> ' + esc(chapsText) + '</div>' +
+      '<div><b>Questions:</b> ' + qs.length + '</div>' +
+      '<div><b>Max Marks:</b> ' + totalMarks + '</div>' +
+      '<div><b>Time:</b> ' + (opts.timeLimit > 0 ? opts.timeLimit + ' Min' : 'Untimed') + '</div>' +
+    '</div>';
+
+  sections.forEach(sec => {
+    html += '<div class="sheet-sec-hdr">' +
+      '<div class="sheet-sec-lines"><div class="sheet-sec-lines-top"></div><div class="sheet-sec-lines-bot"></div></div>' +
+      '<div class="sheet-sec-title">' + esc(sec.title) + '</div>' +
+    '</div>';
+
+    sec.qs.forEach(q => {
+      const qNum = qGlobalNum++;
+      const qLabel = 'Q' + qNum;
+      const tag = cleanSourceTag(q);
+      const ansKey = keyText(q);
+      keyRows.push({num: qLabel, ans: ansKey || '&mdash;'});
+
+      let qText = opts.noWatermark ? stripWatermarks(q.text) : (q.text || '');
+      let passageHtml = '';
+      if(q.paragraph && q.passageImages && q.passageImages.length){
+        passageHtml = '<div style="margin-bottom:8pt;padding:6pt 10pt;background:#f8f9fa;border-left:3pt solid #1a3a5c;font-size:9pt">' +
+          '<b style="color:#1a3a5c">Paragraph for Question Nos. ' + qNum + ':</b>' +
+          q.passageImages.map(u => imageMarkup(u, 'Passage figure')).join('') +
+        '</div>';
+      }
+
+      const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
+      const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure')).join('');
+
+      let optionsHtml = '';
+      if(q.options && q.options.length && !q.labelOnly){
+        optionsHtml = '<div class="sheet-qoptions">' +
+          q.options.map((opt, idx) => '<div class="sheet-qopt"><span class="sheet-qopt-key">(' + LET[idx] + ')</span> <span>' + (opts.noWatermark ? stripWatermarks(opt) : opt) + '</span></div>').join('') +
+        '</div>';
+      }
+
+      html += '<div class="sheet-qrow">' +
+        '<div class="sheet-qlab-col">' +
+          '<div class="sheet-qlab">' + esc(qLabel) + '</div>' +
+          '<div class="sheet-qtag">' + esc(tag) + '</div>' +
+        '</div>' +
+        '<div class="sheet-qbody-col">' +
+          passageHtml +
+          (qText ? '<div class="sheet-qbody-text">' + rich(qText) + '</div>' : '') +
+          imgsHtml +
+          optionsHtml +
+        '</div>' +
+      '</div>';
+
+      if(opts.includeSol && (q.solution || (q.solImages && q.solImages.length))){
+        solRows.push({num: qLabel, tag, q, solText: opts.noWatermark ? stripWatermarks(q.solution) : (q.solution || ''), solImgs: q.solImages || []});
+      }
+    });
+  });
+
+  html += '<div class="sheet-page-footer">Sheet Page 1</div></div>';
+
+  // ANSWER KEY PAGE (Exact build_sheets.py 5-column grid)
+  if(opts.includeKey && keyRows.length){
+    html += '<div class="sheet-page sheet-ans-section" data-page="ans">' +
+      '<div class="sheet-sec-hdr">' +
+        '<div class="sheet-sec-lines"><div class="sheet-sec-lines-top"></div><div class="sheet-sec-lines-bot"></div></div>' +
+        '<div class="sheet-sec-title">Answer Key</div>' +
+      '</div>' +
+      '<table class="sheet-key-table">' +
+        '<thead><tr>' +
+          '<th>Q</th><th>Ans</th><th>Q</th><th>Ans</th><th>Q</th><th>Ans</th><th>Q</th><th>Ans</th><th>Q</th><th>Ans</th>' +
+        '</tr></thead>' +
+        '<tbody>';
+
+    const cols = 5;
+    for(let i = 0; i < keyRows.length; i += cols){
+      const chunk = keyRows.slice(i, i + cols);
+      html += '<tr>';
+      for(let c = 0; c < cols; c++){
+        const item = chunk[c] || {num: '', ans: ''};
+        html += '<td class="sheet-key-q">' + (item.num ? esc(item.num) : '') + '</td>' +
+                '<td class="sheet-key-ans">' + (item.ans ? esc(item.ans) : '') + '</td>';
+      }
+      html += '</tr>';
+    }
+
+    html += '</tbody></table>' +
+      '<div class="sheet-page-footer">Answer Key</div>' +
+    '</div>';
+  }
+
+  // SOLUTIONS PAGE(S)
+  if(opts.includeSol && solRows.length){
+    html += '<div class="sheet-page sheet-sol-section" data-page="sol">' +
+      '<div class="sheet-sec-hdr">' +
+        '<div class="sheet-sec-lines"><div class="sheet-sec-lines-top"></div><div class="sheet-sec-lines-bot"></div></div>' +
+        '<div class="sheet-sec-title">Solutions</div>' +
+      '</div>';
+
+    solRows.forEach(item => {
+      const imgs = item.solImgs.map(u => imageMarkup(u, 'Solution figure')).join('');
+      html += '<div class="sheet-sol-item">' +
+        '<div class="sheet-qlab-col">' +
+          '<div class="sheet-qlab">' + esc(item.num) + '</div>' +
+          '<div class="sheet-qtag">' + esc(item.tag) + '</div>' +
+        '</div>' +
+        '<div class="sheet-sol-body">' +
+          (item.solText ? '<div style="margin-bottom:6pt">' + rich(item.solText) + '</div>' : '') +
+          imgs +
+        '</div>' +
+      '</div>';
+    });
+
+    html += '<div class="sheet-page-footer">Worked Solutions</div></div>';
+  }
+
+  container.innerHTML = html;
+  hydrateZipImages(container);
+  typeset(container);
+}
+
+function startCbtFromBuilder(){
+  const qs = tbCfg.builtQs && tbCfg.builtQs.length ? tbCfg.builtQs : getSelectedBuilderQuestions();
+  if(!qs.length){
+    alert('Please select at least one chapter and question type.');
+    return;
+  }
+  const timeLimit = +($('#tbTimeLimit').value) || (qs.length * 3);
+  const title = ($('#tbTestTitle').value || '').trim() || 'AITS CUSTOM PRACTICE TEST';
+  buildTest(qs, timeLimit, tbCfg.pattern === 'main' ? 'main' : 'adv', title);
+  renderInstr();
+  show('scrInstr');
+}
 
 /* ---------- boot ---------- */
 (async function(){
@@ -1963,6 +3210,9 @@ applyBulkSelection('yrNone', '#yearBox', 'input[data-year]', cb => cb.dataset.ye
   if(parts.length){
     const all = parts.flatMap(x=>(extractList(x.raw)||[]).map(e=>e.q));
     ok = loadDB(all, phys && phys.url===remote && remote ? 'Hugging Face database' : 'database.json', false);
+    if(window.location.hash==='#builder' || window.location.hash==='#test-builder'){
+      openBuilderScreen();
+    }
   }
   if(!ok){
     $('#dbLabel').textContent='Database not loaded';

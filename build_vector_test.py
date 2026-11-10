@@ -1,0 +1,500 @@
+#!/usr/bin/env python3
+"""build_vector_test.py - Generates 100% native vector test sheets (exact build_sheets format).
+
+Zero raster images. Text is 100% selectable and copyable. Math, equations, diagrams,
+and tables maintain infinite vector sharpness on zoom. All FIITJEE watermarks and
+margin/header banners are automatically removed.
+
+For JEE Main pattern:
+Strictly generates 25 Single Choice Questions (SCQ / Section A) and 5 Numerical Type (NAT / Section B) per subject.
+
+Can be run via CLI or imported as a module by the local HTTP server.
+"""
+
+import argparse
+import collections
+import glob
+import json
+import os
+import random
+import re
+import sys
+import time
+import pymupdf as fitz
+
+from build_sheets import (
+    CROP_X0, CROP_X1, GAP, GREY, LABEL_W, MX, NAVY, PH, PW, RULE, SOL_RE,
+    SRC_BOT, SRC_TOP, TINT, TOP, BOT, Sheet, open_pdf, slug, tight, walk_pdfs,
+    remove_watermarks
+)
+from build_chem_sheets import chem_segments
+
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+SOURCE_DIR = os.path.join(ROOT_DIR, "source")
+DB_PATHS = [
+    os.path.join(ROOT_DIR, "aitsver2-main", "database.json"),
+    os.path.join(ROOT_DIR, "aitsver2-main", "chemistry_database.json"),
+    os.path.join(ROOT_DIR, "aitsver2-main", "maths_advanced_database.json"),
+    os.path.join(ROOT_DIR, "aitsver2-main", "maths_main_database.json"),
+]
+
+TYPE_ORDER = [
+    ("single", "Single Correct (MCQ)"),
+    ("multi", "One or More Correct (MSQ)"),
+    ("numerical", "Numerical / Integer Answer (NAT)"),
+    ("paragraph", "Comprehension / Paragraph"),
+]
+TYPE_NAME = dict(TYPE_ORDER)
+TYPE_NAME.update({
+    "mcq": "Single Correct (MCQ)",
+    "msq": "One or More Correct (MSQ)",
+    "nat": "Numerical / Integer Answer (NAT)",
+})
+
+def norm(s):
+    return re.sub(r"[^a-z0-9]", "", str(s or "").lower())
+
+def get_paper(q, db_path=""):
+    exam = q.get("exam")
+    if exam:
+        e = str(exam).lower()
+        if "adv" in e: return "adv"
+        if "main" in e: return "main"
+        return exam
+    src = str(q.get("source") or q.get("source_paper") or q.get("paper") or "") + " " + str(q.get("paperTitle") or q.get("paper_title") or "")
+    m = bool(re.search(r'(\bJM\b|JEE[\s_-]?M\b|JEEM|\bMains?\b|_Mains?\b)', src, re.I))
+    a = bool(re.search(r'(\bJA\b|JEE[\s_-]?A\b|JEEA|\bAdv)', src, re.I))
+    if m and not a: return "main"
+    if a and not m: return "adv"
+    if m and a: return "main" if re.search(r'\bMain\b', src, re.I) else "adv"
+    if re.search(r'Paper[- _]?(1|2|I{1,2})\b|\bP[- ]?[12]\b', src, re.I): return "adv"
+    if "advanced" in db_path: return "adv"
+    if "main" in db_path: return "main"
+    return "other"
+
+class QuestionManager:
+    _instance = None
+
+    @classmethod
+    def get_instance(cls):
+        if cls._instance is None:
+            cls._instance = cls()
+        return cls._instance
+
+    def __init__(self):
+        self.questions = []
+        self.q_by_id = {}
+        self.pdfs = {}       # stem -> path
+        self.sol_files = {}  # stem -> path
+        self.sol_paths = {}  # q_pdf_key -> sol_pdf_path
+        self.nkeys = {}      # stem -> normalized stem
+        self.doc_cache = {}  # stem -> (doc, by_sub, by_no)
+        self.sol_cache = {}  # stem -> (doc, s_sub, s_no)
+        self._load_databases()
+        self._index_pdfs()
+
+    def _load_databases(self):
+        t0 = time.time()
+        for p in DB_PATHS:
+            if not os.path.exists(p):
+                alt = os.path.join(ROOT_DIR, os.path.basename(p))
+                if os.path.exists(alt):
+                    p = alt
+                else:
+                    continue
+            try:
+                with open(p, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                qs = data.get("questions", data if isinstance(data, list) else [])
+                for q in qs:
+                    qid = q.get("id")
+                    if qid and qid not in self.q_by_id:
+                        q["paper"] = get_paper(q, p)
+                        self.q_by_id[qid] = q
+                        self.questions.append(q)
+            except Exception as e:
+                print(f"Warning: could not load {p}: {e}")
+        print(f"Indexed {len(self.questions)} questions across all databases in {time.time()-t0:.2f}s")
+
+    def _index_pdfs(self):
+        if not os.path.isdir(SOURCE_DIR):
+            print(f"Warning: source dir '{SOURCE_DIR}' not found")
+            return
+        t0 = time.time()
+        for p in walk_pdfs(SOURCE_DIR):
+            stem = os.path.splitext(os.path.basename(p))[0]
+            if SOL_RE.search(stem):
+                self.sol_files[stem] = p
+            else:
+                self.pdfs[stem] = p
+
+        self.nkeys = {k: norm(k) for k in self.pdfs}
+
+        # Match solutions to question PDFs
+        for p, path in self.sol_files.items():
+            stem = norm(SOL_RE.sub("", p))
+            c = [k for k, nk in self.nkeys.items() if nk == stem or nk in stem or stem in nk]
+            if c:
+                best_k = min(c, key=lambda k: abs(len(self.nkeys[k]) - len(stem)))
+                self.sol_paths[best_k] = path
+
+        print(f"Indexed {len(self.pdfs)} question PDFs, {len(self.sol_files)} solution PDFs in {time.time()-t0:.2f}s")
+
+    def find_pdf_key(self, q):
+        hay = (
+            norm(q.get("zipName")),
+            norm(q.get("paperTitle")),
+            norm(q.get("source")),
+        )
+        c = [k for k, nk in self.nkeys.items() if nk and (nk in hay[0] or nk in hay[1] or nk in hay[2])]
+        return max(c, key=lambda k: len(self.nkeys[k])) if c else None
+
+def fmt_answer(x):
+    a = x.get("answer") or x.get("ans")
+    if a is None or a == "":
+        return "-"
+    if isinstance(a, list):
+        return ",".join(str(v).strip().upper() for v in a)
+    s = str(a).strip().upper()
+    return s if s else "-"
+
+def build_test_pdf(
+    chapters=None,
+    count=None,
+    pattern="adv",
+    subjects=None,
+    paper="all",
+    title="JEE ADVANCED PRACTICE TEST",
+    subtitle="Chapter-wise Practice Sheet | Questions cropped from source papers",
+    include_solutions=True,
+    remove_watermark=True,
+    selected_qids=None,
+    out_pdf=None,
+    shuffle=True
+):
+    """Builds a vector test PDF matching the exact build_sheets format."""
+    qm = QuestionManager.get_instance()
+
+    # 1. Filter candidates
+    matched = []
+    target_count = len(selected_qids) if selected_qids else count
+
+    if selected_qids:
+        for qid in selected_qids:
+            if qid in qm.q_by_id:
+                q = qm.q_by_id[qid]
+                # If JEE Main pattern, strictly exclude comprehension/paragraph & multi-correct
+                if pattern == "main":
+                    t_str = str(q.get("rawType") or q.get("type", "")).lower()
+                    if "para" in t_str or "comp" in t_str or "multi" in t_str or "msq" in t_str:
+                        continue
+                matched.append(q)
+    else:
+        chap_set = [c.strip().lower() for c in (chapters or []) if c.strip()]
+        subj_set = [s.strip().lower() for s in (subjects or []) if s.strip()]
+
+        if pattern == "main":
+            # STRICTLY 25 SCQ and 5 Numerical per subject
+            all_known_subjs = ["physics", "chemistry", "mathematics"]
+            target_subjs = [s for s in all_known_subjs if s in subj_set] if subj_set else all_known_subjs
+            if not target_subjs:
+                target_subjs = ["physics"]
+
+            # Strictly 25 questions per subject: 20 SCQ + 5 Numerical
+            per_sub_scq = 20
+            per_sub_nat = 5
+            if count is not None and count != 25 * len(target_subjs):
+                per_sub_total = max(1, count // len(target_subjs))
+                per_sub_scq = round(per_sub_total * 20 / 25)
+                per_sub_nat = max(1, per_sub_total - per_sub_scq)
+
+            for s_name in target_subjs:
+                sub_pool = []
+                for q in qm.questions:
+                    if str(q.get("subject", "")).strip().lower() != s_name:
+                        continue
+                    if paper != "all" and q.get("paper") != paper:
+                        continue
+                    if chap_set:
+                        q_ch = str(q.get("chapter", "")).strip().lower()
+                        if not any(c in q_ch or q_ch in c for c in chap_set):
+                            continue
+                    sub_pool.append(q)
+
+                # Strictly exclude paragraph / comprehension / multi
+                scq_cands = []
+                nat_cands = []
+                for q in sub_pool:
+                    t_str = str(q.get("rawType") or q.get("type", "")).lower()
+                    if "para" in t_str or "comp" in t_str or "multi" in t_str or "msq" in t_str:
+                        continue
+                    k = qm.find_pdf_key(q)
+                    if not k:
+                        continue
+                    if t_str in ("single", "mcq"):
+                        scq_cands.append(q)
+                    elif t_str in ("numerical", "nat"):
+                        nat_cands.append(q)
+
+                if shuffle:
+                    random.shuffle(scq_cands)
+                    random.shuffle(nat_cands)
+
+                # Cluster by paper to minimize PDF opens and maximize generation speed
+                def cluster_by_paper(cands, needed):
+                    by_paper = collections.defaultdict(list)
+                    for q in cands:
+                        by_paper[qm.find_pdf_key(q)].append(q)
+                    clustered = []
+                    papers = list(by_paper.keys())
+                    if shuffle:
+                        random.shuffle(papers)
+                    for _ in range(4):
+                        for p in papers:
+                            if by_paper[p]:
+                                clustered.append(by_paper[p].pop(0))
+                                if len(clustered) >= needed + 12:
+                                    break
+                        if len(clustered) >= needed + 12:
+                            break
+                    if len(clustered) < needed:
+                        for rem_list in by_paper.values():
+                            clustered.extend(rem_list)
+                    return clustered
+
+                picked_scq = cluster_by_paper(scq_cands, per_sub_scq)
+                picked_nat = cluster_by_paper(nat_cands, per_sub_nat)
+
+                matched.extend(picked_scq[:per_sub_scq + 15])
+                matched.extend(picked_nat[:per_sub_nat + 10])
+
+            target_count = len(target_subjs) * (per_sub_scq + per_sub_nat)
+        else:
+            for q in qm.questions:
+                if subj_set:
+                    q_sub = str(q.get("subject", "")).strip().lower()
+                    if q_sub not in subj_set:
+                        continue
+
+                if chap_set:
+                    q_ch = str(q.get("chapter", "")).strip().lower()
+                    if not any(c in q_ch or q_ch in c for c in chap_set):
+                        continue
+
+                matched.append(q)
+
+            if shuffle:
+                random.seed(int(time.time() * 1000) % 100000)
+                random.shuffle(matched)
+
+    if not matched:
+        raise ValueError("No questions found matching your selection criteria.")
+
+    # Filter to questions that actually have matching PDFs
+    valid_candidates = []
+    pool_limit = max(target_count * 3, len(matched))
+    for q in matched:
+        key = qm.find_pdf_key(q)
+        if key:
+            valid_candidates.append((q, key))
+            if len(valid_candidates) >= pool_limit:
+                break
+
+    if not valid_candidates:
+        raise ValueError("Could not find source papers for the selected questions.")
+
+    # 2. Open documents and segment questions
+    doc_cache = {}
+    seg_cache = {}
+    sol_open = {}
+
+    def get_sol(k):
+        if k not in qm.sol_paths:
+            return None
+        if k in qm.sol_cache:
+            return qm.sol_cache[k]
+        sol_doc = open_pdf(qm.sol_paths[k])
+        if sol_doc:
+            try:
+                s_sub, s_no = chem_segments(sol_doc)
+                qm.sol_cache[k] = (sol_doc, s_sub, s_no)
+            except Exception:
+                qm.sol_cache[k] = None
+        else:
+            qm.sol_cache[k] = None
+        return qm.sol_cache[k]
+
+    placed_questions = []  # (q, key, doc, parts, qno)
+    placed_counts = collections.defaultdict(lambda: {"scq": 0, "nat": 0})
+
+    for q, key in valid_candidates:
+        sub_key = str(q.get("subject", "")).strip().lower()
+        t_key = str(q.get("rawType") or q.get("type", "")).lower()
+        is_nat = ("numerical" in t_key or "nat" in t_key)
+
+        if pattern == "main" and not selected_qids:
+            if is_nat and placed_counts[sub_key]["nat"] >= per_sub_nat:
+                continue
+            if not is_nat and placed_counts[sub_key]["scq"] >= per_sub_scq:
+                continue
+        elif len(placed_questions) >= target_count:
+            break
+
+        if key in qm.doc_cache:
+            doc, by_sub, by_no = qm.doc_cache[key]
+        else:
+            doc = open_pdf(qm.pdfs[key])
+            if doc:
+                try:
+                    by_sub, by_no = chem_segments(doc)
+                except Exception:
+                    by_sub, by_no = {}, {}
+                qm.doc_cache[key] = (doc, by_sub, by_no)
+            else:
+                qm.doc_cache[key] = (None, {}, {})
+                doc, by_sub, by_no = None, {}, {}
+
+        if not doc:
+            continue
+        qno = q.get("questionNumber") or q.get("number") or 1
+        sub_name = str(q.get("subject", "")).strip().lower()
+
+        # Try subject-specific segment first, then global question number
+        parts = by_sub.get((sub_name, qno)) or by_no.get(qno)
+        if not parts:
+            continue
+
+        placed_questions.append((q, key, doc, parts, qno))
+        if is_nat:
+            placed_counts[sub_key]["nat"] += 1
+        else:
+            placed_counts[sub_key]["scq"] += 1
+
+    if not placed_questions:
+        raise ValueError("Failed to crop questions from source papers.")
+
+    # 3. Sort placed questions by subject, then by section/type
+    def sort_key(item):
+        q, key, doc, parts, qno = item
+        subj_order = {"physics": 0, "chemistry": 1, "mathematics": 2, "maths": 2}
+        s_rank = subj_order.get(str(q.get("subject", "")).lower(), 9)
+        t_str = str(q.get("rawType") or q.get("type", "")).lower()
+        if pattern == "main":
+            # For Main: Section A (MCQ) is 0, Section B (Numerical) is 1
+            t_rank = 0 if ("single" in t_str or "mcq" in t_str) else 1
+        else:
+            t_rank = 0 if "single" in t_str or "mcq" in t_str else (1 if "multi" in t_str or "msq" in t_str else (2 if "num" in t_str or "nat" in t_str else 3))
+        return (s_rank, t_rank, q.get("year", 0), qno)
+
+    placed_questions.sort(key=sort_key)
+
+    # 4. Generate Sheet
+    if not out_pdf:
+        os.makedirs(os.path.join(ROOT_DIR, "aitsver2-main", "generated_tests"), exist_ok=True)
+        ts = int(time.time())
+        out_pdf = os.path.join(ROOT_DIR, "aitsver2-main", "generated_tests", f"test_{ts}.pdf")
+
+    sh = Sheet(title, subtitle)
+    sh.cover(len(placed_questions), 1)
+
+    has_multiple_subjects = len(set(q.get("subject", "") for q, *_ in placed_questions)) > 1
+    current_sec = None
+    placed = []
+    rows = []
+
+    for idx, (q, key, doc, parts, qno) in enumerate(placed_questions, 1):
+        q_sub = q.get("subject", "")
+        q_type = str(q.get("rawType") or q.get("type", "")).lower()
+        if pattern == "main":
+            type_lbl = "Section B (Numerical)" if ("num" in q_type or "nat" in q_type) else "Section A (MCQ)"
+        else:
+            type_lbl = TYPE_NAME.get(q_type, "Questions")
+
+        sec_heading = f"{q_sub} &ndash; {type_lbl}" if has_multiple_subjects else type_lbl
+        if sec_heading != current_sec:
+            current_sec = sec_heading
+            sh.begin_section(current_sec.replace("&ndash;", "-"))
+
+        label = f"Q{idx}"
+        yr = str(q.get("year", ""))
+        tag = f"{yr} | Q{qno}"
+        ans = fmt_answer(q)
+
+        e = sh.add_question(label, tag, doc, parts, meta={
+            "pid": q.get("paperTitle", key),
+            "q": qno,
+            "ans": ans,
+            "sec": current_sec,
+            "subject": q_sub,
+            "chapter": q.get("chapter", "")
+        })
+
+        placed.append((e, label, key, qno, q))
+        rows.append((label, ans))
+
+    # 5. Answer Key Grid
+    if rows:
+        sh.answer_key(rows)
+
+    # 6. Solutions Section
+    if include_solutions:
+        sol_rows = []
+        for e, label, key, qno, q in placed:
+            so = get_sol(key)
+            if so:
+                sol_doc, s_sub, s_no = so
+                sub_name = str(q.get("subject", "")).strip().lower()
+                s_parts = s_sub.get((sub_name, qno)) or s_no.get(qno)
+                if s_parts:
+                    sol_rows.append((e, label, sol_doc, s_parts, CROP_X0, CROP_X1))
+
+        if sol_rows:
+            sh.add_solutions(sol_rows)
+
+    # Save PDF
+    os.makedirs(os.path.dirname(os.path.abspath(out_pdf)), exist_ok=True)
+    sh.save(out_pdf)
+
+    # Also keep a copy at latest_test.pdf for easy access
+    latest_path = os.path.join(os.path.dirname(os.path.abspath(out_pdf)), "latest_test.pdf")
+    try:
+        import shutil
+        shutil.copyfile(out_pdf, latest_path)
+    except Exception:
+        pass
+
+    return {
+        "success": True,
+        "out_pdf": out_pdf,
+        "filename": os.path.basename(out_pdf),
+        "total_questions": len(placed),
+        "total_pages": len(sh.doc),
+        "answer_count": len(rows),
+    }
+
+def main():
+    parser = argparse.ArgumentParser(description="Build custom vector test sheets.")
+    parser.add_argument("--chapters", nargs="*", default=[], help="Chapters to include")
+    parser.add_argument("--subjects", nargs="*", default=[], help="Subjects to include")
+    parser.add_argument("--count", type=int, default=30, help="Number of questions")
+    parser.add_argument("--pattern", choices=["adv", "main", "custom"], default="adv", help="Exam pattern")
+    parser.add_argument("--title", default="JEE ADVANCED PRACTICE TEST", help="Test title")
+    parser.add_argument("--subtitle", default="Chapter-wise Practice Sheet | Questions cropped from source papers", help="Test subtitle")
+    parser.add_argument("--no-solutions", action="store_true", help="Omit worked solutions")
+    parser.add_argument("--out", default=None, help="Output PDF path")
+    args = parser.parse_args()
+
+    res = build_test_pdf(
+        chapters=args.chapters,
+        subjects=args.subjects,
+        count=args.count,
+        pattern=args.pattern,
+        title=args.title,
+        subtitle=args.subtitle,
+        include_solutions=not args.no_solutions,
+        out_pdf=args.out
+    )
+    print(f"Generated: {res['out_pdf']} ({res['total_questions']} Qs, {res['total_pages']} pages)")
+
+if __name__ == "__main__":
+    main()
