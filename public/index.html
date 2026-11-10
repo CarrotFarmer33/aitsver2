@@ -2606,7 +2606,8 @@ $('#tbChapList').addEventListener('change', e => {
 $('#tbChSearch').addEventListener('input', () => { renderBuilderChapters(); });
 $('#tbCountIn').addEventListener('input', () => { tbCfg.count = +($('#tbCountIn').value) || 30; });
 window.addEventListener('hashchange', () => {
-  if(window.location.hash === '#builder' || window.location.hash === '#test-builder') openBuilderScreen();
+  if(window.location.hash.startsWith('#builder') || window.location.hash.startsWith('#test-builder')) openBuilderScreen();
+  else if(window.location.hash.startsWith('#cbt')) checkCbtHash();
 });
 
 applyBulkSelection('yrNone', '#yearBox', 'input[data-year]', cb => cb.dataset.year, false);
@@ -2770,8 +2771,50 @@ function refreshBuilderSummary(){
   }
 }
 
+function checkCbtHash(){
+  const hash = window.location.hash || '';
+  if(hash.startsWith('#cbt')){
+    const qIdx = hash.indexOf('?');
+    if(qIdx !== -1){
+      const params = new URLSearchParams(hash.slice(qIdx + 1));
+      const subj = params.get('subject') || 'Physics';
+      const chap = params.get('chapter');
+      if(chap){
+        cfg.subjects = new Set([subj]);
+        cfg.chapters = new Set([subj + '||' + chap]);
+        cfg.paper = 'all';
+        cfg.types = new Set(Object.keys(TYPES));
+        const filtered = pool();
+        if(filtered.length){
+          buildTest(filtered, Math.min(30, filtered.length) * 3, cfg.preset, subj + ' - ' + chap);
+          renderInstr();
+          show('scrInstr');
+          return true;
+        }
+      }
+    }
+  }
+  return false;
+}
+
 function openBuilderScreen(){
-  if(!tbCfg.chapters.size && DB.length){
+  const hash = window.location.hash || '';
+  if(hash.includes('?')){
+    const qIdx = hash.indexOf('?');
+    const params = new URLSearchParams(hash.slice(qIdx + 1));
+    const subj = params.get('subject');
+    const chap = params.get('chapter');
+    if(subj && SUBJ.includes(subj)){
+      tbCfg.subjects = new Set([subj]);
+      document.querySelectorAll('#tbSubjBox input[data-tbsubj]').forEach(cb => {
+        cb.checked = cb.dataset.tbsubj === subj;
+      });
+    }
+    if(chap){
+      const fullKey = (subj || 'Physics') + '||' + chap;
+      tbCfg.chapters = new Set([fullKey]);
+    }
+  } else if(!tbCfg.chapters.size && DB.length){
     // Select all chapters of active subjects by default
     DB.forEach(q => {
       if(tbCfg.subjects.has(q.subject)) tbCfg.chapters.add(q.subject + '||' + q.chapter);
@@ -3243,8 +3286,10 @@ function startCbtFromBuilder(){
   if(parts.length){
     const all = parts.flatMap(x=>(extractList(x.raw)||[]).map(e=>e.q));
     ok = loadDB(all, phys && phys.url===remote && remote ? 'Hugging Face database' : 'database.json', false);
-    if(window.location.hash==='#builder' || window.location.hash==='#test-builder'){
+    if(window.location.hash.startsWith('#builder') || window.location.hash.startsWith('#test-builder')){
       openBuilderScreen();
+    } else if(window.location.hash.startsWith('#cbt')){
+      checkCbtHash();
     }
   }
   if(!ok){

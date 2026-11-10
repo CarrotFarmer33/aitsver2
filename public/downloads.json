@@ -6,7 +6,10 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 01 PDF",
       "file": "01_Units_Dimensions_Measurement.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/01_Units_Dimensions_Measurement.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/01_Units_Dimensions_Measurement.pdf",
+      "subject": "Physics",
+      "builderUrl": "index.html#builder?subject=Physics&chapter=Units%2C%20Dimensions%20%26%20Measurement",
+      "cbtUrl": "index.html#cbt?subject=Physics&chapter=Units%2C%20Dimensions%20%26%20Measurement"
     },
     {
       "number": 2,
@@ -14,7 +17,10 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 02 PDF",
       "file": "02_Kinematics.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/02_Kinematics.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/02_Kinematics.pdf",
+      "subject": "Physics",
+      "builderUrl": "index.html#builder?subject=Physics&chapter=Kinematics",
+      "cbtUrl": "index.html#cbt?subject=Physics&chapter=Kinematics"
     },
     {
       "number": 3,
@@ -22,7 +28,10 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 03 PDF",
       "file": "03_Laws_of_Motion.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/03_Laws_of_Motion.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/03_Laws_of_Motion.pdf",
+      "subject": "Physics",
+      "builderUrl": "index.html#builder?subject=Physics&chapter=Laws%20of%20Motion",
+      "cbtUrl": "index.html#cbt?subject=Physics&chapter=Laws%20of%20Motion"
     },
     {
       "number": 4,
@@ -30,7 +39,10 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 04 PDF",
       "file": "04_Work_Energy_Power.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/04_Work_Energy_Power.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/04_Work_Energy_Power.pdf",
+      "subject": "Physics",
+      "builderUrl": "index.html#builder?subject=Physics&chapter=Work%2C%20Energy%20%26%20Power",
+      "cbtUrl": "index.html#cbt?subject=Physics&chapter=Work%2C%20Energy%20%26%20Power"
     },
     {
       "number": 5,
@@ -38,7 +50,10 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 05 PDF",
       "file": "05_Centre_of_Mass_Momentum_Collisions.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/05_Centre_of_Mass_Momentum_Collisions.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/05_Centre_of_Mass_Momentum_Collisions.pdf",
+      "subject": "Physics",
+      "builderUrl": "index.html#builder?subject=Physics&chapter=Centre%20of%20Mass%2C%20Momentum%20%26%20Collisions",
+      "cbtUrl": "index.html#cbt?subject=Physics&chapter=Centre%20of%20Mass%2C%20Momentum%20%26%20Collisions"
     },
     {
       "number": 6,
@@ -46,7 +61,10 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 06 PDF",
       "file": "06_Rotational_Motion.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/06_Rotational_Motion.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/06_Rotational_Motion.pdf",
+      "subject": "Physics",
+      "builderUrl": "index.html#builder?subject=Physics&chapter=Rotational%20Motion",
+      "cbtUrl": "index.html#cbt?subject=Physics&chapter=Rotational%20Motion"
     },
     {
       "number": 7,
@@ -54,7 +72,10 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 07 PDF",
       "file": "07_Gravitation.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/07_Gravitation.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/07_Gravitation.pdf",
+      "subject": "Physics",
+      "builderUrl": "index.html#builder?subject=Physics&chapter=Gravitation",
+      "cbtUrl": "index.html#cbt?subject=Physics&chapter=Gravitation"
     },
     {
       "number": 8,
@@ -62,7 +83,10 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 08 PDF",
       "file": "08_Elasticity_Mechanical_Properties_of_Solids.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/08_Elasticity_Mechanical_Properties_of_Solids.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/08_Elasticity_Mechanical_Properties_of_Solids.pdf",
+      "subject": "Physics",
+      "builderUrl": "index.html#builder?subject=Physics&chapter=Elasticity%20%28Mechanical%20Properties%20of%20Solids%29",
+      "cbtUrl": "index.html#cbt?subject=Physics&chapter=Elasticity%20%28Mechanical%20Properties%20of%20Solids%29"
     },
     {
       "number": 9,
@@ -70,7 +94,10 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 09 PDF",
       "file": "09_Fluid_Mechanics.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/09_Fluid_Mechanics.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/09_Fluid_Mechanics.pdf",
+      "subject": "Physics",
+      "builderUrl": "index.html#builder?subject=Physics&chapter=Fluid%20Mechanics",
+      "cbtUrl": "index.html#cbt?subject=Physics&chapter=Fluid%20Mechanics"
     },
     {
       "number": 10,
@@ -78,7 +105,10 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 10 PDF",
       "file": "10_Thermal_Properties_Heat_Transfer.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/10_Thermal_Properties_Heat_Transfer.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/10_Thermal_Properties_Heat_Transfer.pdf",
+      "subject": "Physics",
+      "builderUrl": "index.html#builder?subject=Physics&chapter=Thermal%20Properties%20%26%20Heat%20Transfer",
+      "cbtUrl": "index.html#cbt?subject=Physics&chapter=Thermal%20Properties%20%26%20Heat%20Transfer"
     },
     {
       "number": 11,
@@ -86,7 +116,10 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 11 PDF",
       "file": "11_Kinetic_Theory_of_Gases.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/11_Kinetic_Theory_of_Gases.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/11_Kinetic_Theory_of_Gases.pdf",
+      "subject": "Physics",
+      "builderUrl": "index.html#builder?subject=Physics&chapter=Kinetic%20Theory%20of%20Gases",
+      "cbtUrl": "index.html#cbt?subject=Physics&chapter=Kinetic%20Theory%20of%20Gases"
     },
     {
       "number": 12,
@@ -94,7 +127,10 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 12 PDF",
       "file": "12_Thermodynamics.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/12_Thermodynamics.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/12_Thermodynamics.pdf",
+      "subject": "Physics",
+      "builderUrl": "index.html#builder?subject=Physics&chapter=Thermodynamics",
+      "cbtUrl": "index.html#cbt?subject=Physics&chapter=Thermodynamics"
     },
     {
       "number": 13,
@@ -102,7 +138,10 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 13 PDF",
       "file": "13_Oscillations_SHM.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/13_Oscillations_SHM.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/13_Oscillations_SHM.pdf",
+      "subject": "Physics",
+      "builderUrl": "index.html#builder?subject=Physics&chapter=Oscillations%20%28SHM%29",
+      "cbtUrl": "index.html#cbt?subject=Physics&chapter=Oscillations%20%28SHM%29"
     },
     {
       "number": 14,
@@ -110,7 +149,10 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 14 PDF",
       "file": "14_Waves_Sound.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/14_Waves_Sound.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/14_Waves_Sound.pdf",
+      "subject": "Physics",
+      "builderUrl": "index.html#builder?subject=Physics&chapter=Waves%20%26%20Sound",
+      "cbtUrl": "index.html#cbt?subject=Physics&chapter=Waves%20%26%20Sound"
     },
     {
       "number": 15,
@@ -118,7 +160,10 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 15 PDF",
       "file": "15_Electrostatics.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/15_Electrostatics.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/15_Electrostatics.pdf",
+      "subject": "Physics",
+      "builderUrl": "index.html#builder?subject=Physics&chapter=Electrostatics",
+      "cbtUrl": "index.html#cbt?subject=Physics&chapter=Electrostatics"
     },
     {
       "number": 16,
@@ -126,7 +171,10 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 16 PDF",
       "file": "16_Capacitance.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/16_Capacitance.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/16_Capacitance.pdf",
+      "subject": "Physics",
+      "builderUrl": "index.html#builder?subject=Physics&chapter=Capacitance",
+      "cbtUrl": "index.html#cbt?subject=Physics&chapter=Capacitance"
     },
     {
       "number": 17,
@@ -134,7 +182,10 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 17 PDF",
       "file": "17_Current_Electricity.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/17_Current_Electricity.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/17_Current_Electricity.pdf",
+      "subject": "Physics",
+      "builderUrl": "index.html#builder?subject=Physics&chapter=Current%20Electricity",
+      "cbtUrl": "index.html#cbt?subject=Physics&chapter=Current%20Electricity"
     },
     {
       "number": 18,
@@ -142,7 +193,10 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 18 PDF",
       "file": "18_Moving_Charges_Magnetism.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/18_Moving_Charges_Magnetism.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/18_Moving_Charges_Magnetism.pdf",
+      "subject": "Physics",
+      "builderUrl": "index.html#builder?subject=Physics&chapter=Moving%20Charges%20%26%20Magnetism",
+      "cbtUrl": "index.html#cbt?subject=Physics&chapter=Moving%20Charges%20%26%20Magnetism"
     },
     {
       "number": 19,
@@ -150,7 +204,10 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 19 PDF",
       "file": "19_Magnetism_Matter.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/19_Magnetism_Matter.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/19_Magnetism_Matter.pdf",
+      "subject": "Physics",
+      "builderUrl": "index.html#builder?subject=Physics&chapter=Magnetism%20%26%20Matter",
+      "cbtUrl": "index.html#cbt?subject=Physics&chapter=Magnetism%20%26%20Matter"
     },
     {
       "number": 20,
@@ -158,7 +215,10 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 20 PDF",
       "file": "20_Electromagnetic_Induction.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/20_Electromagnetic_Induction.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/20_Electromagnetic_Induction.pdf",
+      "subject": "Physics",
+      "builderUrl": "index.html#builder?subject=Physics&chapter=Electromagnetic%20Induction",
+      "cbtUrl": "index.html#cbt?subject=Physics&chapter=Electromagnetic%20Induction"
     },
     {
       "number": 21,
@@ -166,7 +226,10 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 21 PDF",
       "file": "21_Alternating_Current.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/21_Alternating_Current.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/21_Alternating_Current.pdf",
+      "subject": "Physics",
+      "builderUrl": "index.html#builder?subject=Physics&chapter=Alternating%20Current",
+      "cbtUrl": "index.html#cbt?subject=Physics&chapter=Alternating%20Current"
     },
     {
       "number": 22,
@@ -174,7 +237,10 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 22 PDF",
       "file": "22_Electromagnetic_Waves.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/22_Electromagnetic_Waves.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/22_Electromagnetic_Waves.pdf",
+      "subject": "Physics",
+      "builderUrl": "index.html#builder?subject=Physics&chapter=Electromagnetic%20Waves",
+      "cbtUrl": "index.html#cbt?subject=Physics&chapter=Electromagnetic%20Waves"
     },
     {
       "number": 23,
@@ -182,7 +248,10 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 23 PDF",
       "file": "23_Ray_Optics_Optical_Instruments.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/23_Ray_Optics_Optical_Instruments.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/23_Ray_Optics_Optical_Instruments.pdf",
+      "subject": "Physics",
+      "builderUrl": "index.html#builder?subject=Physics&chapter=Ray%20Optics%20%26%20Optical%20Instruments",
+      "cbtUrl": "index.html#cbt?subject=Physics&chapter=Ray%20Optics%20%26%20Optical%20Instruments"
     },
     {
       "number": 24,
@@ -190,7 +259,10 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 24 PDF",
       "file": "24_Wave_Optics.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/24_Wave_Optics.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/24_Wave_Optics.pdf",
+      "subject": "Physics",
+      "builderUrl": "index.html#builder?subject=Physics&chapter=Wave%20Optics",
+      "cbtUrl": "index.html#cbt?subject=Physics&chapter=Wave%20Optics"
     },
     {
       "number": 25,
@@ -198,7 +270,10 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 25 PDF",
       "file": "25_Dual_Nature_of_Matter_Radiation.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/25_Dual_Nature_of_Matter_Radiation.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/25_Dual_Nature_of_Matter_Radiation.pdf",
+      "subject": "Physics",
+      "builderUrl": "index.html#builder?subject=Physics&chapter=Dual%20Nature%20of%20Matter%20%26%20Radiation",
+      "cbtUrl": "index.html#cbt?subject=Physics&chapter=Dual%20Nature%20of%20Matter%20%26%20Radiation"
     },
     {
       "number": 26,
@@ -206,7 +281,395 @@
       "category": "Physics Chapter Sheets",
       "description": "Chapter 26 PDF",
       "file": "26_Atoms_Nuclei_Semiconductor_Electronics.pdf",
-      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/26_Atoms_Nuclei_Semiconductor_Electronics.pdf"
+      "url": "https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/iter1/26_Atoms_Nuclei_Semiconductor_Electronics.pdf",
+      "subject": "Physics",
+      "builderUrl": "index.html#builder?subject=Physics&chapter=Atoms%2C%20Nuclei%20%26%20Semiconductor%20Electronics",
+      "cbtUrl": "index.html#cbt?subject=Physics&chapter=Atoms%2C%20Nuclei%20%26%20Semiconductor%20Electronics"
+    },
+    {
+      "number": 1,
+      "title": "Some Basic Concepts of Chemistry",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Physical Chemistry",
+      "description": "Chapter 01 \u00b7 Physical Chemistry",
+      "file": "Some_Basic_Concepts_of_Chemistry.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Some%20Basic%20Concepts%20of%20Chemistry",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Some%20Basic%20Concepts%20of%20Chemistry"
+    },
+    {
+      "number": 2,
+      "title": "Atomic Structure",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Physical Chemistry",
+      "description": "Chapter 02 \u00b7 Physical Chemistry",
+      "file": "Atomic_Structure.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Atomic%20Structure",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Atomic%20Structure"
+    },
+    {
+      "number": 3,
+      "title": "Chemical Bonding & Molecular Structure",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Physical Chemistry",
+      "description": "Chapter 03 \u00b7 Physical Chemistry",
+      "file": "Chemical_Bonding_and_Molecular_Structure.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Chemical%20Bonding%20%26%20Molecular%20Structure",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Chemical%20Bonding%20%26%20Molecular%20Structure"
+    },
+    {
+      "number": 4,
+      "title": "Gaseous State",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Physical Chemistry",
+      "description": "Chapter 04 \u00b7 Physical Chemistry",
+      "file": "Gaseous_State.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Gaseous%20State",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Gaseous%20State"
+    },
+    {
+      "number": 5,
+      "title": "Thermodynamics (Chemical)",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Physical Chemistry",
+      "description": "Chapter 05 \u00b7 Physical Chemistry",
+      "file": "Thermodynamics_Chemical.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Thermodynamics%20%28Chemical%29",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Thermodynamics%20%28Chemical%29"
+    },
+    {
+      "number": 6,
+      "title": "Thermochemistry",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Physical Chemistry",
+      "description": "Chapter 06 \u00b7 Physical Chemistry",
+      "file": "Thermochemistry.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Thermochemistry",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Thermochemistry"
+    },
+    {
+      "number": 7,
+      "title": "Chemical Equilibrium",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Physical Chemistry",
+      "description": "Chapter 07 \u00b7 Physical Chemistry",
+      "file": "Chemical_Equilibrium.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Chemical%20Equilibrium",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Chemical%20Equilibrium"
+    },
+    {
+      "number": 8,
+      "title": "Ionic Equilibrium",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Physical Chemistry",
+      "description": "Chapter 08 \u00b7 Physical Chemistry",
+      "file": "Ionic_Equilibrium.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Ionic%20Equilibrium",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Ionic%20Equilibrium"
+    },
+    {
+      "number": 9,
+      "title": "Redox Reactions",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Physical Chemistry",
+      "description": "Chapter 09 \u00b7 Physical Chemistry",
+      "file": "Redox_Reactions.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Redox%20Reactions",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Redox%20Reactions"
+    },
+    {
+      "number": 10,
+      "title": "Liquid Solutions & Colligative Properties",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Physical Chemistry",
+      "description": "Chapter 10 \u00b7 Physical Chemistry",
+      "file": "Liquid_Solutions_and_Colligative_Properties.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Liquid%20Solutions%20%26%20Colligative%20Properties",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Liquid%20Solutions%20%26%20Colligative%20Properties"
+    },
+    {
+      "number": 11,
+      "title": "Electrochemistry",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Physical Chemistry",
+      "description": "Chapter 11 \u00b7 Physical Chemistry",
+      "file": "Electrochemistry.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Electrochemistry",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Electrochemistry"
+    },
+    {
+      "number": 12,
+      "title": "Chemical Kinetics",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Physical Chemistry",
+      "description": "Chapter 12 \u00b7 Physical Chemistry",
+      "file": "Chemical_Kinetics.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Chemical%20Kinetics",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Chemical%20Kinetics"
+    },
+    {
+      "number": 13,
+      "title": "Solid State",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Physical Chemistry",
+      "description": "Chapter 13 \u00b7 Physical Chemistry",
+      "file": "Solid_State.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Solid%20State",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Solid%20State"
+    },
+    {
+      "number": 14,
+      "title": "Surface Chemistry",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Physical Chemistry",
+      "description": "Chapter 14 \u00b7 Physical Chemistry",
+      "file": "Surface_Chemistry.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Surface%20Chemistry",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Surface%20Chemistry"
+    },
+    {
+      "number": 15,
+      "title": "Nuclear Chemistry",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Physical Chemistry",
+      "description": "Chapter 15 \u00b7 Physical Chemistry",
+      "file": "Nuclear_Chemistry.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Nuclear%20Chemistry",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Nuclear%20Chemistry"
+    },
+    {
+      "number": 16,
+      "title": "Periodic Table & Periodicity",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Inorganic Chemistry",
+      "description": "Chapter 16 \u00b7 Inorganic Chemistry",
+      "file": "Periodic_Table_and_Periodicity.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Periodic%20Table%20%26%20Periodicity",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Periodic%20Table%20%26%20Periodicity"
+    },
+    {
+      "number": 17,
+      "title": "Hydrogen",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Inorganic Chemistry",
+      "description": "Chapter 17 \u00b7 Inorganic Chemistry",
+      "file": "Hydrogen.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Hydrogen",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Hydrogen"
+    },
+    {
+      "number": 18,
+      "title": "s-Block Elements",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Inorganic Chemistry",
+      "description": "Chapter 18 \u00b7 Inorganic Chemistry",
+      "file": "s-Block_Elements.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=s-Block%20Elements",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=s-Block%20Elements"
+    },
+    {
+      "number": 19,
+      "title": "p-Block Elements: Group 13 (Boron family) & Group 14 (Carbon family)",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Inorganic Chemistry",
+      "description": "Chapter 19 \u00b7 Inorganic Chemistry",
+      "file": "p-Block_Elements:_Group_13_Boron_family_and_Group_14_Carbon_family.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=p-Block%20Elements%3A%20Group%2013%20%28Boron%20family%29%20%26%20Group%2014%20%28Carbon%20family%29",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=p-Block%20Elements%3A%20Group%2013%20%28Boron%20family%29%20%26%20Group%2014%20%28Carbon%20family%29"
+    },
+    {
+      "number": 20,
+      "title": "p-Block Elements: Group 15 (Nitrogen family) & Group 16 (Oxygen family)",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Inorganic Chemistry",
+      "description": "Chapter 20 \u00b7 Inorganic Chemistry",
+      "file": "p-Block_Elements:_Group_15_Nitrogen_family_and_Group_16_Oxygen_family.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=p-Block%20Elements%3A%20Group%2015%20%28Nitrogen%20family%29%20%26%20Group%2016%20%28Oxygen%20family%29",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=p-Block%20Elements%3A%20Group%2015%20%28Nitrogen%20family%29%20%26%20Group%2016%20%28Oxygen%20family%29"
+    },
+    {
+      "number": 21,
+      "title": "p-Block Elements: Group 17 (Halogens) & Group 18 (Noble gases)",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Inorganic Chemistry",
+      "description": "Chapter 21 \u00b7 Inorganic Chemistry",
+      "file": "p-Block_Elements:_Group_17_Halogens_and_Group_18_Noble_gases.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=p-Block%20Elements%3A%20Group%2017%20%28Halogens%29%20%26%20Group%2018%20%28Noble%20gases%29",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=p-Block%20Elements%3A%20Group%2017%20%28Halogens%29%20%26%20Group%2018%20%28Noble%20gases%29"
+    },
+    {
+      "number": 22,
+      "title": "d- and f-Block Elements",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Inorganic Chemistry",
+      "description": "Chapter 22 \u00b7 Inorganic Chemistry",
+      "file": "d-_and_f-Block_Elements.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=d-%20and%20f-Block%20Elements",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=d-%20and%20f-Block%20Elements"
+    },
+    {
+      "number": 23,
+      "title": "Coordination Compounds",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Inorganic Chemistry",
+      "description": "Chapter 23 \u00b7 Inorganic Chemistry",
+      "file": "Coordination_Compounds.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Coordination%20Compounds",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Coordination%20Compounds"
+    },
+    {
+      "number": 24,
+      "title": "Principles & Processes of Isolation of Metals (Metallurgy)",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Inorganic Chemistry",
+      "description": "Chapter 24 \u00b7 Inorganic Chemistry",
+      "file": "Principles_and_Processes_of_Isolation_of_Metals_Metallurgy.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Principles%20%26%20Processes%20of%20Isolation%20of%20Metals%20%28Metallurgy%29",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Principles%20%26%20Processes%20of%20Isolation%20of%20Metals%20%28Metallurgy%29"
+    },
+    {
+      "number": 25,
+      "title": "Qualitative Salt Analysis",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Inorganic Chemistry",
+      "description": "Chapter 25 \u00b7 Inorganic Chemistry",
+      "file": "Qualitative_Salt_Analysis.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Qualitative%20Salt%20Analysis",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Qualitative%20Salt%20Analysis"
+    },
+    {
+      "number": 26,
+      "title": "General Organic Chemistry (GOC)",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Organic Chemistry",
+      "description": "Chapter 26 \u00b7 Organic Chemistry",
+      "file": "General_Organic_Chemistry_GOC.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=General%20Organic%20Chemistry%20%28GOC%29",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=General%20Organic%20Chemistry%20%28GOC%29"
+    },
+    {
+      "number": 27,
+      "title": "Isomerism (Structural & Stereoisomerism)",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Organic Chemistry",
+      "description": "Chapter 27 \u00b7 Organic Chemistry",
+      "file": "Isomerism_Structural_and_Stereoisomerism.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Isomerism%20%28Structural%20%26%20Stereoisomerism%29",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Isomerism%20%28Structural%20%26%20Stereoisomerism%29"
+    },
+    {
+      "number": 28,
+      "title": "Hydrocarbons",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Organic Chemistry",
+      "description": "Chapter 28 \u00b7 Organic Chemistry",
+      "file": "Hydrocarbons.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Hydrocarbons",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Hydrocarbons"
+    },
+    {
+      "number": 29,
+      "title": "Haloalkanes & Haloarenes",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Organic Chemistry",
+      "description": "Chapter 29 \u00b7 Organic Chemistry",
+      "file": "Haloalkanes_and_Haloarenes.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Haloalkanes%20%26%20Haloarenes",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Haloalkanes%20%26%20Haloarenes"
+    },
+    {
+      "number": 30,
+      "title": "Alcohols, Phenols & Ethers",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Organic Chemistry",
+      "description": "Chapter 30 \u00b7 Organic Chemistry",
+      "file": "Alcohols_Phenols_and_Ethers.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Alcohols%2C%20Phenols%20%26%20Ethers",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Alcohols%2C%20Phenols%20%26%20Ethers"
+    },
+    {
+      "number": 31,
+      "title": "Aldehydes, Ketones & Carboxylic Acids",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Organic Chemistry",
+      "description": "Chapter 31 \u00b7 Organic Chemistry",
+      "file": "Aldehydes_Ketones_and_Carboxylic_Acids.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Aldehydes%2C%20Ketones%20%26%20Carboxylic%20Acids",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Aldehydes%2C%20Ketones%20%26%20Carboxylic%20Acids"
+    },
+    {
+      "number": 32,
+      "title": "Amines & Diazonium Salts",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Organic Chemistry",
+      "description": "Chapter 32 \u00b7 Organic Chemistry",
+      "file": "Amines_and_Diazonium_Salts.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Amines%20%26%20Diazonium%20Salts",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Amines%20%26%20Diazonium%20Salts"
+    },
+    {
+      "number": 33,
+      "title": "Biomolecules",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Organic Chemistry",
+      "description": "Chapter 33 \u00b7 Organic Chemistry",
+      "file": "Biomolecules.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Biomolecules",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Biomolecules"
+    },
+    {
+      "number": 34,
+      "title": "Polymers",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Organic Chemistry",
+      "description": "Chapter 34 \u00b7 Organic Chemistry",
+      "file": "Polymers.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Polymers",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Polymers"
+    },
+    {
+      "number": 35,
+      "title": "Chemistry in Everyday Life",
+      "category": "Chemistry Chapter Sheets",
+      "subject": "Chemistry",
+      "segment": "Organic Chemistry",
+      "description": "Chapter 35 \u00b7 Organic Chemistry",
+      "file": "Chemistry_in_Everyday_Life.pdf",
+      "builderUrl": "index.html#builder?subject=Chemistry&chapter=Chemistry%20in%20Everyday%20Life",
+      "cbtUrl": "index.html#cbt?subject=Chemistry&chapter=Chemistry%20in%20Everyday%20Life"
     }
   ]
 }
