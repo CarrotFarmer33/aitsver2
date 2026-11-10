@@ -181,6 +181,60 @@ def fmt_answer(x):
     s = str(a).strip().upper()
     return s if s else "-"
 
+def find_question_parts(by_sub, by_no, sub_name, qno):
+    """Subject-aware segment lookup avoiding cross-subject bleed in sequential papers."""
+    sub_key = str(sub_name or "").strip().lower()
+    if sub_key in ("math", "maths", "mathematics"):
+        sub_norm = "mathematics"
+        offsets = [0, 60, 50] if qno <= 30 else [0, -60, -50]
+    elif sub_key in ("chem", "chemistry"):
+        sub_norm = "chemistry"
+        offsets = [0, 30, 25] if qno <= 30 else [0, -30, -25]
+    else:
+        sub_norm = "physics"
+        offsets = [0]
+
+    # 1. Exact subject match in by_sub
+    for off in offsets:
+        cand_no = qno + off
+        if cand_no > 0 and (sub_norm, cand_no) in by_sub and by_sub[(sub_norm, cand_no)]:
+            return by_sub[(sub_norm, cand_no)]
+
+    # 2. Check untagged or any-subject (None, cand_no) in by_sub
+    for off in offsets:
+        cand_no = qno + off
+        if cand_no > 0 and (None, cand_no) in by_sub and by_sub[(None, cand_no)]:
+            other_claim = any(
+                (other_s, cand_no) in by_sub 
+                for other_s in ("physics", "chemistry", "mathematics") 
+                if other_s != sub_norm
+            )
+            if not other_claim:
+                return by_sub[(None, cand_no)]
+
+    # 3. Fallback to by_no: prevent cross-subject bleeding
+    max_no = max(by_no.keys()) if by_no else 0
+    for off in offsets:
+        cand_no = qno + off
+        if cand_no in by_no and by_no[cand_no]:
+            if any((other_s, cand_no) in by_sub for other_s in ("physics", "chemistry", "mathematics") if other_s != sub_norm):
+                continue
+            if sub_norm == "physics":
+                if cand_no <= 30:
+                    return by_no[cand_no]
+            elif sub_norm == "chemistry":
+                if max_no > 30 and (26 <= cand_no <= 60):
+                    return by_no[cand_no]
+                elif max_no <= 30 and off == 0:
+                    return by_no[cand_no]
+            elif sub_norm == "mathematics":
+                if max_no > 30 and cand_no >= 51:
+                    return by_no[cand_no]
+                elif max_no <= 30 and off == 0:
+                    return by_no[cand_no]
+
+    return None
+
 def build_test_pdf(
     chapters=None,
     count=None,
@@ -425,7 +479,7 @@ def build_test_pdf(
         qno = q.get("questionNumber") or q.get("number") or 1
         sub_name = str(q.get("subject", "")).strip().lower()
 
-        parts = by_sub.get((sub_name, qno)) or by_no.get(qno)
+        parts = find_question_parts(by_sub, by_no, sub_name, qno)
         if not parts:
             continue
 
@@ -514,7 +568,7 @@ def build_test_pdf(
             if so:
                 sol_doc, s_sub, s_no = so
                 sub_name = str(q.get("subject", "")).strip().lower()
-                s_parts = s_sub.get((sub_name, qno)) or s_no.get(qno)
+                s_parts = find_question_parts(s_sub, s_no, sub_name, qno)
                 if s_parts:
                     sol_rows.append((e, label, sol_doc, s_parts, CROP_X0, CROP_X1))
 

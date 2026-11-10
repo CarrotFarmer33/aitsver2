@@ -1890,13 +1890,22 @@ function renderResult(){
    '<div class="kpis"><div class="kpi"><small>Score</small><b>'+R.score+' / '+R.max+'</b></div><div class="kpi"><small>Accuracy</small><b>'+R.acc+'%</b></div><div class="kpi"><small>Correct</small><b>'+R.ok+'</b></div><div class="kpi"><small>Attempted</small><b>'+R.att+' / '+T.qs.length+'</b></div><div class="kpi"><small>Time used</small><b>'+hms(R.used)+'</b></div></div>'+
    '<section class="card"><h2>By subject</h2><div class="scroll"><table>'+head.replace('__','Subject')+'<tbody>'+Object.keys(subj).map(k=>row(k,subj[k])).join('')+'</tbody></table></div></section>'+
    '<section class="card"><h2>By chapter, weakest first</h2><div class="scroll"><table>'+head.replace('__','Chapter')+'<tbody>'+chRows+'</tbody></table></div></section>'+
-   '<section><h2 style="margin:0 0 10px;font-size:17px">Review answers</h2><div class="rvbar" id="rvbar">'+[['all','All'],['ok','Correct'],['bad','Wrong'],['skip','Not attempted'],['mk','Marked for review']].map(f=>'<button class="btn sm" data-f="'+f[0]+'" aria-pressed="'+(f[0]==='all')+'" type="button">'+f[1]+'</button>').join('')+'</div><div id="rvList" style="display:flex;flex-direction:column;gap:12px;margin-top:12px"></div></section>';
+   '<section><h2 style="margin:0 0 10px;font-size:17px">Review answers</h2><div class="rvbar" id="rvbar">'+[['all','All'],['ok','Correct'],['bad','Wrong'],['skip','Not attempted'],['mk','Marked for review']].map(f=>'<button class="btn sm" data-f="'+f[0]+'" aria-pressed="'+(f[0]==='all')+'" type="button">'+f[1]+'</button>').join('')+'<button class="btn sm" id="btnToggleAllSols" type="button" style="margin-left:auto">Toggle All Solutions</button></div><div id="rvList" style="display:flex;flex-direction:column;gap:12px;margin-top:12px"></div></section>';
+  const tBtn = $('#btnToggleAllSols');
+  if(tBtn){
+    tBtn.onclick = () => {
+      const dets = $('#rvList').querySelectorAll('details.sol-details');
+      const anyOpen = Array.from(dets).some(d => d.open);
+      dets.forEach(d => { d.open = !anyOpen; });
+      tBtn.textContent = anyOpen ? 'Show All Solutions' : 'Hide All Solutions';
+    };
+  }
   renderReview('all');
 }
 function renderReview(f){
   const R=lastResult;
   if(!R) return;
-  $('#rvbar').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===f));
+  $('#rvbar').querySelectorAll('button[data-f]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===f));
   let html='';
   T.qs.forEach((q,i)=>{
     const r=(R.res&&R.res[i])||{r:'skip',marks:0}, s=T.st[i]||{ans:null,time:0};
@@ -1917,10 +1926,14 @@ function renderReview(f){
     }
     const isRpt=isQuestionReported(q.id);
     const secName = (T.secs && T.secOf && T.secs[T.secOf[i]]) ? T.secs[T.secOf[i]].name : (q.subject || '');
+    const hasSol = (q.solution && q.solution.length) || (q.solImages && q.solImages.length);
+    const solMarkup = hasSol ?
+      '<details class="sol-details" open><summary style="cursor:pointer;font-weight:600;margin-top:8px">Solution</summary><div style="margin-top:8px">'+rich(q.solution||'')+((q.solImages||[]).map(u=>imageMarkup(u,'Solution figure')).join(''))+'</div></details>' :
+      '<details class="sol-details" open><summary style="cursor:pointer;font-weight:600;margin-top:8px">Solution</summary><div class="muted" style="margin-top:8px;font-size:13px">Official Answer Key: <b>'+esc(keyText(q))+'</b><br><span style="opacity:0.8">Step-by-step worked solution image was not provided in the original paper archive.</span></div></details>';
     html+='<article class="rv r-'+r.r+'"><header><b>Q'+(i+1)+'</b><button class="bmb" data-bm="'+esc(q.id)+'" type="button" aria-pressed="'+BM.has(q.id)+'" title="Bookmark this question" aria-label="Bookmark this question">'+STAR+'</button><span>'+esc(secName)+'</span><span>'+esc(q.chapter||'')+'</span><span class="badge '+pc+'">'+label+(r.marks?' '+(r.marks>0?'+':'')+r.marks:'')+'</span><span>'+mmss(s.time||0)+'</span><button class="btn sm report-btn" data-rpt="'+esc(q.id)+'" type="button" style="margin-left:auto;display:inline-flex;align-items:center;gap:4px;padding:2px 8px;font-size:12px'+(isRpt?';color:#d32f2f;border-color:#d32f2f':'')+'" title="Report issue with this question">🚩 '+(isRpt?'Reported':'Report')+'</button></header>'+
       '<div class="qtext">'+rich(q.text||'')+'</div>'+(q.images||[]).map(u=>imageMarkup(u,'Question figure')).join('')+ob+
       '<div>Your answer: <b>'+esc(fmtAns(q,s.ans))+'</b> · Correct answer: <b>'+esc(keyText(q))+'</b></div>'+
-      (((q.solution&&q.solution.length)||(q.solImages&&q.solImages.length))?'<details><summary>Solution</summary><div style="margin-top:8px">'+rich(q.solution||'')+((q.solImages||[]).map(u=>imageMarkup(u,'Solution figure')).join(''))+'</div></details>':'')+'</article>';
+      solMarkup+'</article>';
   });
   $('#rvList').innerHTML=html||'<div class="muted">Nothing to show for this filter.</div>';
   try {
@@ -1943,7 +1956,7 @@ const svCard=q=>{
   return '<article class="rv"><header><span>'+esc(QTS[q.type]||q.type)+'</span><span>'+esc(q.paper==='main'?'JEE Main':'JEE Advanced')+(q.year?' '+esc(q.year):'')+'</span><span>'+esc(q.paperTitle||'')+'</span><span style="margin-left:auto;display:inline-flex;gap:6px"><button class="btn sm report-btn" data-rpt="'+esc(q.id)+'" type="button" style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;font-size:12px'+(isQuestionReported(q.id)?';color:#d32f2f;border-color:#d32f2f':'')+'" title="Report issue with this question">🚩 '+(isQuestionReported(q.id)?'Reported':'Report')+'</button><button class="btn sm" data-svrm="'+esc(q.id)+'" type="button">Remove</button></span></header>'+
     '<div class="qtext">'+rich(q.text)+'</div>'+q.images.map(u=>imageMarkup(u,'Question figure')).join('')+ob+
     '<div>Correct answer: <b>'+esc(keyText(q))+'</b></div>'+
-    ((q.solution||q.solImages.length)?'<details><summary>Solution</summary><div style="margin-top:8px">'+rich(q.solution)+q.solImages.map(u=>imageMarkup(u,'Solution figure')).join('')+'</div></details>':'')+'</article>';
+    ((q.solution||q.solImages.length)?'<details open><summary style="cursor:pointer;font-weight:600;margin-top:8px">Solution</summary><div style="margin-top:8px">'+rich(q.solution)+q.solImages.map(u=>imageMarkup(u,'Solution figure')).join('')+'</div></details>':'<details open><summary style="cursor:pointer;font-weight:600;margin-top:8px">Solution</summary><div class="muted" style="margin-top:8px;font-size:13px">Official Answer Key: <b>'+esc(keyText(q))+'</b><br><span style="opacity:0.8">Step-by-step worked solution image was not provided in the original paper archive.</span></div></details>')+'</article>';
 };
 function svOrder(subj,ch){ const segs=SEGMENTS[subj]||[]; let n=0; for(const g of segs){ const i=g.chapters.indexOf(ch); if(i>=0) return n+i; n+=g.chapters.length; } return 9999; }
 function svPick(){ const all=svAll(); if(!all.some(q=>q.subject===svSubj)){ const s=SUBJ.find(x=>all.some(q=>q.subject===x)); if(s) svSubj=s; } }
