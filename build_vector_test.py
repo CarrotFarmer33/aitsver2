@@ -183,55 +183,73 @@ def fmt_answer(x):
 
 def find_question_parts(by_sub, by_no, sub_name, qno):
     """Subject-aware segment lookup avoiding cross-subject bleed in sequential papers."""
+    try:
+        qno_int = int(qno)
+    except (ValueError, TypeError):
+        qno_int = 1
+
     sub_key = str(sub_name or "").strip().lower()
     if sub_key in ("math", "maths", "mathematics"):
         sub_norm = "mathematics"
-        offsets = [0, 60, 50] if qno <= 30 else [0, -60, -50]
+        offsets = [0, 60, 50] if qno_int <= 30 else [0, -60, -50]
     elif sub_key in ("chem", "chemistry"):
         sub_norm = "chemistry"
-        offsets = [0, 30, 25] if qno <= 30 else [0, -30, -25]
+        offsets = [0, 30, 25] if qno_int <= 30 else [0, -30, -25]
     else:
         sub_norm = "physics"
         offsets = [0]
 
-    # 1. Exact subject match in by_sub
+    def get_sub_seg(s, num):
+        if (s, num) in by_sub and by_sub[(s, num)]:
+            return by_sub[(s, num)]
+        if (s, str(num)) in by_sub and by_sub[(s, str(num))]:
+            return by_sub[(s, str(num))]
+        return None
+
+    # 1. Exact subject match in by_sub (checks both int and string keys)
     for off in offsets:
-        cand_no = qno + off
-        if cand_no > 0 and (sub_norm, cand_no) in by_sub and by_sub[(sub_norm, cand_no)]:
-            return by_sub[(sub_norm, cand_no)]
+        cand_no = qno_int + off
+        if cand_no > 0:
+            seg = get_sub_seg(sub_norm, cand_no)
+            if seg:
+                return seg
 
     # 2. Check untagged or any-subject (None, cand_no) in by_sub
     for off in offsets:
-        cand_no = qno + off
-        if cand_no > 0 and (None, cand_no) in by_sub and by_sub[(None, cand_no)]:
-            other_claim = any(
-                (other_s, cand_no) in by_sub 
-                for other_s in ("physics", "chemistry", "mathematics") 
-                if other_s != sub_norm
-            )
-            if not other_claim:
-                return by_sub[(None, cand_no)]
+        cand_no = qno_int + off
+        if cand_no > 0:
+            seg = get_sub_seg(None, cand_no)
+            if seg:
+                other_claim = any(
+                    get_sub_seg(other_s, cand_no)
+                    for other_s in ("physics", "chemistry", "mathematics")
+                    if other_s != sub_norm
+                )
+                if not other_claim:
+                    return seg
 
     # 3. Fallback to by_no: prevent cross-subject bleeding
-    max_no = max(by_no.keys()) if by_no else 0
+    int_keys = [int(k) for k in by_no.keys() if str(k).isdigit()]
+    max_no = max(int_keys) if int_keys else 0
     for off in offsets:
-        cand_no = qno + off
-        if cand_no in by_no and by_no[cand_no]:
-            if any((other_s, cand_no) in by_sub for other_s in ("physics", "chemistry", "mathematics") if other_s != sub_norm):
+        cand_no = qno_int + off
+        seg = by_no.get(cand_no) or by_no.get(str(cand_no))
+        if seg:
+            if any(get_sub_seg(other_s, cand_no) for other_s in ("physics", "chemistry", "mathematics") if other_s != sub_norm):
                 continue
             if sub_norm == "physics":
                 if cand_no <= 30:
-                    return by_no[cand_no]
+                    return seg
             elif sub_norm == "chemistry":
                 if max_no > 30 and (26 <= cand_no <= 60):
-                    return by_no[cand_no]
-                elif max_no <= 30 and off == 0:
-                    return by_no[cand_no]
+                    return seg
+                elif max_no <= 30 and off != 0:
+                    return seg
             elif sub_norm == "mathematics":
                 if max_no > 30 and cand_no >= 51:
-                    return by_no[cand_no]
-                elif max_no <= 30 and off == 0:
-                    return by_no[cand_no]
+                    return seg
+                elif max_no <= 30 and off != 0:
+                    return seg
 
     return None
 
@@ -257,9 +275,18 @@ def build_test_pdf(
     target_count = len(selected_qids) if selected_qids else count
 
     if selected_qids:
+        # Build subject set early so we can filter even when qids are pre-selected
+        subj_set = [s.strip().lower() for s in (subjects or []) if s.strip()]
         for qid in selected_qids:
             if qid in qm.q_by_id:
                 q = qm.q_by_id[qid]
+                # Apply subject filter: drop questions whose subject doesn't match
+                # the requested subjects (catches DB mis-tags like a Physics question
+                # sneaking into a Chemistry-only custom test).
+                if subj_set:
+                    q_sub = str(q.get("subject", "")).strip().lower()
+                    if q_sub not in subj_set:
+                        continue
                 if pattern == "main":
                     t_str = str(q.get("rawType") or q.get("type", "")).lower()
                     if "para" in t_str or "comp" in t_str or "multi" in t_str or "msq" in t_str:
@@ -411,8 +438,18 @@ def build_test_pdf(
         # 1. Check pre-computed segments cache (instant O(1))
         q_cache = qm.segments_cache.get("questions", {})
         if key in q_cache:
-            sub_d = {tuple(k.split("||", 1)): parts for k, parts in q_cache[key]["by_sub"].items()}
-            no_d = {int(k): parts for k, parts in q_cache[key]["by_no"].items()}
+            sub_d = {}
+            for item_k, parts in q_cache[key]["by_sub"].items():
+                if "||" in item_k:
+                    s_name, s_num = item_k.split("||", 1)
+                    try:
+                        sub_d[(s_name.lower(), int(s_num))] = parts
+                    except ValueError:
+                        pass
+                    sub_d[(s_name.lower(), s_num)] = parts
+                else:
+                    sub_d[(item_k.lower(), None)] = parts
+            no_d = {int(item_k): parts for item_k, parts in q_cache[key]["by_no"].items() if str(item_k).isdigit()}
             seg_cache[key] = (sub_d, no_d)
             return seg_cache[key]
 
@@ -441,15 +478,29 @@ def build_test_pdf(
         
         # 1. Check pre-computed segments cache (instant O(1))
         if sol_stem in s_cache:
-            s_sub = {tuple(s.split("||", 1)): parts for s, parts in s_cache[sol_stem]["by_sub"].items()}
-            s_no = {int(s): parts for s, parts in s_cache[sol_stem]["by_no"].items()}
+            s_sub = {}
+            for item_s, parts in s_cache[sol_stem]["by_sub"].items():
+                if "||" in item_s:
+                    sub_name, sub_num = item_s.split("||", 1)
+                    try:
+                        s_sub[(sub_name.lower(), int(sub_num))] = parts
+                    except ValueError:
+                        pass
+                    s_sub[(sub_name.lower(), sub_num)] = parts
+                else:
+                    s_sub[(item_s.lower(), None)] = parts
+            s_no = {int(item_s): parts for item_s, parts in s_cache[sol_stem]["by_no"].items() if str(item_s).isdigit()}
             sol_doc = open_pdf(qm.sol_paths[k])
+            if sol_doc and remove_watermark:
+                remove_watermarks(sol_doc)
             sol_cache[k] = (sol_doc, s_sub, s_no)
             return sol_cache[k]
 
         # 2. Fallback: on-the-fly scan
         sol_doc = open_pdf(qm.sol_paths[k])
         if sol_doc:
+            if remove_watermark:
+                remove_watermarks(sol_doc)
             try:
                 s_sub, s_no = chem_segments(sol_doc)
                 sol_cache[k] = (sol_doc, s_sub, s_no)
@@ -484,7 +535,10 @@ def build_test_pdf(
             continue
 
         if key not in doc_cache:
-            doc_cache[key] = open_pdf(qm.pdfs[key])
+            d = open_pdf(qm.pdfs[key])
+            if d and remove_watermark:
+                remove_watermarks(d)
+            doc_cache[key] = d
         doc = doc_cache[key]
         if not doc:
             continue
