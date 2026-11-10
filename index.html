@@ -2975,31 +2975,56 @@ async function buildCustomSheet(){
     const chaps = [...new Set(qs.map(q => q.chapter))];
     const subjs = [...new Set(qs.map(q => q.subject))];
 
-    const resp = await fetch('/api/build-test', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chapters: chaps,
-        subjects: subjs,
-        count: qs.length,
-        pattern: tbCfg.pattern,
-        paper: tbCfg.paper,
-        title: title,
-        subtitle: subtitle,
-        includeSolutions: includeSol,
-        removeWatermark: noWatermark,
-        qids: qids
-      })
+    const payload = JSON.stringify({
+      chapters: chaps,
+      subjects: subjs,
+      count: qs.length,
+      pattern: tbCfg.pattern,
+      paper: tbCfg.paper,
+      title: title,
+      subtitle: subtitle,
+      includeSolutions: includeSol,
+      removeWatermark: noWatermark,
+      qids: qids
     });
+
+    let resp = null, baseUrl = '';
+    try {
+      const r = await fetch('/api/build-test', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: payload
+      });
+      if(r.ok || (r.status < 500 && r.status !== 404)){
+        resp = r;
+      } else {
+        throw new Error('Endpoint not available on this host');
+      }
+    } catch(e){
+      try {
+        const r2 = await fetch('http://localhost:8000/api/build-test', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: payload
+        });
+        resp = r2;
+        baseUrl = 'http://localhost:8000';
+      } catch(err2){
+        throw new Error('Cannot reach vector test engine. Please ensure python server.py is running on localhost:8000.');
+      }
+    }
 
     const data = await resp.json();
     if(!data.ok){
       throw new Error(data.error || 'Server error generating vector test');
     }
 
-    const frame = $('#sheetPdfFrame');
-    frame.src = data.pdfUrl + '#toolbar=1&navpanes=0&view=FitH';
-    $('#sheetDownloadBtn').href = data.pdfUrl;
+    const fullPdfUrl = (data.pdfUrl.startsWith('http') ? data.pdfUrl : (baseUrl + data.pdfUrl));
+    const frame = #sheetPdfFrame;
+    frame.src = fullPdfUrl + '#toolbar=1&navpanes=0&view=FitH';
+    #sheetDownloadBtn.href = fullPdfUrl;
+    #sheetDownloadBtn.download = data.filename || 'practice_sheet.pdf';
+    #sheetOpenTabBtn.href = fullPdfUrl;
     $('#sheetDownloadBtn').download = data.filename || 'practice_sheet.pdf';
     $('#sheetOpenTabBtn').href = data.pdfUrl;
     $('#sheetDocTitle').textContent = title + ' (' + data.totalQuestions + ' Qs, ' + data.totalPages + ' Pages)';

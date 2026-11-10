@@ -1,6 +1,17 @@
 {
   "entries": [
     {
+      "date": "2026-11-10",
+      "title": "Custom Test Builder & Build Sheets Generator",
+      "tag": "New",
+      "changes": [
+        "Added Custom Test Builder: pick chapters across Physics, Chemistry, and Mathematics, question count, and exam pattern (JEE Advanced / JEE Main).",
+        "Generates clean printable sheets in the exact same format as build_sheets (A4 layout, double navy rules, Q margin labels, 5-pair Answer Key grid, worked Solutions).",
+        "Automated FIITJEE watermark and footer banner removal across generated sheets and practice portal.",
+        "One-click print/PDF export and direct launch into online CBT practice test mode."
+      ]
+    },
+    {
       "date": "2026-10-29",
       "title": "Test Submission & Answer Key Repairs",
       "tag": "Fix",
