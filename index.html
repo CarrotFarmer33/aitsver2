@@ -364,7 +364,7 @@
     margin: 0 !important;
     padding: 0 !important;
   }
-  .topbar, .sheet-toolbar, #scrSetup, #scrInstr, #scrExam, #scrRes, #scrSaved, #scrBuilderLogin, #scrTestBuilder, #scrTestPreview, #modal, .scrim, #tbToast {
+  .topbar, .sheet-toolbar, #scrSetup, #scrPracticeList, #scrInstr, #scrExam, #scrRes, #scrSaved, #scrBuilderLogin, #scrTestBuilder, #scrTestPreview, #modal, .scrim, #tbToast {
     display: none !important;
   }
   #scrSheetView {
@@ -782,10 +782,298 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 @media (max-width:520px){ #scrExam .xbtn{padding:0 10px} .tb-title{font-size:11px} #scrExam .tab{font-size:13px} #scrExam .gpill{font-size:14px} }
 @media (max-width:900px){ .qimg{width:100%} .modal .box:has(.image-preview){max-width:96vw} }
 @media (prefers-reduced-motion:reduce){.xright{transition:none}}
+
+/* Marks-app inspired practice styles */
+.marks-layout {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+  padding-top: 16px;
+  padding-bottom: 60px;
+}
+.marks-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: sticky;
+  top: calc(46px + env(safe-area-inset-top, 0px));
+}
+.marks-sb-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.marks-sb-head {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--muted);
+  font-weight: 700;
+}
+.marks-sb-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 9px 14px;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  font-size: 13px;
+  color: var(--fg);
+  font-weight: 500;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.marks-sb-item:last-child { border-bottom: 0; }
+.marks-sb-item:hover { background: var(--surface-2); }
+.marks-sb-item.active {
+  background: rgba(40,106,199,0.09);
+  color: var(--brand);
+  font-weight: 700;
+  border-left: 3px solid var(--brand);
+}
+.marks-sb-count {
+  font-size: 11.5px;
+  color: var(--muted);
+  font-weight: 600;
+}
+.marks-main-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.marks-hero-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 14px 18px;
+  align-items: center;
+  justify-content: space-between;
+}
+.marks-hero-left h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+.marks-hero-left .marks-subline {
+  margin-top: 3px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+.marks-hero-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.marks-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+.marks-pill-btn {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--fg);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+.marks-pill-btn:hover {
+  background: var(--line);
+}
+.marks-pill-btn.active {
+  background: var(--brand);
+  color: #fff;
+  border-color: var(--brand);
+}
+.marks-pill-select {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--fg);
+  min-height: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+.marks-q-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.marks-q-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: opacity 0.2s ease, border-color 0.2s ease;
+  position: relative;
+}
+.marks-q-card.attempted {
+  opacity: 0.62;
+  background: var(--surface-2);
+  border-color: rgba(128,128,128,0.22);
+}
+.marks-q-card.attempted:hover {
+  opacity: 0.96;
+}
+.marks-q-card.attempted-correct {
+  border-left: 3.5px solid var(--good, #15803d);
+}
+.marks-q-card.attempted-wrong {
+  border-left: 3.5px solid var(--bad, #b91c1c);
+}
+.marks-q-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12.5px;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 8px;
+}
+.marks-q-num {
+  font-weight: 700;
+  color: var(--fg);
+  font-size: 13.5px;
+}
+.marks-q-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.marks-q-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 3px;
+  background: var(--surface-2);
+  color: var(--muted);
+  border: 1px solid var(--line);
+  text-transform: uppercase;
+}
+.marks-q-badge.correct {
+  background: var(--good-bg, rgba(21,128,61,0.1));
+  color: var(--good, #15803d);
+  border-color: rgba(21,128,61,0.3);
+}
+.marks-q-badge.wrong {
+  background: var(--bad-bg, rgba(185,28,28,0.1));
+  color: var(--bad, #b91c1c);
+  border-color: rgba(185,28,28,0.3);
+}
+.marks-q-body {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--fg);
+}
+.marks-q-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+.marks-q-opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+.marks-q-opt:hover {
+  background: var(--surface-2);
+  border-color: var(--brand);
+}
+.marks-q-opt.selected {
+  background: rgba(40,106,199,0.08);
+  border-color: var(--brand);
+}
+.marks-q-opt.correct-key {
+  background: var(--good-bg, rgba(21,128,61,0.12));
+  border-color: var(--good, #15803d);
+}
+.marks-q-opt.wrong-chosen {
+  background: var(--bad-bg, rgba(185,28,28,0.12));
+  border-color: var(--bad, #b91c1c);
+}
+.marks-q-numinput-wrap {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  max-width: 320px;
+}
+.marks-q-numinput {
+  flex: 1;
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+  font-size: 13.5px;
+}
+.marks-q-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+  flex-wrap: wrap;
+}
+.marks-sol-box {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 12px 14px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+@media (max-width: 900px) {
+  .marks-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .marks-sidebar {
+    position: static;
+  }
+}
 </style>
 
 <div id="scrSetup" class="screen">
-  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Portal &ndash; chapter-wise question practice</span><div style="display:flex;align-items:center;gap:8px"><button class="btn sm" id="navBuilder" type="button" style="background:#286ac7;color:#fff;border-color:#286ac7">🛠️ Test Builder</button><details class="menu" id="topMenu"><summary class="btn sm">Menu &#9662;</summary><div class="menuList"><button class="btn sm" id="openBuilderMenu" type="button" style="color:var(--brand);font-weight:700">🛠️ Test Builder</button><button class="btn sm" id="openSaved" type="button">Saved questions</button><button class="btn sm" id="openReports" type="button" style="display:flex;align-items:center;justify-content:space-between">Reported questions <span id="rptBadge" style="display:none;background:#d32f2f;color:#fff;border-radius:10px;padding:0 6px;font-size:11px;font-weight:700">0</span></button><a class="btn sm" href="changelog.html">Changelog</a><a class="btn sm" href="downloads.html">Downloads</a><hr class="menuSep"><div class="mrow"><button class="btn sm" id="expData" type="button">Export my data</button><span class="mi" tabindex="0" role="note" aria-label="About Export my data">i</span><div class="mtip">Saves a backup file of your bookmarks, mistakes, seen questions and history. Your data lives only in this browser, so export now and then in case it gets cleared.</div></div><div class="mrow"><button class="btn sm" id="impData" type="button">Import data</button><span class="mi" tabindex="0" role="note" aria-label="About Import data">i</span><div class="mtip">Load a backup file you exported earlier. It is merged with your current data, so nothing is overwritten.</div></div><input type="file" id="impFile" accept=".json,application/json" hidden></div></details></div></div></div>
+  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Portal &ndash; chapter-wise question practice</span><div style="display:flex;align-items:center;gap:8px"><button class="btn sm" id="navPractice" type="button" style="background:var(--surface-2);color:var(--fg);font-weight:600">Practice (Marks Format)</button><button class="btn sm" id="navBuilder" type="button" style="background:#286ac7;color:#fff;border-color:#286ac7">🛠️ Test Builder</button><details class="menu" id="topMenu"><summary class="btn sm">Menu &#9662;</summary><div class="menuList"><button class="btn sm" id="openPracticeMenu" type="button" style="color:var(--brand);font-weight:700">Practice (Scrollable)</button><button class="btn sm" id="openBuilderMenu" type="button" style="color:var(--brand);font-weight:700">🛠️ Test Builder</button><button class="btn sm" id="openSaved" type="button">Saved questions</button><button class="btn sm" id="openReports" type="button" style="display:flex;align-items:center;justify-content:space-between">Reported questions <span id="rptBadge" style="display:none;background:#d32f2f;color:#fff;border-radius:10px;padding:0 6px;font-size:11px;font-weight:700">0</span></button><a class="btn sm" href="changelog.html">Changelog</a><a class="btn sm" href="downloads.html">Downloads</a><hr class="menuSep"><div class="mrow"><button class="btn sm" id="expData" type="button">Export my data</button><span class="mi" tabindex="0" role="note" aria-label="About Export my data">i</span><div class="mtip">Saves a backup file of your bookmarks, mistakes, seen questions and history. Your data lives only in this browser, so export now and then in case it gets cleared.</div></div><div class="mrow"><button class="btn sm" id="impData" type="button">Import data</button><span class="mi" tabindex="0" role="note" aria-label="About Import data">i</span><div class="mtip">Load a backup file you exported earlier. It is merged with your current data, so nothing is overwritten.</div></div><input type="file" id="impFile" accept=".json,application/json" hidden></div></details></div></div></div>
   <main class="wrap setup">
     <section class="card" id="dbCard" hidden style="display:none">
       <div class="dbrow">
@@ -833,7 +1121,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
             <div class="muted" style="font-size:13px;margin-top:6px"><span id="attInfo"></span> <button class="btn sm" id="attReset" type="button" hidden>Reset</button></div></div>
           <div class="field"><label for="minIn">Time limit (minutes, 0 for untimed)</label><input type="number" id="minIn" min="0" step="1"></div>
           <div class="field"><label for="modeSel">Mode</label>
-            <select id="modeSel"><option value="test">Take as a test (results at the end)</option><option value="practice">Practice (check answer and solution after each question)</option></select></div>
+            <select id="modeSel"><option value="test">Take as a test (results at the end)</option><option value="practice">Practice (Scrollable Marks format)</option></select></div>
           <div class="field"><label for="mrkSel">Marking scheme</label><select id="mrkSel"></select></div>
           <button class="btn primary" id="btnStart" type="button" style="width:100%">Continue to instructions</button>
           <div id="startWhy" class="muted" style="font-size:13px;margin-top:8px"></div>
@@ -938,6 +1226,71 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   </div>
   <div class="scrim" id="scrim"></div>
   <div class="floatingInfoTooltip" id="infoTip" hidden></div>
+</div>
+
+<div id="scrPracticeList" class="screen" hidden>
+  <div class="topbar"><div class="tb-in"><span class="tb-title" id="prkTopbarTitle">Practice &ndash; Questions</span><div style="display:flex;align-items:center;gap:8px"><button class="btn sm" id="prkResetAttemptBtn" type="button" style="font-size:12px">Reset Attempts</button><button class="btn sm" id="prkBackBtn" type="button">&larr; Portal Home</button></div></div></div>
+  <main class="wrap marks-layout">
+    <aside class="marks-sidebar">
+      <div class="marks-sb-card">
+        <div class="marks-sb-head">Subjects</div>
+        <div id="prkSubjList"></div>
+      </div>
+      <div class="marks-sb-card">
+        <div class="marks-sb-head">Chapters</div>
+        <div id="prkChapList" style="max-height:60vh;overflow-y:auto"></div>
+      </div>
+    </aside>
+
+    <section class="marks-main-card">
+      <div class="marks-hero-box">
+        <div class="marks-hero-left">
+          <h2 id="prkHeroTitle">All Questions</h2>
+          <div class="marks-subline" id="prkHeroStats">Showing 0 questions</div>
+        </div>
+        <div class="marks-hero-actions">
+          <button class="btn sm primary" id="prkTakeTestBtn" type="button">Take Chapter Test &rarr;</button>
+        </div>
+      </div>
+
+      <div class="marks-filter-bar">
+        <button type="button" class="marks-pill-btn" id="prkToggleHideAttempted" data-hide="0">
+          <span>Hide Attempted</span>
+          <span id="prkHideDot" style="display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--line)"></span>
+        </button>
+
+        <select id="prkFilterPaper" class="marks-pill-select" aria-label="Paper">
+          <option value="all">All Papers</option>
+          <option value="main">JEE Main</option>
+          <option value="adv">JEE Advanced</option>
+        </select>
+
+        <select id="prkFilterYear" class="marks-pill-select" aria-label="Year">
+          <option value="all">All Years</option>
+        </select>
+
+        <select id="prkFilterType" class="marks-pill-select" aria-label="Question Type">
+          <option value="all">All Types</option>
+          <option value="single">Single Choice (MCQ)</option>
+          <option value="multi">Multiple Correct (MSQ)</option>
+          <option value="numerical">Numerical (NAT)</option>
+          <option value="paragraph">Comprehension</option>
+        </select>
+
+        <select id="prkFilterStatus" class="marks-pill-select" aria-label="Attempt Status">
+          <option value="all">Status: All</option>
+          <option value="unattempted">Unattempted</option>
+          <option value="attempted">Attempted</option>
+          <option value="correct">Correct</option>
+          <option value="wrong">Wrong</option>
+        </select>
+
+        <button type="button" class="marks-pill-btn" id="prkResetFiltersBtn" style="margin-left:auto">Clear Filters</button>
+      </div>
+
+      <div id="prkQuestionsContainer" class="marks-q-list"></div>
+    </section>
+  </main>
 </div>
 
 <div id="scrSaved" class="screen" hidden>
@@ -1483,7 +1836,7 @@ function showNote(t){ const n=$('#dbNote'); n.textContent=t; n.hidden=!t; }
 
 /* ---------- screens ---------- */
 function show(id){
-  ['scrSetup','scrInstr','scrExam','scrRes','scrSaved','scrBuilderLogin','scrTestBuilder','scrSheetView','scrTestPreview'].forEach(s=>{ const el=$('#'+s); if(el) el.hidden = s!==id; });
+  ['scrSetup','scrPracticeList','scrInstr','scrExam','scrRes','scrSaved','scrBuilderLogin','scrTestBuilder','scrSheetView','scrTestPreview'].forEach(s=>{ const el=$('#'+s); if(el) el.hidden = s!==id; });
   toggleAcc(false); hideTip();
   window.scrollTo(0,0);
 }
@@ -1826,6 +2179,12 @@ function startFromSetup(){
     }
     finalList = finalList.concat(subList.slice(0, quotas[s]));
   });
+
+  if(cfg.mode === 'practice'){
+    // When practice mode is selected, seamlessly open the clean scrollable Marks practice screen
+    openPracticeList({ subject: (activeSubjects && activeSubjects[0]) || 'Physics' });
+    return;
+  }
 
   buildTest(finalList, cfg.minutes, cfg.preset, 'AITS PRACTICE TEST ' + today() + ' CHAPTER-WISE');
   renderInstr();
@@ -2208,6 +2567,391 @@ const svCard=q=>{
 };
 function svOrder(subj,ch){ const segs=SEGMENTS[subj]||[]; let n=0; for(const g of segs){ const i=g.chapters.indexOf(ch); if(i>=0) return n+i; n+=g.chapters.length; } return 9999; }
 function svPick(){ const all=svAll(); if(!all.some(q=>q.subject===svSubj)){ const s=SUBJ.find(x=>all.some(q=>q.subject===x)); if(s) svSubj=s; } }
+/* ==================== MARKS-STYLE SCROLLABLE PRACTICE SCREEN ==================== */
+const PRK_ANS_KEY = 'aits_prk_answers';
+function getPrkAnswers(){
+  try { return JSON.parse(store.get(PRK_ANS_KEY) || '{}'); } catch(e){ return {}; }
+}
+function savePrkAnswer(qId, val, status){
+  const map = getPrkAnswers();
+  map[qId] = { val, status, t: Date.now() };
+  store.set(PRK_ANS_KEY, JSON.stringify(map));
+  markAttempted({ id: qId });
+}
+
+const prkState = {
+  subj: 'Physics',
+  chap: null,
+  paper: 'all',
+  year: 'all',
+  type: 'all',
+  status: 'all',
+  hideAttempted: false
+};
+
+function openPracticeList(initialOpts){
+  if(initialOpts){
+    if(initialOpts.subject && SUBJ.includes(initialOpts.subject)) prkState.subj = initialOpts.subject;
+    if(initialOpts.chapter) prkState.chap = initialOpts.chapter;
+  }
+  const availableSubjs = SUBJ.filter(s => DB.some(q => q.subject === s));
+  if(!availableSubjs.includes(prkState.subj)) prkState.subj = availableSubjs[0] || 'Physics';
+
+  renderPracticeScreen();
+  show('scrPracticeList');
+}
+
+function renderPracticeScreen(){
+  renderPracticeSidebar();
+  renderPracticeFilterYears();
+  renderPracticeMain();
+}
+
+function renderPracticeSidebar(){
+  const availableSubjs = SUBJ.filter(s => DB.some(q => q.subject === s));
+  const subjBox = $('#prkSubjList');
+  if(subjBox){
+    subjBox.innerHTML = availableSubjs.map(s => {
+      const cnt = DB.filter(q => q.subject === s).length;
+      const isAct = s === prkState.subj;
+      return '<button type="button" class="marks-sb-item' + (isAct ? ' active' : '') + '" data-prksubj="' + esc(s) + '">' +
+        '<span>' + esc(s) + '</span>' +
+        '<span class="marks-sb-count">' + cnt + '</span>' +
+      '</button>';
+    }).join('');
+  }
+
+  const inSubj = DB.filter(q => q.subject === prkState.subj);
+  const byCh = {};
+  inSubj.forEach(q => { if(q.chapter) byCh[q.chapter] = (byCh[q.chapter] || 0) + 1; });
+
+  const chapBox = $('#prkChapList');
+  if(chapBox){
+    const keys = Object.keys(byCh).sort((a,b) => svOrder(prkState.subj, a) - svOrder(prkState.subj, b) || a.localeCompare(b));
+    let chHtml = '<button type="button" class="marks-sb-item' + (!prkState.chap ? ' active' : '') + '" data-prkchap="__ALL__">' +
+      '<span>All Chapters</span>' +
+      '<span class="marks-sb-count">' + inSubj.length + '</span>' +
+    '</button>';
+
+    chHtml += keys.map(c => {
+      const isAct = prkState.chap === c;
+      return '<button type="button" class="marks-sb-item' + (isAct ? ' active' : '') + '" data-prkchap="' + esc(c) + '">' +
+        '<span>' + esc(c) + '</span>' +
+        '<span class="marks-sb-count">' + byCh[c] + '</span>' +
+      '</button>';
+    }).join('');
+
+    chapBox.innerHTML = chHtml;
+  }
+}
+
+function renderPracticeFilterYears(){
+  const yrSel = $('#prkFilterYear');
+  if(!yrSel) return;
+  const inSubj = DB.filter(q => q.subject === prkState.subj && (!prkState.chap || q.chapter === prkState.chap));
+  const years = [...new Set(inSubj.map(q => q.year).filter(Boolean))].sort((a,b) => b - a);
+
+  let opts = '<option value="all">All Years</option>';
+  years.forEach(y => {
+    opts += '<option value="' + y + '"' + (prkState.year === String(y) ? ' selected' : '') + '>' + y + '</option>';
+  });
+  yrSel.innerHTML = opts;
+}
+
+function getFilteredPracticeQuestions(){
+  const ansMap = getPrkAnswers();
+  return DB.filter(q => {
+    if(q.subject !== prkState.subj) return false;
+    if(prkState.chap && q.chapter !== prkState.chap) return false;
+    if(prkState.paper !== 'all' && q.paper !== prkState.paper) return false;
+    if(prkState.year !== 'all' && String(q.year) !== String(prkState.year)) return false;
+    if(prkState.type !== 'all' && (q.rawType || q.type) !== prkState.type) return false;
+
+    const isAtt = ATT.has(q.id) || (ansMap[q.id] != null);
+    if(prkState.hideAttempted && isAtt) return false;
+
+    if(prkState.status === 'unattempted' && isAtt) return false;
+    if(prkState.status === 'attempted' && !isAtt) return false;
+    if(prkState.status === 'correct'){
+      if(!ansMap[q.id] || ansMap[q.id].status !== 'ok') return false;
+    }
+    if(prkState.status === 'wrong'){
+      if(!ansMap[q.id] || ansMap[q.id].status !== 'bad') return false;
+    }
+
+    return true;
+  });
+}
+
+function renderPracticeMain(){
+  const topTitle = $('#prkTopbarTitle');
+  if(topTitle) topTitle.textContent = 'Practice - ' + prkState.subj + (prkState.chap ? ' - ' + prkState.chap : '');
+
+  const heroTitle = $('#prkHeroTitle');
+  if(heroTitle) heroTitle.textContent = prkState.chap ? prkState.chap : ('All ' + prkState.subj + ' Questions');
+
+  const qs = getFilteredPracticeQuestions();
+  const totalInScope = DB.filter(q => q.subject === prkState.subj && (!prkState.chap || q.chapter === prkState.chap)).length;
+  const ansMap = getPrkAnswers();
+  const attInScope = DB.filter(q => q.subject === prkState.subj && (!prkState.chap || q.chapter === prkState.chap) && (ATT.has(q.id) || ansMap[q.id])).length;
+
+  const statsEl = $('#prkHeroStats');
+  if(statsEl) statsEl.textContent = 'Showing ' + qs.length + ' of ' + totalInScope + ' questions (' + attInScope + ' attempted)';
+
+  const cont = $('#prkQuestionsContainer');
+  if(!cont) return;
+
+  if(!qs.length){
+    cont.innerHTML = '<div class="muted" style="text-align:center;padding:48px 16px;background:var(--surface);border:1px solid var(--line);border-radius:6px">' +
+      'No questions match the current filters. Adjust your filters or switch chapters.</div>';
+    return;
+  }
+
+  // Render question cards (Marks style)
+  cont.innerHTML = qs.map((q, idx) => {
+    return renderPracticeCardHtml(q, idx);
+  }).join('');
+
+  hydrateZipImages(cont);
+  typeset(cont);
+}
+
+function renderPracticeCardHtml(q, idx){
+  const ansMap = getPrkAnswers();
+  const savedAns = ansMap[q.id];
+  const isAttempted = ATT.has(q.id) || (savedAns != null);
+  const isCorrect = savedAns && savedAns.status === 'ok';
+  const isWrong = savedAns && savedAns.status === 'bad';
+
+  let cardClasses = 'marks-q-card';
+  if(isAttempted) cardClasses += ' attempted';
+  if(isCorrect) cardClasses += ' attempted-correct';
+  else if(isWrong) cardClasses += ' attempted-wrong';
+
+  const effType = q.rawType || q.type || 'single';
+  const typeLabel = QTS[effType] || effType.toUpperCase();
+  const tag = cleanSourceTag(q);
+  const isBm = BM.has(q.id);
+
+  let badgeHtml = '';
+  if(isCorrect) badgeHtml = '<span class="marks-q-badge correct">Correct</span>';
+  else if(isWrong) badgeHtml = '<span class="marks-q-badge wrong">Incorrect</span>';
+  else if(isAttempted) badgeHtml = '<span class="marks-q-badge">Attempted</span>';
+
+  // Question body & images
+  let passageHtml = '';
+  if(q.paragraph && q.passageImages && q.passageImages.length){
+    passageHtml = '<div style="margin-bottom:10px;padding:8px 12px;background:var(--surface-2);border-left:3px solid var(--brand);border-radius:0 4px 4px 0;font-size:12.5px">' +
+      (q.passageText ? '<div style="margin-bottom:6px">' + rich(stripWatermarks(q.passageText)) + '</div>' : '') +
+      q.passageImages.map(u => imageMarkup(u, 'Passage figure')).join('') +
+    '</div>';
+  }
+
+  const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
+  const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure')).join('');
+
+  // Options / Input
+  let interactHtml = '';
+  if(effType === 'numerical'){
+    const userVal = savedAns ? savedAns.val : '';
+    interactHtml = '<div class="marks-q-numinput-wrap">' +
+      '<input type="text" class="marks-q-numinput" data-prknuminput="' + esc(q.id) + '" placeholder="Enter value" value="' + esc(userVal != null ? userVal : '') + '">' +
+      '<button type="button" class="btn sm primary" data-prknumsubmit="' + esc(q.id) + '">Check</button>' +
+    '</div>';
+  } else {
+    const isMulti = effType === 'multi';
+    const chosenList = savedAns ? (Array.isArray(savedAns.val) ? savedAns.val : [savedAns.val]) : [];
+    const correctList = Array.isArray(q.ans) ? q.ans : (q.ans != null ? [q.ans] : []);
+
+    interactHtml = '<div class="marks-q-options">' + (q.options || []).map((opt, oIdx) => {
+      let optClass = 'marks-q-opt';
+      const isSelected = chosenList.includes(oIdx);
+      if(isSelected) optClass += ' selected';
+      if(savedAns){
+        if(correctList.includes(oIdx)) optClass += ' correct-key';
+        else if(isSelected) optClass += ' wrong-chosen';
+      }
+      return '<div class="' + optClass + '" data-prkopt="' + esc(q.id) + '" data-oidx="' + oIdx + '" data-multi="' + (isMulti ? '1' : '0') + '">' +
+        '<b>' + LET[oIdx] + '.</b>' +
+        '<span style="flex:1;min-width:0;overflow-wrap:anywhere">' + (q.labelOnly ? '' : rich(opt)) + '</span>' +
+      '</div>';
+    }).join('') + '</div>';
+
+    if(isMulti){
+      interactHtml += '<div style="margin-top:6px">' +
+        '<button type="button" class="btn sm primary" data-prkmultisubmit="' + esc(q.id) + '">Check Response</button>' +
+      '</div>';
+    }
+  }
+
+  // Solution Box
+  let solHtml = '';
+  if(savedAns){
+    solHtml = '<div class="marks-sol-box">' +
+      '<div><b>Key:</b> <span>' + esc(keyText(q)) + '</span> &bull; <b>Your Answer:</b> <span>' + esc(fmtAns(q, savedAns.val)) + '</span></div>' +
+      ((q.solution || (q.solImages && q.solImages.length)) ?
+        '<div><b>Solution:</b><div style="margin-top:4px">' + rich(q.solution || '') + (q.solImages || []).map(u => imageMarkup(u, 'Solution figure')).join('') + '</div></div>' :
+        '<div class="muted">No extended solution image was attached in archive.</div>') +
+    '</div>';
+  }
+
+  return '<article class="' + cardClasses + '" id="prkCard_' + esc(q.id) + '" data-qid="' + esc(q.id) + '">' +
+    '<div class="marks-q-head">' +
+      '<div style="display:flex;align-items:center;gap:10px">' +
+        '<span class="marks-q-num">Q' + (idx + 1) + '</span>' +
+        '<span class="muted">&bull;</span>' +
+        '<span class="marks-q-badge">' + esc(typeLabel) + '</span>' +
+        (badgeHtml ? badgeHtml : '') +
+      '</div>' +
+      '<div class="marks-q-meta">' +
+        '<span style="font-weight:600;font-size:12px">' + esc(tag) + '</span>' +
+        '<button type="button" class="bmb" data-bm="' + esc(q.id) + '" aria-pressed="' + isBm + '" title="Bookmark this question" style="padding:2px 4px">' + STAR + '</button>' +
+        '<button type="button" class="btn sm" data-rpt="' + esc(q.id) + '" style="font-size:11.5px;padding:2px 8px">Report</button>' +
+      '</div>' +
+    '</div>' +
+    '<div class="marks-q-body">' +
+      passageHtml +
+      (q.text ? '<div style="margin-bottom:8px">' + rich(q.text) + '</div>' : '') +
+      imgsHtml +
+      interactHtml +
+    '</div>' +
+    (solHtml ? solHtml : '') +
+    '<div class="marks-q-foot">' +
+      '<span class="muted" style="font-size:12px">ID: ' + esc(q.id) + ' &bull; ' + esc(q.chapter || q.subject) + '</span>' +
+      (savedAns ?
+        '<button type="button" class="btn sm" data-prkretry="' + esc(q.id) + '" style="font-size:12px">Clear &amp; Try Again</button>' :
+        '<button type="button" class="btn sm" data-prkshowsol="' + esc(q.id) + '" style="font-size:12px">Show Solution</button>') +
+    '</div>' +
+  '</article>';
+}
+
+function handlePrkOptionClick(qId, oIdx, isMulti){
+  const q = findQuestionById(qId);
+  if(!q) return;
+
+  const card = document.getElementById('prkCard_' + qId);
+  if(!card) return;
+
+  if(!isMulti){
+    // Single choice: instant check
+    const correctList = Array.isArray(q.ans) ? q.ans : (q.ans != null ? [q.ans] : []);
+    const isOk = correctList.includes(oIdx);
+    savePrkAnswer(qId, oIdx, isOk ? 'ok' : 'bad');
+
+    // Update single card in-place
+    updatePrkCardInPlace(qId);
+  } else {
+    // Multi choice: toggle selection state
+    const optEl = card.querySelector('.marks-q-opt[data-oidx="' + oIdx + '"]');
+    if(optEl){
+      optEl.classList.toggle('selected');
+    }
+  }
+}
+
+function handlePrkMultiSubmit(qId){
+  const q = findQuestionById(qId);
+  const card = document.getElementById('prkCard_' + qId);
+  if(!q || !card) return;
+
+  const selectedOpts = [...card.querySelectorAll('.marks-q-opt.selected')].map(el => parseInt(el.dataset.oidx, 10));
+  if(!selectedOpts.length){
+    alert('Please select at least one option.');
+    return;
+  }
+
+  const correctList = Array.isArray(q.ans) ? q.ans : (q.ans != null ? [q.ans] : []);
+  const allCorrect = selectedOpts.length === correctList.length && selectedOpts.every(x => correctList.includes(x));
+  savePrkAnswer(qId, selectedOpts, allCorrect ? 'ok' : 'bad');
+  updatePrkCardInPlace(qId);
+}
+
+function handlePrkNumSubmit(qId){
+  const q = findQuestionById(qId);
+  const card = document.getElementById('prkCard_' + qId);
+  if(!q || !card) return;
+
+  const input = card.querySelector('input[data-prknuminput]');
+  if(!input) return;
+  const val = input.value.trim();
+  if(!val){
+    alert('Please enter a numerical value.');
+    return;
+  }
+
+  const parsed = parseFloat(val);
+  let isOk = false;
+  if(q.range && q.range.length >= 2){
+    isOk = parsed >= q.range[0] && parsed <= q.range[1];
+  } else {
+    isOk = Math.abs(parsed - parseFloat(q.ans)) < 0.01;
+  }
+
+  savePrkAnswer(qId, val, isOk ? 'ok' : 'bad');
+  updatePrkCardInPlace(qId);
+}
+
+function updatePrkCardInPlace(qId){
+  const card = document.getElementById('prkCard_' + qId);
+  const q = findQuestionById(qId);
+  if(!card || !q) return;
+
+  // Find index in current filtered list
+  const qs = getFilteredPracticeQuestions();
+  const idx = qs.findIndex(item => item.id === qId);
+
+  const newHtml = renderPracticeCardHtml(q, idx !== -1 ? idx : 0);
+  const temp = document.createElement('div');
+  temp.innerHTML = newHtml;
+  const newCard = temp.firstElementChild;
+  if(newCard){
+    card.replaceWith(newCard);
+    hydrateZipImages(newCard);
+    typeset(newCard);
+  }
+
+  // Update hero stats
+  const totalInScope = DB.filter(item => item.subject === prkState.subj && (!prkState.chap || item.chapter === prkState.chap)).length;
+  const ansMap = getPrkAnswers();
+  const attInScope = DB.filter(item => item.subject === prkState.subj && (!prkState.chap || item.chapter === prkState.chap) && (ATT.has(item.id) || ansMap[item.id])).length;
+  const statsEl = $('#prkHeroStats');
+  if(statsEl) statsEl.textContent = 'Showing ' + qs.length + ' of ' + totalInScope + ' questions (' + attInScope + ' attempted)';
+}
+
+function handlePrkRetry(qId){
+  const map = getPrkAnswers();
+  delete map[qId];
+  store.set(PRK_ANS_KEY, JSON.stringify(map));
+  updatePrkCardInPlace(qId);
+}
+
+function handlePrkShowSol(qId){
+  const q = findQuestionById(qId);
+  if(!q) return;
+  // Mark as seen/attempted without correct mark
+  savePrkAnswer(qId, null, 'skip');
+  updatePrkCardInPlace(qId);
+}
+
+function resetAllPracticeAttempts(){
+  if(confirm('Reset all your recorded practice attempts in this browser?')){
+    store.set(PRK_ANS_KEY, '{}');
+    renderPracticeMain();
+  }
+}
+
+function startTestForCurrentPracticeChapter(){
+  const qs = DB.filter(q => q.subject === prkState.subj && (!prkState.chap || q.chapter === prkState.chap));
+  if(!qs.length){
+    alert('No questions in this chapter to start a test.');
+    return;
+  }
+  const title = prkState.chap ? (prkState.subj + ' - ' + prkState.chap) : (prkState.subj + ' CHAPTER TEST');
+  buildTest(qs.slice(0, 30), Math.min(30, qs.length) * 3, cfg.preset || 'adv', title);
+  renderInstr();
+  show('scrInstr');
+}
+
 function renderSaved(){
   const all=svAll(), subs=SUBJ.filter(s=>DB.some(q=>q.subject===s));
   if(!subs.includes(svSubj)) svSubj=subs[0];
@@ -2608,6 +3352,10 @@ document.addEventListener('change',e=>{
   else if(t.id==='unattFirst'){ cfg.unattFirst=t.checked; store.set('aits_unatt',t.checked?'1':'0'); }
   else if(t.id==='mrkSel'){ cfg.preset=t.value; }
   else if(t.id==='candName'){ store.set('aits_name',t.value.trim()); }
+  else if(t.id==='prkFilterPaper'){ prkState.paper = t.value; renderPracticeMain(); }
+  else if(t.id==='prkFilterYear'){ prkState.year = t.value; renderPracticeMain(); }
+  else if(t.id==='prkFilterType'){ prkState.type = t.value; renderPracticeMain(); }
+  else if(t.id==='prkFilterStatus'){ prkState.status = t.value; renderPracticeMain(); }
   else if(t.id==='instOk'){ $('#btnBegin').disabled=!t.checked; }
   else if(t.name==='xtheme'){ ui.theme=t.value==='dark'?'dark':'light'; store.set('aits_xtheme',ui.theme); applyUi(); }
   else if(t.id==='accInv'){ ui.invert=t.checked; store.set('aits_xinvert',ui.invert?'1':'0'); applyUi(); }
@@ -2670,6 +3418,71 @@ document.addEventListener('click',e=>{
   else if(b.id==='expData'){ $('#topMenu').open=false; exportData(); }
   else if(b.id==='impData'){ $('#topMenu').open=false; $('#impFile').click(); }
   
+  // Marks-Style Scrollable Practice actions
+  else if(b.id==='navPractice' || b.id==='openPracticeMenu'){
+    const m = $('#topMenu'); if(m) m.open = false;
+    openPracticeList();
+  }
+  else if(b.id==='prkBackBtn'){ show('scrSetup'); renderHist(); }
+  else if(b.id==='prkResetAttemptBtn'){ resetAllPracticeAttempts(); }
+  else if(b.id==='prkTakeTestBtn'){ startTestForCurrentPracticeChapter(); }
+  else if(b.closest('.marks-sb-item[data-prksubj]')){
+    const s = b.closest('.marks-sb-item[data-prksubj]').dataset.prksubj;
+    prkState.subj = s;
+    prkState.chap = null;
+    renderPracticeScreen();
+  }
+  else if(b.closest('.marks-sb-item[data-prkchap]')){
+    const c = b.closest('.marks-sb-item[data-prkchap]').dataset.prkchap;
+    prkState.chap = c === '__ALL__' ? null : c;
+    renderPracticeSidebar();
+    renderPracticeFilterYears();
+    renderPracticeMain();
+  }
+  else if(b.closest('#prkToggleHideAttempted')){
+    prkState.hideAttempted = !prkState.hideAttempted;
+    const btn = $('#prkToggleHideAttempted');
+    const dot = $('#prkHideDot');
+    if(btn) btn.classList.toggle('active', prkState.hideAttempted);
+    if(dot) dot.style.background = prkState.hideAttempted ? '#fff' : 'var(--line)';
+    renderPracticeMain();
+  }
+  else if(b.id==='prkResetFiltersBtn'){
+    prkState.paper = 'all';
+    prkState.year = 'all';
+    prkState.type = 'all';
+    prkState.status = 'all';
+    prkState.hideAttempted = false;
+    const btn = $('#prkToggleHideAttempted'), dot = $('#prkHideDot');
+    if(btn) btn.classList.remove('active');
+    if(dot) dot.style.background = 'var(--line)';
+    const fp = $('#prkFilterPaper'), fy = $('#prkFilterYear'), ft = $('#prkFilterType'), fs = $('#prkFilterStatus');
+    if(fp) fp.value = 'all';
+    if(fy) fy.value = 'all';
+    if(ft) ft.value = 'all';
+    if(fs) fs.value = 'all';
+    renderPracticeMain();
+  }
+  else if(b.closest('.marks-q-opt[data-prkopt]')){
+    const optEl = b.closest('.marks-q-opt[data-prkopt]');
+    const qId = optEl.dataset.prkopt;
+    const oIdx = parseInt(optEl.dataset.oidx, 10);
+    const isMulti = optEl.dataset.multi === '1';
+    handlePrkOptionClick(qId, oIdx, isMulti);
+  }
+  else if(b.dataset.prkmultisubmit){
+    handlePrkMultiSubmit(b.dataset.prkmultisubmit);
+  }
+  else if(b.dataset.prknumsubmit){
+    handlePrkNumSubmit(b.dataset.prknumsubmit);
+  }
+  else if(b.dataset.prkretry){
+    handlePrkRetry(b.dataset.prkretry);
+  }
+  else if(b.dataset.prkshowsol){
+    handlePrkShowSol(b.dataset.prkshowsol);
+  }
+
   // Test Builder navigation & actions
   else if(b.id==='navBuilder' || b.id==='openBuilderMenu' || b.id==='openBuilderBtn'){
     const m = $('#topMenu'); if(m) m.open = false;
@@ -3004,7 +3817,8 @@ $('#tbChapList').addEventListener('change', e => {
 $('#tbChSearch').addEventListener('input', () => { renderBuilderChapters(); });
 $('#tbCountIn').addEventListener('input', () => { tbCfg.count = +($('#tbCountIn').value) || 30; });
 window.addEventListener('hashchange', () => {
-  if(window.location.hash.startsWith('#builder') || window.location.hash.startsWith('#test-builder')) openBuilderScreen();
+  if(window.location.hash.startsWith('#practice') || window.location.hash.startsWith('#marks')) openPracticeList();
+  else if(window.location.hash.startsWith('#builder') || window.location.hash.startsWith('#test-builder')) openBuilderScreen();
   else if(window.location.hash.startsWith('#cbt')) checkCbtHash();
 });
 
@@ -4153,7 +4967,9 @@ function startCbtFromBuilder(){
   if(parts.length){
     const all = parts.flatMap(x=>(extractList(x.raw)||[]).map(e=>e.q));
     ok = loadDB(all, phys && phys.url===remote && remote ? 'Hugging Face database' : 'database.json', false);
-    if(window.location.hash.startsWith('#builder') || window.location.hash.startsWith('#test-builder')){
+    if(window.location.hash.startsWith('#practice') || window.location.hash.startsWith('#marks')){
+      openPracticeList();
+    } else if(window.location.hash.startsWith('#builder') || window.location.hash.startsWith('#test-builder')){
       openBuilderScreen();
     } else if(window.location.hash.startsWith('#cbt')){
       checkCbtHash();
