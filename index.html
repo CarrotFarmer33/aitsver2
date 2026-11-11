@@ -1365,20 +1365,18 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   cursor: text !important;
 }
 
-/* Dark mode (inverted) vector SVG & question figures */
-:root[data-theme="dark"] .vector-inline-svg,
-:root:not([data-theme="light"]) .vector-inline-svg,
-:root[data-theme="dark"] .marks-detail-card-body .qimg,
-:root:not([data-theme="light"]) .marks-detail-card-body .qimg,
-:root[data-theme="dark"] .preview-q-card .qimg,
-:root:not([data-theme="light"]) .preview-q-card .qimg,
-:root[data-theme="dark"] .preview-q-body .qimg,
-:root:not([data-theme="light"]) .preview-q-body .qimg,
-:root[data-theme="dark"] .preview-sol-box .qimg,
-:root:not([data-theme="light"]) .preview-sol-box .qimg {
-  filter: invert(0.93) hue-rotate(180deg) brightness(1.1) contrast(1.15);
-  background: transparent !important;
-  mix-blend-mode: lighten;
+/* Figures and vector images keep clean authentic white background */
+.preview-q-card .qimg,
+.preview-q-body .qimg,
+.preview-sol-box .qimg,
+.marks-detail-card-body .qimg,
+.vector-inline-svg {
+  background: #ffffff !important;
+  border-radius: 4px;
+  padding: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  filter: none !important;
+  mix-blend-mode: normal !important;
 }
 .marks-options-grid {
   display: grid;
