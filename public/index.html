@@ -2067,15 +2067,13 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
     <button class="btn sm" id="sheetEditQuestionsBtn" type="button" style="background:#2563eb;color:#fff;border-color:#2563eb;font-weight:600" title="Return to question preview to swap questions and rebuild PDF">Preview &amp; Swap Questions</button>
     <span class="tb-title" id="sheetDocTitle">Vector Test Sheet Preview</span>
   </div><div class="sheet-tools-right">
-    <a class="btn sm primary" id="sheetDownloadBtn" href="#" download="test_sheet.pdf">Download PDF</a>
-    <a class="btn sm" id="sheetOpenTabBtn" href="#" target="_blank">Open in New Tab</a>
-    <button class="btn sm" id="sheetPrintBtn" type="button">Print</button>
+    <button class="btn sm primary" id="sheetPrintBtn" type="button" style="font-weight:700">Save as PDF / Print</button>
     <button class="btn sm" id="sheetStartCbtBtn" type="button">Take as CBT Online Exam</button>
   </div></div></div>
 
-  <div class="sheet-view-wrap" style="padding:0;height:calc(100vh - 56px);overflow:hidden;background:#525659">
-    <iframe id="sheetPdfFrame" src="about:blank" style="width:100%;height:100%;border:none;background:#525659;display:block"></iframe>
-    <div id="sheetDocContainer" style="display:none"></div>
+  <div class="sheet-view-wrap" id="sheetViewWrap" style="padding:24px 12px;height:calc(100vh - 56px);overflow-y:auto;background:#525659">
+    <iframe id="sheetPdfFrame" src="about:blank" style="width:100%;height:100%;border:none;background:#525659;display:none"></iframe>
+    <div id="sheetDocContainer" style="display:block;max-width:210mm;margin:0 auto"></div>
   </div>
 </div>
 
@@ -2128,7 +2126,7 @@ async function resolveZipImage(img){
           svgEl.style.maxWidth = '850px';
           svgEl.style.height = 'auto';
           svgEl.style.display = 'block';
-          svgEl.style.margin = '16px auto';
+          svgEl.style.margin = '0 auto';
           svgEl.style.userSelect = 'text';
           svgEl.style.webkitUserSelect = 'text';
           img.replaceWith(svgEl);
@@ -2140,11 +2138,75 @@ async function resolveZipImage(img){
     }
     const rawBlob = await f.async('blob');
     const blob = isSvg ? new Blob([rawBlob], { type: 'image/svg+xml' }) : rawBlob;
-    img.src = URL.createObjectURL(blob);
-    img.removeAttribute('data-zipimg');
+    const isSecondary = /__--__[2-9]\.png/i.test(fileName);
+    const cleanWatermark = () => {
+      if(isSvg) return false;
+      // 1. Remove separate footer or banner slice images
+      if((isSecondary || /footer|banner/i.test(fileName)) && img.naturalHeight > 0 && img.naturalHeight <= 160 && (img.naturalWidth / img.naturalHeight) >= 6.5){
+        img.remove();
+        return false;
+      }
+      // 2. Remove faint diagonal FIITJEE background watermark from question & solution images
+      if(img.dataset.cleaned) return false;
+      try {
+        if(img.naturalWidth > 0 && img.naturalHeight > 0){
+          const cvs = document.createElement('canvas');
+          cvs.width = img.naturalWidth;
+          cvs.height = img.naturalHeight;
+          const ctx = cvs.getContext('2d', { willReadFrequently: true });
+          ctx.drawImage(img, 0, 0);
+          const imgData = ctx.getImageData(0, 0, cvs.width, cvs.height);
+          const d = imgData.data;
+          let modified = false;
+          for(let i = 0; i < d.length; i += 4){
+            const r = d[i], g = d[i+1], b = d[i+2];
+            // Faint grey watermark background pixels (175 <= r <= 246 with neutral grey balance)
+            if(r >= 175 && r <= 246 && Math.abs(r - g) <= 12 && Math.abs(g - b) <= 12 && Math.abs(r - b) <= 12){
+              d[i] = 255;
+              d[i+1] = 255;
+              d[i+2] = 255;
+              modified = true;
+            }
+          }
+          if(modified){
+            ctx.putImageData(imgData, 0, 0);
+            img.dataset.cleaned = 'true';
+            img.src = cvs.toDataURL('image/png');
+            return true;
+          }
+        }
+      } catch(e){}
+      return false;
+    };
+
+    await new Promise((resolve) => {
+      let resolved = false;
+      const doneOnce = () => {
+        if(resolved) return;
+        resolved = true;
+        resolve();
+      };
+      const finish = () => {
+        if(cleanWatermark()){
+          img.onload = doneOnce;
+          img.onerror = doneOnce;
+          setTimeout(doneOnce, 1500);
+          return;
+        }
+        doneOnce();
+      };
+      img.onload = finish;
+      img.onerror = doneOnce;
+      img.src = URL.createObjectURL(blob);
+      img.removeAttribute('data-zipimg');
+      if(img.complete && img.naturalWidth){
+        finish();
+      }
+    });
   }catch(e){
     img.alt='Unable to load image: '+fileName;
     img.removeAttribute('data-zipimg');
+    img.style.display='none';
     console.warn(e);
   }
 }
@@ -4091,7 +4153,7 @@ document.addEventListener('change',e=>{
   }
 });
 document.addEventListener('input',e=>{ if(e.target.id==='chSearch') renderChapters(); });
-document.addEventListener('click',e=>{
+document.addEventListener('click', async e=>{
   const previewImage=e.target.closest('img.qimg');
   if(previewImage){
     e.preventDefault();
@@ -4341,12 +4403,24 @@ document.addEventListener('click',e=>{
   }
   else if(b.id==='btnGenCbt' || b.id==='sheetStartCbtBtn'){ startCbtFromBuilder(); }
   else if(b.id==='sheetPrintBtn'){
-    const frame = $('#sheetPdfFrame');
-    if(frame && frame.contentWindow){
-      try { frame.contentWindow.focus(); frame.contentWindow.print(); } catch(e){ window.print(); }
-    } else {
-      window.print();
+    const pending = Array.from(document.querySelectorAll('#sheetDocContainer img[data-zipimg]'));
+    if(pending.length > 0){
+      showToast('Loading ' + pending.length + ' remaining question figures before printing...');
+      b.disabled = true;
+      b.innerHTML = 'Loading ' + pending.length + ' figures...';
+      await hydrateZipImages($('#sheetDocContainer'));
+      b.disabled = false;
+      b.innerHTML = 'Save as PDF / Print';
     }
+    const uncompletedImgs = Array.from(document.querySelectorAll('#sheetDocContainer img')).filter(i => !i.complete);
+    if(uncompletedImgs.length > 0){
+      b.disabled = true;
+      b.innerHTML = 'Finalizing figures...';
+      await Promise.all(uncompletedImgs.map(i => new Promise(res => { i.onload = res; i.onerror = res; setTimeout(res, 2000); })));
+      b.disabled = false;
+      b.innerHTML = 'Save as PDF / Print';
+    }
+    window.print();
   }
   else if(b.id==='sheetToggleSolBtn'){
     const sol = document.querySelector('.sheet-sol-section');
@@ -4462,7 +4536,7 @@ document.addEventListener('click',e=>{
   }
 });
 $('#scrim').addEventListener('click',closeRail);
-document.addEventListener('click',e=>{ const m=$('#topMenu'); if(m&&m.open&&!m.contains(e.target)) m.open=false; });
+document.addEventListener('click', async e=>{ const m=$('#topMenu'); if(m&&m.open&&!m.contains(e.target)) m.open=false; });
 $('#tabs').addEventListener('scroll',updateTabArrows);
 window.addEventListener('resize',()=>{ if(T&&!$('#scrExam').hidden) updateTabArrows(); });
 const infoOf=e=>e.target&&e.target.closest?e.target.closest('.info'):null;
@@ -5127,203 +5201,79 @@ async function buildCustomSheet(customQs){
   const title = ($('#tbTestTitle').value || '').trim() || 'JEE ADVANCED PRACTICE TEST';
   const subtitle = ($('#tbTestSubtitle').value || '').trim() || 'Chapter-wise Practice Sheet | Questions cropped from source papers';
   const includeSol = $('#tbOptSolutions') ? $('#tbOptSolutions').checked : true;
-  // Keep background and diagram patterns intact
-  const noWatermark = false;
+  const noWatermark = $('#tbOptNoWatermark') ? $('#tbOptNoWatermark').checked : true;
+  const timeLimit = parseInt($('#tbTimeLimit') ? $('#tbTimeLimit').value : 180, 10) || 180;
 
   const btn = $('#btnGenSheet');
   const prevBtn = $('#btnPreviewSheet');
   const tbPrevPdfBtn = $('#tbPrevGenPdfBtn');
   const tbPrevBottomPdfBtn = $('#tbPrevBottomGenPdfBtn');
-  const origBtnText = btn ? btn.innerHTML : 'Quick Generate PDF (Without Preview)';
-  const origPrevPdfText = tbPrevPdfBtn ? tbPrevPdfBtn.innerHTML : 'Generate Vector PDF';
+  const printBtn = $('#sheetPrintBtn');
 
-  if(btn){ btn.disabled = true; btn.innerHTML = 'Generating PDF...'; }
+  if(btn){ btn.disabled = true; btn.innerHTML = 'Compiling Questions...'; }
   if(prevBtn) prevBtn.disabled = true;
-  if(tbPrevPdfBtn){ tbPrevPdfBtn.disabled = true; tbPrevPdfBtn.innerHTML = 'Compiling Vector PDF...'; }
-  if(tbPrevBottomPdfBtn){ tbPrevBottomPdfBtn.disabled = true; tbPrevBottomPdfBtn.innerHTML = 'Compiling Vector PDF...'; }
-  $('#tbStatusNote').textContent = '';
+  if(tbPrevPdfBtn){ tbPrevPdfBtn.disabled = true; tbPrevPdfBtn.innerHTML = 'Loading Figures...'; }
+  if(tbPrevBottomPdfBtn){ tbPrevBottomPdfBtn.disabled = true; tbPrevBottomPdfBtn.innerHTML = 'Loading Figures...'; }
+  if(printBtn){ printBtn.disabled = true; printBtn.innerHTML = 'Loading figures...'; }
 
   const pWrap = $('#tbProgressWrap');
   const pBar = $('#tbProgressBar');
   const pPct = $('#tbProgressPct');
   const pStage = $('#tbProgressStage');
   const pDetail = $('#tbProgressDetail');
-  const pTimer = $('#tbProgressTimer');
 
   if(pWrap){
     pWrap.style.display = 'block';
-    pBar.style.width = '12%';
-    pPct.textContent = '12%';
-    pStage.textContent = 'Connecting to vector engine...';
-    pDetail.textContent = 'Loading question segment cache...';
-    pTimer.textContent = '0.0s';
+    if(pBar) pBar.style.width = '10%';
+    if(pPct) pPct.textContent = '10%';
+    if(pStage) pStage.textContent = 'Compiling test sheet...';
+    if(pDetail) pDetail.textContent = 'Extracting and rendering vector figures...';
   }
 
-  const startTime = Date.now();
-  const timerInterval = setInterval(() => {
-    const elapsedSec = ((Date.now() - startTime) / 1000).toFixed(1);
-    if(pTimer) pTimer.textContent = elapsedSec + 's';
-    const num = parseFloat(elapsedSec);
-
-    if(num < 1.0){
-      if(pBar) pBar.style.width = '25%';
-      if(pPct) pPct.textContent = '25%';
-      if(pStage) pStage.textContent = 'Connecting to vector engine...';
-      if(pDetail) pDetail.textContent = 'Loading question segment cache...';
-    } else if(num < 3.0){
-      if(pBar) pBar.style.width = '55%';
-      if(pPct) pPct.textContent = '55%';
-      if(pStage) pStage.textContent = 'Cropping vector questions from source papers...';
-      if(pDetail) pDetail.textContent = 'Extracting crisp vector text, math formulas, and diagrams...';
-    } else if(num < 6.0){
-      if(pBar) pBar.style.width = '80%';
-      if(pPct) pPct.textContent = '80%';
-      if(pStage) pStage.textContent = 'Assembling answer key & worked solutions...';
-      if(pDetail) pDetail.textContent = 'Stitching vector pages...';
-    } else if(num < 15.0){
-      if(pBar) pBar.style.width = '92%';
-      if(pPct) pPct.textContent = '92%';
-      if(pStage) pStage.textContent = 'Compiling final vector PDF stream...';
-      if(pDetail) pDetail.textContent = 'Almost ready...';
-    } else {
-      if(pBar) pBar.style.width = '95%';
-      if(pPct) pPct.textContent = '95%';
-      if(pStage) pStage.textContent = 'Cloud server was sleeping, waking container (~30s)...';
-      if(pDetail) pDetail.textContent = 'Container is spinning up and will download momentarily...';
-    }
-  }, 100);
-
   try {
-    const qids = qs.map(q => q.id);
-    const chaps = [...new Set(qs.map(q => q.chapter))];
-    const subjs = [...new Set(qs.map(q => q.subject))];
+    const frame = $('#sheetPdfFrame');
+    const container = $('#sheetDocContainer');
+    if(frame) frame.style.display = 'none';
+    if(container) container.style.display = 'block';
+    $('#sheetDocTitle').textContent = title + ' (' + qs.length + ' Qs - Loading...)';
+    show('scrSheetView');
 
-    const payload = JSON.stringify({
-      chapters: chaps,
-      subjects: subjs,
-      count: qs.length,
-      pattern: tbCfg.pattern,
-      paper: tbCfg.paper,
+    // Wait until ALL question figures & solutions are 100% loaded and rendered
+    await renderSheetDoc(qs, {
       title: title,
       subtitle: subtitle,
-      includeSolutions: includeSol,
-      removeWatermark: false, // Don't remove background or pattern shading
-      qids: qids
+      pattern: tbCfg.pattern,
+      timeLimit: timeLimit,
+      includeSol: includeSol,
+      includeKey: true,
+      noWatermark: noWatermark
+    }, (done, total) => {
+      const pct = Math.max(10, Math.round((done / Math.max(total, 1)) * 100));
+      if(pBar) pBar.style.width = pct + '%';
+      if(pPct) pPct.textContent = pct + '%';
+      if(pStage) pStage.textContent = `Loading figures (${done} / ${total})...`;
+      if(pDetail) pDetail.textContent = `Ready: ${done} of ${total} figures`;
+      if(printBtn) printBtn.innerHTML = `Loading (${done}/${total})...`;
     });
 
-    const isLocalhost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
-    const cloudEngine = (window.AITS_CONFIG && window.AITS_CONFIG.vectorEngineUrl) ? window.AITS_CONFIG.vectorEngineUrl.replace(/\/+$/, '') : '';
-    const localEngine = (window.AITS_CONFIG && window.AITS_CONFIG.localVectorEngineUrl) ? window.AITS_CONFIG.localVectorEngineUrl.replace(/\/+$/, '') : 'http://localhost:8000';
-
-    // Fast probe to detect if local server is responsive
-    let isLocalUp = false;
-    try {
-      const probeCtrl = new AbortController();
-      const probeTid = setTimeout(() => probeCtrl.abort(), 1000);
-      const probeRes = await fetch(`${localEngine}/health`, { signal: probeCtrl.signal });
-      clearTimeout(probeTid);
-      if (probeRes.ok) isLocalUp = true;
-    } catch (_) {
-      isLocalUp = false;
+    if(printBtn){
+      printBtn.disabled = false;
+      printBtn.innerHTML = 'Save as PDF / Print';
     }
 
-    const candidateEndpoints = [];
-    if (isLocalUp) {
-      candidateEndpoints.push({ url: `${localEngine}/api/build-test`, type: 'local', label: 'Local Server' });
-    }
-    if (isLocalhost) {
-      candidateEndpoints.push({ url: '/api/build-test', type: 'local', label: 'Local Server' });
-    }
-    if (cloudEngine) {
-      candidateEndpoints.push({ url: `${cloudEngine}/api/build-test`, type: 'cloud', label: 'Cloud Engine (Render)' });
-    }
-    candidateEndpoints.push({ url: `${localEngine}/api/build-test`, type: 'local', label: 'Local Server' });
-
-    const seenUrls = new Set();
-    const endpoints = candidateEndpoints.filter(ep => {
-      if (!ep.url || seenUrls.has(ep.url)) return false;
-      seenUrls.add(ep.url);
-      return true;
-    });
-
-    let resp = null, usedBaseUrl = '', usedEndpoint = null;
-    let lastErr = null;
-
-    for (const ep of endpoints) {
-      try {
-        if (ep.type === 'cloud') {
-          if (pStage) pStage.textContent = 'Connecting to Cloud Engine (Render)...';
-          if (pDetail) pDetail.textContent = 'Free cloud container may take 30-60s to wake up if asleep...';
-        } else {
-          if (pStage) pStage.textContent = 'Generating vector test on local machine...';
-          if (pDetail) pDetail.textContent = 'Cropping vector questions and assembling PDF...';
-        }
-
-        const controller = new AbortController();
-        const tid = setTimeout(() => controller.abort(), 180000);
-
-        const r = await fetch(ep.url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: payload,
-          signal: controller.signal
-        });
-        clearTimeout(tid);
-
-        if (r.ok || (r.status < 500 && r.status !== 404)) {
-          resp = r;
-          usedEndpoint = ep;
-          usedBaseUrl = ep.url.startsWith('http') ? new URL(ep.url).origin : '';
-          break;
-        }
-      } catch (err) {
-        lastErr = err;
-      }
-    }
-
-    if (!resp) {
-      throw new Error(lastErr ? lastErr.message : 'Cannot reach vector test engine backend.');
-    }
-
-    const data = await resp.json();
-    if(!data.ok){
-      throw new Error(data.error || 'Server error generating vector test');
-    }
-
-    if(pBar) pBar.style.width = '100%';
-    if(pPct) pPct.textContent = '100%';
-    if(pStage) pStage.textContent = 'Test sheet ready!';
-    if(pDetail) pDetail.textContent = (usedEndpoint && usedEndpoint.type === 'local') ? ('Generated via fast local engine in ' + (data.durationSeconds || '1') + 's') : 'Loading vector PDF preview...';
-
-    const fullPdfUrl = (data.pdfUrl.startsWith('http') ? data.pdfUrl : (usedBaseUrl + data.pdfUrl));
-    const frame = $('#sheetPdfFrame');
-    if(frame){
-      frame.style.display = 'block';
-      frame.src = fullPdfUrl + '#toolbar=1&navpanes=0&view=FitH';
-    }
-    const container = $('#sheetDocContainer');
-    if(container) container.style.display = 'none';
-
-    const dlBtn = $('#sheetDownloadBtn');
-    if(dlBtn){ dlBtn.href = fullPdfUrl; dlBtn.download = data.filename || 'practice_sheet.pdf'; }
-    const tabBtn = $('#sheetOpenTabBtn');
-    if(tabBtn) tabBtn.href = fullPdfUrl;
-    $('#sheetDocTitle').textContent = title + ' (' + data.totalQuestions + ' Qs, ' + data.totalPages + ' Pages)';
-
-    $('#tbStatusNote').textContent = 'Vector PDF created successfully! (' + data.totalQuestions + ' Qs, ' + data.totalPages + ' pages)';
-    show('scrSheetView');
+    $('#sheetDocTitle').textContent = title + ' (' + qs.length + ' Qs)';
+    $('#tbStatusNote').textContent = 'Test sheet ready! All ' + qs.length + ' questions loaded.';
+    showToast('All questions loaded! Ready to save or print.');
   } catch(err){
-    console.error('Vector sheet build error:', err);
-    alert('Error generating vector test sheet: ' + err.message + '\n\nPlease ensure the local server or cloud engine is running.');
-    $('#tbStatusNote').textContent = 'Error: ' + err.message;
+    console.error('Error generating sheet:', err);
+    alert('Error generating test sheet: ' + err.message);
   } finally {
-    clearInterval(timerInterval);
-    if(btn){ btn.disabled = false; btn.innerHTML = origBtnText; }
+    if(btn){ btn.disabled = false; btn.innerHTML = 'Quick Generate PDF (Without Preview)'; }
     if(prevBtn) prevBtn.disabled = false;
-    if(tbPrevPdfBtn){ tbPrevPdfBtn.disabled = false; tbPrevPdfBtn.innerHTML = origPrevPdfText; }
+    if(tbPrevPdfBtn){ tbPrevPdfBtn.disabled = false; tbPrevPdfBtn.innerHTML = 'Generate Vector PDF'; }
     if(tbPrevBottomPdfBtn){ tbPrevBottomPdfBtn.disabled = false; tbPrevBottomPdfBtn.innerHTML = 'Generate Vector PDF'; }
     if(pWrap){
-      setTimeout(() => { pWrap.style.display = 'none'; }, 600);
+      setTimeout(() => { pWrap.style.display = 'none'; }, 400);
     }
   }
 }
@@ -5762,7 +5712,11 @@ async function renderSheetDoc(qs, opts, onProgress){
 
   container.innerHTML = html;
   await hydrateZipImages(container, onProgress);
-  typeset(container);
+  if(window.MathJax && MathJax.typesetPromise){
+    try { await MathJax.typesetPromise([container]); } catch(e){}
+  } else {
+    typeset(container);
+  }
 }
 
 function startCbtFromBuilder(){
