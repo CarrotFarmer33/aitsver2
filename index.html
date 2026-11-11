@@ -1289,7 +1289,13 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   box-shadow: none !important;
 }
 .marks-detail-card-body img,
-.marks-detail-card-body .qimg {
+.marks-detail-card-body .qimg,
+.preview-q-card img,
+.preview-q-card .qimg,
+.preview-q-body img,
+.preview-q-body .qimg,
+.preview-sol-box img,
+.preview-sol-box .qimg {
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
@@ -1311,7 +1317,13 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 :root[data-theme="dark"] .vector-inline-svg,
 :root:not([data-theme="light"]) .vector-inline-svg,
 :root[data-theme="dark"] .marks-detail-card-body .qimg,
-:root:not([data-theme="light"]) .marks-detail-card-body .qimg {
+:root:not([data-theme="light"]) .marks-detail-card-body .qimg,
+:root[data-theme="dark"] .preview-q-card .qimg,
+:root:not([data-theme="light"]) .preview-q-card .qimg,
+:root[data-theme="dark"] .preview-q-body .qimg,
+:root:not([data-theme="light"]) .preview-q-body .qimg,
+:root[data-theme="dark"] .preview-sol-box .qimg,
+:root:not([data-theme="light"]) .preview-sol-box .qimg {
   filter: invert(0.93) hue-rotate(180deg) brightness(1.1) contrast(1.15);
   background: transparent !important;
   mix-blend-mode: lighten;
@@ -5343,26 +5355,30 @@ function renderPreviewCardHtml(q, idx){
   const sourceTag = cleanSourceTag(q);
   const qNum = idx + 1;
 
+  const hasPassageImgs = !!(q.paragraph && q.passageImages && q.passageImages.length);
+  const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
+  const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure')).join('');
+  const hasImgs = !!(imgsHtml || hasPassageImgs);
+
   let passageHtml = '';
-  if(q.paragraph && q.passageImages && q.passageImages.length){
+  if(q.paragraph && (hasPassageImgs || q.passageText)){
     passageHtml = '<div style="margin-bottom:10px;padding:8px 12px;background:var(--surface-2);border-left:3px solid var(--brand);border-radius:0 4px 4px 0;font-size:12.5px">' +
       '<div style="font-weight:700;color:var(--brand);margin-bottom:6px">Common Paragraph / Passage:</div>' +
-      (q.passageText ? '<div style="margin-bottom:6px">' + rich(stripWatermarks(q.passageText)) + '</div>' : '') +
-      q.passageImages.map(u => imageMarkup(u, 'Passage figure')).join('') +
+      (!hasPassageImgs && q.passageText ? '<div style="margin-bottom:6px">' + rich(stripWatermarks(q.passageText)) + '</div>' : '') +
+      (hasPassageImgs ? q.passageImages.map(u => imageMarkup(u, 'Passage figure')).join('') : '') +
     '</div>';
   }
 
-  const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
-  const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure')).join('');
-
   let optionsHtml = '';
-  if(q.options && q.options.length && !q.labelOnly){
+  if(!hasImgs && q.options && q.options.length && !q.labelOnly){
     optionsHtml = '<div class="sheet-qoptions" style="margin-top:10px;margin-bottom:4px">' +
       q.options.map((opt, oIdx) => 
         '<div class="sheet-qopt"><span class="sheet-qopt-key">(' + (LET[oIdx] || (oIdx+1)) + ')</span> <span>' + rich(stripWatermarks(opt)) + '</span></div>'
       ).join('') +
     '</div>';
   }
+
+  const textHtml = (!hasImgs && q.text) ? '<div class="qtext" style="font-size:14px;line-height:1.6;margin-bottom:8px">' + rich(stripWatermarks(q.text || '')) + '</div>' : '';
 
   let solMarkup = '';
   if(q.solution || (q.solImages && q.solImages.length)){
@@ -5397,7 +5413,7 @@ function renderPreviewCardHtml(q, idx){
     '</div>' +
     '<div class="preview-q-body">' +
       passageHtml +
-      '<div class="qtext" style="font-size:14px;line-height:1.6;margin-bottom:8px">' + rich(stripWatermarks(q.text || '')) + '</div>' +
+      textHtml +
       imgsHtml +
       optionsHtml +
     '</div>' +
@@ -5607,20 +5623,23 @@ function renderSheetDoc(qs, opts){
       const ansKey = keyText(q);
       keyRows.push({num: qLabel, ans: ansKey || '&mdash;'});
 
+      const hasPassageImgs = !!(q.paragraph && q.passageImages && q.passageImages.length);
+      const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
+      const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure')).join('');
+      const hasImgs = !!(imgsHtml || hasPassageImgs);
+
       let qText = opts.noWatermark ? stripWatermarks(q.text) : (q.text || '');
       let passageHtml = '';
-      if(q.paragraph && q.passageImages && q.passageImages.length){
+      if(q.paragraph && (hasPassageImgs || q.passageText)){
         passageHtml = '<div style="margin-bottom:8pt;padding:6pt 10pt;background:#f8f9fa;border-left:3pt solid #1a3a5c;font-size:9pt">' +
           '<b style="color:#1a3a5c">Paragraph for Question Nos. ' + qNum + ':</b>' +
-          q.passageImages.map(u => imageMarkup(u, 'Passage figure')).join('') +
+          (!hasPassageImgs && q.passageText ? '<div>' + rich(stripWatermarks(q.passageText)) + '</div>' : '') +
+          (hasPassageImgs ? q.passageImages.map(u => imageMarkup(u, 'Passage figure')).join('') : '') +
         '</div>';
       }
 
-      const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
-      const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure')).join('');
-
       let optionsHtml = '';
-      if(q.options && q.options.length && !q.labelOnly){
+      if(!hasImgs && q.options && q.options.length && !q.labelOnly){
         optionsHtml = '<div class="sheet-qoptions">' +
           q.options.map((opt, idx) => '<div class="sheet-qopt"><span class="sheet-qopt-key">(' + LET[idx] + ')</span> <span>' + (opts.noWatermark ? stripWatermarks(opt) : opt) + '</span></div>').join('') +
         '</div>';
@@ -5633,7 +5652,7 @@ function renderSheetDoc(qs, opts){
         '</div>' +
         '<div class="sheet-qbody-col">' +
           passageHtml +
-          (qText ? '<div class="sheet-qbody-text">' + rich(qText) + '</div>' : '') +
+          (!hasImgs && qText ? '<div class="sheet-qbody-text">' + rich(qText) + '</div>' : '') +
           imgsHtml +
           optionsHtml +
         '</div>' +
