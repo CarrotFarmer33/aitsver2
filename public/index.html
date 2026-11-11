@@ -3982,6 +3982,44 @@ document.addEventListener('click',e=>{
   const inf=e.target.closest('.info');
   if(!inf) hideTip();
   if(inf && T){ e.stopPropagation(); if(tipPinned===inf) hideTip(); else { tipPinned=inf; showTip(inf); } return; }
+
+  // Practice List Row Click
+  const qRow = e.target.closest('.marks-q-row[data-prkqid]');
+  if(qRow){
+    const bmBtn = e.target.closest('.bmb, button[data-bm]');
+    if(bmBtn){
+      const qId = bmBtn.dataset.bm || qRow.dataset.prkqid;
+      toggleBm(qId);
+      bmBtn.setAttribute('aria-pressed', String(BM.has(qId)));
+      return;
+    }
+    const qId = qRow.dataset.prkqid;
+    openPracticeDetail(qId);
+    return;
+  }
+
+  // Practice Option Chip Click
+  const optChip = e.target.closest('.marks-opt-chip[data-prkopt]');
+  if(optChip){
+    const qId = optChip.dataset.prkopt;
+    const oIdx = parseInt(optChip.dataset.oidx, 10);
+    const isMulti = optChip.dataset.multi === '1';
+    handlePrkOptionClick(qId, oIdx, isMulti);
+    return;
+  }
+
+  // Practice Subfilter Chip Click
+  const subChip = e.target.closest('.marks-subfilter-chip[data-prksubtag]');
+  if(subChip){
+    const tag = subChip.dataset.prksubtag;
+    prkState.type = tag;
+    document.querySelectorAll('.marks-subfilter-chip').forEach(c => c.classList.toggle('active', c.dataset.prksubtag === tag));
+    const sel = $('#prkFilterType');
+    if(sel) sel.value = tag;
+    renderPracticeMain();
+    return;
+  }
+
   const b=e.target.closest('button, .pattern-pill'); if(!b) return;
   if(b.id==='chAll'||b.id==='chNone'){ const term=$('#chSearch').value.trim().toLowerCase(); DB.forEach(q=>{ if(cfg.subjects.has(q.subject)&&(!term||q.chapter.toLowerCase().includes(term)||q.subject.toLowerCase().includes(term))){ const k=q.subject+'||'+q.chapter; b.id==='chAll'?cfg.chapters.add(k):cfg.chapters.delete(k); } }); renderChapters(); renderTypes(); refreshSummary(); }
   else if(b.id==='attReset'){ if(confirm('Forget all attempted questions?')){ ATT.clear(); saveAtt(); refreshSummary(); } }
