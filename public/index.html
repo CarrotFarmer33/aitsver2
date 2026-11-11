@@ -2116,6 +2116,99 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 
 <div id="modal" class="modal" hidden><div class="box" id="modalBox"></div></div>
 
+<!-- Question Figure Cropper Modal -->
+<div id="cropModal" class="modal" hidden>
+  <div class="box crop-modal-box" style="max-width:820px;width:95%;padding:0;overflow:hidden;border-radius:8px;background:var(--surface)">
+    <div class="crop-modal-header" style="display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:var(--surface-2);border-bottom:1px solid var(--line)">
+      <div style="font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></svg>
+        <span id="cropModalTitle">Crop Question Figure</span>
+      </div>
+      <button type="button" class="btn sm" id="cropModalCloseBtn" style="padding:2px 8px;font-size:16px">&times;</button>
+    </div>
+    <div class="crop-modal-body" style="padding:16px;max-height:75vh;overflow-y:auto">
+      <div style="font-size:12.5px;color:var(--muted);margin-bottom:12px">
+        Adjust the sliders to trim unwanted headers, footers, or adjacent text. The shaded red regions will be cropped out of the figure.
+      </div>
+      <!-- Interactive Preview with Shaded Overlay -->
+      <div id="cropPreviewContainer" style="position:relative;background:#ffffff;border:1px solid var(--line);border-radius:4px;overflow:hidden;margin-bottom:16px;min-height:160px;display:flex;align-items:center;justify-content:center">
+        <div id="cropPreviewInner" style="position:relative;width:100%;max-width:760px;margin:0 auto">
+          <div id="cropTargetWrapper" style="position:relative;width:100%;background:#ffffff"></div>
+          <div id="cropOverlayTop" style="position:absolute;top:0;left:0;right:0;height:0%;background:rgba(239,68,68,0.35);border-bottom:2px dashed #ef4444;pointer-events:none;transition:height 0.05s ease"></div>
+          <div id="cropOverlayBottom" style="position:absolute;bottom:0;left:0;right:0;height:0%;background:rgba(239,68,68,0.35);border-top:2px dashed #ef4444;pointer-events:none;transition:height 0.05s ease"></div>
+          <div id="cropOverlayLeft" style="position:absolute;top:0;bottom:0;left:0;width:0%;background:rgba(239,68,68,0.25);border-right:2px dashed #ef4444;pointer-events:none;transition:width 0.05s ease"></div>
+          <div id="cropOverlayRight" style="position:absolute;top:0;bottom:0;right:0;width:0%;background:rgba(239,68,68,0.25);border-left:2px dashed #ef4444;pointer-events:none;transition:width 0.05s ease"></div>
+        </div>
+      </div>
+
+      <!-- Controls Grid -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;background:var(--surface-2);padding:14px;border-radius:6px;margin-bottom:12px">
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:4px">
+            <span>Trim Top (Header):</span>
+            <span id="cropValTop" style="color:var(--brand)">0.0%</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px">
+            <button type="button" class="btn sm" id="cropStepTopMinus" style="padding:2px 7px">&minus;</button>
+            <input type="range" id="cropRangeTop" min="0" max="45" step="0.5" value="0" style="flex:1">
+            <button type="button" class="btn sm" id="cropStepTopPlus" style="padding:2px 7px">&plus;</button>
+          </div>
+        </div>
+
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:4px">
+            <span>Trim Bottom (Footer):</span>
+            <span id="cropValBottom" style="color:var(--brand)">0.0%</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px">
+            <button type="button" class="btn sm" id="cropStepBotMinus" style="padding:2px 7px">&minus;</button>
+            <input type="range" id="cropRangeBottom" min="0" max="45" step="0.5" value="0" style="flex:1">
+            <button type="button" class="btn sm" id="cropStepBotPlus" style="padding:2px 7px">&plus;</button>
+          </div>
+        </div>
+
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:4px">
+            <span>Trim Left:</span>
+            <span id="cropValLeft" style="color:var(--brand)">0.0%</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px">
+            <button type="button" class="btn sm" id="cropStepLeftMinus" style="padding:2px 7px">&minus;</button>
+            <input type="range" id="cropRangeLeft" min="0" max="30" step="0.5" value="0" style="flex:1">
+            <button type="button" class="btn sm" id="cropStepLeftPlus" style="padding:2px 7px">&plus;</button>
+          </div>
+        </div>
+
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:4px">
+            <span>Trim Right:</span>
+            <span id="cropValRight" style="color:var(--brand)">0.0%</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px">
+            <button type="button" class="btn sm" id="cropStepRightMinus" style="padding:2px 7px">&minus;</button>
+            <input type="range" id="cropRangeRight" min="0" max="30" step="0.5" value="0" style="flex:1">
+            <button type="button" class="btn sm" id="cropStepRightPlus" style="padding:2px 7px">&plus;</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Presets -->
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+          <span style="font-size:12px;font-weight:600;color:var(--muted)">Quick Presets:</span>
+          <button type="button" class="btn sm" id="cropPresetTopHeader">Trim Header (8%)</button>
+          <button type="button" class="btn sm" id="cropPresetBoth">Header &amp; Footer (8% &amp; 5%)</button>
+          <button type="button" class="btn sm" id="cropPresetReset" style="color:var(--bad)">Reset All</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <button type="button" class="btn sm" id="cropCancelBtn">Cancel</button>
+          <button type="button" class="btn sm primary" id="cropApplyBtn" style="font-weight:600">Apply Crop</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},svg:{fontCache:'global'},startup:{typeset:false}};
 </script>
@@ -2130,26 +2223,56 @@ function esc(value){
   return String(value==null?'':value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 window.esc = esc;
-function imageMarkup(u, alt, extraClass){
+function imageMarkup(u, alt, extraClass, crop){
   const x = String(u || '');
   const cls = 'qimg' + (extraClass ? (' ' + extraClass) : '');
-  if(x.startsWith('zipimg:')) return '<img class="' + cls + '" alt="' + esc(alt || 'Question figure') + '" data-zipimg="' + esc(x.slice(7)) + '" src="data:,">';
-  return '<img class="' + cls + '" alt="' + esc(alt || 'Question figure') + '" src="' + esc(x) + '">';
+  let cropAttrs = '';
+  if(crop && (crop.top || crop.bottom || crop.left || crop.right)){
+    cropAttrs = ' data-crop-top="' + (crop.top || 0) + '" data-crop-bottom="' + (crop.bottom || 0) + '" data-crop-left="' + (crop.left || 0) + '" data-crop-right="' + (crop.right || 0) + '"';
+  }
+  if(x.startsWith('zipimg:')) return '<img class="' + cls + '" alt="' + esc(alt || 'Question figure') + '" data-zipimg="' + esc(x.slice(7)) + '"' + cropAttrs + ' src="data:,">';
+  return '<img class="' + cls + '" alt="' + esc(alt || 'Question figure') + '"' + cropAttrs + ' src="' + esc(x) + '">';
+}
+
+function applySvgCrop(svgText, crop){
+  if(!crop || (!crop.top && !crop.bottom && !crop.left && !crop.right)) return svgText;
+  const vbMatch = svgText.match(/viewBox="([^"]+)"/i);
+  if(!vbMatch) return svgText;
+  const parts = vbMatch[1].trim().split(/[\s,]+/).map(Number);
+  if(parts.length !== 4 || parts.some(isNaN)) return svgText;
+
+  const [x, y, w, h] = parts;
+  const topP = Math.max(0, Math.min(50, Number(crop.top) || 0)) / 100;
+  const botP = Math.max(0, Math.min(50, Number(crop.bottom) || 0)) / 100;
+  const leftP = Math.max(0, Math.min(40, Number(crop.left) || 0)) / 100;
+  const rightP = Math.max(0, Math.min(40, Number(crop.right) || 0)) / 100;
+
+  const newX = x + (w * leftP);
+  const newY = y + (h * topP);
+  const newW = Math.max(1, w * (1 - leftP - rightP));
+  const newH = Math.max(1, h * (1 - topP - botP));
+
+  let res = svgText.replace(vbMatch[0], `viewBox="${newX.toFixed(2)} ${newY.toFixed(2)} ${newW.toFixed(2)} ${newH.toFixed(2)}"`);
+  res = res.replace(/\bwidth="[0-9.]+"/i, `width="${newW.toFixed(2)}"`);
+  res = res.replace(/\bheight="[0-9.]+"/i, `height="${newH.toFixed(2)}"`);
+  return res;
 }
 
 let svgUidCounter = 0;
 function processSvgMarkup(rawSvgText, isTestBuilder){
   svgUidCounter++;
-  const pfx = 'qsvg_' + svgUidCounter + '_';
   let svgText = rawSvgText;
 
-  // Strip diagonal FIITJEE vector watermark patterns and telegram promotions
+  // 1. Strip diagonal FIITJEE vector watermark patterns and telegram promotions
   svgText = svgText.replace(/<pattern[^>]*id="[^"]*pattern[^"]*"[^>]*>[\s\S]*?<\/pattern>/gi, '');
   svgText = svgText.replace(/<rect[^>]*fill="url\(#[^)]*pattern[^)]*\)"[^>]*\/?>/gi, '');
   svgText = svgText.replace(/<path[^>]*fill="url\(#[^)]*pattern[^)]*\)"[^>]*\/?>/gi, '');
   svgText = svgText.replace(/<use[^>]*href="url\(#[^)]*pattern[^)]*\)"[^>]*\/?>/gi, '');
   svgText = svgText.replace(/<text[^>]*>[^<]*?(?:fiitjee|@fiitjee|for more join|sarvapriya vihar|kalu sarai)[^<]*?<\/text>/gi, '');
   svgText = svgText.replace(/<tspan[^>]*>[^<]*?(?:fiitjee|@fiitjee|for more join|sarvapriya vihar|kalu sarai)[^<]*?<\/tspan>/gi, '');
+
+  // 2. Strip diagonal grey watermark text across the page (Physics, Chemistry, FIITJEE background text)
+  svgText = svgText.replace(/<(?:use|path)[^>]*(?:fill|stroke)="#(?:c0c0c0|c4c4c4|cccccc|d0d0d0|d3d3d3|e0e0e0|e8e8e8)"[^>]*\/?>/gi, '');
 
   if(isTestBuilder){
     // Test builder / Print: ensure authentic pure white background rect is present
@@ -2160,25 +2283,6 @@ function processSvgMarkup(rawSvgText, isTestBuilder){
     // Practice mode: strip solid white background rect so it blends seamlessly into dark mode
     svgText = svgText.replace(/<rect\s+width="100%"\s+height="100%"\s+fill="#ffffff"\s*\/?>/gi, '');
     svgText = svgText.replace(/<rect[^>]*fill="#ffffff"[^>]*\/>/gi, '');
-  }
-
-  // Namespace all internal IDs to eliminate document-global ID collisions across SVGs in the DOM
-  const idMap = new Set();
-  const idRegex = /\bid="([^"]+)"/g;
-  let match;
-  while((match = idRegex.exec(svgText)) !== null){
-    idMap.add(match[1]);
-  }
-  if(idMap.size > 0){
-    const sortedIds = Array.from(idMap).sort((a, b) => b.length - a.length);
-    for(let i = 0; i < sortedIds.length; i++){
-      const oldId = sortedIds[i];
-      const newId = pfx + oldId;
-      svgText = svgText.split('id="' + oldId + '"').join('id="' + newId + '"');
-      svgText = svgText.split('href="#' + oldId + '"').join('href="#' + newId + '"');
-      svgText = svgText.split('xlink:href="#' + oldId + '"').join('xlink:href="#' + newId + '"');
-      svgText = svgText.split('url(#' + oldId + ')').join('url(#' + newId + ')');
-    }
   }
 
   return svgText;
@@ -2197,40 +2301,45 @@ async function resolveZipImage(img){
     if(!f) throw new Error('Image not found in ZIP: '+fileName);
     const isSvg = /\.svg$/i.test(fileName);
     const isTb = img.classList.contains('test-builder-svg') || !!img.closest('#scrTestPreview, #scrSheetView, .preview-q-card, .preview-q-body, .preview-sol-box, .sheet-page');
+    const crop = (img.dataset.cropTop || img.dataset.cropBottom || img.dataset.cropLeft || img.dataset.cropRight) ? {
+      top: parseFloat(img.dataset.cropTop || 0),
+      bottom: parseFloat(img.dataset.cropBottom || 0),
+      left: parseFloat(img.dataset.cropLeft || 0),
+      right: parseFloat(img.dataset.cropRight || 0)
+    } : null;
+
     if(isSvg){
-      try {
-        const rawSvgText = await f.async('text');
-        const processedSvg = processSvgMarkup(rawSvgText, isTb);
-        const parser = new DOMParser();
-        const svgDoc = parser.parseFromString(processedSvg, 'image/svg+xml');
-        const svgEl = svgDoc.documentElement;
-        if(svgEl && svgEl.nodeName.toLowerCase() === 'svg'){
-          svgEl.classList.add('qimg', 'vector-inline-svg', isTb ? 'test-builder-svg' : 'practice-svg');
-          svgEl.setAttribute('role', 'img');
-          svgEl.setAttribute('aria-label', img.alt || 'Question figure');
-          svgEl.style.width = '100%';
-          svgEl.style.maxWidth = '850px';
-          svgEl.style.height = 'auto';
-          svgEl.style.display = 'block';
-          svgEl.style.margin = isTb ? '0 auto' : '16px auto';
-          svgEl.style.userSelect = 'text';
-          svgEl.style.webkitUserSelect = 'text';
-          if(isTb){
-            svgEl.style.background = '#ffffff';
-          } else {
-            svgEl.style.background = 'transparent';
-          }
-          img.replaceWith(svgEl);
-          return;
-        }
-      } catch(svgErr){
-        console.warn('Inline SVG injection fallback to blob:', svgErr);
+      const rawSvgText = await f.async('text');
+      let processedSvg = processSvgMarkup(rawSvgText, isTb);
+      if(crop){
+        processedSvg = applySvgCrop(processedSvg, crop);
       }
+      // Render as isolated SVG blob to eliminate cross-SVG ID/clipPath/font collisions
+      const blob = new Blob([processedSvg], { type: 'image/svg+xml;charset=utf-8' });
+      img.src = URL.createObjectURL(blob);
+      img.classList.add('qimg', 'vector-inline-svg', isTb ? 'test-builder-svg' : 'practice-svg');
+      img.setAttribute('role', 'img');
+      img.setAttribute('aria-label', img.alt || 'Question figure');
+      img.style.width = '100%';
+      img.style.maxWidth = '850px';
+      img.style.height = 'auto';
+      img.style.display = 'block';
+      img.style.margin = isTb ? '0 auto' : '16px auto';
+      if(isTb){
+        img.style.background = '#ffffff';
+      } else {
+        img.style.background = 'transparent';
+      }
+      img.removeAttribute('data-zipimg');
+      return;
     }
+
     const rawBlob = await f.async('blob');
-    const blob = isSvg ? new Blob([processSvgMarkup(await f.async('text'), isTb)], { type: 'image/svg+xml' }) : rawBlob;
-    img.src = URL.createObjectURL(blob);
+    img.src = URL.createObjectURL(rawBlob);
     img.classList.add(isTb ? 'test-builder-svg' : 'practice-svg');
+    if(crop){
+      img.style.clipPath = `inset(${crop.top || 0}% ${crop.right || 0}% ${crop.bottom || 0}% ${crop.left || 0}%)`;
+    }
     img.removeAttribute('data-zipimg');
   }catch(e){
     img.alt='Unable to load image: '+fileName;
@@ -2946,7 +3055,9 @@ function secInfoText(s){
 }
 function renderQ(){
   const q=T.qs[T.cur], s=T.st[T.cur];
-  markAttempted(q); /* shown to the user, so it counts as seen even if skipped */
+  if(T.mode !== 'practice'){
+    markAttempted(q); /* shown to the user in test mode, so it counts as seen even if skipped */
+  }
   { const b=$('#btnBm'); if(b){ b.setAttribute('aria-pressed',String(BM.has(q.id))); b.title=BM.has(q.id)?'Remove bookmark':'Bookmark this question'; } } { const r=$('#btnReport'); if(r){ const isRpt=isQuestionReported(q.id); r.setAttribute('aria-pressed',String(isRpt)); r.title=isRpt?'Question reported (click to view/edit)':'Report an issue with this question'; } }
   $('#qType').textContent='Question Type: '+QTS[q.type];
   $('#qMarks').innerHTML=marksHtml(q.type, q.rawType);
@@ -3024,7 +3135,21 @@ function onAction(a){
   if(a==='prev'){ goto(T.cur-1); return; }
   const commit=()=>{ if(s.draft!==undefined){ s.ans=s.draft; s.draft=undefined; } if(answered(s.ans)) markAttempted(T.qs[T.cur]); };
   if(a==='clear'){ if(locked) return; s.ans=null; s.draft=undefined; renderQ(); renderPal(); return; }
-  if(a==='save' && T.mode==='practice' && !s.checked){ commit(); s.marked=false; s.checked=true; renderQ(); renderPal(); return; }
+  if(a==='save' && T.mode==='practice' && !s.checked){
+    commit();
+    s.marked=false;
+    s.checked=true;
+    if(answered(s.ans)){
+      try {
+        const q = T.qs[T.cur];
+        const r = evaluate(q, s, T.preset);
+        savePrkAnswer(q.id, s.ans, r.r === 'ok' ? 'ok' : 'bad');
+      } catch(e){}
+    }
+    renderQ();
+    renderPal();
+    return;
+  }
   if(a==='save' && locked && T.cur===T.qs.length-1){ openSubmit(); return; }
   if(a==='save'){ commit(); s.marked=false; if(T.cur<T.qs.length-1) goto(T.cur+1); else renderPal(); return; }
   if(a==='mark'){ commit(); s.marked=true; if(T.cur<T.qs.length-1) goto(T.cur+1); else renderPal(); }
@@ -3073,7 +3198,14 @@ function finish(auto){
     const used=Math.min((Date.now()-T.startTs)/1000, T.minutes>0?T.minutes*60:1e9);
     const att=res.filter(r=>r.r==='ok'||r.r==='bad'||r.r==='part').length, ok=res.filter(r=>r.r==='ok').length;
     const acc=att?Math.round(ok/att*100):0;
-    T.qs.forEach((q,i)=>{ if(T.st[i]&&T.st[i].visited) ATT.add(q.id); }); saveAtt();
+    T.qs.forEach((q,i)=>{
+      if(T.mode === 'practice'){
+        if(T.st[i] && answered(T.st[i].ans)) ATT.add(q.id);
+      } else {
+        if(T.st[i] && T.st[i].visited) ATT.add(q.id);
+      }
+    });
+    saveAtt();
     T.qs.forEach((q,i)=>{ const r=res[i].r; if(r==='bad'||r==='part') MIS.add(q.id); else if(r==='ok') MIS.delete(q.id); }); saveSet('aits_mistakes',MIS);
     lastResult={res,max,score,used,att,ok,acc,auto};
     let h=[]; try{ h=JSON.parse(store.get('aits_hist')||'[]'); }catch(e){}
@@ -3296,7 +3428,7 @@ function getFilteredPracticeQuestions(){
     if(prkState.year !== 'all' && String(q.year) !== String(prkState.year)) return false;
     if(prkState.type !== 'all' && (q.rawType || q.type) !== prkState.type) return false;
 
-    const isAtt = ATT.has(q.id) || (ansMap[q.id] != null);
+    const isAtt = Boolean(ansMap[q.id] && ansMap[q.id].status !== 'skip');
     if(prkState.hideAttempted && isAtt) return false;
 
     if(prkState.status === 'unattempted' && isAtt) return false;
@@ -3331,7 +3463,7 @@ function renderPracticeMain(){
   prkFilteredList = qs;
   const totalInScope = DB.filter(q => q.subject === prkState.subj && (!prkState.chap || q.chapter === prkState.chap)).length;
   const ansMap = getPrkAnswers();
-  const attInScope = DB.filter(q => q.subject === prkState.subj && (!prkState.chap || q.chapter === prkState.chap) && (ATT.has(q.id) || ansMap[q.id])).length;
+  const attInScope = DB.filter(q => q.subject === prkState.subj && (!prkState.chap || q.chapter === prkState.chap) && Boolean(ansMap[q.id] && ansMap[q.id].status !== 'skip')).length;
 
   const statsEl = $('#prkHeroStats');
   if(statsEl) statsEl.textContent = 'Showing all Qs (' + qs.length + '/' + totalInScope + ')';
@@ -3357,7 +3489,7 @@ function renderPracticeMain(){
 function renderPracticeRowHtml(q, idx){
   const ansMap = getPrkAnswers();
   const savedAns = ansMap[q.id];
-  const isAttempted = ATT.has(q.id) || (savedAns != null);
+  const isAttempted = Boolean(savedAns && savedAns.status !== 'skip');
   const isCorrect = savedAns && savedAns.status === 'ok';
   const isWrong = savedAns && savedAns.status === 'bad';
 
@@ -3557,7 +3689,7 @@ function nextDetailQuestion(){
 function renderPracticeCardHtml(q, idx){
   const ansMap = getPrkAnswers();
   const savedAns = ansMap[q.id];
-  const isAttempted = ATT.has(q.id) || (savedAns != null);
+  const isAttempted = Boolean(savedAns && savedAns.status !== 'skip');
   const isCorrect = savedAns && savedAns.status === 'ok';
   const isWrong = savedAns && savedAns.status === 'bad';
 
@@ -3736,6 +3868,10 @@ function handlePrkRetry(qId){
   const map = getPrkAnswers();
   delete map[qId];
   store.set(PRK_ANS_KEY, JSON.stringify(map));
+  if(ATT.has(qId)){
+    ATT.delete(qId);
+    saveAtt();
+  }
   renderPracticeDetailView();
 }
 
@@ -3748,6 +3884,9 @@ function handlePrkShowSol(qId){
 
 function resetAllPracticeAttempts(){
   if(confirm('Reset all your recorded practice attempts in this browser?')){
+    const map = getPrkAnswers();
+    Object.keys(map).forEach(id => ATT.delete(id));
+    saveAtt();
     store.set(PRK_ANS_KEY, '{}');
     renderPracticeMain();
   }
@@ -4413,6 +4552,11 @@ document.addEventListener('click',e=>{
     const rep = b.closest('.tb-replace-btn');
     const idx = parseInt(rep.dataset.idx, 10);
     if(!isNaN(idx)) swapBuilderQuestion(idx);
+  }
+  else if(b.closest('.tb-crop-btn')){
+    const crp = b.closest('.tb-crop-btn');
+    const idx = parseInt(crp.dataset.idx, 10);
+    if(!isNaN(idx)) openCropModal(idx);
   }
   else if(b.closest('.tb-sol-btn')){
     const sol = b.closest('.tb-sol-btn');
@@ -5558,7 +5702,7 @@ function renderPreviewCardHtml(q, idx){
 
   const hasPassageImgs = !!(q.paragraph && q.passageImages && q.passageImages.length);
   const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
-  const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure', 'test-builder-svg')).join('');
+  const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure', 'test-builder-svg', q.crop)).join('');
   const hasImgs = !!(imgsHtml || hasPassageImgs);
 
   let passageHtml = '';
@@ -5566,7 +5710,7 @@ function renderPreviewCardHtml(q, idx){
     passageHtml = '<div style="margin-bottom:10px;padding:8px 12px;background:var(--surface-2);border-left:3px solid var(--brand);border-radius:0 4px 4px 0;font-size:12.5px">' +
       '<div style="font-weight:700;color:var(--brand);margin-bottom:6px">Common Paragraph / Passage:</div>' +
       (!hasPassageImgs && q.passageText ? '<div style="margin-bottom:6px">' + rich(stripWatermarks(q.passageText)) + '</div>' : '') +
-      (hasPassageImgs ? q.passageImages.map(u => imageMarkup(u, 'Passage figure', 'test-builder-svg')).join('') : '') +
+      (hasPassageImgs ? q.passageImages.map(u => imageMarkup(u, 'Passage figure', 'test-builder-svg', q.crop)).join('') : '') +
     '</div>';
   }
 
@@ -5604,6 +5748,10 @@ function renderPreviewCardHtml(q, idx){
         '<button type="button" class="btn sm tb-replace-btn" data-idx="' + idx + '" title="Replace with another random question from ' + esc(q.chapter || q.subject) + '" style="display:inline-flex;align-items:center;gap:5px;font-weight:600;color:var(--brand);border-color:var(--brand)">' +
           '<span>Replace</span>' +
         '</button>' +
+        (hasImgs ? ('<button type="button" class="btn sm tb-crop-btn" data-idx="' + idx + '" title="Crop / trim unwanted headers or margins from this figure" style="' + (q.crop && (q.crop.top || q.crop.bottom || q.crop.left || q.crop.right) ? 'display:inline-flex;align-items:center;gap:4px;border-color:var(--brand);color:var(--brand);background:rgba(37,99,235,0.08);font-weight:600' : 'display:inline-flex;align-items:center;gap:4px') + '">' +
+          '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></svg>' +
+          '<span>' + (q.crop && (q.crop.top || q.crop.bottom || q.crop.left || q.crop.right) ? ('Cropped (' + (q.crop.top||0) + '%/' + (q.crop.bottom||0) + '%)') : 'Crop') + '</span>' +
+        '</button>') : '') +
         '<button type="button" class="btn sm tb-sol-btn" data-idx="' + idx + '" title="Toggle answer key and worked solution" style="display:inline-flex;align-items:center;gap:4px">' +
           '<span>Solution</span>' +
         '</button>' +
@@ -5627,6 +5775,152 @@ function renderPreviewCardHtml(q, idx){
     '</div>' +
   '</article>';
 }
+
+let cropActiveIdx = -1;
+let cropState = { top: 0, bottom: 0, left: 0, right: 0 };
+
+function openCropModal(idx){
+  cropActiveIdx = idx;
+  const q = tbCfg.builtQs[idx];
+  if(!q) return;
+
+  const modal = $('#cropModal');
+  if(!modal) return;
+
+  $('#cropModalTitle').textContent = `Crop Question Figure — Q${idx + 1} (${q.subject || ''} • ${q.chapter || 'General'})`;
+
+  // Initialize crop state
+  cropState = Object.assign({ top: 0, bottom: 0, left: 0, right: 0 }, q.crop || {});
+
+  // Update slider inputs and labels
+  const rTop = $('#cropRangeTop'); if(rTop) rTop.value = cropState.top;
+  const rBot = $('#cropRangeBottom'); if(rBot) rBot.value = cropState.bottom;
+  const rLeft = $('#cropRangeLeft'); if(rLeft) rLeft.value = cropState.left;
+  const rRight = $('#cropRangeRight'); if(rRight) rRight.value = cropState.right;
+
+  // Inject target figure preview without previous crop so user sees full image to crop
+  const wrapper = $('#cropTargetWrapper');
+  wrapper.innerHTML = '';
+  const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
+  const targetImgUrl = qImgs[0] || (q.passageImages && q.passageImages[0]) || '';
+  if(targetImgUrl){
+    wrapper.innerHTML = imageMarkup(targetImgUrl, 'Crop Target Figure', 'test-builder-svg');
+    hydrateZipImages(wrapper);
+  } else {
+    wrapper.innerHTML = '<div style="padding:40px;text-align:center;color:var(--muted)">No image figure attached to this question.</div>';
+  }
+
+  updateCropOverlays();
+  modal.hidden = false;
+}
+
+function updateCropOverlays(){
+  const top = cropState.top || 0;
+  const bottom = cropState.bottom || 0;
+  const left = cropState.left || 0;
+  const right = cropState.right || 0;
+
+  const oTop = $('#cropOverlayTop');
+  const oBot = $('#cropOverlayBottom');
+  const oLeft = $('#cropOverlayLeft');
+  const oRight = $('#cropOverlayRight');
+
+  if(oTop) oTop.style.height = top + '%';
+  if(oBot) oBot.style.height = bottom + '%';
+  if(oLeft) oLeft.style.width = left + '%';
+  if(oRight) oRight.style.width = right + '%';
+
+  if($('#cropValTop')) $('#cropValTop').textContent = top.toFixed(1) + '%';
+  if($('#cropValBottom')) $('#cropValBottom').textContent = bottom.toFixed(1) + '%';
+  if($('#cropValLeft')) $('#cropValLeft').textContent = left.toFixed(1) + '%';
+  if($('#cropValRight')) $('#cropValRight').textContent = right.toFixed(1) + '%';
+}
+
+function closeCropModal(){
+  const modal = $('#cropModal');
+  if(modal) modal.hidden = true;
+  cropActiveIdx = -1;
+}
+
+(function initCropModalEvents(){
+  ['Top', 'Bottom', 'Left', 'Right'].forEach(side => {
+    const range = $(`#cropRange${side}`);
+    const key = side.toLowerCase();
+    if(range){
+      range.addEventListener('input', () => {
+        cropState[key] = parseFloat(range.value) || 0;
+        updateCropOverlays();
+      });
+    }
+    const minus = $(`#cropStep${side === 'Bottom' ? 'Bot' : side}Minus`);
+    if(minus){
+      minus.addEventListener('click', () => {
+        cropState[key] = Math.max(0, parseFloat((cropState[key] - 0.5).toFixed(1)));
+        if(range) range.value = cropState[key];
+        updateCropOverlays();
+      });
+    }
+    const plus = $(`#cropStep${side === 'Bottom' ? 'Bot' : side}Plus`);
+    if(plus){
+      plus.addEventListener('click', () => {
+        const max = parseFloat(range ? range.max : 45);
+        cropState[key] = Math.min(max, parseFloat((cropState[key] + 0.5).toFixed(1)));
+        if(range) range.value = cropState[key];
+        updateCropOverlays();
+      });
+    }
+  });
+
+  const pTop = $('#cropPresetTopHeader');
+  if(pTop) pTop.onclick = () => {
+    cropState.top = 8;
+    const r = $('#cropRangeTop'); if(r) r.value = 8;
+    updateCropOverlays();
+  };
+
+  const pBoth = $('#cropPresetBoth');
+  if(pBoth) pBoth.onclick = () => {
+    cropState.top = 8;
+    cropState.bottom = 5;
+    const rt = $('#cropRangeTop'); if(rt) rt.value = 8;
+    const rb = $('#cropRangeBottom'); if(rb) rb.value = 5;
+    updateCropOverlays();
+  };
+
+  const pReset = $('#cropPresetReset');
+  if(pReset) pReset.onclick = () => {
+    cropState = { top: 0, bottom: 0, left: 0, right: 0 };
+    ['Top', 'Bottom', 'Left', 'Right'].forEach(s => {
+      const r = $(`#cropRange${s}`);
+      if(r) r.value = 0;
+    });
+    updateCropOverlays();
+  };
+
+  const cClose = $('#cropModalCloseBtn'); if(cClose) cClose.onclick = closeCropModal;
+  const cCancel = $('#cropCancelBtn'); if(cCancel) cCancel.onclick = closeCropModal;
+
+  const cApply = $('#cropApplyBtn');
+  if(cApply) cApply.onclick = () => {
+    if(cropActiveIdx >= 0 && tbCfg.builtQs && tbCfg.builtQs[cropActiveIdx]){
+      const q = tbCfg.builtQs[cropActiveIdx];
+      const hasAnyCrop = (cropState.top > 0 || cropState.bottom > 0 || cropState.left > 0 || cropState.right > 0);
+      q.crop = hasAnyCrop ? { ...cropState } : null;
+
+      const card = document.getElementById('prevCard_' + cropActiveIdx);
+      if(card){
+        const temp = document.createElement('div');
+        temp.innerHTML = renderPreviewCardHtml(q, cropActiveIdx);
+        const newCard = temp.firstElementChild;
+        card.replaceWith(newCard);
+        hydrateZipImages(newCard);
+        typeset(newCard);
+      }
+      showToast(`Crop applied to Q${cropActiveIdx + 1}!`);
+    }
+    closeCropModal();
+  };
+})();
 
 function swapBuilderQuestion(idx){
   if(!tbCfg.builtQs || !tbCfg.builtQs[idx]) return;
@@ -5826,7 +6120,7 @@ async function renderSheetDoc(qs, opts, onProgress){
 
       const hasPassageImgs = !!(q.paragraph && q.passageImages && q.passageImages.length);
       const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
-      const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure', 'test-builder-svg')).join('');
+      const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure', 'test-builder-svg', q.crop)).join('');
       const hasImgs = !!(imgsHtml || hasPassageImgs);
 
       let qText = opts.noWatermark ? stripWatermarks(q.text) : (q.text || '');
@@ -5835,7 +6129,7 @@ async function renderSheetDoc(qs, opts, onProgress){
         passageHtml = '<div style="margin-bottom:8pt;padding:6pt 10pt;background:#f8f9fa;border-left:3pt solid #1a3a5c;font-size:9pt">' +
           '<b style="color:#1a3a5c">Paragraph for Question Nos. ' + qNum + ':</b>' +
           (!hasPassageImgs && q.passageText ? '<div>' + rich(stripWatermarks(q.passageText)) + '</div>' : '') +
-          (hasPassageImgs ? q.passageImages.map(u => imageMarkup(u, 'Passage figure', 'test-builder-svg')).join('') : '') +
+          (hasPassageImgs ? q.passageImages.map(u => imageMarkup(u, 'Passage figure', 'test-builder-svg', q.crop)).join('') : '') +
         '</div>';
       }
 
