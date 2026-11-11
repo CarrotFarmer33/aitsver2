@@ -2253,7 +2253,7 @@ function parseNum(a){
 function normQuestion(q,i,defSubject){
   if(!q || typeof q!=='object') return null;
   const text = q.question!=null?q.question:(q.text!=null?q.text:(q.statement!=null?q.statement:''));
-  const imgs = [].concat(q.images||q.question_images||q.image||[]).filter(Boolean);
+  const imgs = [].concat((q.raster_images && q.raster_images.length) ? q.raster_images : (q.images||q.question_images||q.image||[])).filter(Boolean);
   if(!String(text).trim() && !imgs.length) return null;
   const subject = normSubject(q.subject!=null?q.subject:defSubject);
   const chapter = String(q.chapter!=null?q.chapter:(q.topic!=null?q.topic:'Unsorted')).trim() || 'Unsorted';
@@ -2289,7 +2289,9 @@ function normQuestion(q,i,defSubject){
     passageImages:passageImgs,
     text:String(text), options, labelOnly, ans, tol, range, keyOk,
     solution:String(q.solution!=null?q.solution:(q.explanation||'')),
-    images:imgs.map(String), solImages:[].concat(q.solution_images||q.solutionImages||[]).filter(Boolean).map(String),
+    images:imgs.map(String),
+    raster_images:[].concat(q.raster_images||imgs).filter(Boolean).map(String),
+    solImages:[].concat(q.solution_images||q.solutionImages||[]).filter(Boolean).map(String),
     source:String(q.source!=null?q.source:(q.source_paper!=null?q.source_paper:(q.paper!=null?q.paper:(q.test||'')))),
     paper: (q.exam ? (/adv/i.test(q.exam)?'adv':(/main/i.test(q.exam)?'main':q.exam)) : paperOf(String(q.source||'')+' '+String(q.paperTitle||q.paper_title||''))),
     year:yearOf(q)
