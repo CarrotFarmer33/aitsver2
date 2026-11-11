@@ -410,7 +410,7 @@
   --brand:#3b82c4; --brand-deep:#2d6cab; --brand-ink:#ffffff; --tint:#e4eef9;
   --ok:#4a9a2c; --nok:#d0471f; --rev:#7b4a9f; --nv-a:#fafafa; --nv-b:#d3d3d3; --nv-ink:#333333; --plus:#2f8f2f;
   --good:#1f7a2e; --good-bg:#e7f4e9; --bad:#b3261e; --bad-bg:#fcebea; --part:#8a5a00; --part-bg:#fff3dc;
-  --font-ui:"Open Sans","Segoe UI",Arial,sans-serif; --font-q:"Times New Roman",Times,"Liberation Serif",serif;
+  --font-ui:"Open Sans","Segoe UI",Arial,sans-serif; --font-q:"Century Schoolbook","TeX Gyre Schola","Nimbus Roman","Computer Modern Roman",Georgia,serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#14181e; --surface:#1c222a; --surface-2:#232b35; --panel:#212831; --fg:#e6e9ed; --muted:#9aa6b3; --line:#38424f;
@@ -1229,18 +1229,42 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 24px 28px;
+  padding: 28px 32px;
 }
 @media (max-width: 600px) {
   .marks-detail-card-body {
-    padding: 16px 14px;
+    padding: 18px 16px;
   }
+}
+.marks-detail-qtext {
+  font-family: var(--font-q);
+  font-size: 18px;
+  line-height: 1.68;
+  color: var(--fg);
+  user-select: text;
+  -webkit-user-select: text;
+  margin-bottom: 22px;
+  letter-spacing: 0.005em;
+}
+.vector-inline-svg {
+  display: block;
+  width: 100%;
+  max-width: 850px;
+  height: auto;
+  margin: 16px auto;
+  user-select: text !important;
+  -webkit-user-select: text !important;
+}
+.vector-inline-svg text, .vector-inline-svg tspan {
+  user-select: text !important;
+  -webkit-user-select: text !important;
+  cursor: text !important;
 }
 .marks-options-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  margin-top: 20px;
+  gap: 14px;
+  margin-top: 24px;
 }
 @media (max-width: 680px) {
   .marks-options-grid {
@@ -1250,14 +1274,16 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 .marks-opt-chip {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 12px 16px;
+  gap: 16px;
+  padding: 14px 20px;
+  min-height: 56px;
   background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 8px;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.15s ease;
-  user-select: none;
+  user-select: text;
+  -webkit-user-select: text;
 }
 .marks-opt-chip:hover {
   background: var(--surface-2);
@@ -1268,18 +1294,20 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   background: rgba(37, 99, 235, 0.08);
 }
 .marks-opt-circle {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background: var(--surface-2);
   border: 1px solid var(--line);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: 13.5px;
   font-weight: 700;
   color: var(--fg);
   flex: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 .marks-opt-chip.selected .marks-opt-circle {
   background: #2563eb;
@@ -1307,9 +1335,14 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 .marks-opt-text {
   flex: 1;
   min-width: 0;
-  font-size: 13.5px;
-  line-height: 1.4;
+  font-family: var(--font-q);
+  font-size: 17.5px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--fg);
   overflow-wrap: anywhere;
+  user-select: text;
+  -webkit-user-select: text;
 }
 
 /* Floating Bottom Action Bar (Image 2) */
@@ -1938,6 +1971,8 @@ window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$
 <script src="config.js"></script>
 <script>
 const zipCache = new Map();
+let questionTextsMap = {};
+fetch('question_texts.json').then(r=>r.ok?r.json():{}).then(d=>{ questionTextsMap = d || {}; }).catch(()=>{});
 function esc(value){
   return String(value==null?'':value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
@@ -1959,6 +1994,30 @@ async function resolveZipImage(img){
     if(!f){ const match=Object.keys(zip.files).find(k=>!zip.files[k].dir && (k===fileName || k.endsWith('/'+fileName))); if(match) f=zip.file(match); }
     if(!f) throw new Error('Image not found in ZIP: '+fileName);
     const isSvg = /\.svg$/i.test(fileName);
+    if(isSvg){
+      try {
+        const svgText = await f.async('text');
+        const parser = new DOMParser();
+        const svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
+        const svgEl = svgDoc.documentElement;
+        if(svgEl && svgEl.nodeName.toLowerCase() === 'svg'){
+          svgEl.classList.add('qimg', 'vector-inline-svg');
+          svgEl.setAttribute('role', 'img');
+          svgEl.setAttribute('aria-label', img.alt || 'Question figure');
+          svgEl.style.width = '100%';
+          svgEl.style.maxWidth = '850px';
+          svgEl.style.height = 'auto';
+          svgEl.style.display = 'block';
+          svgEl.style.margin = '16px auto';
+          svgEl.style.userSelect = 'text';
+          svgEl.style.webkitUserSelect = 'text';
+          img.replaceWith(svgEl);
+          return;
+        }
+      } catch(svgErr){
+        console.warn('Inline SVG injection fallback to blob:', svgErr);
+      }
+    }
     const rawBlob = await f.async('blob');
     const blob = isSvg ? new Blob([rawBlob], { type: 'image/svg+xml' }) : rawBlob;
     const isSecondary = /__--__[2-9]\.png/i.test(fileName);
@@ -3126,9 +3185,14 @@ function renderPracticeRowHtml(q, idx){
 
   // Question text preview
   let previewText = '';
-  if(q.text && String(q.text).trim()){
+  const qInfo = (typeof questionTextsMap !== 'undefined' && questionTextsMap[q.id]) ? questionTextsMap[q.id] : null;
+  if(q.previewText && String(q.previewText).trim()){
+    previewText = String(q.previewText).trim();
+  } else if(qInfo && qInfo.preview){
+    previewText = qInfo.preview;
+  } else if(q.text && String(q.text).trim()){
     const clean = stripWatermarks(q.text).replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
-    if(clean) previewText = clean.length > 140 ? (clean.slice(0, 140) + '...') : clean;
+    if(clean) previewText = clean.length > 150 ? (clean.slice(0, 150) + '...') : clean;
   }
   if(!previewText){
     const yrStr = q.year ? (' ' + q.year) : '';
@@ -3212,7 +3276,8 @@ function renderPracticeDetailView(){
   const paperName = q.paper === 'adv' ? 'JEE Advanced' : (q.paper === 'main' ? 'JEE Main' : 'AITS');
   const breadcrumbEl = $('#prkDetailBreadcrumb');
   if(breadcrumbEl){
-    breadcrumbEl.textContent = paperName + ' >> ' + prkState.subj + (prkState.chap ? (' >> ' + prkState.chap) : '');
+    const chapPart = prkState.chap || q.chapter;
+    breadcrumbEl.textContent = paperName + (chapPart ? (' >> ' + chapPart) : (' >> ' + prkState.subj));
   }
 
   const qNumEl = $('#prkDetailQNum');
@@ -3307,22 +3372,30 @@ function renderPracticeCardHtml(q, idx){
   // Passage
   let passageHtml = '';
   if(q.paragraph && q.passageImages && q.passageImages.length){
-    passageHtml = '<div style="margin-bottom:14px;padding:12px 16px;background:var(--surface-2);border-left:3px solid var(--brand);border-radius:0 6px 6px 0;font-size:13px;line-height:1.5">' +
+    passageHtml = '<div style="margin-bottom:16px;padding:14px 18px;background:var(--surface-2);border-left:3px solid var(--brand);border-radius:0 8px 8px 0;font-size:14px;line-height:1.6">' +
       (q.passageText ? '<div style="margin-bottom:8px">' + rich(stripWatermarks(q.passageText)) + '</div>' : '') +
       q.passageImages.map(u => imageMarkup(u, 'Passage figure')).join('') +
     '</div>';
   }
 
-  // Question body & images
+  // Question body text (copy-able embedded text in Century Schoolbook)
+  const qInfo = (typeof questionTextsMap !== 'undefined' && questionTextsMap[q.id]) ? questionTextsMap[q.id] : null;
+  const rawText = (q.stem || q.text || (qInfo && qInfo.full) || '').trim();
+  let textHtml = '';
+  if(rawText){
+    textHtml = '<div class="marks-detail-qtext">' + rich(stripWatermarks(rawText)) + '</div>';
+  }
+
+  // Question figures/diagrams
   const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
   const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure')).join('');
 
-  // Options / Input (Image 2 - Marks Grid)
+  // 2x2 Options Grid (Marks App Style)
   let interactHtml = '';
   if(effType === 'numerical'){
     const userVal = savedAns ? savedAns.val : '';
-    interactHtml = '<div style="margin-top:20px">' +
-      '<div style="font-size:12.5px;font-weight:600;margin-bottom:6px;color:var(--muted)">Enter Numerical Value:</div>' +
+    interactHtml = '<div style="margin-top:24px">' +
+      '<div style="font-size:13px;font-weight:600;margin-bottom:8px;color:var(--muted)">Enter Numerical Value:</div>' +
       '<div class="marks-q-numinput-wrap" style="max-width:320px">' +
         '<input type="text" class="marks-q-numinput" data-prknuminput="' + esc(q.id) + '" placeholder="e.g. 4.25" value="' + esc(userVal != null ? userVal : '') + '">' +
       '</div>' +
@@ -3331,8 +3404,9 @@ function renderPracticeCardHtml(q, idx){
     const isMulti = effType === 'multi';
     const chosenList = savedAns ? (Array.isArray(savedAns.val) ? savedAns.val : [savedAns.val]) : [];
     const correctList = Array.isArray(q.ans) ? q.ans : (q.ans != null ? [q.ans] : []);
+    const opts = (q.options && q.options.length) ? q.options : ['Option (A)', 'Option (B)', 'Option (C)', 'Option (D)'];
 
-    interactHtml = '<div class="marks-options-grid">' + (q.options || []).map((opt, oIdx) => {
+    interactHtml = '<div class="marks-options-grid">' + opts.map((opt, oIdx) => {
       let optClass = 'marks-opt-chip';
       const isSelected = chosenList.includes(oIdx);
       if(isSelected) optClass += ' selected';
@@ -3342,7 +3416,7 @@ function renderPracticeCardHtml(q, idx){
       }
       return '<div class="' + optClass + '" data-prkopt="' + esc(q.id) + '" data-oidx="' + oIdx + '" data-multi="' + (isMulti ? '1' : '0') + '">' +
         '<div class="marks-opt-circle">' + LET[oIdx] + '</div>' +
-        '<div class="marks-opt-text">' + (q.labelOnly ? '' : rich(opt)) + '</div>' +
+        '<div class="marks-opt-text">' + rich(opt) + '</div>' +
       '</div>';
     }).join('') + '</div>';
   }
@@ -3350,10 +3424,10 @@ function renderPracticeCardHtml(q, idx){
   // Solution Box
   let solHtml = '';
   if(savedAns){
-    solHtml = '<div class="marks-sol-box" style="margin-top:24px">' +
-      '<div><b>Key:</b> <span>' + esc(keyText(q)) + '</span> &bull; <b>Your Answer:</b> <span>' + esc(fmtAns(q, savedAns.val)) + '</span></div>' +
+    solHtml = '<div class="marks-sol-box" style="margin-top:28px">' +
+      '<div style="margin-bottom:10px"><b>Key:</b> <span style="font-weight:700;color:var(--good,#15803d)">' + esc(keyText(q)) + '</span> &bull; <b>Your Answer:</b> <span style="font-weight:700">' + esc(fmtAns(q, savedAns.val)) + '</span></div>' +
       ((q.solution || (q.solImages && q.solImages.length)) ?
-        '<div><b>Solution:</b><div style="margin-top:6px">' + rich(q.solution || '') + (q.solImages || []).map(u => imageMarkup(u, 'Solution figure')).join('') + '</div></div>' :
+        '<div><b>Solution:</b><div style="margin-top:8px;font-size:15.5px;line-height:1.65;font-family:var(--font-q)">' + rich(q.solution || '') + (q.solImages || []).map(u => imageMarkup(u, 'Solution figure')).join('') + '</div></div>' :
         '<div class="muted">No extended solution image was attached in archive.</div>') +
     '</div>';
   }
@@ -3361,7 +3435,7 @@ function renderPracticeCardHtml(q, idx){
   return '<article class="marks-detail-card" id="prkCard_' + esc(q.id) + '" data-qid="' + esc(q.id) + '">' +
     '<div class="marks-q-body">' +
       passageHtml +
-      (q.text ? '<div style="margin-bottom:12px;font-size:14.5px;line-height:1.55">' + rich(q.text) + '</div>' : '') +
+      textHtml +
       imgsHtml +
       interactHtml +
     '</div>' +
