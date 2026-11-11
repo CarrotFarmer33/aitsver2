@@ -1,5 +1,408 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=5.0,user-scalable=yes,viewport-fit=cover"><title>AITS Practice Portal – CBT Mock Exam</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap"><style>
-:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=5.0,user-scalable=yes,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
+/* ==================== TEST BUILDER & BUILD SHEET STYLES ==================== */
+:root {
+  --sheet-navy: #1a3a5c;
+  --sheet-rule: #b0c4d8;
+  --sheet-tint: #ebf2fa;
+  --sheet-grey: #737373;
+  --sheet-head: #cccccc;
+  --sheet-alt: #ededed;
+}
+
+.builder-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+  gap: 16px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .builder-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+.pattern-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.pattern-pill {
+  flex: 1;
+  min-width: 110px;
+  text-align: center;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+.pattern-pill:hover { background: var(--surface-2); }
+.pattern-pill.active {
+  background: var(--brand);
+  color: var(--brand-ink);
+  border-color: var(--brand);
+}
+
+.preset-counts {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+.preset-count-btn {
+  padding: 3px 9px;
+  font-size: 12px;
+  border-radius: 3px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  cursor: pointer;
+}
+.preset-count-btn:hover { background: var(--line); }
+
+/* Build Sheet Document Container */
+.sheet-view-wrap {
+  padding: 20px 16px 60px 16px;
+  background: #525659;
+  min-height: calc(100vh - 40px);
+}
+.sheet-toolbar {
+  position: sticky;
+  top: calc(36px + env(safe-area-inset-top, 0px));
+  z-index: 45;
+  background: #323639;
+  color: #fff;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+.sheet-tools-left, .sheet-tools-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.sheet-toolbar .btn {
+  background: #4a4e51;
+  color: #fff;
+  border-color: #5f6368;
+  min-height: 32px;
+  padding: 4px 12px;
+  font-size: 13px;
+}
+.sheet-toolbar .btn:hover { background: #606468; }
+.sheet-toolbar .btn.primary {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+.sheet-toolbar .btn.primary:hover { background: #1d4ed8; }
+
+/* Exact A4 Sheet Page (Exact replica of build_sheets.py) */
+.sheet-page {
+  width: 210mm;
+  min-height: 297mm;
+  padding: 50pt; /* Exact MX, TOP = 50pt */
+  margin: 0 auto 24px auto;
+  background: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  box-sizing: border-box;
+  position: relative;
+  font-family: "Open Sans", Arial, sans-serif;
+}
+@media (max-width: 820px) {
+  .sheet-page {
+    width: 100%;
+    min-height: auto;
+    padding: 24px 16px;
+  }
+}
+
+.sheet-cover-title {
+  font-size: 24pt;
+  font-weight: 700;
+  color: #000000;
+  line-height: 1.15;
+  margin: 0 0 6pt 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.sheet-cover-sub {
+  font-size: 10.5pt;
+  color: #737373;
+  margin: 0 0 16pt 0;
+  line-height: 1.4;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.sheet-cover-meta {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8pt;
+  padding: 7pt 0;
+  border-top: 1px solid #b0c4d8;
+  border-bottom: 1px solid #b0c4d8;
+  font-size: 9pt;
+  color: #333333;
+  margin-bottom: 24pt;
+}
+
+/* Signature Double Navy Rules for Section Headings */
+.sheet-sec-hdr {
+  margin: 22pt 0 14pt 0;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.sheet-sec-lines {
+  position: relative;
+  height: 6px;
+  margin-bottom: 8pt;
+}
+.sheet-sec-lines-top {
+  height: 1.6pt;
+  background: #1a3a5c;
+  width: 100%;
+}
+.sheet-sec-lines-bot {
+  height: 0.5pt;
+  background: #1a3a5c;
+  width: 100%;
+  margin-top: 2.8pt;
+}
+.sheet-sec-title {
+  font-size: 12pt;
+  font-weight: 700;
+  color: #1a3a5c;
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 0.01em;
+}
+
+/* Question Rows */
+.sheet-qrow {
+  display: flex;
+  gap: 12pt;
+  margin-bottom: 14pt;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.sheet-qlab-col {
+  flex: 0 0 46pt;
+  width: 46pt;
+  display: flex;
+  flex-direction: column;
+}
+.sheet-qlab {
+  font-size: 10.5pt;
+  font-weight: 700;
+  color: #1a3a5c;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.2;
+}
+.sheet-qtag {
+  font-size: 6.2pt;
+  color: #737373;
+  font-family: Helvetica, Arial, sans-serif;
+  line-height: 1.25;
+  margin-top: 3pt;
+  word-break: break-word;
+}
+.sheet-qbody-col {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 10pt;
+  line-height: 1.5;
+  color: #000000;
+}
+.sheet-qbody-col img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 5pt 0;
+}
+.sheet-qbody-text {
+  font-size: 10pt;
+  line-height: 1.5;
+  color: #000000;
+  margin-bottom: 6pt;
+  word-break: break-word;
+}
+.sheet-qoptions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210pt, 1fr));
+  gap: 4pt 12pt;
+  margin-top: 6pt;
+  font-size: 9.5pt;
+}
+.sheet-qopt {
+  display: flex;
+  gap: 6pt;
+  align-items: baseline;
+}
+.sheet-qopt-key {
+  font-weight: 700;
+}
+
+/* Answer Key Table (Exact 10-column Grid) */
+.sheet-key-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 0.6pt solid #000000;
+  margin-top: 10pt;
+  font-size: 9pt;
+  font-family: Helvetica, Arial, sans-serif;
+}
+.sheet-key-table th {
+  background: #cccccc;
+  border: 0.6pt solid #000000;
+  padding: 4pt 6pt;
+  font-weight: 700;
+  text-align: center;
+  color: #000000;
+  font-size: 9pt;
+}
+.sheet-key-table td {
+  border: 0.6pt solid #000000;
+  padding: 4pt 6pt;
+  text-align: center;
+  height: 20pt;
+  box-sizing: border-box;
+  color: #000000;
+  font-size: 9pt;
+}
+.sheet-key-table tr:nth-child(even) td {
+  background: #ededed;
+}
+.sheet-key-table tr:nth-child(odd) td {
+  background: #ffffff;
+}
+.sheet-key-q {
+  font-weight: 700;
+}
+.sheet-key-ans {
+  font-weight: 600;
+}
+
+/* Solutions Section */
+.sheet-sol-item {
+  display: flex;
+  gap: 12pt;
+  margin-bottom: 14pt;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.sheet-sol-body {
+  flex: 1 1 auto;
+  font-size: 9.5pt;
+  line-height: 1.5;
+  color: #111;
+}
+.sheet-sol-body img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 5pt 0;
+}
+
+/* Page Break & Numbering */
+.sheet-break-after {
+  page-break-after: always;
+  break-after: page;
+}
+.sheet-page-footer {
+  position: absolute;
+  bottom: 18pt;
+  left: 0; right: 0;
+  text-align: center;
+  font-size: 8.5pt;
+  color: #737373;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+/* Preview & Curator Styles */
+@keyframes swapPulse {
+  0% { background: #fef08a; border-color: #ca8a04; transform: translateY(-2px); box-shadow: 0 4px 14px rgba(202,138,4,0.3); }
+  50% { background: #fef9c3; border-color: #eab308; }
+  100% { background: var(--surface); border-color: var(--line); transform: translateY(0); box-shadow: none; }
+}
+.preview-q-card {
+  position: relative;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 6px;
+  padding: 16px;
+}
+.preview-q-card:hover {
+  border-color: #94a3b8;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+.preview-q-card.swapped {
+  animation: swapPulse 0.8s ease-out;
+}
+.preview-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11.5px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+/* Print Styles */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .topbar, .sheet-toolbar, #scrSetup, #scrPracticeList, #scrPracticeDetail, #scrInstr, #scrExam, #scrRes, #scrSaved, #scrBuilderLogin, #scrTestBuilder, #scrTestPreview, #modal, .scrim, #tbToast {
+    display: none !important;
+  }
+  #scrSheetView {
+    display: block !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+  }
+  .sheet-view-wrap {
+    padding: 0 !important;
+    background: #ffffff !important;
+  }
+  .sheet-page {
+    width: 100% !important;
+    min-height: 297mm !important;
+    padding: 50pt !important;
+    margin: 0 auto !important;
+    box-shadow: none !important;
+    border: none !important;
+    page-break-after: always !important;
+    break-after: page !important;
+  }
+  .sheet-page:last-child {
+    page-break-after: auto !important;
+    break-after: auto !important;
+  }
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+
+</style></head><body>
+<title>AITS Practice Portal</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap">
+<style>
 /* Layout: replica of the NTA CBT console. Dark title bar; left = test pill, Sections/Time Left, section tabs, question info, scrolling question, bottom action bar; right = candidate, legend, section bar, palette grid, Submit. Phones turn the right panel into a drawer. */
 :root{
   --bg:#f4f4f4; --surface:#ffffff; --surface-2:#f0f0f0; --panel:#e9e9e9; --fg:#222222; --muted:#666666; --line:#cfcfcf;
@@ -380,10 +783,699 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 @media (max-width:900px){ .qimg{width:100%} .modal .box:has(.image-preview){max-width:96vw} }
 @media (prefers-reduced-motion:reduce){.xright{transition:none}}
 
+/* Marks-app inspired practice styles */
+.marks-layout {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+  padding-top: 16px;
+  padding-bottom: 60px;
+}
+.marks-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: sticky;
+  top: calc(46px + env(safe-area-inset-top, 0px));
+}
+.marks-sb-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.marks-sb-head {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--muted);
+  font-weight: 700;
+}
+.marks-sb-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 9px 14px;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  font-size: 13px;
+  color: var(--fg);
+  font-weight: 500;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.marks-sb-item:last-child { border-bottom: 0; }
+.marks-sb-item:hover { background: var(--surface-2); }
+.marks-sb-item.active {
+  background: rgba(40,106,199,0.09);
+  color: var(--brand);
+  font-weight: 700;
+  border-left: 3px solid var(--brand);
+}
+.marks-sb-count {
+  font-size: 11.5px;
+  color: var(--muted);
+  font-weight: 600;
+}
+.marks-main-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.marks-hero-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 14px 18px;
+  align-items: center;
+  justify-content: space-between;
+}
+.marks-hero-left h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+.marks-hero-left .marks-subline {
+  margin-top: 3px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+.marks-hero-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.marks-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+.marks-pill-btn {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--fg);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+.marks-pill-btn:hover {
+  background: var(--line);
+}
+.marks-pill-btn.active {
+  background: var(--brand);
+  color: #fff;
+  border-color: var(--brand);
+}
+.marks-pill-select {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--fg);
+  min-height: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+.marks-q-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.marks-q-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: opacity 0.2s ease, border-color 0.2s ease;
+  position: relative;
+}
+.marks-q-card.attempted {
+  opacity: 0.62;
+  background: var(--surface-2);
+  border-color: rgba(128,128,128,0.22);
+}
+.marks-q-card.attempted:hover {
+  opacity: 0.96;
+}
+.marks-q-card.attempted-correct {
+  border-left: 3.5px solid var(--good, #15803d);
+}
+.marks-q-card.attempted-wrong {
+  border-left: 3.5px solid var(--bad, #b91c1c);
+}
+.marks-q-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12.5px;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 8px;
+}
+.marks-q-num {
+  font-weight: 700;
+  color: var(--fg);
+  font-size: 13.5px;
+}
+.marks-q-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.marks-q-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 3px;
+  background: var(--surface-2);
+  color: var(--muted);
+  border: 1px solid var(--line);
+  text-transform: uppercase;
+}
+.marks-q-badge.correct {
+  background: var(--good-bg, rgba(21,128,61,0.1));
+  color: var(--good, #15803d);
+  border-color: rgba(21,128,61,0.3);
+}
+.marks-q-badge.wrong {
+  background: var(--bad-bg, rgba(185,28,28,0.1));
+  color: var(--bad, #b91c1c);
+  border-color: rgba(185,28,28,0.3);
+}
+.marks-q-body {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--fg);
+}
+.marks-q-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+.marks-q-opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+.marks-q-opt:hover {
+  background: var(--surface-2);
+  border-color: var(--brand);
+}
+.marks-q-opt.selected {
+  background: rgba(40,106,199,0.08);
+  border-color: var(--brand);
+}
+.marks-q-opt.correct-key {
+  background: var(--good-bg, rgba(21,128,61,0.12));
+  border-color: var(--good, #15803d);
+}
+.marks-q-opt.wrong-chosen {
+  background: var(--bad-bg, rgba(185,28,28,0.12));
+  border-color: var(--bad, #b91c1c);
+}
+.marks-q-numinput-wrap {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  max-width: 320px;
+}
+.marks-q-numinput {
+  flex: 1;
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+  font-size: 13.5px;
+}
+.marks-q-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+  flex-wrap: wrap;
+}
+.marks-sol-box {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 12px 14px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+/* Marks-style compact list item */
+.marks-q-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  padding: 16px 14px;
+  cursor: pointer;
+  transition: background 0.15s ease, opacity 0.15s ease;
+  user-select: none;
+}
+.marks-q-row:hover {
+  background: var(--surface-2);
+}
+.marks-q-row.attempted {
+  opacity: 0.45;
+  background: var(--surface-2);
+}
+.marks-q-row.attempted:hover {
+  opacity: 0.85;
+}
+.marks-q-row.attempted-correct {
+  border-left: 3px solid var(--good, #15803d);
+}
+.marks-q-row.attempted-wrong {
+  border-left: 3px solid var(--bad, #b91c1c);
+}
+.marks-q-num-box {
+  flex: none;
+  font-weight: 700;
+  font-size: 14.5px;
+  color: var(--fg);
+  min-width: 28px;
+  padding-top: 1px;
+}
+.marks-q-row-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.marks-q-row-text {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--fg);
+  font-weight: 500;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.marks-q-row-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--muted);
+  flex-wrap: wrap;
+}
 
-</style></head><body>
+/* Marks Hero & Subfilters */
+.marks-hero-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--fg);
+  font-weight: 600;
+  font-size: 13.5px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.marks-hero-action-btn:hover {
+  background: var(--surface-2);
+  border-color: var(--brand);
+}
+.marks-subfilters-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 8px 0;
+  margin-bottom: 6px;
+  scrollbar-width: thin;
+}
+.marks-subfilter-chip {
+  padding: 6px 14px;
+  border-radius: 16px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+.marks-subfilter-chip:hover {
+  color: var(--fg);
+  border-color: var(--brand);
+}
+.marks-subfilter-chip.active {
+  background: var(--fg);
+  color: var(--bg);
+  border-color: var(--fg);
+  font-weight: 600;
+}
+
+/* Marks Question Detail Screen (Image 2) */
+.marks-detail-wrap {
+  max-width: 900px;
+  margin: 16px auto 0;
+  padding-bottom: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.marks-q-list {
+  padding-bottom: 220px;
+}
+.marks-detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 4px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  gap: 12px;
+}
+.marks-detail-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.marks-detail-qnum {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--fg);
+}
+.marks-detail-qmeta {
+  font-size: 12px;
+  color: var(--muted);
+}
+.marks-detail-timer-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 14px;
+  border-radius: 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  font-size: 12.5px;
+  font-family: monospace;
+  font-weight: 600;
+  color: var(--fg);
+}
+.marks-detail-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.marks-detail-card-body {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 12px 4px 60px 4px;
+}
+@media (max-width: 600px) {
+  .marks-detail-card-body {
+    padding: 10px 2px 50px 2px;
+  }
+}
+.marks-zoom-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: flex-end;
+  margin: 0 4px 10px auto;
+  user-select: none;
+}
+.marks-zoom-btn {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  color: var(--fg);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  line-height: 1;
+}
+.marks-zoom-btn:hover {
+  background: var(--line);
+}
+.marks-detail-qtext {
+  font-family: var(--font-q);
+  font-size: 18px;
+  line-height: 1.68;
+  color: var(--fg);
+  user-select: text;
+  -webkit-user-select: text;
+  margin-bottom: 22px;
+  letter-spacing: 0.005em;
+}
+.vector-inline-svg {
+  display: block;
+  width: 100%;
+  max-width: 850px;
+  height: auto;
+  margin: 14px auto;
+  user-select: text !important;
+  -webkit-user-select: text !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.marks-detail-card-body img,
+.marks-detail-card-body .qimg {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.vector-inline-svg text, .vector-inline-svg tspan {
+  font-family: 'Century Schoolbook', 'TeX Gyre Schola', 'Nimbus Roman', 'Computer Modern Roman', Georgia, serif !important;
+  user-select: text !important;
+  -webkit-user-select: text !important;
+  cursor: text !important;
+}
+.vector-inline-svg text[font-family*="Symbol"],
+.vector-inline-svg tspan[font-family*="Symbol"],
+.vector-inline-svg text[font-family*="Extra"],
+.vector-inline-svg tspan[font-family*="Extra"] {
+  font-family: Symbol, 'MT Extra', serif !important;
+}
+
+/* Dark mode (inverted) vector SVG & question figures */
+:root[data-theme="dark"] .vector-inline-svg,
+:root:not([data-theme="light"]) .vector-inline-svg,
+:root[data-theme="dark"] .marks-detail-card-body .qimg,
+:root:not([data-theme="light"]) .marks-detail-card-body .qimg {
+  filter: invert(0.93) hue-rotate(180deg) brightness(1.1) contrast(1.15);
+  background: transparent !important;
+  mix-blend-mode: lighten;
+}
+.marks-options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 24px;
+}
+@media (max-width: 680px) {
+  .marks-options-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.marks-opt-chip {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  min-height: 56px;
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: text;
+  -webkit-user-select: text;
+}
+.marks-opt-chip:hover {
+  background: var(--surface-2);
+  border-color: var(--brand);
+}
+.marks-opt-chip.selected {
+  border-color: #2563eb;
+  background: rgba(37, 99, 235, 0.08);
+}
+.marks-opt-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--fg);
+  flex: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.marks-opt-chip.selected .marks-opt-circle {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #fff;
+}
+.marks-opt-chip.correct {
+  border-color: var(--good, #15803d) !important;
+  background: rgba(21, 128, 61, 0.1) !important;
+}
+.marks-opt-chip.correct .marks-opt-circle {
+  background: var(--good, #15803d) !important;
+  border-color: var(--good, #15803d) !important;
+  color: #fff !important;
+}
+.marks-opt-chip.wrong {
+  border-color: var(--bad, #b91c1c) !important;
+  background: rgba(185, 28, 28, 0.1) !important;
+}
+.marks-opt-chip.wrong .marks-opt-circle {
+  background: var(--bad, #b91c1c) !important;
+  border-color: var(--bad, #b91c1c) !important;
+  color: #fff !important;
+}
+.marks-opt-text {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-q);
+  font-size: 17.5px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--fg);
+  overflow-wrap: anywhere;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+/* Floating Bottom Action Bar (Image 2) */
+.marks-bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  box-shadow: 0 -4px 18px rgba(0,0,0,0.25);
+}
+.marks-bottom-bar-in {
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.marks-nav-btn {
+  padding: 8px 24px;
+  border-radius: 20px;
+  font-size: 13.5px;
+  font-weight: 600;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  color: var(--fg);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.marks-nav-btn:hover:not(:disabled) {
+  background: var(--surface);
+  border-color: var(--brand);
+}
+.marks-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.marks-check-btn {
+  flex: 1;
+  max-width: 380px;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 20px;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.15s ease;
+}
+.marks-check-btn:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+.marks-check-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+@media (max-width: 900px) {
+  .marks-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .marks-sidebar {
+    position: static;
+  }
+}
+</style>
+
 <div id="scrSetup" class="screen">
-  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Portal &ndash; CBT Mock Exam Simulator</span><div style="display:flex;align-items:center;gap:8px"><button class="btn sm active" type="button" style="background:var(--brand);color:var(--brand-ink);font-weight:700">CBT Exam</button><a class="btn sm" href="practice.html" style="background:var(--surface-2);color:var(--fg);font-weight:600">📖 Practice</a><a class="btn sm" href="test-builder.html" style="background:#286ac7;color:#fff;border-color:#286ac7">🛠️ Test Builder</a><details class="menu" id="topMenu"><summary class="btn sm">Menu &#9662;</summary><div class="menuList"><a class="btn sm" href="practice.html" style="color:var(--brand);font-weight:700">📖 Practice Portal</a><a class="btn sm" href="test-builder.html" style="color:var(--brand);font-weight:700">🛠️ Test Builder</a><button class="btn sm" id="openSaved" type="button">Saved questions</button><button class="btn sm" id="openReports" type="button" style="display:flex;align-items:center;justify-content:space-between">Reported questions <span id="rptBadge" style="display:none;background:#d32f2f;color:#fff;border-radius:10px;padding:0 6px;font-size:11px;font-weight:700">0</span></button><a class="btn sm" href="changelog.html">Changelog</a><a class="btn sm" href="downloads.html">Downloads</a><hr class="menuSep"><div class="mrow"><button class="btn sm" id="expData" type="button">Export my data</button><span class="mi" tabindex="0" role="note" aria-label="About Export my data">i</span><div class="mtip">Saves a backup file of your bookmarks, mistakes, seen questions and history.</div></div><div class="mrow"><button class="btn sm" id="impData" type="button">Import data</button><span class="mi" tabindex="0" role="note" aria-label="About Import data">i</span><div class="mtip">Load a backup file you exported earlier.</div></div><input type="file" id="impFile" accept=".json,application/json" hidden></div></details></div></div></div>
+  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Portal &ndash; chapter-wise question practice</span><div style="display:flex;align-items:center;gap:8px"><button class="btn sm" id="navPractice" type="button" style="background:var(--surface-2);color:var(--fg);font-weight:600">Practice (Marks Format)</button><button class="btn sm" id="navBuilder" type="button" style="background:#286ac7;color:#fff;border-color:#286ac7">🛠️ Test Builder</button><details class="menu" id="topMenu"><summary class="btn sm">Menu &#9662;</summary><div class="menuList"><button class="btn sm" id="openPracticeMenu" type="button" style="color:var(--brand);font-weight:700">Practice (Scrollable)</button><button class="btn sm" id="openBuilderMenu" type="button" style="color:var(--brand);font-weight:700">🛠️ Test Builder</button><button class="btn sm" id="openSaved" type="button">Saved questions</button><button class="btn sm" id="openReports" type="button" style="display:flex;align-items:center;justify-content:space-between">Reported questions <span id="rptBadge" style="display:none;background:#d32f2f;color:#fff;border-radius:10px;padding:0 6px;font-size:11px;font-weight:700">0</span></button><a class="btn sm" href="changelog.html">Changelog</a><a class="btn sm" href="downloads.html">Downloads</a><hr class="menuSep"><div class="mrow"><button class="btn sm" id="expData" type="button">Export my data</button><span class="mi" tabindex="0" role="note" aria-label="About Export my data">i</span><div class="mtip">Saves a backup file of your bookmarks, mistakes, seen questions and history. Your data lives only in this browser, so export now and then in case it gets cleared.</div></div><div class="mrow"><button class="btn sm" id="impData" type="button">Import data</button><span class="mi" tabindex="0" role="note" aria-label="About Import data">i</span><div class="mtip">Load a backup file you exported earlier. It is merged with your current data, so nothing is overwritten.</div></div><input type="file" id="impFile" accept=".json,application/json" hidden></div></details></div></div></div>
   <main class="wrap setup">
     <section class="card" id="dbCard" hidden style="display:none">
       <div class="dbrow">
@@ -459,7 +1551,6 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   </main>
 </div>
 
-
 <div id="scrInstr" class="screen" hidden>
   <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Test &ndash; instructions</span><button class="btn sm" id="instBack" type="button">Change selection</button></div></div>
   <main class="wrap instr">
@@ -480,7 +1571,6 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
     </section>
   </main>
 </div>
-
 
 <div id="scrExam" class="screen" data-xtheme="light" hidden>
   <div class="topbar"><div class="tb-in">
@@ -536,18 +1626,140 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
       <div class="xfinal"><button class="submit" id="submitRail" type="button">Submit</button></div>
     </aside>
   </div>
-
   <div class="scrim" id="scrim"></div>
   <div class="floatingInfoTooltip" id="infoTip" hidden></div>
 </div>
 
+<div id="scrPracticeList" class="screen" hidden>
+  <div class="topbar"><div class="tb-in"><span class="tb-title" id="prkTopbarTitle">Practice &ndash; Questions</span><div style="display:flex;align-items:center;gap:8px"><button class="btn sm" id="prkResetAttemptBtn" type="button" style="font-size:12px">Reset Attempts</button><button class="btn sm" id="prkBackBtn" type="button">&larr; Portal Home</button></div></div></div>
+  <main class="wrap marks-layout">
+    <aside class="marks-sidebar">
+      <div class="marks-sb-card">
+        <div class="marks-sb-head">Subjects</div>
+        <div id="prkSubjList"></div>
+      </div>
+      <div class="marks-sb-card">
+        <div class="marks-sb-head">Chapters</div>
+        <div id="prkChapList" style="max-height:60vh;overflow-y:auto"></div>
+      </div>
+    </aside>
+
+    <section class="marks-main-card">
+      <!-- Marks Action Buttons (Image 1) -->
+      <div style="display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap">
+        <button class="marks-hero-action-btn" id="prkPracticeFirstBtn" type="button">
+          <span>Practice Chapter &rarr;</span>
+        </button>
+        <button class="marks-hero-action-btn test-btn" id="prkTakeTestBtn" type="button">
+          <span>Take Chapter Test &rarr;</span>
+        </button>
+      </div>
+
+      <!-- Filters Row (Image 1) -->
+      <div class="marks-filter-bar">
+        <button type="button" class="marks-pill-btn" id="prkToggleHideAttempted" data-hide="0">
+          <span>Hide Attempted</span>
+          <span id="prkHideDot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--line)"></span>
+        </button>
+
+        <select id="prkFilterPaper" class="marks-pill-select" aria-label="Paper">
+          <option value="all">All Papers</option>
+          <option value="main">JEE Main</option>
+          <option value="adv">JEE Advanced</option>
+        </select>
+
+        <select id="prkFilterYear" class="marks-pill-select" aria-label="Year">
+          <option value="all">Years: All</option>
+        </select>
+
+        <select id="prkFilterStatus" class="marks-pill-select" aria-label="Attempt Status">
+          <option value="all">Status: All</option>
+          <option value="unattempted">Unattempted</option>
+          <option value="attempted">Attempted</option>
+          <option value="correct">Correct</option>
+          <option value="wrong">Wrong</option>
+        </select>
+
+        <select id="prkFilterType" class="marks-pill-select" aria-label="Question Type">
+          <option value="all">All Types</option>
+          <option value="single">Single Choice (MCQ)</option>
+          <option value="multi">Multiple Correct (MSQ)</option>
+          <option value="numerical">Numerical (NAT)</option>
+          <option value="paragraph">Comprehension</option>
+        </select>
+
+        <button type="button" class="marks-pill-btn" id="prkResetFiltersBtn" style="margin-left:auto">Clear Filters</button>
+      </div>
+
+      <!-- Subfilters / Tags Row (Image 1) -->
+      <div class="marks-subfilters-row" id="prkSubFiltersRow">
+        <button type="button" class="marks-subfilter-chip active" data-prksubtag="all">All Questions</button>
+        <button type="button" class="marks-subfilter-chip" data-prksubtag="single">Single Choice</button>
+        <button type="button" class="marks-subfilter-chip" data-prksubtag="multi">Multiple Correct</button>
+        <button type="button" class="marks-subfilter-chip" data-prksubtag="numerical">Numerical</button>
+        <button type="button" class="marks-subfilter-chip" data-prksubtag="paragraph">Comprehension</button>
+      </div>
+
+      <!-- Summary / Count Row (Image 1) -->
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 4px 12px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--line)">
+        <span id="prkHeroStats" style="font-weight:600">Showing all Qs (0/0)</span>
+        <span id="prkSortBtn" style="cursor:pointer;font-weight:500;user-select:none">&uarr;&darr; Year-wise (New to Old)</span>
+      </div>
+
+      <div id="prkQuestionsContainer" class="marks-q-list"></div>
+    </section>
+  </main>
+</div>
+
+<div id="scrPracticeDetail" class="screen" hidden>
+  <div class="topbar">
+    <div class="tb-in">
+      <div style="display:flex;align-items:center;gap:12px;min-width:0">
+        <button class="btn sm" id="prkDetailListBtn" type="button" title="Back to questions list" style="padding:4px 10px;font-size:15px">&larr;</button>
+        <span class="tb-title" id="prkDetailBreadcrumb" style="font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Practice Question View</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <button class="btn sm" id="prkDetailHomeBtn" type="button">Portal Home</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap marks-detail-wrap">
+    <!-- Marks Question Meta Header (Image 2) -->
+    <div class="marks-detail-header">
+      <div class="marks-detail-header-left">
+        <div class="marks-detail-qnum" id="prkDetailQNum">Q 1</div>
+        <div class="marks-detail-qmeta" id="prkDetailQMeta">JEE Main 2025</div>
+      </div>
+      <div class="marks-detail-timer-pill" id="prkDetailTimer" title="Time on this question">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        <span id="prkTimerText">00:00</span>
+      </div>
+      <div class="marks-detail-header-right">
+        <button class="bmb" id="prkDetailBmBtn" type="button" title="Bookmark this question" style="padding:6px"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l1.9 4.2 4.6.5-3.4 3.1 1 4.5L8 11.5 3.9 13.8l1-4.5L1.5 6.2l4.6-.5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></button>
+        <button class="btn sm" id="prkDetailRptBtn" type="button" style="font-size:12px;padding:3px 8px">Report</button>
+      </div>
+    </div>
+
+    <!-- Question Content & Options Body -->
+    <div id="prkDetailCardContainer" class="marks-detail-card-body"></div>
+  </main>
+
+  <!-- Marks Floating Bottom Action Bar (Image 2) -->
+  <div class="marks-bottom-bar">
+    <div class="marks-bottom-bar-in">
+      <button class="marks-nav-btn" id="prkPrevQBtn" type="button">Previous</button>
+      <button class="marks-check-btn" id="prkBottomCheckBtn" type="button">Check Answer</button>
+      <button class="marks-nav-btn" id="prkNextQBtn" type="button">Next</button>
+    </div>
+  </div>
+</div>
 
 <div id="scrSaved" class="screen" hidden>
   <div class="topbar"><div class="tb-in"><span class="tb-title">Saved questions</span>
     <span style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" id="svPractice" type="button">Practice these</button><button class="btn sm" id="svBack" type="button">Back</button></span></div></div>
   <main class="wrap res" id="svBody"></main>
 </div>
-
 
 <div id="scrRes" class="screen" hidden>
   <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Test &ndash; result</span>
@@ -556,12 +1768,256 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 </div>
 
 
+<div id="scrBuilderLogin" class="screen" hidden>
+  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Test Builder &ndash; Restricted Access</span><button class="btn sm" id="tbLoginBackBtn" type="button">&larr; Practice portal</button></div></div>
+  <main class="wrap" style="max-width:440px;margin:40px auto;padding:16px">
+    <section class="card" style="box-shadow:0 8px 24px rgba(0,0,0,0.08);border-radius:6px">
+      <div style="text-align:center;margin-bottom:20px">
+        <div style="width:48px;height:48px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;background:var(--surface-2);border:1px solid var(--line);border-radius:50%">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        </div>
+        <h2 style="margin:0 0 6px;font-size:20px">Test Builder Login</h2>
+        <p class="muted" style="margin:0;font-size:13px">This tool is not free to access for everyone. Please enter administrator credentials to unlock.</p>
+      </div>
+      <form id="tbLoginForm" style="display:flex;flex-direction:column;gap:14px" onsubmit="return false;">
+        <div class="field" style="margin:0">
+          <label for="tbLoginUser">Username</label>
+          <input type="text" id="tbLoginUser" placeholder="Enter username" autocomplete="username" required>
+        </div>
+        <div class="field" style="margin:0">
+          <label for="tbLoginPass">Password</label>
+          <input type="password" id="tbLoginPass" placeholder="Enter password" autocomplete="current-password" required>
+        </div>
+        <div id="tbLoginErr" style="display:none;background:rgba(211,47,47,0.1);color:#d32f2f;border:1px solid rgba(211,47,47,0.3);border-radius:4px;padding:8px 12px;font-size:13px;font-weight:600;text-align:center"></div>
+        <button class="btn primary" id="tbLoginSubmitBtn" type="submit" style="width:100%;margin-top:4px">Unlock Test Builder</button>
+      </form>
+    </section>
+  </main>
+</div>
+
+<div id="scrTestBuilder" class="screen" hidden>
+  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Test Builder &ndash; Build Custom Question Sheets</span><div style="display:flex;align-items:center;gap:8px"><button class="btn sm" id="tbLogoutBtn" type="button" style="border-color:#e05252;color:#e05252">Log out</button><button class="btn sm" id="tbBackBtn" type="button">&larr; Practice portal</button></div></div></div>
+  <main class="wrap setup">
+    <div class="builder-grid">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <section class="card">
+          <h2>1. Exam Pattern &amp; Paper Source</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:12px">
+            <div class="field"><label>Exam Pattern</label>
+              <div class="pattern-pills" id="tbPatternPills">
+                <button type="button" class="pattern-pill active" data-pattern="adv">JEE Advanced</button>
+                <button type="button" class="pattern-pill" data-pattern="main">JEE Main</button>
+                <button type="button" class="pattern-pill" data-pattern="custom">Custom Practice</button>
+              </div>
+            </div>
+            <div class="field"><label for="tbPaperSel">Question Source / Paper</label>
+              <div class="pattern-pills" id="tbPaperPills">
+                <button type="button" class="pattern-pill active" data-paper="all">Mains + Adv</button>
+                <button type="button" class="pattern-pill" data-paper="main">Mains</button>
+                <button type="button" class="pattern-pill" data-paper="adv">Adv</button>
+              </div>
+              <div style="margin-top:6px">
+                <select id="tbPaperSel" aria-label="Question Source"></select>
+              </div>
+            </div>
+          </div>
+          <div class="field"><label for="tbTestTitle">Test Paper Title</label>
+            <input type="text" id="tbTestTitle" value="JEE ADVANCED PRACTICE TEST">
+          </div>
+          <div class="field"><label for="tbTestSubtitle">Subtitle / Description</label>
+            <input type="text" id="tbTestSubtitle" value="Chapter-wise Practice Sheet | Questions cropped from source papers">
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="field"><label for="tbCandName">Candidate Name</label>
+              <input type="text" id="tbCandName" placeholder="Your name">
+            </div>
+            <div class="field"><label for="tbTimeLimit">Time Limit (minutes, 0 for untimed)</label>
+              <input type="number" id="tbTimeLimit" value="90" min="0" step="5">
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <h2 style="margin:0">2. Select Subjects &amp; Chapters</h2>
+            <div style="font-size:13px;color:var(--muted)"><span id="tbChapSelectedCnt">0</span> chapters selected</div>
+          </div>
+          <div class="field"><label>Subjects</label>
+            <div class="chips" id="tbSubjBox">
+              <label class="chk"><input type="checkbox" data-tbsubj="Physics" checked> <span>Physics</span></label>
+              <label class="chk"><input type="checkbox" data-tbsubj="Chemistry" checked> <span>Chemistry</span></label>
+              <label class="chk"><input type="checkbox" data-tbsubj="Mathematics" checked> <span>Mathematics</span></label>
+            </div>
+          </div>
+          <div class="chtools" style="margin-top:12px">
+            <input type="text" id="tbChSearch" placeholder="Search chapters..." autocomplete="off">
+            <button class="btn sm" id="tbChAll" type="button">Select all</button>
+            <button class="btn sm" id="tbChNone" type="button">Clear</button>
+          </div>
+          <div id="tbChapList" style="max-height:480px;overflow-y:auto;border:1px solid var(--line);padding:8px;border-radius:3px"></div>
+        </section>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:16px" class="sticky">
+        <section class="card">
+          <h2>3. Questions &amp; Distribution</h2>
+          <div class="sum"><span>Available Questions</span><b class="big" id="tbSumAvail">0</b></div>
+          <div class="field" style="margin-top:12px"><label for="tbCountIn">Total Questions</label>
+            <div style="display:flex;gap:8px">
+              <input type="number" id="tbCountIn" value="30" min="1" step="1">
+              <button class="btn sm" id="tbCountAll" type="button">Max</button>
+            </div>
+            <div class="preset-counts">
+              <button class="preset-count-btn" type="button" data-cnt="15">15 Qs</button>
+              <button class="preset-count-btn" type="button" data-cnt="25">25 Qs (1 Subj: 20+5)</button>
+              <button class="preset-count-btn" type="button" data-cnt="54">54 Qs (Adv Full)</button>
+              <button class="preset-count-btn" type="button" data-cnt="75">75 Qs (Main: 20+5 per subj)</button>
+            </div>
+          </div>
+
+          <div class="field" style="margin-top:12px"><label>Question Types &amp; Counts</label>
+            <div style="display:flex;flex-direction:column;gap:8px" id="tbTypesBox">
+              <div class="tb-type-row" style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+                <label class="chk" style="display:inline-flex;align-items:center;gap:6px;margin:0;flex:1"><input type="checkbox" data-tbtype="single" checked> <span>Single Correct (MCQ)</span></label>
+                <div style="display:inline-flex;align-items:center;gap:4px">
+                  <input type="number" class="tb-type-cnt-in" data-tbtype-cnt="single" min="0" placeholder="Auto" style="width:68px;padding:3px 6px;font-size:12px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--fg);text-align:center" title="Specify how many Single Correct questions you need">
+                  <span class="muted" style="font-size:11px">Qs</span>
+                </div>
+              </div>
+              <div class="tb-type-row" style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+                <label class="chk" style="display:inline-flex;align-items:center;gap:6px;margin:0;flex:1"><input type="checkbox" data-tbtype="multi" checked> <span>One or More Correct (MSQ)</span></label>
+                <div style="display:inline-flex;align-items:center;gap:4px">
+                  <input type="number" class="tb-type-cnt-in" data-tbtype-cnt="multi" min="0" placeholder="Auto" style="width:68px;padding:3px 6px;font-size:12px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--fg);text-align:center" title="Specify how many Multiple Correct questions you need">
+                  <span class="muted" style="font-size:11px">Qs</span>
+                </div>
+              </div>
+              <div class="tb-type-row" style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+                <label class="chk" style="display:inline-flex;align-items:center;gap:6px;margin:0;flex:1"><input type="checkbox" data-tbtype="numerical" checked> <span>Numerical / Integer (NAT)</span></label>
+                <div style="display:inline-flex;align-items:center;gap:4px">
+                  <input type="number" class="tb-type-cnt-in" data-tbtype-cnt="numerical" min="0" placeholder="Auto" style="width:68px;padding:3px 6px;font-size:12px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--fg);text-align:center" title="Specify how many Numerical questions you need">
+                  <span class="muted" style="font-size:11px">Qs</span>
+                </div>
+              </div>
+              <div class="tb-type-row" style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+                <label class="chk" style="display:inline-flex;align-items:center;gap:6px;margin:0;flex:1"><input type="checkbox" data-tbtype="paragraph" checked> <span>Comprehension / Paragraph</span></label>
+                <div style="display:inline-flex;align-items:center;gap:4px">
+                  <input type="number" class="tb-type-cnt-in" data-tbtype-cnt="paragraph" min="0" placeholder="Auto" style="width:68px;padding:3px 6px;font-size:12px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--fg);text-align:center" title="Specify how many Comprehension questions you need">
+                  <span class="muted" style="font-size:11px">Qs</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field" style="margin-top:12px"><label for="tbDistMode">Distribution Mode</label>
+            <select id="tbDistMode">
+              <option value="balanced">Equal / Balanced across selected chapters</option>
+              <option value="proportional">Proportional to chapter bank size</option>
+              <option value="shuffle">Random / Shuffled</option>
+            </select>
+          </div>
+
+          <h3 style="margin-top:16px">Format &amp; Clean Options</h3>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <label class="chk"><input type="checkbox" id="tbOptAnsKey" checked> <span>Include Answer Key Grid at end</span></label>
+            <label class="chk"><input type="checkbox" id="tbOptSolutions" checked> <span>Include Worked Solutions at end</span></label>
+            <label class="chk"><input type="checkbox" id="tbOptNoWatermark" checked> <span><b>Remove FIITJEE watermarks &amp; footers</b></span></label>
+            <label class="chk"><input type="checkbox" id="tbOptUnattFirst"> <span>Unattempted questions first</span></label>
+          </div>
+
+          <div style="margin-top:20px;display:flex;flex-direction:column;gap:8px">
+            <button class="btn primary" id="btnPreviewSheet" type="button" style="width:100%;font-size:15px;padding:12px;display:flex;align-items:center;justify-content:center;gap:8px">
+              <span>Preview &amp; Customize Questions (with Swap)</span>
+            </button>
+            <button class="btn" id="btnGenSheet" type="button" style="width:100%;font-size:13px;padding:9px">Quick Generate PDF (Without Preview)</button>
+            <div id="tbProgressWrap" style="display:none;margin-top:4px;padding:12px 14px;border:1px solid var(--line);border-radius:6px;background:var(--surface);box-shadow:0 2px 8px rgba(0,0,0,0.15)">
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:600;margin-bottom:6px">
+                <span id="tbProgressStage" style="color:var(--ink)">Connecting to vector engine...</span>
+                <span id="tbProgressPct" style="color:var(--brand);font-weight:700">0%</span>
+              </div>
+              <div style="width:100%;height:8px;background:var(--surface-2);border-radius:4px;overflow:hidden">
+                <div id="tbProgressBar" style="width:0%;height:100%;background:linear-gradient(90deg, #2563eb, #38bdf8);border-radius:4px;transition:width 0.25s ease"></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-size:11px" class="muted">
+                <span id="tbProgressDetail">Looking up question segments...</span>
+                <span id="tbProgressTimer" style="font-family:monospace;font-weight:600">0.0s</span>
+              </div>
+            </div>
+            <button class="btn" id="btnGenCbt" type="button" style="width:100%">Take as CBT Online Exam</button>
+            <div id="tbStatusNote" class="muted" style="font-size:12px;text-align:center"></div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="scrTestPreview" class="screen" hidden>
+  <div class="topbar"><div class="tb-in" style="width:100%">
+    <div style="display:flex;align-items:center;gap:10px;min-width:0">
+      <button class="btn sm" id="tbPrevBackBtn" type="button">&larr; Back to Builder</button>
+      <span class="tb-title" id="tbPrevDocTitle">Test Questions Preview</span>
+      <span class="muted mono" id="tbPrevCountBadge" style="background:var(--tint);color:var(--brand-deep);padding:2px 8px;border-radius:10px;font-size:12px;font-weight:600">0 Qs</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+      <button class="btn sm" id="tbPrevShuffleAllBtn" type="button" title="Reshuffle and replace all questions with another random set">Shuffle All</button>
+      <button class="btn sm" id="tbPrevAddBtn" type="button" title="Add another random question to this test">Add Question</button>
+      <button class="btn sm primary" id="tbPrevGenPdfBtn" type="button" style="font-weight:700">Generate Vector PDF</button>
+      <button class="btn sm" id="tbPrevStartCbtBtn" type="button">Take as CBT</button>
+    </div>
+  </div></div>
+
+  <main class="wrap" style="max-width:1000px;margin:20px auto;padding:0 16px 80px 16px">
+    <!-- Preview Banner / Summary -->
+    <div class="card" style="margin-bottom:16px;background:var(--tint);border-color:var(--brand);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <div style="display:flex;flex-direction:column;gap:3px">
+        <div style="font-weight:700;font-size:14px;color:var(--brand-deep);display:flex;align-items:center;gap:6px">
+          <span>Question Staging &amp; Curation</span>
+        </div>
+        <div style="font-size:12.5px;color:var(--fg);opacity:0.9">
+          Review your selected questions below. Click <b style="color:var(--brand-deep)">Replace</b> beside any question to instantly swap it with another random question from that same topic/type. Click <b style="color:var(--brand-deep)">Solution</b> to inspect answers.
+        </div>
+      </div>
+      <div id="tbPrevSubjSummary" style="display:flex;gap:6px;flex-wrap:wrap"></div>
+    </div>
+
+    <!-- Cards container -->
+    <div id="tbPrevCardsList" style="display:flex;flex-direction:column;gap:14px"></div>
+
+    <!-- Bottom Action Bar -->
+    <div style="margin-top:20px;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:4px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-weight:600">Total Questions: <span id="tbPrevBottomCount" class="mono" style="color:var(--brand)">0</span></span>
+        <button class="btn sm" id="tbPrevBottomAddBtn" type="button">Add Random Question</button>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn sm" id="tbPrevBottomBackBtn" type="button">&larr; Back to Builder</button>
+        <button class="btn primary" id="tbPrevBottomGenPdfBtn" type="button" style="padding:8px 18px;font-size:14px;font-weight:700">Generate Vector PDF</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="scrSheetView" class="screen" hidden>
+  <div class="topbar sheet-toolbar"><div class="tb-in" style="width:100%"><div class="sheet-tools-left">
+    <button class="btn sm" id="sheetBackBtn" type="button">&larr; Back to Builder</button>
+    <button class="btn sm" id="sheetEditQuestionsBtn" type="button" style="background:#2563eb;color:#fff;border-color:#2563eb;font-weight:600" title="Return to question preview to swap questions and rebuild PDF">Preview &amp; Swap Questions</button>
+    <span class="tb-title" id="sheetDocTitle">Vector Test Sheet Preview</span>
+  </div><div class="sheet-tools-right">
+    <a class="btn sm primary" id="sheetDownloadBtn" href="#" download="test_sheet.pdf">Download PDF</a>
+    <a class="btn sm" id="sheetOpenTabBtn" href="#" target="_blank">Open in New Tab</a>
+    <button class="btn sm" id="sheetPrintBtn" type="button">Print</button>
+    <button class="btn sm" id="sheetStartCbtBtn" type="button">Take as CBT Online Exam</button>
+  </div></div></div>
+
+  <div class="sheet-view-wrap" style="padding:0;height:calc(100vh - 56px);overflow:hidden;background:#525659">
+    <iframe id="sheetPdfFrame" src="about:blank" style="width:100%;height:100%;border:none;background:#525659;display:block"></iframe>
+    <div id="sheetDocContainer" style="display:none"></div>
+  </div>
+</div>
 
 <div id="tbToast" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9999;background:#1e293b;color:#f8fafc;padding:10px 18px;border-radius:6px;box-shadow:0 6px 20px rgba(0,0,0,0.35);font-size:13px;font-weight:600;display:none;align-items:center;gap:8px;pointer-events:none;transition:opacity 0.2s ease;opacity:0"></div>
 
-
 <div id="modal" class="modal" hidden><div class="box" id="modalBox"></div></div>
-
 
 <script>
 window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},svg:{fontCache:'global'},startup:{typeset:false}};
@@ -569,7 +2025,6 @@ window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="config.js"></script>
-
 <script>
 const zipCache = new Map();
 let questionTextsMap = {};
@@ -670,7 +2125,6 @@ async function resolveZipImage(img){
 }
 function hydrateZipImages(root){ if(root) root.querySelectorAll('img[data-zipimg]').forEach(resolveZipImage); }
 </script>
-
 <script>
 (function(){
 "use strict";
@@ -884,7 +2338,6 @@ function show(id){
 const paperOnlyOK = q => cfg.paper==='all' || q.paper===cfg.paper;
 const paperOK = q => paperOnlyOK(q) && cfg.years.has(q.year);
 function typeSrcOK(q){ return cfg.types.has(q.type) && paperOK(q); }
-
 function renderYears(){
   const counts={};
   DB.forEach(q=>{ if(!(q.year in counts)) counts[q.year]=0; if(paperOnlyOK(q) && cfg.types.has(q.type) && cfg.chapters.has(q.subject+'||'+q.chapter)) counts[q.year]++; });
@@ -1590,7 +3043,6 @@ function renderReview(f){
     console.warn('Post-render error:', e);
   }
 }
-
 /* ---------- saved questions ---------- */
 let svTab='bm', svSubj='Physics', svChap=null, svPaper='all', svYear='all';
 function svIds(){ return svTab==='bm'?BM:MIS; }
@@ -1608,6 +3060,575 @@ const svCard=q=>{
 };
 function svOrder(subj,ch){ const segs=SEGMENTS[subj]||[]; let n=0; for(const g of segs){ const i=g.chapters.indexOf(ch); if(i>=0) return n+i; n+=g.chapters.length; } return 9999; }
 function svPick(){ const all=svAll(); if(!all.some(q=>q.subject===svSubj)){ const s=SUBJ.find(x=>all.some(q=>q.subject===x)); if(s) svSubj=s; } }
+/* ==================== MARKS-STYLE SCROLLABLE PRACTICE SCREEN ==================== */
+const PRK_ANS_KEY = 'aits_prk_answers';
+function getPrkAnswers(){
+  try { return JSON.parse(store.get(PRK_ANS_KEY) || '{}'); } catch(e){ return {}; }
+}
+function savePrkAnswer(qId, val, status){
+  const map = getPrkAnswers();
+  map[qId] = { val, status, t: Date.now() };
+  store.set(PRK_ANS_KEY, JSON.stringify(map));
+  markAttempted({ id: qId });
+}
+
+const prkState = {
+  subj: 'Physics',
+  chap: null,
+  paper: 'all',
+  year: 'all',
+  type: 'all',
+  status: 'all',
+  hideAttempted: false,
+  sortOrder: 'desc'
+};
+
+function openPracticeList(initialOpts){
+  if(initialOpts){
+    if(initialOpts.subject && SUBJ.includes(initialOpts.subject)) prkState.subj = initialOpts.subject;
+    if(initialOpts.chapter) prkState.chap = initialOpts.chapter;
+  }
+  const availableSubjs = SUBJ.filter(s => DB.some(q => q.subject === s));
+  if(!availableSubjs.includes(prkState.subj)) prkState.subj = availableSubjs[0] || 'Physics';
+
+  renderPracticeScreen();
+  show('scrPracticeList');
+}
+
+function renderPracticeScreen(){
+  renderPracticeSidebar();
+  renderPracticeFilterYears();
+  renderPracticeMain();
+}
+
+function renderPracticeSidebar(){
+  const availableSubjs = SUBJ.filter(s => DB.some(q => q.subject === s));
+  const subjBox = $('#prkSubjList');
+  if(subjBox){
+    subjBox.innerHTML = availableSubjs.map(s => {
+      const cnt = DB.filter(q => q.subject === s).length;
+      const isAct = s === prkState.subj;
+      return '<button type="button" class="marks-sb-item' + (isAct ? ' active' : '') + '" data-prksubj="' + esc(s) + '">' +
+        '<span>' + esc(s) + '</span>' +
+        '<span class="marks-sb-count">' + cnt + '</span>' +
+      '</button>';
+    }).join('');
+  }
+
+  const inSubj = DB.filter(q => q.subject === prkState.subj);
+  const byCh = {};
+  inSubj.forEach(q => { if(q.chapter) byCh[q.chapter] = (byCh[q.chapter] || 0) + 1; });
+
+  const chapBox = $('#prkChapList');
+  if(chapBox){
+    const keys = Object.keys(byCh).sort((a,b) => svOrder(prkState.subj, a) - svOrder(prkState.subj, b) || a.localeCompare(b));
+    let chHtml = '<button type="button" class="marks-sb-item' + (!prkState.chap ? ' active' : '') + '" data-prkchap="__ALL__">' +
+      '<span>All Chapters</span>' +
+      '<span class="marks-sb-count">' + inSubj.length + '</span>' +
+    '</button>';
+
+    chHtml += keys.map(c => {
+      const isAct = prkState.chap === c;
+      return '<button type="button" class="marks-sb-item' + (isAct ? ' active' : '') + '" data-prkchap="' + esc(c) + '">' +
+        '<span>' + esc(c) + '</span>' +
+        '<span class="marks-sb-count">' + byCh[c] + '</span>' +
+      '</button>';
+    }).join('');
+
+    chapBox.innerHTML = chHtml;
+  }
+}
+
+function renderPracticeFilterYears(){
+  const yrSel = $('#prkFilterYear');
+  if(!yrSel) return;
+  const inSubj = DB.filter(q => q.subject === prkState.subj && (!prkState.chap || q.chapter === prkState.chap));
+  const years = [...new Set(inSubj.map(q => q.year).filter(Boolean))].sort((a,b) => b - a);
+
+  let opts = '<option value="all">All Years</option>';
+  years.forEach(y => {
+    opts += '<option value="' + y + '"' + (prkState.year === String(y) ? ' selected' : '') + '>' + y + '</option>';
+  });
+  yrSel.innerHTML = opts;
+}
+
+function getFilteredPracticeQuestions(){
+  const ansMap = getPrkAnswers();
+  const list = DB.filter(q => {
+    if(q.subject !== prkState.subj) return false;
+    if(prkState.chap && q.chapter !== prkState.chap) return false;
+    if(prkState.paper !== 'all' && q.paper !== prkState.paper) return false;
+    if(prkState.year !== 'all' && String(q.year) !== String(prkState.year)) return false;
+    if(prkState.type !== 'all' && (q.rawType || q.type) !== prkState.type) return false;
+
+    const isAtt = ATT.has(q.id) || (ansMap[q.id] != null);
+    if(prkState.hideAttempted && isAtt) return false;
+
+    if(prkState.status === 'unattempted' && isAtt) return false;
+    if(prkState.status === 'attempted' && !isAtt) return false;
+    if(prkState.status === 'correct'){
+      if(!ansMap[q.id] || ansMap[q.id].status !== 'ok') return false;
+    }
+    if(prkState.status === 'wrong'){
+      if(!ansMap[q.id] || ansMap[q.id].status !== 'bad') return false;
+    }
+
+    return true;
+  });
+
+  list.sort((a,b) => {
+    const yA = a.year || 0, yB = b.year || 0;
+    if(prkState.sortOrder === 'asc') return yA - yB;
+    return yB - yA;
+  });
+
+  return list;
+}
+
+function renderPracticeMain(){
+  const topTitle = $('#prkTopbarTitle');
+  if(topTitle) topTitle.textContent = 'Practice - ' + prkState.subj + (prkState.chap ? ' - ' + prkState.chap : '');
+
+  const heroTitle = $('#prkHeroTitle');
+  if(heroTitle) heroTitle.textContent = prkState.chap ? prkState.chap : ('All ' + prkState.subj + ' Questions');
+
+  const qs = getFilteredPracticeQuestions();
+  prkFilteredList = qs;
+  const totalInScope = DB.filter(q => q.subject === prkState.subj && (!prkState.chap || q.chapter === prkState.chap)).length;
+  const ansMap = getPrkAnswers();
+  const attInScope = DB.filter(q => q.subject === prkState.subj && (!prkState.chap || q.chapter === prkState.chap) && (ATT.has(q.id) || ansMap[q.id])).length;
+
+  const statsEl = $('#prkHeroStats');
+  if(statsEl) statsEl.textContent = 'Showing all Qs (' + qs.length + '/' + totalInScope + ')';
+
+  const sortEl = $('#prkSortBtn');
+  if(sortEl) sortEl.innerHTML = prkState.sortOrder === 'asc' ? '&uarr;&darr; Year-wise (Old to New)' : '&uarr;&darr; Year-wise (New to Old)';
+
+  const cont = $('#prkQuestionsContainer');
+  if(!cont) return;
+
+  if(!qs.length){
+    cont.innerHTML = '<div class="muted" style="text-align:center;padding:48px 16px;background:var(--surface);border:1px solid var(--line);border-radius:6px">' +
+      'No questions match the current filters. Adjust your filters or switch chapters.</div>';
+    return;
+  }
+
+  // Render clean, minimalist question preview rows (Marks style list)
+  cont.innerHTML = qs.map((q, idx) => {
+    return renderPracticeRowHtml(q, idx);
+  }).join('');
+}
+
+function renderPracticeRowHtml(q, idx){
+  const ansMap = getPrkAnswers();
+  const savedAns = ansMap[q.id];
+  const isAttempted = ATT.has(q.id) || (savedAns != null);
+  const isCorrect = savedAns && savedAns.status === 'ok';
+  const isWrong = savedAns && savedAns.status === 'bad';
+
+  let rowClasses = 'marks-q-row';
+  if(isAttempted) rowClasses += ' attempted';
+  if(isCorrect) rowClasses += ' attempted-correct';
+  else if(isWrong) rowClasses += ' attempted-wrong';
+
+  const effType = q.rawType || q.type || 'single';
+  const typeLabel = QTS[effType] || effType.toUpperCase();
+  const tag = cleanSourceTag(q);
+  const isBm = BM.has(q.id);
+
+  let statusBadge = '';
+  if(isCorrect) statusBadge = '<span class="marks-q-badge correct" style="font-size:11px;padding:1px 6px">Correct</span>';
+  else if(isWrong) statusBadge = '<span class="marks-q-badge wrong" style="font-size:11px;padding:1px 6px">Incorrect</span>';
+  else if(isAttempted) statusBadge = '<span class="marks-q-badge" style="font-size:11px;padding:1px 6px">Attempted</span>';
+
+  // Question text preview
+  let previewText = '';
+  const qInfo = (typeof questionTextsMap !== 'undefined' && questionTextsMap[q.id]) ? questionTextsMap[q.id] : null;
+  if(q.previewText && String(q.previewText).trim()){
+    previewText = String(q.previewText).trim();
+  } else if(qInfo && qInfo.preview){
+    previewText = qInfo.preview;
+  } else if(q.text && String(q.text).trim()){
+    const clean = stripWatermarks(q.text).replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+    if(clean) previewText = clean.length > 150 ? (clean.slice(0, 150) + '...') : clean;
+  }
+  if(!previewText){
+    const yrStr = q.year ? (' ' + q.year) : '';
+    const paperName = q.paper === 'adv' ? 'JEE Advanced' : (q.paper === 'main' ? 'JEE Main' : 'AITS');
+    const ch = q.chapter || q.subject || 'Practice Question';
+    previewText = (tag ? (tag + ' - ') : (paperName + yrStr + ' - ')) + ch + ' (' + typeLabel + ')';
+  }
+
+  const metaParts = [];
+  if(tag) metaParts.push('<span>' + esc(tag) + '</span>');
+  if(q.chapter) metaParts.push('<span>' + esc(q.chapter) + '</span>');
+  metaParts.push('<span class="marks-q-badge" style="font-size:11px;padding:1px 6px">' + esc(typeLabel) + '</span>');
+  if(statusBadge) metaParts.push(statusBadge);
+
+  return '<div class="' + rowClasses + '" data-prkqid="' + esc(q.id) + '" data-idx="' + idx + '">' +
+    '<div class="marks-q-num-box">' + (idx + 1) + '</div>' +
+    '<div class="marks-q-row-body">' +
+      '<div class="marks-q-row-text">' + esc(previewText) + '</div>' +
+      '<div class="marks-q-row-meta">' + metaParts.join(' <span>&bull;</span> ') + '</div>' +
+    '</div>' +
+    '<div style="flex:none;display:flex;align-items:center;gap:10px">' +
+      '<button type="button" class="bmb" data-bm="' + esc(q.id) + '" aria-pressed="' + isBm + '" title="Bookmark" style="padding:4px">' + STAR + '</button>' +
+      '<span style="font-size:15px;color:var(--muted);user-select:none">&rarr;</span>' +
+    '</div>' +
+  '</div>';
+}
+
+let prkCurrentDetailIdx = 0;
+let prkFilteredList = [];
+let prkQTimerInterval = null;
+let prkQSeconds = 0;
+
+function startPrkQTimer(){
+  clearInterval(prkQTimerInterval);
+  prkQSeconds = 0;
+  updatePrkTimerDisplay();
+  prkQTimerInterval = setInterval(() => {
+    prkQSeconds++;
+    updatePrkTimerDisplay();
+  }, 1000);
+}
+
+function stopPrkQTimer(){
+  clearInterval(prkQTimerInterval);
+}
+
+function updatePrkTimerDisplay(){
+  const el = $('#prkTimerText');
+  if(!el) return;
+  const m = Math.floor(prkQSeconds / 60);
+  const s = prkQSeconds % 60;
+  el.textContent = (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
+}
+
+function openPracticeDetail(target){
+  const qs = getFilteredPracticeQuestions();
+  prkFilteredList = qs;
+  if(!qs.length) return;
+
+  if(typeof target === 'number'){
+    prkCurrentDetailIdx = Math.max(0, Math.min(target, qs.length - 1));
+  } else if(typeof target === 'string'){
+    const found = qs.findIndex(q => q.id === target);
+    prkCurrentDetailIdx = found !== -1 ? found : 0;
+  } else {
+    prkCurrentDetailIdx = 0;
+  }
+
+  show('scrPracticeDetail');
+  renderPracticeDetailView();
+}
+
+function renderPracticeDetailView(){
+  if(!prkFilteredList.length) return;
+  if(prkCurrentDetailIdx < 0) prkCurrentDetailIdx = 0;
+  if(prkCurrentDetailIdx >= prkFilteredList.length) prkCurrentDetailIdx = prkFilteredList.length - 1;
+
+  const q = prkFilteredList[prkCurrentDetailIdx];
+  if(!q) return;
+
+  const paperName = q.paper === 'adv' ? 'JEE Advanced' : (q.paper === 'main' ? 'JEE Main' : 'AITS');
+  const breadcrumbEl = $('#prkDetailBreadcrumb');
+  if(breadcrumbEl){
+    const chapPart = prkState.chap || q.chapter;
+    breadcrumbEl.textContent = paperName + (chapPart ? (' >> ' + chapPart) : (' >> ' + prkState.subj));
+  }
+
+  const qNumEl = $('#prkDetailQNum');
+  if(qNumEl) qNumEl.textContent = 'Q ' + (prkCurrentDetailIdx + 1);
+
+  const qMetaEl = $('#prkDetailQMeta');
+  if(qMetaEl){
+    const yrStr = q.year ? (' ' + q.year) : '';
+    const src = cleanSourceTag(q) || (paperName + yrStr);
+    qMetaEl.textContent = src + (q.chapter ? (' · ' + q.chapter) : '') + ' (' + (QTS[q.rawType || q.type] || q.type) + ')';
+  }
+
+  const bmBtn = $('#prkDetailBmBtn');
+  if(bmBtn){
+    bmBtn.setAttribute('data-bm', q.id);
+    bmBtn.setAttribute('aria-pressed', String(BM.has(q.id)));
+  }
+
+  const rptBtn = $('#prkDetailRptBtn');
+  if(rptBtn){
+    rptBtn.setAttribute('data-rpt', q.id);
+    const isRpt = isQuestionReported(q.id);
+    rptBtn.textContent = isRpt ? 'Reported' : 'Report';
+    rptBtn.style.color = isRpt ? '#d32f2f' : 'inherit';
+  }
+
+  // Prev / Next button state
+  const prevBtn = $('#prkPrevQBtn');
+  if(prevBtn){
+    prevBtn.disabled = prkCurrentDetailIdx <= 0;
+  }
+  const nextBtn = $('#prkNextQBtn');
+  if(nextBtn){
+    nextBtn.disabled = prkCurrentDetailIdx >= prkFilteredList.length - 1;
+  }
+
+  // Bottom Check / Action button state
+  const ansMap = getPrkAnswers();
+  const savedAns = ansMap[q.id];
+  const checkBtn = $('#prkBottomCheckBtn');
+  if(checkBtn){
+    if(savedAns){
+      checkBtn.textContent = 'Clear & Try Again';
+      checkBtn.style.background = 'var(--surface-2)';
+      checkBtn.style.color = 'var(--fg)';
+      checkBtn.style.border = '1px solid var(--line)';
+    } else {
+      checkBtn.textContent = 'Check Answer';
+      checkBtn.style.background = '#2563eb';
+      checkBtn.style.color = '#fff';
+      checkBtn.style.border = 'none';
+    }
+  }
+
+  // Render question card
+  const cont = $('#prkDetailCardContainer');
+  if(cont){
+    cont.innerHTML = renderPracticeCardHtml(q, prkCurrentDetailIdx);
+    hydrateZipImages(cont);
+    typeset(cont);
+  }
+
+  // Start question stopwatch & reset zoom
+  setPrkZoom(100);
+  startPrkQTimer();
+}
+
+function prevDetailQuestion(){
+  if(prkCurrentDetailIdx > 0){
+    prkCurrentDetailIdx--;
+    renderPracticeDetailView();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function nextDetailQuestion(){
+  if(prkCurrentDetailIdx < prkFilteredList.length - 1){
+    prkCurrentDetailIdx++;
+    renderPracticeDetailView();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function renderPracticeCardHtml(q, idx){
+  const ansMap = getPrkAnswers();
+  const savedAns = ansMap[q.id];
+  const isAttempted = ATT.has(q.id) || (savedAns != null);
+  const isCorrect = savedAns && savedAns.status === 'ok';
+  const isWrong = savedAns && savedAns.status === 'bad';
+
+  const effType = q.rawType || q.type || 'single';
+
+  // Passage
+  let passageHtml = '';
+  if(q.paragraph && q.passageImages && q.passageImages.length){
+    passageHtml = '<div style="margin-bottom:16px;padding:14px 18px;background:var(--surface-2);border-left:3px solid var(--brand);border-radius:0 8px 8px 0;font-size:14px;line-height:1.6">' +
+      (q.passageText ? '<div style="margin-bottom:8px">' + rich(stripWatermarks(q.passageText)) + '</div>' : '') +
+      q.passageImages.map(u => imageMarkup(u, 'Passage figure')).join('') +
+    '</div>';
+  }
+
+  // Question figures/diagrams (primary question display)
+  const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
+  const hasImgs = qImgs && qImgs.length > 0;
+  const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure')).join('');
+
+  // Fallback text (only shown if question has no image)
+  const qInfo = (typeof questionTextsMap !== 'undefined' && questionTextsMap[q.id]) ? questionTextsMap[q.id] : null;
+  const rawText = (q.stem || q.text || (qInfo && qInfo.full) || '').trim();
+  let textHtml = '';
+  if(!hasImgs && rawText){
+    textHtml = '<div class="marks-detail-qtext">' + rich(stripWatermarks(rawText)) + '</div>';
+  }
+
+  // Zoom Bar (Smooth in-card zooming)
+  const zoomBarHtml = '<div class="marks-zoom-bar">' +
+    '<button type="button" class="marks-zoom-btn" id="prkZoomOutBtn" title="Zoom Out">&minus;</button>' +
+    '<span id="prkZoomLevelText" style="font-size:12px;font-family:monospace;font-weight:600">100%</span>' +
+    '<button type="button" class="marks-zoom-btn" id="prkZoomInBtn" title="Zoom In">&plus;</button>' +
+    '<button type="button" class="marks-zoom-btn" id="prkZoomResetBtn" title="Reset Zoom" style="font-size:11px;padding:3px 8px">Reset</button>' +
+  '</div>';
+
+  // 2x2 Options Grid (Clean "Option (A)", "Option (B)", etc.)
+  let interactHtml = '';
+  if(effType === 'numerical'){
+    const userVal = savedAns ? savedAns.val : '';
+    interactHtml = '<div style="margin-top:24px">' +
+      '<div style="font-size:13px;font-weight:600;margin-bottom:8px;color:var(--muted)">Enter Numerical Value:</div>' +
+      '<div class="marks-q-numinput-wrap" style="max-width:320px">' +
+        '<input type="text" class="marks-q-numinput" data-prknuminput="' + esc(q.id) + '" placeholder="e.g. 4.25" value="' + esc(userVal != null ? userVal : '') + '">' +
+      '</div>' +
+    '</div>';
+  } else {
+    const isMulti = effType === 'multi';
+    const chosenList = savedAns ? (Array.isArray(savedAns.val) ? savedAns.val : [savedAns.val]) : [];
+    const correctList = Array.isArray(q.ans) ? q.ans : (q.ans != null ? [q.ans] : []);
+    const optLabels = ['Option (A)', 'Option (B)', 'Option (C)', 'Option (D)'];
+
+    interactHtml = '<div class="marks-options-grid">' + optLabels.map((label, oIdx) => {
+      let optClass = 'marks-opt-chip';
+      const isSelected = chosenList.includes(oIdx);
+      if(isSelected) optClass += ' selected';
+      if(savedAns){
+        if(correctList.includes(oIdx)) optClass += ' correct';
+        else if(isSelected) optClass += ' wrong';
+      }
+      return '<div class="' + optClass + '" data-prkopt="' + esc(q.id) + '" data-oidx="' + oIdx + '" data-multi="' + (isMulti ? '1' : '0') + '">' +
+        '<div class="marks-opt-circle">' + LET[oIdx] + '</div>' +
+        '<div class="marks-opt-text">' + label + '</div>' +
+      '</div>';
+    }).join('') + '</div>';
+  }
+
+  // Solution Box
+  let solHtml = '';
+  if(savedAns){
+    solHtml = '<div class="marks-sol-box" style="margin-top:28px">' +
+      '<div style="margin-bottom:10px"><b>Key:</b> <span style="font-weight:700;color:var(--good,#15803d)">' + esc(keyText(q)) + '</span> &bull; <b>Your Answer:</b> <span style="font-weight:700">' + esc(fmtAns(q, savedAns.val)) + '</span></div>' +
+      ((q.solution || (q.solImages && q.solImages.length)) ?
+        '<div><b>Solution:</b><div style="margin-top:8px;font-size:15.5px;line-height:1.65;font-family:var(--font-q)">' + rich(q.solution || '') + (q.solImages || []).map(u => imageMarkup(u, 'Solution figure')).join('') + '</div></div>' :
+        '<div class="muted">No extended solution image was attached in archive.</div>') +
+    '</div>';
+  }
+
+  return '<article class="marks-detail-card" id="prkCard_' + esc(q.id) + '" data-qid="' + esc(q.id) + '">' +
+    zoomBarHtml +
+    '<div class="marks-q-body">' +
+      passageHtml +
+      textHtml +
+      imgsHtml +
+      interactHtml +
+    '</div>' +
+    (solHtml ? solHtml : '') +
+  '</article>';
+}
+
+let prkCurrentZoom = 100;
+
+function setPrkZoom(zoomPercent){
+  prkCurrentZoom = Math.max(75, Math.min(250, zoomPercent));
+  const el = document.getElementById('prkZoomLevelText');
+  if(el) el.textContent = prkCurrentZoom + '%';
+  const svgs = document.querySelectorAll('#prkDetailCardContainer .vector-inline-svg, #prkDetailCardContainer .qimg');
+  svgs.forEach(item => {
+    item.style.transform = prkCurrentZoom === 100 ? 'none' : 'scale(' + (prkCurrentZoom / 100) + ')';
+    item.style.transformOrigin = 'top center';
+    item.style.transition = 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)';
+  });
+}
+
+function handlePrkOptionClick(qId, oIdx, isMulti){
+  const card = document.getElementById('prkCard_' + qId);
+  if(!card) return;
+
+  // Don't change selection if already checked/attempted
+  const ansMap = getPrkAnswers();
+  if(ansMap[qId]) return;
+
+  if(!isMulti){
+    card.querySelectorAll('.marks-opt-chip').forEach(el => el.classList.remove('selected'));
+    const optEl = card.querySelector('.marks-opt-chip[data-oidx="' + oIdx + '"]');
+    if(optEl) optEl.classList.add('selected');
+  } else {
+    const optEl = card.querySelector('.marks-opt-chip[data-oidx="' + oIdx + '"]');
+    if(optEl) optEl.classList.toggle('selected');
+  }
+}
+
+function handlePrkBottomCheck(){
+  if(!prkFilteredList.length) return;
+  const q = prkFilteredList[prkCurrentDetailIdx];
+  if(!q) return;
+
+  const ansMap = getPrkAnswers();
+  const savedAns = ansMap[q.id];
+  if(savedAns){
+    // Retry / Clear
+    handlePrkRetry(q.id);
+    return;
+  }
+
+  const effType = q.rawType || q.type || 'single';
+  const card = document.getElementById('prkCard_' + q.id);
+  if(!card) return;
+
+  if(effType === 'numerical'){
+    const input = card.querySelector('input[data-prknuminput]');
+    const val = input ? input.value.trim() : '';
+    if(!val){
+      alert('Please enter a numerical answer.');
+      return;
+    }
+    const parsed = parseFloat(val);
+    let isOk = false;
+    if(q.range && q.range.length >= 2){
+      isOk = parsed >= q.range[0] && parsed <= q.range[1];
+    } else {
+      isOk = Math.abs(parsed - parseFloat(q.ans)) < 0.01;
+    }
+    savePrkAnswer(q.id, val, isOk ? 'ok' : 'bad');
+    renderPracticeDetailView();
+  } else {
+    const isMulti = effType === 'multi';
+    const selected = [...card.querySelectorAll('.marks-opt-chip.selected')].map(el => parseInt(el.dataset.oidx, 10));
+    if(!selected.length){
+      alert('Please select an option before checking.');
+      return;
+    }
+    const correctList = Array.isArray(q.ans) ? q.ans : (q.ans != null ? [q.ans] : []);
+    let isOk = false;
+    if(isMulti){
+      isOk = selected.length === correctList.length && selected.every(x => correctList.includes(x));
+      savePrkAnswer(q.id, selected, isOk ? 'ok' : 'bad');
+    } else {
+      isOk = correctList.includes(selected[0]);
+      savePrkAnswer(q.id, selected[0], isOk ? 'ok' : 'bad');
+    }
+    renderPracticeDetailView();
+  }
+}
+
+function handlePrkRetry(qId){
+  const map = getPrkAnswers();
+  delete map[qId];
+  store.set(PRK_ANS_KEY, JSON.stringify(map));
+  renderPracticeDetailView();
+}
+
+function handlePrkShowSol(qId){
+  const q = findQuestionById(qId);
+  if(!q) return;
+  savePrkAnswer(qId, null, 'skip');
+  renderPracticeDetailView();
+}
+
+function resetAllPracticeAttempts(){
+  if(confirm('Reset all your recorded practice attempts in this browser?')){
+    store.set(PRK_ANS_KEY, '{}');
+    renderPracticeMain();
+  }
+}
+
+function startTestForCurrentPracticeChapter(){
+  const qs = DB.filter(q => q.subject === prkState.subj && (!prkState.chap || q.chapter === prkState.chap));
+  if(!qs.length){
+    alert('No questions in this chapter to start a test.');
+    return;
+  }
+  const title = prkState.chap ? (prkState.subj + ' - ' + prkState.chap) : (prkState.subj + ' CHAPTER TEST');
+  buildTest(qs.slice(0, 30), Math.min(30, qs.length) * 3, cfg.preset || 'adv', title);
+  renderInstr();
+  show('scrInstr');
+}
 
 function renderSaved(){
   const all=svAll(), subs=SUBJ.filter(s=>DB.some(q=>q.subject===s));
@@ -1937,7 +3958,6 @@ function openReportsModal(){
     });
   });
 }
-
 /* ---------- events ---------- */
 document.addEventListener('change',e=>{
   const t=e.target;
@@ -2451,7 +4471,6 @@ document.addEventListener('keydown',e=>{
   }
 });
 
-
 /* ---------- reliable bulk selection controls ---------- */
 function applyBulkSelection(buttonId, containerSelector, checkboxSelector, getKey, selected) {
   const button = document.getElementById(buttonId);
@@ -2480,7 +4499,292 @@ applyBulkSelection('chAll', '#chapList', 'input[data-ch]', cb => cb.dataset.ch, 
 applyBulkSelection('chNone', '#chapList', 'input[data-ch]', cb => cb.dataset.ch, false);
 applyBulkSelection('yrAll', '#yearBox', 'input[data-year]', cb => cb.dataset.year, true);
 
+// Setup Test Builder listeners
+$('#tbSubjBox').addEventListener('change', e => {
+  const cb = e.target.closest('input[data-tbsubj]');
+  if(!cb) return;
+  if(cb.checked) tbCfg.subjects.add(cb.dataset.tbsubj);
+  else tbCfg.subjects.delete(cb.dataset.tbsubj);
+  updateBuilderPaperOptions();
+  renderBuilderChapters();
+  refreshBuilderSummary();
+});
+document.addEventListener('change', e => {
+  if(e.target && e.target.id === 'tbPaperSel'){
+    tbCfg.paper = e.target.value;
+    updateBuilderPaperOptions();
+    renderBuilderChapters();
+    refreshBuilderSummary();
+  }
+});
+$('#tbTypesBox').addEventListener('change', e => {
+  const cb = e.target.closest('input[data-tbtype]');
+  if(cb){
+    if(cb.checked){
+      tbCfg.types.add(cb.dataset.tbtype);
+    } else {
+      tbCfg.types.delete(cb.dataset.tbtype);
+      if(tbCfg.typeCounts) tbCfg.typeCounts[cb.dataset.tbtype] = null;
+      const countInput = $(`#tbTypesBox input[data-tbtype-cnt="${cb.dataset.tbtype}"]`);
+      if(countInput) countInput.value = '';
+    }
+    renderBuilderChapters();
+    refreshBuilderSummary();
+    return;
+  }
+  const cntIn = e.target.closest('input[data-tbtype-cnt]');
+  if(cntIn){
+    const t = cntIn.dataset.tbtypeCnt;
+    const val = parseInt(cntIn.value, 10);
+    if(!isNaN(val) && val > 0){
+      tbCfg.typeCounts[t] = val;
+      tbCfg.types.add(t);
+      const cb = $(`#tbTypesBox input[data-tbtype="${t}"]`);
+      if(cb) cb.checked = true;
+    } else {
+      tbCfg.typeCounts[t] = null;
+      if(cntIn.value === '0'){
+        tbCfg.types.delete(t);
+        const cb = $(`#tbTypesBox input[data-tbtype="${t}"]`);
+        if(cb) cb.checked = false;
+      }
+    }
+    const sum = Object.values(tbCfg.typeCounts).filter(v => v != null).reduce((a, b) => a + b, 0);
+    if(sum > 0){
+      tbCfg.count = sum;
+      $('#tbCountIn').value = sum;
+    }
+    renderBuilderChapters();
+    refreshBuilderSummary();
+  }
+});
+$('#tbTypesBox').addEventListener('input', e => {
+  const cntIn = e.target.closest('input[data-tbtype-cnt]');
+  if(cntIn){
+    const t = cntIn.dataset.tbtypeCnt;
+    const val = parseInt(cntIn.value, 10);
+    if(!isNaN(val) && val > 0){
+      tbCfg.typeCounts[t] = val;
+      tbCfg.types.add(t);
+      const cb = $(`#tbTypesBox input[data-tbtype="${t}"]`);
+      if(cb) cb.checked = true;
+    } else {
+      tbCfg.typeCounts[t] = null;
+    }
+    const sum = Object.values(tbCfg.typeCounts).filter(v => v != null).reduce((a, b) => a + b, 0);
+    if(sum > 0){
+      tbCfg.count = sum;
+      $('#tbCountIn').value = sum;
+    }
+    refreshBuilderSummary();
+  }
+});
+$('#tbChapList').addEventListener('change', e => {
+  const segCb = e.target.closest('input[data-tbsegment]');
+  if(segCb){
+    const group = segCb.closest('.chgroup');
+    group.querySelectorAll('input[data-tbch]').forEach(cb => {
+      cb.checked = segCb.checked;
+      if(segCb.checked) tbCfg.chapters.add(cb.dataset.tbch);
+      else tbCfg.chapters.delete(cb.dataset.tbch);
+    });
+    renderBuilderChapters();
+    refreshBuilderSummary();
+    return;
+  }
+  const chCb = e.target.closest('input[data-tbch]');
+  if(chCb){
+    if(chCb.checked) tbCfg.chapters.add(chCb.dataset.tbch);
+    else tbCfg.chapters.delete(chCb.dataset.tbch);
+    renderBuilderChapters();
+    refreshBuilderSummary();
+  }
+});
+$('#tbChSearch').addEventListener('input', () => { renderBuilderChapters(); });
+$('#tbCountIn').addEventListener('input', () => { tbCfg.count = +($('#tbCountIn').value) || 30; });
+window.addEventListener('hashchange', () => {
+  if(window.location.hash.startsWith('#practice') || window.location.hash.startsWith('#marks')) openPracticeList();
+  else if(window.location.hash.startsWith('#builder') || window.location.hash.startsWith('#test-builder')) openBuilderScreen();
+  else if(window.location.hash.startsWith('#cbt')) checkCbtHash();
+});
 
+applyBulkSelection('yrNone', '#yearBox', 'input[data-year]', cb => cb.dataset.year, false);
+
+
+/* ==================== TEST BUILDER & BUILD SHEETS IMPLEMENTATION ==================== */
+function stripWatermarks(text){
+  if(!text) return '';
+  return String(text)
+    .replace(/(?:FIITJEE\s*Ltd\.?|FIITJEE\s*House)[^\n<]*/gi, '')
+    .replace(/website:\s*www\.fiitjee\.com[^\n<]*/gi, '')
+    .replace(/For More Join:\s*@\S+/gi, '')
+    .replace(/@FIITJEE\S*/gi, '')
+    .replace(/Kalu\s*Sarai[^\n<]*/gi, '')
+    .replace(/Sarvapriya\s*Vihar[^\n<]*/gi, '')
+    .replace(/\b\d{4}\s*FIITJEE\s*Students[^\n<]*/gi, '')
+    .trim();
+}
+
+function cleanSourceTag(q){
+  let yr = q.year || '';
+  let s = q.source || q.paperTitle || '';
+  s = s.replace(/^q_/i, '').replace(/^QM__/i, '').replace(/FIITJEE\s*AITS\s*/i, '');
+  let m = s.match(/(?:FT|CRT|PT|OT)[-_ ]*(?:[IVX\d]+)/i);
+  let ptype = m ? m[0].toUpperCase() : (q.paper === 'adv' ? 'JEE Adv' : (q.paper === 'main' ? 'JEE Main' : 'AITS'));
+  let qn = q.questionNumber ? 'Q' + q.questionNumber : (q.id ? String(q.id).split('_').pop() : '');
+  if(!qn || isNaN(+qn.replace(/\D/g, ''))) qn = '';
+  else qn = 'Q' + parseInt(qn.replace(/\D/g, ''), 10);
+  if(yr && qn) return yr + ' | ' + qn;
+  if(yr && ptype) return yr + ' | ' + ptype;
+  return (yr ? yr + ' | ' : '') + (q.chapter ? q.chapter.slice(0, 18) : 'AITS');
+}
+
+const tbCfg = {
+  pattern: 'adv',
+  paper: 'all',
+  subjects: new Set(['Physics', 'Chemistry', 'Mathematics']),
+  chapters: new Set(),
+  types: new Set(['single', 'multi', 'numerical', 'paragraph']),
+  typeCounts: { single: null, multi: null, numerical: null, paragraph: null },
+  count: 30,
+  distMode: 'balanced',
+  optAnsKey: true,
+  optSolutions: true,
+  optNoWatermark: true,
+  optUnattFirst: false,
+  builtQs: []
+};
+
+function updateBuilderPaperOptions(){
+  const inSubj = DB.filter(q => tbCfg.subjects.has(q.subject));
+  let mainCnt = 0, advCnt = 0;
+  inSubj.forEach(q => {
+    if(q.paper === 'main') mainCnt++;
+    else if(q.paper === 'adv') advCnt++;
+  });
+  const total = inSubj.length;
+  const sel = $('#tbPaperSel');
+  if(sel){
+    sel.innerHTML = '<option value="all">Mains and Advanced papers (' + total + ')</option>' +
+                    '<option value="main">Mains paper (' + mainCnt + ')</option>' +
+                    '<option value="adv">Advanced paper (' + advCnt + ')</option>';
+    sel.value = tbCfg.paper;
+  }
+  document.querySelectorAll('#tbPaperPills .pattern-pill').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.paper === tbCfg.paper);
+  });
+}
+
+function renderBuilderChapters(){
+  const term = ($('#tbChSearch').value || '').trim().toLowerCase();
+  const groups = {};
+  DB.forEach(q => {
+    if(!groups[q.subject]) groups[q.subject] = {};
+    const c = groups[q.subject][q.chapter] || (groups[q.subject][q.chapter] = {n: 0});
+    if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return;
+    const effType = q.rawType || q.type;
+    if(tbCfg.pattern === 'main'){
+      if(effType.includes('para') || effType.includes('comp') || effType.includes('multi') || effType.includes('msq')) return;
+      if(effType === 'single' || effType === 'mcq' || effType === 'numerical' || effType === 'nat') c.n++;
+    } else {
+      if(tbCfg.types.has(effType) || tbCfg.types.has(q.type)) c.n++;
+    }
+  });
+
+  const subjects = Object.keys(groups).filter(s => tbCfg.subjects.has(s)).sort((a,b) => subjRank(a) - subjRank(b) || a.localeCompare(b));
+  let totalSelected = 0;
+
+  const html = subjects.map(subject => {
+    const available = groups[subject];
+    const orderedSegments = (SEGMENTS[subject] || []).map(g => ({
+      name: g.name,
+      chapters: g.chapters.filter(c => Object.prototype.hasOwnProperty.call(available, c))
+    })).filter(g => g.chapters.length);
+    const assigned = new Set(orderedSegments.flatMap(g => g.chapters));
+    const extras = Object.keys(available).filter(c => !assigned.has(c)).sort((a,b) => a.localeCompare(b, undefined, {numeric:true}));
+    if(extras.length) orderedSegments.push({name: 'Other Chapters', chapters: extras});
+
+    return orderedSegments.map(segment => {
+      const shown = segment.chapters.filter(c => !term || c.toLowerCase().includes(term) || segment.name.toLowerCase().includes(term) || subject.toLowerCase().includes(term));
+      if(!shown.length) return '';
+      const total = shown.reduce((n, c) => n + (available[c] ? available[c].n : 0), 0);
+      const segmentKey = subject + '||SEGMENT||' + segment.name;
+      return '<div class="chgroup" style="margin-bottom:8px;border:1px solid var(--line);border-radius:3px;overflow:hidden">' +
+        '<div class="gh" style="display:flex;align-items:center;padding:5px 10px;background:var(--brand);color:#fff;font-weight:700;font-size:13px">' +
+          '<label class="chk" style="flex:1;cursor:pointer"><input type="checkbox" data-tbsegment="' + esc(segmentKey) + '" style="accent-color:#fff"> <span>' + esc(subject) + ' &ndash; ' + esc(segment.name) + '</span></label>' +
+          '<span class="cnt" style="font-size:12px">' + total + '</span>' +
+        '</div>' +
+        '<div class="chlist" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:2px 14px;padding:6px 10px">' +
+          shown.map(c => {
+            const k = subject + '||' + c;
+            const isChecked = tbCfg.chapters.has(k);
+            if(isChecked) totalSelected++;
+            const cnt = available[c] ? available[c].n : 0;
+            return '<label class="chk' + (cnt ? '' : ' zero') + '" style="cursor:pointer;font-size:13px"><input type="checkbox" data-tbch="' + esc(k) + '"' + (isChecked ? ' checked' : '') + '> <span>' + esc(c) + '</span><span class="cnt">' + cnt + '</span></label>';
+          }).join('') +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }).join('');
+
+  $('#tbChapList').innerHTML = html || '<div class="muted" style="padding:12px;text-align:center">No chapters found. Please enable at least one Subject.</div>';
+  $('#tbChapSelectedCnt').textContent = totalSelected;
+
+  // Sync segment master checkboxes
+  document.querySelectorAll('#tbChapList input[data-tbsegment]').forEach(cb => {
+    const boxes = [...cb.closest('.chgroup').querySelectorAll('input[data-tbch]')];
+    const on = boxes.filter(b => b.checked).length;
+    cb.checked = on === boxes.length && on > 0;
+    cb.indeterminate = on > 0 && on < boxes.length;
+  });
+}
+
+function refreshBuilderSummary(){
+  const pool = DB.filter(q => {
+    if(!tbCfg.subjects.has(q.subject)) return false;
+    if(!tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
+    if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return false;
+    const effType = q.rawType || q.type;
+    if(tbCfg.pattern === 'main'){
+      if(effType.includes('para') || effType.includes('comp') || effType.includes('multi') || effType.includes('msq')) return false;
+      return effType === 'single' || effType === 'mcq' || effType === 'numerical' || effType === 'nat';
+    }
+    return tbCfg.types.has(effType) || tbCfg.types.has(q.type);
+  });
+
+  const avail = pool.length;
+  $('#tbSumAvail').textContent = avail;
+  $('#tbCountIn').max = avail;
+  const explicitSum = tbCfg.typeCounts ? Object.values(tbCfg.typeCounts).filter(v => v != null && v > 0).reduce((a, b) => a + b, 0) : 0;
+  if(explicitSum > 0){
+    tbCfg.count = explicitSum;
+    $('#tbCountIn').value = explicitSum;
+  } else {
+    if(tbCfg.count > avail && avail > 0) tbCfg.count = avail;
+    $('#tbCountIn').value = Math.min(tbCfg.count || 30, Math.max(avail, 1));
+  }
+
+  const ok = avail > 0;
+  if($('#btnGenSheet')) $('#btnGenSheet').disabled = !ok;
+  if($('#btnPreviewSheet')) $('#btnPreviewSheet').disabled = !ok;
+  if($('#btnGenCbt')) $('#btnGenCbt').disabled = !ok;
+  if(tbCfg.pattern === 'main'){
+    const activeSubjs = ['Physics', 'Chemistry', 'Mathematics'].filter(s => tbCfg.subjects.has(s));
+    if(explicitSum > 0){
+      $('#tbStatusNote').textContent = 'Custom counts: ' + (tbCfg.typeCounts.single || 'Auto') + ' SCQ, ' + (tbCfg.typeCounts.numerical || 'Auto') + ' NAT (' + explicitSum + ' total Qs).';
+    } else {
+      const reqTotal = activeSubjs.length * 25;
+      $('#tbStatusNote').textContent = 'JEE Main Pattern: Strictly 20 SCQ + 5 Numerical per subject (25 Qs/subj, ' + reqTotal + ' total Qs).';
+    }
+  } else {
+    if(explicitSum > 0){
+      const parts = Object.keys(tbCfg.typeCounts).filter(k => tbCfg.typeCounts[k] != null && tbCfg.typeCounts[k] > 0).map(k => tbCfg.typeCounts[k] + ' ' + (TYPES[k] || k));
+      $('#tbStatusNote').textContent = 'Custom pattern: ' + parts.join(', ') + ' (' + avail + ' available in pool).';
+    } else {
+      $('#tbStatusNote').textContent = ok ? (avail + ' questions match your criteria.') : 'Select at least one chapter and question type.';
+    }
+  }
+}
 
 function checkCbtHash(){
   const hash = window.location.hash || '';
@@ -2504,45 +4808,921 @@ function checkCbtHash(){
         }
       }
     }
-  } else if(hash === '#custom-cbt'){
-    try {
-      const saved = sessionStorage.getItem('aits_cbt_custom_test');
-      if(saved){
-        const { qs: qIds, timeLimit, pattern, title } = JSON.parse(saved);
-        sessionStorage.removeItem('aits_cbt_custom_test');
-        const qMap = new Map(DB.map(q => [q.id, q]));
-        const selected = qIds.map(id => qMap.get(id)).filter(Boolean);
-        if(selected.length){
-          buildTest(selected, timeLimit, pattern, title);
-          renderInstr();
-          show('scrInstr');
-          return true;
-        }
-      }
-    } catch(e){
-      console.warn('Failed to load custom cbt test', e);
-    }
   }
   return false;
 }
 
+const TB_AUTH_KEY = 'aits_tb_auth';
+function isBuilderAuthenticated(){
+  return sessionStorage.getItem(TB_AUTH_KEY) === '1' || localStorage.getItem(TB_AUTH_KEY) === '1';
+}
+function setBuilderAuthenticated(state){
+  if(state){
+    sessionStorage.setItem(TB_AUTH_KEY, '1');
+    localStorage.setItem(TB_AUTH_KEY, '1');
+  } else {
+    sessionStorage.removeItem(TB_AUTH_KEY);
+    localStorage.removeItem(TB_AUTH_KEY);
+  }
+}
+function showBuilderLogin(){
+  show('scrBuilderLogin');
+  const user = $('#tbLoginUser'), pass = $('#tbLoginPass'), err = $('#tbLoginErr');
+  if(err) err.style.display = 'none';
+  if(user){ user.value = ''; setTimeout(() => user.focus(), 50); }
+  if(pass) pass.value = '';
+}
+function handleBuilderLogin(){
+  const user = ($('#tbLoginUser') ? $('#tbLoginUser').value : '').trim();
+  const pass = ($('#tbLoginPass') ? $('#tbLoginPass').value : '').trim();
+  const err = $('#tbLoginErr');
+  if(user === 'admin' && pass === 'anwesh@14'){
+    setBuilderAuthenticated(true);
+    if(err) err.style.display = 'none';
+    openBuilderScreen();
+  } else {
+    if(err){
+      err.textContent = 'Invalid username or password. Access is restricted.';
+      err.style.display = 'block';
+    }
+    const passEl = $('#tbLoginPass');
+    if(passEl){ passEl.value = ''; passEl.focus(); }
+  }
+}
+function logoutBuilder(){
+  setBuilderAuthenticated(false);
+  show('scrSetup');
+  renderHist();
+}
+document.addEventListener('submit', e => {
+  if(e.target && e.target.id === 'tbLoginForm'){
+    e.preventDefault();
+    handleBuilderLogin();
+  }
+});
 
-/* ---------- index boot ---------- */
+function openBuilderScreen(){
+  if(!isBuilderAuthenticated()){
+    showBuilderLogin();
+    return;
+  }
+  const hash = window.location.hash || '';
+  if(hash.includes('?')){
+    const qIdx = hash.indexOf('?');
+    const params = new URLSearchParams(hash.slice(qIdx + 1));
+    const subj = params.get('subject');
+    const chap = params.get('chapter');
+    if(subj && SUBJ.includes(subj)){
+      tbCfg.subjects = new Set([subj]);
+      document.querySelectorAll('#tbSubjBox input[data-tbsubj]').forEach(cb => {
+        cb.checked = cb.dataset.tbsubj === subj;
+      });
+    }
+    if(chap){
+      const fullKey = (subj || 'Physics') + '||' + chap;
+      tbCfg.chapters = new Set([fullKey]);
+    }
+  } else if(!tbCfg.chapters.size && DB.length){
+    // Select all chapters of active subjects by default
+    DB.forEach(q => {
+      if(tbCfg.subjects.has(q.subject)) tbCfg.chapters.add(q.subject + '||' + q.chapter);
+    });
+  }
+  updateBuilderPaperOptions();
+  renderBuilderChapters();
+  refreshBuilderSummary();
+  show('scrTestBuilder');
+
+  // Pre-warm engines in background
+  if(window.AITS_CONFIG){
+    if(window.AITS_CONFIG.localVectorEngineUrl){
+      try { fetch(window.AITS_CONFIG.localVectorEngineUrl.replace(/\/+$/, '') + '/health').catch(()=>{}); } catch(e){}
+    }
+    if(window.AITS_CONFIG.vectorEngineUrl){
+      try { fetch(window.AITS_CONFIG.vectorEngineUrl.replace(/\/+$/, '') + '/health', { mode: 'no-cors' }).catch(()=>{}); } catch(e){}
+    }
+  }
+}
+
+function getSelectedBuilderQuestions(){
+  const activeSubjs = ['Physics', 'Chemistry', 'Mathematics'].filter(s => tbCfg.subjects.has(s));
+  if(!activeSubjs.length) return [];
+
+  const unattFirst = $('#tbOptUnattFirst') ? $('#tbOptUnattFirst').checked : true;
+  const distMode = $('#tbDistMode') ? $('#tbDistMode').value : 'balanced';
+
+  function pickFrom(pool, count){
+    if(!pool.length || count <= 0) return [];
+    if(distMode === 'balanced'){
+      const byCh = {};
+      pool.forEach(q => { if(!byCh[q.chapter]) byCh[q.chapter] = []; byCh[q.chapter].push(q); });
+      const chs = Object.keys(byCh);
+      const perCh = Math.max(1, Math.floor(count / Math.max(1, chs.length)));
+      const chPools = {};
+      chs.forEach(k => {
+        let list = byCh[k].slice();
+        if(unattFirst){
+          const a = list.filter(q => !ATT.has(q.id)), b = list.filter(q => ATT.has(q.id));
+          shuffle(a); shuffle(b); list = a.concat(b);
+        } else {
+          shuffle(list);
+        }
+        chPools[k] = list;
+      });
+
+      let res = [], rem = count;
+      for(const k of chs){
+        if(rem <= 0) break;
+        const take = Math.min(perCh, chPools[k].length, rem);
+        res = res.concat(chPools[k].slice(0, take));
+        chPools[k] = chPools[k].slice(take);
+        rem -= take;
+      }
+      if(rem > 0){
+        for(const k of chs){
+          if(rem <= 0) break;
+          const take = Math.min(rem, chPools[k].length);
+          res = res.concat(chPools[k].slice(0, take));
+          chPools[k] = chPools[k].slice(take);
+          rem -= take;
+        }
+      }
+      return res;
+    } else {
+      let list = pool.slice();
+      if(unattFirst){
+        const a = list.filter(q => !ATT.has(q.id)), b = list.filter(q => ATT.has(q.id));
+        shuffle(a); shuffle(b); list = a.concat(b);
+      } else {
+        shuffle(list);
+      }
+      return list.slice(0, count);
+    }
+  }
+
+  const hasTypeCounts = tbCfg.typeCounts && Object.values(tbCfg.typeCounts).some(v => v != null && v > 0);
+
+  if(tbCfg.pattern === 'main'){
+    const totalTarget = +($('#tbCountIn').value) || (activeSubjs.length * 25);
+    const hasExplicitScq = tbCfg.typeCounts && tbCfg.typeCounts.single != null && tbCfg.typeCounts.single > 0;
+    const hasExplicitNat = tbCfg.typeCounts && tbCfg.typeCounts.numerical != null && tbCfg.typeCounts.numerical > 0;
+
+    let perSubjScq, perSubjNat;
+    if(hasExplicitScq || hasExplicitNat){
+      const totalScq = hasExplicitScq ? tbCfg.typeCounts.single : Math.max(0, totalTarget - (hasExplicitNat ? tbCfg.typeCounts.numerical : 0));
+      const totalNat = hasExplicitNat ? tbCfg.typeCounts.numerical : Math.max(0, totalTarget - totalScq);
+      perSubjScq = Math.max(0, Math.floor(totalScq / activeSubjs.length));
+      perSubjNat = Math.max(0, Math.floor(totalNat / activeSubjs.length));
+    } else {
+      const perSubjTotal = Math.max(1, Math.floor(totalTarget / activeSubjs.length));
+      perSubjScq = perSubjTotal === 25 ? 20 : Math.round(perSubjTotal * (20 / 25));
+      perSubjNat = perSubjTotal === 25 ? 5 : Math.max(1, perSubjTotal - perSubjScq);
+    }
+
+    let mainPicked = [];
+    for(const subj of activeSubjs){
+      const subPool = DB.filter(q => {
+        if(q.subject !== subj) return false;
+        if(!tbCfg.chapters.has(subj + '||' + q.chapter)) return false;
+        if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return false;
+        return true;
+      });
+      // Strictly exclude any comprehension / paragraph or multi-correct
+      const scqPool = subPool.filter(q => {
+        const t = (q.rawType || q.type || '').toLowerCase();
+        if(t.includes('para') || t.includes('comp') || t.includes('multi') || t.includes('msq')) return false;
+        return t === 'single' || t === 'mcq';
+      });
+      const natPool = subPool.filter(q => {
+        const t = (q.rawType || q.type || '').toLowerCase();
+        if(t.includes('para') || t.includes('comp') || t.includes('multi') || t.includes('msq')) return false;
+        return t === 'numerical' || t === 'nat';
+      });
+
+      const pickedScq = pickFrom(scqPool, perSubjScq);
+      const pickedNat = pickFrom(natPool, perSubjNat);
+
+      // Section A (SCQ) first, then Section B (NAT)
+      mainPicked = mainPicked.concat(pickedScq).concat(pickedNat);
+    }
+
+    return mainPicked;
+  }
+
+  const pool = DB.filter(q => {
+    if(!tbCfg.subjects.has(q.subject)) return false;
+    if(!tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
+    if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return false;
+    const effType = q.rawType || q.type;
+    return tbCfg.types.has(effType) || tbCfg.types.has(q.type);
+  });
+  if(!pool.length) return [];
+
+  const targetCount = Math.min(+($('#tbCountIn').value) || 30, pool.length);
+
+  let picked = [];
+  if(hasTypeCounts){
+    const chosenTypes = ['single', 'multi', 'numerical', 'paragraph'].filter(t => tbCfg.types.has(t));
+    for(const t of chosenTypes){
+      const reqCount = tbCfg.typeCounts[t];
+      if(reqCount != null && reqCount > 0){
+        const tPool = pool.filter(q => (q.rawType || q.type) === t || q.type === t);
+        const subjsWithPool = activeSubjs.filter(s => tPool.some(q => q.subject === s));
+        const numSubjs = Math.max(1, subjsWithPool.length);
+        const perSubj = Math.max(1, Math.floor(reqCount / numSubjs));
+        let rem = reqCount;
+        for(const s of subjsWithPool){
+          if(rem <= 0) break;
+          const sPool = tPool.filter(q => q.subject === s && !picked.includes(q));
+          const take = Math.min(perSubj, sPool.length, rem);
+          const subPicked = pickFrom(sPool, take);
+          picked = picked.concat(subPicked);
+          rem -= subPicked.length;
+        }
+        if(rem > 0){
+          for(const s of subjsWithPool){
+            if(rem <= 0) break;
+            const sPool = tPool.filter(q => q.subject === s && !picked.includes(q));
+            const take = Math.min(rem, sPool.length);
+            const subPicked = pickFrom(sPool, take);
+            picked = picked.concat(subPicked);
+            rem -= subPicked.length;
+          }
+        }
+      }
+    }
+    const unspecTypes = chosenTypes.filter(t => tbCfg.typeCounts[t] == null);
+    let remTotal = Math.max(0, targetCount - picked.length);
+    if(unspecTypes.length && remTotal > 0){
+      const perType = Math.max(1, Math.floor(remTotal / unspecTypes.length));
+      for(const t of unspecTypes){
+        if(remTotal <= 0) break;
+        const tPool = pool.filter(q => ((q.rawType || q.type) === t || q.type === t) && !picked.includes(q));
+        const subPicked = pickFrom(tPool, Math.min(perType, remTotal));
+        picked = picked.concat(subPicked);
+        remTotal -= subPicked.length;
+      }
+    }
+  } else {
+    picked = pickFrom(pool, targetCount);
+  }
+
+  // Sort picked questions into standard test sections
+  // Rank by Subject -> Question Type (MCQ, MSQ, NAT, Paragraph)
+  picked.sort((a,b) => subjRank(a.subject) - subjRank(b.subject) || a.subject.localeCompare(b.subject) || TRANK[a.type] - TRANK[b.type]);
+  return picked;
+}
+
+async function buildCustomSheet(customQs){
+  const qs = (customQs && customQs.length) ? customQs : ((tbCfg.builtQs && tbCfg.builtQs.length) ? tbCfg.builtQs : getSelectedBuilderQuestions());
+  if(!qs || !qs.length){
+    alert('No questions match your selection. Please select at least one chapter with available questions.');
+    return;
+  }
+  tbCfg.builtQs = qs;
+
+  const title = ($('#tbTestTitle').value || '').trim() || 'JEE ADVANCED PRACTICE TEST';
+  const subtitle = ($('#tbTestSubtitle').value || '').trim() || 'Chapter-wise Practice Sheet | Questions cropped from source papers';
+  const includeSol = $('#tbOptSolutions').checked;
+  const noWatermark = $('#tbOptNoWatermark').checked;
+
+  const btn = $('#btnGenSheet');
+  const prevBtn = $('#btnPreviewSheet');
+  const tbPrevPdfBtn = $('#tbPrevGenPdfBtn');
+  const tbPrevBottomPdfBtn = $('#tbPrevBottomGenPdfBtn');
+  const origBtnText = btn ? btn.innerHTML : 'Quick Generate PDF (Without Preview)';
+  const origPrevPdfText = tbPrevPdfBtn ? tbPrevPdfBtn.innerHTML : 'Generate Vector PDF';
+
+  if(btn){ btn.disabled = true; btn.innerHTML = 'Generating PDF...'; }
+  if(prevBtn) prevBtn.disabled = true;
+  if(tbPrevPdfBtn){ tbPrevPdfBtn.disabled = true; tbPrevPdfBtn.innerHTML = 'Compiling Vector PDF...'; }
+  if(tbPrevBottomPdfBtn){ tbPrevBottomPdfBtn.disabled = true; tbPrevBottomPdfBtn.innerHTML = 'Compiling Vector PDF...'; }
+  $('#tbStatusNote').textContent = '';
+
+  const pWrap = $('#tbProgressWrap');
+  const pBar = $('#tbProgressBar');
+  const pPct = $('#tbProgressPct');
+  const pStage = $('#tbProgressStage');
+  const pDetail = $('#tbProgressDetail');
+  const pTimer = $('#tbProgressTimer');
+
+  if(pWrap){
+    pWrap.style.display = 'block';
+    pBar.style.width = '12%';
+    pPct.textContent = '12%';
+    pStage.textContent = 'Connecting to vector engine...';
+    pDetail.textContent = 'Matching candidate questions and loading segments...';
+    pTimer.textContent = '0.0s';
+  }
+
+  const startTime = Date.now();
+  const timerInterval = setInterval(() => {
+    const elapsedSec = ((Date.now() - startTime) / 1000).toFixed(1);
+    if(pTimer) pTimer.textContent = elapsedSec + 's';
+    const num = parseFloat(elapsedSec);
+
+    if(num < 1.0){
+      if(pBar) pBar.style.width = '25%';
+      if(pPct) pPct.textContent = '25%';
+      if(pStage) pStage.textContent = 'Connecting to cloud vector engine...';
+      if(pDetail) pDetail.textContent = 'Loading pre-computed question segment cache...';
+    } else if(num < 3.0){
+      if(pBar) pBar.style.width = '55%';
+      if(pPct) pPct.textContent = '55%';
+      if(pStage) pStage.textContent = 'Cropping vector questions from source papers...';
+      if(pDetail) pDetail.textContent = 'Extracting crisp vector text, math formulas, and diagrams...';
+    } else if(num < 6.0){
+      if(pBar) pBar.style.width = '80%';
+      if(pPct) pPct.textContent = '80%';
+      if(pStage) pStage.textContent = 'Assembling answer key & worked solutions...';
+      if(pDetail) pDetail.textContent = 'Removing FIITJEE watermarks and stitching pages...';
+    } else if(num < 15.0){
+      if(pBar) pBar.style.width = '92%';
+      if(pPct) pPct.textContent = '92%';
+      if(pStage) pStage.textContent = 'Compiling final vector PDF stream...';
+      if(pDetail) pDetail.textContent = 'Almost ready...';
+    } else {
+      if(pBar) pBar.style.width = '95%';
+      if(pPct) pPct.textContent = '95%';
+      if(pStage) pStage.textContent = 'Cloud server was sleeping, waking container (~30s)...';
+      if(pDetail) pDetail.textContent = 'Container is spinning up and will download momentarily...';
+    }
+  }, 100);
+
+  try {
+    const qids = qs.map(q => q.id);
+    const chaps = [...new Set(qs.map(q => q.chapter))];
+    const subjs = [...new Set(qs.map(q => q.subject))];
+
+    const payload = JSON.stringify({
+      chapters: chaps,
+      subjects: subjs,
+      count: qs.length,
+      pattern: tbCfg.pattern,
+      paper: tbCfg.paper,
+      title: title,
+      subtitle: subtitle,
+      includeSolutions: includeSol,
+      removeWatermark: noWatermark,
+      qids: qids
+    });
+
+    const isLocalhost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+    const cloudEngine = (window.AITS_CONFIG && window.AITS_CONFIG.vectorEngineUrl) ? window.AITS_CONFIG.vectorEngineUrl.replace(/\/+$/, '') : '';
+    const localEngine = (window.AITS_CONFIG && window.AITS_CONFIG.localVectorEngineUrl) ? window.AITS_CONFIG.localVectorEngineUrl.replace(/\/+$/, '') : 'http://localhost:8000';
+
+    // Fast probe to detect if local server is responsive
+    let isLocalUp = false;
+    try {
+      const probeCtrl = new AbortController();
+      const probeTid = setTimeout(() => probeCtrl.abort(), 1000);
+      const probeRes = await fetch(`${localEngine}/health`, { signal: probeCtrl.signal });
+      clearTimeout(probeTid);
+      if (probeRes.ok) isLocalUp = true;
+    } catch (_) {
+      isLocalUp = false;
+    }
+
+    const candidateEndpoints = [];
+    if (isLocalUp) {
+      candidateEndpoints.push({ url: `${localEngine}/api/build-test`, type: 'local', label: 'Local Server' });
+    }
+    if (isLocalhost) {
+      candidateEndpoints.push({ url: '/api/build-test', type: 'local', label: 'Local Server' });
+    }
+    if (cloudEngine) {
+      candidateEndpoints.push({ url: `${cloudEngine}/api/build-test`, type: 'cloud', label: 'Cloud Engine (Render)' });
+    }
+    candidateEndpoints.push({ url: `${localEngine}/api/build-test`, type: 'local', label: 'Local Server' });
+
+    const seenUrls = new Set();
+    const endpoints = candidateEndpoints.filter(ep => {
+      if (!ep.url || seenUrls.has(ep.url)) return false;
+      seenUrls.add(ep.url);
+      return true;
+    });
+
+    let resp = null, usedBaseUrl = '', usedEndpoint = null;
+    let lastErr = null;
+
+    for (const ep of endpoints) {
+      try {
+        if (ep.type === 'cloud') {
+          if (pStage) pStage.textContent = 'Connecting to Cloud Engine (Render)...';
+          if (pDetail) pDetail.textContent = 'Free cloud container may take 30-60s to wake up if asleep...';
+        } else {
+          if (pStage) pStage.textContent = 'Generating vector test on local machine...';
+          if (pDetail) pDetail.textContent = 'Cropping vector questions and assembling PDF...';
+        }
+
+        const controller = new AbortController();
+        const tid = setTimeout(() => controller.abort(), 180000);
+
+        const r = await fetch(ep.url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: payload,
+          signal: controller.signal
+        });
+        clearTimeout(tid);
+
+        if (r.ok || (r.status < 500 && r.status !== 404)) {
+          resp = r;
+          usedEndpoint = ep;
+          usedBaseUrl = ep.url.startsWith('http') ? new URL(ep.url).origin : '';
+          break;
+        }
+      } catch (err) {
+        lastErr = err;
+      }
+    }
+
+    if (!resp) {
+      throw new Error(lastErr ? lastErr.message : 'Cannot reach vector test engine backend.');
+    }
+
+    const data = await resp.json();
+    if(!data.ok){
+      throw new Error(data.error || 'Server error generating vector test');
+    }
+
+    if(pBar) pBar.style.width = '100%';
+    if(pPct) pPct.textContent = '100%';
+    if(pStage) pStage.textContent = 'Test sheet ready!';
+    if(pDetail) pDetail.textContent = (usedEndpoint && usedEndpoint.type === 'local') ? ('Generated via fast local engine in ' + (data.durationSeconds || '1') + 's') : 'Loading vector PDF preview...';
+
+    const fullPdfUrl = (data.pdfUrl.startsWith('http') ? data.pdfUrl : (usedBaseUrl + data.pdfUrl));
+    const frame = $('#sheetPdfFrame');
+    if(frame) frame.src = fullPdfUrl + '#toolbar=1&navpanes=0&view=FitH';
+    const dlBtn = $('#sheetDownloadBtn');
+    if(dlBtn){ dlBtn.href = fullPdfUrl; dlBtn.download = data.filename || 'practice_sheet.pdf'; }
+    const tabBtn = $('#sheetOpenTabBtn');
+    if(tabBtn) tabBtn.href = fullPdfUrl;
+    $('#sheetDocTitle').textContent = title + ' (' + data.totalQuestions + ' Qs, ' + data.totalPages + ' Pages)';
+
+    $('#tbStatusNote').textContent = 'Vector PDF created successfully! (' + data.totalQuestions + ' Qs, ' + data.totalPages + ' pages)';
+    show('scrSheetView');
+  } catch(err){
+    console.error('Vector sheet build error:', err);
+    alert('Error generating vector test sheet: ' + err.message + '\n\nPlease ensure the local server or cloud engine is running.');
+    $('#tbStatusNote').textContent = 'Error: ' + err.message;
+  } finally {
+    clearInterval(timerInterval);
+    if(btn){ btn.disabled = false; btn.innerHTML = origBtnText; }
+    if(prevBtn) prevBtn.disabled = false;
+    if(tbPrevPdfBtn){ tbPrevPdfBtn.disabled = false; tbPrevPdfBtn.innerHTML = origPrevPdfText; }
+    if(tbPrevBottomPdfBtn){ tbPrevBottomPdfBtn.disabled = false; tbPrevBottomPdfBtn.innerHTML = 'Generate Vector PDF'; }
+    if(pWrap){
+      setTimeout(() => { pWrap.style.display = 'none'; }, 600);
+    }
+  }
+}
+
+/* ==================== TEST BUILDER: INTERACTIVE PREVIEW & SWAP ==================== */
+function showToast(msg, duration = 3000){
+  const t = $('#tbToast');
+  if(!t) return;
+  t.innerHTML = msg;
+  t.style.display = 'inline-flex';
+  void t.offsetWidth;
+  t.style.opacity = '1';
+  clearTimeout(t._tid);
+  t._tid = setTimeout(() => {
+    t.style.opacity = '0';
+    setTimeout(() => { t.style.display = 'none'; }, 220);
+  }, duration);
+}
+
+function openBuilderPreview(){
+  const qs = (tbCfg.builtQs && tbCfg.builtQs.length) ? tbCfg.builtQs : getSelectedBuilderQuestions();
+  if(!qs || !qs.length){
+    alert('No questions match your current selection. Please select at least one chapter with available questions.');
+    return;
+  }
+  tbCfg.builtQs = qs;
+  renderTestPreview();
+  show('scrTestPreview');
+}
+
+function renderTestPreview(){
+  const qs = tbCfg.builtQs || [];
+  const title = ($('#tbTestTitle').value || '').trim() || 'AITS Custom Practice Test';
+  $('#tbPrevDocTitle').textContent = title;
+  $('#tbPrevCountBadge').textContent = qs.length + ' Qs';
+  $('#tbPrevBottomCount').textContent = qs.length;
+
+  // Render subject summary badges
+  const subMap = {};
+  qs.forEach(q => {
+    const s = q.subject || 'Other';
+    subMap[s] = (subMap[s] || 0) + 1;
+  });
+  const sumEl = $('#tbPrevSubjSummary');
+  if(sumEl){
+    sumEl.innerHTML = Object.entries(subMap).map(([s, n]) => 
+      '<span style="background:var(--surface);border:1px solid var(--brand);color:var(--brand-deep);padding:3px 9px;border-radius:12px;font-size:12px;font-weight:600">' + esc(s) + ': ' + n + '</span>'
+    ).join('');
+  }
+
+  const container = $('#tbPrevCardsList');
+  if(!container) return;
+
+  if(!qs.length){
+    container.innerHTML = '<div class="card muted" style="text-align:center;padding:32px">No questions selected. Click "Add Question" or return to Builder to select chapters.</div>';
+    return;
+  }
+
+  container.innerHTML = qs.map((q, idx) => renderPreviewCardHtml(q, idx)).join('');
+  hydrateZipImages(container);
+  typeset(container);
+}
+
+function renderPreviewCardHtml(q, idx){
+  const effType = q.rawType || q.type || 'single';
+  const typeLabel = (window.TYPE_NAME && window.TYPE_NAME[effType]) || TYPES[effType] || (effType === 'numerical' ? 'Numerical Answer' : (effType === 'multi' ? 'Multiple Correct' : 'Single Correct'));
+  const sourceTag = cleanSourceTag(q);
+  const qNum = idx + 1;
+
+  let passageHtml = '';
+  if(q.paragraph && q.passageImages && q.passageImages.length){
+    passageHtml = '<div style="margin-bottom:10px;padding:8px 12px;background:var(--surface-2);border-left:3px solid var(--brand);border-radius:0 4px 4px 0;font-size:12.5px">' +
+      '<div style="font-weight:700;color:var(--brand);margin-bottom:6px">Common Paragraph / Passage:</div>' +
+      (q.passageText ? '<div style="margin-bottom:6px">' + rich(stripWatermarks(q.passageText)) + '</div>' : '') +
+      q.passageImages.map(u => imageMarkup(u, 'Passage figure')).join('') +
+    '</div>';
+  }
+
+  const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
+  const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure')).join('');
+
+  let optionsHtml = '';
+  if(q.options && q.options.length && !q.labelOnly){
+    optionsHtml = '<div class="sheet-qoptions" style="margin-top:10px;margin-bottom:4px">' +
+      q.options.map((opt, oIdx) => 
+        '<div class="sheet-qopt"><span class="sheet-qopt-key">(' + (LET[oIdx] || (oIdx+1)) + ')</span> <span>' + rich(stripWatermarks(opt)) + '</span></div>'
+      ).join('') +
+    '</div>';
+  }
+
+  let solMarkup = '';
+  if(q.solution || (q.solImages && q.solImages.length)){
+    solMarkup = '<div style="margin-top:6px;font-size:13px">' +
+      (q.solution ? '<div style="margin-bottom:6px">' + rich(stripWatermarks(q.solution)) + '</div>' : '') +
+      (q.solImages ? q.solImages.map(u => imageMarkup(u, 'Solution figure')).join('') : '') +
+    '</div>';
+  } else {
+    solMarkup = '<div class="muted" style="margin-top:4px;font-size:12px">No worked solution diagrams available; official key is provided above.</div>';
+  }
+
+  return '<article class="preview-q-card" id="prevCard_' + idx + '" data-qid="' + esc(q.id) + '" style="background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,0.04)">' +
+    '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding-bottom:10px;margin-bottom:12px;border-bottom:1px solid var(--line);flex-wrap:wrap">' +
+      '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">' +
+        '<span class="preview-q-num" style="font-weight:700;font-size:15px;color:var(--brand)">Q' + qNum + '</span>' +
+        '<span class="preview-badge" style="background:var(--tint);color:var(--brand-deep);font-weight:600">' + esc(q.subject) + '</span>' +
+        '<span class="preview-badge" style="background:var(--surface-2);color:var(--fg);font-weight:500">' + esc(q.chapter || 'General') + '</span>' +
+        '<span class="preview-badge" style="background:var(--surface-2);color:var(--muted)">' + esc(typeLabel) + '</span>' +
+        '<span class="preview-badge" style="background:var(--surface-2);color:var(--muted)" title="Paper Source">' + esc(sourceTag) + '</span>' +
+      '</div>' +
+      '<div style="display:inline-flex;align-items:center;gap:6px">' +
+        '<button type="button" class="btn sm tb-replace-btn" data-idx="' + idx + '" title="Replace with another random question from ' + esc(q.chapter || q.subject) + '" style="display:inline-flex;align-items:center;gap:5px;font-weight:600;color:var(--brand);border-color:var(--brand)">' +
+          '<span>Replace</span>' +
+        '</button>' +
+        '<button type="button" class="btn sm tb-sol-btn" data-idx="' + idx + '" title="Toggle answer key and worked solution" style="display:inline-flex;align-items:center;gap:4px">' +
+          '<span>Solution</span>' +
+        '</button>' +
+        '<button type="button" class="btn sm tb-remove-btn" data-idx="' + idx + '" title="Remove this question" style="color:var(--bad);padding:2px 8px" aria-label="Remove question">' +
+          '✕' +
+        '</button>' +
+      '</div>' +
+    '</div>' +
+    '<div class="preview-q-body">' +
+      passageHtml +
+      '<div class="qtext" style="font-size:14px;line-height:1.6;margin-bottom:8px">' + rich(stripWatermarks(q.text || '')) + '</div>' +
+      imgsHtml +
+      optionsHtml +
+    '</div>' +
+    '<div class="preview-sol-box" id="prevSol_' + idx + '" style="display:none;margin-top:14px;padding:10px 14px;background:var(--surface-2);border-left:3px solid var(--brand);border-radius:0 4px 4px 0">' +
+      '<div style="font-weight:700;font-size:13px;margin-bottom:6px;display:flex;align-items:center;gap:8px">' +
+        '<span>Correct Answer:</span>' +
+        '<span style="color:var(--good);background:var(--good-bg);padding:2px 8px;border-radius:3px">' + esc(keyText(q) || 'N/A') + '</span>' +
+      '</div>' +
+      solMarkup +
+    '</div>' +
+  '</article>';
+}
+
+function swapBuilderQuestion(idx){
+  if(!tbCfg.builtQs || !tbCfg.builtQs[idx]) return;
+  const currentQ = tbCfg.builtQs[idx];
+  const curEffType = (currentQ.rawType || currentQ.type || '').toLowerCase();
+  const curSubj = currentQ.subject;
+  const curChap = currentQ.chapter;
+
+  const currentIds = new Set(tbCfg.builtQs.map(q => q.id));
+
+  const matchType = (q) => {
+    const t = (q.rawType || q.type || '').toLowerCase();
+    if(curEffType === 'single' || curEffType === 'mcq') return t === 'single' || t === 'mcq';
+    if(curEffType === 'multi' || curEffType === 'msq') return t === 'multi' || t === 'msq';
+    if(curEffType === 'numerical' || curEffType === 'nat') return t === 'numerical' || t === 'nat';
+    if(curEffType.includes('para') || curEffType.includes('comp')) return t.includes('para') || t.includes('comp');
+    return t === curEffType;
+  };
+
+  // 1. Exact same chapter, subject, and question type
+  let candidates = DB.filter(q => {
+    if(currentIds.has(q.id)) return false;
+    if(q.subject !== curSubj) return false;
+    if(q.chapter !== curChap) return false;
+    if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return false;
+    return matchType(q);
+  });
+
+  // 2. Search other selected chapters of this subject with the same type
+  if(!candidates.length){
+    candidates = DB.filter(q => {
+      if(currentIds.has(q.id)) return false;
+      if(q.subject !== curSubj) return false;
+      if(!tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
+      if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return false;
+      return matchType(q);
+    });
+  }
+
+  // 3. Search any chapter of this subject with the same type
+  if(!candidates.length){
+    candidates = DB.filter(q => {
+      if(currentIds.has(q.id)) return false;
+      if(q.subject !== curSubj) return false;
+      if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return false;
+      return matchType(q);
+    });
+  }
+
+  // 4. Fallback: any question in this chapter
+  if(!candidates.length){
+    candidates = DB.filter(q => {
+      if(currentIds.has(q.id)) return false;
+      if(q.subject !== curSubj) return false;
+      if(q.chapter !== curChap) return false;
+      return true;
+    });
+  }
+
+  if(!candidates.length){
+    alert('No alternative question available in the database for ' + curSubj + ' - ' + curChap + '.');
+    return;
+  }
+
+  const newQ = candidates[Math.floor(Math.random() * candidates.length)];
+  tbCfg.builtQs[idx] = newQ;
+
+  // Replace card in DOM with highlight pulse
+  const oldCard = document.getElementById('prevCard_' + idx);
+  if(oldCard){
+    const temp = document.createElement('div');
+    temp.innerHTML = renderPreviewCardHtml(newQ, idx);
+    const newCard = temp.firstElementChild;
+    newCard.classList.add('swapped');
+    oldCard.replaceWith(newCard);
+    hydrateZipImages(newCard);
+    typeset(newCard);
+  } else {
+    renderTestPreview();
+  }
+
+  showToast('Replaced Q' + (idx + 1) + ' with question from <b>' + esc(newQ.chapter || newQ.subject) + '</b> (' + esc(cleanSourceTag(newQ)) + ')');
+}
+
+function removeBuilderQuestion(idx){
+  if(!tbCfg.builtQs || !tbCfg.builtQs[idx]) return;
+  const removed = tbCfg.builtQs.splice(idx, 1)[0];
+  $('#tbCountIn').value = tbCfg.builtQs.length;
+  tbCfg.count = tbCfg.builtQs.length;
+  renderTestPreview();
+  showToast('Removed question Q' + (idx + 1) + '. (' + tbCfg.builtQs.length + ' Qs remaining)');
+}
+
+function addBuilderQuestion(){
+  const currentIds = new Set((tbCfg.builtQs || []).map(q => q.id));
+  const activeSubjs = ['Physics', 'Chemistry', 'Mathematics'].filter(s => tbCfg.subjects.has(s));
+
+  const candidates = DB.filter(q => {
+    if(currentIds.has(q.id)) return false;
+    if(activeSubjs.length && !activeSubjs.includes(q.subject)) return false;
+    if(tbCfg.chapters.size && !tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
+    if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return false;
+    const effType = q.rawType || q.type;
+    if(tbCfg.pattern === 'main'){
+      if(effType.includes('para') || effType.includes('comp') || effType.includes('multi') || effType.includes('msq')) return false;
+      return effType === 'single' || effType === 'mcq' || effType === 'numerical' || effType === 'nat';
+    }
+    return tbCfg.types.has(effType) || tbCfg.types.has(q.type);
+  });
+
+  if(!candidates.length){
+    alert('No more unselected questions match your active subjects and chapters.');
+    return;
+  }
+
+  const newQ = candidates[Math.floor(Math.random() * candidates.length)];
+  tbCfg.builtQs.push(newQ);
+  $('#tbCountIn').value = tbCfg.builtQs.length;
+  tbCfg.count = tbCfg.builtQs.length;
+  renderTestPreview();
+
+  const lastCard = document.getElementById('prevCard_' + (tbCfg.builtQs.length - 1));
+  if(lastCard){
+    lastCard.classList.add('swapped');
+    lastCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  showToast('Added Q' + tbCfg.builtQs.length + ' from <b>' + esc(newQ.chapter || newQ.subject) + '</b>');
+}
+
+function shuffleAllBuilderPreview(){
+  const qs = getSelectedBuilderQuestions();
+  if(!qs || !qs.length){
+    alert('Cannot reshuffle: no questions match current criteria.');
+    return;
+  }
+  tbCfg.builtQs = qs;
+  renderTestPreview();
+  showToast('Reshuffled all ' + qs.length + ' questions.');
+}
+
+function renderSheetDoc(qs, opts){
+  $('#sheetDocTitle').textContent = opts.title + ' (' + qs.length + ' Qs)';
+  const container = $('#sheetDocContainer');
+  container.innerHTML = '';
+
+  // Group questions by section
+  const sections = [];
+  const secMap = new Map();
+  qs.forEach(q => {
+    const effType = q.rawType || q.type;
+    const secKey = (opts.pattern === 'main' ? q.subject + ' &ndash; ' + (effType === 'numerical' ? 'Section B (Numerical)' : 'Section A (MCQ)') : q.subject + ' &ndash; ' + (SECLBL[effType] || SECLBL[q.type] || 'Questions'));
+    if(!secMap.has(secKey)){
+      secMap.set(secKey, {title: secKey, qs: []});
+      sections.push(secMap.get(secKey));
+    }
+    secMap.get(secKey).qs.push(q);
+  });
+
+  // Calculate total marks based on pattern
+  const preset = PRESETS[opts.pattern] || PRESETS.adv;
+  const totalMarks = qs.reduce((acc, q) => acc + (preset[q.rawType||q.type]||preset.single).c, 0);
+
+  // Distinct subjects and chapters
+  const subjs = [...new Set(qs.map(q => q.subject))].join(', ');
+  const chaps = [...new Set(qs.map(q => q.chapter))];
+  const chapsText = chaps.length <= 4 ? chaps.join(', ') : chaps.slice(0, 3).join(', ') + ' &amp; ' + (chaps.length - 3) + ' more';
+
+  let qGlobalNum = 1;
+  const keyRows = [];
+  const solRows = [];
+
+  // PAGE 1: COVER & FIRST SECTION
+  let html = '<div class="sheet-page" data-page="1">' +
+    '<h1 class="sheet-cover-title">' + esc(opts.title) + '</h1>' +
+    '<div class="sheet-cover-sub">' + esc(opts.subtitle) + '</div>' +
+    '<div class="sheet-cover-meta">' +
+      '<div><b>Subjects:</b> ' + esc(subjs) + '</div>' +
+      '<div><b>Chapters:</b> ' + esc(chapsText) + '</div>' +
+      '<div><b>Questions:</b> ' + qs.length + '</div>' +
+      '<div><b>Max Marks:</b> ' + totalMarks + '</div>' +
+      '<div><b>Time:</b> ' + (opts.timeLimit > 0 ? opts.timeLimit + ' Min' : 'Untimed') + '</div>' +
+    '</div>';
+
+  sections.forEach(sec => {
+    html += '<div class="sheet-sec-hdr">' +
+      '<div class="sheet-sec-lines"><div class="sheet-sec-lines-top"></div><div class="sheet-sec-lines-bot"></div></div>' +
+      '<div class="sheet-sec-title">' + esc(sec.title) + '</div>' +
+    '</div>';
+
+    sec.qs.forEach(q => {
+      const qNum = qGlobalNum++;
+      const qLabel = 'Q' + qNum;
+      const tag = cleanSourceTag(q);
+      const ansKey = keyText(q);
+      keyRows.push({num: qLabel, ans: ansKey || '&mdash;'});
+
+      let qText = opts.noWatermark ? stripWatermarks(q.text) : (q.text || '');
+      let passageHtml = '';
+      if(q.paragraph && q.passageImages && q.passageImages.length){
+        passageHtml = '<div style="margin-bottom:8pt;padding:6pt 10pt;background:#f8f9fa;border-left:3pt solid #1a3a5c;font-size:9pt">' +
+          '<b style="color:#1a3a5c">Paragraph for Question Nos. ' + qNum + ':</b>' +
+          q.passageImages.map(u => imageMarkup(u, 'Passage figure')).join('') +
+        '</div>';
+      }
+
+      const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
+      const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure')).join('');
+
+      let optionsHtml = '';
+      if(q.options && q.options.length && !q.labelOnly){
+        optionsHtml = '<div class="sheet-qoptions">' +
+          q.options.map((opt, idx) => '<div class="sheet-qopt"><span class="sheet-qopt-key">(' + LET[idx] + ')</span> <span>' + (opts.noWatermark ? stripWatermarks(opt) : opt) + '</span></div>').join('') +
+        '</div>';
+      }
+
+      html += '<div class="sheet-qrow">' +
+        '<div class="sheet-qlab-col">' +
+          '<div class="sheet-qlab">' + esc(qLabel) + '</div>' +
+          '<div class="sheet-qtag">' + esc(tag) + '</div>' +
+        '</div>' +
+        '<div class="sheet-qbody-col">' +
+          passageHtml +
+          (qText ? '<div class="sheet-qbody-text">' + rich(qText) + '</div>' : '') +
+          imgsHtml +
+          optionsHtml +
+        '</div>' +
+      '</div>';
+
+      if(opts.includeSol && (q.solution || (q.solImages && q.solImages.length))){
+        solRows.push({num: qLabel, tag, q, solText: opts.noWatermark ? stripWatermarks(q.solution) : (q.solution || ''), solImgs: q.solImages || []});
+      }
+    });
+  });
+
+  html += '<div class="sheet-page-footer">Sheet Page 1</div></div>';
+
+  // ANSWER KEY PAGE (Exact build_sheets.py 5-column grid)
+  if(opts.includeKey && keyRows.length){
+    html += '<div class="sheet-page sheet-ans-section" data-page="ans">' +
+      '<div class="sheet-sec-hdr">' +
+        '<div class="sheet-sec-lines"><div class="sheet-sec-lines-top"></div><div class="sheet-sec-lines-bot"></div></div>' +
+        '<div class="sheet-sec-title">Answer Key</div>' +
+      '</div>' +
+      '<table class="sheet-key-table">' +
+        '<thead><tr>' +
+          '<th>Q</th><th>Ans</th><th>Q</th><th>Ans</th><th>Q</th><th>Ans</th><th>Q</th><th>Ans</th><th>Q</th><th>Ans</th>' +
+        '</tr></thead>' +
+        '<tbody>';
+
+    const cols = 5;
+    for(let i = 0; i < keyRows.length; i += cols){
+      const chunk = keyRows.slice(i, i + cols);
+      html += '<tr>';
+      for(let c = 0; c < cols; c++){
+        const item = chunk[c] || {num: '', ans: ''};
+        html += '<td class="sheet-key-q">' + (item.num ? esc(item.num) : '') + '</td>' +
+                '<td class="sheet-key-ans">' + (item.ans ? esc(item.ans) : '') + '</td>';
+      }
+      html += '</tr>';
+    }
+
+    html += '</tbody></table>' +
+      '<div class="sheet-page-footer">Answer Key</div>' +
+    '</div>';
+  }
+
+  // SOLUTIONS PAGE(S)
+  if(opts.includeSol && solRows.length){
+    html += '<div class="sheet-page sheet-sol-section" data-page="sol">' +
+      '<div class="sheet-sec-hdr">' +
+        '<div class="sheet-sec-lines"><div class="sheet-sec-lines-top"></div><div class="sheet-sec-lines-bot"></div></div>' +
+        '<div class="sheet-sec-title">Solutions</div>' +
+      '</div>';
+
+    solRows.forEach(item => {
+      const imgs = item.solImgs.map(u => imageMarkup(u, 'Solution figure')).join('');
+      html += '<div class="sheet-sol-item">' +
+        '<div class="sheet-qlab-col">' +
+          '<div class="sheet-qlab">' + esc(item.num) + '</div>' +
+          '<div class="sheet-qtag">' + esc(item.tag) + '</div>' +
+        '</div>' +
+        '<div class="sheet-sol-body">' +
+          (item.solText ? '<div style="margin-bottom:6pt">' + rich(item.solText) + '</div>' : '') +
+          imgs +
+        '</div>' +
+      '</div>';
+    });
+
+    html += '<div class="sheet-page-footer">Worked Solutions</div></div>';
+  }
+
+  container.innerHTML = html;
+  hydrateZipImages(container);
+  typeset(container);
+}
+
+function startCbtFromBuilder(){
+  const qs = tbCfg.builtQs && tbCfg.builtQs.length ? tbCfg.builtQs : getSelectedBuilderQuestions();
+  if(!qs.length){
+    alert('Please select at least one chapter and question type.');
+    return;
+  }
+  const timeLimit = +($('#tbTimeLimit').value) || (qs.length * 3);
+  const title = ($('#tbTestTitle').value || '').trim() || 'AITS CUSTOM PRACTICE TEST';
+  buildTest(qs, timeLimit, tbCfg.pattern === 'main' ? 'main' : 'adv', title);
+  renderInstr();
+  show('scrInstr');
+}
+
+/* ---------- boot ---------- */
 (async function(){
-  // Instant redirect for backwards compatibility
-  const curHash = window.location.hash || '';
-  if(curHash.startsWith('#practice') || curHash.startsWith('#marks')){
-    window.location.replace('practice.html' + curHash);
-    return;
-  }
-  if(curHash.startsWith('#builder') || curHash.startsWith('#test-builder')){
-    const qIdx = curHash.indexOf('?');
-    const q = qIdx !== -1 ? curHash.slice(qIdx) : window.location.search;
-    window.location.replace('test-builder.html' + q);
-    return;
-  }
-
-  let ok = false;
+  let ok=false;
   const isLocal = window.location.hostname==='localhost' || window.location.hostname==='127.0.0.1' || window.location.protocol==='file:';
   const conf = window.AITS_CONFIG || {};
   const remote = isLocal ? '' : (conf.databaseUrl || '').trim();
@@ -2561,6 +5741,8 @@ function checkCbtHash(){
     }
     return null;
   }
+  // Try bundled database files first for instant same-origin loading with zero CORS issues,
+  // falling back to Hugging Face remote URLs only if bundled files are not present.
   const [phys, chem, mathAdv, mathMain] = await Promise.all([
     fetchFirst(['database.json', remote].filter(Boolean)),
     fetchFirst(['chemistry_database.json', chemRemote].filter(Boolean)),
@@ -2569,10 +5751,14 @@ function checkCbtHash(){
   ]);
   const parts = [phys, chem, mathAdv, mathMain].filter(Boolean);
   if(parts.length){
-    const all = parts.flatMap(x => (extractList(x.raw) || []).map(e => e.q));
+    const all = parts.flatMap(x=>(extractList(x.raw)||[]).map(e=>e.q));
     ok = loadDB(all, phys && phys.url===remote && remote ? 'Hugging Face database' : 'database.json', false);
-    if(!checkCbtHash()){
-      show('scrSetup');
+    if(window.location.hash.startsWith('#practice') || window.location.hash.startsWith('#marks')){
+      openPracticeList();
+    } else if(window.location.hash.startsWith('#builder') || window.location.hash.startsWith('#test-builder')){
+      openBuilderScreen();
+    } else if(window.location.hash.startsWith('#cbt')){
+      checkCbtHash();
     }
   }
   if(!ok){
@@ -2583,7 +5769,7 @@ function checkCbtHash(){
     refreshSummary();
   }
 })();
-
 })();
 </script>
+
 </body></html>
