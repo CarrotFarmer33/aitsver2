@@ -1370,10 +1370,6 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 :root:not([data-theme="light"]) #scrPracticeDetail .qimg,
 :root[data-theme="dark"] #scrPracticeList .qimg,
 :root:not([data-theme="light"]) #scrPracticeList .qimg,
-:root[data-theme="dark"] #scrExam .qimg,
-:root:not([data-theme="light"]) #scrExam .qimg,
-:root[data-theme="dark"] #scrRes .qimg,
-:root:not([data-theme="light"]) #scrRes .qimg,
 :root[data-theme="dark"] .practice-svg,
 :root:not([data-theme="light"]) .practice-svg,
 :root[data-theme="dark"] .marks-detail-card-body .vector-inline-svg,
@@ -1384,9 +1380,13 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   box-shadow: none !important;
 }
 
-/* 2. TEST BUILDER ONLY: Clean authentic solid white background, normal blending, crisp black text */
+/* 2. TEST BUILDER, CBT EXAM & RESULTS: Clean authentic solid white background, normal blending, crisp black text */
 #scrTestPreview .qimg,
 #scrTestPreview .vector-inline-svg,
+#scrExam .qimg,
+#scrExam .vector-inline-svg,
+#scrRes .qimg,
+#scrRes .vector-inline-svg,
 .preview-q-card .qimg,
 .preview-q-body .qimg,
 .preview-sol-box .qimg,
@@ -1394,6 +1394,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 .preview-q-body .vector-inline-svg,
 .preview-sol-box .vector-inline-svg,
 .test-builder-svg,
+.cbt-svg,
 .sheet-page .qimg,
 .sheet-page .vector-inline-svg {
   filter: none !important;
@@ -1401,17 +1402,25 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   background: #ffffff !important;
   color: #000000 !important;
   border-radius: 4px;
-  padding: 10px;
+  padding: 8px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.12);
 }
 #scrTestPreview .vector-inline-svg text,
 #scrTestPreview .vector-inline-svg tspan,
+#scrExam .vector-inline-svg text,
+#scrExam .vector-inline-svg tspan,
+#scrRes .vector-inline-svg text,
+#scrRes .vector-inline-svg tspan,
 .preview-q-card .vector-inline-svg text,
 .preview-q-card .vector-inline-svg tspan,
 .sheet-page .vector-inline-svg text,
 .sheet-page .vector-inline-svg tspan {
   fill: #000000 !important;
   color: #000000 !important;
+}
+#scrExam.xinv .qimg,
+#scrExam.xinv .vector-inline-svg {
+  filter: invert(1) hue-rotate(180deg) !important;
 }
 .marks-options-grid {
   display: grid;
@@ -2300,7 +2309,7 @@ async function resolveZipImage(img){
     if(!f){ const match=Object.keys(zip.files).find(k=>!zip.files[k].dir && (k===fileName || k.endsWith('/'+fileName))); if(match) f=zip.file(match); }
     if(!f) throw new Error('Image not found in ZIP: '+fileName);
     const isSvg = /\.svg$/i.test(fileName);
-    const isTb = img.classList.contains('test-builder-svg') || !!img.closest('#scrTestPreview, #scrSheetView, .preview-q-card, .preview-q-body, .preview-sol-box, .sheet-page');
+    const isTb = img.classList.contains('test-builder-svg') || img.classList.contains('cbt-svg') || !!img.closest('#scrTestPreview, #scrSheetView, #scrExam, #scrRes, .preview-q-card, .preview-q-body, .preview-sol-box, .sheet-page');
     const crop = (img.dataset.cropTop || img.dataset.cropBottom || img.dataset.cropLeft || img.dataset.cropRight) ? {
       top: parseFloat(img.dataset.cropTop || 0),
       bottom: parseFloat(img.dataset.cropBottom || 0),
@@ -3010,9 +3019,13 @@ function openPaper(){
   leave();
   const body=T.qs.map((q,i)=>{
     const sec=T.secs[T.secOf[i]];
-    const imgs=q.images.map(u=>imageMarkup(u,'Question '+(i+1),'practice-svg').replace('class="qimg"','class="qpimg"')).join('');
-    const opts=(q.options&&!q.labelOnly)?'<ol class="qpopts" type="A">'+q.options.map(o=>'<li>'+rich(o)+'</li>').join('')+'</ol>':'';
-    return '<section class="qpitem"><div class="qphead"><b>Question No. '+(i+1)+'</b><span>'+esc(sec.name)+' · '+esc(q.chapter)+'</span></div>'+(q.text?'<div class="qtext">'+rich(q.text)+'</div>':'')+imgs+opts+'</section>';
+    const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
+    const hasPassageImgs = !!(q.paragraph && q.passageImages && q.passageImages.length);
+    const passImgs = hasPassageImgs ? q.passageImages.map(u=>imageMarkup(u,'Common passage '+(i+1),'cbt-svg',q.crop).replace('class="qimg"','class="qpimg"')).join('') : '';
+    const imgs = qImgs.map(u=>imageMarkup(u,'Question '+(i+1),'cbt-svg',q.crop).replace('class="qimg"','class="qpimg"')).join('');
+    const hasImgs = !!(imgs || passImgs);
+    const opts = (!hasImgs && q.options && !q.labelOnly) ? '<ol class="qpopts" type="A">'+q.options.map(o=>'<li>'+rich(o)+'</li>').join('')+'</ol>' : '';
+    return '<section class="qpitem"><div class="qphead"><b>Question No. '+(i+1)+'</b><span>'+esc(sec.name)+' · '+esc(q.chapter)+'</span></div>'+(!hasImgs && q.text?'<div class="qtext">'+rich(q.text)+'</div>':'')+passImgs+imgs+opts+'</section>';
   }).join('');
   openModal('<div class="image-preview-title"><span>Question Paper</span><button type="button" class="btn" id="closePaper">Close</button></div><div class="qpwrap">'+body+'</div>',()=>{
     const box=$('#modalBox'); box.classList.add('wide'); $('#closePaper').onclick=closeModal; hydrateZipImages(box); typeset(box);
@@ -3062,28 +3075,51 @@ function renderQ(){
   $('#qType').textContent='Question Type: '+QTS[q.type];
   $('#qMarks').innerHTML=marksHtml(q.type, q.rawType);
   $('#qNo').textContent='Question No. '+(T.cur+1);
-  let h='';
-  if(q.paragraph && q.passageImages && q.passageImages.length){
-    h+='<div class="passage-box" style="margin-bottom:14px;padding:12px;background:rgba(255,165,0,0.06);border:1px solid rgba(255,165,0,0.3);border-radius:8px;">'+
-       '<div style="font-weight:700;margin-bottom:8px;font-size:14px;color:var(--x-main,#0066cc);">Common Paragraph / Passage:</div>';
-    q.passageImages.forEach(u=>{ h+=imageMarkup(u,'Common passage','practice-svg'); });
-    h+='</div>';
+  const hasPassageImgs = !!(q.paragraph && q.passageImages && q.passageImages.length);
+  const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
+  const hasImgs = !!(qImgs.length || hasPassageImgs);
+
+  let h = '';
+  if(q.paragraph && (hasPassageImgs || q.passageText)){
+    h += '<div class="passage-box" style="margin-bottom:14px;padding:12px;background:rgba(255,165,0,0.06);border:1px solid rgba(255,165,0,0.3);border-radius:8px;">' +
+         '<div style="font-weight:700;margin-bottom:8px;font-size:14px;color:var(--x-main,#0066cc);">Common Paragraph / Passage:</div>';
+    if(!hasPassageImgs && q.passageText){
+      h += '<div style="margin-bottom:8px">' + rich(typeof stripWatermarks === 'function' ? stripWatermarks(q.passageText) : q.passageText) + '</div>';
+    }
+    if(hasPassageImgs){
+      q.passageImages.forEach(u => { h += imageMarkup(u, 'Common passage', 'cbt-svg', q.crop); });
+    }
+    h += '</div>';
   }
-  h+='<div class="qtext">'+rich(q.text)+'</div>';
-  const qImgs = (q.images||[]).filter(u=>!(q.passageImages||[]).includes(u));
-  qImgs.forEach(u=>{ h+=imageMarkup(u,'Question figure','practice-svg'); });
-  const locked=T.mode==='practice' && s.checked, dis=locked?' disabled':'';
-  const effectiveType = q.rawType || q.type;
-  if(effectiveType==='numerical'){
-    h+='<div class="numwrap"><input class="numin" id="numIn" type="text" readonly inputmode="none" aria-label="Your numerical answer" value="'+esc(dv(s)==null?'':dv(s))+'"><div class="keys">'+
-      ['7','8','9','4','5','6','1','2','3','0','.','−'].map(k=>'<button type="button" data-k="'+k+'"'+dis+'>'+k+'</button>').join('')+
-      '<button type="button" class="half" data-k="bk"'+dis+'>Backspace</button><button type="button" class="half" data-k="clr"'+dis+'>Clear All</button><span></span></div></div>';
+
+  // Question figures/diagrams (primary question display)
+  if(hasImgs){
+    qImgs.forEach(u => { h += imageMarkup(u, 'Question figure', 'cbt-svg', q.crop); });
   } else {
-    const multi=effectiveType==='multi', sel=multi?(dv(s)||[]):(dv(s)==null?[]:[dv(s)]);
-    h+='<div class="opts" role="group" aria-label="Options">'+(q.options||[]).map((o,k)=>{
-      const corr=locked&&q.keyOk&&q.ans.includes(k), wr=locked&&sel.includes(k)&&!corr;
-      return '<label class="opt'+(locked?' locked':'')+(corr?' corr':'')+(wr?' wrong':'')+'"><input type="'+(multi?'checkbox':'radio')+'" name="opt" data-o="'+k+'"'+(sel.includes(k)?' checked':'')+dis+'>'+(q.labelOnly?'<span class="ol">'+LET[k]+'</span>':'<span class="ot">'+rich(o)+'</span>')+'</label>';
-    }).join('')+'</div>';
+    // Fallback text (only shown if question has no image)
+    const qInfo = (typeof questionTextsMap !== 'undefined' && questionTextsMap[q.id]) ? questionTextsMap[q.id] : null;
+    const rawText = (q.stem || q.text || (qInfo && qInfo.full) || '').trim();
+    if(rawText){
+      h += '<div class="qtext">' + rich(typeof stripWatermarks === 'function' ? stripWatermarks(rawText) : rawText) + '</div>';
+    }
+  }
+
+  const locked = T.mode === 'practice' && s.checked, dis = locked ? ' disabled' : '';
+  const effectiveType = q.rawType || q.type;
+  if(effectiveType === 'numerical'){
+    h += '<div class="numwrap"><input class="numin" id="numIn" type="text" readonly inputmode="none" aria-label="Your numerical answer" value="' + esc(dv(s) == null ? '' : dv(s)) + '"><div class="keys">' +
+      ['7','8','9','4','5','6','1','2','3','0','.','−'].map(k => '<button type="button" data-k="' + k + '"' + dis + '>' + k + '</button>').join('') +
+      '<button type="button" class="half" data-k="bk"' + dis + '>Backspace</button><button type="button" class="half" data-k="clr"' + dis + '>Clear All</button><span></span></div></div>';
+  } else {
+    const multi = effectiveType === 'multi', sel = multi ? (dv(s) || []) : (dv(s) == null ? [] : [dv(s)]);
+    const showLabelsOnly = hasImgs || q.labelOnly;
+    h += '<div class="opts" role="group" aria-label="Options">' + (q.options || []).map((o, k) => {
+      const corr = locked && q.keyOk && q.ans.includes(k), wr = locked && sel.includes(k) && !corr;
+      return '<label class="opt' + (locked ? ' locked' : '') + (corr ? ' corr' : '') + (wr ? ' wrong' : '') + '">' +
+        '<input type="' + (multi ? 'checkbox' : 'radio') + '" name="opt" data-o="' + k + '"' + (sel.includes(k) ? ' checked' : '') + dis + '>' +
+        (showLabelsOnly ? '<span class="ol">' + LET[k] + '</span>' : '<span class="ot">' + rich(o) + '</span>') +
+      '</label>';
+    }).join('') + '</div>';
   }
   if(locked) h+=feedbackHtml(q,s);
   const saveBtn=document.querySelector('.xbtn[data-act="save"]');
@@ -3293,12 +3329,17 @@ function renderReview(f){
     }
     const isRpt=isQuestionReported(q.id);
     const secName = (T.secs && T.secOf && T.secs[T.secOf[i]]) ? T.secs[T.secOf[i]].name : (q.subject || '');
+    const hasPassageImgs = !!(q.paragraph && q.passageImages && q.passageImages.length);
+    const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
+    const hasImgs = !!(qImgs.length || hasPassageImgs);
     const hasSol = (q.solution && q.solution.length) || (q.solImages && q.solImages.length);
     const solMarkup = hasSol ?
-      '<details class="sol-details" open><summary style="cursor:pointer;font-weight:600;margin-top:8px">Solution</summary><div style="margin-top:8px">'+rich(q.solution||'')+((q.solImages||[]).map(u=>imageMarkup(u,'Solution figure','practice-svg')).join(''))+'</div></details>' :
+      '<details class="sol-details" open><summary style="cursor:pointer;font-weight:600;margin-top:8px">Solution</summary><div style="margin-top:8px">'+rich(q.solution||'')+((q.solImages||[]).map(u=>imageMarkup(u,'Solution figure','cbt-svg')).join(''))+'</div></details>' :
       '<details class="sol-details" open><summary style="cursor:pointer;font-weight:600;margin-top:8px">Solution</summary><div class="muted" style="margin-top:8px;font-size:13px">Official Answer Key: <b>'+esc(keyText(q))+'</b><br><span style="opacity:0.8">Step-by-step worked solution image was not provided in the original paper archive.</span></div></details>';
     html+='<article class="rv r-'+r.r+'"><header><b>Q'+(i+1)+'</b><button class="bmb" data-bm="'+esc(q.id)+'" type="button" aria-pressed="'+BM.has(q.id)+'" title="Bookmark this question" aria-label="Bookmark this question">'+STAR+'</button><span>'+esc(secName)+'</span><span>'+esc(q.chapter||'')+'</span><span class="badge '+pc+'">'+label+(r.marks?' '+(r.marks>0?'+':'')+r.marks:'')+'</span><span>'+mmss(s.time||0)+'</span><button class="btn sm report-btn" data-rpt="'+esc(q.id)+'" type="button" style="margin-left:auto;display:inline-flex;align-items:center;gap:4px;padding:2px 8px;font-size:12px'+(isRpt?';color:#d32f2f;border-color:#d32f2f':'')+'" title="Report issue with this question">🚩 '+(isRpt?'Reported':'Report')+'</button></header>'+
-      '<div class="qtext">'+rich(q.text||'')+'</div>'+(q.images||[]).map(u=>imageMarkup(u,'Question figure','practice-svg')).join('')+ob+
+      (!hasImgs ? '<div class="qtext">'+rich(q.text||'')+'</div>' : '')+
+      (hasPassageImgs ? q.passageImages.map(u=>imageMarkup(u,'Common passage','cbt-svg',q.crop)).join('') : '')+
+      qImgs.map(u=>imageMarkup(u,'Question figure','cbt-svg',q.crop)).join('')+ob+
       '<div>Your answer: <b>'+esc(fmtAns(q,s.ans))+'</b> · Correct answer: <b>'+esc(keyText(q))+'</b></div>'+
       solMarkup+'</article>';
   });
@@ -3319,9 +3360,10 @@ function svQuestions(){
 }
 const svCard=q=>{
   let ob='';
-  if(q.type!=='numerical' && q.options) ob='<div style="display:flex;flex-direction:column;gap:6px">'+q.options.map((o,k)=>{ const corr=q.keyOk&&q.ans.includes(k); return '<div class="ropt'+(corr?' corr':'')+'"><b>'+LET[k]+'.</b><span style="min-width:0;overflow-wrap:anywhere">'+(q.labelOnly?'':rich(o))+'</span></div>'; }).join('')+'</div>';
+  const hasImgs = q.images && q.images.length > 0;
+  if(q.type!=='numerical' && q.options) ob='<div style="display:flex;flex-direction:column;gap:6px">'+q.options.map((o,k)=>{ const corr=q.keyOk&&q.ans.includes(k); return '<div class="ropt'+(corr?' corr':'')+'"><b>'+LET[k]+'.</b><span style="min-width:0;overflow-wrap:anywhere">'+((hasImgs||q.labelOnly)?'':rich(o))+'</span></div>'; }).join('')+'</div>';
   return '<article class="rv"><header><span>'+esc(QTS[q.type]||q.type)+'</span><span>'+esc(q.paper==='main'?'JEE Main':'JEE Advanced')+(q.year?' '+esc(q.year):'')+'</span><span>'+esc(q.paperTitle||'')+'</span><span style="margin-left:auto;display:inline-flex;gap:6px"><button class="btn sm report-btn" data-rpt="'+esc(q.id)+'" type="button" style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;font-size:12px'+(isQuestionReported(q.id)?';color:#d32f2f;border-color:#d32f2f':'')+'" title="Report issue with this question">🚩 '+(isQuestionReported(q.id)?'Reported':'Report')+'</button><button class="btn sm" data-svrm="'+esc(q.id)+'" type="button">Remove</button></span></header>'+
-    '<div class="qtext">'+rich(q.text)+'</div>'+q.images.map(u=>imageMarkup(u,'Question figure','practice-svg')).join('')+ob+
+    (!hasImgs ? '<div class="qtext">'+rich(q.text)+'</div>' : '')+q.images.map(u=>imageMarkup(u,'Question figure','practice-svg')).join('')+ob+
     '<div>Correct answer: <b>'+esc(keyText(q))+'</b></div>'+
     ((q.solution||q.solImages.length)?'<details open><summary style="cursor:pointer;font-weight:600;margin-top:8px">Solution</summary><div style="margin-top:8px">'+rich(q.solution)+q.solImages.map(u=>imageMarkup(u,'Solution figure','practice-svg')).join('')+'</div></details>':'<details open><summary style="cursor:pointer;font-weight:600;margin-top:8px">Solution</summary><div class="muted" style="margin-top:8px;font-size:13px">Official Answer Key: <b>'+esc(keyText(q))+'</b><br><span style="opacity:0.8">Step-by-step worked solution image was not provided in the original paper archive.</span></div></details>')+'</article>';
 };
