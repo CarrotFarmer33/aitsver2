@@ -2176,14 +2176,42 @@ async function resolveZipImage(img){
         }
       } catch(e){}
     };
-    img.onload = cleanWatermark;
-    img.src = URL.createObjectURL(blob);
+    await new Promise((resolve) => {
+      const finish = () => { cleanWatermark(); resolve(); };
+      img.onload = finish;
+      img.onerror = () => { resolve(); };
+      img.src = URL.createObjectURL(blob);
+      img.removeAttribute('data-zipimg');
+      if(img.complete && img.naturalWidth){
+        finish();
+      }
+    });
+  }catch(e){
+    img.alt='Unable to load image: '+fileName;
     img.removeAttribute('data-zipimg');
-    if(img.complete && img.naturalWidth) cleanWatermark();
-    else if(img.decode){ img.decode().then(cleanWatermark).catch(()=>{}); }
-  }catch(e){ img.alt='Unable to load image: '+fileName; img.style.display='none'; console.warn(e); }
+    img.style.display='none';
+    console.warn(e);
+  }
 }
-function hydrateZipImages(root){ if(root) root.querySelectorAll('img[data-zipimg]').forEach(resolveZipImage); }
+async function hydrateZipImages(root, onProgress){
+  if(!root) return [];
+  const imgs = Array.from(root.querySelectorAll('img[data-zipimg]'));
+  if(!imgs.length) return [];
+  let done = 0;
+  const total = imgs.length;
+  if(onProgress) onProgress(0, total);
+  return Promise.all(imgs.map(async (img) => {
+    try {
+      await resolveZipImage(img);
+    } catch(e) {
+      console.warn('Image hydration error:', e);
+    } finally {
+      done++;
+      if(onProgress) onProgress(done, total);
+    }
+  }));
+}
+window.hydrateZipImages = hydrateZipImages;
 </script>
 <script>
 (function(){
@@ -4358,12 +4386,16 @@ document.addEventListener('click',e=>{
   }
   else if(b.id==='btnGenCbt' || b.id==='sheetStartCbtBtn'){ startCbtFromBuilder(); }
   else if(b.id==='sheetPrintBtn'){
-    const frame = $('#sheetPdfFrame');
-    if(frame && frame.contentWindow){
-      try { frame.contentWindow.focus(); frame.contentWindow.print(); } catch(e){ window.print(); }
-    } else {
-      window.print();
+    const pending = Array.from(document.querySelectorAll('#sheetDocContainer img[data-zipimg]'));
+    if(pending.length > 0){
+      showToast('Loading ' + pending.length + ' remaining question figures before printing...');
+      b.disabled = true;
+      b.innerHTML = 'Loading ' + pending.length + ' figures...';
+      await hydrateZipImages($('#sheetDocContainer'));
+      b.disabled = false;
+      b.innerHTML = 'Save as PDF / Print';
     }
+    window.print();
   }
   else if(b.id==='sheetToggleSolBtn'){
     const sol = document.querySelector('.sheet-sol-section');
@@ -5133,7 +5165,7 @@ function getSelectedBuilderQuestions(){
   return picked;
 }
 
-function buildCustomSheet(customQs){
+async function buildCustomSheet(customQs){
   const qs = (customQs && customQs.length) ? customQs : ((tbCfg.builtQs && tbCfg.builtQs.length) ? tbCfg.builtQs : getSelectedBuilderQuestions());
   if(!qs || !qs.length){
     alert('No questions match your selection. Please select at least one chapter with available questions.');
@@ -5147,29 +5179,78 @@ function buildCustomSheet(customQs){
   const noWatermark = $('#tbOptNoWatermark') ? $('#tbOptNoWatermark').checked : true;
   const timeLimit = parseInt($('#tbTimeLimit') ? $('#tbTimeLimit').value : 180, 10) || 180;
 
+  const btn = $('#btnGenSheet');
+  const prevBtn = $('#btnPreviewSheet');
+  const tbPrevPdfBtn = $('#tbPrevGenPdfBtn');
+  const tbPrevBottomPdfBtn = $('#tbPrevBottomGenPdfBtn');
+  const printBtn = $('#sheetPrintBtn');
+
+  if(btn){ btn.disabled = true; btn.innerHTML = 'Compiling Questions...'; }
+  if(prevBtn) prevBtn.disabled = true;
+  if(tbPrevPdfBtn){ tbPrevPdfBtn.disabled = true; tbPrevPdfBtn.innerHTML = 'Loading Figures...'; }
+  if(tbPrevBottomPdfBtn){ tbPrevBottomPdfBtn.disabled = true; tbPrevBottomPdfBtn.innerHTML = 'Loading Figures...'; }
+  if(printBtn){ printBtn.disabled = true; printBtn.innerHTML = 'Loading figures...'; }
+
   const pWrap = $('#tbProgressWrap');
-  if(pWrap) pWrap.style.display = 'none';
+  const pBar = $('#tbProgressBar');
+  const pPct = $('#tbProgressPct');
+  const pStage = $('#tbProgressStage');
+  const pDetail = $('#tbProgressDetail');
 
-  // Render client-side sheet directly in DOM (< 0.2s)
-  renderSheetDoc(qs, {
-    title: title,
-    subtitle: subtitle,
-    pattern: tbCfg.pattern,
-    timeLimit: timeLimit,
-    includeSol: includeSol,
-    includeKey: true,
-    noWatermark: noWatermark
-  });
+  if(pWrap){
+    pWrap.style.display = 'block';
+    if(pBar) pBar.style.width = '10%';
+    if(pPct) pPct.textContent = '10%';
+    if(pStage) pStage.textContent = 'Compiling test sheet...';
+    if(pDetail) pDetail.textContent = 'Extracting and rendering vector figures...';
+  }
 
-  const frame = $('#sheetPdfFrame');
-  const container = $('#sheetDocContainer');
-  if(frame) frame.style.display = 'none';
-  if(container) container.style.display = 'block';
+  try {
+    const frame = $('#sheetPdfFrame');
+    const container = $('#sheetDocContainer');
+    if(frame) frame.style.display = 'none';
+    if(container) container.style.display = 'block';
+    $('#sheetDocTitle').textContent = title + ' (' + qs.length + ' Qs - Loading...)';
+    show('scrSheetView');
 
-  $('#sheetDocTitle').textContent = title + ' (' + qs.length + ' Qs)';
-  $('#tbStatusNote').textContent = 'Vector sheet ready! (' + qs.length + ' questions)';
-  show('scrSheetView');
-  showToast('Test sheet generated! Tap "Save as PDF / Print" to download.');
+    // Wait until ALL question figures & solutions are 100% loaded and rendered
+    await renderSheetDoc(qs, {
+      title: title,
+      subtitle: subtitle,
+      pattern: tbCfg.pattern,
+      timeLimit: timeLimit,
+      includeSol: includeSol,
+      includeKey: true,
+      noWatermark: noWatermark
+    }, (done, total) => {
+      const pct = Math.max(10, Math.round((done / Math.max(total, 1)) * 100));
+      if(pBar) pBar.style.width = pct + '%';
+      if(pPct) pPct.textContent = pct + '%';
+      if(pStage) pStage.textContent = `Loading figures (${done} / ${total})...`;
+      if(pDetail) pDetail.textContent = `Ready: ${done} of ${total} figures`;
+      if(printBtn) printBtn.innerHTML = `Loading (${done}/${total})...`;
+    });
+
+    if(printBtn){
+      printBtn.disabled = false;
+      printBtn.innerHTML = 'Save as PDF / Print';
+    }
+
+    $('#sheetDocTitle').textContent = title + ' (' + qs.length + ' Qs)';
+    $('#tbStatusNote').textContent = 'Test sheet ready! All ' + qs.length + ' questions loaded.';
+    showToast('All questions loaded! Ready to save or print.');
+  } catch(err){
+    console.error('Error generating sheet:', err);
+    alert('Error generating test sheet: ' + err.message);
+  } finally {
+    if(btn){ btn.disabled = false; btn.innerHTML = 'Quick Generate PDF (Without Preview)'; }
+    if(prevBtn) prevBtn.disabled = false;
+    if(tbPrevPdfBtn){ tbPrevPdfBtn.disabled = false; tbPrevPdfBtn.innerHTML = 'Generate Vector PDF'; }
+    if(tbPrevBottomPdfBtn){ tbPrevBottomPdfBtn.disabled = false; tbPrevBottomPdfBtn.innerHTML = 'Generate Vector PDF'; }
+    if(pWrap){
+      setTimeout(() => { pWrap.style.display = 'none'; }, 400);
+    }
+  }
 }
 
 /* ==================== TEST BUILDER: INTERACTIVE PREVIEW & SWAP ==================== */
@@ -5449,7 +5530,7 @@ function shuffleAllBuilderPreview(){
   showToast('Reshuffled all ' + qs.length + ' questions.');
 }
 
-function renderSheetDoc(qs, opts){
+async function renderSheetDoc(qs, opts, onProgress){
   $('#sheetDocTitle').textContent = opts.title + ' (' + qs.length + ' Qs)';
   const container = $('#sheetDocContainer');
   container.innerHTML = '';
@@ -5605,7 +5686,7 @@ function renderSheetDoc(qs, opts){
   }
 
   container.innerHTML = html;
-  hydrateZipImages(container);
+  await hydrateZipImages(container, onProgress);
   typeset(container);
 }
 
