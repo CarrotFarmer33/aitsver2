@@ -1254,11 +1254,29 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   margin: 16px auto;
   user-select: text !important;
   -webkit-user-select: text !important;
+  background: transparent !important;
 }
 .vector-inline-svg text, .vector-inline-svg tspan {
+  font-family: 'Century Schoolbook', 'TeX Gyre Schola', 'Nimbus Roman', 'Computer Modern Roman', Georgia, serif !important;
   user-select: text !important;
   -webkit-user-select: text !important;
   cursor: text !important;
+}
+.vector-inline-svg text[font-family*="Symbol"],
+.vector-inline-svg tspan[font-family*="Symbol"],
+.vector-inline-svg text[font-family*="Extra"],
+.vector-inline-svg tspan[font-family*="Extra"] {
+  font-family: Symbol, 'MT Extra', serif !important;
+}
+
+/* Dark mode (inverted) vector SVG & question figures */
+:root[data-theme="dark"] .vector-inline-svg,
+:root:not([data-theme="light"]) .vector-inline-svg,
+:root[data-theme="dark"] .marks-detail-card-body .qimg,
+:root:not([data-theme="light"]) .marks-detail-card-body .qimg {
+  filter: invert(0.93) hue-rotate(180deg) brightness(1.1) contrast(1.15);
+  background: transparent !important;
+  mix-blend-mode: lighten;
 }
 .marks-options-grid {
   display: grid;
@@ -1996,7 +2014,9 @@ async function resolveZipImage(img){
     const isSvg = /\.svg$/i.test(fileName);
     if(isSvg){
       try {
-        const svgText = await f.async('text');
+        let svgText = await f.async('text');
+        // Change font of SVG vector image to Century Schoolbook while preserving Symbol & MT Extra
+        svgText = svgText.replace(/font-family="(?!(?:Symbol|MT Extra))[^"]+"/gi, 'font-family="\'Century Schoolbook\', \'TeX Gyre Schola\', \'Nimbus Roman\', Georgia, serif"');
         const parser = new DOMParser();
         const svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
         const svgEl = svgDoc.documentElement;
@@ -3378,17 +3398,18 @@ function renderPracticeCardHtml(q, idx){
     '</div>';
   }
 
-  // Question body text (copy-able embedded text in Century Schoolbook)
+  // Question figures/diagrams (primary question display)
+  const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
+  const hasImgs = qImgs && qImgs.length > 0;
+  const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure')).join('');
+
+  // Fallback text (only shown if question has no image)
   const qInfo = (typeof questionTextsMap !== 'undefined' && questionTextsMap[q.id]) ? questionTextsMap[q.id] : null;
   const rawText = (q.stem || q.text || (qInfo && qInfo.full) || '').trim();
   let textHtml = '';
-  if(rawText){
+  if(!hasImgs && rawText){
     textHtml = '<div class="marks-detail-qtext">' + rich(stripWatermarks(rawText)) + '</div>';
   }
-
-  // Question figures/diagrams
-  const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
-  const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure')).join('');
 
   // 2x2 Options Grid (Marks App Style)
   let interactHtml = '';
@@ -3414,9 +3435,10 @@ function renderPracticeCardHtml(q, idx){
         if(correctList.includes(oIdx)) optClass += ' correct';
         else if(isSelected) optClass += ' wrong';
       }
+      const optLabel = q.labelOnly ? ('Option ' + LET[oIdx]) : rich(opt);
       return '<div class="' + optClass + '" data-prkopt="' + esc(q.id) + '" data-oidx="' + oIdx + '" data-multi="' + (isMulti ? '1' : '0') + '">' +
         '<div class="marks-opt-circle">' + LET[oIdx] + '</div>' +
-        '<div class="marks-opt-text">' + rich(opt) + '</div>' +
+        '<div class="marks-opt-text">' + optLabel + '</div>' +
       '</div>';
     }).join('') + '</div>';
   }
