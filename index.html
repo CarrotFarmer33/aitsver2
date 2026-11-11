@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=5.0,user-scalable=yes,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 /* ==================== TEST BUILDER & BUILD SHEET STYLES ==================== */
 :root {
   --sheet-navy: #1a3a5c;
@@ -1178,19 +1178,24 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 /* Marks Question Detail Screen (Image 2) */
 .marks-detail-wrap {
   max-width: 900px;
-  margin: 16px auto 100px;
+  margin: 16px auto 0;
+  padding-bottom: 220px;
   display: flex;
   flex-direction: column;
   gap: 14px;
+}
+.marks-q-list {
+  padding-bottom: 220px;
 }
 .marks-detail-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 18px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 8px;
+  padding: 10px 4px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
   gap: 12px;
 }
 .marks-detail-header-left {
@@ -1226,15 +1231,39 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   gap: 8px;
 }
 .marks-detail-card-body {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 28px 32px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 12px 4px 60px 4px;
 }
 @media (max-width: 600px) {
   .marks-detail-card-body {
-    padding: 18px 16px;
+    padding: 10px 2px 50px 2px;
   }
+}
+.marks-zoom-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: flex-end;
+  margin: 0 4px 10px auto;
+  user-select: none;
+}
+.marks-zoom-btn {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  color: var(--fg);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  line-height: 1;
+}
+.marks-zoom-btn:hover {
+  background: var(--line);
 }
 .marks-detail-qtext {
   font-family: var(--font-q);
@@ -1251,10 +1280,19 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   width: 100%;
   max-width: 850px;
   height: auto;
-  margin: 16px auto;
+  margin: 14px auto;
   user-select: text !important;
   -webkit-user-select: text !important;
   background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.marks-detail-card-body img,
+.marks-detail-card-body .qimg {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 .vector-inline-svg text, .vector-inline-svg tspan {
   font-family: 'Century Schoolbook', 'TeX Gyre Schola', 'Nimbus Roman', 'Computer Modern Roman', Georgia, serif !important;
@@ -3360,7 +3398,8 @@ function renderPracticeDetailView(){
     typeset(cont);
   }
 
-  // Start question stopwatch
+  // Start question stopwatch & reset zoom
+  setPrkZoom(100);
   startPrkQTimer();
 }
 
@@ -3411,7 +3450,15 @@ function renderPracticeCardHtml(q, idx){
     textHtml = '<div class="marks-detail-qtext">' + rich(stripWatermarks(rawText)) + '</div>';
   }
 
-  // 2x2 Options Grid (Marks App Style)
+  // Zoom Bar (Smooth in-card zooming)
+  const zoomBarHtml = '<div class="marks-zoom-bar">' +
+    '<button type="button" class="marks-zoom-btn" id="prkZoomOutBtn" title="Zoom Out">&minus;</button>' +
+    '<span id="prkZoomLevelText" style="font-size:12px;font-family:monospace;font-weight:600">100%</span>' +
+    '<button type="button" class="marks-zoom-btn" id="prkZoomInBtn" title="Zoom In">&plus;</button>' +
+    '<button type="button" class="marks-zoom-btn" id="prkZoomResetBtn" title="Reset Zoom" style="font-size:11px;padding:3px 8px">Reset</button>' +
+  '</div>';
+
+  // 2x2 Options Grid (Clean "Option (A)", "Option (B)", etc.)
   let interactHtml = '';
   if(effType === 'numerical'){
     const userVal = savedAns ? savedAns.val : '';
@@ -3425,9 +3472,9 @@ function renderPracticeCardHtml(q, idx){
     const isMulti = effType === 'multi';
     const chosenList = savedAns ? (Array.isArray(savedAns.val) ? savedAns.val : [savedAns.val]) : [];
     const correctList = Array.isArray(q.ans) ? q.ans : (q.ans != null ? [q.ans] : []);
-    const opts = (q.options && q.options.length) ? q.options : ['Option (A)', 'Option (B)', 'Option (C)', 'Option (D)'];
+    const optLabels = ['Option (A)', 'Option (B)', 'Option (C)', 'Option (D)'];
 
-    interactHtml = '<div class="marks-options-grid">' + opts.map((opt, oIdx) => {
+    interactHtml = '<div class="marks-options-grid">' + optLabels.map((label, oIdx) => {
       let optClass = 'marks-opt-chip';
       const isSelected = chosenList.includes(oIdx);
       if(isSelected) optClass += ' selected';
@@ -3435,10 +3482,9 @@ function renderPracticeCardHtml(q, idx){
         if(correctList.includes(oIdx)) optClass += ' correct';
         else if(isSelected) optClass += ' wrong';
       }
-      const optLabel = q.labelOnly ? ('Option ' + LET[oIdx]) : rich(opt);
       return '<div class="' + optClass + '" data-prkopt="' + esc(q.id) + '" data-oidx="' + oIdx + '" data-multi="' + (isMulti ? '1' : '0') + '">' +
         '<div class="marks-opt-circle">' + LET[oIdx] + '</div>' +
-        '<div class="marks-opt-text">' + optLabel + '</div>' +
+        '<div class="marks-opt-text">' + label + '</div>' +
       '</div>';
     }).join('') + '</div>';
   }
@@ -3455,6 +3501,7 @@ function renderPracticeCardHtml(q, idx){
   }
 
   return '<article class="marks-detail-card" id="prkCard_' + esc(q.id) + '" data-qid="' + esc(q.id) + '">' +
+    zoomBarHtml +
     '<div class="marks-q-body">' +
       passageHtml +
       textHtml +
@@ -3463,6 +3510,20 @@ function renderPracticeCardHtml(q, idx){
     '</div>' +
     (solHtml ? solHtml : '') +
   '</article>';
+}
+
+let prkCurrentZoom = 100;
+
+function setPrkZoom(zoomPercent){
+  prkCurrentZoom = Math.max(75, Math.min(250, zoomPercent));
+  const el = document.getElementById('prkZoomLevelText');
+  if(el) el.textContent = prkCurrentZoom + '%';
+  const svgs = document.querySelectorAll('#prkDetailCardContainer .vector-inline-svg, #prkDetailCardContainer .qimg');
+  svgs.forEach(item => {
+    item.style.transform = prkCurrentZoom === 100 ? 'none' : 'scale(' + (prkCurrentZoom / 100) + ')';
+    item.style.transformOrigin = 'top center';
+    item.style.transition = 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)';
+  });
 }
 
 function handlePrkOptionClick(qId, oIdx, isMulti){
@@ -4144,6 +4205,15 @@ document.addEventListener('click',e=>{
   }
   else if(b.id==='prkBottomCheckBtn'){
     handlePrkBottomCheck();
+  }
+  else if(b.id==='prkZoomInBtn'){
+    setPrkZoom(prkCurrentZoom + 25);
+  }
+  else if(b.id==='prkZoomOutBtn'){
+    setPrkZoom(prkCurrentZoom - 25);
+  }
+  else if(b.id==='prkZoomResetBtn'){
+    setPrkZoom(100);
   }
   else if(b.closest('#prkDetailBmBtn')){
     if(!prkFilteredList.length) return;
