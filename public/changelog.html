@@ -25,4 +25,5 @@ fetch('changelog.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
     return '<article class="entry"><div class="meta"><span>'+ds+'</span>'+(e.tag?'<span class="tag">'+esc(e.tag)+'</span>':'')+'</div><h2>'+esc(e.title)+'</h2><ul>'+(e.changes||[]).map(c=>'<li>'+esc(c)+'</li>').join('')+'</ul></article>';
   }).join(''):'<p class="empty">No entries yet.</p>';
 }).catch(()=>{document.getElementById('list').innerHTML='<p class="empty">Could not load the changelog.</p>';});
-</script></body></html>
+</script><script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script><script defer src="/_vercel/insights/script.js"></script>
+</body></html>
