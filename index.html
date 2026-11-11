@@ -2144,10 +2144,12 @@ function processSvgMarkup(rawSvgText, isTestBuilder){
   let svgText = rawSvgText;
 
   // Strip diagonal FIITJEE vector watermark patterns and telegram promotions
-  svgText = svgText.replace(/<pattern[^>]*id="pattern_[0-9]+"[^>]*>[\s\S]*?<\/pattern>/gi, '');
-  svgText = svgText.replace(/<rect[^>]*fill="url\(#pattern_[0-9]+\)"[^>]*\/?>/gi, '');
-  svgText = svgText.replace(/<path[^>]*fill="url\(#pattern_[0-9]+\)"[^>]*\/?>/gi, '');
-  svgText = svgText.replace(/<text[^>]*>[^<]*?(?:@fiitjee|for more join|sarvapriya vihar)[^<]*?<\/text>/gi, '');
+  svgText = svgText.replace(/<pattern[^>]*id="[^"]*pattern[^"]*"[^>]*>[\s\S]*?<\/pattern>/gi, '');
+  svgText = svgText.replace(/<rect[^>]*fill="url\(#[^)]*pattern[^)]*\)"[^>]*\/?>/gi, '');
+  svgText = svgText.replace(/<path[^>]*fill="url\(#[^)]*pattern[^)]*\)"[^>]*\/?>/gi, '');
+  svgText = svgText.replace(/<use[^>]*href="url\(#[^)]*pattern[^)]*\)"[^>]*\/?>/gi, '');
+  svgText = svgText.replace(/<text[^>]*>[^<]*?(?:fiitjee|@fiitjee|for more join|sarvapriya vihar|kalu sarai)[^<]*?<\/text>/gi, '');
+  svgText = svgText.replace(/<tspan[^>]*>[^<]*?(?:fiitjee|@fiitjee|for more join|sarvapriya vihar|kalu sarai)[^<]*?<\/tspan>/gi, '');
 
   if(isTestBuilder){
     // Test builder / Print: ensure authentic pure white background rect is present
@@ -5303,44 +5305,38 @@ async function buildCustomSheet(customQs){
 
     const isLocalhost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
     const origin = (window.location.protocol.startsWith('http')) ? window.location.origin : 'http://localhost:8080';
-    const cloudEngine = (window.AITS_CONFIG && window.AITS_CONFIG.vectorEngineUrl) ? window.AITS_CONFIG.vectorEngineUrl.replace(/\/+$/, '') : '';
     const configuredLocal = (window.AITS_CONFIG && window.AITS_CONFIG.localVectorEngineUrl) ? window.AITS_CONFIG.localVectorEngineUrl.replace(/\/+$/, '') : '';
 
-    // Fast probe candidates for local server (try current origin first, then port 8080, then port 8000)
-    const localCandidates = [
-      configuredLocal,
-      origin,
-      'http://localhost:8080',
-      'http://localhost:8000'
-    ].filter(Boolean);
-
     const candidateEndpoints = [];
-    const seenLocal = new Set();
 
-    // Fast probe to detect working local server
-    for (const base of localCandidates) {
-      if (seenLocal.has(base)) continue;
-      seenLocal.add(base);
-      try {
-        const probeCtrl = new AbortController();
-        const probeTid = setTimeout(() => probeCtrl.abort(), 600);
-        const probeRes = await fetch(`${base}/health`, { signal: probeCtrl.signal });
-        clearTimeout(probeTid);
-        if (probeRes.ok) {
-          candidateEndpoints.push({ url: `${base}/api/build-test`, type: 'local', label: 'Local Server' });
-          break;
-        }
-      } catch (_) {}
-    }
+    // Probe local Python vector server (1-2s instant generation) if running locally
+    if (isLocalhost || configuredLocal) {
+      const localCandidates = [
+        isLocalhost ? origin : null,
+        configuredLocal,
+        'http://localhost:8080',
+        'http://localhost:8000'
+      ].filter(Boolean);
 
-    if (isLocalhost) {
-      candidateEndpoints.push({ url: '/api/build-test', type: 'local', label: 'Local Server' });
+      const seenLocal = new Set();
+      for (const base of localCandidates) {
+        if (seenLocal.has(base)) continue;
+        seenLocal.add(base);
+        try {
+          const probeCtrl = new AbortController();
+          const probeTid = setTimeout(() => probeCtrl.abort(), 400);
+          const probeRes = await fetch(`${base}/health`, { signal: probeCtrl.signal });
+          clearTimeout(probeTid);
+          if (probeRes.ok) {
+            candidateEndpoints.push({ url: `${base}/api/build-test`, type: 'local', label: 'Local Server' });
+            break;
+          }
+        } catch (_) {}
+      }
+      if (isLocalhost && !candidateEndpoints.length) {
+        candidateEndpoints.push({ url: '/api/build-test', type: 'local', label: 'Local Server' });
+      }
     }
-    if (cloudEngine) {
-      candidateEndpoints.push({ url: `${cloudEngine}/api/build-test`, type: 'cloud', label: 'Cloud Engine (Render)' });
-    }
-    candidateEndpoints.push({ url: 'http://localhost:8080/api/build-test', type: 'local', label: 'Local Server' });
-    candidateEndpoints.push({ url: 'http://localhost:8000/api/build-test', type: 'local', label: 'Local Server' });
 
     const seenUrls = new Set();
     const endpoints = candidateEndpoints.filter(ep => {
