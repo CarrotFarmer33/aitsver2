@@ -2102,13 +2102,13 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   </div><div class="sheet-tools-right">
     <a class="btn sm primary" id="sheetDownloadBtn" href="#" download="test_sheet.pdf">Download PDF</a>
     <a class="btn sm" id="sheetOpenTabBtn" href="#" target="_blank">Open in New Tab</a>
-    <button class="btn sm" id="sheetPrintBtn" type="button">Print</button>
+    <button class="btn sm" id="sheetPrintBtn" type="button" title="Save this test sheet as PDF or print directly">Save as PDF / Print</button>
     <button class="btn sm" id="sheetStartCbtBtn" type="button">Take as CBT Online Exam</button>
   </div></div></div>
 
-  <div class="sheet-view-wrap" style="padding:0;height:calc(100vh - 56px);overflow:hidden;background:#525659">
+  <div class="sheet-view-wrap" style="padding:0;height:calc(100vh - 56px);overflow-y:auto;background:#525659">
     <iframe id="sheetPdfFrame" src="about:blank" style="width:100%;height:100%;border:none;background:#525659;display:block"></iframe>
-    <div id="sheetDocContainer" style="display:none"></div>
+    <div id="sheetDocContainer" style="display:none;padding:20px 16px 60px 16px"></div>
   </div>
 </div>
 
@@ -2142,6 +2142,12 @@ function processSvgMarkup(rawSvgText, isTestBuilder){
   svgUidCounter++;
   const pfx = 'qsvg_' + svgUidCounter + '_';
   let svgText = rawSvgText;
+
+  // Strip diagonal FIITJEE vector watermark patterns and telegram promotions
+  svgText = svgText.replace(/<pattern[^>]*id="pattern_[0-9]+"[^>]*>[\s\S]*?<\/pattern>/gi, '');
+  svgText = svgText.replace(/<rect[^>]*fill="url\(#pattern_[0-9]+\)"[^>]*\/?>/gi, '');
+  svgText = svgText.replace(/<path[^>]*fill="url\(#pattern_[0-9]+\)"[^>]*\/?>/gi, '');
+  svgText = svgText.replace(/<text[^>]*>[^<]*?(?:@fiitjee|for more join|sarvapriya vihar)[^<]*?<\/text>/gi, '');
 
   if(isTestBuilder){
     // Test builder / Print: ensure authentic pure white background rect is present
@@ -4426,7 +4432,7 @@ document.addEventListener('click',e=>{
   else if(b.id==='btnGenCbt' || b.id==='sheetStartCbtBtn'){ startCbtFromBuilder(); }
   else if(b.id==='sheetPrintBtn'){
     const frame = $('#sheetPdfFrame');
-    if(frame && frame.contentWindow){
+    if(frame && frame.style.display !== 'none' && frame.contentWindow){
       try { frame.contentWindow.focus(); frame.contentWindow.print(); } catch(e){ window.print(); }
     } else {
       window.print();
@@ -5291,37 +5297,50 @@ async function buildCustomSheet(customQs){
       title: title,
       subtitle: subtitle,
       includeSolutions: includeSol,
-      removeWatermark: false, // Don't remove background or pattern shading
+      removeWatermark: true, // Clean FIITJEE watermarks and diagonal patterns
       qids: qids
     });
 
     const isLocalhost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+    const origin = (window.location.protocol.startsWith('http')) ? window.location.origin : 'http://localhost:8080';
     const cloudEngine = (window.AITS_CONFIG && window.AITS_CONFIG.vectorEngineUrl) ? window.AITS_CONFIG.vectorEngineUrl.replace(/\/+$/, '') : '';
-    const localEngine = (window.AITS_CONFIG && window.AITS_CONFIG.localVectorEngineUrl) ? window.AITS_CONFIG.localVectorEngineUrl.replace(/\/+$/, '') : 'http://localhost:8000';
+    const configuredLocal = (window.AITS_CONFIG && window.AITS_CONFIG.localVectorEngineUrl) ? window.AITS_CONFIG.localVectorEngineUrl.replace(/\/+$/, '') : '';
 
-    // Fast probe to detect if local server is responsive
-    let isLocalUp = false;
-    try {
-      const probeCtrl = new AbortController();
-      const probeTid = setTimeout(() => probeCtrl.abort(), 1000);
-      const probeRes = await fetch(`${localEngine}/health`, { signal: probeCtrl.signal });
-      clearTimeout(probeTid);
-      if (probeRes.ok) isLocalUp = true;
-    } catch (_) {
-      isLocalUp = false;
-    }
+    // Fast probe candidates for local server (try current origin first, then port 8080, then port 8000)
+    const localCandidates = [
+      configuredLocal,
+      origin,
+      'http://localhost:8080',
+      'http://localhost:8000'
+    ].filter(Boolean);
 
     const candidateEndpoints = [];
-    if (isLocalUp) {
-      candidateEndpoints.push({ url: `${localEngine}/api/build-test`, type: 'local', label: 'Local Server' });
+    const seenLocal = new Set();
+
+    // Fast probe to detect working local server
+    for (const base of localCandidates) {
+      if (seenLocal.has(base)) continue;
+      seenLocal.add(base);
+      try {
+        const probeCtrl = new AbortController();
+        const probeTid = setTimeout(() => probeCtrl.abort(), 600);
+        const probeRes = await fetch(`${base}/health`, { signal: probeCtrl.signal });
+        clearTimeout(probeTid);
+        if (probeRes.ok) {
+          candidateEndpoints.push({ url: `${base}/api/build-test`, type: 'local', label: 'Local Server' });
+          break;
+        }
+      } catch (_) {}
     }
+
     if (isLocalhost) {
       candidateEndpoints.push({ url: '/api/build-test', type: 'local', label: 'Local Server' });
     }
     if (cloudEngine) {
       candidateEndpoints.push({ url: `${cloudEngine}/api/build-test`, type: 'cloud', label: 'Cloud Engine (Render)' });
     }
-    candidateEndpoints.push({ url: `${localEngine}/api/build-test`, type: 'local', label: 'Local Server' });
+    candidateEndpoints.push({ url: 'http://localhost:8080/api/build-test', type: 'local', label: 'Local Server' });
+    candidateEndpoints.push({ url: 'http://localhost:8000/api/build-test', type: 'local', label: 'Local Server' });
 
     const seenUrls = new Set();
     const endpoints = candidateEndpoints.filter(ep => {
@@ -5366,7 +5385,54 @@ async function buildCustomSheet(customQs){
     }
 
     if (!resp) {
-      throw new Error(lastErr ? lastErr.message : 'Cannot reach vector test engine backend.');
+      // Seamless online fallback: no local/cloud server reachable, compile test sheet purely in browser
+      console.log('No backend server reachable. Compiling test sheet directly in browser (client-side)...');
+      clearInterval(timerInterval);
+      if(pStage) pStage.textContent = 'Compiling test sheet directly in browser...';
+      if(pDetail) pDetail.textContent = 'Rendering A4 question pages and hydrating figures...';
+      if(pBar) pBar.style.width = '60%';
+      if(pPct) pPct.textContent = '60%';
+
+      const frame = $('#sheetPdfFrame');
+      if(frame) frame.style.display = 'none';
+      const container = $('#sheetDocContainer');
+      if(container) container.style.display = 'block';
+
+      show('scrSheetView');
+      await renderSheetDoc(qs, {
+        title: title,
+        subtitle: subtitle,
+        pattern: tbCfg.pattern,
+        timeLimit: (tbCfg.pattern === 'main' ? 180 : (qs.length * 3)),
+        includeKey: true,
+        includeSol: includeSol,
+        noWatermark: true
+      }, (done, total) => {
+        const pct = Math.max(10, Math.round((done / Math.max(total, 1)) * 100));
+        if(pBar) pBar.style.width = pct + '%';
+        if(pPct) pPct.textContent = pct + '%';
+        if(pStage) pStage.textContent = `Loading figures (${done} / ${total})...`;
+      });
+
+      $('#sheetDocTitle').textContent = title + ' (' + qs.length + ' Questions)';
+      const dlBtn = $('#sheetDownloadBtn');
+      if(dlBtn){
+        dlBtn.removeAttribute('href');
+        dlBtn.onclick = (e) => { e.preventDefault(); window.print(); };
+        dlBtn.title = 'Save as PDF or Print';
+      }
+      const printBtn = $('#sheetPrintBtn');
+      if(printBtn){
+        printBtn.onclick = () => window.print();
+      }
+
+      if(pBar) pBar.style.width = '100%';
+      if(pPct) pPct.textContent = '100%';
+      if(pStage) pStage.textContent = 'Test sheet ready!';
+      if(pDetail) pDetail.textContent = 'Rendered in browser. Click "Save as PDF / Print" to download.';
+      $('#tbStatusNote').textContent = 'Test sheet compiled! Click "Save as PDF / Print" to save your PDF.';
+      showToast('Test sheet ready! Click "Save as PDF / Print" to download.');
+      return;
     }
 
     const data = await resp.json();
@@ -5380,6 +5446,7 @@ async function buildCustomSheet(customQs){
     if(pDetail) pDetail.textContent = (usedEndpoint && usedEndpoint.type === 'local') ? ('Generated via fast local engine in ' + (data.durationSeconds || '1') + 's') : 'Loading vector PDF preview...';
 
     const fullPdfUrl = (data.pdfUrl.startsWith('http') ? data.pdfUrl : (usedBaseUrl + data.pdfUrl));
+    const dlUrl = fullPdfUrl + (fullPdfUrl.includes('?') ? '&' : '?') + 'download=1';
     const frame = $('#sheetPdfFrame');
     if(frame){
       frame.style.display = 'block';
@@ -5389,10 +5456,26 @@ async function buildCustomSheet(customQs){
     if(container) container.style.display = 'none';
 
     const dlBtn = $('#sheetDownloadBtn');
-    if(dlBtn){ dlBtn.href = fullPdfUrl; dlBtn.download = data.filename || 'practice_sheet.pdf'; }
+    if(dlBtn){
+      dlBtn.href = dlUrl;
+      dlBtn.download = data.filename || 'practice_sheet.pdf';
+    }
     const tabBtn = $('#sheetOpenTabBtn');
     if(tabBtn) tabBtn.href = fullPdfUrl;
     $('#sheetDocTitle').textContent = title + ' (' + data.totalQuestions + ' Qs, ' + data.totalPages + ' Pages)';
+
+    // Trigger direct local download automatically so the file is saved to their computer
+    try {
+      const a = document.createElement('a');
+      a.href = dlUrl;
+      a.download = data.filename || 'practice_sheet.pdf';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => a.remove(), 400);
+      showToast('PDF downloaded successfully! (' + (data.filename || 'practice_sheet.pdf') + ')');
+    } catch(dlErr) {
+      console.warn('Auto-download fallback:', dlErr);
+    }
 
     $('#tbStatusNote').textContent = 'Vector PDF created successfully! (' + data.totalQuestions + ' Qs, ' + data.totalPages + ' pages)';
     show('scrSheetView');
