@@ -364,7 +364,7 @@
     margin: 0 !important;
     padding: 0 !important;
   }
-  .topbar, .sheet-toolbar, #scrSetup, #scrInstr, #scrExam, #scrRes, #scrSaved, #scrTestBuilder, #scrTestPreview, #modal, .scrim, #tbToast {
+  .topbar, .sheet-toolbar, #scrSetup, #scrInstr, #scrExam, #scrRes, #scrSaved, #scrBuilderLogin, #scrTestBuilder, #scrTestPreview, #modal, .scrim, #tbToast {
     display: none !important;
   }
   #scrSheetView {
@@ -470,7 +470,7 @@ button{cursor:pointer}
 .card h3{margin:16px 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
 .field{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
 .field label{font-weight:600;font-size:13px}
-input[type=text],input[type=number],select{background:var(--surface);border:1px solid var(--line);border-radius:2px;padding:7px 10px;min-height:38px;width:100%}
+input[type=text],input[type=password],input[type=number],select{background:var(--surface);border:1px solid var(--line);border-radius:2px;padding:7px 10px;min-height:38px;width:100%}
 input[type=checkbox],input[type=radio]{accent-color:var(--brand);width:17px;height:17px;flex:none;margin:0}
 
 /* setup */
@@ -836,7 +836,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
             <select id="modeSel"><option value="test">Take as a test (results at the end)</option><option value="practice">Practice (check answer and solution after each question)</option></select></div>
           <div class="field"><label for="mrkSel">Marking scheme</label><select id="mrkSel"></select></div>
           <button class="btn primary" id="btnStart" type="button" style="width:100%">Continue to instructions</button>
-          <div id="startWhy" class="muted" style="font-size:13px;margin-top:8px"></div><button class="btn" id="openBuilderFromSetup" type="button" style="width:100%;margin-top:10px;border-color:var(--brand);color:var(--brand);font-weight:600">📄 Custom Test Builder (Build Sheets Format)</button>
+          <div id="startWhy" class="muted" style="font-size:13px;margin-top:8px"></div>
           <div id="histCard" hidden><h3>Recent tests</h3><div class="hist" id="histList"></div></div>
         </aside>
 
@@ -953,8 +953,33 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 </div>
 
 
+<div id="scrBuilderLogin" class="screen" hidden>
+  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Test Builder &ndash; Restricted Access</span><button class="btn sm" id="tbLoginBackBtn" type="button">&larr; Practice portal</button></div></div>
+  <main class="wrap" style="max-width:440px;margin:40px auto;padding:16px">
+    <section class="card" style="box-shadow:0 8px 24px rgba(0,0,0,0.08);border-radius:6px">
+      <div style="text-align:center;margin-bottom:20px">
+        <div style="font-size:36px;margin-bottom:8px">🔒</div>
+        <h2 style="margin:0 0 6px;font-size:20px">Test Builder Login</h2>
+        <p class="muted" style="margin:0;font-size:13px">This tool is not free to access for everyone. Please enter administrator credentials to unlock.</p>
+      </div>
+      <form id="tbLoginForm" style="display:flex;flex-direction:column;gap:14px" onsubmit="return false;">
+        <div class="field" style="margin:0">
+          <label for="tbLoginUser">Username</label>
+          <input type="text" id="tbLoginUser" placeholder="Enter username" autocomplete="username" required>
+        </div>
+        <div class="field" style="margin:0">
+          <label for="tbLoginPass">Password</label>
+          <input type="password" id="tbLoginPass" placeholder="Enter password" autocomplete="current-password" required>
+        </div>
+        <div id="tbLoginErr" style="display:none;background:rgba(211,47,47,0.1);color:#d32f2f;border:1px solid rgba(211,47,47,0.3);border-radius:4px;padding:8px 12px;font-size:13px;font-weight:600;text-align:center"></div>
+        <button class="btn primary" id="tbLoginSubmitBtn" type="submit" style="width:100%;margin-top:4px">Unlock Test Builder</button>
+      </form>
+    </section>
+  </main>
+</div>
+
 <div id="scrTestBuilder" class="screen" hidden>
-  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Test Builder &ndash; Build Custom Question Sheets</span><button class="btn sm" id="tbBackBtn" type="button">&larr; Practice portal</button></div></div>
+  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Test Builder &ndash; Build Custom Question Sheets</span><div style="display:flex;align-items:center;gap:8px"><button class="btn sm" id="tbLogoutBtn" type="button" style="border-color:#e05252;color:#e05252">Log out</button><button class="btn sm" id="tbBackBtn" type="button">&larr; Practice portal</button></div></div></div>
   <main class="wrap setup">
     <div class="builder-grid">
       <div style="display:flex;flex-direction:column;gap:16px">
@@ -1458,7 +1483,7 @@ function showNote(t){ const n=$('#dbNote'); n.textContent=t; n.hidden=!t; }
 
 /* ---------- screens ---------- */
 function show(id){
-  ['scrSetup','scrInstr','scrExam','scrRes','scrSaved','scrTestBuilder','scrSheetView','scrTestPreview'].forEach(s=>{ const el=$('#'+s); if(el) el.hidden = s!==id; });
+  ['scrSetup','scrInstr','scrExam','scrRes','scrSaved','scrBuilderLogin','scrTestBuilder','scrSheetView','scrTestPreview'].forEach(s=>{ const el=$('#'+s); if(el) el.hidden = s!==id; });
   toggleAcc(false); hideTip();
   window.scrollTo(0,0);
 }
@@ -2646,11 +2671,12 @@ document.addEventListener('click',e=>{
   else if(b.id==='impData'){ $('#topMenu').open=false; $('#impFile').click(); }
   
   // Test Builder navigation & actions
-  else if(b.id==='navBuilder' || b.id==='openBuilderMenu' || b.id==='openBuilderBtn' || b.id==='openBuilderFromSetup'){
+  else if(b.id==='navBuilder' || b.id==='openBuilderMenu' || b.id==='openBuilderBtn'){
     const m = $('#topMenu'); if(m) m.open = false;
     openBuilderScreen();
   }
-  else if(b.id==='tbBackBtn'){ show('scrSetup'); renderHist(); }
+  else if(b.id==='tbBackBtn' || b.id==='tbLoginBackBtn'){ show('scrSetup'); renderHist(); }
+  else if(b.id==='tbLogoutBtn'){ logoutBuilder(); }
   else if(b.id==='sheetBackBtn'){ show('scrTestBuilder'); }
   else if(b.id==='btnGenSheet'){ buildCustomSheet(); }
   else if(b.id==='btnPreviewSheet'){ openBuilderPreview(); }
@@ -3186,7 +3212,60 @@ function checkCbtHash(){
   return false;
 }
 
+const TB_AUTH_KEY = 'aits_tb_auth';
+function isBuilderAuthenticated(){
+  return sessionStorage.getItem(TB_AUTH_KEY) === '1' || localStorage.getItem(TB_AUTH_KEY) === '1';
+}
+function setBuilderAuthenticated(state){
+  if(state){
+    sessionStorage.setItem(TB_AUTH_KEY, '1');
+    localStorage.setItem(TB_AUTH_KEY, '1');
+  } else {
+    sessionStorage.removeItem(TB_AUTH_KEY);
+    localStorage.removeItem(TB_AUTH_KEY);
+  }
+}
+function showBuilderLogin(){
+  show('scrBuilderLogin');
+  const user = $('#tbLoginUser'), pass = $('#tbLoginPass'), err = $('#tbLoginErr');
+  if(err) err.style.display = 'none';
+  if(user){ user.value = ''; setTimeout(() => user.focus(), 50); }
+  if(pass) pass.value = '';
+}
+function handleBuilderLogin(){
+  const user = ($('#tbLoginUser') ? $('#tbLoginUser').value : '').trim();
+  const pass = ($('#tbLoginPass') ? $('#tbLoginPass').value : '').trim();
+  const err = $('#tbLoginErr');
+  if(user === 'admin' && pass === 'anwesh@14'){
+    setBuilderAuthenticated(true);
+    if(err) err.style.display = 'none';
+    openBuilderScreen();
+  } else {
+    if(err){
+      err.textContent = 'Invalid username or password. Access is restricted.';
+      err.style.display = 'block';
+    }
+    const passEl = $('#tbLoginPass');
+    if(passEl){ passEl.value = ''; passEl.focus(); }
+  }
+}
+function logoutBuilder(){
+  setBuilderAuthenticated(false);
+  show('scrSetup');
+  renderHist();
+}
+document.addEventListener('submit', e => {
+  if(e.target && e.target.id === 'tbLoginForm'){
+    e.preventDefault();
+    handleBuilderLogin();
+  }
+});
+
 function openBuilderScreen(){
+  if(!isBuilderAuthenticated()){
+    showBuilderLogin();
+    return;
+  }
   const hash = window.location.hash || '';
   if(hash.includes('?')){
     const qIdx = hash.indexOf('?');
@@ -4091,5 +4170,4 @@ function startCbtFromBuilder(){
 })();
 </script>
 
-<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script><script defer src="/_vercel/insights/script.js"></script>
 </body></html>
