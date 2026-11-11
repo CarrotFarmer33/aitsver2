@@ -1365,18 +1365,21 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   cursor: text !important;
 }
 
-/* Figures and vector images keep clean authentic white background */
-.preview-q-card .qimg,
-.preview-q-body .qimg,
-.preview-sol-box .qimg,
-.marks-detail-card-body .qimg,
-.vector-inline-svg {
-  background: #ffffff !important;
-  border-radius: 4px;
-  padding: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  filter: none !important;
-  mix-blend-mode: normal !important;
+/* Dark mode seamless transparent vector SVG & question figures in practice and preview mode */
+:root[data-theme="dark"] .vector-inline-svg,
+:root:not([data-theme="light"]) .vector-inline-svg,
+:root[data-theme="dark"] .marks-detail-card-body .qimg,
+:root:not([data-theme="light"]) .marks-detail-card-body .qimg,
+:root[data-theme="dark"] .preview-q-card .qimg,
+:root:not([data-theme="light"]) .preview-q-card .qimg,
+:root[data-theme="dark"] .preview-q-body .qimg,
+:root:not([data-theme="light"]) .preview-q-body .qimg,
+:root[data-theme="dark"] .preview-sol-box .qimg,
+:root:not([data-theme="light"]) .preview-sol-box .qimg {
+  filter: invert(0.93) hue-rotate(180deg) brightness(1.1) contrast(1.15);
+  background: transparent !important;
+  mix-blend-mode: lighten;
+  box-shadow: none !important;
 }
 .marks-options-grid {
   display: grid;
@@ -2253,7 +2256,7 @@ function parseNum(a){
 function normQuestion(q,i,defSubject){
   if(!q || typeof q!=='object') return null;
   const text = q.question!=null?q.question:(q.text!=null?q.text:(q.statement!=null?q.statement:''));
-  const imgs = [].concat((q.raster_images && q.raster_images.length) ? q.raster_images : (q.images||q.question_images||q.image||[])).filter(Boolean);
+  const imgs = [].concat(q.images||q.question_images||q.image||q.raster_images||[]).filter(Boolean);
   if(!String(text).trim() && !imgs.length) return null;
   const subject = normSubject(q.subject!=null?q.subject:defSubject);
   const chapter = String(q.chapter!=null?q.chapter:(q.topic!=null?q.topic:'Unsorted')).trim() || 'Unsorted';
