@@ -1365,21 +1365,53 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   cursor: text !important;
 }
 
-/* Dark mode seamless transparent vector SVG & question figures in practice and preview mode */
-:root[data-theme="dark"] .vector-inline-svg,
-:root:not([data-theme="light"]) .vector-inline-svg,
-:root[data-theme="dark"] .marks-detail-card-body .qimg,
-:root:not([data-theme="light"]) .marks-detail-card-body .qimg,
-:root[data-theme="dark"] .preview-q-card .qimg,
-:root:not([data-theme="light"]) .preview-q-card .qimg,
-:root[data-theme="dark"] .preview-q-body .qimg,
-:root:not([data-theme="light"]) .preview-q-body .qimg,
-:root[data-theme="dark"] .preview-sol-box .qimg,
-:root:not([data-theme="light"]) .preview-sol-box .qimg {
-  filter: invert(0.93) hue-rotate(180deg) brightness(1.1) contrast(1.15);
+/* 1. PRACTICE MODE ONLY: Seamless dark mode transparent background */
+:root[data-theme="dark"] #scrPracticeDetail .qimg,
+:root:not([data-theme="light"]) #scrPracticeDetail .qimg,
+:root[data-theme="dark"] #scrPracticeList .qimg,
+:root:not([data-theme="light"]) #scrPracticeList .qimg,
+:root[data-theme="dark"] #scrExam .qimg,
+:root:not([data-theme="light"]) #scrExam .qimg,
+:root[data-theme="dark"] #scrRes .qimg,
+:root:not([data-theme="light"]) #scrRes .qimg,
+:root[data-theme="dark"] .practice-svg,
+:root:not([data-theme="light"]) .practice-svg,
+:root[data-theme="dark"] .marks-detail-card-body .vector-inline-svg,
+:root:not([data-theme="light"]) .marks-detail-card-body .vector-inline-svg {
+  filter: invert(0.93) hue-rotate(180deg) brightness(1.1) contrast(1.15) !important;
   background: transparent !important;
-  mix-blend-mode: lighten;
+  mix-blend-mode: lighten !important;
   box-shadow: none !important;
+}
+
+/* 2. TEST BUILDER ONLY: Clean authentic solid white background, normal blending, crisp black text */
+#scrTestPreview .qimg,
+#scrTestPreview .vector-inline-svg,
+.preview-q-card .qimg,
+.preview-q-body .qimg,
+.preview-sol-box .qimg,
+.preview-q-card .vector-inline-svg,
+.preview-q-body .vector-inline-svg,
+.preview-sol-box .vector-inline-svg,
+.test-builder-svg,
+.sheet-page .qimg,
+.sheet-page .vector-inline-svg {
+  filter: none !important;
+  mix-blend-mode: normal !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+}
+#scrTestPreview .vector-inline-svg text,
+#scrTestPreview .vector-inline-svg tspan,
+.preview-q-card .vector-inline-svg text,
+.preview-q-card .vector-inline-svg tspan,
+.sheet-page .vector-inline-svg text,
+.sheet-page .vector-inline-svg tspan {
+  fill: #000000 !important;
+  color: #000000 !important;
 }
 .marks-options-grid {
   display: grid;
@@ -2098,11 +2130,52 @@ function esc(value){
   return String(value==null?'':value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 window.esc = esc;
-function imageMarkup(u,alt){
-  const x=String(u||'');
-  if(x.startsWith('zipimg:')) return '<img class="qimg" alt="'+esc(alt||'Question figure')+'" data-zipimg="'+esc(x.slice(7))+'" src="data:,">';
-  return '<img class="qimg" alt="'+esc(alt||'Question figure')+'" src="'+esc(x)+'">';
+function imageMarkup(u, alt, extraClass){
+  const x = String(u || '');
+  const cls = 'qimg' + (extraClass ? (' ' + extraClass) : '');
+  if(x.startsWith('zipimg:')) return '<img class="' + cls + '" alt="' + esc(alt || 'Question figure') + '" data-zipimg="' + esc(x.slice(7)) + '" src="data:,">';
+  return '<img class="' + cls + '" alt="' + esc(alt || 'Question figure') + '" src="' + esc(x) + '">';
 }
+
+let svgUidCounter = 0;
+function processSvgMarkup(rawSvgText, isTestBuilder){
+  svgUidCounter++;
+  const pfx = 'qsvg_' + svgUidCounter + '_';
+  let svgText = rawSvgText;
+
+  if(isTestBuilder){
+    // Test builder / Print: ensure authentic pure white background rect is present
+    if(!/<rect[^>]*fill="#ffffff"/i.test(svgText)){
+      svgText = svgText.replace(/(<svg[^>]*>)/i, '$1<rect width="100%" height="100%" fill="#ffffff"/>');
+    }
+  } else {
+    // Practice mode: strip solid white background rect so it blends seamlessly into dark mode
+    svgText = svgText.replace(/<rect\s+width="100%"\s+height="100%"\s+fill="#ffffff"\s*\/?>/gi, '');
+    svgText = svgText.replace(/<rect[^>]*fill="#ffffff"[^>]*\/>/gi, '');
+  }
+
+  // Namespace all internal IDs to eliminate document-global ID collisions across SVGs in the DOM
+  const idMap = new Set();
+  const idRegex = /\bid="([^"]+)"/g;
+  let match;
+  while((match = idRegex.exec(svgText)) !== null){
+    idMap.add(match[1]);
+  }
+  if(idMap.size > 0){
+    const sortedIds = Array.from(idMap).sort((a, b) => b.length - a.length);
+    for(let i = 0; i < sortedIds.length; i++){
+      const oldId = sortedIds[i];
+      const newId = pfx + oldId;
+      svgText = svgText.split('id="' + oldId + '"').join('id="' + newId + '"');
+      svgText = svgText.split('href="#' + oldId + '"').join('href="#' + newId + '"');
+      svgText = svgText.split('xlink:href="#' + oldId + '"').join('xlink:href="#' + newId + '"');
+      svgText = svgText.split('url(#' + oldId + ')').join('url(#' + newId + ')');
+    }
+  }
+
+  return svgText;
+}
+
 async function resolveZipImage(img){
   const ref=img.dataset.zipimg; if(!ref) return;
   const hash=ref.lastIndexOf('#'); if(hash<0) return;
@@ -2115,23 +2188,30 @@ async function resolveZipImage(img){
     if(!f){ const match=Object.keys(zip.files).find(k=>!zip.files[k].dir && (k===fileName || k.endsWith('/'+fileName))); if(match) f=zip.file(match); }
     if(!f) throw new Error('Image not found in ZIP: '+fileName);
     const isSvg = /\.svg$/i.test(fileName);
+    const isTb = img.classList.contains('test-builder-svg') || !!img.closest('#scrTestPreview, #scrSheetView, .preview-q-card, .preview-q-body, .preview-sol-box, .sheet-page');
     if(isSvg){
       try {
-        const svgText = await f.async('text');
+        const rawSvgText = await f.async('text');
+        const processedSvg = processSvgMarkup(rawSvgText, isTb);
         const parser = new DOMParser();
-        const svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
+        const svgDoc = parser.parseFromString(processedSvg, 'image/svg+xml');
         const svgEl = svgDoc.documentElement;
         if(svgEl && svgEl.nodeName.toLowerCase() === 'svg'){
-          svgEl.classList.add('qimg', 'vector-inline-svg');
+          svgEl.classList.add('qimg', 'vector-inline-svg', isTb ? 'test-builder-svg' : 'practice-svg');
           svgEl.setAttribute('role', 'img');
           svgEl.setAttribute('aria-label', img.alt || 'Question figure');
           svgEl.style.width = '100%';
           svgEl.style.maxWidth = '850px';
           svgEl.style.height = 'auto';
           svgEl.style.display = 'block';
-          svgEl.style.margin = '16px auto';
+          svgEl.style.margin = isTb ? '0 auto' : '16px auto';
           svgEl.style.userSelect = 'text';
           svgEl.style.webkitUserSelect = 'text';
+          if(isTb){
+            svgEl.style.background = '#ffffff';
+          } else {
+            svgEl.style.background = 'transparent';
+          }
           img.replaceWith(svgEl);
           return;
         }
@@ -2140,8 +2220,9 @@ async function resolveZipImage(img){
       }
     }
     const rawBlob = await f.async('blob');
-    const blob = isSvg ? new Blob([rawBlob], { type: 'image/svg+xml' }) : rawBlob;
+    const blob = isSvg ? new Blob([processSvgMarkup(await f.async('text'), isTb)], { type: 'image/svg+xml' }) : rawBlob;
     img.src = URL.createObjectURL(blob);
+    img.classList.add(isTb ? 'test-builder-svg' : 'practice-svg');
     img.removeAttribute('data-zipimg');
   }catch(e){
     img.alt='Unable to load image: '+fileName;
@@ -2812,7 +2893,7 @@ function openPaper(){
   leave();
   const body=T.qs.map((q,i)=>{
     const sec=T.secs[T.secOf[i]];
-    const imgs=q.images.map(u=>imageMarkup(u,'Question '+(i+1)).replace('class="qimg"','class="qpimg"')).join('');
+    const imgs=q.images.map(u=>imageMarkup(u,'Question '+(i+1),'practice-svg').replace('class="qimg"','class="qpimg"')).join('');
     const opts=(q.options&&!q.labelOnly)?'<ol class="qpopts" type="A">'+q.options.map(o=>'<li>'+rich(o)+'</li>').join('')+'</ol>':'';
     return '<section class="qpitem"><div class="qphead"><b>Question No. '+(i+1)+'</b><span>'+esc(sec.name)+' · '+esc(q.chapter)+'</span></div>'+(q.text?'<div class="qtext">'+rich(q.text)+'</div>':'')+imgs+opts+'</section>';
   }).join('');
@@ -2866,12 +2947,12 @@ function renderQ(){
   if(q.paragraph && q.passageImages && q.passageImages.length){
     h+='<div class="passage-box" style="margin-bottom:14px;padding:12px;background:rgba(255,165,0,0.06);border:1px solid rgba(255,165,0,0.3);border-radius:8px;">'+
        '<div style="font-weight:700;margin-bottom:8px;font-size:14px;color:var(--x-main,#0066cc);">Common Paragraph / Passage:</div>';
-    q.passageImages.forEach(u=>{ h+=imageMarkup(u,'Common passage'); });
+    q.passageImages.forEach(u=>{ h+=imageMarkup(u,'Common passage','practice-svg'); });
     h+='</div>';
   }
   h+='<div class="qtext">'+rich(q.text)+'</div>';
   const qImgs = (q.images||[]).filter(u=>!(q.passageImages||[]).includes(u));
-  qImgs.forEach(u=>{ h+=imageMarkup(u,'Question figure'); });
+  qImgs.forEach(u=>{ h+=imageMarkup(u,'Question figure','practice-svg'); });
   const locked=T.mode==='practice' && s.checked, dis=locked?' disabled':'';
   const effectiveType = q.rawType || q.type;
   if(effectiveType==='numerical'){
@@ -2901,7 +2982,7 @@ function feedbackHtml(q,s){
   const pc={ok:'ok',bad:'bad',part:'part',skip:'skip',nokey:'skip'}[r.r];
   return '<div class="fb r-'+r.r+'" role="status"><div class="fbh"><span class="badge '+pc+'">'+label+(r.marks?' '+(r.marks>0?'+':'')+r.marks:'')+'</span>'+
     '<span>Your answer: <b>'+esc(fmtAns(q,s.ans))+'</b></span><span>Correct answer: <b>'+esc(keyText(q))+'</b></span></div>'+
-    ((q.solution||q.solImages.length)?'<div><b>Solution</b><div style="margin-top:6px">'+rich(q.solution)+q.solImages.map(u=>imageMarkup(u,'Solution figure')).join('')+'</div></div>':'<div class="muted">No written solution is available for this question.</div>')+'</div>';
+    ((q.solution||q.solImages.length)?'<div><b>Solution</b><div style="margin-top:6px">'+rich(q.solution)+q.solImages.map(u=>imageMarkup(u,'Solution figure','practice-svg')).join('')+'</div></div>':'<div class="muted">No written solution is available for this question.</div>')+'</div>';
 }
 function renderPal(){
   const sec=T.secs[T.sec];
@@ -3074,10 +3155,10 @@ function renderReview(f){
     const secName = (T.secs && T.secOf && T.secs[T.secOf[i]]) ? T.secs[T.secOf[i]].name : (q.subject || '');
     const hasSol = (q.solution && q.solution.length) || (q.solImages && q.solImages.length);
     const solMarkup = hasSol ?
-      '<details class="sol-details" open><summary style="cursor:pointer;font-weight:600;margin-top:8px">Solution</summary><div style="margin-top:8px">'+rich(q.solution||'')+((q.solImages||[]).map(u=>imageMarkup(u,'Solution figure')).join(''))+'</div></details>' :
+      '<details class="sol-details" open><summary style="cursor:pointer;font-weight:600;margin-top:8px">Solution</summary><div style="margin-top:8px">'+rich(q.solution||'')+((q.solImages||[]).map(u=>imageMarkup(u,'Solution figure','practice-svg')).join(''))+'</div></details>' :
       '<details class="sol-details" open><summary style="cursor:pointer;font-weight:600;margin-top:8px">Solution</summary><div class="muted" style="margin-top:8px;font-size:13px">Official Answer Key: <b>'+esc(keyText(q))+'</b><br><span style="opacity:0.8">Step-by-step worked solution image was not provided in the original paper archive.</span></div></details>';
     html+='<article class="rv r-'+r.r+'"><header><b>Q'+(i+1)+'</b><button class="bmb" data-bm="'+esc(q.id)+'" type="button" aria-pressed="'+BM.has(q.id)+'" title="Bookmark this question" aria-label="Bookmark this question">'+STAR+'</button><span>'+esc(secName)+'</span><span>'+esc(q.chapter||'')+'</span><span class="badge '+pc+'">'+label+(r.marks?' '+(r.marks>0?'+':'')+r.marks:'')+'</span><span>'+mmss(s.time||0)+'</span><button class="btn sm report-btn" data-rpt="'+esc(q.id)+'" type="button" style="margin-left:auto;display:inline-flex;align-items:center;gap:4px;padding:2px 8px;font-size:12px'+(isRpt?';color:#d32f2f;border-color:#d32f2f':'')+'" title="Report issue with this question">🚩 '+(isRpt?'Reported':'Report')+'</button></header>'+
-      '<div class="qtext">'+rich(q.text||'')+'</div>'+(q.images||[]).map(u=>imageMarkup(u,'Question figure')).join('')+ob+
+      '<div class="qtext">'+rich(q.text||'')+'</div>'+(q.images||[]).map(u=>imageMarkup(u,'Question figure','practice-svg')).join('')+ob+
       '<div>Your answer: <b>'+esc(fmtAns(q,s.ans))+'</b> · Correct answer: <b>'+esc(keyText(q))+'</b></div>'+
       solMarkup+'</article>';
   });
@@ -3100,9 +3181,9 @@ const svCard=q=>{
   let ob='';
   if(q.type!=='numerical' && q.options) ob='<div style="display:flex;flex-direction:column;gap:6px">'+q.options.map((o,k)=>{ const corr=q.keyOk&&q.ans.includes(k); return '<div class="ropt'+(corr?' corr':'')+'"><b>'+LET[k]+'.</b><span style="min-width:0;overflow-wrap:anywhere">'+(q.labelOnly?'':rich(o))+'</span></div>'; }).join('')+'</div>';
   return '<article class="rv"><header><span>'+esc(QTS[q.type]||q.type)+'</span><span>'+esc(q.paper==='main'?'JEE Main':'JEE Advanced')+(q.year?' '+esc(q.year):'')+'</span><span>'+esc(q.paperTitle||'')+'</span><span style="margin-left:auto;display:inline-flex;gap:6px"><button class="btn sm report-btn" data-rpt="'+esc(q.id)+'" type="button" style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;font-size:12px'+(isQuestionReported(q.id)?';color:#d32f2f;border-color:#d32f2f':'')+'" title="Report issue with this question">🚩 '+(isQuestionReported(q.id)?'Reported':'Report')+'</button><button class="btn sm" data-svrm="'+esc(q.id)+'" type="button">Remove</button></span></header>'+
-    '<div class="qtext">'+rich(q.text)+'</div>'+q.images.map(u=>imageMarkup(u,'Question figure')).join('')+ob+
+    '<div class="qtext">'+rich(q.text)+'</div>'+q.images.map(u=>imageMarkup(u,'Question figure','practice-svg')).join('')+ob+
     '<div>Correct answer: <b>'+esc(keyText(q))+'</b></div>'+
-    ((q.solution||q.solImages.length)?'<details open><summary style="cursor:pointer;font-weight:600;margin-top:8px">Solution</summary><div style="margin-top:8px">'+rich(q.solution)+q.solImages.map(u=>imageMarkup(u,'Solution figure')).join('')+'</div></details>':'<details open><summary style="cursor:pointer;font-weight:600;margin-top:8px">Solution</summary><div class="muted" style="margin-top:8px;font-size:13px">Official Answer Key: <b>'+esc(keyText(q))+'</b><br><span style="opacity:0.8">Step-by-step worked solution image was not provided in the original paper archive.</span></div></details>')+'</article>';
+    ((q.solution||q.solImages.length)?'<details open><summary style="cursor:pointer;font-weight:600;margin-top:8px">Solution</summary><div style="margin-top:8px">'+rich(q.solution)+q.solImages.map(u=>imageMarkup(u,'Solution figure','practice-svg')).join('')+'</div></details>':'<details open><summary style="cursor:pointer;font-weight:600;margin-top:8px">Solution</summary><div class="muted" style="margin-top:8px;font-size:13px">Official Answer Key: <b>'+esc(keyText(q))+'</b><br><span style="opacity:0.8">Step-by-step worked solution image was not provided in the original paper archive.</span></div></details>')+'</article>';
 };
 function svOrder(subj,ch){ const segs=SEGMENTS[subj]||[]; let n=0; for(const g of segs){ const i=g.chapters.indexOf(ch); if(i>=0) return n+i; n+=g.chapters.length; } return 9999; }
 function svPick(){ const all=svAll(); if(!all.some(q=>q.subject===svSubj)){ const s=SUBJ.find(x=>all.some(q=>q.subject===x)); if(s) svSubj=s; } }
@@ -3479,14 +3560,14 @@ function renderPracticeCardHtml(q, idx){
   if(q.paragraph && q.passageImages && q.passageImages.length){
     passageHtml = '<div style="margin-bottom:16px;padding:14px 18px;background:var(--surface-2);border-left:3px solid var(--brand);border-radius:0 8px 8px 0;font-size:14px;line-height:1.6">' +
       (q.passageText ? '<div style="margin-bottom:8px">' + rich(stripWatermarks(q.passageText)) + '</div>' : '') +
-      q.passageImages.map(u => imageMarkup(u, 'Passage figure')).join('') +
+      q.passageImages.map(u => imageMarkup(u, 'Passage figure', 'practice-svg')).join('') +
     '</div>';
   }
 
   // Question figures/diagrams (primary question display)
   const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
   const hasImgs = qImgs && qImgs.length > 0;
-  const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure')).join('');
+  const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure', 'practice-svg')).join('');
 
   // Fallback text (only shown if question has no image)
   const qInfo = (typeof questionTextsMap !== 'undefined' && questionTextsMap[q.id]) ? questionTextsMap[q.id] : null;
@@ -3541,7 +3622,7 @@ function renderPracticeCardHtml(q, idx){
     solHtml = '<div class="marks-sol-box" style="margin-top:28px">' +
       '<div style="margin-bottom:10px"><b>Key:</b> <span style="font-weight:700;color:var(--good,#15803d)">' + esc(keyText(q)) + '</span> &bull; <b>Your Answer:</b> <span style="font-weight:700">' + esc(fmtAns(q, savedAns.val)) + '</span></div>' +
       ((q.solution || (q.solImages && q.solImages.length)) ?
-        '<div><b>Solution:</b><div style="margin-top:8px;font-size:15.5px;line-height:1.65;font-family:var(--font-q)">' + rich(q.solution || '') + (q.solImages || []).map(u => imageMarkup(u, 'Solution figure')).join('') + '</div></div>' :
+        '<div><b>Solution:</b><div style="margin-top:8px;font-size:15.5px;line-height:1.65;font-family:var(--font-q)">' + rich(q.solution || '') + (q.solImages || []).map(u => imageMarkup(u, 'Solution figure', 'practice-svg')).join('') + '</div></div>' :
         '<div class="muted">No extended solution image was attached in archive.</div>') +
     '</div>';
   }
@@ -5398,7 +5479,7 @@ function renderPreviewCardHtml(q, idx){
 
   const hasPassageImgs = !!(q.paragraph && q.passageImages && q.passageImages.length);
   const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
-  const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure')).join('');
+  const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure', 'test-builder-svg')).join('');
   const hasImgs = !!(imgsHtml || hasPassageImgs);
 
   let passageHtml = '';
@@ -5406,7 +5487,7 @@ function renderPreviewCardHtml(q, idx){
     passageHtml = '<div style="margin-bottom:10px;padding:8px 12px;background:var(--surface-2);border-left:3px solid var(--brand);border-radius:0 4px 4px 0;font-size:12.5px">' +
       '<div style="font-weight:700;color:var(--brand);margin-bottom:6px">Common Paragraph / Passage:</div>' +
       (!hasPassageImgs && q.passageText ? '<div style="margin-bottom:6px">' + rich(stripWatermarks(q.passageText)) + '</div>' : '') +
-      (hasPassageImgs ? q.passageImages.map(u => imageMarkup(u, 'Passage figure')).join('') : '') +
+      (hasPassageImgs ? q.passageImages.map(u => imageMarkup(u, 'Passage figure', 'test-builder-svg')).join('') : '') +
     '</div>';
   }
 
@@ -5425,7 +5506,7 @@ function renderPreviewCardHtml(q, idx){
   if(q.solution || (q.solImages && q.solImages.length)){
     solMarkup = '<div style="margin-top:6px;font-size:13px">' +
       (q.solution ? '<div style="margin-bottom:6px">' + rich(stripWatermarks(q.solution)) + '</div>' : '') +
-      (q.solImages ? q.solImages.map(u => imageMarkup(u, 'Solution figure')).join('') : '') +
+      (q.solImages ? q.solImages.map(u => imageMarkup(u, 'Solution figure', 'test-builder-svg')).join('') : '') +
     '</div>';
   } else {
     solMarkup = '<div class="muted" style="margin-top:4px;font-size:12px">No worked solution diagrams available; official key is provided above.</div>';
@@ -5666,7 +5747,7 @@ async function renderSheetDoc(qs, opts, onProgress){
 
       const hasPassageImgs = !!(q.paragraph && q.passageImages && q.passageImages.length);
       const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
-      const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure')).join('');
+      const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure', 'test-builder-svg')).join('');
       const hasImgs = !!(imgsHtml || hasPassageImgs);
 
       let qText = opts.noWatermark ? stripWatermarks(q.text) : (q.text || '');
@@ -5675,7 +5756,7 @@ async function renderSheetDoc(qs, opts, onProgress){
         passageHtml = '<div style="margin-bottom:8pt;padding:6pt 10pt;background:#f8f9fa;border-left:3pt solid #1a3a5c;font-size:9pt">' +
           '<b style="color:#1a3a5c">Paragraph for Question Nos. ' + qNum + ':</b>' +
           (!hasPassageImgs && q.passageText ? '<div>' + rich(stripWatermarks(q.passageText)) + '</div>' : '') +
-          (hasPassageImgs ? q.passageImages.map(u => imageMarkup(u, 'Passage figure')).join('') : '') +
+          (hasPassageImgs ? q.passageImages.map(u => imageMarkup(u, 'Passage figure', 'test-builder-svg')).join('') : '') +
         '</div>';
       }
 
@@ -5747,7 +5828,7 @@ async function renderSheetDoc(qs, opts, onProgress){
       '</div>';
 
     solRows.forEach(item => {
-      const imgs = item.solImgs.map(u => imageMarkup(u, 'Solution figure')).join('');
+      const imgs = item.solImgs.map(u => imageMarkup(u, 'Solution figure', 'test-builder-svg')).join('');
       html += '<div class="sheet-sol-item">' +
         '<div class="sheet-qlab-col">' +
           '<div class="sheet-qlab">' + esc(item.num) + '</div>' +
