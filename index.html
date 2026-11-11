@@ -1360,16 +1360,9 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   box-shadow: none !important;
 }
 .vector-inline-svg text, .vector-inline-svg tspan {
-  font-family: 'Century Schoolbook', 'TeX Gyre Schola', 'Nimbus Roman', 'Computer Modern Roman', Georgia, serif !important;
   user-select: text !important;
   -webkit-user-select: text !important;
   cursor: text !important;
-}
-.vector-inline-svg text[font-family*="Symbol"],
-.vector-inline-svg tspan[font-family*="Symbol"],
-.vector-inline-svg text[font-family*="Extra"],
-.vector-inline-svg tspan[font-family*="Extra"] {
-  font-family: Symbol, 'MT Extra', serif !important;
 }
 
 /* Dark mode (inverted) vector SVG & question figures */
@@ -2121,9 +2114,7 @@ async function resolveZipImage(img){
     const isSvg = /\.svg$/i.test(fileName);
     if(isSvg){
       try {
-        let svgText = await f.async('text');
-        // Change font of SVG vector image to Century Schoolbook while preserving Symbol & MT Extra
-        svgText = svgText.replace(/font-family="(?!(?:Symbol|MT Extra))[^"]+"/gi, 'font-family="\'Century Schoolbook\', \'TeX Gyre Schola\', \'Nimbus Roman\', Georgia, serif"');
+        const svgText = await f.async('text');
         const parser = new DOMParser();
         const svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
         const svgEl = svgDoc.documentElement;
