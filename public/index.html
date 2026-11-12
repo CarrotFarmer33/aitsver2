@@ -2556,19 +2556,48 @@ function processSvgMarkup(rawSvgText, isTestBuilder){
   return svgText;
 }
 
+async function getZip(zipUrl){
+  const cleanUrl = zipUrl.startsWith('http') ? zipUrl : ('/' + zipUrl.replace(/^\/+/, ''));
+  if(zipCache.has(cleanUrl)){
+    try {
+      return await zipCache.get(cleanUrl);
+    } catch(err) {
+      zipCache.delete(cleanUrl);
+    }
+  }
+  const p = (async () => {
+    let lastErr;
+    for(let attempt = 1; attempt <= 3; attempt++){
+      try {
+        const r = await fetch(cleanUrl);
+        if(!r.ok) throw new Error('Could not fetch ZIP (' + r.status + ') from ' + cleanUrl);
+        const b = await r.arrayBuffer();
+        return await JSZip.loadAsync(b);
+      } catch(err) {
+        lastErr = err;
+        console.warn('Fetch ZIP attempt ' + attempt + ' failed for ' + cleanUrl + ':', err);
+        if(attempt < 3) await new Promise(res => setTimeout(res, 600 * attempt));
+      }
+    }
+    zipCache.delete(cleanUrl);
+    throw lastErr;
+  })();
+  zipCache.set(cleanUrl, p);
+  return p;
+}
+
 async function resolveZipImage(img){
   const ref=img.dataset.zipimg; if(!ref) return;
   const hash=ref.lastIndexOf('#'); if(hash<0) return;
   const zipUrl=ref.slice(0,hash), fileName=decodeURIComponent(ref.slice(hash+1));
   try{
     if(!window.JSZip) throw new Error('ZIP image support failed to load');
-    if(!zipCache.has(zipUrl)) zipCache.set(zipUrl,fetch(zipUrl).then(r=>{if(!r.ok) throw new Error('Could not fetch ZIP ('+r.status+')'); return r.arrayBuffer();}).then(b=>JSZip.loadAsync(b)));
-    const zip=await zipCache.get(zipUrl);
+    const zip = await getZip(zipUrl);
     let f=zip.file(fileName);
     if(!f){ const match=Object.keys(zip.files).find(k=>!zip.files[k].dir && (k===fileName || k.endsWith('/'+fileName))); if(match) f=zip.file(match); }
     if(!f) throw new Error('Image not found in ZIP: '+fileName);
     const isSvg = /\.svg$/i.test(fileName);
-    const isTb = img.classList.contains('test-builder-svg') || img.classList.contains('cbt-svg') || !!img.closest('#scrTestPreview, #scrSheetView, #scrExam, #scrRes, .preview-q-card, .preview-q-body, .preview-sol-box, .sheet-page');
+    const isTb = img.classList.contains('test-builder-svg') || img.classList.contains('cbt-svg') || !!img.closest('#scrTestPreview, #scrSheetView, #scrExam, #scrRes, .preview-q-card, .preview-q-body, .preview-sol-box, .sheet-page, .allen-sheet-page');
     const crop = (img.dataset.cropTop || img.dataset.cropBottom || img.dataset.cropLeft || img.dataset.cropRight) ? {
       top: parseFloat(img.dataset.cropTop || 0),
       bottom: parseFloat(img.dataset.cropBottom || 0),
@@ -2610,9 +2639,17 @@ async function resolveZipImage(img){
     }
     img.removeAttribute('data-zipimg');
   }catch(e){
+    console.warn('Unable to load image: ' + fileName, e);
+    const fallback = img.dataset.fallback;
+    if(fallback){
+      const wrap = document.createElement('div');
+      wrap.className = 'allen-qstem';
+      wrap.innerHTML = decodeURIComponent(fallback);
+      img.parentNode.replaceChild(wrap, img);
+      return;
+    }
     img.alt='Unable to load image: '+fileName;
     img.removeAttribute('data-zipimg');
-    console.warn(e);
   }
 }
 async function hydrateZipImages(root, onProgress){
@@ -7012,7 +7049,11 @@ async function renderAllenSheetDoc(qs, opts, onProgress){
 
     const qImgs = (q.images || []).filter(Boolean);
     const hasImgs = qImgs.length > 0;
-    const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure', 'test-builder-svg', q.crop)).join('');
+    const imgsHtml = qImgs.map(u => {
+      const markup = imageMarkup(u, 'Question figure', 'test-builder-svg', q.crop);
+      const fallbackStr = encodeURIComponent('<span class="allen-qstem" style="padding-left:22pt;display:block">' + rich(stem) + '</span>' + optsHtml);
+      return markup.replace('<img ', '<img data-fallback="' + fallbackStr + '" ');
+    }).join('');
 
     if(hasImgs){
       html += '<div class="allen-qitem" style="position:relative">' +
