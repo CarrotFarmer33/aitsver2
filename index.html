@@ -1428,6 +1428,12 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   gap: 14px;
   margin-top: 24px;
 }
+.marks-options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
 @media (max-width: 680px) {
   .marks-options-grid {
     grid-template-columns: 1fr;
@@ -2460,6 +2466,40 @@ function parseNum(a){
   const m = String(a).replace(/,/g,'').match(/-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/);
   return m ? parseFloat(m[0]) : null;
 }
+function isMatchQuestion(q){
+  if(!q) return false;
+  const t = (q.type || '').toLowerCase();
+  const raw = (q.rawType || '').toLowerCase();
+  if(t.includes('match') || t.includes('matrix') || raw.includes('match') || raw.includes('matrix')) return true;
+  const text = ((q.text || '') + ' ' + (q.stem || '') + ' ' + (q.question || '')).toLowerCase();
+  if(/match\s+(the\s+)?(following|list)|matching\s+list|matrix\s+match|match\s+list|list\s*[-–—]?\s*i\b|column\s*[-–—]?\s*i\b/i.test(text)) return true;
+  if(Array.isArray(q.options) && q.options.some(o => /(?:[I|1|2|3|4|V|X]+)\s*(?:->|–|—|-|→|\uf0ae)\s*[A-Za-z\(\)]/i.test(String(o)))) return true;
+  return false;
+}
+function hasRealOptions(opts){
+  if(!Array.isArray(opts) || opts.length < 2) return false;
+  return opts.some(o => {
+    if(!o) return false;
+    const s = String(o).trim().toLowerCase();
+    if(!s || s.length <= 1) return false;
+    if(/^(option\s*\(?[a-d1-4]\)?|\(?[a-d1-4]\)?)$/i.test(s)) return false;
+    return true;
+  });
+}
+function extractMatchOptionsFromText(text){
+  if(!text) return null;
+  const m = [...text.matchAll(/(?:\(([A-D])\)|(?<![A-Za-z0-9])([A-D])[\.\:\)]\s*)([\s\S]+?)(?=(?:\([A-D]\)|(?<![A-Za-z0-9])[A-D][\.\:\)]\s*)|$)/g)];
+  if(m.length >= 4){
+    const letters = m.slice(0, 4).map(x => x[1] || x[2]);
+    if(letters.join('') === 'ABCD'){
+      const candidates = m.slice(0, 4).map(x => x[3].trim());
+      if(candidates.every(c => c.length > 0 && c.length < 300)){
+        return candidates;
+      }
+    }
+  }
+  return null;
+}
 function normQuestion(q,i,defSubject){
   if(!q || typeof q!=='object') return null;
   const text = q.question!=null?q.question:(q.text!=null?q.text:(q.statement!=null?q.statement:''));
@@ -2470,8 +2510,16 @@ function normQuestion(q,i,defSubject){
   let options = normOptions(q.options!=null?q.options:q.choices);
   let type = normType(q.type!=null?q.type:(q.question_type!=null?q.question_type:q.qtype));
   const rawAns = q.answer!=null?q.answer:(q.correct_answer!=null?q.correct_answer:(q.correct!=null?q.correct:q.key));
-  const isPara = !!(q.paragraph || q.passage_images || q.paragraph_id);
+  const isPara = !!(q.paragraph || q.passage_images || q.paragraph_id || (q.type && String(q.type).includes('para')) || (q.rawType && String(q.rawType).includes('para')));
   const rawType = type || 'single';
+  const isMatch = isMatchQuestion({ ...q, text, type, rawType, options });
+  if(!hasRealOptions(options) && isMatch){
+    const fullText = (text || '') + '\n' + (q.stem || '');
+    const extracted = extractMatchOptionsFromText(fullText);
+    if(extracted){
+      options = extracted;
+    }
+  }
   const passageImgs = [].concat(q.passage_images||q.passageImages||[]).filter(Boolean).map(String);
   let labelOnly = false;
   if(type==='numerical') options=null;
@@ -2482,6 +2530,7 @@ function normQuestion(q,i,defSubject){
   }
   if(type!=='numerical'){
     if(!options){ const n = +(q.option_count||q.optionCount||4); options = Array.from({length:Math.min(Math.max(n,2),8)},(_,k)=>LET[k]); labelOnly=true; }
+    if(hasRealOptions(options)) labelOnly=false;
     ans = parseChoice(rawAns,labelOnly?null:options);
     if(ans) ans = ans.filter(k=>k<options.length);
     keyOk = !!(ans && ans.length);
@@ -2497,6 +2546,7 @@ function normQuestion(q,i,defSubject){
     paragraph:isPara, paragraphId:q.paragraph_id?String(q.paragraph_id):null,
     paragraphGroup:Array.isArray(q.paragraph_group)?q.paragraph_group:null,
     passageImages:passageImgs,
+    isMatch,
     text:String(text), options, labelOnly, ans, tol, range, keyOk,
     solution:String(q.solution!=null?q.solution:(q.explanation||'')),
     images:imgs.map(String),
@@ -3024,7 +3074,9 @@ function openPaper(){
     const passImgs = hasPassageImgs ? q.passageImages.map(u=>imageMarkup(u,'Common passage '+(i+1),'cbt-svg',q.crop).replace('class="qimg"','class="qpimg"')).join('') : '';
     const imgs = qImgs.map(u=>imageMarkup(u,'Question '+(i+1),'cbt-svg',q.crop).replace('class="qimg"','class="qpimg"')).join('');
     const hasImgs = !!(imgs || passImgs);
-    const opts = (!hasImgs && q.options && !q.labelOnly) ? '<ol class="qpopts" type="A">'+q.options.map(o=>'<li>'+rich(o)+'</li>').join('')+'</ol>' : '';
+    const isMatch = q.isMatch || isMatchQuestion(q);
+    const hasReal = hasRealOptions(q.options);
+    const opts = ((!hasImgs || isMatch || hasReal) && q.options && !q.labelOnly) ? '<ol class="qpopts" type="A">'+q.options.map(o=>'<li>'+rich(o)+'</li>').join('')+'</ol>' : '';
     return '<section class="qpitem"><div class="qphead"><b>Question No. '+(i+1)+'</b><span>'+esc(sec.name)+' · '+esc(q.chapter)+'</span></div>'+(!hasImgs && q.text?'<div class="qtext">'+rich(q.text)+'</div>':'')+passImgs+imgs+opts+'</section>';
   }).join('');
   openModal('<div class="image-preview-title"><span>Question Paper</span><button type="button" class="btn" id="closePaper">Close</button></div><div class="qpwrap">'+body+'</div>',()=>{
@@ -3105,19 +3157,21 @@ function renderQ(){
   }
 
   const locked = T.mode === 'practice' && s.checked, dis = locked ? ' disabled' : '';
-  const effectiveType = q.rawType || q.type;
+  const effectiveType = q.paragraph ? (q.rawType || 'single') : (q.rawType || q.type);
   if(effectiveType === 'numerical'){
     h += '<div class="numwrap"><input class="numin" id="numIn" type="text" readonly inputmode="none" aria-label="Your numerical answer" value="' + esc(dv(s) == null ? '' : dv(s)) + '"><div class="keys">' +
       ['7','8','9','4','5','6','1','2','3','0','.','−'].map(k => '<button type="button" data-k="' + k + '"' + dis + '>' + k + '</button>').join('') +
       '<button type="button" class="half" data-k="bk"' + dis + '>Backspace</button><button type="button" class="half" data-k="clr"' + dis + '>Clear All</button><span></span></div></div>';
   } else {
     const multi = effectiveType === 'multi', sel = multi ? (dv(s) || []) : (dv(s) == null ? [] : [dv(s)]);
-    const showLabelsOnly = hasImgs || q.labelOnly;
+    const isMatch = q.isMatch || isMatchQuestion(q);
+    const hasReal = hasRealOptions(q.options);
+    const showLabelsOnly = q.labelOnly || (hasImgs && !isMatch && !hasReal);
     h += '<div class="opts" role="group" aria-label="Options">' + (q.options || []).map((o, k) => {
       const corr = locked && q.keyOk && q.ans.includes(k), wr = locked && sel.includes(k) && !corr;
       return '<label class="opt' + (locked ? ' locked' : '') + (corr ? ' corr' : '') + (wr ? ' wrong' : '') + '">' +
         '<input type="' + (multi ? 'checkbox' : 'radio') + '" name="opt" data-o="' + k + '"' + (sel.includes(k) ? ' checked' : '') + dis + '>' +
-        (showLabelsOnly ? '<span class="ol">' + LET[k] + '</span>' : '<span class="ot">' + rich(o) + '</span>') +
+        (showLabelsOnly ? '<span class="ol">' + LET[k] + '</span>' : '<span class="ol">' + LET[k] + '.</span> <span class="ot">' + rich(o) + '</span>') +
       '</label>';
     }).join('') + '</div>';
   }
@@ -3361,7 +3415,10 @@ function svQuestions(){
 const svCard=q=>{
   let ob='';
   const hasImgs = q.images && q.images.length > 0;
-  if(q.type!=='numerical' && q.options) ob='<div style="display:flex;flex-direction:column;gap:6px">'+q.options.map((o,k)=>{ const corr=q.keyOk&&q.ans.includes(k); return '<div class="ropt'+(corr?' corr':'')+'"><b>'+LET[k]+'.</b><span style="min-width:0;overflow-wrap:anywhere">'+((hasImgs||q.labelOnly)?'':rich(o))+'</span></div>'; }).join('')+'</div>';
+  const isMatch = q.isMatch || isMatchQuestion(q);
+  const hasReal = hasRealOptions(q.options);
+  const showOptDesc = !q.labelOnly && (!hasImgs || isMatch || hasReal);
+  if(q.type!=='numerical' && q.options) ob='<div style="display:flex;flex-direction:column;gap:6px">'+q.options.map((o,k)=>{ const corr=q.keyOk&&q.ans.includes(k); return '<div class="ropt'+(corr?' corr':'')+'"><b>'+LET[k]+'.</b><span style="min-width:0;overflow-wrap:anywhere">'+(showOptDesc?rich(o):'')+'</span></div>'; }).join('')+'</div>';
   return '<article class="rv"><header><span>'+esc(QTS[q.type]||q.type)+'</span><span>'+esc(q.paper==='main'?'JEE Main':'JEE Advanced')+(q.year?' '+esc(q.year):'')+'</span><span>'+esc(q.paperTitle||'')+'</span><span style="margin-left:auto;display:inline-flex;gap:6px"><button class="btn sm report-btn" data-rpt="'+esc(q.id)+'" type="button" style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;font-size:12px'+(isQuestionReported(q.id)?';color:#d32f2f;border-color:#d32f2f':'')+'" title="Report issue with this question">🚩 '+(isQuestionReported(q.id)?'Reported':'Report')+'</button><button class="btn sm" data-svrm="'+esc(q.id)+'" type="button">Remove</button></span></header>'+
     (!hasImgs ? '<div class="qtext">'+rich(q.text)+'</div>' : '')+q.images.map(u=>imageMarkup(u,'Question figure','practice-svg')).join('')+ob+
     '<div>Correct answer: <b>'+esc(keyText(q))+'</b></div>'+
@@ -3468,7 +3525,10 @@ function getFilteredPracticeQuestions(){
     if(prkState.chap && q.chapter !== prkState.chap) return false;
     if(prkState.paper !== 'all' && q.paper !== prkState.paper) return false;
     if(prkState.year !== 'all' && String(q.year) !== String(prkState.year)) return false;
-    if(prkState.type !== 'all' && (q.rawType || q.type) !== prkState.type) return false;
+    if(prkState.type !== 'all'){
+      const qTypeForFilter = q.paragraph ? 'paragraph' : q.type;
+      if(qTypeForFilter !== prkState.type) return false;
+    }
 
     const isAtt = Boolean(ansMap[q.id] && ansMap[q.id].status !== 'skip');
     if(prkState.hideAttempted && isAtt) return false;
@@ -3540,8 +3600,8 @@ function renderPracticeRowHtml(q, idx){
   if(isCorrect) rowClasses += ' attempted-correct';
   else if(isWrong) rowClasses += ' attempted-wrong';
 
-  const effType = q.rawType || q.type || 'single';
-  const typeLabel = QTS[effType] || effType.toUpperCase();
+  const effType = q.paragraph ? 'paragraph' : (q.type || 'single');
+  const typeLabel = q.paragraph ? 'Comprehension' : (QTS[effType] || effType.toUpperCase());
   const tag = cleanSourceTag(q);
   const isBm = BM.has(q.id);
 
@@ -3654,7 +3714,7 @@ function renderPracticeDetailView(){
   if(qMetaEl){
     const yrStr = q.year ? (' ' + q.year) : '';
     const src = cleanSourceTag(q) || (paperName + yrStr);
-    qMetaEl.textContent = src + (q.chapter ? (' · ' + q.chapter) : '') + ' (' + (QTS[q.rawType || q.type] || q.type) + ')';
+    qMetaEl.textContent = src + (q.chapter ? (' · ' + q.chapter) : '') + ' (' + (q.paragraph ? 'Comprehension' : (QTS[q.type] || q.type)) + ')';
   }
 
   const bmBtn = $('#prkDetailBmBtn');
@@ -3735,21 +3795,23 @@ function renderPracticeCardHtml(q, idx){
   const isCorrect = savedAns && savedAns.status === 'ok';
   const isWrong = savedAns && savedAns.status === 'bad';
 
-  const effType = q.rawType || q.type || 'single';
+  const effType = q.paragraph ? (q.rawType || 'single') : (q.rawType || q.type || 'single');
 
   // Passage
   let passageHtml = '';
-  if(q.paragraph && q.passageImages && q.passageImages.length){
+  const hasPassageImgs = !!(q.paragraph && q.passageImages && q.passageImages.length);
+  if(q.paragraph && (hasPassageImgs || q.passageText)){
     passageHtml = '<div style="margin-bottom:16px;padding:14px 18px;background:var(--surface-2);border-left:3px solid var(--brand);border-radius:0 8px 8px 0;font-size:14px;line-height:1.6">' +
-      (q.passageText ? '<div style="margin-bottom:8px">' + rich(stripWatermarks(q.passageText)) + '</div>' : '') +
-      q.passageImages.map(u => imageMarkup(u, 'Passage figure', 'practice-svg')).join('') +
+      '<div style="font-weight:700;color:var(--brand);margin-bottom:8px">Common Paragraph / Passage:</div>' +
+      (!hasPassageImgs && q.passageText ? '<div style="margin-bottom:8px">' + rich(stripWatermarks(q.passageText)) + '</div>' : '') +
+      (hasPassageImgs ? q.passageImages.map(u => imageMarkup(u, 'Passage figure', 'practice-svg', q.crop)).join('') : '') +
     '</div>';
   }
 
   // Question figures/diagrams (primary question display)
   const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
   const hasImgs = qImgs && qImgs.length > 0;
-  const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure', 'practice-svg')).join('');
+  const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure', 'practice-svg', q.crop)).join('');
 
   // Fallback text (only shown if question has no image)
   const qInfo = (typeof questionTextsMap !== 'undefined' && questionTextsMap[q.id]) ? questionTextsMap[q.id] : null;
@@ -3767,7 +3829,7 @@ function renderPracticeCardHtml(q, idx){
     '<button type="button" class="marks-zoom-btn" id="prkZoomResetBtn" title="Reset Zoom" style="font-size:11px;padding:3px 8px">Reset</button>' +
   '</div>';
 
-  // 2x2 Options Grid (Clean "Option (A)", "Option (B)", etc.)
+  // Options Display (Cards with full options for Match the following / text options, grid for label-only)
   let interactHtml = '';
   if(effType === 'numerical'){
     const userVal = savedAns ? savedAns.val : '';
@@ -3781,9 +3843,12 @@ function renderPracticeCardHtml(q, idx){
     const isMulti = effType === 'multi';
     const chosenList = savedAns ? (Array.isArray(savedAns.val) ? savedAns.val : [savedAns.val]) : [];
     const correctList = Array.isArray(q.ans) ? q.ans : (q.ans != null ? [q.ans] : []);
-    const optLabels = ['Option (A)', 'Option (B)', 'Option (C)', 'Option (D)'];
+    const isMatch = q.isMatch || isMatchQuestion(q);
+    const hasReal = hasRealOptions(q.options);
+    const showOptText = (isMatch || hasReal) && !q.labelOnly && Array.isArray(q.options) && q.options.length > 0;
+    const optsList = (showOptText && q.options) ? q.options : ['Option (A)', 'Option (B)', 'Option (C)', 'Option (D)'];
 
-    interactHtml = '<div class="marks-options-grid">' + optLabels.map((label, oIdx) => {
+    interactHtml = '<div class="' + (showOptText ? 'marks-options-list' : 'marks-options-grid') + '">' + optsList.map((optVal, oIdx) => {
       let optClass = 'marks-opt-chip';
       const isSelected = chosenList.includes(oIdx);
       if(isSelected) optClass += ' selected';
@@ -3791,9 +3856,10 @@ function renderPracticeCardHtml(q, idx){
         if(correctList.includes(oIdx)) optClass += ' correct';
         else if(isSelected) optClass += ' wrong';
       }
+      const itemText = showOptText ? rich(stripWatermarks(optVal)) : ('Option (' + LET[oIdx] + ')');
       return '<div class="' + optClass + '" data-prkopt="' + esc(q.id) + '" data-oidx="' + oIdx + '" data-multi="' + (isMulti ? '1' : '0') + '">' +
         '<div class="marks-opt-circle">' + LET[oIdx] + '</div>' +
-        '<div class="marks-opt-text">' + label + '</div>' +
+        '<div class="marks-opt-text">' + itemText + '</div>' +
       '</div>';
     }).join('') + '</div>';
   }
@@ -5003,12 +5069,15 @@ function renderBuilderChapters(){
     if(!groups[q.subject]) groups[q.subject] = {};
     const c = groups[q.subject][q.chapter] || (groups[q.subject][q.chapter] = {n: 0});
     if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return;
-    const effType = q.rawType || q.type;
     if(tbCfg.pattern === 'main'){
-      if(effType.includes('para') || effType.includes('comp') || effType.includes('multi') || effType.includes('msq')) return;
-      if(effType === 'single' || effType === 'mcq' || effType === 'numerical' || effType === 'nat') c.n++;
+      if(q.paragraph || q.type === 'paragraph') return;
+      if(q.type === 'single' || q.type === 'mcq' || q.type === 'numerical' || q.type === 'nat') c.n++;
     } else {
-      if(tbCfg.types.has(effType) || tbCfg.types.has(q.type)) c.n++;
+      if(q.paragraph || q.type === 'paragraph'){
+        if(tbCfg.types.has('paragraph')) c.n++;
+      } else {
+        if(tbCfg.types.has(q.type)) c.n++;
+      }
     }
   });
 
@@ -5065,12 +5134,14 @@ function refreshBuilderSummary(){
     if(!tbCfg.subjects.has(q.subject)) return false;
     if(!tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
     if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return false;
-    const effType = q.rawType || q.type;
     if(tbCfg.pattern === 'main'){
-      if(effType.includes('para') || effType.includes('comp') || effType.includes('multi') || effType.includes('msq')) return false;
-      return effType === 'single' || effType === 'mcq' || effType === 'numerical' || effType === 'nat';
+      if(q.paragraph || q.type === 'paragraph') return false;
+      return q.type === 'single' || q.type === 'numerical';
     }
-    return tbCfg.types.has(effType) || tbCfg.types.has(q.type);
+    if(q.paragraph || q.type === 'paragraph'){
+      return tbCfg.types.has('paragraph');
+    }
+    return tbCfg.types.has(q.type);
   });
 
   const avail = pool.length;
@@ -5310,13 +5381,13 @@ function getSelectedBuilderQuestions(){
       });
       // Strictly exclude any comprehension / paragraph or multi-correct
       const scqPool = subPool.filter(q => {
-        const t = (q.rawType || q.type || '').toLowerCase();
-        if(t.includes('para') || t.includes('comp') || t.includes('multi') || t.includes('msq')) return false;
+        if(q.paragraph || q.type === 'paragraph') return false;
+        const t = (q.type || '').toLowerCase();
         return t === 'single' || t === 'mcq';
       });
       const natPool = subPool.filter(q => {
-        const t = (q.rawType || q.type || '').toLowerCase();
-        if(t.includes('para') || t.includes('comp') || t.includes('multi') || t.includes('msq')) return false;
+        if(q.paragraph || q.type === 'paragraph') return false;
+        const t = (q.type || '').toLowerCase();
         return t === 'numerical' || t === 'nat';
       });
 
@@ -5334,8 +5405,10 @@ function getSelectedBuilderQuestions(){
     if(!tbCfg.subjects.has(q.subject)) return false;
     if(!tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
     if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return false;
-    const effType = q.rawType || q.type;
-    return tbCfg.types.has(effType) || tbCfg.types.has(q.type);
+    if(q.paragraph || q.type === 'paragraph'){
+      return tbCfg.types.has('paragraph');
+    }
+    return tbCfg.types.has(q.type);
   });
   if(!pool.length) return [];
 
@@ -5347,7 +5420,11 @@ function getSelectedBuilderQuestions(){
     for(const t of chosenTypes){
       const reqCount = tbCfg.typeCounts[t];
       if(reqCount != null && reqCount > 0){
-        const tPool = pool.filter(q => (q.rawType || q.type) === t || q.type === t);
+        const tPool = pool.filter(q => {
+          if(t === 'paragraph') return q.paragraph || q.type === 'paragraph';
+          if(q.paragraph || q.type === 'paragraph') return false;
+          return q.type === t;
+        });
         const subjsWithPool = activeSubjs.filter(s => tPool.some(q => q.subject === s));
         const numSubjs = Math.max(1, subjsWithPool.length);
         const perSubj = Math.max(1, Math.floor(reqCount / numSubjs));
@@ -5378,7 +5455,11 @@ function getSelectedBuilderQuestions(){
       const perType = Math.max(1, Math.floor(remTotal / unspecTypes.length));
       for(const t of unspecTypes){
         if(remTotal <= 0) break;
-        const tPool = pool.filter(q => ((q.rawType || q.type) === t || q.type === t) && !picked.includes(q));
+        const tPool = pool.filter(q => {
+          if(t === 'paragraph') return (q.paragraph || q.type === 'paragraph') && !picked.includes(q);
+          if(q.paragraph || q.type === 'paragraph') return false;
+          return q.type === t && !picked.includes(q);
+        });
         const subPicked = pickFrom(tPool, Math.min(perType, remTotal));
         picked = picked.concat(subPicked);
         remTotal -= subPicked.length;
@@ -5388,9 +5469,28 @@ function getSelectedBuilderQuestions(){
     picked = pickFrom(pool, targetCount);
   }
 
-  // Sort picked questions into standard test sections
-  // Rank by Subject -> Question Type (MCQ, MSQ, NAT, Paragraph)
-  picked.sort((a,b) => subjRank(a.subject) - subjRank(b.subject) || a.subject.localeCompare(b.subject) || TRANK[a.type] - TRANK[b.type]);
+  // Group paragraph questions so companion questions under the same passage stay together
+  const paraGroups = new Map();
+  const normalPicked = [];
+  picked.forEach(q => {
+    if(q.paragraph || q.type === 'paragraph'){
+      const grpKey = q.paragraphId || (q.passageImages && q.passageImages[0]) || q.id;
+      if(!paraGroups.has(grpKey)) paraGroups.set(grpKey, []);
+      paraGroups.get(grpKey).push(q);
+    } else {
+      normalPicked.push(q);
+    }
+  });
+
+  normalPicked.sort((a,b) => subjRank(a.subject) - subjRank(b.subject) || a.subject.localeCompare(b.subject) || (TRANK[a.type] || 0) - (TRANK[b.type] || 0));
+  const paraPicked = [];
+  paraGroups.forEach(group => {
+    group.forEach(q => paraPicked.push(q));
+  });
+  paraPicked.sort((a,b) => subjRank(a.subject) - subjRank(b.subject) || a.subject.localeCompare(b.subject));
+
+  picked = normalPicked.concat(paraPicked);
+  picked.sort((a,b) => subjRank(a.subject) - subjRank(b.subject) || a.subject.localeCompare(b.subject) || (TRANK[a.type] || 0) - (TRANK[b.type] || 0));
   return picked;
 }
 
@@ -5737,8 +5837,9 @@ function renderTestPreview(){
 }
 
 function renderPreviewCardHtml(q, idx){
-  const effType = q.rawType || q.type || 'single';
-  const typeLabel = (window.TYPE_NAME && window.TYPE_NAME[effType]) || TYPES[effType] || (effType === 'numerical' ? 'Numerical Answer' : (effType === 'multi' ? 'Multiple Correct' : 'Single Correct'));
+  const isPara = !!(q.paragraph || q.type === 'paragraph');
+  const effType = isPara ? 'paragraph' : (q.rawType || q.type || 'single');
+  const typeLabel = isPara ? 'Comprehension' : ((window.TYPE_NAME && window.TYPE_NAME[effType]) || TYPES[effType] || (effType === 'numerical' ? 'Numerical Answer' : (effType === 'multi' ? 'Multiple Correct' : 'Single Correct')));
   const sourceTag = cleanSourceTag(q);
   const qNum = idx + 1;
 
@@ -5756,8 +5857,10 @@ function renderPreviewCardHtml(q, idx){
     '</div>';
   }
 
+  const isMatch = !!(q.isMatch || isMatchQuestion(q));
+  const hasReal = hasRealOptions(q.options);
   let optionsHtml = '';
-  if(!hasImgs && q.options && q.options.length && !q.labelOnly){
+  if((!hasImgs || isMatch || hasReal) && q.options && q.options.length && !q.labelOnly){
     optionsHtml = '<div class="sheet-qoptions" style="margin-top:10px;margin-bottom:4px">' +
       q.options.map((opt, oIdx) => 
         '<div class="sheet-qopt"><span class="sheet-qopt-key">(' + (LET[oIdx] || (oIdx+1)) + ')</span> <span>' + rich(stripWatermarks(opt)) + '</span></div>'
@@ -5967,13 +6070,17 @@ function closeCropModal(){
 function swapBuilderQuestion(idx){
   if(!tbCfg.builtQs || !tbCfg.builtQs[idx]) return;
   const currentQ = tbCfg.builtQs[idx];
-  const curEffType = (currentQ.rawType || currentQ.type || '').toLowerCase();
+  const isCurPara = !!(currentQ.paragraph || currentQ.type === 'paragraph');
+  const curEffType = isCurPara ? 'paragraph' : (currentQ.rawType || currentQ.type || '').toLowerCase();
   const curSubj = currentQ.subject;
   const curChap = currentQ.chapter;
 
   const currentIds = new Set(tbCfg.builtQs.map(q => q.id));
 
   const matchType = (q) => {
+    const isQPara = !!(q.paragraph || q.type === 'paragraph');
+    if(isCurPara) return isQPara;
+    if(isQPara) return false;
     const t = (q.rawType || q.type || '').toLowerCase();
     if(curEffType === 'single' || curEffType === 'mcq') return t === 'single' || t === 'mcq';
     if(curEffType === 'multi' || curEffType === 'msq') return t === 'multi' || t === 'msq';
@@ -6012,13 +6119,14 @@ function swapBuilderQuestion(idx){
     });
   }
 
-  // 4. Fallback: any question in this chapter
+  // 4. Fallback: any question in this chapter with matching paragraph type
   if(!candidates.length){
     candidates = DB.filter(q => {
       if(currentIds.has(q.id)) return false;
       if(q.subject !== curSubj) return false;
       if(q.chapter !== curChap) return false;
-      return true;
+      const isQPara = !!(q.paragraph || q.type === 'paragraph');
+      return isCurPara ? isQPara : !isQPara;
     });
   }
 
@@ -6065,12 +6173,14 @@ function addBuilderQuestion(){
     if(activeSubjs.length && !activeSubjs.includes(q.subject)) return false;
     if(tbCfg.chapters.size && !tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
     if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return false;
-    const effType = q.rawType || q.type;
     if(tbCfg.pattern === 'main'){
-      if(effType.includes('para') || effType.includes('comp') || effType.includes('multi') || effType.includes('msq')) return false;
-      return effType === 'single' || effType === 'mcq' || effType === 'numerical' || effType === 'nat';
+      if(q.paragraph || q.type === 'paragraph') return false;
+      return q.type === 'single' || q.type === 'numerical';
     }
-    return tbCfg.types.has(effType) || tbCfg.types.has(q.type);
+    if(q.paragraph || q.type === 'paragraph'){
+      return tbCfg.types.has('paragraph');
+    }
+    return tbCfg.types.has(q.type);
   });
 
   if(!candidates.length){
@@ -6113,8 +6223,10 @@ async function renderSheetDoc(qs, opts, onProgress){
   const sections = [];
   const secMap = new Map();
   qs.forEach(q => {
-    const effType = q.rawType || q.type;
-    const secKey = (opts.pattern === 'main' ? q.subject + ' &ndash; ' + (effType === 'numerical' ? 'Section B (Numerical)' : 'Section A (MCQ)') : q.subject + ' &ndash; ' + (SECLBL[effType] || SECLBL[q.type] || 'Questions'));
+    const isParaQ = !!(q.paragraph || q.type === 'paragraph');
+    const effType = isParaQ ? 'paragraph' : (q.rawType || q.type);
+    const secLabel = isParaQ ? 'Comprehension' : (SECLBL[effType] || SECLBL[q.type] || 'Questions');
+    const secKey = (opts.pattern === 'main' ? q.subject + ' &ndash; ' + (effType === 'numerical' ? 'Section B (Numerical)' : 'Section A (MCQ)') : q.subject + ' &ndash; ' + secLabel);
     if(!secMap.has(secKey)){
       secMap.set(secKey, {title: secKey, qs: []});
       sections.push(secMap.get(secKey));
@@ -6124,7 +6236,11 @@ async function renderSheetDoc(qs, opts, onProgress){
 
   // Calculate total marks based on pattern
   const preset = PRESETS[opts.pattern] || PRESETS.adv;
-  const totalMarks = qs.reduce((acc, q) => acc + (preset[q.rawType||q.type]||preset.single).c, 0);
+  const totalMarks = qs.reduce((acc, q) => {
+    const isParaQ = !!(q.paragraph || q.type === 'paragraph');
+    const t = isParaQ ? 'paragraph' : (q.rawType || q.type);
+    return acc + ((preset[t] || preset.single).c || 3);
+  }, 0);
 
   // Distinct subjects and chapters
   const subjs = [...new Set(qs.map(q => q.subject))].join(', ');
@@ -6175,8 +6291,10 @@ async function renderSheetDoc(qs, opts, onProgress){
         '</div>';
       }
 
+      const isMatch = !!(q.isMatch || isMatchQuestion(q));
+      const hasReal = hasRealOptions(q.options);
       let optionsHtml = '';
-      if(!hasImgs && q.options && q.options.length && !q.labelOnly){
+      if((!hasImgs || isMatch || hasReal) && q.options && q.options.length && !q.labelOnly){
         optionsHtml = '<div class="sheet-qoptions">' +
           q.options.map((opt, idx) => '<div class="sheet-qopt"><span class="sheet-qopt-key">(' + LET[idx] + ')</span> <span>' + (opts.noWatermark ? stripWatermarks(opt) : opt) + '</span></div>').join('') +
         '</div>';

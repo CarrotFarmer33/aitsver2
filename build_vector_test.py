@@ -120,6 +120,12 @@ class QuestionManager:
                     qid = q.get("id")
                     if qid and qid not in self.q_by_id:
                         q["paper"] = get_paper(q, p)
+                        is_para = bool(q.get("paragraph") or q.get("type") == "paragraph" or q.get("paragraphId") or q.get("passageText") or q.get("passageImages"))
+                        if is_para:
+                            q["paragraph"] = True
+                            if not q.get("rawType"):
+                                q["rawType"] = q.get("type") or "single"
+                            q["type"] = "paragraph"
                         self.q_by_id[qid] = q
                         self.questions.append(q)
             except Exception as e:
@@ -291,8 +297,9 @@ def build_test_pdf(
                     if q_sub not in subj_set:
                         continue
                 if pattern == "main":
+                    is_para = bool(q.get("paragraph") or q.get("type") == "paragraph")
                     t_str = str(q.get("rawType") or q.get("type", "")).lower()
-                    if "para" in t_str or "comp" in t_str or "multi" in t_str or "msq" in t_str:
+                    if is_para or "para" in t_str or "comp" in t_str or "multi" in t_str or "msq" in t_str:
                         continue
                 matched.append(q)
     else:
@@ -329,6 +336,9 @@ def build_test_pdf(
                 scq_cands = []
                 nat_cands = []
                 for q in sub_pool:
+                    is_para = bool(q.get("paragraph") or q.get("type") == "paragraph")
+                    if is_para:
+                        continue
                     t_str = str(q.get("rawType") or q.get("type", "")).lower()
                     if "para" in t_str or "comp" in t_str or "multi" in t_str or "msq" in t_str:
                         continue
@@ -560,7 +570,8 @@ def build_test_pdf(
         q, key, doc, parts, qno = item
         subj_order = {"physics": 0, "chemistry": 1, "mathematics": 2, "maths": 2}
         s_rank = subj_order.get(str(q.get("subject", "")).lower(), 9)
-        t_str = str(q.get("rawType") or q.get("type", "")).lower()
+        is_para = bool(q.get("paragraph") or q.get("type") == "paragraph")
+        t_str = "paragraph" if is_para else str(q.get("rawType") or q.get("type", "")).lower()
         if pattern == "main":
             t_rank = 0 if ("single" in t_str or "mcq" in t_str) else 1
         else:
@@ -585,17 +596,17 @@ def build_test_pdf(
 
     for idx, (q, key, doc, parts, qno) in enumerate(placed_questions, 1):
         q_sub = q.get("subject", "")
-        q_type = str(q.get("rawType") or q.get("type", "")).lower()
+        is_para = bool(q.get("paragraph") or q.get("type") == "paragraph")
+        q_type = "paragraph" if is_para else str(q.get("rawType") or q.get("type", "")).lower()
         if pattern == "main":
             type_lbl = "Section B (Numerical)" if ("num" in q_type or "nat" in q_type) else "Section A (MCQ)"
         else:
-            type_lbl = TYPE_NAME.get(q_type, "Questions")
+            type_lbl = "Comprehension / Paragraph" if is_para else TYPE_NAME.get(q_type, "Questions")
 
         sec_heading = f"{q_sub} &ndash; {type_lbl}" if has_multiple_subjects else type_lbl
         if sec_heading != current_sec:
             current_sec = sec_heading
-            # Do not draw synthesized section header bars ('Section A', 'Section B', 'Numerical', etc.)
-            # Keep question layout continuous and clean.
+            sh.begin_section(current_sec.replace("&ndash;", "-"))
 
         label = f"Q{idx}"
         yr = str(q.get("year", ""))

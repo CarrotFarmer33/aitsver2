@@ -95,7 +95,7 @@ def chem_segments(src):
     # (paper title, page number, branding) while keeping all question text.
     FOOTER_CUT = 718.0
 
-    cands, stops, has_instr, heads = [], collections.defaultdict(list), [], []
+    cands, stops, term_stops, footer_stops, has_instr, heads = [], collections.defaultdict(list), collections.defaultdict(list), collections.defaultdict(list), [], []
     for pi, page in enumerate(src):
         ws = page.get_text("words")
         for w in ws:
@@ -103,6 +103,7 @@ def chem_segments(src):
                 cands.append((pi, w[1], int(w[4].rstrip(".")), w[0]))
             if w[4].lower() in ("physics", "chemistry", "mathematics", "maths") and w[1] < 160 and w[3] - w[1] > 9:
                 stops[pi].append(w[1] - 2)
+                term_stops[pi].append(w[1] - 2)
                 sub_norm = "mathematics" if w[4].lower() in ("mathematics", "maths") else w[4].lower()
                 heads.append((pi, w[1], sub_norm))
             # Detect running footer text near the bottom of the page (page numbers,
@@ -110,10 +111,12 @@ def chem_segments(src):
             # never bleed into the preceding question's crop.
             if w[1] >= FOOTER_CUT and CROP_X0 <= w[0] <= CROP_X1:
                 stops[pi].append(FOOTER_CUT - 2)
+                footer_stops[pi].append(FOOTER_CUT - 2)
         for i in range(len(ws) - 2):
             a, b, c = ws[i], ws[i + 1], ws[i + 2]
             if (a[4], b[4], c[4]) == ("Space", "for", "Rough"):
                 stops[pi].append(a[1] - 2)                        # end of this page's content
+                term_stops[pi].append(a[1] - 2)
             if (a[4], b[4], c[4]) == ("This", "section", "contains") and a[0] < 80:
                 has_instr.append(pi)
                 lines = _lines([w for w in ws if a[1] - 70 <= w[1] < a[1] - 2])
@@ -127,8 +130,13 @@ def chem_segments(src):
                     if (is_sub or is_head) and a[1] - 45 <= y < a[1]:
                         top = min(top, min(w[1] for w in lw))
                 stops[pi].append(top - 3)
+                term_stops[pi].append(top - 3)
     for pi in stops:
         stops[pi] = sorted(set(stops[pi]))   # deduplicate: footer stops may be added multiple times
+    for pi in term_stops:
+        term_stops[pi] = sorted(set(term_stops[pi]))
+    for pi in footer_stops:
+        footer_stops[pi] = sorted(set(footer_stops[pi]))
     heads.sort()
 
     # keep only the 1,2,3,... chain, starting on the first page with questions
@@ -234,11 +242,14 @@ def chem_segments(src):
             else:
                 lim = SRC_BOT
 
-            hit = [s for s in stops.get(p, []) if y0 < s < lim]
-            if hit:                                            # rough-work / section header: question ends
-                parts.append((p, y0, min(hit)))
+            f_hits = [s for s in footer_stops.get(p, []) if y0 < s < lim]
+            page_lim = min(lim, min(f_hits)) if f_hits else lim
+
+            t_hits = [s for s in term_stops.get(p, []) if y0 < s < page_lim]
+            if t_hits:                                            # rough-work / section header: question ends
+                parts.append((p, y0, min(t_hits)))
                 break
-            parts.append((p, y0, lim))
+            parts.append((p, y0, page_lim))
             if nq_here or p + 1 >= len(src):
                 break
             p, y0 = p + 1, SRC_TOP
