@@ -101,6 +101,41 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
         self.send_json({"ok": True, "subjects": result})
 
     def handle_question_svg(self, qid):
+        if qid.startswith("allenchem_"):
+            try:
+                import build_allenchem_sheet as bas
+                with open(bas.DB_PATH, "r", encoding="utf-8") as f:
+                    allen_db = json.load(f)
+                allen_q = next((q for q in allen_db["questions"] if q["id"] == qid), None)
+                if not allen_q:
+                    self.send_error(404, "Allen question not found")
+                    return
+                pdf_path = os.path.join(bas.CHAPTER_DIR, allen_q["pdfName"])
+                doc = fitz.open(pdf_path)
+                bas.clean_source_document(doc)
+                seg = allen_q["segments"][0]
+                pno, x0, y0, x1, y1 = seg
+                clip_x0 = 48.5 if x0 < 150 else 301.5
+                clip_x1 = 295.0 if x0 < 150 else 548.0
+                clip_r = fitz.Rect(clip_x0, max(y0, 70.0), clip_x1, min(y1, 770.0))
+                temp_doc = fitz.open()
+                temp_page = temp_doc.new_page(width=clip_r.width, height=clip_r.height)
+                temp_page.show_pdf_page(fitz.Rect(0, 0, clip_r.width, clip_r.height), doc, pno - 1, clip=clip_r)
+                svg = temp_page.get_svg_image(text_as_path=1)
+                temp_doc.close()
+                doc.close()
+                body = svg.encode("utf-8")
+                self.send_response(200)
+                self.send_header("Content-Type", "image/svg+xml; charset=utf-8")
+                self.send_header("Content-Length", str(len(body)))
+                self.send_header("Cache-Control", "public, max-age=86400")
+                self.end_headers()
+                self.wfile.write(body)
+                return
+            except Exception as e:
+                self.send_error(500, f"Error rendering Allen SVG: {e}")
+                return
+
         import build_vector_test as bvt
         qm = QuestionManager.get_instance()
         q = qm.q_by_id.get(qid)
@@ -190,6 +225,51 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
         ts = int(time.time() * 1000)
         out_filename = f"test_{ts}.pdf"
         out_pdf = os.path.join(GENERATED_DIR, out_filename)
+
+        # Check if Allen Chemistry is requested
+        is_pure_allen = False
+        if selected_qids and all(str(qid).startswith("allenchem_") for qid in selected_qids):
+            is_pure_allen = True
+        elif paper == "allen" or (isinstance(req.get("papers"), list) and req.get("papers") == ["allen"]):
+            is_pure_allen = True
+
+        if is_pure_allen:
+            try:
+                import build_allenchem_sheet as bas
+                res = bas.generate_custom_test(
+                    chapter_name=chapters[0] if (chapters and len(chapters) == 1) else None,
+                    question_count=count,
+                    out_pdf_path=out_pdf,
+                    selected_qids=selected_qids,
+                    title=title,
+                    subtitle=subtitle,
+                    cand_name=req.get("candName"),
+                    time_limit=req.get("timeLimit")
+                )
+                pdf_url = f"/generated_tests/{out_filename}"
+                latest_url = "/generated_tests/latest_test.pdf"
+                latest_path = os.path.join(GENERATED_DIR, "latest_test.pdf")
+                try:
+                    import shutil
+                    shutil.copyfile(out_pdf, latest_path)
+                except Exception:
+                    pass
+
+                self.send_json({
+                    "ok": True,
+                    "pdfUrl": pdf_url,
+                    "latestUrl": latest_url,
+                    "filename": out_filename,
+                    "totalQuestions": res["total_questions"],
+                    "totalPages": res["total_pages"],
+                    "answerCount": res["total_questions"]
+                })
+                return
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+                self.send_json({"ok": False, "error": f"Allen test generation failed: {e}"}, 500)
+                return
 
         try:
             res = build_test_pdf(

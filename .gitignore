@@ -21,3 +21,5 @@ public/paras/
 
 
 generated_tests/
+__pycache__/
+*.pyc
