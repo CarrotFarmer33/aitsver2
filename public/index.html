@@ -3843,12 +3843,10 @@ function renderPracticeCardHtml(q, idx){
     const isMulti = effType === 'multi';
     const chosenList = savedAns ? (Array.isArray(savedAns.val) ? savedAns.val : [savedAns.val]) : [];
     const correctList = Array.isArray(q.ans) ? q.ans : (q.ans != null ? [q.ans] : []);
-    const isMatch = q.isMatch || isMatchQuestion(q);
-    const hasReal = hasRealOptions(q.options);
-    const showOptText = (isMatch || hasReal) && !q.labelOnly && Array.isArray(q.options) && q.options.length > 0;
-    const optsList = (showOptText && q.options) ? q.options : ['Option (A)', 'Option (B)', 'Option (C)', 'Option (D)'];
+    const numOpts = (Array.isArray(q.options) && q.options.length > 4) ? q.options.length : 4;
+    const optLabels = Array.from({length: numOpts}, (_, i) => 'Option (' + (LET[i] || (i+1)) + ')');
 
-    interactHtml = '<div class="' + (showOptText ? 'marks-options-list' : 'marks-options-grid') + '">' + optsList.map((optVal, oIdx) => {
+    interactHtml = '<div class="marks-options-grid">' + optLabels.map((label, oIdx) => {
       let optClass = 'marks-opt-chip';
       const isSelected = chosenList.includes(oIdx);
       if(isSelected) optClass += ' selected';
@@ -3856,10 +3854,9 @@ function renderPracticeCardHtml(q, idx){
         if(correctList.includes(oIdx)) optClass += ' correct';
         else if(isSelected) optClass += ' wrong';
       }
-      const itemText = showOptText ? rich(stripWatermarks(optVal)) : ('Option (' + LET[oIdx] + ')');
       return '<div class="' + optClass + '" data-prkopt="' + esc(q.id) + '" data-oidx="' + oIdx + '" data-multi="' + (isMulti ? '1' : '0') + '">' +
         '<div class="marks-opt-circle">' + LET[oIdx] + '</div>' +
-        '<div class="marks-opt-text">' + itemText + '</div>' +
+        '<div class="marks-opt-text">' + label + '</div>' +
       '</div>';
     }).join('') + '</div>';
   }
