@@ -529,6 +529,15 @@
   padding-bottom: 2pt;
   display: block;
 }
+.allen-qitem img, .allen-qitem .qimg {
+  max-width: 100% !important;
+  height: auto !important;
+  display: block !important;
+  margin: 0 !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+  background: transparent !important;
+}
 .allen-qnum {
   font-weight: 700;
   font-size: 8.5pt;
@@ -6988,13 +6997,16 @@ async function renderAllenSheetDoc(qs, opts, onProgress){
     }
 
     const qImgs = (q.images || []).filter(Boolean);
-    const imgsHtml = qImgs.map(u => imageMarkup(u, 'Figure', 'test-builder-svg', q.crop)).join('');
+    const hasImgs = qImgs.length > 0;
+    const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure', 'test-builder-svg', q.crop)).join('');
 
     html += '<div class="allen-qitem">' +
-      '<span class="allen-qnum">' + qNum + '.</span> ' +
-      '<span class="allen-qstem">' + rich(stem) + '</span>' +
-      optsHtml +
-      imgsHtml +
+      '<div style="display:flex;align-items:flex-start;gap:4pt">' +
+        '<span class="allen-qnum" style="flex:0 0 auto;font-weight:700;line-height:1.2;padding-top:2px">' + qNum + '.</span>' +
+        '<div style="flex:1;min-width:0">' +
+          (hasImgs ? imgsHtml : ('<span class="allen-qstem">' + rich(stem) + '</span>' + optsHtml)) +
+        '</div>' +
+      '</div>' +
     '</div>';
   });
 
