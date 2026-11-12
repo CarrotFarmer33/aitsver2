@@ -455,6 +455,181 @@
   }
 }
 
+/* ==================== ALLEN CHEMISTRY / NEET 2-COLUMN COMPACT TEST STYLES ==================== */
+.allen-sheet-page {
+  width: 210mm;
+  min-height: 297mm;
+  padding: 24pt 28pt 36pt 28pt;
+  margin: 0 auto 24pt auto;
+  background: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 8.5pt;
+  line-height: 1.28;
+  position: relative;
+}
+
+.allen-sheet-page, .allen-sheet-page * {
+  color: #000000 !important;
+}
+
+.allen-hdr-box {
+  border: 1.25pt solid #000000;
+  padding: 6pt 10pt;
+  margin-bottom: 10pt;
+  background: #ffffff;
+  text-align: center;
+}
+.allen-hdr-title {
+  font-size: 13pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5pt;
+  margin-bottom: 2pt;
+  color: #000000;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.allen-hdr-sub {
+  font-size: 8.5pt;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 4pt;
+  border-bottom: 0.5pt solid #999999;
+  padding-bottom: 3pt;
+}
+.allen-hdr-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6pt;
+  font-size: 8.2pt;
+}
+.allen-hdr-line {
+  display: inline-block;
+  border-bottom: 0.75pt solid #000000;
+  width: 120px;
+  vertical-align: middle;
+  margin-left: 3pt;
+}
+
+.allen-columns {
+  column-count: 2;
+  column-gap: 16pt;
+  column-rule: 0.6pt solid #cccccc;
+  text-align: justify;
+}
+
+.allen-qitem {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  margin-bottom: 8pt;
+  padding-bottom: 2pt;
+  display: block;
+}
+.allen-qnum {
+  font-weight: 700;
+  font-size: 8.5pt;
+  color: #000000;
+  margin-right: 3pt;
+}
+.allen-qstem {
+  font-size: 8.5pt;
+  color: #000000;
+  line-height: 1.28;
+}
+
+.allen-opts-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8pt;
+  margin-top: 2.5pt;
+  padding-left: 8pt;
+  font-size: 8.2pt;
+}
+.allen-opts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5pt 6pt;
+  margin-top: 2.5pt;
+  padding-left: 8pt;
+  font-size: 8.2pt;
+}
+.allen-opts-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5pt;
+  margin-top: 2.5pt;
+  padding-left: 8pt;
+  font-size: 8.2pt;
+}
+
+.allen-ans-box {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  margin-top: 14pt;
+  padding-top: 6pt;
+  border-top: 1pt solid #000000;
+}
+.allen-ans-title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 10pt;
+  letter-spacing: 0.5pt;
+  margin-bottom: 4pt;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.allen-key-tbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 7.8pt;
+  text-align: center;
+  border: 1pt solid #000000;
+}
+.allen-key-tbl th {
+  background: #f2f2f2;
+  border: 0.75pt solid #000000;
+  padding: 2.5pt 2pt;
+  font-weight: 700;
+}
+.allen-key-tbl td {
+  border: 0.5pt solid #000000;
+  padding: 2pt 2pt;
+}
+.allen-k-q {
+  font-weight: 700;
+  background: #fafafa;
+}
+.allen-k-a {
+  font-weight: 600;
+}
+
+@media print {
+  .allen-sheet-page {
+    width: 100% !important;
+    min-height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  .allen-columns {
+    column-count: 2 !important;
+    column-gap: 16pt !important;
+    column-rule: 0.6pt solid #bbbbbb !important;
+  }
+  .allen-qitem {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+  .allen-ans-box {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+}
+
 </style></head><body>
 <title>AITS Practice Portal</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -6730,7 +6905,143 @@ function shuffleAllBuilderPreview(){
   showToast('Reshuffled all ' + qs.length + ' questions.');
 }
 
+function cleanAllenQuestion(rawText){
+  if(!rawText) return { stem: '', options: [] };
+  let text = String(rawText);
+  text = stripWatermarks(text);
+  text = text.replace(/\/(?:\s*\(\s*)?n\s*:\s*\d{4}-\d{2}/gi, '');
+  text = text.replace(/Z:\\NODE\S+/gi, '');
+  text = text.replace(/Pre-Medical\s*:\s*Chemistry/gi, '');
+  text = text.replace(/ALLEN/g, '');
+  text = text.replace(/\b[A-Z]{2,4}\d{4,5}\b/g, '');
+  text = text.replace(/^\s*\d+[\.\)]\s*/, '');
+  text = text.trim();
+
+  const mOpt = text.search(/\((?:1|[A-Da-d])\)/);
+  if(mOpt === -1){
+    return { stem: text, options: [] };
+  }
+
+  const stem = text.slice(0, mOpt).trim();
+  const optsPart = text.slice(mOpt).trim();
+  const parts = optsPart.split(/\(([1-4]|[A-D])\)/);
+  const options = [];
+  for(let i = 1; i < parts.length; i += 2){
+    if(i + 1 < parts.length){
+      options.push(parts[i+1].trim());
+    }
+  }
+  return { stem, options };
+}
+
+async function renderAllenSheetDoc(qs, opts, onProgress){
+  $('#sheetDocTitle').textContent = (opts.title || 'ALLEN CHEMISTRY TEST') + ' (' + qs.length + ' Qs - 2-Column NEET)';
+  const container = $('#sheetDocContainer');
+  container.innerHTML = '';
+
+  const chaps = [...new Set(qs.map(q => q.chapter).filter(Boolean))];
+  const chapsText = chaps.length <= 4 ? chaps.join(', ') : chaps.slice(0, 3).join(', ') + ' & ' + (chaps.length - 3) + ' more';
+  const totalMarks = qs.length * 4;
+
+  let html = '<div class="allen-sheet-page">' +
+    '<div class="allen-hdr-box">' +
+      '<div class="allen-hdr-title">' + esc(opts.title || 'ALLEN CHEMISTRY PRACTICE TEST') + '</div>' +
+      '<div class="allen-hdr-sub">' + esc(opts.subtitle || ('Chapter-wise Practice Sheet | ' + chapsText)) + '</div>' +
+      '<div class="allen-hdr-grid">' +
+        '<div><b>Candidate Name:</b> <span class="allen-hdr-line"></span></div>' +
+        '<div><b>Roll No.:</b> <span class="allen-hdr-line" style="width:90px"></span></div>' +
+        '<div><b>Time:</b> ' + (opts.timeLimit > 0 ? opts.timeLimit + ' Min' : (qs.length * 3) + ' Min') + '</div>' +
+        '<div><b>Max Marks:</b> ' + totalMarks + '</div>' +
+        '<div><b>Questions:</b> ' + qs.length + '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="allen-columns">';
+
+  const keyRows = [];
+
+  qs.forEach((q, idx) => {
+    const qNum = idx + 1;
+    const ansKey = keyText(q) || q.answer || '';
+    keyRows.push({ num: qNum, ans: ansKey || '-' });
+
+    const { stem, options } = cleanAllenQuestion(q.text || '');
+    const effOpts = (options && options.length) ? options : (q.options || []);
+
+    let optsHtml = '';
+    if(effOpts && effOpts.length){
+      const isShort = effOpts.every(o => o.length <= 16);
+      const isMedium = effOpts.every(o => o.length <= 36);
+
+      if(isShort){
+        optsHtml = '<div class="allen-opts-inline">' +
+          effOpts.map((opt, oIdx) => '<span><b>(' + (oIdx + 1) + ')</b> ' + rich(opt) + '</span>').join('') +
+        '</div>';
+      } else if(isMedium){
+        optsHtml = '<div class="allen-opts-grid">' +
+          effOpts.map((opt, oIdx) => '<div><b>(' + (oIdx + 1) + ')</b> ' + rich(opt) + '</div>').join('') +
+        '</div>';
+      } else {
+        optsHtml = '<div class="allen-opts-stack">' +
+          effOpts.map((opt, oIdx) => '<div><b>(' + (oIdx + 1) + ')</b> ' + rich(opt) + '</div>').join('') +
+        '</div>';
+      }
+    }
+
+    const qImgs = (q.images || []).filter(Boolean);
+    const imgsHtml = qImgs.map(u => imageMarkup(u, 'Figure', 'test-builder-svg', q.crop)).join('');
+
+    html += '<div class="allen-qitem">' +
+      '<span class="allen-qnum">' + qNum + '.</span> ' +
+      '<span class="allen-qstem">' + rich(stem) + '</span>' +
+      optsHtml +
+      imgsHtml +
+    '</div>';
+  });
+
+  html += '</div>';
+
+  if(opts.includeKey !== false && keyRows.length){
+    html += '<div class="allen-ans-box">' +
+      '<div class="allen-ans-title">ANSWER KEY</div>' +
+      '<table class="allen-key-tbl">' +
+        '<thead><tr>' +
+          '<th>Que.</th><th>Ans.</th><th>Que.</th><th>Ans.</th><th>Que.</th><th>Ans.</th><th>Que.</th><th>Ans.</th><th>Que.</th><th>Ans.</th>' +
+        '</tr></thead>' +
+        '<tbody>';
+
+    const cols = 5;
+    for(let i = 0; i < keyRows.length; i += cols){
+      const chunk = keyRows.slice(i, i + cols);
+      html += '<tr>';
+      for(let c = 0; c < cols; c++){
+        const item = chunk[c] || {num: '', ans: ''};
+        html += '<td class="allen-k-q">' + (item.num || '') + '</td>' +
+                '<td class="allen-k-a">' + (item.ans || '') + '</td>';
+      }
+      html += '</tr>';
+    }
+
+    html += '</tbody></table></div>';
+  }
+
+  html += '</div>';
+
+  container.innerHTML = html;
+  await hydrateZipImages(container, onProgress);
+  typeset(container);
+}
+
 async function renderSheetDoc(qs, opts, onProgress){
+  const isAllen = qs.length > 0 && (
+    (tbCfg.papers && tbCfg.papers.has('allen') && tbCfg.papers.size === 1) ||
+    qs.every(q => q.paper === 'allen' || (q.id && String(q.id).startsWith('allenchem_'))) ||
+    (qs.filter(q => q.paper === 'allen' || (q.id && String(q.id).startsWith('allenchem_'))).length >= qs.length / 2)
+  );
+
+  if(isAllen){
+    return renderAllenSheetDoc(qs, opts, onProgress);
+  }
+
   $('#sheetDocTitle').textContent = opts.title + ' (' + qs.length + ' Qs)';
   const container = $('#sheetDocContainer');
   container.innerHTML = '';
