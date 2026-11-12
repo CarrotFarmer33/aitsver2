@@ -2064,12 +2064,18 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
             </select>
           </div>
 
-          <h3 style="margin-top:16px">Format &amp; Clean Options</h3>
+          <h3 style="margin-top:16px">Format &amp; Question Options</h3>
           <div style="display:flex;flex-direction:column;gap:8px">
             <label class="chk"><input type="checkbox" id="tbOptAnsKey" checked> <span>Include Answer Key Grid at end</span></label>
             <label class="chk"><input type="checkbox" id="tbOptSolutions" checked> <span>Include Worked Solutions at end</span></label>
             <label class="chk"><input type="checkbox" id="tbOptNoWatermark" checked> <span><b>Remove FIITJEE watermarks &amp; footers</b></span></label>
             <label class="chk"><input type="checkbox" id="tbOptUnattFirst"> <span>Unattempted questions first</span></label>
+            <label class="chk"><input type="checkbox" id="tbOptExhaustFirst" checked> <span><b>Exhaust entire question bank before repeating questions</b></span></label>
+            <div id="tbExhaustMeta" style="margin-left:22px;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+              <span>Used in previous tests: <b id="tbExhaustCount" style="color:var(--brand)">0</b> questions</span>
+              <span>&bull;</span>
+              <button type="button" id="tbResetExhaustBtn" class="btn sm" style="padding:2px 8px;font-size:11px;height:auto;line-height:1.4">Reset History</button>
+            </div>
           </div>
 
           <div style="margin-top:20px;display:flex;flex-direction:column;gap:8px">
@@ -4735,6 +4741,7 @@ document.addEventListener('click',e=>{
   else if(b.id==='sheetBackBtn'){ show('scrTestBuilder'); }
   else if(b.id==='btnGenSheet'){ buildCustomSheet(); }
   else if(b.id==='btnPreviewSheet'){ openBuilderPreview(); }
+  else if(b.id==='tbResetExhaustBtn'){ clearUsedQuestions(); }
   else if(b.id==='tbPrevBackBtn' || b.id==='tbPrevBottomBackBtn'){ show('scrTestBuilder'); }
   else if(b.id==='tbPrevGenPdfBtn' || b.id==='tbPrevBottomGenPdfBtn'){ buildCustomSheet(tbCfg.builtQs); }
   else if(b.id==='tbPrevStartCbtBtn'){ startCbtFromBuilder(); }
@@ -5115,7 +5122,49 @@ function cleanSourceTag(q){
 }
 
 const TB_ARCHIVE_KEY = 'aits_tb_archive_v1';
+const TB_USED_QIDS_KEY = 'aits_tb_used_qids_v1';
 let tbDismissedResumeId = null;
+
+let TB_USED_QIDS = new Set();
+try {
+  const savedUsed = JSON.parse(localStorage.getItem(TB_USED_QIDS_KEY) || '[]');
+  if(Array.isArray(savedUsed)) TB_USED_QIDS = new Set(savedUsed);
+} catch(e){}
+
+function recordUsedQuestions(qs){
+  if(!qs || !qs.length) return;
+  let changed = false;
+  qs.forEach(q => {
+    if(q && q.id && !TB_USED_QIDS.has(q.id)){
+      TB_USED_QIDS.add(q.id);
+      changed = true;
+    }
+  });
+  if(changed){
+    try {
+      localStorage.setItem(TB_USED_QIDS_KEY, JSON.stringify([...TB_USED_QIDS]));
+    } catch(e){}
+    updateExhaustDisplay();
+  }
+}
+
+function clearUsedQuestions(){
+  if(!confirm('Reset question bank history? All questions will be treated as fresh/unseen for new tests.')) return;
+  TB_USED_QIDS.clear();
+  try {
+    localStorage.removeItem(TB_USED_QIDS_KEY);
+  } catch(e){}
+  updateExhaustDisplay();
+  refreshBuilderSummary();
+  showToast('Question bank history reset! All questions are fresh again.');
+}
+
+function updateExhaustDisplay(){
+  const cntEl = document.getElementById('tbExhaustCount');
+  if(cntEl){
+    cntEl.textContent = TB_USED_QIDS.size;
+  }
+}
 
 const tbCfg = {
   pattern: 'adv',
@@ -5130,6 +5179,7 @@ const tbCfg = {
   optSolutions: true,
   optNoWatermark: true,
   optUnattFirst: false,
+  optExhaustFirst: true,
   builtQs: [],
   currentTestId: null
 };
@@ -5268,6 +5318,7 @@ function refreshBuilderSummary(){
       $('#tbStatusNote').textContent = ok ? (avail + ' questions match your criteria.') : 'Select at least one chapter and question type.';
     }
   }
+  updateExhaustDisplay();
 }
 
 function checkCbtHash(){
@@ -5375,6 +5426,7 @@ function openBuilderScreen(){
   updateBuilderPaperOptions();
   renderBuilderChapters();
   refreshBuilderSummary();
+  updateExhaustDisplay();
   renderTbArchive();
   show('scrTestBuilder');
 
@@ -5394,7 +5446,41 @@ function getSelectedBuilderQuestions(){
   if(!activeSubjs.length) return [];
 
   const unattFirst = $('#tbOptUnattFirst') ? $('#tbOptUnattFirst').checked : true;
+  const exhaustFirst = $('#tbOptExhaustFirst') ? $('#tbOptExhaustFirst').checked : true;
   const distMode = $('#tbDistMode') ? $('#tbDistMode').value : 'balanced';
+
+  function orderList(rawList){
+    if(!rawList || !rawList.length) return [];
+    let list = rawList.slice();
+    if(exhaustFirst){
+      const unused = list.filter(q => !TB_USED_QIDS.has(q.id));
+      const used = list.filter(q => TB_USED_QIDS.has(q.id));
+      let orderedUnused, orderedUsed;
+      if(unattFirst){
+        const uUnatt = unused.filter(q => !ATT.has(q.id)), uAtt = unused.filter(q => ATT.has(q.id));
+        shuffle(uUnatt); shuffle(uAtt);
+        orderedUnused = uUnatt.concat(uAtt);
+
+        const usedUnatt = used.filter(q => !ATT.has(q.id)), usedAtt = used.filter(q => ATT.has(q.id));
+        shuffle(usedUnatt); shuffle(usedAtt);
+        orderedUsed = usedUnatt.concat(usedAtt);
+      } else {
+        shuffle(unused); shuffle(used);
+        orderedUnused = unused;
+        orderedUsed = used;
+      }
+      return orderedUnused.concat(orderedUsed);
+    } else {
+      if(unattFirst){
+        const a = list.filter(q => !ATT.has(q.id)), b = list.filter(q => ATT.has(q.id));
+        shuffle(a); shuffle(b);
+        return a.concat(b);
+      } else {
+        shuffle(list);
+        return list;
+      }
+    }
+  }
 
   function pickFrom(pool, count){
     if(!pool.length || count <= 0) return [];
@@ -5405,14 +5491,7 @@ function getSelectedBuilderQuestions(){
       const perCh = Math.max(1, Math.floor(count / Math.max(1, chs.length)));
       const chPools = {};
       chs.forEach(k => {
-        let list = byCh[k].slice();
-        if(unattFirst){
-          const a = list.filter(q => !ATT.has(q.id)), b = list.filter(q => ATT.has(q.id));
-          shuffle(a); shuffle(b); list = a.concat(b);
-        } else {
-          shuffle(list);
-        }
-        chPools[k] = list;
+        chPools[k] = orderList(byCh[k]);
       });
 
       let res = [], rem = count;
@@ -5434,14 +5513,7 @@ function getSelectedBuilderQuestions(){
       }
       return res;
     } else {
-      let list = pool.slice();
-      if(unattFirst){
-        const a = list.filter(q => !ATT.has(q.id)), b = list.filter(q => ATT.has(q.id));
-        shuffle(a); shuffle(b); list = a.concat(b);
-      } else {
-        shuffle(list);
-      }
-      return list.slice(0, count);
+      return orderList(pool).slice(0, count);
     }
   }
 
@@ -5598,6 +5670,7 @@ async function buildCustomSheet(customQs){
     tbCfg.currentTestId = 'tb_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
   }
   saveTbTestToArchive({ isGenerated: true });
+  recordUsedQuestions(qs);
 
   const title = ($('#tbTestTitle').value || '').trim() || 'JEE ADVANCED PRACTICE TEST';
   const subtitle = ($('#tbTestSubtitle').value || '').trim() || 'Chapter-wise Practice Sheet | Questions cropped from source papers';
@@ -5811,6 +5884,7 @@ async function buildCustomSheet(customQs){
       if(pDetail) pDetail.textContent = 'Rendered in browser. Click "Save as PDF / Print" to download.';
       $('#tbStatusNote').textContent = 'Test sheet compiled! Click "Save as PDF / Print" to save your PDF.';
       saveTbTestToArchive({ isGenerated: true });
+  recordUsedQuestions(qs);
       showToast('Test sheet ready! Click "Save as PDF / Print" to download.');
       return;
     }
@@ -5974,6 +6048,9 @@ function saveTbTestToArchive(opts = {}){
   if(archive.length > 3) archive = archive.slice(0, 3);
 
   store.set(TB_ARCHIVE_KEY, JSON.stringify(archive));
+  if(testEntry.isGenerated){
+    recordUsedQuestions(qs);
+  }
   renderTbArchive();
 }
 
@@ -6499,6 +6576,12 @@ function swapBuilderQuestion(idx){
     return;
   }
 
+  const exhaustFirst = $('#tbOptExhaustFirst') ? $('#tbOptExhaustFirst').checked : true;
+  if(exhaustFirst){
+    const unused = candidates.filter(q => !TB_USED_QIDS.has(q.id));
+    if(unused.length) candidates = unused;
+  }
+
   const newQ = candidates[Math.floor(Math.random() * candidates.length)];
   tbCfg.builtQs[idx] = newQ;
 
@@ -6552,6 +6635,12 @@ function addBuilderQuestion(){
   if(!candidates.length){
     alert('No more unselected questions match your active subjects and chapters.');
     return;
+  }
+
+  const exhaustFirst = $('#tbOptExhaustFirst') ? $('#tbOptExhaustFirst').checked : true;
+  if(exhaustFirst){
+    const unused = candidates.filter(q => !TB_USED_QIDS.has(q.id));
+    if(unused.length) candidates = unused;
   }
 
   const newQ = candidates[Math.floor(Math.random() * candidates.length)];
@@ -6745,6 +6834,7 @@ function startCbtFromBuilder(){
   const timeLimit = +($('#tbTimeLimit').value) || (qs.length * 3);
   const title = ($('#tbTestTitle').value || '').trim() || 'AITS CUSTOM PRACTICE TEST';
   buildTest(qs, timeLimit, tbCfg.pattern === 'main' ? 'main' : 'adv', title);
+  recordUsedQuestions(qs);
   renderInstr();
   show('scrInstr');
 }
