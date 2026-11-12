@@ -2472,7 +2472,8 @@ function getReports(){ try{ return JSON.parse(store.get(RPT_KEY)||'[]'); }catch(
 function saveReports(list){ store.set(RPT_KEY,JSON.stringify(list)); updateReportBadge(); }
 function isQuestionReported(qId){ if(!qId) return false; return getReports().some(r=>r.questionId===qId); }
 function updateReportBadge(){ const badge=$('#rptBadge'); if(!badge) return; const count=getReports().length; badge.textContent=count; badge.style.display=count>0?'inline-block':'none'; }
-function findQuestionById(id){ if(!id) return null; if(T&&T.qs){ const found=T.qs.find(q=>q.id===id); if(found) return found; } return DB.find(q=>q.id===id)||null; }
+function findQuestionById(id){ if(!id) return null; const sId=String(id); if(T&&T.qs){ const found=T.qs.find(q=>q.id===id||String(q.id)===sId); if(found) return found; } return DB.find(q=>q.id===id||String(q.id)===sId)||null; }
+const qById = id => findQuestionById(id);
 const saveSet=(k,S)=>store.set(k,JSON.stringify([...S]));
 const answered=a=>a!=null && !(Array.isArray(a)&&!a.length) && a!=='';
 const typeset = el => { try{ if(window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise(el?[el]:undefined).catch(()=>{}); }catch(e){} };
@@ -4724,19 +4725,23 @@ document.addEventListener('click',e=>{
   }
   else if(b.closest('.tb-archive-restore-btn')){
     const archBtn = b.closest('.tb-archive-restore-btn');
-    restoreArchivedTest(archBtn.dataset.archId);
+    const id = archBtn.dataset.archId || archBtn.getAttribute('data-arch-id');
+    restoreArchivedTest(id);
   }
   else if(b.closest('.tb-archive-pdf-btn')){
     const archBtn = b.closest('.tb-archive-pdf-btn');
-    downloadArchivedPdf(archBtn.dataset.archId);
+    const id = archBtn.dataset.archId || archBtn.getAttribute('data-arch-id');
+    downloadArchivedPdf(id);
   }
   else if(b.closest('.tb-archive-cbt-btn')){
     const archBtn = b.closest('.tb-archive-cbt-btn');
-    startCbtFromArchivedTest(archBtn.dataset.archId);
+    const id = archBtn.dataset.archId || archBtn.getAttribute('data-arch-id');
+    startCbtFromArchivedTest(id);
   }
   else if(b.closest('.tb-archive-del-btn')){
     const archBtn = b.closest('.tb-archive-del-btn');
-    deleteArchivedTest(archBtn.dataset.archId);
+    const id = archBtn.dataset.archId || archBtn.getAttribute('data-arch-id');
+    deleteArchivedTest(id);
   }
   else if(b.id==='sheetBackBtn'){ show('scrTestBuilder'); }
   else if(b.id==='btnGenSheet'){ buildCustomSheet(); }
@@ -6054,16 +6059,16 @@ function saveTbTestToArchive(opts = {}){
   renderTbArchive();
 }
 
-function restoreArchivedTest(testId){
+function restoreArchivedTest(testId, navigateToPreview = true){
   const archive = getTbArchive();
   const item = archive.find(t => t.id === testId);
   if(!item){
     alert('Archived test could not be found.');
-    return;
+    return false;
   }
   if(!DB || !DB.length){
     alert('Question bank database is still loading. Please wait a moment and try again.');
-    return;
+    return false;
   }
 
   if($('#tbTestTitle')) $('#tbTestTitle').value = item.title || 'JEE ADVANCED PRACTICE TEST';
@@ -6090,7 +6095,7 @@ function restoreArchivedTest(testId){
   (item.qids || []).forEach(entry => {
     const qid = (typeof entry === 'object' && entry !== null) ? entry.id : entry;
     const crop = (typeof entry === 'object' && entry !== null) ? entry.crop : null;
-    const rawQ = qById(qid);
+    const rawQ = findQuestionById(qid);
     if(rawQ){
       const copy = { ...rawQ };
       if(crop) copy.crop = { ...crop };
@@ -6100,7 +6105,7 @@ function restoreArchivedTest(testId){
 
   if(!restoredQs.length){
     alert('Could not find questions for this archived test in the database.');
-    return;
+    return false;
   }
 
   tbCfg.builtQs = restoredQs;
@@ -6108,9 +6113,12 @@ function restoreArchivedTest(testId){
   if($('#tbCountIn')) $('#tbCountIn').value = restoredQs.length;
   tbCfg.currentTestId = item.id;
 
-  renderTestPreview();
-  show('scrTestPreview');
-  showToast('Restored "' + esc(item.title) + '" (' + restoredQs.length + ' Qs) from archive!');
+  if(navigateToPreview){
+    renderTestPreview();
+    show('scrTestPreview');
+    showToast('Restored "' + esc(item.title) + '" (' + restoredQs.length + ' Qs) from archive!');
+  }
+  return true;
 }
 
 function downloadArchivedPdf(testId){
@@ -6119,23 +6127,30 @@ function downloadArchivedPdf(testId){
   if(!item) return;
 
   if(item.pdfUrl){
-    const dlUrl = item.pdfUrl + (item.pdfUrl.includes('?') ? '&' : '?') + 'download=1';
-    const a = document.createElement('a');
-    a.href = dlUrl;
-    a.download = item.filename || 'practice_sheet.pdf';
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => a.remove(), 400);
-    showToast('Downloading archived PDF...');
-  } else {
-    restoreArchivedTest(testId);
+    try {
+      const dlUrl = item.pdfUrl + (item.pdfUrl.includes('?') ? '&' : '?') + 'download=1';
+      const a = document.createElement('a');
+      a.href = dlUrl;
+      a.download = item.filename || 'practice_sheet.pdf';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => a.remove(), 400);
+      showToast('Downloading archived PDF...');
+      return;
+    } catch(dlErr){
+      console.warn('Direct PDF download failed, regenerating...', dlErr);
+    }
+  }
+
+  if(restoreArchivedTest(testId, false)){
     buildCustomSheet(tbCfg.builtQs);
   }
 }
 
 function startCbtFromArchivedTest(testId){
-  restoreArchivedTest(testId);
-  startCbtFromBuilder();
+  if(restoreArchivedTest(testId, false)){
+    startCbtFromBuilder();
+  }
 }
 
 function deleteArchivedTest(testId){
