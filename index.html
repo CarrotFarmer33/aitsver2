@@ -5909,8 +5909,9 @@ async function buildCustomSheet(customQs){
       const dlBtn = $('#sheetDownloadBtn');
       if(dlBtn){
         dlBtn.removeAttribute('href');
+        dlBtn.textContent = 'Save as PDF / Print';
         dlBtn.onclick = (e) => { e.preventDefault(); window.print(); };
-        dlBtn.title = 'Save as PDF or Print';
+        dlBtn.title = 'Save as PDF or Print directly';
       }
       const printBtn = $('#sheetPrintBtn');
       if(printBtn){
@@ -6806,9 +6807,22 @@ async function renderSheetDoc(qs, opts, onProgress){
         '</div>';
       }
 
+      let optsHtml = '';
+      if(!hasImgs && q.options && q.options.length && !String(qText).includes('(1)') && !String(qText).includes('(A)')){
+        optsHtml = '<div class="sheet-opts" style="display:grid;grid-template-columns:1fr 1fr;gap:4pt 12pt;margin:6pt 0;font-size:9pt">' +
+          q.options.map((opt, oIdx) => '<div><b>(' + (oIdx + 1) + ')</b> ' + rich(stripWatermarks(opt)) + '</div>').join('') +
+        '</div>';
+      }
+
+      html += '<div class="sheet-qrow">' +
+        '<div class="sheet-qlab-col">' +
+          '<div class="sheet-qlab">' + esc(qLabel) + '</div>' +
+          '<div class="sheet-qtag">' + esc(tag) + '</div>' +
+        '</div>' +
         '<div class="sheet-qbody-col">' +
           passageHtml +
           (!hasImgs && qText ? '<div class="sheet-qbody-text">' + rich(qText) + '</div>' : '') +
+          optsHtml +
           imgsHtml +
         '</div>' +
       '</div>';
