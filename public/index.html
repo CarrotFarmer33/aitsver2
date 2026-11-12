@@ -1958,14 +1958,11 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
                 <button type="button" class="pattern-pill" data-pattern="custom">Custom Practice</button>
               </div>
             </div>
-            <div class="field"><label for="tbPaperSel">Question Source / Paper</label>
-              <div class="pattern-pills" id="tbPaperPills">
-                <button type="button" class="pattern-pill active" data-paper="all">Mains + Adv</button>
-                <button type="button" class="pattern-pill" data-paper="main">Mains</button>
-                <button type="button" class="pattern-pill" data-paper="adv">Adv</button>
-              </div>
-              <div style="margin-top:6px">
-                <select id="tbPaperSel" aria-label="Question Source"></select>
+            <div class="field"><label>Question Sources / Papers <span class="muted" style="font-size:11px;font-weight:normal">(Multi-select enabled — click to toggle)</span></label>
+              <div class="pattern-pills" id="tbPaperPills" style="display:flex;flex-wrap:wrap;gap:8px">
+                <button type="button" class="pattern-pill active" data-paper="adv" id="tbPillAdv"><span class="pill-check">✓ </span>JEE Advanced <span id="tbAdvCnt">(0)</span></button>
+                <button type="button" class="pattern-pill active" data-paper="main" id="tbPillMain"><span class="pill-check">✓ </span>JEE Mains <span id="tbMainCnt">(0)</span></button>
+                <button type="button" class="pattern-pill" data-paper="allen" id="tbPillAllen"><span class="pill-check">+ </span>Allen Chemistry (NEET) <span id="tbAllenCnt">(0)</span></button>
               </div>
             </div>
           </div>
@@ -2607,12 +2604,15 @@ function normQuestion(q,i,defSubject){
     passageImages:passageImgs,
     isMatch,
     text:String(text), options, labelOnly, ans, tol, range, keyOk,
+    pdfName: q.pdfName || null,
+    segments: q.segments || null,
+    allenCode: q.allenCode || null,
     solution:String(q.solution!=null?q.solution:(q.explanation||'')),
     images:imgs.map(String),
     raster_images:[].concat(q.raster_images||imgs).filter(Boolean).map(String),
     solImages:[].concat(q.solution_images||q.solutionImages||[]).filter(Boolean).map(String),
     source:String(q.source!=null?q.source:(q.source_paper!=null?q.source_paper:(q.paper!=null?q.paper:(q.test||'')))),
-    paper: (q.exam ? (/adv/i.test(q.exam)?'adv':(/main/i.test(q.exam)?'main':q.exam)) : paperOf(String(q.source||'')+' '+String(q.paperTitle||q.paper_title||''))),
+    paper: (q.paper === 'allen' || (q.id && String(q.id).startsWith('allenchem_')) || /allen/i.test(String(q.source||''))) ? 'allen' : (q.exam ? (/adv/i.test(q.exam)?'adv':(/main/i.test(q.exam)?'main':q.exam)) : paperOf(String(q.source||'')+' '+String(q.paperTitle||q.paper_title||''))),
     year:yearOf(q)
   };
 }
@@ -2680,9 +2680,10 @@ function loadDB(raw,label,isSample){
   const seen=new Map();
   out.forEach(q=>{ const c=(seen.get(q.id)||0)+1; seen.set(q.id,c); if(c>1) q.id=q.id+'#'+c; });
   DB=out; dbLabel=label; dbSample=!!isSample; dbSkipped=skipped; dbNoKey=out.filter(q=>!q.keyOk).length;
-  cfg.subjects=new Set([SUBJ.find(s=>DB.some(q=>q.subject===s))||'Physics']);
-  cfg.chapters=new Set(DB.filter(q=>cfg.subjects.has(q.subject)).map(q=>q.subject+'||'+q.chapter)); cfg.types=new Set(Object.keys(TYPES)); cfg.paper='all';
-  cfg.years=new Set(DB.map(q=>q.year));
+  const practiceDB = out.filter(q => q.paper !== 'allen');
+  cfg.subjects=new Set([SUBJ.find(s=>practiceDB.some(q=>q.subject===s))||'Physics']);
+  cfg.chapters=new Set(practiceDB.filter(q=>cfg.subjects.has(q.subject)).map(q=>q.subject+'||'+q.chapter)); cfg.types=new Set(Object.keys(TYPES)); cfg.paper='all';
+  cfg.years=new Set(practiceDB.map(q=>q.year));
   cfg.countAuto=true; cfg.minAuto=true; $('#chSearch').value='';
   renderSetup(); return true;
 }
@@ -2698,7 +2699,7 @@ function show(id){
 }
 
 /* ---------- setup ---------- */
-const paperOnlyOK = q => cfg.paper==='all' || q.paper===cfg.paper;
+const paperOnlyOK = q => q.paper !== 'allen' && (cfg.paper==='all' || q.paper===cfg.paper);
 const paperOK = q => paperOnlyOK(q) && cfg.years.has(q.year);
 function typeSrcOK(q){ return cfg.types.has(q.type) && paperOK(q); }
 function renderYears(){
@@ -2708,17 +2709,18 @@ function renderYears(){
   $('#yearBox').innerHTML = years.map(y=>'<label class="chk'+(counts[y]?'':' zero')+'"><input type="checkbox" data-year="'+esc(y)+'"'+(cfg.years.has(y)?' checked':'')+'><span>'+esc(y)+'</span><span class="cnt">'+counts[y]+'</span></label>').join('');
 }
 function refreshAll(){ renderYears(); renderTypes(); renderChapters(); refreshSummary(); }
-function pool(){ return DB.filter(q=>typeSrcOK(q) && cfg.chapters.has(q.subject+'||'+q.chapter)); }
+function pool(){ return DB.filter(q=>q.paper!=='allen' && typeSrcOK(q) && cfg.chapters.has(q.subject+'||'+q.chapter)); }
 function renderSetup(){
   $('#dbLabel').textContent = dbSample ? 'Sample questions (replace with your database.json)' : ('Loaded from '+dbLabel);
 
-  const bySub={}; DB.forEach(q=>{ bySub[q.subject]=(bySub[q.subject]||0)+1; });
-  $('#dbStats').innerHTML = '<span><b>'+DB.length+'</b> questions</span>' + Object.keys(bySub).sort((a,b)=>subjRank(a)-subjRank(b)||a.localeCompare(b)).map(s=>'<span>'+esc(s)+' <b>'+bySub[s]+'</b></span>').join('');
+  const practiceDB = DB.filter(q => q.paper !== 'allen');
+  const bySub={}; practiceDB.forEach(q=>{ bySub[q.subject]=(bySub[q.subject]||0)+1; });
+  $('#dbStats').innerHTML = '<span><b>'+practiceDB.length+'</b> questions</span>' + Object.keys(bySub).sort((a,b)=>subjRank(a)-subjRank(b)||a.localeCompare(b)).map(s=>'<span>'+esc(s)+' <b>'+bySub[s]+'</b></span>').join('');
   const notes=[];
   if(dbSkipped) notes.push(dbSkipped+' entries had no question text or image and were skipped.');
   showNote(notes.join(' '));
   renderSubjects();
-  const inSubj=DB.filter(q=>cfg.subjects.has(q.subject));
+  const inSubj=practiceDB.filter(q=>cfg.subjects.has(q.subject));
   const pc={main:0,adv:0}; inSubj.forEach(q=>{ if(pc[q.paper]!=null) pc[q.paper]++; });
   const sel=$('#paperSel');
   sel.innerHTML='<option value="all">Mains and Advanced papers ('+inSubj.length+')</option>'+Object.keys(PAPERS).map(k=>'<option value="'+k+'">'+PAPERS[k]+' ('+pc[k]+')</option>').join('');
@@ -2730,10 +2732,11 @@ function renderSetup(){
   renderYears(); renderTypes(); renderChapters(); refreshSummary(); renderHist(); renderRecentChangelog();
 }
 function renderSubjects(){
-  const have=SUBJ.filter(s=>DB.some(q=>q.subject===s));
+  const practiceDB = DB.filter(q => q.paper !== 'allen');
+  const have=SUBJ.filter(s=>practiceDB.some(q=>q.subject===s));
   $('#subjWrap').hidden = have.length<2;
   $('#subjBox').innerHTML = have.map(s=>{
-    const n=DB.filter(q=>q.subject===s).length;
+    const n=practiceDB.filter(q=>q.subject===s).length;
     return '<label class="chk"><input type="checkbox" name="subj" value="'+esc(s)+'"'+(cfg.subjects.has(s)?' checked':'')+'><span>'+esc(s)+'</span><span class="cnt">'+n+'</span></label>';
   }).join('');
 }
@@ -3512,7 +3515,7 @@ function openPracticeList(initialOpts){
     if(initialOpts.subject && SUBJ.includes(initialOpts.subject)) prkState.subj = initialOpts.subject;
     if(initialOpts.chapter) prkState.chap = initialOpts.chapter;
   }
-  const availableSubjs = SUBJ.filter(s => DB.some(q => q.subject === s));
+  const availableSubjs = SUBJ.filter(s => DB.some(q => q.paper !== 'allen' && q.subject === s));
   if(!availableSubjs.includes(prkState.subj)) prkState.subj = availableSubjs[0] || 'Physics';
 
   renderPracticeScreen();
@@ -3526,11 +3529,11 @@ function renderPracticeScreen(){
 }
 
 function renderPracticeSidebar(){
-  const availableSubjs = SUBJ.filter(s => DB.some(q => q.subject === s));
+  const availableSubjs = SUBJ.filter(s => DB.some(q => q.paper !== 'allen' && q.subject === s));
   const subjBox = $('#prkSubjList');
   if(subjBox){
     subjBox.innerHTML = availableSubjs.map(s => {
-      const cnt = DB.filter(q => q.subject === s).length;
+      const cnt = DB.filter(q => q.paper !== 'allen' && q.subject === s).length;
       const isAct = s === prkState.subj;
       return '<button type="button" class="marks-sb-item' + (isAct ? ' active' : '') + '" data-prksubj="' + esc(s) + '">' +
         '<span>' + esc(s) + '</span>' +
@@ -3539,7 +3542,7 @@ function renderPracticeSidebar(){
     }).join('');
   }
 
-  const inSubj = DB.filter(q => q.subject === prkState.subj);
+  const inSubj = DB.filter(q => q.paper !== 'allen' && q.subject === prkState.subj);
   const byCh = {};
   inSubj.forEach(q => { if(q.chapter) byCh[q.chapter] = (byCh[q.chapter] || 0) + 1; });
 
@@ -3566,7 +3569,7 @@ function renderPracticeSidebar(){
 function renderPracticeFilterYears(){
   const yrSel = $('#prkFilterYear');
   if(!yrSel) return;
-  const inSubj = DB.filter(q => q.subject === prkState.subj && (!prkState.chap || q.chapter === prkState.chap));
+  const inSubj = DB.filter(q => q.paper !== 'allen' && q.subject === prkState.subj && (!prkState.chap || q.chapter === prkState.chap));
   const years = [...new Set(inSubj.map(q => q.year).filter(Boolean))].sort((a,b) => b - a);
 
   let opts = '<option value="all">All Years</option>';
@@ -3579,6 +3582,7 @@ function renderPracticeFilterYears(){
 function getFilteredPracticeQuestions(){
   const ansMap = getPrkAnswers();
   const list = DB.filter(q => {
+    if(q.paper === 'allen') return false;
     if(q.subject !== prkState.subj) return false;
     if(prkState.chap && q.chapter !== prkState.chap) return false;
     if(prkState.paper !== 'all' && q.paper !== prkState.paper) return false;
@@ -4811,6 +4815,7 @@ document.addEventListener('click',e=>{
     tbCfg.pattern = b.dataset.pattern;
     if(tbCfg.pattern === 'main'){
       tbCfg.paper = 'main';
+      tbCfg.papers = new Set(['main']);
       $('#tbTestTitle').value = 'JEE MAIN PRACTICE TEST';
       $('#tbTestSubtitle').value = 'JEE Main Practice Sheet | 20 SCQ + 5 Numerical (25 per subject)';
       $('#tbTimeLimit').value = 180;
@@ -4828,6 +4833,7 @@ document.addEventListener('click',e=>{
       tbCfg.count = activeCount * 25;
     } else if(tbCfg.pattern === 'custom'){
       tbCfg.paper = 'all';
+      tbCfg.papers = new Set(['adv', 'main']);
       $('#tbTestTitle').value = 'CUSTOM PRACTICE TEST';
       $('#tbTestSubtitle').value = 'Custom Practice Sheet | Questions cropped from source papers';
       $('#tbTimeLimit').value = 60;
@@ -4841,6 +4847,7 @@ document.addEventListener('click',e=>{
       });
     } else {
       tbCfg.paper = 'adv';
+      tbCfg.papers = new Set(['adv']);
       $('#tbTestTitle').value = 'JEE ADVANCED PRACTICE TEST';
       $('#tbTestSubtitle').value = 'Chapter-wise Practice Sheet | Questions cropped from source papers';
       $('#tbTimeLimit').value = 90;
@@ -4862,7 +4869,21 @@ document.addEventListener('click',e=>{
     refreshBuilderSummary();
   }
   else if(b.dataset.paper){
-    tbCfg.paper = b.dataset.paper;
+    const p = b.dataset.paper;
+    if(!tbCfg.papers) tbCfg.papers = new Set(['adv', 'main']);
+    if(tbCfg.papers.has(p)){
+      if(tbCfg.papers.size > 1){
+        tbCfg.papers.delete(p);
+      } else {
+        alert('At least one question source must be selected.');
+      }
+    } else {
+      tbCfg.papers.add(p);
+      if(p === 'allen' && !tbCfg.subjects.has('Chemistry')){
+        tbCfg.subjects.add('Chemistry');
+        document.querySelectorAll('#tbSubjectsBox input[value="Chemistry"]').forEach(cb => { cb.checked = true; });
+      }
+    }
     updateBuilderPaperOptions();
     renderBuilderChapters();
     refreshBuilderSummary();
@@ -5113,6 +5134,9 @@ function stripWatermarks(text){
 }
 
 function cleanSourceTag(q){
+  if(q.paper === 'allen' || (q.id && String(q.id).startsWith('allenchem_'))){
+    return 'Allen Chemistry' + (q.allenCode ? ' • ' + q.allenCode : '');
+  }
   let yr = q.year || '';
   let s = q.source || q.paperTitle || '';
   s = s.replace(/^q_/i, '').replace(/^QM__/i, '').replace(/FIITJEE\s*AITS\s*/i, '');
@@ -5174,6 +5198,7 @@ function updateExhaustDisplay(){
 const tbCfg = {
   pattern: 'adv',
   paper: 'all',
+  papers: new Set(['adv', 'main']),
   subjects: new Set(['Physics', 'Chemistry', 'Mathematics']),
   chapters: new Set(),
   types: new Set(['single', 'multi', 'numerical', 'paragraph']),
@@ -5189,23 +5214,29 @@ const tbCfg = {
   currentTestId: null
 };
 
+function tbPaperOK(q){
+  if(!tbCfg.papers || tbCfg.papers.size === 0) return true;
+  return tbCfg.papers.has(q.paper);
+}
+
 function updateBuilderPaperOptions(){
   const inSubj = DB.filter(q => tbCfg.subjects.has(q.subject));
-  let mainCnt = 0, advCnt = 0;
+  let mainCnt = 0, advCnt = 0, allenCnt = 0;
   inSubj.forEach(q => {
     if(q.paper === 'main') mainCnt++;
     else if(q.paper === 'adv') advCnt++;
+    else if(q.paper === 'allen') allenCnt++;
   });
-  const total = inSubj.length;
-  const sel = $('#tbPaperSel');
-  if(sel){
-    sel.innerHTML = '<option value="all">Mains and Advanced papers (' + total + ')</option>' +
-                    '<option value="main">Mains paper (' + mainCnt + ')</option>' +
-                    '<option value="adv">Advanced paper (' + advCnt + ')</option>';
-    sel.value = tbCfg.paper;
-  }
+  const elMain = $('#tbMainCnt'); if(elMain) elMain.textContent = '(' + mainCnt + ')';
+  const elAdv = $('#tbAdvCnt'); if(elAdv) elAdv.textContent = '(' + advCnt + ')';
+  const elAllen = $('#tbAllenCnt'); if(elAllen) elAllen.textContent = '(' + allenCnt + ')';
+
   document.querySelectorAll('#tbPaperPills .pattern-pill').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.paper === tbCfg.paper);
+    const p = btn.dataset.paper;
+    const isAct = tbCfg.papers ? tbCfg.papers.has(p) : (p === tbCfg.paper);
+    btn.classList.toggle('active', isAct);
+    const chk = btn.querySelector('.pill-check');
+    if(chk) chk.textContent = isAct ? '✓ ' : '+ ';
   });
 }
 
@@ -5215,7 +5246,7 @@ function renderBuilderChapters(){
   DB.forEach(q => {
     if(!groups[q.subject]) groups[q.subject] = {};
     const c = groups[q.subject][q.chapter] || (groups[q.subject][q.chapter] = {n: 0});
-    if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return;
+    if(!tbPaperOK(q)) return;
     if(tbCfg.pattern === 'main'){
       if(q.paragraph || q.type === 'paragraph') return;
       if(q.type === 'single' || q.type === 'mcq' || q.type === 'numerical' || q.type === 'nat') c.n++;
@@ -5280,7 +5311,7 @@ function refreshBuilderSummary(){
   const pool = DB.filter(q => {
     if(!tbCfg.subjects.has(q.subject)) return false;
     if(!tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
-    if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return false;
+    if(!tbPaperOK(q)) return false;
     if(tbCfg.pattern === 'main'){
       if(q.paragraph || q.type === 'paragraph') return false;
       return q.type === 'single' || q.type === 'numerical';
@@ -5546,7 +5577,7 @@ function getSelectedBuilderQuestions(){
       const subPool = DB.filter(q => {
         if(q.subject !== subj) return false;
         if(!tbCfg.chapters.has(subj + '||' + q.chapter)) return false;
-        if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return false;
+        if(!tbPaperOK(q)) return false;
         return true;
       });
       // Strictly exclude any comprehension / paragraph or multi-correct
@@ -5574,7 +5605,7 @@ function getSelectedBuilderQuestions(){
   const pool = DB.filter(q => {
     if(!tbCfg.subjects.has(q.subject)) return false;
     if(!tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
-    if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return false;
+    if(!tbPaperOK(q)) return false;
     if(q.paragraph || q.type === 'paragraph'){
       return tbCfg.types.has('paragraph');
     }
@@ -5756,9 +5787,12 @@ async function buildCustomSheet(customQs){
       subjects: subjs,
       count: qs.length,
       pattern: tbCfg.pattern,
-      paper: tbCfg.paper,
+      paper: (tbCfg.papers && tbCfg.papers.has('allen') && tbCfg.papers.size === 1) ? 'allen' : (tbCfg.papers ? Array.from(tbCfg.papers).join(',') : (tbCfg.paper || 'all')),
+      papers: tbCfg.papers ? Array.from(tbCfg.papers) : ['adv', 'main'],
       title: title,
       subtitle: subtitle,
+      candName: $('#tbCandName') ? $('#tbCandName').value.trim() : '',
+      timeLimit: $('#tbTimeLimit') ? +($('#tbTimeLimit').value) : 90,
       includeSolutions: includeSol,
       removeWatermark: true, // Clean FIITJEE watermarks and diagonal patterns
       qids: qids
@@ -6326,6 +6360,13 @@ function renderPreviewCardHtml(q, idx){
 
   const textHtml = (!hasImgs && q.text) ? '<div class="qtext" style="font-size:14px;line-height:1.6;margin-bottom:8px">' + rich(stripWatermarks(q.text || '')) + '</div>' : '';
 
+  let optsHtml = '';
+  if(!hasImgs && q.options && q.options.length){
+    optsHtml = '<div class="opts" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:6px;margin:8px 0">' +
+      q.options.map((opt, oIdx) => '<div style="padding:6px 10px;background:var(--surface-2);border-radius:4px;font-size:13px"><b style="color:var(--brand)">(' + (oIdx + 1) + ')</b> ' + rich(stripWatermarks(opt)) + '</div>').join('') +
+    '</div>';
+  }
+
   let solMarkup = '';
   if(q.solution || (q.solImages && q.solImages.length)){
     solMarkup = '<div style="margin-top:6px;font-size:13px">' +
@@ -6364,6 +6405,7 @@ function renderPreviewCardHtml(q, idx){
     '<div class="preview-q-body">' +
       passageHtml +
       textHtml +
+      optsHtml +
       imgsHtml +
     '</div>' +
     '<div class="preview-sol-box" id="prevSol_' + idx + '" style="display:none;margin-top:14px;padding:10px 14px;background:var(--surface-2);border-left:3px solid var(--brand);border-radius:0 4px 4px 0">' +
@@ -6550,7 +6592,7 @@ function swapBuilderQuestion(idx){
     if(currentIds.has(q.id)) return false;
     if(q.subject !== curSubj) return false;
     if(q.chapter !== curChap) return false;
-    if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return false;
+    if(!tbPaperOK(q)) return false;
     return matchType(q);
   });
 
@@ -6560,7 +6602,7 @@ function swapBuilderQuestion(idx){
       if(currentIds.has(q.id)) return false;
       if(q.subject !== curSubj) return false;
       if(!tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
-      if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return false;
+      if(!tbPaperOK(q)) return false;
       return matchType(q);
     });
   }
@@ -6570,7 +6612,7 @@ function swapBuilderQuestion(idx){
     candidates = DB.filter(q => {
       if(currentIds.has(q.id)) return false;
       if(q.subject !== curSubj) return false;
-      if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return false;
+      if(!tbPaperOK(q)) return false;
       return matchType(q);
     });
   }
@@ -6636,7 +6678,7 @@ function addBuilderQuestion(){
     if(currentIds.has(q.id)) return false;
     if(activeSubjs.length && !activeSubjs.includes(q.subject)) return false;
     if(tbCfg.chapters.size && !tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
-    if(tbCfg.paper !== 'all' && q.paper !== tbCfg.paper) return false;
+    if(!tbPaperOK(q)) return false;
     if(tbCfg.pattern === 'main'){
       if(q.paragraph || q.type === 'paragraph') return false;
       return q.type === 'single' || q.type === 'numerical';
@@ -6846,6 +6888,10 @@ function startCbtFromBuilder(){
     alert('Please select at least one chapter and question type.');
     return;
   }
+  if(qs.some(q => q.paper === 'allen')){
+    alert('Allen Chemistry questions are designated exclusively for the BUILD PDF feature. Please click "Generate PDF Test" to build your chapterwise practice sheet.');
+    return;
+  }
   const timeLimit = +($('#tbTimeLimit').value) || (qs.length * 3);
   const title = ($('#tbTestTitle').value || '').trim() || 'AITS CUSTOM PRACTICE TEST';
   buildTest(qs, timeLimit, tbCfg.pattern === 'main' ? 'main' : 'adv', title);
@@ -6863,6 +6909,7 @@ function startCbtFromBuilder(){
   const chemRemote = (conf.chemistryUrl || '').trim();
   const mathAdvRemote = (conf.mathsAdvancedUrl || '').trim();
   const mathMainRemote = (conf.mathsMainUrl || '').trim();
+  const allenChemRemote = (conf.allenChemUrl || '').trim();
   async function fetchFirst(urls){
     for(const url of urls){
       try{
@@ -6877,13 +6924,14 @@ function startCbtFromBuilder(){
   }
   // Try bundled database files first for instant same-origin loading with zero CORS issues,
   // falling back to Hugging Face remote URLs only if bundled files are not present.
-  const [phys, chem, mathAdv, mathMain] = await Promise.all([
+  const [phys, chem, mathAdv, mathMain, allenChem] = await Promise.all([
     fetchFirst(['database.json', remote].filter(Boolean)),
     fetchFirst(['chemistry_database.json', chemRemote].filter(Boolean)),
     fetchFirst(['maths_advanced_database.json', mathAdvRemote].filter(Boolean)),
-    fetchFirst(['maths_main_database.json', mathMainRemote].filter(Boolean))
+    fetchFirst(['maths_main_database.json', mathMainRemote].filter(Boolean)),
+    fetchFirst(['allenchem_database.json', allenChemRemote].filter(Boolean))
   ]);
-  const parts = [phys, chem, mathAdv, mathMain].filter(Boolean);
+  const parts = [phys, chem, mathAdv, mathMain, allenChem].filter(Boolean);
   if(parts.length){
     const all = parts.flatMap(x=>(extractList(x.raw)||[]).map(e=>e.q));
     ok = loadDB(all, phys && phys.url===remote && remote ? 'Hugging Face database' : 'database.json', false);
