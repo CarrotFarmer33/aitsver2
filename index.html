@@ -469,6 +469,7 @@
   font-size: 8.5pt;
   line-height: 1.28;
   position: relative;
+  border: none !important;
 }
 
 .allen-sheet-page, .allen-sheet-page * {
@@ -476,10 +477,11 @@
 }
 
 .allen-hdr-box {
-  border: 1.25pt solid #000000;
-  padding: 6pt 10pt;
-  margin-bottom: 10pt;
-  background: #ffffff;
+  border: none !important;
+  border-bottom: 1.2pt solid #000000 !important;
+  padding: 0 0 8pt 0;
+  margin-bottom: 8pt;
+  background: transparent;
   text-align: center;
 }
 .allen-hdr-title {
@@ -496,8 +498,8 @@
   font-weight: 600;
   color: #333333;
   margin-bottom: 4pt;
-  border-bottom: 0.5pt solid #999999;
-  padding-bottom: 3pt;
+  border: none !important;
+  padding-bottom: 2pt;
 }
 .allen-hdr-grid {
   display: flex;
@@ -518,18 +520,25 @@
 .allen-columns {
   column-count: 2;
   column-gap: 16pt;
-  column-rule: 0.6pt solid #cccccc;
+  column-rule: none !important;
+  border: none !important;
   text-align: justify;
 }
 
 .allen-qitem {
   break-inside: avoid;
   page-break-inside: avoid;
-  margin-bottom: 8pt;
-  padding-bottom: 2pt;
+  margin-bottom: 6pt;
+  padding-bottom: 0;
   display: block;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
 }
-.allen-qitem img, .allen-qitem .qimg {
+.allen-qitem img, .allen-qitem .qimg,
+.allen-sheet-page img, .allen-sheet-page .qimg,
+.allen-sheet-page svg, .allen-sheet-page .vector-inline-svg {
   max-width: 100% !important;
   height: auto !important;
   display: block !important;
@@ -537,6 +546,9 @@
   filter: none !important;
   mix-blend-mode: normal !important;
   background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 .allen-qnum {
   font-weight: 700;
@@ -627,7 +639,8 @@
   .allen-columns {
     column-count: 2 !important;
     column-gap: 16pt !important;
-    column-rule: 0.6pt solid #bbbbbb !important;
+    column-rule: none !important;
+    border: none !important;
   }
   .allen-qitem {
     break-inside: avoid !important;
