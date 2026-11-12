@@ -459,8 +459,8 @@
 .allen-sheet-page {
   width: 210mm;
   min-height: 297mm;
-  padding: 24pt 28pt 36pt 28pt;
-  margin: 0 auto 24pt auto;
+  padding: 12pt 20pt 20pt 20pt;
+  margin: 0 auto 20pt auto;
   background: #ffffff !important;
   color: #000000 !important;
   box-shadow: 0 4px 20px rgba(0,0,0,0.25);
@@ -479,27 +479,27 @@
 .allen-hdr-box {
   border: none !important;
   border-bottom: 1.2pt solid #000000 !important;
-  padding: 0 0 8pt 0;
-  margin-bottom: 8pt;
+  padding: 0 0 3pt 0;
+  margin-bottom: 5pt;
   background: transparent;
   text-align: center;
 }
 .allen-hdr-title {
-  font-size: 13pt;
+  font-size: 11.5pt;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5pt;
-  margin-bottom: 2pt;
+  margin-bottom: 1pt;
   color: #000000;
   font-family: Arial, Helvetica, sans-serif;
 }
 .allen-hdr-sub {
-  font-size: 8.5pt;
+  font-size: 8.2pt;
   font-weight: 600;
   color: #333333;
-  margin-bottom: 4pt;
+  margin-bottom: 3pt;
   border: none !important;
-  padding-bottom: 2pt;
+  padding-bottom: 1pt;
 }
 .allen-hdr-grid {
   display: flex;
@@ -507,7 +507,7 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 6pt;
-  font-size: 8.2pt;
+  font-size: 8pt;
 }
 .allen-hdr-line {
   display: inline-block;
@@ -519,16 +519,17 @@
 
 .allen-columns {
   column-count: 2;
-  column-gap: 16pt;
-  column-rule: none !important;
+  column-gap: 18pt;
+  column-rule: 0.65pt solid #cccccc !important;
   border: none !important;
   text-align: justify;
 }
 
 .allen-qitem {
+  position: relative;
   break-inside: avoid;
   page-break-inside: avoid;
-  margin-bottom: 6pt;
+  margin-bottom: 4pt;
   padding-bottom: 0;
   display: block;
   border: none !important;
@@ -638,8 +639,8 @@
   }
   .allen-columns {
     column-count: 2 !important;
-    column-gap: 16pt !important;
-    column-rule: none !important;
+    column-gap: 18pt !important;
+    column-rule: 0.65pt solid #aaaaaa !important;
     border: none !important;
   }
   .allen-qitem {
@@ -7013,14 +7014,21 @@ async function renderAllenSheetDoc(qs, opts, onProgress){
     const hasImgs = qImgs.length > 0;
     const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure', 'test-builder-svg', q.crop)).join('');
 
-    html += '<div class="allen-qitem">' +
-      '<div style="display:flex;align-items:flex-start;gap:4pt">' +
-        '<span class="allen-qnum" style="flex:0 0 auto;font-weight:700;line-height:1.2;padding-top:2px">' + qNum + '.</span>' +
-        '<div style="flex:1;min-width:0">' +
-          (hasImgs ? imgsHtml : ('<span class="allen-qstem">' + rich(stem) + '</span>' + optsHtml)) +
+    if(hasImgs){
+      html += '<div class="allen-qitem" style="position:relative">' +
+        '<span class="allen-qnum" style="position:absolute;left:0;top:1px;font-weight:700;font-size:8.5pt;line-height:1;color:#000000;z-index:2">' + qNum + '.</span>' +
+        '<div style="width:100%">' + imgsHtml + '</div>' +
+      '</div>';
+    } else {
+      html += '<div class="allen-qitem">' +
+        '<div style="display:flex;align-items:flex-start;gap:3pt">' +
+          '<span class="allen-qnum" style="flex:0 0 auto;font-weight:700;line-height:1.2;padding-top:2px">' + qNum + '.</span>' +
+          '<div style="flex:1;min-width:0">' +
+            '<span class="allen-qstem">' + rich(stem) + '</span>' + optsHtml +
+          '</div>' +
         '</div>' +
-      '</div>' +
-    '</div>';
+      '</div>';
+    }
   });
 
   html += '</div>';
