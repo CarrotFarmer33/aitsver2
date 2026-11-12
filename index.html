@@ -3127,9 +3127,7 @@ function openPaper(){
     const passImgs = hasPassageImgs ? q.passageImages.map(u=>imageMarkup(u,'Common passage '+(i+1),'cbt-svg',q.crop).replace('class="qimg"','class="qpimg"')).join('') : '';
     const imgs = qImgs.map(u=>imageMarkup(u,'Question '+(i+1),'cbt-svg',q.crop).replace('class="qimg"','class="qpimg"')).join('');
     const hasImgs = !!(imgs || passImgs);
-    const isMatch = q.isMatch || isMatchQuestion(q);
-    const hasReal = hasRealOptions(q.options);
-    const opts = ((!hasImgs || isMatch || hasReal) && q.options && !q.labelOnly) ? '<ol class="qpopts" type="A">'+q.options.map(o=>'<li>'+rich(o)+'</li>').join('')+'</ol>' : '';
+    const opts = (!hasImgs && q.options && !q.labelOnly) ? '<ol class="qpopts" type="A">'+q.options.map(o=>'<li>'+rich(o)+'</li>').join('')+'</ol>' : '';
     return '<section class="qpitem"><div class="qphead"><b>Question No. '+(i+1)+'</b><span>'+esc(sec.name)+' · '+esc(q.chapter)+'</span></div>'+(!hasImgs && q.text?'<div class="qtext">'+rich(q.text)+'</div>':'')+passImgs+imgs+opts+'</section>';
   }).join('');
   openModal('<div class="image-preview-title"><span>Question Paper</span><button type="button" class="btn" id="closePaper">Close</button></div><div class="qpwrap">'+body+'</div>',()=>{
@@ -6234,17 +6232,6 @@ function renderPreviewCardHtml(q, idx){
     '</div>';
   }
 
-  const isMatch = !!(q.isMatch || isMatchQuestion(q));
-  const hasReal = hasRealOptions(q.options);
-  let optionsHtml = '';
-  if((!hasImgs || isMatch || hasReal) && q.options && q.options.length && !q.labelOnly){
-    optionsHtml = '<div class="sheet-qoptions" style="margin-top:10px;margin-bottom:4px">' +
-      q.options.map((opt, oIdx) => 
-        '<div class="sheet-qopt"><span class="sheet-qopt-key">(' + (LET[oIdx] || (oIdx+1)) + ')</span> <span>' + rich(stripWatermarks(opt)) + '</span></div>'
-      ).join('') +
-    '</div>';
-  }
-
   const textHtml = (!hasImgs && q.text) ? '<div class="qtext" style="font-size:14px;line-height:1.6;margin-bottom:8px">' + rich(stripWatermarks(q.text || '')) + '</div>' : '';
 
   let solMarkup = '';
@@ -6286,7 +6273,6 @@ function renderPreviewCardHtml(q, idx){
       passageHtml +
       textHtml +
       imgsHtml +
-      optionsHtml +
     '</div>' +
     '<div class="preview-sol-box" id="prevSol_' + idx + '" style="display:none;margin-top:14px;padding:10px 14px;background:var(--surface-2);border-left:3px solid var(--brand);border-radius:0 4px 4px 0">' +
       '<div style="font-weight:700;font-size:13px;margin-bottom:6px;display:flex;align-items:center;gap:8px">' +
@@ -6674,25 +6660,10 @@ async function renderSheetDoc(qs, opts, onProgress){
         '</div>';
       }
 
-      const isMatch = !!(q.isMatch || isMatchQuestion(q));
-      const hasReal = hasRealOptions(q.options);
-      let optionsHtml = '';
-      if((!hasImgs || isMatch || hasReal) && q.options && q.options.length && !q.labelOnly){
-        optionsHtml = '<div class="sheet-qoptions">' +
-          q.options.map((opt, idx) => '<div class="sheet-qopt"><span class="sheet-qopt-key">(' + LET[idx] + ')</span> <span>' + (opts.noWatermark ? stripWatermarks(opt) : opt) + '</span></div>').join('') +
-        '</div>';
-      }
-
-      html += '<div class="sheet-qrow">' +
-        '<div class="sheet-qlab-col">' +
-          '<div class="sheet-qlab">' + esc(qLabel) + '</div>' +
-          '<div class="sheet-qtag">' + esc(tag) + '</div>' +
-        '</div>' +
         '<div class="sheet-qbody-col">' +
           passageHtml +
           (!hasImgs && qText ? '<div class="sheet-qbody-text">' + rich(qText) + '</div>' : '') +
           imgsHtml +
-          optionsHtml +
         '</div>' +
       '</div>';
 
