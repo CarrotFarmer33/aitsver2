@@ -107,16 +107,25 @@ def add_test_page(doc, chapter_title, is_first_page=False, total_questions=20, c
             fontsize=8.5, fontname="hebo", color=(0.12, 0.22, 0.45)
         )
         title_disp = chapter_title.upper() if chapter_title else "CHEMISTRY PRACTICE TEST"
-        if len(title_disp) > 42:
-            title_disp = title_disp[:39] + "..."
-        page.insert_text(
-            fitz.Point(MX + 10, P1_HEADER_TOP + 28),
-            f"TEST: {title_disp}",
-            fontsize=10.0, fontname="hebo", color=(0.0, 0.0, 0.0)
-        )
         max_marks = total_questions * 4
         tag_text = f"Questions: {total_questions}  |  Max Marks: {max_marks}"
         tag_w = fitz.get_text_length(tag_text, fontname="hebo", fontsize=8.5)
+        avail_title_w = (PW - MX - 15 - tag_w) - (MX + 10)
+
+        font_sz = 10.0
+        while font_sz > 7.5 and fitz.get_text_length(f"TEST: {title_disp}", fontname="hebo", fontsize=font_sz) > avail_title_w:
+            font_sz -= 0.5
+
+        if fitz.get_text_length(f"TEST: {title_disp}", fontname="hebo", fontsize=font_sz) > avail_title_w:
+            while len(title_disp) > 10 and fitz.get_text_length(f"TEST: {title_disp}...", fontname="hebo", fontsize=font_sz) > avail_title_w:
+                title_disp = title_disp[:-1]
+            title_disp = title_disp.rstrip() + "..."
+
+        page.insert_text(
+            fitz.Point(MX + 10, P1_HEADER_TOP + 28),
+            f"TEST: {title_disp}",
+            fontsize=font_sz, fontname="hebo", color=(0.0, 0.0, 0.0)
+        )
         page.insert_text(
             fitz.Point(PW - MX - 10 - tag_w, P1_HEADER_TOP + 28),
             tag_text, fontsize=8.5, fontname="hebo", color=(0.25, 0.25, 0.25)
@@ -140,38 +149,116 @@ def add_test_page(doc, chapter_title, is_first_page=False, total_questions=20, c
 
     return page
 
-def generate_custom_test(chapter_name=None, question_count=20, out_pdf_path=None, seed=42, selected_qids=None, title=None, subtitle=None, cand_name=None, time_limit=None):
+def resolve_chapters(query, all_db_chapters):
+    if not query:
+        return []
+    if isinstance(query, list):
+        items = query
+    else:
+        delims = r'[,;&+]|\band\b'
+        items = [t.strip() for t in re.split(delims, str(query), flags=re.I) if t.strip()]
+
+    expanded = []
+    known_keywords = [
+        ('thermo', 'Thermodynamics (Chemical)'),
+        ('ionic', 'Ionic Equilibrium'),
+        ('chemical equilibrium', 'Chemical Equilibrium'),
+        ('equilibrium', 'Chemical Equilibrium'),
+        ('kinetics', 'Chemical Kinetics'),
+        ('bonding', 'Chemical Bonding & Molecular Structure'),
+        ('atomic', 'Atomic Structure'),
+        ('electro', 'Electrochemistry'),
+        ('solid state', 'Solid State'),
+        ('solutions', 'Liquid Solutions & Colligative Properties'),
+        ('coordination', 'Coordination Compounds'),
+        ('hydrocarbon', 'Hydrocarbons'),
+        ('periodic', 'Periodic Table & Periodicity'),
+    ]
+
+    for it in items:
+        exact = next((c for c in all_db_chapters if it.lower() == c.lower()), None)
+        if exact:
+            expanded.append(exact)
+            continue
+        substr = next((c for c in all_db_chapters if it.lower() in c.lower()), None)
+        if substr:
+            expanded.append(substr)
+            continue
+        found_kw = False
+        for kw, ch_name in known_keywords:
+            if kw in it.lower() and ch_name not in expanded:
+                expanded.append(ch_name)
+                found_kw = True
+        if not found_kw:
+            expanded.append(it)
+
+    resolved = []
+    for item in expanded:
+        match = next((c for c in all_db_chapters if item.lower() in c.lower()), None)
+        if match and match not in resolved:
+            resolved.append(match)
+    return resolved
+
+def generate_custom_test(chapter_name=None, question_count=20, out_pdf_path=None, seed=42, selected_qids=None, title=None, subtitle=None, cand_name=None, time_limit=None, chapters=None):
     if not os.path.exists(DB_PATH):
         raise FileNotFoundError(f"Database {DB_PATH} not found.")
 
     with open(DB_PATH, "r", encoding="utf-8") as f:
         db = json.load(f)
 
+    all_db_chaps = sorted(list(set(q["chapter"] for q in db["questions"])))
     q_by_id = {q["id"]: q for q in db["questions"]}
+
+    selected_qs = []
+    chapter_query = chapters or chapter_name
 
     if selected_qids:
         selected_qs = [q_by_id[qid] for qid in selected_qids if qid in q_by_id and q_by_id[qid].get("answer")]
-    elif chapter_name and chapter_name.lower() != "all":
-        qs = [q for q in db["questions"] if chapter_name.lower() in q["chapter"].lower() and q.get("answer")]
-        if not qs:
-            qs = [q for q in db["questions"] if q.get("answer")]
-        random.seed(seed)
-        selected_qs = random.sample(qs, min(question_count, len(qs)))
     else:
-        qs = [q for q in db["questions"] if q.get("answer")]
+        resolved_chaps = resolve_chapters(chapter_query, all_db_chaps)
         random.seed(seed)
-        selected_qs = random.sample(qs, min(question_count, len(qs)))
+        if len(resolved_chaps) > 1:
+            per_chap = question_count // len(resolved_chaps)
+            rem = question_count % len(resolved_chaps)
+            for idx, ch in enumerate(resolved_chaps):
+                c_target = per_chap + (1 if idx < rem else 0)
+                qs_ex1 = [q for q in db["questions"] if q["chapter"] == ch and q.get("answer") and "Exercise-I" in q.get("exercise", "") and "III" not in q.get("exercise", "")]
+                qs_ex3 = [q for q in db["questions"] if q["chapter"] == ch and q.get("answer") and "Exercise-III" in q.get("exercise", "")]
+
+                ex3_cnt = min(max(1, int(round(c_target * 0.25))), len(qs_ex3))
+                ex1_cnt = c_target - ex3_cnt
+
+                s_ex1 = sorted(random.sample(qs_ex1, min(ex1_cnt, len(qs_ex1))), key=lambda x: x["questionNumber"])
+                s_ex3 = sorted(random.sample(qs_ex3, min(ex3_cnt, len(qs_ex3))), key=lambda x: x["questionNumber"])
+                selected_qs.extend(s_ex1 + s_ex3)
+        elif len(resolved_chaps) == 1:
+            ch = resolved_chaps[0]
+            qs = [q for q in db["questions"] if q["chapter"] == ch and q.get("answer")]
+            selected_qs = random.sample(qs, min(question_count, len(qs)))
+            selected_qs.sort(key=lambda x: (0 if ("Exercise-I" in x.get("exercise", "") and "III" not in x.get("exercise", "")) else 1, x["questionNumber"]))
+        else:
+            qs = [q for q in db["questions"] if q.get("answer")]
+            selected_qs = random.sample(qs, min(question_count, len(qs)))
+            selected_qs.sort(key=lambda x: (0 if ("Exercise-I" in x.get("exercise", "") and "III" not in x.get("exercise", "")) else 1, x["questionNumber"]))
 
     if not selected_qs:
         raise ValueError("No matching Allen Chemistry questions found.")
 
-    # Sort systematically (Exercise-I first, Exercise-III second, then by questionNumber)
-    if not selected_qids:
-        selected_qs.sort(key=lambda x: (0 if ("Exercise-I" in x.get("exercise", "") and "III" not in x.get("exercise", "")) else 1, x["questionNumber"]))
+    distinct_chaps = list(dict.fromkeys(q["chapter"] for q in selected_qs))
+    if not title:
+        if len(distinct_chaps) == 1:
+            actual_chap_title = distinct_chaps[0]
+        else:
+            short_names = [c.replace(" (Chemical)", "") for c in distinct_chaps]
+            if len(short_names) == 2:
+                actual_chap_title = " & ".join(short_names)
+            else:
+                actual_chap_title = ", ".join(short_names[:-1]) + " & " + short_names[-1]
+    else:
+        actual_chap_title = title
 
-    actual_chap_title = title or (selected_qs[0]["chapter"] if len(set(q["chapter"] for q in selected_qs)) == 1 else "Chemistry Practice Test")
     if not out_pdf_path:
-        safe_name = actual_chap_title.replace(" ", "_").replace("&", "and").replace("/", "_")
+        safe_name = actual_chap_title.replace(" ", "_").replace("&", "and").replace("/", "_").replace(",", "")
         out_pdf_path = f"Allen_Test_{safe_name}.pdf"
 
     print(f"Generating 2-Column Customized Test for '{actual_chap_title}' ({len(selected_qs)} questions)...")
@@ -343,13 +430,17 @@ def generate_custom_test(chapter_name=None, question_count=20, out_pdf_path=None
 
 def main():
     parser = argparse.ArgumentParser(description="Generate 2-Column Customized NEET Test Sheet from Allen Chemistry Module.")
-    parser.add_argument("--chapter", "-c", default=None, help="Chapter name (e.g. 'Chemical Kinetics')")
+    parser.add_argument("--chapter", "-c", default=None, help="Chapter name or comma/and-separated chapters")
+    parser.add_argument("--chapters", nargs="+", default=None, help="List of chapter names")
     parser.add_argument("--count", "-n", type=int, default=25, help="Number of questions (default: 25)")
     parser.add_argument("--out", "-o", default=None, help="Output PDF file path")
     parser.add_argument("--seed", "-s", type=int, default=42, help="Random seed for selection")
+    parser.add_argument("--title", "-t", default=None, help="Custom test title for header")
+    parser.add_argument("--cand-name", default=None, help="Candidate name for header")
     args = parser.parse_args()
 
-    generate_custom_test(chapter_name=args.chapter, question_count=args.count, out_pdf_path=args.out, seed=args.seed)
+    chaps = args.chapters or args.chapter
+    generate_custom_test(chapters=chaps, chapter_name=args.chapter if not args.chapters else None, question_count=args.count, out_pdf_path=args.out, seed=args.seed, title=args.title, cand_name=args.cand_name)
 
 if __name__ == "__main__":
     main()
