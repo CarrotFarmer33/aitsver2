@@ -1584,9 +1584,26 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
     position: static;
   }
 }
+/* ==================== TEST BUILDER ARCHIVE STYLES ==================== */
+@keyframes tbPulse {
+  0% { box-shadow: 0 0 0 0 rgba(37,99,235,0.45); }
+  70% { box-shadow: 0 0 0 10px rgba(37,99,235,0); }
+  100% { box-shadow: 0 0 0 0 rgba(37,99,235,0); }
+}
+.tb-highlight {
+  animation: tbPulse 1.2s ease !important;
+  border-color: var(--brand) !important;
+}
+.tb-archive-item {
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.tb-archive-item:hover {
+  border-color: var(--brand) !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
 </style>
 
-<div id="scrSetup" class="screen">
+<div id="scrSetup"  class="screen">
   <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Portal &ndash; chapter-wise question practice</span><div style="display:flex;align-items:center;gap:8px"><button class="btn sm" id="navPractice" type="button" style="background:var(--surface-2);color:var(--fg);font-weight:600">Practice (Marks Format)</button><button class="btn sm" id="navBuilder" type="button" style="background:#286ac7;color:#fff;border-color:#286ac7">🛠️ Test Builder</button><details class="menu" id="topMenu"><summary class="btn sm">Menu &#9662;</summary><div class="menuList"><button class="btn sm" id="openPracticeMenu" type="button" style="color:var(--brand);font-weight:700">Practice (Scrollable)</button><button class="btn sm" id="openBuilderMenu" type="button" style="color:var(--brand);font-weight:700">🛠️ Test Builder</button><button class="btn sm" id="openSaved" type="button">Saved questions</button><button class="btn sm" id="openReports" type="button" style="display:flex;align-items:center;justify-content:space-between">Reported questions <span id="rptBadge" style="display:none;background:#d32f2f;color:#fff;border-radius:10px;padding:0 6px;font-size:11px;font-weight:700">0</span></button><a class="btn sm" href="changelog.html">Changelog</a><a class="btn sm" href="downloads.html">Downloads</a><hr class="menuSep"><div class="mrow"><button class="btn sm" id="expData" type="button">Export my data</button><span class="mi" tabindex="0" role="note" aria-label="About Export my data">i</span><div class="mtip">Saves a backup file of your bookmarks, mistakes, seen questions and history. Your data lives only in this browser, so export now and then in case it gets cleared.</div></div><div class="mrow"><button class="btn sm" id="impData" type="button">Import data</button><span class="mi" tabindex="0" role="note" aria-label="About Import data">i</span><div class="mtip">Load a backup file you exported earlier. It is merged with your current data, so nothing is overwritten.</div></div><input type="file" id="impFile" accept=".json,application/json" hidden></div></details></div></div></div>
   <main class="wrap setup">
     <section class="card" id="dbCard" hidden style="display:none">
@@ -1908,8 +1925,27 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 </div>
 
 <div id="scrTestBuilder" class="screen" hidden>
-  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Test Builder &ndash; Build Custom Question Sheets</span><div style="display:flex;align-items:center;gap:8px"><button class="btn sm" id="tbLogoutBtn" type="button" style="border-color:#e05252;color:#e05252">Log out</button><button class="btn sm" id="tbBackBtn" type="button">&larr; Practice portal</button></div></div></div>
+  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Test Builder &ndash; Build Custom Question Sheets</span><div style="display:flex;align-items:center;gap:8px"><button class="btn sm" id="tbArchiveNavBtn" type="button" style="display:inline-flex;align-items:center;gap:5px" title="View last 3 generated tests"><span>📁 Recent Tests (<b id="tbArchiveNavCount">0</b>)</span></button><button class="btn sm" id="tbLogoutBtn" type="button" style="border-color:#e05252;color:#e05252">Log out</button><button class="btn sm" id="tbBackBtn" type="button">&larr; Practice portal</button></div></div></div>
   <main class="wrap setup">
+    <div id="tbResumeBanner" style="display:none;margin-bottom:16px;padding:12px 16px;background:var(--tint);border:1px solid var(--brand);border-radius:6px;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <div style="display:flex;align-items:center;gap:10px;min-width:0">
+        <span style="font-size:20px;line-height:1">📂</span>
+        <div style="min-width:0">
+          <div style="font-weight:700;font-size:13.5px;color:var(--brand-deep);display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+            <span>Resume Previous Test:</span>
+            <span id="tbResumeTitle" style="color:var(--ink);font-weight:600">JEE ADVANCED PRACTICE TEST</span>
+          </div>
+          <div style="font-size:12px;color:var(--fg);opacity:0.85;margin-top:2px" id="tbResumeMeta">
+            30 Questions • Saved 2 minutes ago
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <button class="btn sm primary" id="tbResumeBtn" type="button" style="font-weight:600">Preview &amp; Swap</button>
+        <button class="btn sm" id="tbResumePdfBtn" type="button">Download PDF</button>
+        <button class="btn sm" id="tbResumeDismissBtn" type="button" style="padding:4px 8px;font-size:14px;line-height:1" title="Dismiss banner">&times;</button>
+      </div>
+    </div>
     <div class="builder-grid">
       <div style="display:flex;flex-direction:column;gap:16px">
         <section class="card">
@@ -2058,6 +2094,21 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
             <div id="tbStatusNote" class="muted" style="font-size:12px;text-align:center"></div>
           </div>
         </section>
+
+        <!-- Section 4: Recent Generated Tests Archive -->
+        <section class="card" id="tbArchiveCard" style="margin-top:4px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <h2 style="margin:0;display:flex;align-items:center;gap:8px;font-size:15px">
+              <span>📁 Recent Tests Archive</span>
+              <span class="muted" style="font-size:11.5px;font-weight:normal">(Last 3)</span>
+            </h2>
+            <span id="tbArchiveCountBadge" style="font-size:11px;background:var(--surface-2);color:var(--muted);padding:2px 8px;border-radius:10px;font-weight:600">0 / 3</span>
+          </div>
+          <p class="muted" style="font-size:11.5px;line-height:1.4;margin:0 0 10px 0">
+            Accidentally closed the site? Your last 3 tests are preserved here with all questions, swaps, and crops intact.
+          </p>
+          <div id="tbArchiveList" style="display:flex;flex-direction:column;gap:10px"></div>
+        </section>
       </div>
     </div>
   </main>
@@ -2069,6 +2120,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
       <button class="btn sm" id="tbPrevBackBtn" type="button">&larr; Back to Builder</button>
       <span class="tb-title" id="tbPrevDocTitle">Test Questions Preview</span>
       <span class="muted mono" id="tbPrevCountBadge" style="background:var(--tint);color:var(--brand-deep);padding:2px 8px;border-radius:10px;font-size:12px;font-weight:600">0 Qs</span>
+      <span id="tbPrevSavedIndicator" style="font-size:11px;color:#16a34a;background:rgba(22,163,74,0.1);padding:2px 8px;border-radius:10px;font-weight:600;display:inline-flex;align-items:center;gap:4px" title="All progress and swaps are preserved in archive"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span>Archived</span></span>
     </div>
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
       <button class="btn sm" id="tbPrevShuffleAllBtn" type="button" title="Reshuffle and replace all questions with another random set">Shuffle All</button>
@@ -2633,6 +2685,7 @@ function showNote(t){ const n=$('#dbNote'); n.textContent=t; n.hidden=!t; }
 function show(id){
   ['scrSetup','scrPracticeList','scrPracticeDetail','scrInstr','scrExam','scrRes','scrSaved','scrBuilderLogin','scrTestBuilder','scrSheetView','scrTestPreview'].forEach(s=>{ const el=$('#'+s); if(el) el.hidden = s!==id; });
   if(id !== 'scrPracticeDetail' && typeof stopPrkQTimer === 'function') stopPrkQTimer();
+  if(id === 'scrTestBuilder' && typeof renderTbArchive === 'function') renderTbArchive();
   toggleAcc(false); hideTip();
   window.scrollTo(0,0);
 }
@@ -4641,6 +4694,46 @@ document.addEventListener('click',e=>{
   }
   else if(b.id==='tbBackBtn' || b.id==='tbLoginBackBtn'){ show('scrSetup'); renderHist(); }
   else if(b.id==='tbLogoutBtn'){ logoutBuilder(); }
+  else if(b.id==='tbArchiveNavBtn'){
+    const card = $('#tbArchiveCard');
+    if(card){
+      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      card.classList.remove('tb-highlight');
+      void card.offsetWidth;
+      card.classList.add('tb-highlight');
+      setTimeout(() => card.classList.remove('tb-highlight'), 1200);
+    }
+  }
+  else if(b.id==='tbResumeBtn'){
+    const archive = getTbArchive();
+    if(archive[0]) restoreArchivedTest(archive[0].id);
+  }
+  else if(b.id==='tbResumePdfBtn'){
+    const archive = getTbArchive();
+    if(archive[0]) downloadArchivedPdf(archive[0].id);
+  }
+  else if(b.id==='tbResumeDismissBtn'){
+    const archive = getTbArchive();
+    if(archive[0]) tbDismissedResumeId = archive[0].id;
+    const bannerEl = $('#tbResumeBanner');
+    if(bannerEl) bannerEl.style.display = 'none';
+  }
+  else if(b.closest('.tb-archive-restore-btn')){
+    const archBtn = b.closest('.tb-archive-restore-btn');
+    restoreArchivedTest(archBtn.dataset.archId);
+  }
+  else if(b.closest('.tb-archive-pdf-btn')){
+    const archBtn = b.closest('.tb-archive-pdf-btn');
+    downloadArchivedPdf(archBtn.dataset.archId);
+  }
+  else if(b.closest('.tb-archive-cbt-btn')){
+    const archBtn = b.closest('.tb-archive-cbt-btn');
+    startCbtFromArchivedTest(archBtn.dataset.archId);
+  }
+  else if(b.closest('.tb-archive-del-btn')){
+    const archBtn = b.closest('.tb-archive-del-btn');
+    deleteArchivedTest(archBtn.dataset.archId);
+  }
   else if(b.id==='sheetBackBtn'){ show('scrTestBuilder'); }
   else if(b.id==='btnGenSheet'){ buildCustomSheet(); }
   else if(b.id==='btnPreviewSheet'){ openBuilderPreview(); }
@@ -5023,6 +5116,9 @@ function cleanSourceTag(q){
   return (yr ? yr + ' | ' : '') + (q.chapter ? q.chapter.slice(0, 18) : 'AITS');
 }
 
+const TB_ARCHIVE_KEY = 'aits_tb_archive_v1';
+let tbDismissedResumeId = null;
+
 const tbCfg = {
   pattern: 'adv',
   paper: 'all',
@@ -5036,7 +5132,8 @@ const tbCfg = {
   optSolutions: true,
   optNoWatermark: true,
   optUnattFirst: false,
-  builtQs: []
+  builtQs: [],
+  currentTestId: null
 };
 
 function updateBuilderPaperOptions(){
@@ -5280,6 +5377,7 @@ function openBuilderScreen(){
   updateBuilderPaperOptions();
   renderBuilderChapters();
   refreshBuilderSummary();
+  renderTbArchive();
   show('scrTestBuilder');
 
   // Pre-warm engines in background
@@ -5498,6 +5596,10 @@ async function buildCustomSheet(customQs){
     return;
   }
   tbCfg.builtQs = qs;
+  if(!tbCfg.currentTestId){
+    tbCfg.currentTestId = 'tb_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
+  }
+  saveTbTestToArchive({ isGenerated: true });
 
   const title = ($('#tbTestTitle').value || '').trim() || 'JEE ADVANCED PRACTICE TEST';
   const subtitle = ($('#tbTestSubtitle').value || '').trim() || 'Chapter-wise Practice Sheet | Questions cropped from source papers';
@@ -5710,6 +5812,7 @@ async function buildCustomSheet(customQs){
       if(pStage) pStage.textContent = 'Test sheet ready!';
       if(pDetail) pDetail.textContent = 'Rendered in browser. Click "Save as PDF / Print" to download.';
       $('#tbStatusNote').textContent = 'Test sheet compiled! Click "Save as PDF / Print" to save your PDF.';
+      saveTbTestToArchive({ isGenerated: true });
       showToast('Test sheet ready! Click "Save as PDF / Print" to download.');
       return;
     }
@@ -5757,6 +5860,7 @@ async function buildCustomSheet(customQs){
     }
 
     $('#tbStatusNote').textContent = 'Vector PDF created successfully! (' + data.totalQuestions + ' Qs, ' + data.totalPages + ' pages)';
+    saveTbTestToArchive({ isGenerated: true, pdfUrl: fullPdfUrl, filename: data.filename || 'practice_sheet.pdf' });
     show('scrSheetView');
   } catch(err){
     console.error('Vector sheet build error:', err);
@@ -5789,6 +5893,278 @@ function showToast(msg, duration = 3000){
   }, duration);
 }
 
+/* ==================== TEST BUILDER: ARCHIVE (LAST 3 TESTS) ==================== */
+function getTbArchive(){
+  try {
+    const raw = store.get(TB_ARCHIVE_KEY);
+    if(!raw) return [];
+    const arr = JSON.parse(raw);
+    return Array.isArray(arr) ? arr.slice(0, 3) : [];
+  } catch(e) {
+    return [];
+  }
+}
+
+function timeAgo(ts){
+  if(!ts) return '';
+  const diffSec = Math.max(0, Math.floor((Date.now() - ts) / 1000));
+  if(diffSec < 45) return 'Just now';
+  const diffMin = Math.floor(diffSec / 60);
+  if(diffMin < 60) return diffMin + 'm ago';
+  const diffHr = Math.floor(diffMin / 60);
+  if(diffHr < 24) return diffHr + 'h ago';
+  const diffDays = Math.floor(diffHr / 24);
+  if(diffDays < 7) return diffDays + 'd ago';
+  return new Date(ts).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+function saveTbTestToArchive(opts = {}){
+  const qs = (tbCfg.builtQs && tbCfg.builtQs.length) ? tbCfg.builtQs : [];
+  if(!qs.length) return;
+
+  if(!tbCfg.currentTestId){
+    tbCfg.currentTestId = 'tb_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
+  }
+
+  const title = ($('#tbTestTitle') ? $('#tbTestTitle').value : '').trim() || 'JEE ADVANCED PRACTICE TEST';
+  const subtitle = ($('#tbTestSubtitle') ? $('#tbTestSubtitle').value : '').trim() || 'Chapter-wise Practice Sheet | Questions cropped from source papers';
+  const candName = ($('#tbCandName') ? $('#tbCandName').value : '').trim();
+  const timeLimit = +($('#tbTimeLimit') ? $('#tbTimeLimit').value : 90) || 90;
+  const includeSol = $('#tbOptSolutions') ? $('#tbOptSolutions').checked : true;
+
+  const subMap = {};
+  qs.forEach(q => {
+    const s = q.subject || 'Other';
+    subMap[s] = (subMap[s] || 0) + 1;
+  });
+
+  const chaps = [...new Set(qs.map(q => q.chapter).filter(Boolean))];
+
+  let archive = getTbArchive();
+  const existingIdx = archive.findIndex(t => t.id === tbCfg.currentTestId);
+  const existing = existingIdx >= 0 ? archive[existingIdx] : null;
+
+  const testEntry = {
+    id: tbCfg.currentTestId,
+    createdAt: (existing && existing.createdAt) ? existing.createdAt : Date.now(),
+    updatedAt: Date.now(),
+    title: title,
+    subtitle: subtitle,
+    candidateName: candName,
+    pattern: tbCfg.pattern || 'adv',
+    paper: tbCfg.paper || 'all',
+    timeLimit: timeLimit,
+    includeSolutions: includeSol,
+    totalQuestions: qs.length,
+    subjectSummary: subMap,
+    chaptersSummary: chaps.slice(0, 4),
+    qids: qs.map(q => ({
+      id: q.id,
+      subject: q.subject,
+      chapter: q.chapter,
+      crop: q.crop ? { ...q.crop } : null
+    })),
+    pdfUrl: opts.pdfUrl || (existing ? existing.pdfUrl : null),
+    filename: opts.filename || (existing ? existing.filename : null),
+    isGenerated: opts.isGenerated !== undefined ? !!opts.isGenerated : (existing ? existing.isGenerated : false)
+  };
+
+  if(existingIdx >= 0){
+    archive.splice(existingIdx, 1);
+  }
+  archive.unshift(testEntry);
+  if(archive.length > 3) archive = archive.slice(0, 3);
+
+  store.set(TB_ARCHIVE_KEY, JSON.stringify(archive));
+  renderTbArchive();
+}
+
+function restoreArchivedTest(testId){
+  const archive = getTbArchive();
+  const item = archive.find(t => t.id === testId);
+  if(!item){
+    alert('Archived test could not be found.');
+    return;
+  }
+  if(!DB || !DB.length){
+    alert('Question bank database is still loading. Please wait a moment and try again.');
+    return;
+  }
+
+  if($('#tbTestTitle')) $('#tbTestTitle').value = item.title || 'JEE ADVANCED PRACTICE TEST';
+  if($('#tbTestSubtitle')) $('#tbTestSubtitle').value = item.subtitle || '';
+  if($('#tbCandName')) $('#tbCandName').value = item.candidateName || '';
+  if($('#tbTimeLimit')) $('#tbTimeLimit').value = item.timeLimit || 90;
+  if($('#tbOptSolutions')) $('#tbOptSolutions').checked = (item.includeSolutions !== false);
+
+  if(item.pattern){
+    tbCfg.pattern = item.pattern;
+    document.querySelectorAll('#tbPatternPills .pattern-pill').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.pattern === tbCfg.pattern);
+    });
+  }
+  if(item.paper){
+    tbCfg.paper = item.paper;
+    document.querySelectorAll('#tbPaperPills .pattern-pill').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.paper === tbCfg.paper);
+    });
+    if($('#tbPaperSel')) $('#tbPaperSel').value = tbCfg.paper;
+  }
+
+  const restoredQs = [];
+  (item.qids || []).forEach(entry => {
+    const qid = (typeof entry === 'object' && entry !== null) ? entry.id : entry;
+    const crop = (typeof entry === 'object' && entry !== null) ? entry.crop : null;
+    const rawQ = qById(qid);
+    if(rawQ){
+      const copy = { ...rawQ };
+      if(crop) copy.crop = { ...crop };
+      restoredQs.push(copy);
+    }
+  });
+
+  if(!restoredQs.length){
+    alert('Could not find questions for this archived test in the database.');
+    return;
+  }
+
+  tbCfg.builtQs = restoredQs;
+  tbCfg.count = restoredQs.length;
+  if($('#tbCountIn')) $('#tbCountIn').value = restoredQs.length;
+  tbCfg.currentTestId = item.id;
+
+  renderTestPreview();
+  show('scrTestPreview');
+  showToast('Restored "' + esc(item.title) + '" (' + restoredQs.length + ' Qs) from archive!');
+}
+
+function downloadArchivedPdf(testId){
+  const archive = getTbArchive();
+  const item = archive.find(t => t.id === testId);
+  if(!item) return;
+
+  if(item.pdfUrl){
+    const dlUrl = item.pdfUrl + (item.pdfUrl.includes('?') ? '&' : '?') + 'download=1';
+    const a = document.createElement('a');
+    a.href = dlUrl;
+    a.download = item.filename || 'practice_sheet.pdf';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => a.remove(), 400);
+    showToast('Downloading archived PDF...');
+  } else {
+    restoreArchivedTest(testId);
+    buildCustomSheet(tbCfg.builtQs);
+  }
+}
+
+function startCbtFromArchivedTest(testId){
+  restoreArchivedTest(testId);
+  startCbtFromBuilder();
+}
+
+function deleteArchivedTest(testId){
+  let archive = getTbArchive();
+  archive = archive.filter(t => t.id !== testId);
+  store.set(TB_ARCHIVE_KEY, JSON.stringify(archive));
+  if(tbCfg.currentTestId === testId){
+    tbCfg.currentTestId = null;
+  }
+  renderTbArchive();
+  showToast('Test removed from archive.');
+}
+
+function renderTbArchive(){
+  const archive = getTbArchive();
+
+  const cnt = archive.length;
+  const badgeEl = $('#tbArchiveCountBadge');
+  if(badgeEl) badgeEl.textContent = cnt + ' / 3';
+  const navCountEl = $('#tbArchiveNavCount');
+  if(navCountEl) navCountEl.textContent = cnt;
+
+  const listEl = $('#tbArchiveList');
+  if(listEl){
+    if(!cnt){
+      listEl.innerHTML = '<div class="muted" style="text-align:center;padding:18px 12px;border:1px dashed var(--line);border-radius:4px;font-size:12px">' +
+        '<div style="font-size:18px;margin-bottom:4px">📂</div>' +
+        '<div style="font-weight:600;color:var(--fg);margin-bottom:2px">No tests archived yet</div>' +
+        '<div>Your last 3 generated or customized tests will appear here automatically.</div>' +
+      '</div>';
+    } else {
+      listEl.innerHTML = archive.map((item, idx) => {
+        const subBadges = Object.entries(item.subjectSummary || {}).map(([s, n]) => {
+          let col = 'var(--brand)';
+          if(s === 'Physics') col = '#2563eb';
+          else if(s === 'Chemistry') col = '#059669';
+          else if(s === 'Mathematics') col = '#d97706';
+          return '<span style="font-size:10.5px;font-weight:600;color:' + col + ';background:var(--surface);border:1px solid var(--line);padding:1px 6px;border-radius:8px">' + esc(s) + ': ' + n + '</span>';
+        }).join(' ');
+
+        const chapSnippet = (item.chaptersSummary || []).slice(0, 3).join(', ');
+        const timeLabel = timeAgo(item.updatedAt || item.createdAt);
+        const isPdf = !!item.pdfUrl;
+
+        return '<div class="tb-archive-item" style="background:var(--surface-2);border:1px solid var(--line);border-radius:5px;padding:10px 12px;display:flex;flex-direction:column;gap:6px">' +
+          '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">' +
+            '<div style="min-width:0;flex:1">' +
+              '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">' +
+                '<span style="font-weight:700;font-size:13px;color:var(--ink);word-break:break-word">' + esc(item.title) + '</span>' +
+                '<span class="mono" style="font-size:10.5px;padding:1px 6px;border-radius:4px;background:var(--tint);color:var(--brand-deep);font-weight:600">' + (item.pattern === 'main' ? 'JEE Main' : 'JEE Adv') + '</span>' +
+                (item.isGenerated ? '<span style="font-size:10px;padding:1px 5px;border-radius:4px;background:rgba(34,197,94,0.12);color:#16a34a;font-weight:700">✓ PDF Generated</span>' : '<span style="font-size:10px;padding:1px 5px;border-radius:4px;background:rgba(234,179,8,0.15);color:#ca8a04;font-weight:600">Draft</span>') +
+              '</div>' +
+              '<div style="font-size:11px;color:var(--muted);margin-top:2px;display:flex;align-items:center;gap:5px;flex-wrap:wrap">' +
+                '<span>🕒 ' + timeLabel + '</span>' +
+                '<span>•</span>' +
+                '<span style="font-weight:600;color:var(--fg)">' + item.totalQuestions + ' Qs</span>' +
+                subBadges +
+              '</div>' +
+            '</div>' +
+            '<button type="button" class="btn sm tb-archive-del-btn" data-arch-id="' + esc(item.id) + '" title="Remove from archive" style="color:var(--bad);background:transparent;border-color:transparent;padding:1px 6px;font-size:14px;line-height:1;opacity:0.75">&times;</button>' +
+          '</div>' +
+          (chapSnippet ? '<div style="font-size:10.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Topics: ' + esc(chapSnippet) + (item.chaptersSummary && item.chaptersSummary.length > 3 ? '...' : '') + '</div>' : '') +
+          '<div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">' +
+            '<button type="button" class="btn sm primary tb-archive-restore-btn" data-arch-id="' + esc(item.id) + '" style="padding:3px 9px;font-size:11.5px;font-weight:600">' +
+              '<span>👁️ Preview &amp; Swap</span>' +
+            '</button>' +
+            '<button type="button" class="btn sm tb-archive-pdf-btn" data-arch-id="' + esc(item.id) + '" style="padding:3px 9px;font-size:11.5px">' +
+              '<span>📄 ' + (isPdf ? 'Download PDF' : 'Quick PDF') + '</span>' +
+            '</button>' +
+            '<button type="button" class="btn sm tb-archive-cbt-btn" data-arch-id="' + esc(item.id) + '" style="padding:3px 9px;font-size:11.5px">' +
+              '<span>💻 CBT</span>' +
+            '</button>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+  }
+
+  const bannerEl = $('#tbResumeBanner');
+  if(bannerEl){
+    const latest = archive[0];
+    if(latest && tbDismissedResumeId !== latest.id){
+      bannerEl.style.display = 'flex';
+      const rTitle = $('#tbResumeTitle');
+      if(rTitle) rTitle.textContent = latest.title || 'Previous Test';
+      const rMeta = $('#tbResumeMeta');
+      if(rMeta){
+        const timeLbl = timeAgo(latest.updatedAt || latest.createdAt);
+        rMeta.textContent = latest.totalQuestions + ' Questions • ' + (latest.pattern === 'main' ? 'JEE Main' : 'JEE Advanced') + ' • Saved ' + timeLbl + (latest.isGenerated ? ' (PDF Ready)' : '');
+      }
+      const rPdfBtn = $('#tbResumePdfBtn');
+      if(rPdfBtn) rPdfBtn.textContent = latest.pdfUrl ? 'Download PDF' : 'Quick PDF';
+    } else {
+      bannerEl.style.display = 'none';
+    }
+  }
+}
+
+window.addEventListener('beforeunload', () => {
+  if(tbCfg && tbCfg.builtQs && tbCfg.builtQs.length){
+    saveTbTestToArchive({ isDraft: true });
+  }
+});
+
 function openBuilderPreview(){
   const qs = (tbCfg.builtQs && tbCfg.builtQs.length) ? tbCfg.builtQs : getSelectedBuilderQuestions();
   if(!qs || !qs.length){
@@ -5796,6 +6172,10 @@ function openBuilderPreview(){
     return;
   }
   tbCfg.builtQs = qs;
+  if(!tbCfg.currentTestId){
+    tbCfg.currentTestId = 'tb_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
+  }
+  saveTbTestToArchive({ isDraft: true, isGenerated: false });
   renderTestPreview();
   show('scrTestPreview');
 }
@@ -6059,6 +6439,7 @@ function closeCropModal(){
         typeset(newCard);
       }
       showToast(`Crop applied to Q${cropActiveIdx + 1}!`);
+      saveTbTestToArchive({ isDraft: true });
     }
     closeCropModal();
   };
@@ -6150,6 +6531,7 @@ function swapBuilderQuestion(idx){
   }
 
   showToast('Replaced Q' + (idx + 1) + ' with question from <b>' + esc(newQ.chapter || newQ.subject) + '</b> (' + esc(cleanSourceTag(newQ)) + ')');
+  saveTbTestToArchive({ isDraft: true });
 }
 
 function removeBuilderQuestion(idx){
@@ -6159,6 +6541,7 @@ function removeBuilderQuestion(idx){
   tbCfg.count = tbCfg.builtQs.length;
   renderTestPreview();
   showToast('Removed question Q' + (idx + 1) + '. (' + tbCfg.builtQs.length + ' Qs remaining)');
+  saveTbTestToArchive({ isDraft: true });
 }
 
 function addBuilderQuestion(){
@@ -6198,6 +6581,7 @@ function addBuilderQuestion(){
   }
 
   showToast('Added Q' + tbCfg.builtQs.length + ' from <b>' + esc(newQ.chapter || newQ.subject) + '</b>');
+  saveTbTestToArchive({ isDraft: true });
 }
 
 function shuffleAllBuilderPreview(){
@@ -6207,6 +6591,8 @@ function shuffleAllBuilderPreview(){
     return;
   }
   tbCfg.builtQs = qs;
+  tbCfg.currentTestId = 'tb_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
+  saveTbTestToArchive({ isDraft: true });
   renderTestPreview();
   showToast('Reshuffled all ' + qs.length + ' questions.');
 }
