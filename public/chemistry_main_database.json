@@ -2826,11 +2826,11 @@
     {
       "id": "chem_main_121",
       "subject": "Chemistry",
-      "chapter": "Liquid Solutions & Colligative Properties",
+      "chapter": "p-Block Elements",
       "type": "single",
       "question": "",
       "options": null,
-      "answer": "C",
+      "answer": "A",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__Main.zip#Chemistry Section 1__--__1__--__1.png"
@@ -55195,7 +55195,7 @@
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "1.50",
+      "answer": "3.33",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-24_JEE_MAIN_18.07.2021.zip#Chemistry Section 2__--__54__--__1.png"
@@ -59192,11 +59192,11 @@
     {
       "id": "chem_main_2504",
       "subject": "Chemistry",
-      "chapter": "Ionic Equilibrium",
+      "chapter": "Redox Reactions",
       "type": "numerical",
       "question": "",
       "options": null,
-      "answer": "0.72",
+      "answer": "2.67",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-9_JEE_MAIN_08.02.2021.zip#Chemistry Section 2__--__55__--__1.png"
@@ -88444,7 +88444,7 @@
       "type": "single",
       "question": "",
       "options": null,
-      "answer": "D",
+      "answer": "B",
       "solution": "",
       "images": [
         "zipimg:https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/out/question_zips/QC__AITS-2223-CRT-II-JEEM-OFFLINE.zip#Chemistry Section 1__--__35__--__1.png"
@@ -104118,8 +104118,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%202__--__31__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 31,
@@ -104142,8 +104142,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%202__--__32__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 32,
@@ -104166,8 +104166,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%202__--__33__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 33,
@@ -104190,8 +104190,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%202__--__34__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 34,
@@ -104214,8 +104214,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%202__--__35__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 35,
@@ -104238,8 +104238,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%202__--__36__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 36,
@@ -104263,8 +104263,8 @@
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%202__--__37__--__1.png",
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%202__--__37__--__2.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 37,
@@ -104287,8 +104287,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%202__--__38__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 38,
@@ -104311,8 +104311,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%202__--__39__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 39,
@@ -104335,8 +104335,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%202__--__40__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 40,
@@ -104359,8 +104359,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%202__--__41__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 41,
@@ -104383,8 +104383,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%202__--__42__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 42,
@@ -104407,8 +104407,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%202__--__43__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 43,
@@ -104432,8 +104432,8 @@
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%202__--__44__--__1.png",
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%202__--__44__--__2.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 44,
@@ -104456,8 +104456,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%202__--__45__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 45,
@@ -104480,8 +104480,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%202__--__46__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 46,
@@ -104504,8 +104504,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%202__--__47__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 47,
@@ -104528,8 +104528,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%202__--__48__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 48,
@@ -104553,8 +104553,8 @@
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%202__--__49__--__1.png",
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%202__--__49__--__2.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 49,
@@ -104577,8 +104577,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%202__--__50__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 50,
@@ -104601,8 +104601,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%203__--__51__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 51,
@@ -104625,8 +104625,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%203__--__52__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 52,
@@ -104650,8 +104650,8 @@
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%203__--__53__--__1.png",
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%203__--__53__--__2.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 53,
@@ -104674,8 +104674,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%203__--__54__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 54,
@@ -104698,8 +104698,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%203__--__55__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 55,
@@ -104722,8 +104722,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%203__--__56__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 56,
@@ -104747,8 +104747,8 @@
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%203__--__57__--__1.png",
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%203__--__57__--__2.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 57,
@@ -104771,8 +104771,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%203__--__58__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 58,
@@ -104795,8 +104795,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%203__--__59__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 59,
@@ -104820,8 +104820,8 @@
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%203__--__60__--__1.png",
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20IX_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-IX-JEEM.zip#sol_Chemistry%20Section%203__--__60__--__2.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-IX-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 60,
@@ -107003,8 +107003,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%202__--__31__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 31,
@@ -107027,8 +107027,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%202__--__32__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 32,
@@ -107051,8 +107051,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%202__--__33__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 33,
@@ -107076,8 +107076,8 @@
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%202__--__34__--__1.png",
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%202__--__34__--__2.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 34,
@@ -107100,8 +107100,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%202__--__35__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 35,
@@ -107124,8 +107124,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%202__--__36__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 36,
@@ -107148,8 +107148,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%202__--__37__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 37,
@@ -107172,8 +107172,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%202__--__38__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 38,
@@ -107196,8 +107196,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%202__--__39__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 39,
@@ -107220,8 +107220,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%202__--__40__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 40,
@@ -107244,8 +107244,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%202__--__41__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 41,
@@ -107269,8 +107269,8 @@
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%202__--__42__--__1.png",
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%202__--__42__--__2.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 42,
@@ -107293,8 +107293,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%202__--__43__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 43,
@@ -107317,8 +107317,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%202__--__44__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 44,
@@ -107341,8 +107341,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%202__--__45__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 45,
@@ -107365,8 +107365,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%202__--__46__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 46,
@@ -107389,8 +107389,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%202__--__47__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 47,
@@ -107413,8 +107413,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%202__--__48__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 48,
@@ -107437,8 +107437,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%202__--__49__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 49,
@@ -107461,8 +107461,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%202__--__50__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 50,
@@ -107485,8 +107485,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%203__--__51__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 51,
@@ -107509,8 +107509,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%203__--__52__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 52,
@@ -107534,8 +107534,8 @@
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%203__--__53__--__1.png",
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%203__--__53__--__2.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 53,
@@ -107558,8 +107558,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%203__--__54__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 54,
@@ -107582,8 +107582,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%203__--__55__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 55,
@@ -107606,8 +107606,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%203__--__56__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 56,
@@ -107630,8 +107630,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%203__--__57__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 57,
@@ -107655,8 +107655,8 @@
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%203__--__58__--__1.png",
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%203__--__58__--__2.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 58,
@@ -107679,8 +107679,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%203__--__59__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 59,
@@ -107704,8 +107704,8 @@
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%203__--__60__--__1.png",
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VII-JEEM.zip#sol_Chemistry%20Section%203__--__60__--__2.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 60,
@@ -107728,8 +107728,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%202__--__31__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 31,
@@ -107752,8 +107752,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%202__--__32__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 32,
@@ -107776,8 +107776,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%202__--__33__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 33,
@@ -107800,8 +107800,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%202__--__34__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 34,
@@ -107824,8 +107824,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%202__--__35__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 35,
@@ -107848,8 +107848,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%202__--__36__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 36,
@@ -107873,8 +107873,8 @@
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%202__--__37__--__1.png",
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%202__--__37__--__2.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 37,
@@ -107897,8 +107897,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%202__--__38__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 38,
@@ -107921,8 +107921,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%202__--__39__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 39,
@@ -107945,8 +107945,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%202__--__40__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 40,
@@ -107969,8 +107969,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%202__--__41__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 41,
@@ -107994,8 +107994,8 @@
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%202__--__42__--__1.png",
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%202__--__42__--__2.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 42,
@@ -108018,8 +108018,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%202__--__43__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 43,
@@ -108042,8 +108042,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%202__--__44__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 44,
@@ -108066,8 +108066,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%202__--__45__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 45,
@@ -108090,8 +108090,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%202__--__46__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 46,
@@ -108114,8 +108114,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%202__--__47__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 47,
@@ -108138,8 +108138,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%202__--__48__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 48,
@@ -108162,8 +108162,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%202__--__49__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 49,
@@ -108186,8 +108186,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%202__--__50__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 50,
@@ -108210,8 +108210,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%203__--__51__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 51,
@@ -108235,8 +108235,8 @@
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%203__--__52__--__1.png",
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%203__--__52__--__2.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 52,
@@ -108259,8 +108259,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%203__--__53__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 53,
@@ -108283,8 +108283,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%203__--__54__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 54,
@@ -108307,8 +108307,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%203__--__55__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 55,
@@ -108331,8 +108331,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%203__--__56__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 56,
@@ -108355,8 +108355,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%203__--__57__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 57,
@@ -108379,8 +108379,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%203__--__58__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 58,
@@ -108403,8 +108403,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%203__--__59__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 59,
@@ -108428,8 +108428,8 @@
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%203__--__60__--__1.png",
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20VIII_Main_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-VIII-JEEM.zip#sol_Chemistry%20Section%203__--__60__--__2.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-VIII-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 60,
@@ -108452,8 +108452,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%202__--__31__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 31,
@@ -108476,8 +108476,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%202__--__32__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 32,
@@ -108501,8 +108501,8 @@
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%202__--__33__--__1.png",
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%202__--__33__--__2.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 33,
@@ -108525,8 +108525,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%202__--__34__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 34,
@@ -108549,8 +108549,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%202__--__35__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 35,
@@ -108574,8 +108574,8 @@
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%202__--__36__--__1.png",
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%202__--__36__--__2.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 36,
@@ -108598,8 +108598,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%202__--__37__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 37,
@@ -108622,8 +108622,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%202__--__38__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 38,
@@ -108646,8 +108646,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%202__--__39__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 39,
@@ -108671,8 +108671,8 @@
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%202__--__40__--__1.png",
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%202__--__40__--__2.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 40,
@@ -108695,8 +108695,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%202__--__41__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 41,
@@ -108719,8 +108719,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%202__--__42__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 42,
@@ -108743,8 +108743,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%202__--__43__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 43,
@@ -108767,8 +108767,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%202__--__44__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 44,
@@ -108791,8 +108791,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%202__--__45__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 45,
@@ -108816,8 +108816,8 @@
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%202__--__46__--__1.png",
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%202__--__46__--__2.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 46,
@@ -108840,8 +108840,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%202__--__47__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 47,
@@ -108864,8 +108864,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%202__--__48__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 48,
@@ -108888,8 +108888,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%202__--__49__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 49,
@@ -108913,8 +108913,8 @@
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%202__--__50__--__1.png",
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%202__--__50__--__2.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 50,
@@ -108937,8 +108937,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%203__--__51__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 51,
@@ -108962,8 +108962,8 @@
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%203__--__52__--__1.png",
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%203__--__52__--__2.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 52,
@@ -108986,8 +108986,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%203__--__53__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 53,
@@ -109010,8 +109010,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%203__--__54__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 54,
@@ -109035,8 +109035,8 @@
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%203__--__55__--__1.png",
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%203__--__55__--__2.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 55,
@@ -109059,8 +109059,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%203__--__56__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 56,
@@ -109083,8 +109083,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%203__--__57__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 57,
@@ -109107,8 +109107,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%203__--__58__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 58,
@@ -109131,8 +109131,8 @@
       "solution_images": [
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%203__--__59__--__1.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 59,
@@ -109156,8 +109156,8 @@
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%203__--__60__--__1.png",
         "zipimg:https://huggingface.co/datasets/DemonHeavenly/cbt-data/resolve/main/processed_zips/FIITJEE%20AITS%202024_Full%20Tests%20%26%20Open%20Tests_FT%20X_%5B%20%40bohring_bot%20%C3%97%20%40JEE_Tests%20%5D%20AITS-2324-FT-X-JEEM.zip#sol_Chemistry%20Section%203__--__60__--__2.png"
       ],
-      "source": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
-      "paperTitle": "[ @bohring_bot \u00d7 @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "source": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
+      "paperTitle": "[ @bohring_bot × @JEE_Tests ] AITS-2324-FT-X-JEEM",
       "year": 2024,
       "exam": "main",
       "questionNumber": 60,

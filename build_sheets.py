@@ -31,8 +31,10 @@ def question_segments(src, subject_start_page_hint=None):
     stops = collections.defaultdict(list)  # page -> y of section headers (stop continuation)
     for pi, page in enumerate(src):
         for w in page.get_text("words"):
-            if re.fullmatch(r"\d{1,3}\.", w[4]) and 68 < w[0] < 78 and SRC_TOP < w[1] < SRC_BOT:
-                starts.append((pi, w[1], int(w[4][:-1])))
+            if re.fullmatch(r"\d{1,3}\.?", w[4]) and 55 < w[0] < 88 and SRC_TOP < w[1] < SRC_BOT:
+                num_str = w[4].rstrip(".")
+                if num_str.isdigit():
+                    starts.append((pi, w[1], int(num_str)))
             if w[4] in ("Physics", "Chemistry", "Mathematics") and w[1] < 100 and w[3] - w[1] > 10:
                 stops[pi].append(w[1] - 2)
     starts.sort()
