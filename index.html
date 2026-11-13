@@ -1482,6 +1482,34 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   font-weight: 600;
   color: var(--fg);
 }
+.marks-detail-session-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--fg);
+  user-select: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.marks-detail-session-pill:hover {
+  border-color: var(--brand);
+  background: var(--tint);
+  color: var(--brand-deep);
+}
+.marks-detail-session-pill b {
+  font-weight: 700;
+  color: var(--brand);
+}
+.marks-detail-session-pill svg {
+  color: var(--brand);
+  flex-shrink: 0;
+}
 .marks-detail-header-right {
   display: flex;
   align-items: center;
@@ -1927,7 +1955,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   <div class="xmain" id="xmain">
     <section class="xleft">
       <div class="xgroup"><span class="xarr l off" aria-hidden="true"></span><span class="gpill" id="testPill"><span id="pillName">AITS_PRACTICE - Test</span><span class="info ico spr i-info" role="button" tabindex="0" data-info="all" aria-label="Test details"></span></span></div>
-      <div class="xsections"><span>Sections</span><span class="tl" id="tlWrap"><span id="tlLbl">Time Left : </span><b id="timer">--:--</b></span></div>
+      <div class="xsections"><span>Sections</span><span id="examSessionAttemptedWrap" style="display:none;font-weight:600;align-items:center;gap:6px;font-size:13px"><span class="marks-detail-session-pill" style="padding:2px 10px;font-size:12px" title="Questions attempted this session (click to reset)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg><span>Session: <b id="examSessionAttemptedCount">0</b> attempted</span></span></span><span class="tl" id="tlWrap"><span id="tlLbl">Time Left : </span><b id="timer">--:--</b></span></div>
       <div class="xtabsrow"><button class="xarr l off" id="tabL" type="button" aria-label="Scroll sections left"></button><div class="tabs" id="tabs" role="tablist"></div><button class="xarr r off" id="tabR" type="button" aria-label="Scroll sections right"></button></div>
       <div class="xqtype"><span id="qType"></span><span id="qMarks" class="qmarks"></span></div>
       <div class="xqno"><span id="qNo"></span><span class="xqbtns"><button class="rb bm" id="btnBm" type="button" aria-pressed="false" aria-label="Bookmark this question" title="Bookmark this question"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l1.9 4.2 4.6.5-3.4 3.1 1 4.5L8 11.5 3.9 13.8l1-4.5L1.5 6.2l4.6-.5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></button><button class="rb report" id="btnReport" type="button" aria-pressed="false" aria-label="Report issue with this question" title="Report an issue with this question"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2v12M3 3h9l-2 3.5 2 3.5H3"/></svg></button><button class="rb" id="btnDown" type="button" aria-label="Scroll to the end of the question"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v10M3.5 8l4.5 4.5L12.5 8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button></span></div>
@@ -1958,7 +1986,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 </div>
 
 <div id="scrPracticeList" class="screen" hidden>
-  <div class="topbar"><div class="tb-in"><span class="tb-title" id="prkTopbarTitle">Practice &ndash; Questions</span><div style="display:flex;align-items:center;gap:8px"><button class="btn sm" id="prkResetAttemptBtn" type="button" style="font-size:12px">Reset Attempts</button><button class="btn sm" id="prkBackBtn" type="button">&larr; Portal Home</button></div></div></div>
+  <div class="topbar"><div class="tb-in"><span class="tb-title" id="prkTopbarTitle">Practice &ndash; Questions</span><div style="display:flex;align-items:center;gap:8px"><div class="marks-detail-session-pill" id="prkListSessionPill" title="Questions attempted this session (click to reset)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg><span>Session: <b id="prkListSessionCount">0</b> attempted</span></div><button class="btn sm" id="prkResetAttemptBtn" type="button" style="font-size:12px">Reset Attempts</button><button class="btn sm" id="prkBackBtn" type="button">&larr; Portal Home</button></div></div></div>
   <main class="wrap marks-layout">
     <aside class="marks-sidebar">
       <div class="marks-sb-card">
@@ -2028,8 +2056,14 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
       </div>
 
       <!-- Summary / Count Row (Image 1) -->
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 4px 12px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--line)">
-        <span id="prkHeroStats" style="font-weight:600">Showing all Qs (0/0)</span>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 4px 12px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);flex-wrap:wrap;gap:8px">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <span id="prkHeroStats" style="font-weight:600">Showing all Qs (0/0)</span>
+          <span class="marks-detail-session-pill" id="prkHeroSessionStat" style="padding:2px 10px;font-size:12px" title="Questions attempted this session (click to reset)">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            <span>Session: <b id="prkHeroSessionCount">0</b> attempted</span>
+          </span>
+        </div>
         <span id="prkSortBtn" style="cursor:pointer;font-weight:500;user-select:none">&uarr;&darr; Year-wise (New to Old)</span>
       </div>
 
@@ -2046,6 +2080,10 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
         <span class="tb-title" id="prkDetailBreadcrumb" style="font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Practice Question View</span>
       </div>
       <div style="display:flex;align-items:center;gap:8px">
+        <div class="marks-detail-session-pill" id="prkTopSessionPill" title="Questions attempted this session (click to reset)">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          <span>Session: <b id="prkTopSessionCount">0</b> attempted</span>
+        </div>
         <button class="btn sm" id="prkDetailHomeBtn" type="button">Portal Home</button>
       </div>
     </div>
@@ -2058,9 +2096,15 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
         <div class="marks-detail-qnum" id="prkDetailQNum">Q 1</div>
         <div class="marks-detail-qmeta" id="prkDetailQMeta">JEE Main 2025</div>
       </div>
-      <div class="marks-detail-timer-pill" id="prkDetailTimer" title="Time on this question">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-        <span id="prkTimerText">00:00</span>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <div class="marks-detail-session-pill" id="prkDetailSessionPill" title="Questions attempted this session (click to reset)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          <span>Session: <b id="prkSessionAttemptedCount">0</b> attempted</span>
+        </div>
+        <div class="marks-detail-timer-pill" id="prkDetailTimer" title="Time on this question">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span id="prkTimerText">00:00</span>
+        </div>
       </div>
       <div class="marks-detail-header-right">
         <button class="bmb" id="prkDetailBmBtn" type="button" title="Bookmark this question" style="padding:6px"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l1.9 4.2 4.6.5-3.4 3.1 1 4.5L8 11.5 3.9 13.8l1-4.5L1.5 6.2l4.6-.5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></button>
@@ -3384,6 +3428,11 @@ function startExam(){
   T.startTs=Date.now(); T.sec=0; T.cur=T.secs[0].idx[0]; T.st[T.cur].visited=true; T.qStart=Date.now();
   $('#ehTitle').textContent=T.title; $('#rName').textContent=T.name;
   $('#pillName').textContent=T.mode==='practice'?'AITS_PRACTICE - Practice Mode':'AITS_PRACTICE - Test';
+  const sessWrap = $('#examSessionAttemptedWrap');
+  if(sessWrap){
+    sessWrap.style.display = T.mode === 'practice' ? 'inline-flex' : 'none';
+  }
+  updateSessionAttemptedCounters();
   clearInterval(timerId); applyUi(); tick(); timerId=setInterval(tick,1000);
   renderTabs(); renderQ(); renderPal();
 }
@@ -3724,6 +3773,50 @@ function svOrder(subj,ch){ const segs=SEGMENTS[subj]||[]; let n=0; for(const g o
 function svPick(){ const all=svAll(); if(!all.some(q=>q.subject===svSubj)){ const s=SUBJ.find(x=>all.some(q=>q.subject===x)); if(s) svSubj=s; } }
 /* ==================== MARKS-STYLE SCROLLABLE PRACTICE SCREEN ==================== */
 const PRK_ANS_KEY = 'aits_prk_answers';
+const PRK_SESSION_ATT_KEY = 'aits_session_attempted_qids';
+
+function getSessionAttemptedSet(){
+  try {
+    const raw = sessionStorage.getItem(PRK_SESSION_ATT_KEY);
+    return new Set(raw ? JSON.parse(raw) : []);
+  } catch(e){
+    return new Set();
+  }
+}
+
+function getSessionAttemptedCount(){
+  return getSessionAttemptedSet().size;
+}
+
+function markSessionAttempted(qId){
+  if(!qId) return;
+  const s = getSessionAttemptedSet();
+  const prevSize = s.size;
+  s.add(String(qId));
+  try {
+    sessionStorage.setItem(PRK_SESSION_ATT_KEY, JSON.stringify([...s]));
+  } catch(e){}
+  if(s.size !== prevSize){
+    updateSessionAttemptedCounters();
+  }
+}
+
+function resetSessionAttempted(){
+  try {
+    sessionStorage.removeItem(PRK_SESSION_ATT_KEY);
+  } catch(e){}
+  updateSessionAttemptedCounters();
+}
+
+function updateSessionAttemptedCounters(){
+  const count = getSessionAttemptedCount();
+  ['prkSessionAttemptedCount', 'prkTopSessionCount', 'prkListSessionCount', 'prkHeroSessionCount', 'examSessionAttemptedCount'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.textContent = count;
+  });
+}
+setTimeout(updateSessionAttemptedCounters, 0);
+
 function getPrkAnswers(){
   try { return JSON.parse(store.get(PRK_ANS_KEY) || '{}'); } catch(e){ return {}; }
 }
@@ -3732,6 +3825,9 @@ function savePrkAnswer(qId, val, status){
   map[qId] = { val, status, t: Date.now() };
   store.set(PRK_ANS_KEY, JSON.stringify(map));
   markAttempted({ id: qId });
+  if(status === 'ok' || status === 'bad'){
+    markSessionAttempted(qId);
+  }
 }
 
 const prkState = {
@@ -3761,6 +3857,7 @@ function renderPracticeScreen(){
   renderPracticeSidebar();
   renderPracticeFilterYears();
   renderPracticeMain();
+  updateSessionAttemptedCounters();
 }
 
 function renderPracticeSidebar(){
@@ -3990,6 +4087,7 @@ function openPracticeDetail(target){
 }
 
 function renderPracticeDetailView(){
+  updateSessionAttemptedCounters();
   if(!prkFilteredList.length) return;
   if(prkCurrentDetailIdx < 0) prkCurrentDetailIdx = 0;
   if(prkCurrentDetailIdx >= prkFilteredList.length) prkCurrentDetailIdx = prkFilteredList.length - 1;
@@ -4290,6 +4388,7 @@ function resetAllPracticeAttempts(){
     Object.keys(map).forEach(id => ATT.delete(id));
     saveAtt();
     store.set(PRK_ANS_KEY, '{}');
+    resetSessionAttempted();
     renderPracticeMain();
   }
 }
@@ -4817,6 +4916,16 @@ document.addEventListener('click',e=>{
   }
   else if(b.id==='prkBackBtn'){ show('scrSetup'); renderHist(); }
   else if(b.id==='prkResetAttemptBtn'){ resetAllPracticeAttempts(); }
+  else if(b.closest('#prkDetailSessionPill, #prkTopSessionPill, #prkListSessionPill, #prkHeroSessionStat, #examSessionAttemptedWrap')){
+    const count = getSessionAttemptedCount();
+    if(count > 0){
+      if(confirm('You have attempted ' + count + ' question' + (count === 1 ? '' : 's') + ' in this session.\n\nDo you want to reset the session attempted counter to 0?')){
+        resetSessionAttempted();
+      }
+    } else {
+      alert('Session counter: 0 questions attempted so far in this session.');
+    }
+  }
   else if(b.id==='prkTakeTestBtn'){ startTestForCurrentPracticeChapter(); }
   else if(b.closest('.marks-sb-item[data-prksubj]')){
     const s = b.closest('.marks-sb-item[data-prksubj]').dataset.prksubj;
