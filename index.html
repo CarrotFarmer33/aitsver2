@@ -199,19 +199,21 @@
   flex-direction: column;
 }
 .sheet-qlab {
-  font-size: 10.5pt;
+  font-size: 10pt;
   font-weight: 700;
-  color: #1a3a5c;
-  font-family: Arial, Helvetica, sans-serif;
+  color: #123361;
+  font-family: 'Georgia', 'Times New Roman', serif;
   line-height: 1.2;
+  background: #f0f4f9;
+  border: 1px solid #c2d4e5;
+  border-radius: 4px;
+  padding: 2px 6px;
+  display: inline-block;
+  text-align: center;
+  letter-spacing: 0.5px;
 }
 .sheet-qtag {
-  font-size: 6.2pt;
-  color: #737373;
-  font-family: Helvetica, Arial, sans-serif;
-  line-height: 1.25;
-  margin-top: 3pt;
-  word-break: break-word;
+  display: none !important;
 }
 .sheet-qbody-col {
   flex: 1 1 auto;
@@ -7301,7 +7303,7 @@ async function renderSheetDoc(qs, opts, onProgress){
     const isParaQ = !!(q.paragraph || q.type === 'paragraph');
     const effType = isParaQ ? 'paragraph' : (q.rawType || q.type);
     const secLabel = isParaQ ? 'Comprehension' : (SECLBL[effType] || SECLBL[q.type] || 'Questions');
-    const secKey = (opts.pattern === 'main' ? q.subject + ' &ndash; ' + (effType === 'numerical' ? 'Section B (Numerical)' : 'Section A (MCQ)') : q.subject + ' &ndash; ' + secLabel);
+    const secKey = (effType === 'numerical' ? 'Numerical' : 'MCQ');
     if(!secMap.has(secKey)){
       secMap.set(secKey, {title: secKey, qs: []});
       sections.push(secMap.get(secKey));
@@ -7328,15 +7330,7 @@ async function renderSheetDoc(qs, opts, onProgress){
 
   // PAGE 1: COVER & FIRST SECTION
   let html = '<div class="sheet-page" data-page="1">' +
-    '<h1 class="sheet-cover-title">' + esc(opts.title) + '</h1>' +
-    '<div class="sheet-cover-sub">' + esc(opts.subtitle) + '</div>' +
-    '<div class="sheet-cover-meta">' +
-      '<div><b>Subjects:</b> ' + esc(subjs) + '</div>' +
-      '<div><b>Chapters:</b> ' + esc(chapsText) + '</div>' +
-      '<div><b>Questions:</b> ' + qs.length + '</div>' +
-      '<div><b>Max Marks:</b> ' + totalMarks + '</div>' +
-      '<div><b>Time:</b> ' + (opts.timeLimit > 0 ? opts.timeLimit + ' Min' : 'Untimed') + '</div>' +
-    '</div>';
+    '<h1 class="sheet-cover-title" style="margin-bottom:14pt;font-size:24pt;font-weight:800;letter-spacing:1px;color:#123361;border-bottom:1.5pt solid #123361;padding-bottom:8pt;">' + esc((subjs || 'Chemistry').toUpperCase()) + '</h1>';
 
   sections.forEach(sec => {
     html += '<div class="sheet-sec-hdr">' +
@@ -7376,7 +7370,6 @@ async function renderSheetDoc(qs, opts, onProgress){
       html += '<div class="sheet-qrow">' +
         '<div class="sheet-qlab-col">' +
           '<div class="sheet-qlab">' + esc(qLabel) + '</div>' +
-          '<div class="sheet-qtag">' + esc(tag) + '</div>' +
         '</div>' +
         '<div class="sheet-qbody-col">' +
           passageHtml +
@@ -7438,7 +7431,6 @@ async function renderSheetDoc(qs, opts, onProgress){
       html += '<div class="sheet-sol-item">' +
         '<div class="sheet-qlab-col">' +
           '<div class="sheet-qlab">' + esc(item.num) + '</div>' +
-          '<div class="sheet-qtag">' + esc(item.tag) + '</div>' +
         '</div>' +
         '<div class="sheet-sol-body">' +
           (item.solText ? '<div style="margin-bottom:6pt">' + rich(item.solText) + '</div>' : '') +
