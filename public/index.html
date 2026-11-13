@@ -2410,6 +2410,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   <div class="topbar sheet-toolbar"><div class="tb-in" style="width:100%"><div class="sheet-tools-left">
     <button class="btn sm" id="sheetBackBtn" type="button">&larr; Back to Builder</button>
     <button class="btn sm" id="sheetEditQuestionsBtn" type="button" style="background:#2563eb;color:#fff;border-color:#2563eb;font-weight:600" title="Return to question preview to swap questions and rebuild PDF">Preview &amp; Swap Questions</button>
+    <button class="btn sm" id="sheetAddRandomBtn" type="button" title="Add another random question and rebuild sheet">+ Add Random Question</button>
     <span class="tb-title" id="sheetDocTitle">Vector Test Sheet Preview</span>
   </div><div class="sheet-tools-right">
     <a class="btn sm primary" id="sheetDownloadBtn" href="#" download="test_sheet.pdf">Download PDF</a>
@@ -5100,6 +5101,12 @@ document.addEventListener('click',e=>{
   else if(b.id==='tbPrevStartCbtBtn'){ startCbtFromBuilder(); }
   else if(b.id==='tbPrevShuffleAllBtn'){ shuffleAllBuilderPreview(); }
   else if(b.id==='tbPrevAddBtn' || b.id==='tbPrevBottomAddBtn'){ addBuilderQuestion(); }
+  else if(b.id==='sheetAddRandomBtn'){
+    const added = addBuilderQuestion(false);
+    if(added){
+      buildCustomSheet(tbCfg.builtQs);
+    }
+  }
   else if(b.id==='sheetEditQuestionsBtn'){
     if(tbCfg.builtQs && tbCfg.builtQs.length){ renderTestPreview(); show('scrTestPreview'); }
     else { openBuilderPreview(); }
@@ -7015,30 +7022,84 @@ function removeBuilderQuestion(idx){
   saveTbTestToArchive({ isDraft: true });
 }
 
-function addBuilderQuestion(){
-  const currentIds = new Set((tbCfg.builtQs || []).map(q => q.id));
-  const activeSubjs = ['Physics', 'Chemistry', 'Mathematics'].filter(s => tbCfg.subjects.has(s));
+function addBuilderQuestion(navigateToPreview = true){
+  if(!DB || !DB.length){
+    alert('Question bank database is not loaded yet.');
+    return null;
+  }
+  tbCfg.builtQs = tbCfg.builtQs || [];
+  const currentIds = new Set(tbCfg.builtQs.map(q => q.id));
 
-  const candidates = DB.filter(q => {
-    if(currentIds.has(q.id)) return false;
-    if(activeSubjs.length && !activeSubjs.includes(q.subject)) return false;
-    if(tbCfg.chapters.size && !tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
-    if(!tbPaperOK(q)) return false;
+  // Determine active subjects
+  let activeSubjs = [];
+  if(tbCfg.subjects && tbCfg.subjects.size){
+    activeSubjs = ['Physics', 'Chemistry', 'Mathematics'].filter(s => tbCfg.subjects.has(s));
+  }
+  if(!activeSubjs.length && tbCfg.builtQs.length){
+    activeSubjs = [...new Set(tbCfg.builtQs.map(q => q.subject).filter(Boolean))];
+  }
+  if(!activeSubjs.length){
+    activeSubjs = ['Physics', 'Chemistry', 'Mathematics'];
+  }
+
+  const matchPatternAndType = (q) => {
     if(tbCfg.pattern === 'main'){
       if(q.paragraph || q.type === 'paragraph') return false;
       return q.type === 'single' || q.type === 'numerical';
     }
     if(q.paragraph || q.type === 'paragraph'){
-      return tbCfg.types.has('paragraph');
+      return tbCfg.types ? tbCfg.types.has('paragraph') : true;
     }
-    return tbCfg.types.has(q.type);
+    return tbCfg.types ? tbCfg.types.has(q.type) : true;
+  };
+
+  // 1. Strict match: active subjects, selected chapters, paper, types
+  let candidates = DB.filter(q => {
+    if(currentIds.has(q.id)) return false;
+    if(activeSubjs.length && !activeSubjs.includes(q.subject)) return false;
+    if(tbCfg.chapters && tbCfg.chapters.size && !tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
+    if(!tbPaperOK(q)) return false;
+    return matchPatternAndType(q);
   });
 
+  // 2. Fallback: if chapters were too restrictive or exhausted, search active subjects with matching pattern & types
   if(!candidates.length){
-    alert('No more unselected questions match your active subjects and chapters.');
-    return;
+    candidates = DB.filter(q => {
+      if(currentIds.has(q.id)) return false;
+      if(activeSubjs.length && !activeSubjs.includes(q.subject)) return false;
+      if(!tbPaperOK(q)) return false;
+      return matchPatternAndType(q);
+    });
   }
 
+  // 3. Fallback: search active subjects with any type matching paper
+  if(!candidates.length){
+    candidates = DB.filter(q => {
+      if(currentIds.has(q.id)) return false;
+      if(activeSubjs.length && !activeSubjs.includes(q.subject)) return false;
+      return tbPaperOK(q);
+    });
+  }
+
+  // 4. Fallback: any unselected question in DB matching paper
+  if(!candidates.length){
+    candidates = DB.filter(q => {
+      if(currentIds.has(q.id)) return false;
+      return tbPaperOK(q);
+    });
+  }
+
+  // 5. Ultimate fallback: any question in DB matching paper
+  if(!candidates.length){
+    candidates = DB.filter(q => tbPaperOK(q));
+  }
+
+  if(!candidates.length){
+    alert('No questions match the current paper selection.');
+    return null;
+  }
+
+  // Exhaust unused questions first if option checked
   const exhaustFirst = $('#tbOptExhaustFirst') ? $('#tbOptExhaustFirst').checked : true;
   if(exhaustFirst){
     const unused = candidates.filter(q => !TB_USED_QIDS.has(q.id));
@@ -7047,18 +7108,22 @@ function addBuilderQuestion(){
 
   const newQ = candidates[Math.floor(Math.random() * candidates.length)];
   tbCfg.builtQs.push(newQ);
-  $('#tbCountIn').value = tbCfg.builtQs.length;
   tbCfg.count = tbCfg.builtQs.length;
-  renderTestPreview();
+  if($('#tbCountIn')) $('#tbCountIn').value = tbCfg.builtQs.length;
 
-  const lastCard = document.getElementById('prevCard_' + (tbCfg.builtQs.length - 1));
-  if(lastCard){
-    lastCard.classList.add('swapped');
-    lastCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  saveTbTestToArchive({ isDraft: true });
+
+  if(navigateToPreview){
+    renderTestPreview();
+    const lastCard = document.getElementById('prevCard_' + (tbCfg.builtQs.length - 1));
+    if(lastCard){
+      lastCard.classList.add('swapped');
+      lastCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
   }
 
   showToast('Added Q' + tbCfg.builtQs.length + ' from <b>' + esc(newQ.chapter || newQ.subject) + '</b>');
-  saveTbTestToArchive({ isDraft: true });
+  return newQ;
 }
 
 function shuffleAllBuilderPreview(){
