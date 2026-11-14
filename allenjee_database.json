@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "totalQuestions": 2233,
+  "totalQuestions": 2282,
   "source": "Allen JEE Chemistry Modules (O-1 & O-2)",
   "questions": [
     {
@@ -76646,6 +76646,1717 @@
         "zipimg:allenjee_images_o2.zip#allenjee_thermodynamics_second_third_law_o2_p16_q30.svg"
       ],
       "paperTitle": "Allen JEE Chemistry - Thermodynamics (Second & Third Law) (O-2)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p8_q1",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 1,
+      "answer": "C",
+      "allenCode": "TC0034",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 8,
+      "segments": [
+        [
+          8,
+          45.0,
+          115.0240478515625,
+          552.0,
+          174.3450927734375
+        ]
+      ],
+      "text": "Q.1\nFor a reaction, 2X(s) + 2Y(s) ® 2C(l) + D(g)\nThe qp at 27°C is – 28 Kcal mol–1, the qV is ----------- Kcal mol–1\n(A) – 27.4\n(B) + 27.4\n(C) – 28.6\n(D) 28.6     TC0034",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p8_q1.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p8_q2",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 2,
+      "answer": "D",
+      "allenCode": "TC0107",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 8,
+      "segments": [
+        [
+          8,
+          45.0,
+          173.3450927734375,
+          552.0,
+          312.10205078125
+        ]
+      ],
+      "text": "Q.2. On the basis of the following thermochemical data :\nH2O(l) ® H+(aq) + OH–(aq) ; DH = 57.32 kJ\nH2(g) + 1\n2 O2(g) ® H2O (l) ; DH = –286.20 kJ\nThe value of enthalpy of formation of OH– ion at 25°C is :-\n[AIEEE-2009]\n(A) +228.88 kJ\n(B) –343.52 kJ\n(C) –22.88 kJ\n(D) –228.88 kJ\n         TC0107",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p8_q2.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p8_q3",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 3,
+      "answer": "A",
+      "allenCode": "TC0108",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 8,
+      "segments": [
+        [
+          8,
+          45.0,
+          311.10205078125,
+          552.0,
+          388.9000549316406
+        ]
+      ],
+      "text": "Q.3\nFor  which reaction will DH = DU ?\n(A) H2(g) + Br2(g) ® 2 HBr(g)\n(B) C(s) + 2 H2O(g) ®  2H2(g) + CO2(g)\n(C) PCl5(g) ®  PCl3(g) + Cl2(g)\n(D) 2CO(g) + O2(g) ®  2 CO2(g)\n         TC0108",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p8_q3.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p8_q4",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 4,
+      "answer": "B",
+      "allenCode": "TC0109",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 8,
+      "segments": [
+        [
+          8,
+          45.0,
+          387.9000549316406,
+          552.0,
+          465.2200622558594
+        ]
+      ],
+      "text": "Q.4\nA mixture of 2 moles of carbon monoxide and one mole of oxygen in a closed vessel is ignited to get carbon\ndioxide. If D H is the enthalpy change and DU is the change in internal energy, then :-\n(A) D H > D U\n(B) D H < D U\n(C) D H = D U\n(D) Not definite\n         TC0109",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p8_q4.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p8_q5",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 5,
+      "answer": "D",
+      "allenCode": "TC0040",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 8,
+      "segments": [
+        [
+          8,
+          45.0,
+          464.2200622558594,
+          552.0,
+          522.10009765625
+        ]
+      ],
+      "text": "Q.5\nWhat amount of heat energy (kJ) is released in the combustion of 12.0 g of C3H4 at 1atm constant pressure.\nC3H4(g) + 4 O2(g) ® 3 CO2(g) + 2 H2O(l) ; DHo = –1939 kJ\n(A) 696.3\n(B) 1939\n(C) 6463.3\n(D) 581.7       TC0040",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p8_q5.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p8_q6",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 6,
+      "answer": "B",
+      "allenCode": "TC0041",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 8,
+      "segments": [
+        [
+          8,
+          45.0,
+          521.10009765625,
+          552.0,
+          683.1419677734375
+        ]
+      ],
+      "text": "Q.6\nNH3(g) + 3Cl2(g) ® NCl3(g) + 3HCl (g);  DH1\nN2(g) + 3H2(g) ® 2NH3(g); DH2\nH2(g) + Cl2(g) ® 2HCl (g) ; DH3\nThe enthalpy of formation of NCl3 (g) in the terms of DH1, DH2 and DH3 is\n(A) DHf = – DH1 + \n2\n3\n2\nH2 -\nD\nDH3\n(B) DHf =  DH1 + \n2\n3\n2\nH2 -\nD\nDH3\n(C) DHf = DH1 – \n2\n3\n2\nH2 -\nD\nDH3\n(D) DHf =  DH1 + DH2 – DH3\n      TC0041",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p8_q6.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p8_q7",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 7,
+      "answer": "D",
+      "allenCode": "TC0035",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 8,
+      "segments": [
+        [
+          8,
+          45.0,
+          682.1419677734375,
+          552.0,
+          768.0
+        ]
+      ],
+      "text": "Q.7\nConsider the reaction at 300 K\nH2(g) + Cl2(g) ¾® 2HCl(g)    DH = –185kJ/mol\nCalculate DU if 3 mole of H2 completely react with 3 mole of Cl2 to form HCl.\n(A) 0\n(B) –185 kJ\n(C) 555 kJ\n(D) – 555 kJ\nTC0035",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p8_q7.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p9_q8",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 8,
+      "answer": "B",
+      "allenCode": "TC0050",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 9,
+      "segments": [
+        [
+          9,
+          45.0,
+          72.30499267578125,
+          552.0,
+          215.85992431640625
+        ]
+      ],
+      "text": "Q.8\nEthanol can undergoes decomposition to form two sets of products\nC2H5OH (g) ¾® \n45 kJ\n63 kJ\n;\n;\nif the molar ratio of C2H4  to CH3CHO is 8 : 1 in a set of product gases, then the enthalpy involved\nin the decomposition of 1 mole of ethanol is\n(A) 423 kJ\n(B) 47 kJ\n(C) 61 kJ\n(D) 549 kJ\n      TC0050",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p9_q8.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p9_q9",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 9,
+      "answer": "A",
+      "allenCode": "TC0047",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 9,
+      "segments": [
+        [
+          9,
+          45.0,
+          214.85992431640625,
+          552.0,
+          396.33990478515625
+        ]
+      ],
+      "text": "Q.9\nGiven the correct order of initials T (true) or F (false) for following statements.\n(i) For the reaction CaCO3 (Calcite) ® CaCO3 (aragonite)  ; DH= – 1127.75 kJ/mol,\nthen Calcite form is more stable at standard conditions.\n(ii)  For the reaction,\n(a)  C(diamond) + 2H2 (g) ® CH4(g)\n;   DH1\n(b)  C(g) + 4H(g) ® CH4(g)\n;   DH2\nthen more heat is evolved in reaction (b)\n(iii) DfH° (I2,g) = DsubH [I2, s] at 25°C\n(iv) For the exothermic reaction 2Ag(s) + 1/2 O2(g) ® 2Ag2O(s) at 298 K. DH < DU\n(A) FTTT\n(B) TTFT\n(C) TFTF\n(D) TTTT\n     TC0047",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p9_q9.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p9_q10",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 10,
+      "answer": "D",
+      "allenCode": "TC0110",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 9,
+      "segments": [
+        [
+          9,
+          45.0,
+          395.33990478515625,
+          552.0,
+          510.3369140625
+        ]
+      ],
+      "text": "Q.10 Use the given standard enthalpies of formation to determine the enthalpy of reaction of the following\nreaction :  TiCl4(g) + 2 H2O(g) ®TiO2(g) + 4 HCl(g)\nDHo\nf TiCl4(g) = –763.2 kJ/mole\nDHo\nf TiO2(g) = –944.7 kJ/mole\nDHo\nf H2O(g) = –241.8 kJ/mole\nDHo\nf HCl(g) = –92.3 kJ/mole\n(A) – 278.1 kJ\n(B) + 369.2 kJ\n(C) + 67.1 kJ\n(D) – 67.1kJ\n         TC0110",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p9_q10.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p9_q11",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 11,
+      "answer": "B",
+      "allenCode": "TC0111",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 9,
+      "segments": [
+        [
+          9,
+          45.0,
+          509.3369140625,
+          552.0,
+          567.9349365234375
+        ]
+      ],
+      "text": "Q.11. For which species DHformation ¹ 0\n(A) H+\n(aq.)\n(B) Br2(g)\n(C) I2(s)\n(D) C(graphite)\n         TC0111",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p9_q11.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p9_q12",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 12,
+      "answer": "B",
+      "allenCode": "TC0112",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 9,
+      "segments": [
+        [
+          9,
+          45.0,
+          566.9349365234375,
+          552.0,
+          665.1339111328125
+        ]
+      ],
+      "text": "Q.12.Which of the following equations represents a reaction that provides the enthalpy of formation of\nCH3Cl(g) ?\n(A) C(s) + HCl(g) + H2(g) ® CH3Cl(g)\n(B) C(s) + 3/2 H2(g) + 1/2 Cl2(g) ® CH3Cl(g)\n(C) C(s) + 3 H(g) + Cl(g) ®  CH3Cl(g)\n(D) CH4(g) + Cl2(g) ® CH3Cl(g) + HCl(g)\n         TC0112",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p9_q12.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p9_q13",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 13,
+      "answer": "D",
+      "allenCode": "TC0113",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 9,
+      "segments": [
+        [
+          9,
+          45.0,
+          664.1339111328125,
+          552.0,
+          766.044921875
+        ]
+      ],
+      "text": "Q.13 The heats of formation of CO2(g) and H2O(l) are –394 kJ/mole and –285.8 kJ/mole respectively  Using\nthe data for the following combustion reaction, calculate the heat of formation of C2H2(g).\n2 C2H2(g) + 5 O2(g) ® 4 CO2(g) + 2 H2O(l) ;  DHo = – 2601 kJ\n(A) – 238.6 kJ/mole\n(B) 253.2 kJ/mole\n(C) 238.7 kJ/mole (D) 226.7 kJ/mole\n         TC0113",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p9_q13.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p10_q14",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 14,
+      "answer": "D",
+      "allenCode": "TC0114",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 10,
+      "segments": [
+        [
+          10,
+          45.0,
+          70.0,
+          552.0,
+          147.2200927734375
+        ]
+      ],
+      "text": "N\nQ.14 The heats of formation of CO2(g) and H2O(l) are –394 kJ/mole and –285.8 kJ/mole respectively &\nDHºCombustion [C3H8(g)] = –2221.6 kJ. Then the heat of formation of C3H8(g) is -\n(A) 212.2 kJ/mole\n(B) – 143.3 kJ/mole\n(C) 185.4 kJ/mole (D) – 103.6 kJ/mole\n         TC0114\nEnthalpy of formation and combustion",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p10_q14.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p10_q15",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 15,
+      "answer": "D",
+      "allenCode": "TC0115",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 10,
+      "segments": [
+        [
+          10,
+          45.0,
+          146.2200927734375,
+          552.0,
+          208.1771240234375
+        ]
+      ],
+      "text": "Enthalpy of formation and combustion\nQ15. The enthalpies of combustion of carbon and carbon monoxide are –393.5 and –283 kJ mol–1 respectively.\nThe enthalpy of formation of carbon monoxide per mole :-\n[AIEEE-2004]\n(A) 110.5 kJ\n(B) 676.5 kJ\n(C) –676.5 kJ\n(D) –110.5 kJ\n         TC0115",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p10_q15.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p10_q16",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 16,
+      "answer": "B",
+      "allenCode": "TC0036",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 10,
+      "segments": [
+        [
+          10,
+          45.0,
+          207.1771240234375,
+          552.0,
+          299.8511962890625
+        ]
+      ],
+      "text": "TC0115\nQ.16 Study the following thermochemical equations :\nA ® B   ;  DH  = + 100 kcal\nB ® C   ;  DH  = – 80 kcal\nThe correct order of enthalpies of formation of A, B and C is -\n(A) A < B < C\n(B) A < C < B\n(C) C < A < B\n(D) B < C < A\nTC0036",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p10_q16.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p10_q17",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 17,
+      "answer": "D",
+      "allenCode": "TC0037",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 10,
+      "segments": [
+        [
+          10,
+          45.0,
+          298.8511962890625,
+          552.0,
+          405.2210388183594
+        ]
+      ],
+      "text": "TC0036\nQ.17 N2(g) + 2O2(g) ® 2NO2\nDH = + x kJ\n2NO(g) + O2(g) ® 2NO2(g)\nDH = + y kJ\nThe enthalpy of formation of NO is\n(A) (2x – 2y) kJ/mol\n(B) (x – y) kJ/mol\n(C) 1\n2 (y – x) kJ/mol\n(D) 1\n2 (x –y) kJ/mol\nTC0037\nBond enthalpy",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p10_q17.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p10_q18",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 18,
+      "answer": "C",
+      "allenCode": "TC0116",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 10,
+      "segments": [
+        [
+          10,
+          45.0,
+          404.2210388183594,
+          552.0,
+          466.41705322265625
+        ]
+      ],
+      "text": "Bond enthalpy\nQ.18 The enthalpy change for the following reaction is 513 kJ. Calculate the average Cl – F bond energy.\nClF3(g) ® Cl(g) + 3 F(g)\n(A) 1542 kJ/mole\n(B) 88 kJ/mole\n(C) 171 kJ/mole\n(D) 514 kJ/mole\n         TC0116",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p10_q18.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p10_q19",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 19,
+      "answer": "A",
+      "allenCode": "TC0046",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 10,
+      "segments": [
+        [
+          10,
+          45.0,
+          465.41705322265625,
+          552.0,
+          527.134033203125
+        ]
+      ],
+      "text": "TC0116\nQ.19 If enthalpy change for hydrogenation of ethylene is –132 kJ/mole and enthalpy of formation\n1,3-butadiene (g) and butane (g) are 115 kJ and –140 kJ/mole respectively then calculate resonance\nenergy of 1,3-budadiene (in kJ).\n(A) 9\n(B) 18\n(C) 4\n(D) 10\n     TC0046",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p10_q19.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p10_q20",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 20,
+      "answer": "B",
+      "allenCode": "TC0042",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 10,
+      "segments": [
+        [
+          10,
+          45.0,
+          526.134033203125,
+          552.0,
+          587.132080078125
+        ]
+      ],
+      "text": "(A) 9\n(B) 18\n(C) 4\n(D) 10\n     TC0046\nQ.20 The bond dissociation energy of gaseous H2, Cl2 and HCl are 104, 58 and 103 kcal mol–1\nrespectively. The enthalpy of formation for HCl gas will be :-\n(A) –44.0 kcal/mol\n(B) –22.0 kcal/mol\n(C) 22.0 kcal/mol\n(D) 44.0 kcal/mol\nTC0042",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p10_q20.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p10_q21",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 21,
+      "answer": "D",
+      "allenCode": "TC0042",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 10,
+      "segments": [
+        [
+          10,
+          45.0,
+          586.132080078125,
+          552.0,
+          768.0
+        ]
+      ],
+      "text": "TC0042\nQ.21 The reaction CH4(g) + Cl2(g)  ¾® CH3Cl(g) + HCl(g) has DH = –25 kcal.\nBond\nBond \nEnthalpy\nkCal\neC—Cl\n84\neH—Cl\n103\neC—H\nx\neCl—Cl\ny\nx : y = 9 : 5\nFrom the given data, what is the bond enthalpy of Cl—Cl bond\n(A) 70 kcal/mol\n(B) 80 kcal/mol\n(C) 67.75 kcal/mol\n(D) 57.86 kcal/mol\nTC0043",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p10_q21.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p11_q22",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 22,
+      "answer": "C",
+      "allenCode": "TC0117",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 11,
+      "segments": [
+        [
+          11,
+          45.0,
+          73.74395751953125,
+          552.0,
+          169.0609130859375
+        ]
+      ],
+      "text": "Q.22.The standard enthalphy of formation of NH3  is –46.0 kJ mol–1. If the enthalpy of formation of H2\nfrom its atoms is –436 kJ mol–1 and that of N2 is –712kJ mol–1, the average bond enthalpy of\nN–H bond in NH3 is :-\n(A) –1102 kJ mol–1\n(B) –964 kJ mol–1\n(C) + 352 kJ mol–1 (D) +1056 kJ mol–1\n         TC0117",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p11_q22.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p11_q23",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 23,
+      "answer": "B",
+      "allenCode": "TC0044",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 11,
+      "segments": [
+        [
+          11,
+          45.0,
+          168.0609130859375,
+          552.0,
+          256.1820068359375
+        ]
+      ],
+      "text": "Q.23 If x1, x2 and x3 are enthalpies of H–H, O=O and O–H bonds respectively, and x4 is the enthalpy of\nvaporisation of water, estimate the standard enthalpy of combustion of hydrogen\n(A) x1+ 2\nx2 –2x3+x4\n(B) x1+ 2\nx2 –2x3–x4\n(C) x1+ 2\nx2 –x3+x4 (D) 2x3–x1– 2\nx2 –x4\nTC0044",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p11_q23.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p11_q24",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 24,
+      "answer": "C",
+      "allenCode": "TC0118",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 11,
+      "segments": [
+        [
+          11,
+          45.0,
+          255.1820068359375,
+          552.0,
+          338.5010070800781
+        ]
+      ],
+      "text": "TC0044\nQ.24.If the bond dissociation energies of XY, X2 and Y2 (all gaseous diatomic molecules) are in the ratio of\n1 : 1 : 0.5 and DfH for the formation of XY is –200 kJ mol–1. The bond dissociation energy of X2 will be\n(A) 200 kJ mol–1\n(B) 100 kJ mol–1\n(C) 800 kJ mol–1\n(D) 300 kJ mol–1\n         TC0118",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p11_q24.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p11_q25",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 25,
+      "answer": "B",
+      "allenCode": "TC0045",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 11,
+      "segments": [
+        [
+          11,
+          45.0,
+          337.5010070800781,
+          552.0,
+          395.1400146484375
+        ]
+      ],
+      "text": "Q.25 If bond enthalpy of C–C and C = C are 348 kJ /mole and 615 kJ/mole respectively then calculate enthalpy\nchange (in kJ/mole) which occurs during the isomerisation of cyclopropane (g) into propene(g)\n(A) –267\n(B) 81\n(C) –81\n(D) 267\n        TC0045",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p11_q25.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p11_q26",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 26,
+      "answer": "B",
+      "allenCode": "TC0119",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 11,
+      "segments": [
+        [
+          11,
+          45.0,
+          394.1400146484375,
+          552.0,
+          569.8531494140625
+        ]
+      ],
+      "text": "Q.26 The enthalpy changes for the following processes are listed below :\nCl2(g) = 2Cl(g),\n242.3 kJ mol–1\nI2(g) = 2I(g),\n151.0 kJ mol–1\nICl(g) = I(g) + Cl(g),\n211.3 kJ mol–1\nI2(s) = I2(g),\n62.76 kJ mol–1\nGiven that the standard states for iodine and chlorine are I2(s) and Cl2(g), the standard enthalpy of formation\nfor ICl(g) is :-\n(A) –16.8 kJ mol–1\n(B) +16.8 kJ mol–1\n(C) +244.8 kJ mol–1   (D) –14.6 kJ mol–1\n         TC0119",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p11_q26.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p11_q27",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 27,
+      "answer": "A",
+      "allenCode": "TC0049",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 11,
+      "segments": [
+        [
+          11,
+          45.0,
+          568.8531494140625,
+          552.0,
+          644.2501220703125
+        ]
+      ],
+      "text": "Q.27\n0\nf\nH\nD\n of water is – 285.8 kJ mol–1. If enthalpy of neutralisation of monoacid strong base and mono basic\nstrong acid is –57.3 kJ mol–1, \n0\nf\nH\nD\n of OH– ion will be\n(A) – 228.5 kJ mol–1\n(B) 228.5 kJ mol–1\n(C) 114.25 kJ mol–1   (D) –114.25 kJ mol–1\nTC0049",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p11_q27.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p11_q28",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 28,
+      "answer": "A",
+      "allenCode": "TC0120",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 11,
+      "segments": [
+        [
+          11,
+          45.0,
+          643.2501220703125,
+          552.0,
+          768.0
+        ]
+      ],
+      "text": "Q.28 Oxidising power of chlorine in aqueous solution can be determined by the parameters indicated below:\n1\n2 Cl2(g) ¾¾® Cl(g) ¾¾® Cl–(g) ¾¾® Cl–(aq)\nThe energy involved in the conversion of 1\n2 Cl2(g) to Cl–(aq)\n(Using the data Ddiss \n2\nCl\nHΘ = 240 kJ mol–1, Deg \nCl\nHΘ = –349 kJ mol–1, Dhyd\n-\nCl\nHΘ = –381 kJ mol–1) will be :-\n(A) –610 kJ mol–1\n(B) –850 kJ mol–1\n(C) +120 kJ mol–1 (D) +152 kJ mol–1\nTC0120",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p11_q28.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p12_q29",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 29,
+      "answer": "B",
+      "allenCode": "TC0121",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 12,
+      "segments": [
+        [
+          12,
+          45.0,
+          71.823974609375,
+          552.0,
+          149.14398193359375
+        ]
+      ],
+      "text": "Q.29 The lattice enthalpy of solid NaCl is 772 kJmol–1 and enthalpy of solution is 2 kJmol–1. If the hydration\nenthalpy of Na+ & Cl– ions are in the ratio of 3:2.5, what is the enthalpy of hydration of chloride ion?\n(A) –140 kJmol–1\n(B) –350 kJmol–1\n(C) –351.81 kJmol–1       (D) –420 kJ/mol\n         TC0121",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p12_q29.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p12_q30",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 30,
+      "answer": "B",
+      "allenCode": "TC0051",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 12,
+      "segments": [
+        [
+          12,
+          45.0,
+          148.14398193359375,
+          552.0,
+          326.02203369140625
+        ]
+      ],
+      "text": "Q.30 The enthalpy changes of the following reactions at 27°C are\nNa(s) + 2\n1 Cl2 (g) ¾® NaCl (s)\nDrH = –411 kJ/mol\nH2(g) + S (s) + 2O2 (g) ¾® H2SO4 (l)\nDrH = –811 kJ/mol\n2Na(s) + S(s) + 2O2 (g) ¾® Na2SO4 (s)\nDrH = –1382 kJ/mol\n2\n1 H2(g) + 2\n1 Cl2(g) ¾® HCl (g)\nDrH = –92 kJ/mol;\nfrom these data, the heat change of reaction at constant volume ( in kJ/mol) at 27°C for the process\n2NaCl (s) + H2SO4 (l) ¾® Na2SO4 (s) + 2HCl (g) is (R = 8.3 J/K-mol)\n(A) 67\n(B) 62.02\n(C) 71.98\n(D) 64.51\n      TC0051",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p12_q30.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o1_p12_q31",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-1",
+      "bank": "O-1",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 31,
+      "answer": "C",
+      "allenCode": "TC0052",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 12,
+      "segments": [
+        [
+          12,
+          45.0,
+          325.02203369140625,
+          552.0,
+          444.93304443359375
+        ]
+      ],
+      "text": "Q.31 Reactions involving gold have been of particular interest to a chemist . Consider the following reactions,\nAu(OH)3 + 4 HCl ¾® HAuCl4 + 3 H2O ,\n DH = - 28 kcal\nAu(OH)3 + 4 HBr ¾®HAuBr4 + 3 H2O ,\n DH = - 36.8 kcal\nIn an experiment there was an absorption of 0.44 kcal when one mole of HAuBr4 was mixed with\n4 moles of HCl . What is the percentage conversion of  HAuBr4 into HAuCl4 ?\n(A) 0.5 %\n(B) 0.6 %\n(C) 5 %\n(D) 50 %\n     TC0052",
+      "images": [
+        "zipimg:allenjee_images_o1_part2.zip#allenjee_thermochemistry_o1_p12_q31.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-1)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o2_p13_q1",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-2",
+      "bank": "O-2",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 1,
+      "answer": "D",
+      "allenCode": "TC0053",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 13,
+      "segments": [
+        [
+          13,
+          45.0,
+          110.94207763671875,
+          552.0,
+          220.1800537109375
+        ]
+      ],
+      "text": "g\nQ.1\nWhat is the ratio of the enthalpy yield on combustion of hydrogen atoms to steam to the yield on\ncombustion of an equal mass of hydrogen molecules to steam?\nGiven : H2(g) + 2\n1 O2(g) ®  H2O(g) ; DH = – 242 kJ\nB.E. (H – H) = 436 kJ\n(A) 0.80 : 1\n(B) 1 : 0.80\n(C) 1.80 : 1\n(D) 2.80 : 1\nTC0053",
+      "images": [
+        "zipimg:allenjee_images_o2.zip#allenjee_thermochemistry_o2_p13_q1.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-2)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o2_p13_q2",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-2",
+      "bank": "O-2",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 2,
+      "answer": "C",
+      "allenCode": "TC0054",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 13,
+      "segments": [
+        [
+          13,
+          45.0,
+          219.1800537109375,
+          552.0,
+          307.05902099609375
+        ]
+      ],
+      "text": "Q.2\nFor the allotropic change represented by the equation C (graphite) ¾® C (diamond), DH = 1.9 kJ.\nIf 6 g of diamond and 6 g of graphite are separately burnt to yield CO2, the heat  liberated in first case is\n(A) less than in the second case by 1.9 kJ\n(B) more than in the second case by 11.4 kJ\n(C) more than in the second case by 0.95 kJ\n(D) less than in the second case by 11.4 kJ\nTC0054",
+      "images": [
+        "zipimg:allenjee_images_o2.zip#allenjee_thermochemistry_o2_p13_q2.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-2)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o2_p13_q3",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-2",
+      "bank": "O-2",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 3,
+      "answer": "A",
+      "allenCode": "TC0055",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 13,
+      "segments": [
+        [
+          13,
+          45.0,
+          306.05902099609375,
+          552.0,
+          446.73004150390625
+        ]
+      ],
+      "text": "Q.3\n(i) Cis-2 - butene ®  trans - 2 - butene, DH1\n(ii) Cis - 2- butene ®  1 - butene, DH2\n(iii) Enthalpy of combustion of 1-butene, DH = -649.8 kcal/mol\n(iv) 9DH1  +  5 D H2 = 0\n(v) Enthalpy of combustion of trans 2 - butene, DH = -647.0 kcal/mol.\nThe value of DH1 & DH2  in Kcal/mole are\n(A) -1.0 , 1.8\n(B) 1.8, –1.0\n(C) –5, 9\n(D) –2, 3.6\nTC0055",
+      "images": [
+        "zipimg:allenjee_images_o2.zip#allenjee_thermochemistry_o2_p13_q3.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-2)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o2_p13_q4",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-2",
+      "bank": "O-2",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 4,
+      "answer": "A",
+      "allenCode": "TC0056",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 13,
+      "segments": [
+        [
+          13,
+          45.0,
+          445.73004150390625,
+          552.0,
+          634.4229736328125
+        ]
+      ],
+      "text": "Q.4\nHydrazine, a component of rocket fuel, undergoes combustion to yield N2 and H2O.\nN2H4 (l) + O2 (g) ¾® N2 (g) + 2H2O (l)\nWhat is the enthalpy change of combustion of N2H4 (kJ/mole)\nGiven Reaction\nDH/kJ\n2NH3 (g) + 3N2O (g) ¾® 4N2 (g) + 3H2O (l)\n– 1011 kJ\nN2O (g) + 3H2 (g) ¾® N2H4 (l) + H2O (l)\n– 317 kJ\n4NH3 (g) + O2 (g) ¾® 2N2H4 (l) + 2H2O (l)\n– 286 kJ\nH2 (g) + 2\n1 O2 (g) ¾® H2O (l)\n– 285 kJ\n(A) – 620.5\n(B) – 622.75\n(C) 1167.5\n(D) + 622.75\nTC0056",
+      "images": [
+        "zipimg:allenjee_images_o2.zip#allenjee_thermochemistry_o2_p13_q4.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-2)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o2_p13_q5",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-2",
+      "bank": "O-2",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 5,
+      "answer": "B",
+      "allenCode": "TC0057",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 13,
+      "segments": [
+        [
+          13,
+          45.0,
+          633.4229736328125,
+          552.0,
+          754.7740478515625
+        ]
+      ],
+      "text": "Q.5\nThe enthalpy change for the reaction,\nCH3CHO (g) ® CH4(g) + CO(g) at 300 K is – 17.0 kJ/mol\nCalculate the temperature at which DrH for the reaction will be zero.\n[Given : Cp,m (CH4,g ) = 38 J/K mol ; Cp,m (CO, g) = 31 J/K mol & Cp,m (CH3CHO,g) = 52 J/K mol]\n(A) 1300°C\n(B) 1027°C\n(C) 700°C\n(D) 754ºC\nTC0057",
+      "images": [
+        "zipimg:allenjee_images_o2.zip#allenjee_thermochemistry_o2_p13_q5.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-2)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o2_p14_q6",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-2",
+      "bank": "O-2",
+      "type": "multi",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 6,
+      "answer": "C,D",
+      "allenCode": "TC0058",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 14,
+      "segments": [
+        [
+          14,
+          45.0,
+          87.42401123046875,
+          552.0,
+          179.14300537109375
+        ]
+      ],
+      "text": "y\nQ.6\nSelect the correct option -\n(A) DHf(H(g)) is equal to DHatomisation of H2(g)\n(B) DHBE(H–H) is equal to DHf of H(g)\n(C) DHBE(H–H) is equal to DHatomisation of H2(g)\n(D) DHcombustion [H2(g)] is equal to DHf [H2O(l)] at 300K\nTC0058",
+      "images": [
+        "zipimg:allenjee_images_o2.zip#allenjee_thermochemistry_o2_p14_q6.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-2)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o2_p14_q7",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-2",
+      "bank": "O-2",
+      "type": "multi",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 7,
+      "answer": "A,B,D",
+      "allenCode": "TC0059",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 14,
+      "segments": [
+        [
+          14,
+          45.0,
+          178.14300537109375,
+          552.0,
+          310.180908203125
+        ]
+      ],
+      "text": "combustion \n2\nf\n2\nQ.7\nWhich of the following statement is (are) correct ?\n(A) for any reaction DrHº \n0\nfH\n= åD\nproduct\n – åDfH0\nreactant\n(B) \n°\nD\nf\nH of CO2(g) is same as the DH°comb. of carbon graphite\n(C) All exothermic gaseous reactions, å (B.E.)reactants > å (B.E.)products\n(D)  for a reaction N2(g) + O2(g) ¾® 2NO(g), the heat at constant pressure and the heat at constant volume\n     at a given temperature are same\nTC0059",
+      "images": [
+        "zipimg:allenjee_images_o2.zip#allenjee_thermochemistry_o2_p14_q7.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-2)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o2_p14_q8",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-2",
+      "bank": "O-2",
+      "type": "multi",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 8,
+      "answer": "A,B,C,D",
+      "allenCode": "TC0060",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 14,
+      "segments": [
+        [
+          14,
+          45.0,
+          309.180908203125,
+          552.0,
+          409.7820129394531
+        ]
+      ],
+      "text": "g\np\nQ.8\nWhich of the following do(es) not represent DH0 formation of the product.\n(A) H2(g) + I2(s) ¾® 2HI(g)\n(B) 3\n2 O3(g) ¾® O2(g)\n(C)\n+\n4\nNH (g) + Cl–(g) ¾® NH4Cl(s)\n(D) P4(black) + 5O2 (g) ¾® P4O10(s)\n(E) Reaction representing DHcombustionof C (graphite).\nTC0060",
+      "images": [
+        "zipimg:allenjee_images_o2.zip#allenjee_thermochemistry_o2_p14_q8.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-2)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o2_p14_q9",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-2",
+      "bank": "O-2",
+      "type": "multi",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 9,
+      "answer": "A,D",
+      "allenCode": "TC0061",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 14,
+      "segments": [
+        [
+          14,
+          45.0,
+          408.7820129394531,
+          552.0,
+          653.384033203125
+        ]
+      ],
+      "text": "p\ng\ncombustion \ng p\nQ.9\nFrom the following data at 25°C\nReaction\nDrH° kJ/mol\n2\n1 H2(g) + 2\n1 O2(g) ¾® OH (g)\n42\nH2(g) + 2\n1 O2(g) ¾® H2O(g)\n–242\nH2(g) ¾® 2H(g)\n436\nO2(g) ¾® 2O(g)\n495\nWhich of the following statement(s) is/are correct:\n(A) DrH° for the reaction H2O (g) ¾® 2H(g) + O(g) is 925.5 kJ/mol\n(B) DrH° for the reaction  OH(g) ¾® H(g) + O(g) is 502 kJ/mol\n(C) Enthalpy of formation of H(g) is –218 kJ/mol\n(D) Enthalpy of formation of OH(g) is 42 kJ/mol\nTC0061\nMatch the column :",
+      "images": [
+        "zipimg:allenjee_images_o2.zip#allenjee_thermochemistry_o2_p14_q9.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-2)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o2_p14_q10",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-2",
+      "bank": "O-2",
+      "type": "matrix",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 10,
+      "answer": "A-P,Q; B-P,R; C-S; D-R",
+      "allenCode": "TC0062",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 14,
+      "segments": [
+        [
+          14,
+          45.0,
+          652.384033203125,
+          552.0,
+          768.0
+        ]
+      ],
+      "text": "Q.10\nColumn-I\nColumn-II\n(A)\nC(graphite) + O2(g) ® CO2(g)\n(P)\nDH0\nformation\n(B)\nC(graphite) ®  C(gas)\n(Q)\nDH0\ncombustion\n(C)\nCH3COOH(aq) + OH– (aq) ® CH3COO–(aq) + H2O(l)\n(R)\nDH0\natomization\n(D)\nCH4(g) ®  C(g) + 4H(g)\n(S)\nDH0 \nneutralization\nTC0062",
+      "images": [
+        "zipimg:allenjee_images_o2.zip#allenjee_thermochemistry_o2_p14_q10.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-2)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o2_p15_q11",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-2",
+      "bank": "O-2",
+      "type": "single",
+      "paragraph": false,
+      "paragraphId": null,
+      "passageHeader": null,
+      "passageText": null,
+      "passageImages": [],
+      "questionNumber": 11,
+      "answer": "B",
+      "allenCode": "TC0063",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 15,
+      "segments": [
+        [
+          15,
+          45.0,
+          90.78497314453125,
+          552.0,
+          426.8207092285156
+        ]
+      ],
+      "text": "Q.11\nMatch the enthalpy change (DH) mentioned in list-II for 16 gm O2 with the various reaction in\nlist-I.\nList-I\nList-II (DH in kJ)\n(P)\n2C2H2 + 5O2(g) ¾® 4CO2(g) + 2H2O(l), DH– 2601 kJ\n(A) –285.8\n(Q)\nH2(g) + 1/2O2(g)  ¾® H2O(g), DH= – 285.8 kJ\n(B)\n–196.75\n(R)\n3FeO(s) + 1/2O2(g) ¾® Fe3O4(s), DH = –302.4 kJ\n(C)\n–260.1\n(S)\nCgraphite + O2(g) ¾® CO2(g), DH = –393.5 kJ\n(D) –302.4\n       TC0063\nCode\n:\nP\nQ\nR\nS\n(A)\n4\n1\n3\n2\n(B)\n3\n1\n4\n2\n(C)\n3\n4\n1\n2\n(D)\n2\n3\n1\n4\nParagraph for Q.12 & Q.13\nBond dissociation enthalpy of the first H–S bond in hydrogen sulphide is 376 kJ/mole. The enthalpies of\nformation of H2S(g) and S(g) are –20.0 and 277.0 kJ/mole respectively. The enthalpy of formation of gaseous\nhydrogen atom is 218 kJ/mole. Using above information, answer following questions :",
+      "images": [
+        "zipimg:allenjee_images_o2.zip#allenjee_thermochemistry_o2_p15_q11.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-2)"
+    },
+    {
+      "id": "allenjee_thermochemistry_o2_p15_q12",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-2",
+      "bank": "O-2",
+      "type": "paragraph",
+      "paragraph": true,
+      "paragraphId": "allenjee_thermochemistry_o2_para_12_13",
+      "passageHeader": "(Paragraph for Questions 12 to 13)",
+      "passageText": "Paragraph for Q.12 & Q.13\nBond dissociation enthalpy of the first H–S bond in hydrogen sulphide is 376 kJ/mole. The enthalpies of\nformation of H2S(g) and S(g) are –20.0 and 277.0 kJ/mole respectively. The enthalpy of formation of gaseous\nhydrogen atom is 218 kJ/mole. Using above information, answer following questions :",
+      "passageImages": [
+        "zipimg:allenjee_images_o2.zip#allenjee_thermochemistry_o2_para_12_13_passage.svg"
+      ],
+      "questionNumber": 12,
+      "answer": "A",
+      "allenCode": "TC0064",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 15,
+      "segments": [
+        [
+          15,
+          45.0,
+          425.8207092285156,
+          552.0,
+          485.3807067871094
+        ]
+      ],
+      "text": "Q.12 The enthalpy of formation of free radical HS is\n(A) 138 kJ/mole\n(B) –138 kJ/mole\n(C) –10 kJ/mole\n(D) 357 kJ/mole\nTC0064",
+      "images": [
+        "zipimg:allenjee_images_o2.zip#allenjee_thermochemistry_o2_p15_q12.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-2)",
+      "paragraphGroup": [
+        "allenjee_thermochemistry_o2_p15_q12",
+        "allenjee_thermochemistry_o2_p15_q13"
+      ]
+    },
+    {
+      "id": "allenjee_thermochemistry_o2_p15_q13",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-2",
+      "bank": "O-2",
+      "type": "paragraph",
+      "paragraph": true,
+      "paragraphId": "allenjee_thermochemistry_o2_para_12_13",
+      "passageHeader": "(Paragraph for Questions 12 to 13)",
+      "passageText": "Paragraph for Q.12 & Q.13\nBond dissociation enthalpy of the first H–S bond in hydrogen sulphide is 376 kJ/mole. The enthalpies of\nformation of H2S(g) and S(g) are –20.0 and 277.0 kJ/mole respectively. The enthalpy of formation of gaseous\nhydrogen atom is 218 kJ/mole. Using above information, answer following questions :",
+      "passageImages": [
+        "zipimg:allenjee_images_o2.zip#allenjee_thermochemistry_o2_para_12_13_passage.svg"
+      ],
+      "questionNumber": 13,
+      "answer": "C",
+      "allenCode": "TC0064",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 15,
+      "segments": [
+        [
+          15,
+          45.0,
+          484.3807067871094,
+          552.0,
+          671.863037109375
+        ]
+      ],
+      "text": "Q.13 The bond dissociation enthalpy of the free radical HS is\n(A) 138 kJ/mole\n(B) 276 kJ/mole\n(C) 357 kJ/mole\n(D) 376 kJ/mole\nTC0064\nParagraph for Q.14 & Q.15\nAmount of heat evolved during complete combustion of liquid benzene can be calculated from the\nfollowing data.\n(i) 18 gm of graphite on complete combustion evolve 591 kJ heat\n(ii) \nº\nf\n2\nH (H O, )\nD\nl = – 286 kJ/mol\n(iii) The heat of formation of liquid benzene is 50 kJ /mole",
+      "images": [
+        "zipimg:allenjee_images_o2.zip#allenjee_thermochemistry_o2_p15_q13.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-2)",
+      "paragraphGroup": [
+        "allenjee_thermochemistry_o2_p15_q12",
+        "allenjee_thermochemistry_o2_p15_q13"
+      ]
+    },
+    {
+      "id": "allenjee_thermochemistry_o2_p15_q14",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-2",
+      "bank": "O-2",
+      "type": "paragraph",
+      "paragraph": true,
+      "paragraphId": "allenjee_thermochemistry_o2_para_14_15",
+      "passageHeader": "(Paragraph for Questions 14 to 15)",
+      "passageText": "Paragraph for Q.12 & Q.13\nBond dissociation enthalpy of the first H–S bond in hydrogen sulphide is 376 kJ/mole. The enthalpies of\nformation of H2S(g) and S(g) are –20.0 and 277.0 kJ/mole respectively. The enthalpy of formation of gaseous\nhydrogen atom is 218 kJ/mole. Using above information, answer following questions :\nQ.12 The enthalpy of formation of free radical HS is\n(A) 138 kJ/mole\n(B) –138 kJ/mole\n(C) –10 kJ/mole\n(D) 357 kJ/mole\nTC0064\nQ.13 The bond dissociation enthalpy of the free radical HS is\n(A) 138 kJ/mole\n(B) 276 kJ/mole\n(C) 357 kJ/mole\n(D) 376 kJ/mole\nTC0064\nParagraph for Q.14 & Q.15\nAmount of heat evolved during complete combustion of liquid benzene can be calculated from the\nfollowing data.\n(i) 18 gm of graphite on complete combustion evolve 591 kJ heat\n(ii) \nº\nf\n2\nH (H O, )\nD\nl = – 286 kJ/mol\n(iii) The heat of formation of liquid benzene is 50 kJ /mole",
+      "passageImages": [
+        "zipimg:allenjee_images_o2.zip#allenjee_thermochemistry_o2_para_14_15_passage.svg"
+      ],
+      "questionNumber": 14,
+      "answer": "C",
+      "allenCode": "TC0065",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 15,
+      "segments": [
+        [
+          15,
+          45.0,
+          670.863037109375,
+          552.0,
+          730.4210205078125
+        ]
+      ],
+      "text": "Q.14 Heat of formation of CO2(g) from following data is-\n(A) –286 kJ/mole\n(B) –590 kJ/mole\n(C) –394 kJ/mole\n(D) –3268 kJ/mole\nTC0065",
+      "images": [
+        "zipimg:allenjee_images_o2.zip#allenjee_thermochemistry_o2_p15_q14.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-2)",
+      "paragraphGroup": [
+        "allenjee_thermochemistry_o2_p15_q14",
+        "allenjee_thermochemistry_o2_p15_q15"
+      ]
+    },
+    {
+      "id": "allenjee_thermochemistry_o2_p15_q15",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-2",
+      "bank": "O-2",
+      "type": "paragraph",
+      "paragraph": true,
+      "paragraphId": "allenjee_thermochemistry_o2_para_14_15",
+      "passageHeader": "(Paragraph for Questions 14 to 15)",
+      "passageText": "Paragraph for Q.12 & Q.13\nBond dissociation enthalpy of the first H–S bond in hydrogen sulphide is 376 kJ/mole. The enthalpies of\nformation of H2S(g) and S(g) are –20.0 and 277.0 kJ/mole respectively. The enthalpy of formation of gaseous\nhydrogen atom is 218 kJ/mole. Using above information, answer following questions :\nQ.12 The enthalpy of formation of free radical HS is\n(A) 138 kJ/mole\n(B) –138 kJ/mole\n(C) –10 kJ/mole\n(D) 357 kJ/mole\nTC0064\nQ.13 The bond dissociation enthalpy of the free radical HS is\n(A) 138 kJ/mole\n(B) 276 kJ/mole\n(C) 357 kJ/mole\n(D) 376 kJ/mole\nTC0064\nParagraph for Q.14 & Q.15\nAmount of heat evolved during complete combustion of liquid benzene can be calculated from the\nfollowing data.\n(i) 18 gm of graphite on complete combustion evolve 591 kJ heat\n(ii) \nº\nf\n2\nH (H O, )\nD\nl = – 286 kJ/mol\n(iii) The heat of formation of liquid benzene is 50 kJ /mole",
+      "passageImages": [
+        "zipimg:allenjee_images_o2.zip#allenjee_thermochemistry_o2_para_14_15_passage.svg"
+      ],
+      "questionNumber": 15,
+      "answer": "A",
+      "allenCode": "TC0065",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 15,
+      "segments": [
+        [
+          15,
+          45.0,
+          729.4210205078125,
+          552.0,
+          768.0
+        ]
+      ],
+      "text": "Q.15 Find heat evolved from combustion of 78 gm benzene\n(A) 3272 kJ\n(B) 6345 kJ\n(C) 4536 kJ\n(D) 5364 kJ\nTC0065",
+      "images": [
+        "zipimg:allenjee_images_o2.zip#allenjee_thermochemistry_o2_p15_q15.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-2)",
+      "paragraphGroup": [
+        "allenjee_thermochemistry_o2_p15_q14",
+        "allenjee_thermochemistry_o2_p15_q15"
+      ]
+    },
+    {
+      "id": "allenjee_thermochemistry_o2_p16_q16",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-2",
+      "bank": "O-2",
+      "type": "paragraph",
+      "paragraph": true,
+      "paragraphId": "allenjee_thermochemistry_o2_para_16_18",
+      "passageHeader": "(Table / Comprehension for Questions 16 to 18)",
+      "passageText": "N\nTable Type Question :\nColumn-I\nColumn-II\nColumn-III\n(Reactions)\n(Characteristics)\n    (Characteristics)\n(I)\nC(s) + O2(g) ® CO2(g)\n(i)\nDH = +ve\n(P) DH > DE\n(II)\nSO3(g) ® SO2(g) + 1\n2 O2(g)\n(ii) Dng = +ve\n(Q) | DH | > |DE|\n(III) 2CO(g) + O2(g) ® 2CO2(g)\n(iii) Dng = –ve\n(R) DH < DE\n(IV) C(s) + 1\n2 O2(g) ® CO(g)\n(iv) DH = –ve\n(S) | DH | < | DE |",
+      "passageImages": [
+        "zipimg:allenjee_images_o2.zip#allenjee_thermochemistry_o2_para_16_18_passage.svg"
+      ],
+      "questionNumber": 16,
+      "answer": "B",
+      "allenCode": "TC0066",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 16,
+      "segments": [
+        [
+          16,
+          45.0,
+          242.9429931640625,
+          552.0,
+          296.261962890625
+        ]
+      ],
+      "text": "Q.16 Which of the following is only correct match ?\n(A) I , i , P\n(B) II , ii , Q\n(C) III , iii , S\n(D) IV , iv , R\nTC0066",
+      "images": [
+        "zipimg:allenjee_images_o2.zip#allenjee_thermochemistry_o2_p16_q16.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-2)",
+      "paragraphGroup": [
+        "allenjee_thermochemistry_o2_p16_q16",
+        "allenjee_thermochemistry_o2_p16_q17",
+        "allenjee_thermochemistry_o2_p16_q18"
+      ]
+    },
+    {
+      "id": "allenjee_thermochemistry_o2_p16_q17",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-2",
+      "bank": "O-2",
+      "type": "paragraph",
+      "paragraph": true,
+      "paragraphId": "allenjee_thermochemistry_o2_para_16_18",
+      "passageHeader": "(Table / Comprehension for Questions 16 to 18)",
+      "passageText": "N\nTable Type Question :\nColumn-I\nColumn-II\nColumn-III\n(Reactions)\n(Characteristics)\n    (Characteristics)\n(I)\nC(s) + O2(g) ® CO2(g)\n(i)\nDH = +ve\n(P) DH > DE\n(II)\nSO3(g) ® SO2(g) + 1\n2 O2(g)\n(ii) Dng = +ve\n(Q) | DH | > |DE|\n(III) 2CO(g) + O2(g) ® 2CO2(g)\n(iii) Dng = –ve\n(R) DH < DE\n(IV) C(s) + 1\n2 O2(g) ® CO(g)\n(iv) DH = –ve\n(S) | DH | < | DE |",
+      "passageImages": [
+        "zipimg:allenjee_images_o2.zip#allenjee_thermochemistry_o2_para_16_18_passage.svg"
+      ],
+      "questionNumber": 17,
+      "answer": "C",
+      "allenCode": "TC0066",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 16,
+      "segments": [
+        [
+          16,
+          45.0,
+          295.261962890625,
+          552.0,
+          348.8199157714844
+        ]
+      ],
+      "text": "Q.17 Which of the following is only incorrect match ?\n(A) II , i , P\n(B) III , iv , R\n(C) IV , iii , S\n(D) II , ii , Q\nTC0066",
+      "images": [
+        "zipimg:allenjee_images_o2.zip#allenjee_thermochemistry_o2_p16_q17.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-2)",
+      "paragraphGroup": [
+        "allenjee_thermochemistry_o2_p16_q16",
+        "allenjee_thermochemistry_o2_p16_q17",
+        "allenjee_thermochemistry_o2_p16_q18"
+      ]
+    },
+    {
+      "id": "allenjee_thermochemistry_o2_p16_q18",
+      "chapter": "Thermochemistry",
+      "subject": "Chemistry",
+      "branch": "Physical Chemistry",
+      "paper": "allen_jee",
+      "exercise": "O-2",
+      "bank": "O-2",
+      "type": "paragraph",
+      "paragraph": true,
+      "paragraphId": "allenjee_thermochemistry_o2_para_16_18",
+      "passageHeader": "(Table / Comprehension for Questions 16 to 18)",
+      "passageText": "N\nTable Type Question :\nColumn-I\nColumn-II\nColumn-III\n(Reactions)\n(Characteristics)\n    (Characteristics)\n(I)\nC(s) + O2(g) ® CO2(g)\n(i)\nDH = +ve\n(P) DH > DE\n(II)\nSO3(g) ® SO2(g) + 1\n2 O2(g)\n(ii) Dng = +ve\n(Q) | DH | > |DE|\n(III) 2CO(g) + O2(g) ® 2CO2(g)\n(iii) Dng = –ve\n(R) DH < DE\n(IV) C(s) + 1\n2 O2(g) ® CO(g)\n(iv) DH = –ve\n(S) | DH | < | DE |",
+      "passageImages": [
+        "zipimg:allenjee_images_o2.zip#allenjee_thermochemistry_o2_para_16_18_passage.svg"
+      ],
+      "questionNumber": 18,
+      "answer": "D",
+      "allenCode": "TC0066",
+      "pdfName": "allen jee/Chemistry[Separate]/Pc/Exercise/Thermo chem.pdf",
+      "page": 16,
+      "segments": [
+        [
+          16,
+          45.0,
+          347.8199157714844,
+          552.0,
+          406.2119140625
+        ]
+      ],
+      "text": "Q.18 Which of the following is only correct match ?\n(A) I , ii , Q\n(B) II , iii , Q\n(C) III , iv , S\n(D) IV , ii , P\nTC0066",
+      "images": [
+        "zipimg:allenjee_images_o2.zip#allenjee_thermochemistry_o2_p16_q18.svg"
+      ],
+      "paperTitle": "Allen JEE Chemistry - Thermochemistry (O-2)",
+      "paragraphGroup": [
+        "allenjee_thermochemistry_o2_p16_q16",
+        "allenjee_thermochemistry_o2_p16_q17",
+        "allenjee_thermochemistry_o2_p16_q18"
+      ]
     }
   ]
 }

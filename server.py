@@ -594,6 +594,8 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
                 "pdfUrl": pdf_url,
                 "studentPdfUrl": f"/generated_tests/{student_filename}",
                 "keyPdfUrl": f"/generated_tests/{key_filename}",
+                "studentFilename": student_filename,
+                "keyFilename": key_filename,
                 "latestUrl": latest_url,
                 "filename": out_filename,
                 "totalQuestions": res["total_questions"],

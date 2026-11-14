@@ -2684,6 +2684,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
     <button class="btn sm" id="sheetAddRandomBtn" type="button" title="Add another random question and rebuild sheet">+ Add Random Question</button>
     <span class="tb-title" id="sheetDocTitle">Vector Test Sheet Preview</span>
   </div><div class="sheet-tools-right">
+    <button class="btn sm" id="sheetToggleViewBtn" type="button" style="background:var(--surface-2);color:var(--fg);font-weight:600" title="Toggle between HTML Web Preview and PDF Viewer">📄 PDF View</button>
     <button class="btn sm primary" id="sheetDownloadStudentBtn" type="button" style="background:#2563eb;color:#fff;border-color:#2563eb;font-weight:700" title="Download or print the Student Copy containing questions only">📥 Download Student Copy</button>
     <button class="btn sm" id="sheetDownloadKeyBtn" type="button" style="background:#059669;color:#fff;border-color:#059669;font-weight:700" title="Download or print the Answer Key only">🔑 Download Answer Key</button>
     <button class="btn sm" id="sheetPrintCompleteBtn" type="button" style="color:#e2e8f0;border-color:#55595d" title="Download or print complete paper with questions and answer key">Complete Paper</button>
@@ -2691,9 +2692,9 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
     <button class="btn sm" id="sheetStartCbtBtn" type="button">Take as CBT Exam</button>
   </div></div></div>
 
-  <div class="sheet-view-wrap" style="padding:0;height:calc(100vh - 56px);overflow-y:auto;background:#525659">
-    <iframe id="sheetPdfFrame" src="about:blank" style="width:100%;height:100%;border:none;background:#525659;display:block"></iframe>
-    <div id="sheetDocContainer" style="display:none;padding:20px 16px 60px 16px"></div>
+  <div class="sheet-view-wrap" style="padding:0;height:calc(100vh - 56px);overflow-y:auto;background:var(--surface)">
+    <div id="sheetDocContainer" style="display:block;padding:20px 16px 60px 16px"></div>
+    <iframe id="sheetPdfFrame" src="about:blank" style="width:100%;height:100%;border:none;background:#525659;display:none"></iframe>
   </div>
 </div>
 
@@ -5676,6 +5677,23 @@ document.addEventListener('click',e=>{
     }
   }
   else if(b.id==='btnGenCbt' || b.id==='sheetStartCbtBtn'){ startCbtFromBuilder(); }
+  else if(b.id==='sheetToggleViewBtn'){
+    const frame = $('#sheetPdfFrame');
+    const container = $('#sheetDocContainer');
+    if(frame && container){
+      const showingPdf = frame.style.display !== 'none';
+      if(showingPdf){
+        frame.style.display = 'none';
+        container.style.display = 'block';
+        b.textContent = '📄 PDF View';
+      } else {
+        if(tbCfg.lastFullPdfUrl) frame.src = tbCfg.lastFullPdfUrl + '#toolbar=1&navpanes=0&view=FitH';
+        frame.style.display = 'block';
+        container.style.display = 'none';
+        b.textContent = '🌐 Web Preview';
+      }
+    }
+  }
   else if(b.id==='sheetDownloadStudentBtn'){
     downloadOrPrintStudentCopy();
   }
@@ -7426,36 +7444,38 @@ async function buildCustomSheet(customQs){
     tbCfg.lastStudentPdfUrl = data.studentPdfUrl ? (data.studentPdfUrl.startsWith('http') ? data.studentPdfUrl : (usedBaseUrl + data.studentPdfUrl)) : null;
     tbCfg.lastAnswerKeyPdfUrl = data.keyPdfUrl ? (data.keyPdfUrl.startsWith('http') ? data.keyPdfUrl : (usedBaseUrl + data.keyPdfUrl)) : null;
     tbCfg.lastFullPdfUrl = fullPdfUrl;
+    tbCfg.studentFilename = data.studentFilename || 'practice_sheet_student_copy.pdf';
+    tbCfg.keyFilename = data.keyFilename || 'practice_sheet_answer_key.pdf';
 
+    // Show the HTML web preview by default so user sees the complete interactive sheet pages!
     const frame = $('#sheetPdfFrame');
-    if(frame){
-      frame.style.display = 'block';
-      frame.src = fullPdfUrl + '#toolbar=1&navpanes=0&view=FitH';
-    }
+    if(frame) frame.style.display = 'none';
     const container = $('#sheetDocContainer');
-    if(container) container.style.display = 'none';
+    if(container) container.style.display = 'block';
+
+    show('scrSheetView');
+    await renderSheetDoc(qs, {
+      title: title,
+      subtitle: subtitle,
+      pattern: tbCfg.pattern,
+      timeLimit: (tbCfg.pattern === 'main' ? 180 : (qs.length * 3)),
+      includeKey: true,
+      includeSol: includeSol,
+      noWatermark: true
+    }, (done, total) => {
+      const pct = Math.max(10, Math.round((done / Math.max(total, 1)) * 100));
+      if(pBar) pBar.style.width = pct + '%';
+      if(pPct) pPct.textContent = pct + '%';
+    });
 
     const tabBtn = $('#sheetOpenTabBtn');
     if(tabBtn) tabBtn.href = fullPdfUrl;
     $('#sheetDocTitle').textContent = title + ' (' + data.totalQuestions + ' Qs, ' + data.totalPages + ' Pages)';
 
-    // Trigger direct local download of student copy automatically
-    try {
-      const stdUrl = tbCfg.lastStudentPdfUrl || fullPdfUrl;
-      const a = document.createElement('a');
-      a.href = stdUrl + (stdUrl.includes('?') ? '&' : '?') + 'download=1';
-      a.download = data.studentFilename || 'practice_sheet_student_copy.pdf';
-      document.body.appendChild(a);
-      a.click();
-      setTimeout(() => a.remove(), 400);
-      showToast('Downloaded Student Copy PDF! (' + (data.studentFilename || 'practice_sheet_student_copy.pdf') + ')');
-    } catch(dlErr) {
-      console.warn('Auto-download fallback:', dlErr);
-    }
-
-    $('#tbStatusNote').textContent = 'Vector PDF created successfully! (' + data.totalQuestions + ' Qs, ' + data.totalPages + ' pages)';
+    // DO NOT auto-download! Keep user on the web preview with Student Copy & Answer Key buttons ready
+    $('#tbStatusNote').textContent = 'Vector PDF compiled! Web preview loaded below with Student Copy & Answer Key download buttons.';
     saveTbTestToArchive({ isGenerated: true, pdfUrl: fullPdfUrl, filename: data.filename || 'practice_sheet.pdf' });
-    show('scrSheetView');
+    showToast('Practice sheet preview ready! Click "Download Student Copy" or "Download Answer Key" above.');
   } catch(err){
     console.error('Vector sheet build error:', err);
     alert('Error generating vector test sheet: ' + err.message + '\n\nPlease ensure the local server or cloud engine is running.');
@@ -7476,7 +7496,7 @@ function downloadOrPrintStudentCopy(){
   if(tbCfg.lastStudentPdfUrl){
     const a = document.createElement('a');
     a.href = tbCfg.lastStudentPdfUrl + (tbCfg.lastStudentPdfUrl.includes('?') ? '&' : '?') + 'download=1';
-    a.download = 'practice_sheet_student_copy.pdf';
+    a.download = tbCfg.studentFilename || 'practice_sheet_student_copy.pdf';
     document.body.appendChild(a);
     a.click();
     setTimeout(() => a.remove(), 400);
@@ -7496,7 +7516,7 @@ function downloadOrPrintAnswerKey(){
   if(tbCfg.lastAnswerKeyPdfUrl){
     const a = document.createElement('a');
     a.href = tbCfg.lastAnswerKeyPdfUrl + (tbCfg.lastAnswerKeyPdfUrl.includes('?') ? '&' : '?') + 'download=1';
-    a.download = 'practice_sheet_answer_key.pdf';
+    a.download = tbCfg.keyFilename || 'practice_sheet_answer_key.pdf';
     document.body.appendChild(a);
     a.click();
     setTimeout(() => a.remove(), 400);

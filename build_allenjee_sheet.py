@@ -78,9 +78,17 @@ def clean_source_doc(doc):
             # Question code (e.g. CK0214, AS0076, AE0048)
             if len(w[4]) == 6 and w[4][:2].isupper() and w[4][2:].isdigit():
                 page.draw_rect(fitz.Rect(w[0] - 1.5, w[1] - 1.5, w[2] + 1.5, w[3] + 1.5), color=None, fill=(1, 1, 1))
-            # Question number at left margin
-            elif (44.0 <= w[0] <= 58.0) and w[4].endswith(".") and w[4][:-1].isdigit():
-                page.draw_rect(fitz.Rect(w[0] - 2.0, w[1] - 1.5, w[2] + 2.0, w[3] + 1.5), color=None, fill=(1, 1, 1))
+            # Question number at left margin (matches 1., Q.1, Q.12., Q.12.Which)
+            elif 42.0 <= w[0] <= 60.0:
+                m_q = re.match(r'^(?:Q\.?|Q)?(\d+)(?:\.([A-Za-z].*)|\.?)$', w[4])
+                if m_q:
+                    rest = m_q.group(2)
+                    if not rest:
+                        page.draw_rect(fitz.Rect(w[0] - 2.0, w[1] - 1.5, w[2] + 2.0, w[3] + 1.5), color=None, fill=(1, 1, 1))
+                    else:
+                        ratio = (len(w[4]) - len(rest)) / len(w[4])
+                        end_x = w[0] + (w[2] - w[0]) * ratio
+                        page.draw_rect(fitz.Rect(w[0] - 2.0, w[1] - 1.5, end_x, w[3] + 1.5), color=None, fill=(1, 1, 1))
 
         # Redact original Paragraph header line so we can replace it with dynamic question range
         p_txt = page.get_text("text")
