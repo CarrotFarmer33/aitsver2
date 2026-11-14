@@ -1997,7 +1997,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 </style>
 
 <div id="scrSetup"  class="screen">
-  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Portal &ndash; chapter-wise question practice</span><div style="display:flex;align-items:center;gap:8px"><button class="btn sm" id="navPractice" type="button" style="background:var(--surface-2);color:var(--fg);font-weight:600">Practice (Marks Format)</button><button class="btn sm" id="navBuilder" type="button" style="background:#286ac7;color:#fff;border-color:#286ac7">🛠️ Test Builder</button><details class="menu" id="topMenu"><summary class="btn sm">Menu &#9662;</summary><div class="menuList"><button class="btn sm" id="openPracticeMenu" type="button" style="color:var(--brand);font-weight:700">Practice (Scrollable)</button><button class="btn sm" id="openBuilderMenu" type="button" style="color:var(--brand);font-weight:700">🛠️ Test Builder</button><button class="btn sm" id="openSaved" type="button">Saved questions</button><button class="btn sm" id="openReports" type="button" style="display:flex;align-items:center;justify-content:space-between">Reported questions <span id="rptBadge" style="display:none;background:#d32f2f;color:#fff;border-radius:10px;padding:0 6px;font-size:11px;font-weight:700">0</span></button><a class="btn sm" href="changelog.html">Changelog</a><a class="btn sm" href="downloads.html">Downloads</a><hr class="menuSep"><div class="mrow"><button class="btn sm" id="expData" type="button">Export my data</button><span class="mi" tabindex="0" role="note" aria-label="About Export my data">i</span><div class="mtip">Saves a backup file of your bookmarks, mistakes, seen questions and history. Your data lives only in this browser, so export now and then in case it gets cleared.</div></div><div class="mrow"><button class="btn sm" id="impData" type="button">Import data</button><span class="mi" tabindex="0" role="note" aria-label="About Import data">i</span><div class="mtip">Load a backup file you exported earlier. It is merged with your current data, so nothing is overwritten.</div></div><input type="file" id="impFile" accept=".json,application/json" hidden></div></details></div></div></div>
+  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Practice Portal &ndash; chapter-wise question practice</span><div style="display:flex;align-items:center;gap:8px"><button class="btn sm" id="navPractice" type="button" style="background:var(--surface-2);color:var(--fg);font-weight:600">Practice (Marks Format)</button><button class="btn sm" id="navBuilder" type="button" style="background:#286ac7;color:#fff;border-color:#286ac7">🛠️ Test Builder</button><details class="menu" id="topMenu"><summary class="btn sm">Menu &#9662;</summary><div class="menuList"><button class="btn sm" id="openPracticeMenu" type="button" style="color:var(--brand);font-weight:700">Practice (Scrollable)</button><button class="btn sm" id="openBuilderMenu" type="button" style="color:var(--brand);font-weight:700">🛠️ Test Builder</button><button class="btn sm" id="openSaved" type="button">Saved questions</button><button class="btn sm" id="openReports" type="button" style="display:flex;align-items:center;justify-content:space-between">Reported questions <span id="rptBadge" style="display:none;background:#d32f2f;color:#fff;border-radius:10px;padding:0 6px;font-size:11px;font-weight:700">0</span></button><a class="btn sm" href="changelog.html">Changelog</a><a class="btn sm" href="downloads.html">Downloads</a><hr class="menuSep"><div class="mrow"><button class="btn sm" id="expData" type="button">Export my data</button><span class="mi" tabindex="0" role="note" aria-label="About Export my data">i</span><div class="mtip">Saves a backup file of your bookmarks, mistakes, seen questions and history. Your data lives only in this browser, so export now and then in case it gets cleared.</div></div><div class="mrow"><button class="btn sm" id="impData" type="button">Import data</button><span class="mi" tabindex="0" role="note" aria-label="About Import data">i</span><div class="mtip">Load a backup file you exported earlier. It is merged with your current data, so nothing is overwritten.</div></div><hr class="menuSep"><div class="mrow"><button class="btn sm" id="clearAppCache" type="button" style="color:var(--muted);width:100%">⚡ Clear Cache &amp; Reload</button></div><input type="file" id="impFile" accept=".json,application/json" hidden></div></details></div></div></div>
   <main class="wrap setup">
     <section class="card" id="dbCard" hidden style="display:none">
       <div class="dbrow">
@@ -2803,7 +2803,6 @@ window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$
 <script>
 const zipCache = new Map();
 let questionTextsMap = {};
-fetch('question_texts.json').then(r=>r.ok?r.json():{}).then(d=>{ questionTextsMap = d || {}; }).catch(()=>{});
 function esc(value){
   return String(value==null?'':value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
@@ -2873,6 +2872,81 @@ function processSvgMarkup(rawSvgText, isTestBuilder){
   return svgText;
 }
 
+/* ---------- IndexedDB High-Performance Cache ---------- */
+const AitsCache = {
+  dbPromise: null,
+  getDb(){
+    if(!this.dbPromise){
+      this.dbPromise = new Promise((resolve) => {
+        try {
+          if(!window.indexedDB) return resolve(null);
+          const req = indexedDB.open('aits_storage_cache_v2', 1);
+          req.onupgradeneeded = e => {
+            const db = e.target.result;
+            if(!db.objectStoreNames.contains('kv')) db.createObjectStore('kv');
+          };
+          req.onsuccess = () => resolve(req.result);
+          req.onerror = () => resolve(null);
+        } catch(e) { resolve(null); }
+      });
+    }
+    return this.dbPromise;
+  },
+  async get(key){
+    try {
+      const db = await this.getDb();
+      if(!db) return null;
+      return new Promise(resolve => {
+        const tx = db.transaction('kv', 'readonly');
+        const req = tx.objectStore('kv').get(key);
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => resolve(null);
+      });
+    } catch(e) { return null; }
+  },
+  async set(key, val){
+    try {
+      const db = await this.getDb();
+      if(!db) return false;
+      return new Promise(resolve => {
+        const tx = db.transaction('kv', 'readwrite');
+        tx.objectStore('kv').put(val, key);
+        tx.oncomplete = () => resolve(true);
+        tx.onerror = () => resolve(false);
+      });
+    } catch(e) { return false; }
+  },
+  async delete(key){
+    try {
+      const db = await this.getDb();
+      if(!db) return;
+      const tx = db.transaction('kv', 'readwrite');
+      tx.objectStore('kv').delete(key);
+    } catch(e) {}
+  },
+  async clear(){
+    try {
+      const db = await this.getDb();
+      if(!db) return;
+      const tx = db.transaction('kv', 'readwrite');
+      tx.objectStore('kv').clear();
+    } catch(e) {}
+  }
+};
+window.AitsCache = AitsCache;
+
+async function fetchCachedJson(url){
+  const cacheKey = 'json:' + url;
+  const cached = await AitsCache.get(cacheKey);
+  if(cached) return cached;
+  const r = await fetch(url);
+  if(!r.ok) throw new Error('Fetch failed for ' + url + ' (' + r.status + ')');
+  const d = await r.json();
+  AitsCache.set(cacheKey, d);
+  return d;
+}
+window.fetchCachedJson = fetchCachedJson;
+
 async function getZip(zipUrl){
   const rel = zipUrl.replace(/^\/+/, '');
   const cacheKey = zipUrl.startsWith('http') ? zipUrl : rel;
@@ -2884,15 +2958,25 @@ async function getZip(zipUrl){
     }
   }
 
-  const candidates = zipUrl.startsWith('http') ? [zipUrl] : [
-    '/' + rel,
-    rel,
-    'public/' + rel,
-    'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/' + rel,
-    'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/' + rel
-  ];
-
   const p = (async () => {
+    // 1. Check local IndexedDB disk cache
+    try {
+      const cachedBuf = await AitsCache.get('zip:' + cacheKey);
+      if(cachedBuf){
+        return await JSZip.loadAsync(cachedBuf);
+      }
+    } catch(cErr){
+      console.warn('Cached ZIP read error, re-fetching:', cErr);
+    }
+
+    const candidates = zipUrl.startsWith('http') ? [zipUrl] : [
+      '/' + rel,
+      rel,
+      'public/' + rel,
+      'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/' + rel,
+      'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/' + rel
+    ];
+
     let lastErr = null;
     for(const cand of candidates){
       try {
@@ -2902,6 +2986,7 @@ async function getZip(zipUrl){
           continue;
         }
         const b = await r.arrayBuffer();
+        AitsCache.set('zip:' + cacheKey, b);
         return await JSZip.loadAsync(b);
       } catch(err) {
         lastErr = err;
@@ -3164,6 +3249,7 @@ function extractMatchOptionsFromText(text){
 }
 function normQuestion(q,i,defSubject){
   if(!q || typeof q!=='object') return null;
+  if(q._isNormalized) return q;
   const text = q.question!=null?q.question:(q.text!=null?q.text:(q.statement!=null?q.statement:''));
   const imgs = [].concat(q.images||q.question_images||q.image||q.raster_images||[]).filter(Boolean);
   if(!String(text).trim() && !imgs.length) return null;
@@ -3286,7 +3372,17 @@ function loadDB(raw,label,isSample){
   const list = extractList(raw);
   if(!list){ showNote('That file is not a list of questions. Expected an array, or an object with a "questions" array.'); return false; }
   const out=[]; let skipped=0;
-  list.forEach((e,i)=>{ const n=normQuestion(e.q,i,e.subject); if(n && SUBJ.includes(n.subject) && n.keyOk){ if(n.subject==='Chemistry'){ n.chapter=CHEM_ALIAS[n.chapter]||n.chapter; } out.push(n); } else skipped++; });
+  list.forEach((e,i)=>{
+    if(e.q && e.q._isNormalized){
+      out.push(e.q);
+      return;
+    }
+    const n=normQuestion(e.q,i,e.subject);
+    if(n && SUBJ.includes(n.subject) && n.keyOk){
+      if(n.subject==='Chemistry'){ n.chapter=CHEM_ALIAS[n.chapter]||n.chapter; }
+      out.push(n);
+    } else skipped++;
+  });
   if(!out.length){ showNote('No usable questions were found in that file.'); return false; }
   const seen=new Map();
   out.forEach(q=>{ const c=(seen.get(q.id)||0)+1; seen.set(q.id,c); if(c>1) q.id=q.id+'#'+c; });
@@ -3298,6 +3394,88 @@ function loadDB(raw,label,isSample){
   cfg.countAuto=true; cfg.minAuto=true; $('#chSearch').value='';
   renderSetup(); return true;
 }
+
+/* ---------- On-Demand Lazy Subject Loading ---------- */
+const loadedSubjects = new Set();
+const loadingSubjectPromises = {};
+
+async function ensureSubjectLoaded(subject){
+  if(!subject || loadedSubjects.has(subject)) return true;
+  if(loadingSubjectPromises[subject]) return loadingSubjectPromises[subject];
+
+  const isLocal = window.location.hostname==='localhost' || window.location.hostname==='127.0.0.1' || window.location.protocol==='file:';
+  const conf = window.AITS_CONFIG || {};
+
+  loadingSubjectPromises[subject] = (async () => {
+    try {
+      let fileUrls = [];
+      if(subject === 'Physics'){
+        const remote = isLocal ? '' : (conf.databaseUrl || '').trim();
+        fileUrls = [
+          ['database.json', remote, 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/database.json'],
+          ['allenjee_database.json', (conf.allenJeeUrl || '').trim(), 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/allenjee_database.json']
+        ];
+      } else if(subject === 'Chemistry'){
+        const chemRemote = (conf.chemistryUrl || '').trim();
+        fileUrls = [
+          ['chemistry_database.json', chemRemote, 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/chemistry_database.json'],
+          ['allenchem_database.json', (conf.allenChemUrl || '').trim(), 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/allenchem_database.json'],
+          ['mschouhan_database.json', 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/mschouhan_database.json']
+        ];
+      } else if(subject === 'Mathematics'){
+        const mathAdvRemote = (conf.mathsAdvancedUrl || '').trim();
+        const mathMainRemote = (conf.mathsMainUrl || '').trim();
+        fileUrls = [
+          ['maths_advanced_database.json', mathAdvRemote, 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/maths_advanced_database.json'],
+          ['maths_main_database.json', mathMainRemote, 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/maths_main_database.json']
+        ];
+      }
+
+      for(const candList of fileUrls){
+        for(const u of candList.filter(Boolean)){
+          try {
+            const raw = await fetchCachedJson(u);
+            if(raw){
+              mergeSubjectQuestions(raw, subject);
+              break;
+            }
+          } catch(e) {
+            console.warn('Candidate subject load failed for ' + u, e);
+          }
+        }
+      }
+      loadedSubjects.add(subject);
+      return true;
+    } finally {
+      delete loadingSubjectPromises[subject];
+    }
+  })();
+
+  return loadingSubjectPromises[subject];
+}
+
+function mergeSubjectQuestions(raw, subject){
+  const list = extractList(raw) || [];
+  if(!list.length) return;
+  const qMap = new Map();
+  list.forEach(e => {
+    if(e.q && e.q.id) qMap.set(String(e.q.id), e.q);
+  });
+  DB.forEach(q => {
+    if(qMap.has(q.id)){
+      const full = qMap.get(q.id);
+      // Ensure we don't treat full raw question as already normalized if missing ans
+      delete full._isNormalized;
+      const norm = normQuestion(full, 0, subject);
+      if(norm){
+        Object.assign(q, norm);
+      } else {
+        Object.assign(q, full, { _isNormalized: true, keyOk: true });
+      }
+    }
+  });
+}
+window.ensureSubjectLoaded = ensureSubjectLoaded;
 function showNote(t){ const n=$('#dbNote'); n.textContent=t; n.hidden=!t; }
 
 /* ---------- screens ---------- */
@@ -4173,7 +4351,10 @@ const prkState = {
   sortOrder: 'desc'
 };
 
+let prkVisibleLimit = 50;
+
 function openPracticeList(initialOpts){
+  prkVisibleLimit = 50;
   if(initialOpts){
     if(initialOpts.subject && SUBJ.includes(initialOpts.subject)) prkState.subj = initialOpts.subject;
     if(initialOpts.chapter) prkState.chap = initialOpts.chapter;
@@ -4181,6 +4362,7 @@ function openPracticeList(initialOpts){
   const availableSubjs = SUBJ.filter(s => DB.some(q => q.paper !== 'allen' && q.subject === s));
   if(!availableSubjs.includes(prkState.subj)) prkState.subj = availableSubjs[0] || 'Physics';
 
+  ensureSubjectLoaded(prkState.subj).catch(() => {});
   renderPracticeScreen();
   show('scrPracticeList');
 }
@@ -4294,7 +4476,7 @@ function renderPracticeMain(){
   const attInScope = DB.filter(q => q.subject === prkState.subj && (!prkState.chap || q.chapter === prkState.chap) && Boolean(ansMap[q.id] && ansMap[q.id].status !== 'skip')).length;
 
   const statsEl = $('#prkHeroStats');
-  if(statsEl) statsEl.textContent = 'Showing all Qs (' + qs.length + '/' + totalInScope + ')';
+  if(statsEl) statsEl.textContent = 'Showing ' + Math.min(prkVisibleLimit, qs.length) + ' of ' + qs.length + ' Qs (' + totalInScope + ' total)';
 
   const sortEl = $('#prkSortBtn');
   if(sortEl) sortEl.innerHTML = prkState.sortOrder === 'asc' ? '&uarr;&darr; Year-wise (Old to New)' : '&uarr;&darr; Year-wise (New to Old)';
@@ -4308,10 +4490,28 @@ function renderPracticeMain(){
     return;
   }
 
-  // Render clean, minimalist question preview rows (Marks style list)
-  cont.innerHTML = qs.map((q, idx) => {
+  // Render clean, minimalist question preview rows (Marks style list) with lazy pagination
+  const slice = qs.slice(0, prkVisibleLimit);
+  let html = slice.map((q, idx) => {
     return renderPracticeRowHtml(q, idx);
   }).join('');
+
+  if(prkVisibleLimit < qs.length){
+    html += '<div style="text-align:center;padding:24px 16px">' +
+      '<button id="prkLoadMoreBtn" type="button" class="btn" style="padding:10px 28px;font-size:14px;background:var(--brand);color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:600;box-shadow:0 2px 6px rgba(0,0,0,0.1)">' +
+        'Load More Questions (' + prkVisibleLimit + ' of ' + qs.length + ')' +
+      '</button>' +
+    '</div>';
+  }
+  cont.innerHTML = html;
+
+  const loadMoreBtn = $('#prkLoadMoreBtn');
+  if(loadMoreBtn){
+    loadMoreBtn.onclick = () => {
+      prkVisibleLimit += 50;
+      renderPracticeMain();
+    };
+  }
 }
 
 function renderPracticeRowHtml(q, idx){
@@ -4426,6 +4626,12 @@ function renderPracticeDetailView(){
 
   const q = prkFilteredList[prkCurrentDetailIdx];
   if(!q) return;
+
+  if(!q.options && !q.images && q.subject){
+    ensureSubjectLoaded(q.subject).then(() => {
+      renderPracticeDetailView();
+    });
+  }
 
   const paperName = q.paper === 'adv' ? 'JEE Advanced' : (q.paper === 'main' ? 'JEE Main' : 'AITS');
   const breadcrumbEl = $('#prkDetailBreadcrumb');
@@ -8538,39 +8744,76 @@ function startCbtFromBuilder(){
   let ok=false;
   const isLocal = window.location.hostname==='localhost' || window.location.hostname==='127.0.0.1' || window.location.protocol==='file:';
   const conf = window.AITS_CONFIG || {};
-  const remote = isLocal ? '' : (conf.databaseUrl || '').trim();
-  const chemRemote = (conf.chemistryUrl || '').trim();
-  const mathAdvRemote = (conf.mathsAdvancedUrl || '').trim();
-  const mathMainRemote = (conf.mathsMainUrl || '').trim();
-  const allenChemRemote = (conf.allenChemUrl || '').trim();
-  const allenJeeRemote = (conf.allenJeeUrl || '').trim();
-  async function fetchFirst(urls){
-    for(const url of urls){
-      try{
-        const r = await fetch(url);
-        if(!r.ok) continue;
-        return {raw: await r.json(), url};
-      } catch(e){
-        console.warn('Failed to load database from', url, e);
+
+  // Setup Clear Cache handler
+  const clearBtn = $('#clearAppCache');
+  if(clearBtn){
+    clearBtn.onclick = async () => {
+      if(confirm('Clear all locally cached databases and images, then reload from server?')){
+        await AitsCache.clear();
+        window.location.reload();
       }
-    }
-    return null;
+    };
   }
-  // Try bundled database files first for instant same-origin loading with zero CORS issues,
-  // falling back to Hugging Face remote URLs only if bundled files are not present.
-  const [phys, chem, mathAdv, mathMain, allenChem, allenJee, msChouhan] = await Promise.all([
-    fetchFirst(['database.json', remote].filter(Boolean)),
-    fetchFirst(['chemistry_database.json', chemRemote].filter(Boolean)),
-    fetchFirst(['maths_advanced_database.json', mathAdvRemote].filter(Boolean)),
-    fetchFirst(['maths_main_database.json', mathMainRemote].filter(Boolean)),
-    fetchFirst(['allenchem_database.json', allenChemRemote, 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/allenchem_database.json'].filter(Boolean)),
-    fetchFirst(['allenjee_database.json', allenJeeRemote, 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/allenjee_database.json'].filter(Boolean)),
-    fetchFirst(['mschouhan_database.json', 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/mschouhan_database.json'].filter(Boolean))
-  ]);
-  const parts = [phys, chem, mathAdv, mathMain, allenChem, allenJee, msChouhan].filter(Boolean);
-  if(parts.length){
-    const all = parts.flatMap(x=>(extractList(x.raw)||[]).map(e=>e.q));
-    ok = loadDB(all, phys && phys.url===remote && remote ? 'Hugging Face database' : 'database.json', false);
+
+  // 1. Instant Numbers Boot: Load lightweight metadata manifest first (IndexedDB cached)
+  const metaCandidates = [
+    'db_meta.json',
+    'public/db_meta.json',
+    'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/db_meta.json',
+    'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/db_meta.json'
+  ];
+
+  let metaData = null;
+  for(const cand of metaCandidates){
+    try {
+      metaData = await fetchCachedJson(cand);
+      if(metaData && metaData.length) break;
+    } catch(e) {
+      console.warn('Metadata candidate failed: ' + cand, e);
+    }
+  }
+
+  if(metaData && metaData.length){
+    ok = loadDB(metaData, 'Question Bank (Fast Metadata)', false);
+  } else {
+    // Fallback: If metadata manifest is unavailable, load raw databases
+    const remote = isLocal ? '' : (conf.databaseUrl || '').trim();
+    const chemRemote = (conf.chemistryUrl || '').trim();
+    const mathAdvRemote = (conf.mathsAdvancedUrl || '').trim();
+    const mathMainRemote = (conf.mathsMainUrl || '').trim();
+    const allenChemRemote = (conf.allenChemUrl || '').trim();
+    const allenJeeRemote = (conf.allenJeeUrl || '').trim();
+
+    async function fetchFirst(urls){
+      for(const url of urls){
+        try{
+          const raw = await fetchCachedJson(url);
+          if(raw) return {raw, url};
+        } catch(e){
+          console.warn('Failed to load database from', url, e);
+        }
+      }
+      return null;
+    }
+
+    const [phys, chem, mathAdv, mathMain, allenChem, allenJee, msChouhan] = await Promise.all([
+      fetchFirst(['database.json', remote].filter(Boolean)),
+      fetchFirst(['chemistry_database.json', chemRemote].filter(Boolean)),
+      fetchFirst(['maths_advanced_database.json', mathAdvRemote].filter(Boolean)),
+      fetchFirst(['maths_main_database.json', mathMainRemote].filter(Boolean)),
+      fetchFirst(['allenchem_database.json', allenChemRemote, 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/allenchem_database.json'].filter(Boolean)),
+      fetchFirst(['allenjee_database.json', allenJeeRemote, 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/allenjee_database.json'].filter(Boolean)),
+      fetchFirst(['mschouhan_database.json', 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/mschouhan_database.json'].filter(Boolean))
+    ]);
+    const parts = [phys, chem, mathAdv, mathMain, allenChem, allenJee, msChouhan].filter(Boolean);
+    if(parts.length){
+      const all = parts.flatMap(x=>(extractList(x.raw)||[]).map(e=>e.q));
+      ok = loadDB(all, phys && phys.url===remote && remote ? 'Hugging Face database' : 'database.json', false);
+    }
+  }
+
+  if(ok){
     if(window.location.hash.startsWith('#practice') || window.location.hash.startsWith('#marks')){
       openPracticeList();
     } else if(window.location.hash.startsWith('#builder') || window.location.hash.startsWith('#test-builder')){
@@ -8578,10 +8821,14 @@ function startCbtFromBuilder(){
     } else if(window.location.hash.startsWith('#cbt')){
       checkCbtHash();
     }
-  }
-  if(!ok){
+
+    // Prefetch active subject (Physics) in the background so it is cached in IndexedDB
+    setTimeout(() => {
+      ensureSubjectLoaded('Physics').catch(() => {});
+    }, 600);
+  } else {
     $('#dbLabel').textContent='Database not loaded';
-    showNote('Could not load the question bank. Set the Hugging Face raw JSON URL in config.js, and make sure the JSON contains question text or image URLs, options, answer keys, and chapter names.');
+    showNote('Could not load the question bank. Set the database URL in config.js.');
     $('#dbStats').innerHTML='';
     $('#chapList').innerHTML='<div class="muted">No database available.</div>';
     refreshSummary();
