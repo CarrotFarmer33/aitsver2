@@ -575,15 +575,12 @@
   box-shadow: none !important;
 }
 .allen-qitem-single .allen-qsvg-wrap img.allen-svg-neet,
-.allen-qitem-single .allen-qsvg-wrap img[data-zipimg*="allenchem"],
-.allen-qitem-single .allen-qsvg-wrap img[src*="allenchem"],
-.allen-qitem-single .allen-qsvg-wrap .allen-svg-neet {
-  width: auto !important;
-  max-width: 245pt !important;
-}
 .allen-qitem-single .allen-qsvg-wrap img.allen-svg-jee,
+.allen-qitem-single .allen-qsvg-wrap img[data-zipimg*="allenchem"],
 .allen-qitem-single .allen-qsvg-wrap img[data-zipimg*="allenjee"],
+.allen-qitem-single .allen-qsvg-wrap img[src*="allenchem"],
 .allen-qitem-single .allen-qsvg-wrap img[src*="allenjee"],
+.allen-qitem-single .allen-qsvg-wrap .allen-svg-neet,
 .allen-qitem-single .allen-qsvg-wrap .allen-svg-jee {
   width: 100% !important;
   max-width: 516pt !important;
@@ -936,15 +933,12 @@
     box-shadow: none !important;
   }
   .allen-qitem-single .allen-qsvg-wrap img.allen-svg-neet,
-  .allen-qitem-single .allen-qsvg-wrap img[data-zipimg*="allenchem"],
-  .allen-qitem-single .allen-qsvg-wrap img[src*="allenchem"],
-  .allen-qitem-single .allen-qsvg-wrap .allen-svg-neet {
-    width: auto !important;
-    max-width: 245pt !important;
-  }
   .allen-qitem-single .allen-qsvg-wrap img.allen-svg-jee,
+  .allen-qitem-single .allen-qsvg-wrap img[data-zipimg*="allenchem"],
   .allen-qitem-single .allen-qsvg-wrap img[data-zipimg*="allenjee"],
+  .allen-qitem-single .allen-qsvg-wrap img[src*="allenchem"],
   .allen-qitem-single .allen-qsvg-wrap img[src*="allenjee"],
+  .allen-qitem-single .allen-qsvg-wrap .allen-svg-neet,
   .allen-qitem-single .allen-qsvg-wrap .allen-svg-jee {
     width: 100% !important;
     max-width: 516pt !important;
@@ -3213,16 +3207,13 @@ async function resolveZipImage(img){
         img.style.display = 'block';
         img.style.margin = '0';
         img.style.background = '#ffffff';
-        if(isNeet){
-          img.classList.add('allen-svg-neet');
-          img.style.width = 'auto';
-          img.style.maxWidth = '245pt';
-        } else if(isMsChouhan){
+        if(isMsChouhan){
           img.classList.add('mschouhan-svg');
           img.style.width = 'auto';
           img.style.maxWidth = '430pt';
         } else {
-          img.classList.add('allen-svg-jee');
+          if(isNeet) img.classList.add('allen-svg-neet');
+          else img.classList.add('allen-svg-jee');
           img.style.width = '100%';
           img.style.maxWidth = '100%';
         }
@@ -3273,16 +3264,13 @@ async function resolveZipImage(img){
             img.style.display = 'block';
             img.style.margin = '0';
             img.style.background = '#ffffff';
-            if(isNeet){
-              img.classList.add('allen-svg-neet');
-              img.style.width = 'auto';
-              img.style.maxWidth = '245pt';
-            } else if(isMsChouhan){
+            if(isMsChouhan){
               img.classList.add('mschouhan-svg');
               img.style.width = 'auto';
               img.style.maxWidth = '430pt';
             } else {
-              img.classList.add('allen-svg-jee');
+              if(isNeet) img.classList.add('allen-svg-neet');
+              else img.classList.add('allen-svg-jee');
               img.style.width = '100%';
               img.style.maxWidth = '100%';
             }
