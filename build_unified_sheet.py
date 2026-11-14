@@ -19,6 +19,7 @@ import pymupdf as fitz
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 if os.path.basename(ROOT_DIR) == "scratch":
     ROOT_DIR = os.path.dirname(ROOT_DIR)
+PARENT_DIR = os.path.dirname(ROOT_DIR)
 sys.path.insert(0, ROOT_DIR)
 
 import build_allenjee_sheet as baj
@@ -127,7 +128,13 @@ def generate_multi_source_test(selected_qids, out_pdf_path="custom_test.pdf", ti
         # Check source type
         if qid.startswith("mschouhan_"):
             pdf_rel = q.get("pdfName") or "mschouhan/Chapter_Wise_Level_1/07_Aldehydes_and_Ketones_Level_1.pdf"
-            full_pdf_path = os.path.join(ROOT_DIR, pdf_rel.replace("/", os.sep))
+            norm_rel = pdf_rel.replace("/", os.sep)
+            cand_paths = [
+                os.path.join(ROOT_DIR, norm_rel),
+                os.path.join(PARENT_DIR, norm_rel),
+                os.path.join(PARENT_DIR, "mschouhan", os.path.basename(norm_rel)),
+            ]
+            full_pdf_path = next((p for p in cand_paths if os.path.exists(p)), cand_paths[1])
             if full_pdf_path not in open_docs:
                 src_doc = fitz.open(full_pdf_path)
                 clean_mschouhan_doc(src_doc)
@@ -157,10 +164,15 @@ def generate_multi_source_test(selected_qids, out_pdf_path="custom_test.pdf", ti
             cur_y += GAP_Q
 
         elif qid.startswith("allenjee_"):
-            pdf_rel = q.get("pdfName")
-            full_pdf_path = os.path.join(ROOT_DIR, pdf_rel.replace("/", os.sep))
-            if not os.path.exists(full_pdf_path):
-                full_pdf_path = os.path.join(ROOT_DIR, "allen jee", "Chemistry[Separate]", pdf_rel.replace("/", os.sep))
+            pdf_rel = q.get("pdfName") or ""
+            norm_rel = pdf_rel.replace("/", os.sep)
+            cand_paths = [
+                os.path.join(ROOT_DIR, norm_rel),
+                os.path.join(PARENT_DIR, norm_rel),
+                os.path.join(PARENT_DIR, "allen jee", "Chemistry[Separate]", norm_rel),
+                os.path.join(PARENT_DIR, "allen jee", "Chemistry[Separate]", os.path.basename(norm_rel)),
+            ]
+            full_pdf_path = next((p for p in cand_paths if os.path.exists(p)), cand_paths[1])
 
             if full_pdf_path not in open_docs:
                 src_doc = fitz.open(full_pdf_path)

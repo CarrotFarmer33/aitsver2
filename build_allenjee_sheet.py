@@ -27,7 +27,12 @@ import sys
 import pymupdf as fitz
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+PARENT_DIR = os.path.dirname(ROOT_DIR)
 BASE_DIR = os.path.join(ROOT_DIR, "allen jee", "Chemistry[Separate]")
+if not os.path.exists(BASE_DIR):
+    alt_base = os.path.join(PARENT_DIR, "allen jee", "Chemistry[Separate]")
+    if os.path.exists(alt_base):
+        BASE_DIR = alt_base
 DB_PATH = os.path.join(ROOT_DIR, "allenjee_database.json")
 if not os.path.exists(DB_PATH):
     alt_db = os.path.join(ROOT_DIR, "aitsver2-main", "allenjee_database.json")
@@ -267,10 +272,19 @@ def generate_custom_test(chapter_name=None, question_count=30, out_pdf_path="all
         q_sec = "paragraph" if is_para else q.get("type", "single")
 
         # Source PDF preparation
-        pdf_name = q.get("pdfName")
-        full_pdf_path = os.path.join(ROOT_DIR, pdf_name.replace("/", os.sep))
-        if not os.path.exists(full_pdf_path):
-            full_pdf_path = os.path.join(BASE_DIR, pdf_name.replace("/", os.sep))
+        pdf_name = q.get("pdfName") or ""
+        norm_rel = pdf_name.replace("/", os.sep)
+        cand_paths = [
+            os.path.join(ROOT_DIR, norm_rel),
+            os.path.join(PARENT_DIR, norm_rel),
+            os.path.join(BASE_DIR, norm_rel),
+            os.path.join(BASE_DIR, os.path.basename(norm_rel)),
+        ]
+        prefix = os.path.join("allen jee", "Chemistry[Separate]")
+        if norm_rel.lower().startswith(prefix.lower()):
+            sub_rel = norm_rel[len(prefix):].lstrip(os.sep)
+            cand_paths.append(os.path.join(BASE_DIR, sub_rel))
+        full_pdf_path = next((p for p in cand_paths if os.path.exists(p)), cand_paths[1])
 
         if full_pdf_path not in open_docs:
             src_doc = fitz.open(full_pdf_path)

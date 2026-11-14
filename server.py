@@ -47,6 +47,10 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header("Access-Control-Allow-Origin", "*")
         self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
         self.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization, Accept")
+        if self.path == "/" or self.path.endswith(".html") or "/#" in self.path:
+            self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
+            self.send_header("Pragma", "no-cache")
+            self.send_header("Expires", "0")
         super().end_headers()
 
     def do_OPTIONS(self):
@@ -380,6 +384,8 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
                     "pdfUrl": pdf_url,
                     "studentPdfUrl": f"/generated_tests/{student_filename}",
                     "keyPdfUrl": f"/generated_tests/{key_filename}",
+                    "studentFilename": student_filename,
+                    "keyFilename": key_filename,
                     "latestUrl": latest_url,
                     "filename": out_filename,
                     "totalQuestions": res["total_questions"],
@@ -460,6 +466,8 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
                     "pdfUrl": pdf_url,
                     "studentPdfUrl": f"/generated_tests/{student_filename}",
                     "keyPdfUrl": f"/generated_tests/{key_filename}",
+                    "studentFilename": student_filename,
+                    "keyFilename": key_filename,
                     "latestUrl": latest_url,
                     "filename": out_filename,
                     "totalQuestions": res["total_questions"],
@@ -532,6 +540,8 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
                     "pdfUrl": pdf_url,
                     "studentPdfUrl": f"/generated_tests/{student_filename}",
                     "keyPdfUrl": f"/generated_tests/{key_filename}",
+                    "studentFilename": student_filename,
+                    "keyFilename": key_filename,
                     "latestUrl": latest_url,
                     "filename": out_filename,
                     "totalQuestions": res["total_questions"],

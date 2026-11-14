@@ -30,7 +30,18 @@ from build_sheets import (
 from build_chem_sheets import chem_segments
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-SOURCE_DIR = os.path.join(ROOT_DIR, "source")
+PARENT_DIR = os.path.dirname(ROOT_DIR)
+
+SOURCE_DIRS = []
+for cand in [
+    os.path.join(ROOT_DIR, "source"),
+    os.path.join(PARENT_DIR, "source"),
+    os.path.join(PARENT_DIR, "aits-engine", "source"),
+]:
+    if os.path.isdir(cand) and cand not in SOURCE_DIRS:
+        SOURCE_DIRS.append(cand)
+
+SOURCE_DIR = SOURCE_DIRS[0] if SOURCE_DIRS else os.path.join(ROOT_DIR, "source")
 DB_PATHS = [
     os.path.join(ROOT_DIR, "database.json"),
     os.path.join(ROOT_DIR, "chemistry_database.json"),
@@ -133,16 +144,21 @@ class QuestionManager:
         print(f"Indexed {len(self.questions)} questions across all databases in {time.time()-t0:.2f}s")
 
     def _index_pdfs(self):
-        if not os.path.isdir(SOURCE_DIR):
-            print(f"Warning: source dir '{SOURCE_DIR}' not found")
+        if not SOURCE_DIRS:
+            print(f"Warning: no source directories found among {SOURCE_DIRS}")
             return
         t0 = time.time()
-        for p in walk_pdfs(SOURCE_DIR):
-            stem = os.path.splitext(os.path.basename(p))[0]
-            if SOL_RE.search(stem):
-                self.sol_files[stem] = p
-            else:
-                self.pdfs[stem] = p
+        seen = set()
+        for s_dir in SOURCE_DIRS:
+            for p in walk_pdfs(s_dir):
+                stem = os.path.splitext(os.path.basename(p))[0]
+                if stem in seen:
+                    continue
+                seen.add(stem)
+                if SOL_RE.search(stem):
+                    self.sol_files[stem] = p
+                else:
+                    self.pdfs[stem] = p
 
         self.nkeys = {k: norm(k) for k in self.pdfs}
 
