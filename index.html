@@ -535,35 +535,54 @@
   position: relative;
   break-inside: avoid;
   page-break-inside: avoid;
-  margin-bottom: 8pt;
-  padding-bottom: 4pt;
-  border-bottom: 0.5pt solid #eeeeee;
+  margin-bottom: 4pt !important;
+  padding-bottom: 0 !important;
+  border-bottom: none !important;
+  border: none !important;
   display: flex;
   align-items: flex-start;
-  gap: 8pt;
+  gap: 4pt !important;
 }
 .allen-qitem-single:last-child {
-  border-bottom: none;
+  border-bottom: none !important;
 }
 .allen-qitem-single .allen-qnum {
-  flex: 0 0 24pt;
-  font-weight: 800;
-  font-size: 10pt;
-  line-height: 1.2;
-  color: #000000;
-  padding-top: 1pt;
+  flex: 0 0 18pt !important;
+  min-width: 18pt !important;
+  font-weight: 800 !important;
+  font-size: 9.5pt !important;
+  line-height: 1.15 !important;
+  color: #000000 !important;
+  padding-top: 1px !important;
+  margin: 0 !important;
+  text-align: right !important;
 }
 .allen-qitem-single .allen-qsvg-wrap {
   flex: 1;
   min-width: 0;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 .allen-qitem-single .allen-qsvg-wrap img,
 .allen-qitem-single .allen-qsvg-wrap svg {
-  width: 100% !important;
   max-width: 100% !important;
   height: auto !important;
   display: block !important;
   background: #ffffff !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.allen-qitem-single .allen-qsvg-wrap img.allen-svg-neet,
+.allen-qitem-single .allen-qsvg-wrap img[data-zipimg*="allenchem"],
+.allen-qitem-single .allen-qsvg-wrap img[src*="allenchem"] {
+  width: auto !important;
+  max-width: 320px !important;
+}
+.allen-qitem-single .allen-qsvg-wrap img.allen-svg-jee,
+.allen-qitem-single .allen-qsvg-wrap img[data-zipimg*="allenjee"],
+.allen-qitem-single .allen-qsvg-wrap img[src*="allenjee"] {
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
 /* Section Header Banners for Allen Single-Column Practice Sheets */
@@ -870,13 +889,41 @@
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
+    gap: 4pt !important;
   }
   .allen-qitem-single {
     break-inside: avoid !important;
     page-break-inside: avoid !important;
-    margin-bottom: 8pt !important;
-    padding-bottom: 4pt !important;
-    border-bottom: 0.5pt solid #dddddd !important;
+    margin-bottom: 4pt !important;
+    padding-bottom: 0 !important;
+    border-bottom: none !important;
+    border: none !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 4pt !important;
+  }
+  .allen-qitem-single .allen-qnum {
+    flex: 0 0 18pt !important;
+    min-width: 18pt !important;
+    font-weight: 800 !important;
+    font-size: 9.5pt !important;
+    line-height: 1.15 !important;
+    color: #000000 !important;
+    padding-top: 1px !important;
+    margin: 0 !important;
+    text-align: right !important;
+  }
+  .allen-qitem-single .allen-qsvg-wrap img.allen-svg-neet,
+  .allen-qitem-single .allen-qsvg-wrap img[data-zipimg*="allenchem"],
+  .allen-qitem-single .allen-qsvg-wrap img[src*="allenchem"] {
+    width: auto !important;
+    max-width: 320px !important;
+  }
+  .allen-qitem-single .allen-qsvg-wrap img.allen-svg-jee,
+  .allen-qitem-single .allen-qsvg-wrap img[data-zipimg*="allenjee"],
+  .allen-qitem-single .allen-qsvg-wrap img[src*="allenjee"] {
+    width: 100% !important;
+    max-width: 100% !important;
   }
   .allen-ans-box {
     break-inside: avoid !important;
@@ -2954,6 +3001,33 @@ function processSvgMarkup(rawSvgText, isTestBuilder){
   svgText = svgText.replace(/<(?:use|path)[^>]*(?:fill|stroke)="#(?:c0c0c0|c4c4c4|cccccc|d0d0d0|d3d3d3|e0e0e0|e8e8e8)"[^>]*\/?>/gi, '');
 
   if(isTestBuilder){
+    // 3. Auto-trim dead left/top book margins and align question text for Test Sheet compilation
+    const vbMatch = svgText.match(/viewBox="([^"]+)"/i);
+    if(vbMatch){
+      const parts = vbMatch[1].trim().split(/[\s,]+/).map(Number);
+      if(parts.length === 4 && !parts.some(isNaN)){
+        const [vx, vy, vw, vh] = parts;
+        // Check if root viewBox starts at (0, 0) and has book margin
+        if(vx === 0 && vy === 0 && vw > 150){
+          const isNeet = (vw < 350);
+          const shiftX = isNeet ? 27.0 : 27.5; // Exactly trims the dead book left margin
+          const shiftY = 5.5;                  // Exactly trims the dead top space above glyphs
+          const newVx = shiftX;
+          const newVy = shiftY;
+          const newVw = Math.max(10, vw - shiftX);
+          const newVh = Math.max(10, vh - shiftY);
+          svgText = svgText.replace(vbMatch[0], `viewBox="${newVx.toFixed(2)} ${newVy.toFixed(2)} ${newVw.toFixed(2)} ${newVh.toFixed(2)}"`);
+          svgText = svgText.replace(/(<svg\b[^>]*\bwidth=")[0-9.]+/i, `$1${newVw.toFixed(2)}`);
+          svgText = svgText.replace(/(<svg\b[^>]*\bheight=")[0-9.]+/i, `$1${newVh.toFixed(2)}`);
+          if(!svgText.includes('overflow=')){
+            svgText = svgText.replace(/<svg\b/i, `<svg overflow="hidden" data-intrinsic-w="${newVw.toFixed(2)}"`);
+          } else {
+            svgText = svgText.replace(/<svg\b/i, `<svg data-intrinsic-w="${newVw.toFixed(2)}"`);
+          }
+        }
+      }
+    }
+
     // Test builder / Print: ensure authentic pure white background rect is present
     if(!/<rect[^>]*fill="#ffffff"/i.test(svgText)){
       svgText = svgText.replace(/(<svg[^>]*>)/i, '$1<rect width="100%" height="100%" fill="#ffffff"/>');
@@ -3127,14 +3201,27 @@ async function resolveZipImage(img){
       img.classList.add('qimg', 'vector-inline-svg', isTb ? 'test-builder-svg' : 'practice-svg');
       img.setAttribute('role', 'img');
       img.setAttribute('aria-label', img.alt || 'Question figure');
-      img.style.width = '100%';
-      img.style.maxWidth = '850px';
-      img.style.height = 'auto';
-      img.style.display = 'block';
-      img.style.margin = isTb ? '0 auto' : '16px auto';
+      const isNeet = /allenchem/i.test(fileName) || /data-intrinsic-w="2/i.test(processedSvg) || /viewBox="[^"]*?\b(21[0-9]|22[0-9]|23[0-9]|24[0-9]|25[0-9]|26[0-9])\b/i.test(processedSvg);
       if(isTb){
+        img.style.height = 'auto';
+        img.style.display = 'block';
+        img.style.margin = '0';
         img.style.background = '#ffffff';
+        if(isNeet){
+          img.classList.add('allen-svg-neet');
+          img.style.width = 'auto';
+          img.style.maxWidth = '320px';
+        } else {
+          img.classList.add('allen-svg-jee');
+          img.style.width = '100%';
+          img.style.maxWidth = '100%';
+        }
       } else {
+        img.style.width = '100%';
+        img.style.maxWidth = '850px';
+        img.style.height = 'auto';
+        img.style.display = 'block';
+        img.style.margin = '16px auto';
         img.style.background = 'transparent';
       }
       if(crop){
@@ -3169,6 +3256,22 @@ async function resolveZipImage(img){
           const blob = new Blob([processedSvg], { type: 'image/svg+xml;charset=utf-8' });
           img.src = URL.createObjectURL(blob);
           img.classList.add('qimg', 'vector-inline-svg', isTb ? 'test-builder-svg' : 'practice-svg');
+          const isNeet = /allenchem/i.test(qid) || /data-intrinsic-w="2/i.test(processedSvg);
+          if(isTb){
+            img.style.height = 'auto';
+            img.style.display = 'block';
+            img.style.margin = '0';
+            img.style.background = '#ffffff';
+            if(isNeet){
+              img.classList.add('allen-svg-neet');
+              img.style.width = 'auto';
+              img.style.maxWidth = '320px';
+            } else {
+              img.classList.add('allen-svg-jee');
+              img.style.width = '100%';
+              img.style.maxWidth = '100%';
+            }
+          }
           if(crop){
             img.style.clipPath = `inset(${crop.top || 0}% ${crop.right || 0}% ${crop.bottom || 0}% ${crop.left || 0}%)`;
             img.style.webkitClipPath = `inset(${crop.top || 0}% ${crop.right || 0}% ${crop.bottom || 0}% ${crop.left || 0}%)`;
@@ -8521,8 +8624,10 @@ async function renderAllenSheetDoc(rawQs, opts, onProgress){
 
     const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
     const hasImgs = qImgs.length > 0;
+    const isNeetQ = (q.id && q.id.startsWith('allenchem_')) || (q.paper === 'allen');
     const imgsHtml = qImgs.map(u => {
-      const markup = imageMarkup(u, 'Question figure', 'test-builder-svg', q.crop);
+      const extraCls = isNeetQ ? 'test-builder-svg allen-svg-neet' : 'test-builder-svg allen-svg-jee';
+      const markup = imageMarkup(u, 'Question figure', extraCls, q.crop);
       const fallbackStr = encodeURIComponent('<div class="allen-qstem" style="display:block">' + rich(stem) + '</div>' + optsHtml);
       return markup.replace('<img ', '<img data-fallback="' + fallbackStr + '" ');
     }).join('');
@@ -8542,18 +8647,18 @@ async function renderAllenSheetDoc(rawQs, opts, onProgress){
       '</div>';
     }
 
-    let estH = 55;
+    let estH = 50;
     if(q.segments && q.segments[0] && q.segments[0].length >= 5){
       estH = Math.max(30, q.segments[0][4] - q.segments[0][2]);
     } else if(hasImgs){
-      estH = 95;
+      estH = isNeetQ ? 65 : 85;
     } else {
       estH = 30 + Math.ceil((q.text || '').length / 60) * 14 + (effOpts.length * 14);
     }
 
     qElements.push({
       html: sectionHtml + passHtml + qItemHtml,
-      height: estH + sectionH + passH + 14
+      height: estH + sectionH + passH + 6
     });
   });
 
