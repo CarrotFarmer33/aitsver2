@@ -2874,32 +2874,45 @@ function processSvgMarkup(rawSvgText, isTestBuilder){
 }
 
 async function getZip(zipUrl){
-  const cleanUrl = zipUrl.startsWith('http') ? zipUrl : ('/' + zipUrl.replace(/^\/+/, ''));
-  if(zipCache.has(cleanUrl)){
+  const rel = zipUrl.replace(/^\/+/, '');
+  const cacheKey = zipUrl.startsWith('http') ? zipUrl : rel;
+  if(zipCache.has(cacheKey)){
     try {
-      return await zipCache.get(cleanUrl);
+      return await zipCache.get(cacheKey);
     } catch(err) {
-      zipCache.delete(cleanUrl);
+      zipCache.delete(cacheKey);
     }
   }
+
+  const candidates = zipUrl.startsWith('http') ? [zipUrl] : [
+    '/' + rel,
+    rel,
+    'public/' + rel,
+    'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/' + rel,
+    'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/' + rel
+  ];
+
   const p = (async () => {
-    let lastErr;
-    for(let attempt = 1; attempt <= 3; attempt++){
+    let lastErr = null;
+    for(const cand of candidates){
       try {
-        const r = await fetch(cleanUrl);
-        if(!r.ok) throw new Error('Could not fetch ZIP (' + r.status + ') from ' + cleanUrl);
+        const r = await fetch(cand);
+        if(!r.ok){
+          lastErr = new Error('Could not fetch ZIP (' + r.status + ') from ' + cand);
+          continue;
+        }
         const b = await r.arrayBuffer();
         return await JSZip.loadAsync(b);
       } catch(err) {
         lastErr = err;
-        console.warn('Fetch ZIP attempt ' + attempt + ' failed for ' + cleanUrl + ':', err);
-        if(attempt < 3) await new Promise(res => setTimeout(res, 600 * attempt));
+        console.warn('Fetch ZIP candidate failed: ' + cand, err);
       }
     }
-    zipCache.delete(cleanUrl);
-    throw lastErr;
+    zipCache.delete(cacheKey);
+    throw lastErr || new Error('All ZIP candidates failed for: ' + zipUrl);
   })();
-  zipCache.set(cleanUrl, p);
+
+  zipCache.set(cacheKey, p);
   return p;
 }
 
@@ -6581,9 +6594,9 @@ function openBuilderScreen(){
 }
 
 function getSelectedBuilderQuestions(){
-  const unattFirst = #tbOptUnattFirst ? #tbOptUnattFirst.checked : true;
-  const exhaustFirst = #tbOptExhaustFirst ? #tbOptExhaustFirst.checked : true;
-  const distMode = #tbDistMode ? #tbDistMode.value : 'balanced';
+  const unattFirst = $('#tbOptUnattFirst') ? $('#tbOptUnattFirst').checked : true;
+  const exhaustFirst = $('#tbOptExhaustFirst') ? $('#tbOptExhaustFirst').checked : true;
+  const distMode = $('#tbDistMode') ? $('#tbDistMode').value : 'balanced';
 
   function orderList(rawList){
     if(!rawList || !rawList.length) return [];
@@ -6672,7 +6685,7 @@ function getSelectedBuilderQuestions(){
   }
 
   const isMultiSource = activeSources.length > 1;
-  const totalTarget = Math.max(1, +(#tbCountIn.value) || tbCfg.count || 30);
+  const totalTarget = Math.max(1, +($('#tbCountIn') ? $('#tbCountIn').value : (tbCfg.count || 30)));
 
   // Helper: Pick Allen questions given a target count for Allen
   function pickAllenQuestions(targetAllenCount){
@@ -7672,15 +7685,34 @@ function renderPreviewCardHtml(q, idx){
 
   const hasPassageImgs = !!(q.paragraph && q.passageImages && q.passageImages.length);
   const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
-  const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure', 'test-builder-svg', q.crop)).join('');
+  const stem = q.stem || q.text || '';
+  let fallbackOptsHtml = '';
+  if(q.options && q.options.length){
+    fallbackOptsHtml = '<div class="opts" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:6px;margin:8px 0">' +
+      q.options.map((opt, oIdx) => '<div style="padding:6px 10px;background:var(--surface-2);border-radius:4px;font-size:13px"><b style="color:var(--brand)">(' + (oIdx + 1) + ')</b> ' + rich(stripWatermarks(opt)) + '</div>').join('') +
+    '</div>';
+  }
+  const fallbackStr = encodeURIComponent('<div class="allen-qstem" style="font-size:14px;line-height:1.6;margin-bottom:8px">' + rich(stripWatermarks(stem)) + '</div>' + fallbackOptsHtml);
+  const imgsHtml = qImgs.map(u => {
+    const markup = imageMarkup(u, 'Question figure', 'test-builder-svg', q.crop);
+    return stem ? markup.replace('<img ', '<img data-fallback="' + fallbackStr + '" ') : markup;
+  }).join('');
   const hasImgs = !!(imgsHtml || hasPassageImgs);
+
+  let passageFallbackStr = '';
+  if(q.passageText){
+    passageFallbackStr = encodeURIComponent('<div class="allen-qstem" style="font-size:13px;line-height:1.6;margin-bottom:8px">' + rich(stripWatermarks(q.passageText)) + '</div>');
+  }
 
   let passageHtml = '';
   if(q.paragraph && (hasPassageImgs || q.passageText)){
     passageHtml = '<div style="margin-bottom:10px;padding:8px 12px;background:var(--surface-2);border-left:3px solid var(--brand);border-radius:0 4px 4px 0;font-size:12.5px">' +
       '<div style="font-weight:700;color:var(--brand);margin-bottom:6px">Common Paragraph / Passage:</div>' +
       (!hasPassageImgs && q.passageText ? '<div style="margin-bottom:6px">' + rich(stripWatermarks(q.passageText)) + '</div>' : '') +
-      (hasPassageImgs ? q.passageImages.map(u => imageMarkup(u, 'Passage figure', 'test-builder-svg', q.crop)).join('') : '') +
+      (hasPassageImgs ? q.passageImages.map(u => {
+        const markup = imageMarkup(u, 'Passage figure', 'test-builder-svg', q.crop);
+        return passageFallbackStr ? markup.replace('<img ', '<img data-fallback="' + passageFallbackStr + '" ') : markup;
+      }).join('') : '') +
     '</div>';
   }
 
@@ -8531,9 +8563,9 @@ function startCbtFromBuilder(){
     fetchFirst(['chemistry_database.json', chemRemote].filter(Boolean)),
     fetchFirst(['maths_advanced_database.json', mathAdvRemote].filter(Boolean)),
     fetchFirst(['maths_main_database.json', mathMainRemote].filter(Boolean)),
-    fetchFirst(['allenchem_database.json', allenChemRemote].filter(Boolean)),
-    fetchFirst(['allenjee_database.json', allenJeeRemote].filter(Boolean)),
-    fetchFirst(['mschouhan_database.json'].filter(Boolean))
+    fetchFirst(['allenchem_database.json', allenChemRemote, 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/allenchem_database.json'].filter(Boolean)),
+    fetchFirst(['allenjee_database.json', allenJeeRemote, 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/allenjee_database.json'].filter(Boolean)),
+    fetchFirst(['mschouhan_database.json', 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/mschouhan_database.json'].filter(Boolean))
   ]);
   const parts = [phys, chem, mathAdv, mathMain, allenChem, allenJee, msChouhan].filter(Boolean);
   if(parts.length){
