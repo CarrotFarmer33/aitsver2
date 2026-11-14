@@ -101,6 +101,43 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
         self.send_json({"ok": True, "subjects": result})
 
     def handle_question_svg(self, qid):
+        if qid.startswith("allenjee_"):
+            try:
+                import build_allenjee_sheet as baj
+                with open(baj.DB_PATH, "r", encoding="utf-8") as f:
+                    allen_db = json.load(f)
+                allen_q = next((q for q in allen_db["questions"] if q["id"] == qid), None)
+                if not allen_q:
+                    self.send_error(404, "Allen JEE question not found")
+                    return
+                pdf_path = os.path.join(ROOT_DIR, allen_q["pdfName"].replace("/", os.sep))
+                doc = fitz.open(pdf_path)
+                baj.clean_source_doc(doc)
+                seg = allen_q["segments"][0]
+                pno, x0, y0, x1, y1 = seg
+                clip_r = fitz.Rect(baj.COL_X0, max(y0, baj.HEADER_Y_CUT), baj.COL_X1, min(y1, baj.FOOTER_Y_CUT))
+                tdoc = fitz.open()
+                tdoc.insert_pdf(doc, from_page=pno - 1, to_page=pno - 1)
+                tp = tdoc[0]
+                tp.set_cropbox(clip_r)
+                svg = tp.get_svg_image(text_as_path=1)
+                tdoc.close()
+                doc.close()
+                insert_pos = svg.find(">") + 1
+                if insert_pos > 0:
+                    svg = svg[:insert_pos] + '<rect width="100%" height="100%" fill="#ffffff"/>' + svg[insert_pos:]
+                body = svg.encode("utf-8")
+                self.send_response(200)
+                self.send_header("Content-Type", "image/svg+xml; charset=utf-8")
+                self.send_header("Content-Length", str(len(body)))
+                self.send_header("Cache-Control", "public, max-age=86400")
+                self.end_headers()
+                self.wfile.write(body)
+                return
+            except Exception as e:
+                self.send_error(500, f"Error rendering Allen JEE SVG: {e}")
+                return
+
         if qid.startswith("allenchem_"):
             try:
                 import build_allenchem_sheet as bas
@@ -226,7 +263,86 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
         out_filename = f"test_{ts}.pdf"
         out_pdf = os.path.join(GENERATED_DIR, out_filename)
 
-        # Check if Allen Chemistry is requested
+        # Check if Allen JEE or Allen Chemistry is requested
+        is_allen_jee = False
+        if selected_qids and any(str(qid).startswith("allenjee_") for qid in selected_qids):
+            is_allen_jee = True
+        elif paper in ("allen_jee", "allen_o1", "allen_o2") or (isinstance(req.get("papers"), list) and any(str(p).startswith("allen_") for p in req.get("papers"))):
+            is_allen_jee = True
+
+        if is_allen_jee:
+            try:
+                import build_allenjee_sheet as baj
+                bank_choice = "both"
+                if paper == "allen_o1" or (isinstance(req.get("papers"), list) and req.get("papers") == ["allen_o1"]):
+                    bank_choice = "O-1"
+                elif paper == "allen_o2" or (isinstance(req.get("papers"), list) and req.get("papers") == ["allen_o2"]):
+                    bank_choice = "O-2"
+
+                res = baj.generate_custom_test(
+                    chapter_name=chapters[0] if (chapters and len(chapters) == 1) else None,
+                    question_count=count,
+                    out_pdf_path=out_pdf,
+                    bank=bank_choice,
+                    selected_qids=selected_qids,
+                    title=title,
+                    subtitle=subtitle,
+                    cand_name=req.get("candName"),
+                    time_limit=req.get("timeLimit", 90)
+                )
+                pdf_url = f"/generated_tests/{out_filename}"
+                latest_url = "/generated_tests/latest_test.pdf"
+                latest_path = os.path.join(GENERATED_DIR, "latest_test.pdf")
+                try:
+                    import shutil
+                    shutil.copyfile(out_pdf, latest_path)
+                except Exception:
+                    pass
+
+                # Separate Student Copy (questions only) and Answer Key (key only)
+                student_filename = f"student_{out_filename}"
+                student_path = os.path.join(GENERATED_DIR, student_filename)
+                key_filename = f"key_{out_filename}"
+                key_path = os.path.join(GENERATED_DIR, key_filename)
+
+                try:
+                    full_doc = fitz.open(out_pdf)
+                    if len(full_doc) > 1:
+                        std_doc = fitz.open(out_pdf)
+                        std_doc.delete_page(len(std_doc) - 1)
+                        std_doc.save(student_path)
+                        std_doc.close()
+
+                        k_doc = fitz.open(out_pdf)
+                        k_doc.select([len(k_doc) - 1])
+                        k_doc.save(key_path)
+                        k_doc.close()
+                    else:
+                        import shutil
+                        shutil.copyfile(out_pdf, student_path)
+                        shutil.copyfile(out_pdf, key_path)
+                    full_doc.close()
+                except Exception as split_err:
+                    print("Error splitting student copy and key:", split_err)
+
+                self.send_json({
+                    "ok": True,
+                    "pdfUrl": pdf_url,
+                    "studentPdfUrl": f"/generated_tests/{student_filename}",
+                    "keyPdfUrl": f"/generated_tests/{key_filename}",
+                    "latestUrl": latest_url,
+                    "filename": out_filename,
+                    "totalQuestions": res["total_questions"],
+                    "totalPages": res["total_pages"],
+                    "answerCount": res["total_questions"]
+                })
+                return
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+                self.send_json({"ok": False, "error": f"Allen JEE test generation failed: {e}"}, 500)
+                return
+
         is_pure_allen = False
         if selected_qids and all(str(qid).startswith("allenchem_") for qid in selected_qids):
             is_pure_allen = True
@@ -255,9 +371,37 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
                 except Exception:
                     pass
 
+                # Separate Student Copy (questions only) and Answer Key (key only)
+                student_filename = f"student_{out_filename}"
+                student_path = os.path.join(GENERATED_DIR, student_filename)
+                key_filename = f"key_{out_filename}"
+                key_path = os.path.join(GENERATED_DIR, key_filename)
+
+                try:
+                    full_doc = fitz.open(out_pdf)
+                    if len(full_doc) > 1:
+                        std_doc = fitz.open(out_pdf)
+                        std_doc.delete_page(len(std_doc) - 1)
+                        std_doc.save(student_path)
+                        std_doc.close()
+
+                        k_doc = fitz.open(out_pdf)
+                        k_doc.select([len(k_doc) - 1])
+                        k_doc.save(key_path)
+                        k_doc.close()
+                    else:
+                        import shutil
+                        shutil.copyfile(out_pdf, student_path)
+                        shutil.copyfile(out_pdf, key_path)
+                    full_doc.close()
+                except Exception as split_err:
+                    print("Error splitting student copy and key:", split_err)
+
                 self.send_json({
                     "ok": True,
                     "pdfUrl": pdf_url,
+                    "studentPdfUrl": f"/generated_tests/{student_filename}",
+                    "keyPdfUrl": f"/generated_tests/{key_filename}",
                     "latestUrl": latest_url,
                     "filename": out_filename,
                     "totalQuestions": res["total_questions"],
@@ -290,9 +434,36 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
             pdf_url = f"/generated_tests/{out_filename}"
             latest_url = "/generated_tests/latest_test.pdf"
 
+            student_filename = f"student_{out_filename}"
+            student_path = os.path.join(GENERATED_DIR, student_filename)
+            key_filename = f"key_{out_filename}"
+            key_path = os.path.join(GENERATED_DIR, key_filename)
+
+            try:
+                full_doc = fitz.open(out_pdf)
+                if len(full_doc) > 1:
+                    std_doc = fitz.open(out_pdf)
+                    std_doc.delete_page(len(std_doc) - 1)
+                    std_doc.save(student_path)
+                    std_doc.close()
+
+                    k_doc = fitz.open(out_pdf)
+                    k_doc.select([len(k_doc) - 1])
+                    k_doc.save(key_path)
+                    k_doc.close()
+                else:
+                    import shutil
+                    shutil.copyfile(out_pdf, student_path)
+                    shutil.copyfile(out_pdf, key_path)
+                full_doc.close()
+            except Exception as split_err:
+                print("Error splitting student copy and key:", split_err)
+
             self.send_json({
                 "ok": True,
                 "pdfUrl": pdf_url,
+                "studentPdfUrl": f"/generated_tests/{student_filename}",
+                "keyPdfUrl": f"/generated_tests/{key_filename}",
                 "latestUrl": latest_url,
                 "filename": out_filename,
                 "totalQuestions": res["total_questions"],

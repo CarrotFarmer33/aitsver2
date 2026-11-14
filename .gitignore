@@ -16,6 +16,7 @@ node_modules
 .DS_Store
 *.bak
 *.csv
+*.zip
 paras/
 public/paras/
 
