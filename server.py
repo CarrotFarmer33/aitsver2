@@ -21,6 +21,8 @@ import pymupdf as fitz
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 SITE_DIR = os.path.join(ROOT_DIR, "aitsver2-main")
+if not os.path.isdir(SITE_DIR):
+    SITE_DIR = ROOT_DIR
 GENERATED_DIR = os.path.join(SITE_DIR, "generated_tests")
 os.makedirs(GENERATED_DIR, exist_ok=True)
 
@@ -30,6 +32,15 @@ threading.Thread(target=QuestionManager.get_instance, daemon=True).start()
 class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=SITE_DIR, **kwargs)
+
+    def translate_path(self, path):
+        orig = super().translate_path(path)
+        if not os.path.exists(orig):
+            rel = os.path.relpath(orig, self.directory)
+            pub_cand = os.path.join(self.directory, "public", rel)
+            if os.path.exists(pub_cand):
+                return pub_cand
+        return orig
 
     def end_headers(self):
         # Enable CORS for local testing
@@ -66,7 +77,7 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.handle_question_svg(qid)
             return
 
-        # Serve static files from SITE_DIR
+        # Serve static files from SITE_DIR (and fallback to public/ via translate_path)
         return super().do_GET()
 
     def do_POST(self):
@@ -101,6 +112,47 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
         self.send_json({"ok": True, "subjects": result})
 
     def handle_question_svg(self, qid):
+        if qid.startswith("mschouhan_"):
+            try:
+                import sheet_engine
+                db_path = os.path.join(ROOT_DIR, "mschouhan_database.json")
+                with open(db_path, "r", encoding="utf-8") as f:
+                    ms_db = json.load(f)
+                ms_q = next((q for q in ms_db["questions"] if q["id"] == qid), None)
+                if not ms_q:
+                    self.send_error(404, "MS Chouhan question not found")
+                    return
+                pdf_path = os.path.join(ROOT_DIR, ms_q["pdfName"].replace("/", os.sep))
+                doc = fitz.open(pdf_path)
+                sheet_engine.redact_printed_numerals(doc)
+                parts = ms_q["segments"]
+                w = 445.0 - 15.0
+                tot_h = sum(p[4] - p[2] for p in parts)
+                tdoc = fitz.open()
+                tp = tdoc.new_page(width=w, height=tot_h)
+                cur_y = 0.0
+                for pno, x0, y0, x1, y1 in parts:
+                    h = y1 - y0
+                    tp.show_pdf_page(fitz.Rect(0, cur_y, w, cur_y + h), doc, pno - 1, clip=fitz.Rect(15.0, y0, 445.0, y1))
+                    cur_y += h
+                svg = tp.get_svg_image(text_as_path=1)
+                tdoc.close()
+                doc.close()
+                insert_pos = svg.find(">") + 1
+                if insert_pos > 0:
+                    svg = svg[:insert_pos] + '<rect width="100%" height="100%" fill="#ffffff"/>' + svg[insert_pos:]
+                body = svg.encode("utf-8")
+                self.send_response(200)
+                self.send_header("Content-Type", "image/svg+xml; charset=utf-8")
+                self.send_header("Content-Length", str(len(body)))
+                self.send_header("Cache-Control", "public, max-age=86400")
+                self.end_headers()
+                self.wfile.write(body)
+                return
+            except Exception as e:
+                self.send_error(500, f"Error rendering MS Chouhan SVG: {e}")
+                return
+
         if qid.startswith("allenjee_"):
             try:
                 import build_allenjee_sheet as baj
@@ -262,6 +314,84 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
         ts = int(time.time() * 1000)
         out_filename = f"test_{ts}.pdf"
         out_pdf = os.path.join(GENERATED_DIR, out_filename)
+
+        # Check if Multi-Source or MS Chouhan is requested
+        has_ms = bool(selected_qids and any(str(qid).startswith("mschouhan_") for qid in selected_qids))
+        has_allen_jee = bool(selected_qids and any(str(qid).startswith("allenjee_") for qid in selected_qids))
+        has_allen_chem = bool(selected_qids and any(str(qid).startswith("allenchem_") for qid in selected_qids))
+        has_fiitjee = bool(selected_qids and any(not str(qid).startswith("allen") and not str(qid).startswith("mschouhan") for qid in selected_qids))
+        sources_count = sum([has_ms, has_allen_jee, has_allen_chem, has_fiitjee])
+        is_mixed = sources_count > 1
+
+        if has_ms or is_mixed or (paper == "mschouhan"):
+            try:
+                import build_unified_sheet as bus
+                if not selected_qids:
+                    # Load default from mschouhan_database.json
+                    with open(os.path.join(ROOT_DIR, "mschouhan_database.json"), "r", encoding="utf-8") as f:
+                        ms_db = json.load(f)
+                    selected_qids = [q["id"] for q in ms_db.get("questions", []) if q.get("selected")][:count]
+
+                res = bus.generate_multi_source_test(
+                    selected_qids=selected_qids,
+                    out_pdf_path=out_pdf,
+                    title=title,
+                    subtitle=subtitle,
+                    cand_name=req.get("candName"),
+                    time_limit=req.get("timeLimit", 90)
+                )
+                pdf_url = f"/generated_tests/{out_filename}"
+                latest_url = "/generated_tests/latest_test.pdf"
+                latest_path = os.path.join(GENERATED_DIR, "latest_test.pdf")
+                try:
+                    import shutil
+                    shutil.copyfile(out_pdf, latest_path)
+                except Exception:
+                    pass
+
+                # Separate Student Copy (questions only) and Answer Key (key only)
+                student_filename = f"student_{out_filename}"
+                student_path = os.path.join(GENERATED_DIR, student_filename)
+                key_filename = f"key_{out_filename}"
+                key_path = os.path.join(GENERATED_DIR, key_filename)
+
+                try:
+                    full_doc = fitz.open(out_pdf)
+                    if len(full_doc) > 1:
+                        std_doc = fitz.open(out_pdf)
+                        std_doc.delete_page(len(std_doc) - 1)
+                        std_doc.save(student_path)
+                        std_doc.close()
+
+                        k_doc = fitz.open(out_pdf)
+                        k_doc.select([len(k_doc) - 1])
+                        k_doc.save(key_path)
+                        k_doc.close()
+                    else:
+                        import shutil
+                        shutil.copyfile(out_pdf, student_path)
+                        shutil.copyfile(out_pdf, key_path)
+                    full_doc.close()
+                except Exception as split_err:
+                    print("Error splitting student copy and key:", split_err)
+
+                self.send_json({
+                    "ok": True,
+                    "pdfUrl": pdf_url,
+                    "studentPdfUrl": f"/generated_tests/{student_filename}",
+                    "keyPdfUrl": f"/generated_tests/{key_filename}",
+                    "latestUrl": latest_url,
+                    "filename": out_filename,
+                    "totalQuestions": res["total_questions"],
+                    "totalPages": res["total_pages"],
+                    "answerCount": res["total_questions"]
+                })
+                return
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+                self.send_json({"ok": False, "error": f"Multi-source test generation failed: {e}"}, 500)
+                return
 
         # Check if Allen JEE or Allen Chemistry is requested
         is_allen_jee = False

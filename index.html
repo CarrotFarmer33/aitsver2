@@ -2359,14 +2359,25 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
       <div style="display:flex;flex-direction:column;gap:16px">
         <section class="card">
           <h2>1. Exam Pattern &amp; Paper Source</h2>
-          <!-- Source Bank Top-Level Tabs: Separates FIITJEE and Allen to eliminate congestion -->
-          <div class="source-top-tabs" style="display:flex;gap:10px;margin-bottom:14px;border-bottom:1.5px solid var(--line);padding-bottom:10px">
+          <!-- Source Bank Top-Level Tabs: Separates FIITJEE, Allen, and MS Chouhan -->
+          <div class="source-top-tabs" style="display:flex;gap:10px;margin-bottom:14px;border-bottom:1.5px solid var(--line);padding-bottom:10px;flex-wrap:wrap">
             <button type="button" class="source-tab-btn active" id="tbTabFiitjee">
               <span>🏛️ FIITJEE Question Bank</span>
+              <span class="tab-badge" id="tbFiitjeeBadge" style="display:none;background:var(--brand);color:#fff;border-radius:10px;padding:1px 6px;font-size:11px;margin-left:6px">0</span>
             </button>
             <button type="button" class="source-tab-btn" id="tbTabAllen">
               <span>🔷 ALLEN Question Bank</span>
+              <span class="tab-badge" id="tbAllenBadge" style="display:none;background:var(--brand);color:#fff;border-radius:10px;padding:1px 6px;font-size:11px;margin-left:6px">0</span>
             </button>
+            <button type="button" class="source-tab-btn" id="tbTabMschouhan">
+              <span>📗 M.S. Chouhan Question Bank</span>
+              <span class="tab-badge" id="tbMsBadge" style="display:none;background:var(--brand);color:#fff;border-radius:10px;padding:1px 6px;font-size:11px;margin-left:6px">0</span>
+            </button>
+          </div>
+
+          <!-- Multi-Source Active Banner (shown when chapters are selected across 2 or more tabs) -->
+          <div id="tbMultiSourceBanner" style="display:none;background:var(--brand-tint, rgba(0,102,204,0.08));border:1.5px solid var(--brand, #0066cc);border-radius:8px;padding:10px 14px;margin-bottom:12px">
+            <div id="tbMultiSourceText" style="font-size:13px;color:var(--brand-deep, #004c99);font-weight:600"></div>
           </div>
 
           <!-- FIITJEE Controls Panel -->
@@ -2433,6 +2444,30 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
             </div>
           </div>
 
+          <!-- M.S. CHOUHAN Controls Panel -->
+          <div id="tbPanelMschouhan" style="display:none">
+            <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:12px">
+              <div class="field">
+                <label>M.S. Chouhan Sub-Sources <span class="muted" style="font-size:11px;font-weight:normal">(Select Level 1 or Selected Questions)</span></label>
+                <div class="pattern-pills" id="tbMsSubSourcePills" style="display:flex;flex-wrap:wrap;gap:8px">
+                  <button type="button" class="pattern-pill active" data-mssubsource="selected" id="tbMsSubSourceSelected"><span class="pill-check">✓ </span>Selected Questions <span id="tbMsSelectedCnt">(82)</span></button>
+                  <button type="button" class="pattern-pill" data-mssubsource="level1" id="tbMsSubSourceLevel1"><span class="pill-check">+ </span>Level 1 (All Questions) <span id="tbMsLevel1Cnt">(154)</span></button>
+                </div>
+              </div>
+
+              <!-- Difficulty Tier (when Selected Questions is active) -->
+              <div class="field" id="tbMsStarFilterField" style="background:var(--surface-2);padding:10px 14px;border-radius:6px;border:1px solid var(--line)">
+                <label style="margin-bottom:6px;font-size:12.5px;font-weight:700">Selected Questions Tiers <span class="muted" style="font-size:11px;font-weight:normal">(Filter by marked difficulty)</span></label>
+                <div class="pattern-pills" id="tbMsStarPills" style="display:flex;flex-wrap:wrap;gap:8px">
+                  <button type="button" class="pattern-pill active" data-msstar="all" id="tbMsStarAll"><span class="pill-check">✓ </span>All Marked Tiers <span id="tbMsStarAllCnt">(82)</span></button>
+                  <button type="button" class="pattern-pill" data-msstar="normal" id="tbMsStarNormal"><span class="pill-check">+ </span>Normal (Tick) <span id="tbMsStarNormalCnt">(46)</span></button>
+                  <button type="button" class="pattern-pill" data-msstar="one_star" id="tbMsStarOne"><span class="pill-check">+ </span>★ One Star <span id="tbMsStarOneCnt">(25)</span></button>
+                  <button type="button" class="pattern-pill" data-msstar="two_star" id="tbMsStarTwo"><span class="pill-check">+ </span>★★ Two Star <span id="tbMsStarTwoCnt">(11)</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="field"><label for="tbTestTitle">Test Paper Title</label>
             <input type="text" id="tbTestTitle" value="Practice Sheet">
           </div>
@@ -2466,6 +2501,10 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
               <label class="chk"><input type="checkbox" data-tballenbranch="Inorganic Chemistry" checked> <span>Inorganic Chemistry</span></label>
               <label class="chk"><input type="checkbox" data-tballenbranch="Organic Chemistry" checked> <span>Organic Chemistry</span></label>
               <label class="chk"><input type="checkbox" data-tballenbranch="NEET Modules" checked> <span>NEET Modules</span></label>
+            </div>
+            <!-- MS Chouhan Branch indicator (shown when MS Chouhan tab is active) -->
+            <div class="chips" id="tbMsBranchBox" style="display:none;margin-top:6px">
+              <label class="chk"><input type="checkbox" data-tbmsbranch="Organic Chemistry" checked disabled> <span>Organic Chemistry (Aldehydes &amp; Ketones)</span></label>
             </div>
           </div>
           <div class="chtools" style="margin-top:12px">
@@ -2917,7 +2956,28 @@ async function resolveZipImage(img){
     }
     img.removeAttribute('data-zipimg');
   }catch(e){
-    console.warn('Unable to load image: ' + fileName, e);
+    console.warn('Unable to load image from ZIP: ' + fileName, e);
+    // Automatic fallback: fetch vector SVG directly from local vector engine
+    if(fileName.startsWith('allenjee_') || fileName.startsWith('allenchem_')){
+      try {
+        const qid = fileName.replace(/\.svg$/i, '');
+        const baseEngine = (window.AITS_CONFIG && window.AITS_CONFIG.localVectorEngineUrl) ? window.AITS_CONFIG.localVectorEngineUrl.replace(/\/+$/, '') : '';
+        const svgUrl = (baseEngine || '') + '/api/question-svg/' + encodeURIComponent(qid);
+        const resp = await fetch(svgUrl);
+        if(resp.ok){
+          const rawSvgText = await resp.text();
+          let processedSvg = processSvgMarkup(rawSvgText, isTb);
+          if(crop) processedSvg = applySvgCrop(processedSvg, crop);
+          const blob = new Blob([processedSvg], { type: 'image/svg+xml;charset=utf-8' });
+          img.src = URL.createObjectURL(blob);
+          img.classList.add('qimg', 'vector-inline-svg', isTb ? 'test-builder-svg' : 'practice-svg');
+          img.removeAttribute('data-zipimg');
+          return;
+        }
+      } catch(err) {
+        console.warn('Direct SVG endpoint fallback failed:', err);
+      }
+    }
     const fallback = img.dataset.fallback;
     if(fallback){
       const wrap = document.createElement('div');
@@ -3145,9 +3205,12 @@ function normQuestion(q,i,defSubject){
     raster_images:[].concat(q.raster_images||imgs).filter(Boolean).map(String),
     solImages:[].concat(q.solution_images||q.solutionImages||[]).filter(Boolean).map(String),
     source:String(q.source!=null?q.source:(q.source_paper!=null?q.source_paper:(q.paper!=null?q.paper:(q.test||'')))),
-    bank: q.bank || q.exercise || (String(q.id).includes('_o1_') ? 'O-1' : (String(q.id).includes('_o2_') ? 'O-2' : '')),
-    branch: q.branch || ((q.paper === 'allen' || (q.id && String(q.id).startsWith('allenchem_'))) ? 'NEET Modules' : ''),
-    paper: (q.paper === 'allen_jee' || (q.id && String(q.id).startsWith('allenjee_'))) ? 'allen_jee' : ((q.paper === 'allen' || (q.id && String(q.id).startsWith('allenchem_')) || /allen/i.test(String(q.source||''))) ? 'allen' : (q.exam ? (/adv/i.test(q.exam)?'adv':(/main/i.test(q.exam)?'main':q.exam)) : paperOf(String(q.source||'')+' '+String(q.paperTitle||q.paper_title||'')))),
+    bank: (q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? (q.bank || 'Selected Questions') : (q.bank || q.exercise || (String(q.id).includes('_o1_') ? 'O-1' : (String(q.id).includes('_o2_') ? 'O-2' : ''))),
+    branch: q.branch || ((q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? 'Organic Chemistry' : (((q.paper === 'allen' || (q.id && String(q.id).startsWith('allenchem_'))) ? 'NEET Modules' : ''))),
+    paper: (q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? 'mschouhan' : ((q.paper === 'allen_jee' || (q.id && String(q.id).startsWith('allenjee_'))) ? 'allen_jee' : ((q.paper === 'allen' || (q.id && String(q.id).startsWith('allenchem_')) || /allen/i.test(String(q.source||''))) ? 'allen' : (q.exam ? (/adv/i.test(q.exam)?'adv':(/main/i.test(q.exam)?'main':q.exam)) : paperOf(String(q.source||'')+' '+String(q.paperTitle||q.paper_title||''))))),
+    selected: !!q.selected,
+    star: q.star || null,
+    exercise: q.exercise || ((q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? 'Level 1' : null),
     year:yearOf(q)
   };
 }
@@ -3215,7 +3278,7 @@ function loadDB(raw,label,isSample){
   const seen=new Map();
   out.forEach(q=>{ const c=(seen.get(q.id)||0)+1; seen.set(q.id,c); if(c>1) q.id=q.id+'#'+c; });
   DB=out; dbLabel=label; dbSample=!!isSample; dbSkipped=skipped; dbNoKey=out.filter(q=>!q.keyOk).length;
-  const practiceDB = out.filter(q => q.paper !== 'allen' && q.paper !== 'allen_jee');
+  const practiceDB = out.filter(q => q.paper !== 'allen' && q.paper !== 'allen_jee' && q.paper !== 'mschouhan');
   cfg.subjects=new Set([SUBJ.find(s=>practiceDB.some(q=>q.subject===s))||'Physics']);
   cfg.chapters=new Set(practiceDB.filter(q=>cfg.subjects.has(q.subject)).map(q=>q.subject+'||'+q.chapter)); cfg.types=new Set(Object.keys(TYPES)); cfg.paper='all';
   cfg.years=new Set(practiceDB.map(q=>q.year));
@@ -5520,6 +5583,33 @@ document.addEventListener('click',e=>{
   else if(b.id==='tbTabAllen' || b.closest('#tbTabAllen')){
     setSourceTab('allen');
   }
+  else if(b.id==='tbTabMschouhan' || b.closest('#tbTabMschouhan')){
+    setSourceTab('mschouhan');
+  }
+  else if(b.dataset.mssubsource){
+    document.querySelectorAll('#tbMsSubSourcePills .pattern-pill').forEach(p => {
+      const isAct = p === b;
+      p.classList.toggle('active', isAct);
+      const chk = p.querySelector('.pill-check');
+      if(chk) chk.textContent = isAct ? '✓ ' : '+ ';
+    });
+    tbCfg.msSubSource = b.dataset.mssubsource;
+    const filterField = $('#tbMsStarFilterField');
+    if(filterField) filterField.style.display = (tbCfg.msSubSource === 'selected') ? 'block' : 'none';
+    renderBuilderChapters();
+    refreshBuilderSummary();
+  }
+  else if(b.dataset.msstar){
+    document.querySelectorAll('#tbMsStarPills .pattern-pill').forEach(p => {
+      const isAct = p === b;
+      p.classList.toggle('active', isAct);
+      const chk = p.querySelector('.pill-check');
+      if(chk) chk.textContent = isAct ? '✓ ' : '+ ';
+    });
+    tbCfg.msStar = b.dataset.msstar;
+    renderBuilderChapters();
+    refreshBuilderSummary();
+  }
   else if(b.dataset.allenbank){
     document.querySelectorAll('#tbAllenBankPills .pattern-pill').forEach(p => {
       const isAct = p === b;
@@ -5810,6 +5900,12 @@ function stripWatermarks(text){
 }
 
 function cleanSourceTag(q){
+  if(q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))){
+    if(q.star === 'two_star') return 'MS Chouhan • Selected (★★)';
+    if(q.star === 'one_star') return 'MS Chouhan • Selected (★)';
+    if(q.star === 'normal') return 'MS Chouhan • Selected (Normal)';
+    return 'MS Chouhan • ' + (q.exercise || 'Level 1');
+  }
   if(q.paper === 'allen_jee' || (q.id && String(q.id).startsWith('allenjee_'))){
     const b = q.bank || q.exercise || (String(q.id).includes('_o2_') ? 'O-2' : 'O-1');
     return 'Allen JEE • ' + b;
@@ -5889,7 +5985,10 @@ const tbCfg = {
   allenO2MatrixCount: 2,
   allenO2Count: 10,
   allenNeetCount: 0,
+  msSubSource: 'selected', // 'selected' | 'level1'
+  msStar: 'all',          // 'all' | 'normal' | 'one_star' | 'two_star'
   chapters: new Set(),
+  initializedTabs: new Set(),
   types: new Set(['single', 'multi', 'numerical', 'paragraph']),
   typeCounts: { single: null, multi: null, numerical: null, paragraph: null },
   count: 30,
@@ -5903,10 +6002,72 @@ const tbCfg = {
   currentTestId: null
 };
 
+function getQuestionChapKey(q){
+  if(q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))){
+    return 'mschouhan||' + (q.subject || 'Chemistry') + '||' + q.chapter;
+  }
+  if(q.paper === 'allen' || q.paper === 'allen_jee' || (q.id && (String(q.id).startsWith('allenjee_') || String(q.id).startsWith('allenchem_')))){
+    return 'allen||' + (q.subject || 'Chemistry') + '||' + q.chapter;
+  }
+  return 'fiitjee||' + q.subject + '||' + q.chapter;
+}
+
+function isChapterSelected(q){
+  const k = getQuestionChapKey(q);
+  if(tbCfg.chapters.has(k)) return true;
+  if(tbCfg.chapters.has(q.subject + '||' + q.chapter)) return true;
+  return false;
+}
+
+function updateSourceBadges(){
+  let fiitjeeCh = 0, allenCh = 0, msCh = 0;
+  tbCfg.chapters.forEach(k => {
+    if(k.startsWith('mschouhan||')) msCh++;
+    else if(k.startsWith('allen||')) allenCh++;
+    else fiitjeeCh++;
+  });
+
+  const bF = $('#tbFiitjeeBadge');
+  const bA = $('#tbAllenBadge');
+  const bM = $('#tbMsBadge');
+
+  if(bF){ bF.textContent = fiitjeeCh; bF.style.display = fiitjeeCh > 0 ? 'inline-block' : 'none'; }
+  if(bA){ bA.textContent = allenCh; bA.style.display = allenCh > 0 ? 'inline-block' : 'none'; }
+  if(bM){ bM.textContent = msCh; bM.style.display = msCh > 0 ? 'inline-block' : 'none'; }
+
+  const banner = $('#tbMultiSourceBanner');
+  const bannerText = $('#tbMultiSourceText');
+  const activeSources = [];
+  if(fiitjeeCh > 0) activeSources.push(`FIITJEE (${fiitjeeCh} ch)`);
+  if(allenCh > 0) activeSources.push(`Allen (${allenCh} ch)`);
+  if(msCh > 0) activeSources.push(`M.S. Chouhan (${msCh} ch)`);
+
+  if(banner && bannerText){
+    if(activeSources.length > 1){
+      banner.style.display = 'block';
+      bannerText.innerHTML = `⚡ <b>Multi-Tab Test Active:</b> Questions will be compiled from <b>${activeSources.join(' + ')}</b>.`;
+    } else {
+      banner.style.display = 'none';
+    }
+  }
+}
+
 function tbPaperOK(q){
+  const isMs = q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'));
   const isAllen = q.paper === 'allen' || q.paper === 'allen_jee' || (q.id && (String(q.id).startsWith('allenjee_') || String(q.id).startsWith('allenchem_')));
-  if(tbCfg.sourceTab === 'allen'){
-    if(!isAllen) return false;
+
+  if(isMs){
+    if(tbCfg.msSubSource === 'selected'){
+      if(!q.selected) return false;
+      if(tbCfg.msStar === 'normal') return q.star === 'normal';
+      if(tbCfg.msStar === 'one_star') return q.star === 'one_star';
+      if(tbCfg.msStar === 'two_star') return q.star === 'two_star';
+      return true;
+    }
+    return true; // level 1 includes all questions
+  }
+
+  if(isAllen){
     const branch = q.branch || (q.paper === 'allen' ? 'NEET Modules' : 'Physical Chemistry');
     if(tbCfg.allenBranches && !tbCfg.allenBranches.has(branch)) return false;
     if(tbCfg.allenBank === 'o1'){
@@ -5919,11 +6080,12 @@ function tbPaperOK(q){
       return q.paper === 'allen';
     }
     return true;
-  } else {
-    if(isAllen) return false;
-    if(!tbCfg.papers || tbCfg.papers.size === 0) return true;
-    return tbCfg.papers.has(q.paper);
   }
+
+  // FIITJEE
+  if(!tbCfg.subjects.has(q.subject)) return false;
+  if(!tbCfg.papers || tbCfg.papers.size === 0) return true;
+  return tbCfg.papers.has(q.paper);
 }
 
 function syncAllenCountsToTotal(){
@@ -5965,49 +6127,58 @@ function syncAllenCountsToTotal(){
 function setSourceTab(tab){
   tbCfg.sourceTab = tab;
   const isAllen = tab === 'allen';
+  const isMs = tab === 'mschouhan';
+  const isFiitjee = tab === 'fiitjee';
+
   const tabFiitjee = $('#tbTabFiitjee');
   const tabAllen = $('#tbTabAllen');
+  const tabMs = $('#tbTabMschouhan');
   const pnlFiitjee = $('#tbPanelFiitjee');
   const pnlAllen = $('#tbPanelAllen');
+  const pnlMs = $('#tbPanelMschouhan');
   const subjBox = $('#tbSubjBox');
   const allenBranchBox = $('#tbAllenBranchBox');
+  const msBranchBox = $('#tbMsBranchBox');
 
-  if(tabFiitjee) tabFiitjee.classList.toggle('active', !isAllen);
+  if(tabFiitjee) tabFiitjee.classList.toggle('active', isFiitjee);
   if(tabAllen) tabAllen.classList.toggle('active', isAllen);
-  if(pnlFiitjee) pnlFiitjee.style.display = isAllen ? 'none' : 'block';
+  if(tabMs) tabMs.classList.toggle('active', isMs);
+
+  document.querySelectorAll('#setupTabFiitjee, #topNavFiitjee, #tbTopNavFiitjee, #prkTopNavFiitjee').forEach(el => el.classList.toggle('active', isFiitjee));
+  document.querySelectorAll('#setupTabAllen, #topNavAllen, #tbTopNavAllen, #prkTopNavAllen').forEach(el => el.classList.toggle('active', isAllen));
+  document.querySelectorAll('#tbTopNavMschouhan').forEach(el => el.classList.toggle('active', isMs));
+
+  if(pnlFiitjee) pnlFiitjee.style.display = isFiitjee ? 'block' : 'none';
   if(pnlAllen) pnlAllen.style.display = isAllen ? 'block' : 'none';
-  if(subjBox) subjBox.style.display = isAllen ? 'none' : 'flex';
+  if(pnlMs) pnlMs.style.display = isMs ? 'block' : 'none';
+
+  if(subjBox) subjBox.style.display = isFiitjee ? 'flex' : 'none';
   if(allenBranchBox) allenBranchBox.style.display = isAllen ? 'flex' : 'none';
+  if(msBranchBox) msBranchBox.style.display = isMs ? 'flex' : 'none';
 
   if(isAllen){
-    tbCfg.subjects = new Set(['Chemistry']);
-    const titleIn = $('#tbTestTitle');
-    const subTitleIn = $('#tbTestSubtitle');
-    if(titleIn && (!titleIn.value || /allen|fiitjee|jee\s+advanced|jee\s+main/i.test(titleIn.value))){
-      titleIn.value = 'Practice Sheet';
-    }
-    if(subTitleIn){
-      subTitleIn.value = '';
-    }
+    tbCfg.subjects.add('Chemistry');
     syncAllenCountsToTotal();
+  } else if(isMs){
+    tbCfg.subjects.add('Chemistry');
   } else {
     document.querySelectorAll('#tbSubjBox input[data-tbsubj]').forEach(cb => {
       if(cb.checked) tbCfg.subjects.add(cb.dataset.tbsubj);
     });
     if(!tbCfg.subjects.size) tbCfg.subjects = new Set(['Physics', 'Chemistry', 'Mathematics']);
-    const titleIn = $('#tbTestTitle');
-    if(titleIn && (!titleIn.value || /allen/i.test(titleIn.value))){
-      titleIn.value = 'Practice Sheet';
-    }
   }
 
-  // Pre-select chapters for active mode
-  tbCfg.chapters.clear();
-  DB.forEach(q => {
-    if(tbPaperOK(q)){
-      tbCfg.chapters.add(q.subject + '||' + q.chapter);
-    }
-  });
+  // Pre-select chapters for active mode on first tab open (preserve user selections across tabs!)
+  if(!tbCfg.initializedTabs) tbCfg.initializedTabs = new Set();
+  if(!tbCfg.initializedTabs.has(tab)){
+    tbCfg.initializedTabs.add(tab);
+    DB.forEach(q => {
+      const qSource = (q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? 'mschouhan' : ((q.paper === 'allen' || q.paper === 'allen_jee' || (q.id && (String(q.id).startsWith('allenjee_') || String(q.id).startsWith('allenchem_')))) ? 'allen' : 'fiitjee');
+      if(qSource === tab && tbPaperOK(q)){
+        tbCfg.chapters.add(getQuestionChapKey(q));
+      }
+    });
+  }
 
   updateBuilderPaperOptions();
   renderBuilderChapters();
@@ -6040,6 +6211,24 @@ function updateBuilderPaperOptions(){
   const elO2 = $('#tbAllenO2Cnt'); if(elO2) elO2.textContent = '(' + o2Cnt + ')';
   const elNeet = $('#tbAllenNeetCnt'); if(elNeet) elNeet.textContent = '(' + neetCnt + ')';
 
+  // Count MS Chouhan distributions
+  const allMs = DB.filter(q => q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_')));
+  let msSelectedCnt = 0, msNormalCnt = 0, msOneCnt = 0, msTwoCnt = 0;
+  allMs.forEach(q => {
+    if(q.selected){
+      msSelectedCnt++;
+      if(q.star === 'two_star') msTwoCnt++;
+      else if(q.star === 'one_star') msOneCnt++;
+      else if(q.star === 'normal') msNormalCnt++;
+    }
+  });
+  const elMsSel = $('#tbMsSelectedCnt'); if(elMsSel) elMsSel.textContent = '(' + msSelectedCnt + ')';
+  const elMsL1 = $('#tbMsLevel1Cnt'); if(elMsL1) elMsL1.textContent = '(' + allMs.length + ')';
+  const elMsAll = $('#tbMsStarAllCnt'); if(elMsAll) elMsAll.textContent = '(' + msSelectedCnt + ')';
+  const elMsNorm = $('#tbMsStarNormalCnt'); if(elMsNorm) elMsNorm.textContent = '(' + msNormalCnt + ')';
+  const elMsOne = $('#tbMsStarOneCnt'); if(elMsOne) elMsOne.textContent = '(' + msOneCnt + ')';
+  const elMsTwo = $('#tbMsStarTwoCnt'); if(elMsTwo) elMsTwo.textContent = '(' + msTwoCnt + ')';
+
   document.querySelectorAll('#tbPaperPills .pattern-pill').forEach(btn => {
     const p = btn.dataset.paper;
     const isAct = tbCfg.papers ? tbCfg.papers.has(p) : (p === tbCfg.paper);
@@ -6047,12 +6236,56 @@ function updateBuilderPaperOptions(){
     const chk = btn.querySelector('.pill-check');
     if(chk) chk.textContent = isAct ? '✓ ' : '+ ';
   });
+
+  updateSourceBadges();
 }
 
 function renderBuilderChapters(){
   const term = ($('#tbChSearch').value || '').trim().toLowerCase();
 
-  // Allen Mode: Group chapters strictly by branch
+  // 1. M.S. Chouhan Mode
+  if(tbCfg.sourceTab === 'mschouhan'){
+    const msPool = DB.filter(q => {
+      const isMs = q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'));
+      return isMs && tbPaperOK(q);
+    });
+    const byChap = {};
+    msPool.forEach(q => {
+      const c = q.chapter || 'Aldehydes and Ketones';
+      if(!byChap[c]) byChap[c] = { total: 0, normal: 0, one: 0, two: 0 };
+      byChap[c].total++;
+      if(q.star === 'two_star') byChap[c].two++;
+      else if(q.star === 'one_star') byChap[c].one++;
+      else if(q.star === 'normal') byChap[c].normal++;
+    });
+
+    let totalSelected = 0;
+    const chEntries = Object.entries(byChap).filter(([c]) => !term || c.toLowerCase().includes(term));
+    const chHtml = chEntries.map(([c, info]) => {
+      const k = 'mschouhan||Chemistry||' + c;
+      const isChecked = tbCfg.chapters.has(k) || tbCfg.chapters.has('Chemistry||' + c);
+      if(isChecked) totalSelected++;
+      const breakdown = (tbCfg.msSubSource === 'selected') ?
+        (` (${info.normal} Normal, ${info.one} ★, ${info.two} ★★)`) :
+        (` (Level 1 • ${info.total} Qs)`);
+      return '<div class="chgroup" style="margin-bottom:8px;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--surface)">' +
+        '<div style="padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px">' +
+          '<label class="chk" style="cursor:pointer;font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:8px;margin:0">' +
+            '<input type="checkbox" data-tbch="' + esc(k) + '"' + (isChecked ? ' checked' : '') + '> ' +
+            '<span>' + esc(c) + '</span>' +
+          '</label>' +
+          '<span style="font-size:12px;color:var(--brand);font-weight:700">' + info.total + ' Qs' + breakdown + '</span>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    $('#tbChapList').innerHTML = chHtml || '<div class="muted" style="padding:12px;text-align:center">No chapters found for M.S. Chouhan.</div>';
+    $('#tbChapSelectedCnt').textContent = totalSelected;
+    updateSourceBadges();
+    return;
+  }
+
+  // 2. Allen Mode: Group chapters strictly by branch
   if(tbCfg.sourceTab === 'allen'){
     const branchGroups = {
       'Physical Chemistry': {},
@@ -6086,8 +6319,8 @@ function renderBuilderChapters(){
         '</div>' +
         '<div class="chlist" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:2px 14px;padding:6px 10px">' +
           shown.map(c => {
-            const k = 'Chemistry||' + c;
-            const isChecked = tbCfg.chapters.has(k);
+            const k = 'allen||Chemistry||' + c;
+            const isChecked = tbCfg.chapters.has(k) || tbCfg.chapters.has('Chemistry||' + c);
             if(isChecked) totalSelected++;
             const cnt = available[c] ? available[c].n : 0;
             return '<label class="chk' + (cnt ? '' : ' zero') + '" style="cursor:pointer;font-size:13px"><input type="checkbox" data-tbch="' + esc(k) + '"' + (isChecked ? ' checked' : '') + '> <span>' + esc(c) + '</span><span class="cnt">' + cnt + '</span></label>';
@@ -6106,12 +6339,15 @@ function renderBuilderChapters(){
       cb.checked = on === boxes.length && on > 0;
       cb.indeterminate = on > 0 && on < boxes.length;
     });
+    updateSourceBadges();
     return;
   }
 
-  // FIITJEE Mode
+  // 3. FIITJEE Mode
   const groups = {};
   DB.forEach(q => {
+    const isSpecial = q.paper === 'allen_jee' || q.paper === 'allen' || q.paper === 'mschouhan' || (q.id && (String(q.id).startsWith('allenjee_') || String(q.id).startsWith('allenchem_') || String(q.id).startsWith('mschouhan_')));
+    if(isSpecial) return;
     if(!groups[q.subject]) groups[q.subject] = {};
     const c = groups[q.subject][q.chapter] || (groups[q.subject][q.chapter] = {n: 0});
     if(!tbPaperOK(q)) return;
@@ -6152,8 +6388,8 @@ function renderBuilderChapters(){
         '</div>' +
         '<div class="chlist" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:2px 14px;padding:6px 10px">' +
           shown.map(c => {
-            const k = subject + '||' + c;
-            const isChecked = tbCfg.chapters.has(k);
+            const k = 'fiitjee||' + subject + '||' + c;
+            const isChecked = tbCfg.chapters.has(k) || tbCfg.chapters.has(subject + '||' + c);
             if(isChecked) totalSelected++;
             const cnt = available[c] ? available[c].n : 0;
             return '<label class="chk' + (cnt ? '' : ' zero') + '" style="cursor:pointer;font-size:13px"><input type="checkbox" data-tbch="' + esc(k) + '"' + (isChecked ? ' checked' : '') + '> <span>' + esc(c) + '</span><span class="cnt">' + cnt + '</span></label>';
@@ -6173,36 +6409,14 @@ function renderBuilderChapters(){
     cb.checked = on === boxes.length && on > 0;
     cb.indeterminate = on > 0 && on < boxes.length;
   });
+
+  updateSourceBadges();
 }
 
 function refreshBuilderSummary(){
-  if(tbCfg.sourceTab === 'allen'){
-    const pool = DB.filter(q => {
-      if(!tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
-      if(!tbPaperOK(q)) return false;
-      return tbCfg.types.has(q.type);
-    });
-    const avail = pool.length;
-    $('#tbSumAvail').textContent = avail;
-    $('#tbCountIn').max = avail;
-    const ok = avail > 0;
-    if($('#btnGenSheet')) $('#btnGenSheet').disabled = !ok;
-    if($('#btnPreviewSheet')) $('#btnPreviewSheet').disabled = !ok;
-    if($('#btnGenCbt')) $('#btnGenCbt').disabled = !ok;
-    const o1 = tbCfg.allenO1Count || 0, o2 = tbCfg.allenO2Count || 0, neet = tbCfg.allenNeetCount || 0;
-    $('#tbStatusNote').textContent = 'Allen Mode: ' + tbCfg.count + ' Qs allocated (' + (o1 ? o1 + ' O-1, ' : '') + (o2 ? o2 + ' O-2, ' : '') + (neet ? neet + ' NEET, ' : '') + avail + ' available in chosen chapters).';
-    updateExhaustDisplay();
-    return;
-  }
-
   const pool = DB.filter(q => {
-    if(!tbCfg.subjects.has(q.subject)) return false;
-    if(!tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
+    if(!isChapterSelected(q)) return false;
     if(!tbPaperOK(q)) return false;
-    if(tbCfg.pattern === 'main'){
-      if(q.paragraph || q.type === 'paragraph') return false;
-      return q.type === 'single' || q.type === 'numerical';
-    }
     if(q.paragraph || q.type === 'paragraph'){
       return tbCfg.types.has('paragraph');
     }
@@ -6212,35 +6426,36 @@ function refreshBuilderSummary(){
   const avail = pool.length;
   $('#tbSumAvail').textContent = avail;
   $('#tbCountIn').max = avail;
-  const explicitSum = tbCfg.typeCounts ? Object.values(tbCfg.typeCounts).filter(v => v != null && v > 0).reduce((a, b) => a + b, 0) : 0;
-  if(explicitSum > 0){
-    tbCfg.count = explicitSum;
-    $('#tbCountIn').value = explicitSum;
-  } else {
-    if(tbCfg.count > avail && avail > 0) tbCfg.count = avail;
-    $('#tbCountIn').value = Math.min(tbCfg.count || 30, Math.max(avail, 1));
-  }
-
   const ok = avail > 0;
   if($('#btnGenSheet')) $('#btnGenSheet').disabled = !ok;
   if($('#btnPreviewSheet')) $('#btnPreviewSheet').disabled = !ok;
   if($('#btnGenCbt')) $('#btnGenCbt').disabled = !ok;
-  if(tbCfg.pattern === 'main'){
-    const activeSubjs = ['Physics', 'Chemistry', 'Mathematics'].filter(s => tbCfg.subjects.has(s));
-    if(explicitSum > 0){
-      $('#tbStatusNote').textContent = 'Custom counts: ' + (tbCfg.typeCounts.single || 'Auto') + ' SCQ, ' + (tbCfg.typeCounts.numerical || 'Auto') + ' NAT (' + explicitSum + ' total Qs).';
-    } else {
-      const reqTotal = activeSubjs.length * 25;
-      $('#tbStatusNote').textContent = 'JEE Main Pattern: Strictly 20 SCQ + 5 Numerical per subject (25 Qs/subj, ' + reqTotal + ' total Qs).';
-    }
+
+  // Count active questions per source
+  let msCount = 0, allenCount = 0, fiitjeeCount = 0;
+  pool.forEach(q => {
+    if(q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) msCount++;
+    else if(q.paper === 'allen' || q.paper === 'allen_jee' || (q.id && (String(q.id).startsWith('allenjee_') || String(q.id).startsWith('allenchem_')))) allenCount++;
+    else fiitjeeCount++;
+  });
+
+  const activeParts = [];
+  if(fiitjeeCount > 0) activeParts.push(fiitjeeCount + ' FIITJEE');
+  if(allenCount > 0) activeParts.push(allenCount + ' Allen');
+  if(msCount > 0) activeParts.push(msCount + ' M.S. Chouhan');
+
+  if(activeParts.length > 1){
+    $('#tbStatusNote').textContent = '⚡ Multi-Tab Pool: ' + avail + ' available questions across ' + activeParts.join(' + ') + '.';
+  } else if(msCount > 0){
+    $('#tbStatusNote').textContent = 'M.S. Chouhan: ' + avail + ' questions available (' + (tbCfg.msSubSource === 'selected' ? ('Selected Questions • ' + (tbCfg.msStar === 'all' ? 'All 3 Tiers' : (tbCfg.msStar === 'two_star' ? 'Two Star ★★' : (tbCfg.msStar === 'one_star' ? 'One Star ★' : 'Normal / Tick')))) : 'Level 1 (All Questions)') + ').';
+  } else if(allenCount > 0){
+    const o1 = tbCfg.allenO1Count || 0, o2 = tbCfg.allenO2Count || 0, neet = tbCfg.allenNeetCount || 0;
+    $('#tbStatusNote').textContent = 'Allen Mode: ' + tbCfg.count + ' Qs allocated (' + (o1 ? o1 + ' O-1, ' : '') + (o2 ? o2 + ' O-2, ' : '') + (neet ? neet + ' NEET, ' : '') + avail + ' available in chosen chapters).';
   } else {
-    if(explicitSum > 0){
-      const parts = Object.keys(tbCfg.typeCounts).filter(k => tbCfg.typeCounts[k] != null && tbCfg.typeCounts[k] > 0).map(k => tbCfg.typeCounts[k] + ' ' + (TYPES[k] || k));
-      $('#tbStatusNote').textContent = 'Custom pattern: ' + parts.join(', ') + ' (' + avail + ' available in pool).';
-    } else {
-      $('#tbStatusNote').textContent = ok ? (avail + ' questions match your criteria.') : 'Select at least one chapter and question type.';
-    }
+    $('#tbStatusNote').textContent = ok ? (avail + ' questions match your criteria.') : 'Select at least one chapter and question type.';
   }
+
+  updateSourceBadges();
   updateExhaustDisplay();
 }
 
@@ -6366,184 +6581,9 @@ function openBuilderScreen(){
 }
 
 function getSelectedBuilderQuestions(){
-  if(tbCfg.sourceTab === 'allen'){
-    const o1Target = tbCfg.allenO1Count != null ? tbCfg.allenO1Count : 15;
-    const o2MultiTarget = tbCfg.allenO2MultiCount != null ? tbCfg.allenO2MultiCount : 6;
-    const o2ParaTarget = tbCfg.allenO2ParaCount != null ? tbCfg.allenO2ParaCount : 2;
-    const o2MatrixTarget = tbCfg.allenO2MatrixCount != null ? tbCfg.allenO2MatrixCount : 2;
-    const neetTarget = tbCfg.allenNeetCount != null ? tbCfg.allenNeetCount : 0;
-
-    const unattFirst = $('#tbOptUnattFirst') ? $('#tbOptUnattFirst').checked : true;
-    const exhaustFirst = $('#tbOptExhaustFirst') ? $('#tbOptExhaustFirst').checked : true;
-    const distMode = $('#tbDistMode') ? $('#tbDistMode').value : 'balanced';
-
-    function orderList(rawList){
-      if(!rawList || !rawList.length) return [];
-      let list = rawList.slice();
-      if(exhaustFirst){
-        const unused = list.filter(q => !TB_USED_QIDS.has(q.id));
-        const used = list.filter(q => TB_USED_QIDS.has(q.id));
-        let orderedUnused, orderedUsed;
-        if(unattFirst){
-          const uUnatt = unused.filter(q => !ATT.has(q.id)), uAtt = unused.filter(q => ATT.has(q.id));
-          shuffle(uUnatt); shuffle(uAtt);
-          orderedUnused = uUnatt.concat(uAtt);
-
-          const usedUnatt = used.filter(q => !ATT.has(q.id)), usedAtt = used.filter(q => ATT.has(q.id));
-          shuffle(usedUnatt); shuffle(usedAtt);
-          orderedUsed = usedUnatt.concat(usedAtt);
-        } else {
-          shuffle(unused); shuffle(used);
-          orderedUnused = unused;
-          orderedUsed = used;
-        }
-        return orderedUnused.concat(orderedUsed);
-      } else {
-        if(unattFirst){
-          const a = list.filter(q => !ATT.has(q.id)), b = list.filter(q => ATT.has(q.id));
-          shuffle(a); shuffle(b);
-          return a.concat(b);
-        } else {
-          shuffle(list);
-          return list;
-        }
-      }
-    }
-
-    function pickFrom(pool, count){
-      if(!pool.length || count <= 0) return [];
-      if(distMode === 'balanced'){
-        const byCh = {};
-        pool.forEach(q => { if(!byCh[q.chapter]) byCh[q.chapter] = []; byCh[q.chapter].push(q); });
-        const chs = Object.keys(byCh);
-        const perCh = Math.max(1, Math.floor(count / Math.max(1, chs.length)));
-        const chPools = {};
-        chs.forEach(k => {
-          chPools[k] = orderList(byCh[k]);
-        });
-
-        let res = [], rem = count;
-        for(const k of chs){
-          if(rem <= 0) break;
-          const take = Math.min(perCh, chPools[k].length, rem);
-          res = res.concat(chPools[k].slice(0, take));
-          chPools[k] = chPools[k].slice(take);
-          rem -= take;
-        }
-        if(rem > 0){
-          for(const k of chs){
-            if(rem <= 0) break;
-            const take = Math.min(rem, chPools[k].length);
-            res = res.concat(chPools[k].slice(0, take));
-            chPools[k] = chPools[k].slice(take);
-            rem -= take;
-          }
-        }
-        return res;
-      } else {
-        return orderList(pool).slice(0, count);
-      }
-    }
-
-    let picked = [];
-
-    // 1. Pick O-1 questions (Single Correct only)
-    if(o1Target > 0){
-      const o1Pool = DB.filter(q => {
-        if(q.paper !== 'allen_jee' && !String(q.id).startsWith('allenjee_')) return false;
-        if(q.bank !== 'O-1' && q.exercise !== 'O-1' && !String(q.id).includes('_o1_')) return false;
-        if(q.paragraph || q.type === 'paragraph') return false;
-        if(!tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
-        if(!tbPaperOK(q)) return false;
-        return true;
-      });
-      picked = picked.concat(pickFrom(o1Pool, o1Target));
-    }
-
-    // 2. Pick O-2 Multi-Correct questions
-    if(o2MultiTarget > 0){
-      const o2MultiPool = DB.filter(q => {
-        if(q.paper !== 'allen_jee' && !String(q.id).startsWith('allenjee_')) return false;
-        if(q.bank !== 'O-2' && q.exercise !== 'O-2' && !String(q.id).includes('_o2_')) return false;
-        if(q.paragraph || q.type === 'paragraph') return false;
-        if(q.type !== 'multi') return false;
-        if(!tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
-        if(!tbPaperOK(q)) return false;
-        return true;
-      });
-      picked = picked.concat(pickFrom(o2MultiPool, o2MultiTarget));
-    }
-
-    // 3. Pick O-2 Paragraph questions (ALWAYS strictly in entire passage groups)
-    if(o2ParaTarget > 0){
-      const o2ParaPool = DB.filter(q => {
-        if(q.paper !== 'allen_jee' && !String(q.id).startsWith('allenjee_')) return false;
-        if(q.bank !== 'O-2' && q.exercise !== 'O-2' && !String(q.id).includes('_o2_')) return false;
-        if(!q.paragraph && q.type !== 'paragraph') return false;
-        if(!tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
-        if(!tbPaperOK(q)) return false;
-        return true;
-      });
-      const paraGroups = {};
-      o2ParaPool.forEach(q => {
-        const pid = q.paragraphId || q.id;
-        if(!paraGroups[pid]) paraGroups[pid] = [];
-        paraGroups[pid].push(q);
-      });
-      const pids = Object.keys(paraGroups);
-      shuffle(pids);
-      let paraCount = 0;
-      for(const pid of pids){
-        if(paraCount >= o2ParaTarget) break;
-        const grp = paraGroups[pid];
-        picked = picked.concat(grp);
-        paraCount += grp.length;
-      }
-    }
-
-    // 4. Pick O-2 Matrix Match questions (separate section)
-    if(o2MatrixTarget > 0){
-      const o2MatrixPool = DB.filter(q => {
-        if(q.paper !== 'allen_jee' && !String(q.id).startsWith('allenjee_')) return false;
-        if(q.bank !== 'O-2' && q.exercise !== 'O-2' && !String(q.id).includes('_o2_')) return false;
-        if(q.type !== 'matrix') return false;
-        if(!tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
-        if(!tbPaperOK(q)) return false;
-        return true;
-      });
-      picked = picked.concat(pickFrom(o2MatrixPool, o2MatrixTarget));
-    }
-
-    // 5. Pick NEET questions
-    if(neetTarget > 0){
-      const neetPool = DB.filter(q => {
-        if(q.paper !== 'allen' && !String(q.id).startsWith('allenchem_')) return false;
-        if(!tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
-        if(!tbPaperOK(q)) return false;
-        return true;
-      });
-      picked = picked.concat(pickFrom(neetPool, neetTarget));
-    }
-
-    // Fallback if none picked yet
-    if(!picked.length){
-      const allPool = DB.filter(q => {
-        if(!tbPaperOK(q)) return false;
-        if(!tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
-        return true;
-      });
-      picked = pickFrom(allPool, tbCfg.count || 25);
-    }
-
-    return sortQuestionsByPattern(picked);
-  }
-
-  const activeSubjs = ['Physics', 'Chemistry', 'Mathematics'].filter(s => tbCfg.subjects.has(s));
-  if(!activeSubjs.length) return [];
-
-  const unattFirst = $('#tbOptUnattFirst') ? $('#tbOptUnattFirst').checked : true;
-  const exhaustFirst = $('#tbOptExhaustFirst') ? $('#tbOptExhaustFirst').checked : true;
-  const distMode = $('#tbDistMode') ? $('#tbDistMode').value : 'balanced';
+  const unattFirst = #tbOptUnattFirst ? #tbOptUnattFirst.checked : true;
+  const exhaustFirst = #tbOptExhaustFirst ? #tbOptExhaustFirst.checked : true;
+  const distMode = #tbDistMode ? #tbDistMode.value : 'balanced';
 
   function orderList(rawList){
     if(!rawList || !rawList.length) return [];
@@ -6613,146 +6653,318 @@ function getSelectedBuilderQuestions(){
     }
   }
 
-  const hasTypeCounts = tbCfg.typeCounts && Object.values(tbCfg.typeCounts).some(v => v != null && v > 0);
+  // Count active chapters by source
+  let msChCount = 0, allenChCount = 0, fiitjeeChCount = 0;
+  tbCfg.chapters.forEach(k => {
+    if(k.startsWith('mschouhan||')) msChCount++;
+    else if(k.startsWith('allen||')) allenChCount++;
+    else fiitjeeChCount++;
+  });
 
-  if(tbCfg.pattern === 'main'){
-    const totalTarget = +($('#tbCountIn').value) || (activeSubjs.length * 25);
-    const hasExplicitScq = tbCfg.typeCounts && tbCfg.typeCounts.single != null && tbCfg.typeCounts.single > 0;
-    const hasExplicitNat = tbCfg.typeCounts && tbCfg.typeCounts.numerical != null && tbCfg.typeCounts.numerical > 0;
+  const activeSources = [];
+  if(fiitjeeChCount > 0) activeSources.push('fiitjee');
+  if(allenChCount > 0) activeSources.push('allen');
+  if(msChCount > 0) activeSources.push('mschouhan');
 
-    let perSubjScq, perSubjNat;
-    if(hasExplicitScq || hasExplicitNat){
-      const totalScq = hasExplicitScq ? tbCfg.typeCounts.single : Math.max(0, totalTarget - (hasExplicitNat ? tbCfg.typeCounts.numerical : 0));
-      const totalNat = hasExplicitNat ? tbCfg.typeCounts.numerical : Math.max(0, totalTarget - totalScq);
-      perSubjScq = Math.max(0, Math.floor(totalScq / activeSubjs.length));
-      perSubjNat = Math.max(0, Math.floor(totalNat / activeSubjs.length));
-    } else {
-      const perSubjTotal = Math.max(1, Math.floor(totalTarget / activeSubjs.length));
-      perSubjScq = perSubjTotal === 25 ? 20 : Math.round(perSubjTotal * (20 / 25));
-      perSubjNat = perSubjTotal === 25 ? 5 : Math.max(1, perSubjTotal - perSubjScq);
-    }
+  // If no chapters selected across any tabs yet, fall back to current tab
+  if(!activeSources.length){
+    activeSources.push(tbCfg.sourceTab || 'fiitjee');
+  }
 
-    let mainPicked = [];
-    for(const subj of activeSubjs){
-      const subPool = DB.filter(q => {
-        if(q.subject !== subj) return false;
-        if(!tbCfg.chapters.has(subj + '||' + q.chapter)) return false;
+  const isMultiSource = activeSources.length > 1;
+  const totalTarget = Math.max(1, +(#tbCountIn.value) || tbCfg.count || 30);
+
+  // Helper: Pick Allen questions given a target count for Allen
+  function pickAllenQuestions(targetAllenCount){
+    const o1Target = tbCfg.allenO1Count != null ? tbCfg.allenO1Count : 15;
+    const o2MultiTarget = tbCfg.allenO2MultiCount != null ? tbCfg.allenO2MultiCount : 6;
+    const o2ParaTarget = tbCfg.allenO2ParaCount != null ? tbCfg.allenO2ParaCount : 2;
+    const o2MatrixTarget = tbCfg.allenO2MatrixCount != null ? tbCfg.allenO2MatrixCount : 2;
+    const neetTarget = tbCfg.allenNeetCount != null ? tbCfg.allenNeetCount : 0;
+    const allenSum = o1Target + o2MultiTarget + o2ParaTarget + o2MatrixTarget + neetTarget;
+
+    const scale = (isMultiSource && allenSum > 0) ? (targetAllenCount / allenSum) : 1;
+    const effO1 = Math.round(o1Target * scale);
+    const effMulti = Math.round(o2MultiTarget * scale);
+    const effPara = Math.round(o2ParaTarget * scale);
+    const effMatrix = Math.round(o2MatrixTarget * scale);
+    const effNeet = Math.round(neetTarget * scale);
+
+    let picked = [];
+
+    if(effO1 > 0){
+      const o1Pool = DB.filter(q => {
+        if(q.paper !== 'allen_jee' && !String(q.id).startsWith('allenjee_')) return false;
+        if(q.bank !== 'O-1' && q.exercise !== 'O-1' && !String(q.id).includes('_o1_')) return false;
+        if(q.paragraph || q.type === 'paragraph') return false;
+        if(!isChapterSelected(q)) return false;
         if(!tbPaperOK(q)) return false;
         return true;
       });
-      // Strictly exclude any comprehension / paragraph or multi-correct
-      const scqPool = subPool.filter(q => {
-        if(q.paragraph || q.type === 'paragraph') return false;
-        const t = (q.type || '').toLowerCase();
-        return t === 'single' || t === 'mcq';
-      });
-      const natPool = subPool.filter(q => {
-        if(q.paragraph || q.type === 'paragraph') return false;
-        const t = (q.type || '').toLowerCase();
-        return t === 'numerical' || t === 'nat';
-      });
-
-      const pickedScq = pickFrom(scqPool, perSubjScq);
-      const pickedNat = pickFrom(natPool, perSubjNat);
-
-      // Section A (SCQ) first, then Section B (NAT)
-      mainPicked = mainPicked.concat(pickedScq).concat(pickedNat);
+      picked = picked.concat(pickFrom(o1Pool, effO1));
     }
 
-    return mainPicked;
+    if(effMulti > 0){
+      const o2MultiPool = DB.filter(q => {
+        if(q.paper !== 'allen_jee' && !String(q.id).startsWith('allenjee_')) return false;
+        if(q.bank !== 'O-2' && q.exercise !== 'O-2' && !String(q.id).includes('_o2_')) return false;
+        if(q.paragraph || q.type === 'paragraph') return false;
+        if(q.type !== 'multi') return false;
+        if(!isChapterSelected(q)) return false;
+        if(!tbPaperOK(q)) return false;
+        return true;
+      });
+      picked = picked.concat(pickFrom(o2MultiPool, effMulti));
+    }
+
+    if(effPara > 0){
+      const o2ParaPool = DB.filter(q => {
+        if(q.paper !== 'allen_jee' && !String(q.id).startsWith('allenjee_')) return false;
+        if(q.bank !== 'O-2' && q.exercise !== 'O-2' && !String(q.id).includes('_o2_')) return false;
+        if(!q.paragraph && q.type !== 'paragraph') return false;
+        if(!isChapterSelected(q)) return false;
+        if(!tbPaperOK(q)) return false;
+        return true;
+      });
+      const paraGroups = {};
+      o2ParaPool.forEach(q => {
+        const pid = q.paragraphId || q.id;
+        if(!paraGroups[pid]) paraGroups[pid] = [];
+        paraGroups[pid].push(q);
+      });
+      const pids = Object.keys(paraGroups);
+      shuffle(pids);
+      let paraCount = 0;
+      for(const pid of pids){
+        if(paraCount >= effPara) break;
+        const grp = paraGroups[pid];
+        picked = picked.concat(grp);
+        paraCount += grp.length;
+      }
+    }
+
+    if(effMatrix > 0){
+      const o2MatrixPool = DB.filter(q => {
+        if(q.paper !== 'allen_jee' && !String(q.id).startsWith('allenjee_')) return false;
+        if(q.bank !== 'O-2' && q.exercise !== 'O-2' && !String(q.id).includes('_o2_')) return false;
+        if(q.type !== 'matrix') return false;
+        if(!isChapterSelected(q)) return false;
+        if(!tbPaperOK(q)) return false;
+        return true;
+      });
+      picked = picked.concat(pickFrom(o2MatrixPool, effMatrix));
+    }
+
+    if(effNeet > 0){
+      const neetPool = DB.filter(q => {
+        if(q.paper !== 'allen' && !String(q.id).startsWith('allenchem_')) return false;
+        if(!isChapterSelected(q)) return false;
+        if(!tbPaperOK(q)) return false;
+        return true;
+      });
+      picked = picked.concat(pickFrom(neetPool, effNeet));
+    }
+
+    if(!picked.length){
+      const allAllenPool = DB.filter(q => {
+        const isAllen = q.paper === 'allen_jee' || q.paper === 'allen' || (q.id && (String(q.id).startsWith('allenjee_') || String(q.id).startsWith('allenchem_')));
+        if(!isAllen) return false;
+        if(!isChapterSelected(q)) return false;
+        if(!tbPaperOK(q)) return false;
+        return true;
+      });
+      picked = pickFrom(allAllenPool, targetAllenCount);
+    }
+    return sortQuestionsByPattern(picked);
   }
 
-  const pool = DB.filter(q => {
-    if(!tbCfg.subjects.has(q.subject)) return false;
-    if(!tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
-    if(!tbPaperOK(q)) return false;
-    if(q.paragraph || q.type === 'paragraph'){
-      return tbCfg.types.has('paragraph');
-    }
-    return tbCfg.types.has(q.type);
-  });
-  if(!pool.length) return [];
+  // Helper: Pick MS Chouhan questions
+  function pickMsQuestions(targetMsCount){
+    const msPool = DB.filter(q => {
+      const isMs = q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'));
+      if(!isMs) return false;
+      if(!isChapterSelected(q)) return false;
+      if(!tbPaperOK(q)) return false;
+      return true;
+    });
+    return pickFrom(msPool, targetMsCount);
+  }
 
-  const targetCount = Math.min(+($('#tbCountIn').value) || 30, pool.length);
+  // Helper: Pick FIITJEE questions
+  function pickFiitjeeQuestions(targetFiitjeeCount){
+    const activeSubjs = ['Physics', 'Chemistry', 'Mathematics'].filter(s => tbCfg.subjects.has(s));
+    if(!activeSubjs.length) return [];
 
-  let picked = [];
-  if(hasTypeCounts){
-    const chosenTypes = ['single', 'multi', 'numerical', 'paragraph'].filter(t => tbCfg.types.has(t));
-    for(const t of chosenTypes){
-      const reqCount = tbCfg.typeCounts[t];
-      if(reqCount != null && reqCount > 0){
-        const tPool = pool.filter(q => {
-          if(t === 'paragraph') return q.paragraph || q.type === 'paragraph';
-          if(q.paragraph || q.type === 'paragraph') return false;
-          return q.type === t;
+    const hasTypeCounts = tbCfg.typeCounts && Object.values(tbCfg.typeCounts).some(v => v != null && v > 0);
+
+    if(tbCfg.pattern === 'main'){
+      const hasExplicitScq = tbCfg.typeCounts && tbCfg.typeCounts.single != null && tbCfg.typeCounts.single > 0;
+      const hasExplicitNat = tbCfg.typeCounts && tbCfg.typeCounts.numerical != null && tbCfg.typeCounts.numerical > 0;
+
+      let perSubjScq, perSubjNat;
+      if(hasExplicitScq || hasExplicitNat){
+        const totalScq = hasExplicitScq ? tbCfg.typeCounts.single : Math.max(0, targetFiitjeeCount - (hasExplicitNat ? tbCfg.typeCounts.numerical : 0));
+        const totalNat = hasExplicitNat ? tbCfg.typeCounts.numerical : Math.max(0, targetFiitjeeCount - totalScq);
+        perSubjScq = Math.max(0, Math.floor(totalScq / activeSubjs.length));
+        perSubjNat = Math.max(0, Math.floor(totalNat / activeSubjs.length));
+      } else {
+        const perSubjTotal = Math.max(1, Math.floor(targetFiitjeeCount / activeSubjs.length));
+        perSubjScq = perSubjTotal === 25 ? 20 : Math.round(perSubjTotal * (20 / 25));
+        perSubjNat = perSubjTotal === 25 ? 5 : Math.max(1, perSubjTotal - perSubjScq);
+      }
+
+      let mainPicked = [];
+      for(const subj of activeSubjs){
+        const subPool = DB.filter(q => {
+          if(q.paper === 'allen' || q.paper === 'allen_jee' || q.paper === 'mschouhan') return false;
+          if(q.subject !== subj) return false;
+          if(!isChapterSelected(q)) return false;
+          if(!tbPaperOK(q)) return false;
+          return true;
         });
-        const subjsWithPool = activeSubjs.filter(s => tPool.some(q => q.subject === s));
-        const numSubjs = Math.max(1, subjsWithPool.length);
-        const perSubj = Math.max(1, Math.floor(reqCount / numSubjs));
-        let rem = reqCount;
-        for(const s of subjsWithPool){
-          if(rem <= 0) break;
-          const sPool = tPool.filter(q => q.subject === s && !picked.includes(q));
-          const take = Math.min(perSubj, sPool.length, rem);
-          const subPicked = pickFrom(sPool, take);
-          picked = picked.concat(subPicked);
-          rem -= subPicked.length;
-        }
-        if(rem > 0){
+        const scqPool = subPool.filter(q => {
+          if(q.paragraph || q.type === 'paragraph') return false;
+          const t = (q.type || '').toLowerCase();
+          return t === 'single' || t === 'mcq';
+        });
+        const natPool = subPool.filter(q => {
+          if(q.paragraph || q.type === 'paragraph') return false;
+          const t = (q.type || '').toLowerCase();
+          return t === 'numerical' || t === 'nat';
+        });
+
+        mainPicked = mainPicked.concat(pickFrom(scqPool, perSubjScq)).concat(pickFrom(natPool, perSubjNat));
+      }
+      return mainPicked;
+    }
+
+    const pool = DB.filter(q => {
+      if(q.paper === 'allen' || q.paper === 'allen_jee' || q.paper === 'mschouhan') return false;
+      if(!tbCfg.subjects.has(q.subject)) return false;
+      if(!isChapterSelected(q)) return false;
+      if(!tbPaperOK(q)) return false;
+      if(q.paragraph || q.type === 'paragraph'){
+        return tbCfg.types.has('paragraph');
+      }
+      return tbCfg.types.has(q.type);
+    });
+    if(!pool.length) return [];
+
+    let picked = [];
+    if(hasTypeCounts){
+      const chosenTypes = ['single', 'multi', 'numerical', 'paragraph'].filter(t => tbCfg.types.has(t));
+      for(const t of chosenTypes){
+        const reqCount = tbCfg.typeCounts[t];
+        if(reqCount != null && reqCount > 0){
+          const tPool = pool.filter(q => {
+            if(t === 'paragraph') return q.paragraph || q.type === 'paragraph';
+            if(q.paragraph || q.type === 'paragraph') return false;
+            return q.type === t;
+          });
+          const subjsWithPool = activeSubjs.filter(s => tPool.some(q => q.subject === s));
+          const numSubjs = Math.max(1, subjsWithPool.length);
+          const perSubj = Math.max(1, Math.floor(reqCount / numSubjs));
+          let rem = reqCount;
           for(const s of subjsWithPool){
             if(rem <= 0) break;
             const sPool = tPool.filter(q => q.subject === s && !picked.includes(q));
-            const take = Math.min(rem, sPool.length);
+            const take = Math.min(perSubj, sPool.length, rem);
             const subPicked = pickFrom(sPool, take);
             picked = picked.concat(subPicked);
             rem -= subPicked.length;
           }
+          if(rem > 0){
+            for(const s of subjsWithPool){
+              if(rem <= 0) break;
+              const sPool = tPool.filter(q => q.subject === s && !picked.includes(q));
+              const take = Math.min(rem, sPool.length);
+              const subPicked = pickFrom(sPool, take);
+              picked = picked.concat(subPicked);
+              rem -= subPicked.length;
+            }
+          }
         }
       }
-    }
-    const unspecTypes = chosenTypes.filter(t => tbCfg.typeCounts[t] == null);
-    let remTotal = Math.max(0, targetCount - picked.length);
-    if(unspecTypes.length && remTotal > 0){
-      const perType = Math.max(1, Math.floor(remTotal / unspecTypes.length));
-      for(const t of unspecTypes){
-        if(remTotal <= 0) break;
-        const tPool = pool.filter(q => {
-          if(t === 'paragraph') return (q.paragraph || q.type === 'paragraph') && !picked.includes(q);
-          if(q.paragraph || q.type === 'paragraph') return false;
-          return q.type === t && !picked.includes(q);
-        });
-        const subPicked = pickFrom(tPool, Math.min(perType, remTotal));
-        picked = picked.concat(subPicked);
-        remTotal -= subPicked.length;
+      const unspecTypes = chosenTypes.filter(t => tbCfg.typeCounts[t] == null);
+      let remTotal = Math.max(0, targetFiitjeeCount - picked.length);
+      if(unspecTypes.length && remTotal > 0){
+        const perType = Math.max(1, Math.floor(remTotal / unspecTypes.length));
+        for(const t of unspecTypes){
+          if(remTotal <= 0) break;
+          const tPool = pool.filter(q => {
+            if(t === 'paragraph') return (q.paragraph || q.type === 'paragraph') && !picked.includes(q);
+            if(q.paragraph || q.type === 'paragraph') return false;
+            return q.type === t && !picked.includes(q);
+          });
+          const subPicked = pickFrom(tPool, Math.min(perType, remTotal));
+          picked = picked.concat(subPicked);
+          remTotal -= subPicked.length;
+        }
       }
+    } else {
+      picked = pickFrom(pool, targetFiitjeeCount);
     }
-  } else {
-    picked = pickFrom(pool, targetCount);
+
+    const paraGroups = new Map();
+    const normalPicked = [];
+    picked.forEach(q => {
+      if(q.paragraph || q.type === 'paragraph'){
+        const grpKey = q.paragraphId || (q.passageImages && q.passageImages[0]) || q.id;
+        if(!paraGroups.has(grpKey)) paraGroups.set(grpKey, []);
+        paraGroups.get(grpKey).push(q);
+      } else {
+        normalPicked.push(q);
+      }
+    });
+
+    normalPicked.sort((a,b) => subjRank(a.subject) - subjRank(b.subject) || a.subject.localeCompare(b.subject) || (TRANK[a.type] || 0) - (TRANK[b.type] || 0));
+    const paraPicked = [];
+    paraGroups.forEach(group => {
+      group.forEach(q => paraPicked.push(q));
+    });
+    paraPicked.sort((a,b) => subjRank(a.subject) - subjRank(b.subject) || a.subject.localeCompare(b.subject));
+
+    picked = normalPicked.concat(paraPicked);
+    picked.sort((a,b) => subjRank(a.subject) - subjRank(b.subject) || a.subject.localeCompare(b.subject) || (TRANK[a.type] || 0) - (TRANK[b.type] || 0));
+    return picked;
   }
 
-  // Group paragraph questions so companion questions under the same passage stay together
-  const paraGroups = new Map();
-  const normalPicked = [];
-  picked.forEach(q => {
-    if(q.paragraph || q.type === 'paragraph'){
-      const grpKey = q.paragraphId || (q.passageImages && q.passageImages[0]) || q.id;
-      if(!paraGroups.has(grpKey)) paraGroups.set(grpKey, []);
-      paraGroups.get(grpKey).push(q);
-    } else {
-      normalPicked.push(q);
+  // Pure Single-Source Modes
+  if(!isMultiSource){
+    if(activeSources[0] === 'mschouhan') return pickMsQuestions(totalTarget);
+    if(activeSources[0] === 'allen') return pickAllenQuestions(totalTarget);
+    return pickFiitjeeQuestions(totalTarget);
+  }
+
+  // Multi-Source Mode: distribute totalTarget questions among active sources
+  const perSourceQuota = Math.max(1, Math.floor(totalTarget / activeSources.length));
+  let result = [];
+  let remTotal = totalTarget;
+
+  for(let i = 0; i < activeSources.length; i++){
+    const src = activeSources[i];
+    const isLast = (i === activeSources.length - 1);
+    const quota = isLast ? remTotal : Math.min(perSourceQuota, remTotal);
+    if(quota <= 0) break;
+
+    let subPicked = [];
+    if(src === 'mschouhan') subPicked = pickMsQuestions(quota);
+    else if(src === 'allen') subPicked = pickAllenQuestions(quota);
+    else if(src === 'fiitjee') subPicked = pickFiitjeeQuestions(quota);
+
+    result = result.concat(subPicked);
+    remTotal -= subPicked.length;
+  }
+
+  if(remTotal > 0){
+    const currentIds = new Set(result.map(q => q.id));
+    const fallbackPool = DB.filter(q => isChapterSelected(q) && tbPaperOK(q) && !currentIds.has(q.id));
+    if(fallbackPool.length){
+      result = result.concat(pickFrom(fallbackPool, remTotal));
     }
-  });
+  }
 
-  normalPicked.sort((a,b) => subjRank(a.subject) - subjRank(b.subject) || a.subject.localeCompare(b.subject) || (TRANK[a.type] || 0) - (TRANK[b.type] || 0));
-  const paraPicked = [];
-  paraGroups.forEach(group => {
-    group.forEach(q => paraPicked.push(q));
-  });
-  paraPicked.sort((a,b) => subjRank(a.subject) - subjRank(b.subject) || a.subject.localeCompare(b.subject));
-
-  picked = normalPicked.concat(paraPicked);
-  picked.sort((a,b) => subjRank(a.subject) - subjRank(b.subject) || a.subject.localeCompare(b.subject) || (TRANK[a.type] || 0) - (TRANK[b.type] || 0));
-  return picked;
+  return result;
 }
 
 async function buildCustomSheet(customQs){
@@ -7715,7 +7927,7 @@ function swapBuilderQuestion(idx){
     candidates = DB.filter(q => {
       if(currentIds.has(q.id)) return false;
       if(q.subject !== curSubj) return false;
-      if(!tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
+      if(!isChapterSelected(q)) return false;
       if(!tbPaperOK(q)) return false;
       return matchType(q);
     });
@@ -7819,7 +8031,7 @@ function addBuilderQuestion(navigateToPreview = true){
   let candidates = DB.filter(q => {
     if(currentIds.has(q.id)) return false;
     if(activeSubjs.length && !activeSubjs.includes(q.subject)) return false;
-    if(tbCfg.chapters && tbCfg.chapters.size && !tbCfg.chapters.has(q.subject + '||' + q.chapter)) return false;
+    if(tbCfg.chapters && tbCfg.chapters.size && !isChapterSelected(q)) return false;
     if(!tbPaperOK(q)) return false;
     return matchPatternAndType(q);
   });
@@ -8104,6 +8316,7 @@ async function renderAllenSheetDoc(rawQs, opts, onProgress){
 }
 
 async function renderSheetDoc(qs, opts, onProgress){
+  const hasMs = qs.some(q => q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_')));
   const isAllen = qs.length > 0 && (
     tbCfg.sourceTab === 'allen' ||
     (tbCfg.papers && tbCfg.papers.has('allen') && tbCfg.papers.size === 1) ||
@@ -8111,7 +8324,7 @@ async function renderSheetDoc(qs, opts, onProgress){
     (qs.filter(q => q.paper === 'allen' || q.paper === 'allen_jee' || (q.id && (String(q.id).startsWith('allenchem_') || String(q.id).startsWith('allenjee_')))).length >= qs.length / 2)
   );
 
-  if(isAllen){
+  if(isAllen || hasMs || tbCfg.sourceTab === 'mschouhan'){
     return renderAllenSheetDoc(qs, opts, onProgress);
   }
 
@@ -8313,15 +8526,16 @@ function startCbtFromBuilder(){
   }
   // Try bundled database files first for instant same-origin loading with zero CORS issues,
   // falling back to Hugging Face remote URLs only if bundled files are not present.
-  const [phys, chem, mathAdv, mathMain, allenChem, allenJee] = await Promise.all([
+  const [phys, chem, mathAdv, mathMain, allenChem, allenJee, msChouhan] = await Promise.all([
     fetchFirst(['database.json', remote].filter(Boolean)),
     fetchFirst(['chemistry_database.json', chemRemote].filter(Boolean)),
     fetchFirst(['maths_advanced_database.json', mathAdvRemote].filter(Boolean)),
     fetchFirst(['maths_main_database.json', mathMainRemote].filter(Boolean)),
     fetchFirst(['allenchem_database.json', allenChemRemote].filter(Boolean)),
-    fetchFirst(['allenjee_database.json', allenJeeRemote].filter(Boolean))
+    fetchFirst(['allenjee_database.json', allenJeeRemote].filter(Boolean)),
+    fetchFirst(['mschouhan_database.json'].filter(Boolean))
   ]);
-  const parts = [phys, chem, mathAdv, mathMain, allenChem, allenJee].filter(Boolean);
+  const parts = [phys, chem, mathAdv, mathMain, allenChem, allenJee, msChouhan].filter(Boolean);
   if(parts.length){
     const all = parts.flatMap(x=>(extractList(x.raw)||[]).map(e=>e.q));
     ok = loadDB(all, phys && phys.url===remote && remote ? 'Hugging Face database' : 'database.json', false);

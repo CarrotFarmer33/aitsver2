@@ -16,7 +16,7 @@ node_modules
 .DS_Store
 *.bak
 *.csv
-*.zip
+allenjee_images.zip
 paras/
 public/paras/
 
