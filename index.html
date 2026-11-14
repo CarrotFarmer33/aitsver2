@@ -528,20 +528,21 @@
 .allen-columns-single {
   display: flex;
   flex-direction: column;
-  gap: 4pt;
+  gap: 3pt;
   width: 100%;
 }
 .allen-qitem-single {
   position: relative;
   break-inside: avoid;
   page-break-inside: avoid;
-  margin-bottom: 4pt !important;
+  margin-bottom: 6pt !important;
   padding-bottom: 0 !important;
   border-bottom: none !important;
   border: none !important;
+  background: transparent !important;
   display: flex;
   align-items: flex-start;
-  gap: 4pt !important;
+  gap: 3pt !important;
 }
 .allen-qitem-single:last-child {
   border-bottom: none !important;
@@ -549,7 +550,7 @@
 .allen-qitem-single .allen-qnum {
   flex: 0 0 18pt !important;
   min-width: 18pt !important;
-  font-weight: 800 !important;
+  font-weight: 700 !important;
   font-size: 9.5pt !important;
   line-height: 1.15 !important;
   color: #000000 !important;
@@ -565,24 +566,34 @@
 }
 .allen-qitem-single .allen-qsvg-wrap img,
 .allen-qitem-single .allen-qsvg-wrap svg {
-  max-width: 100% !important;
   height: auto !important;
   display: block !important;
-  background: #ffffff !important;
+  background: transparent !important;
   margin: 0 !important;
   padding: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 .allen-qitem-single .allen-qsvg-wrap img.allen-svg-neet,
 .allen-qitem-single .allen-qsvg-wrap img[data-zipimg*="allenchem"],
-.allen-qitem-single .allen-qsvg-wrap img[src*="allenchem"] {
+.allen-qitem-single .allen-qsvg-wrap img[src*="allenchem"],
+.allen-qitem-single .allen-qsvg-wrap .allen-svg-neet {
   width: auto !important;
-  max-width: 320px !important;
+  max-width: 245pt !important;
 }
 .allen-qitem-single .allen-qsvg-wrap img.allen-svg-jee,
 .allen-qitem-single .allen-qsvg-wrap img[data-zipimg*="allenjee"],
-.allen-qitem-single .allen-qsvg-wrap img[src*="allenjee"] {
+.allen-qitem-single .allen-qsvg-wrap img[src*="allenjee"],
+.allen-qitem-single .allen-qsvg-wrap .allen-svg-jee {
   width: 100% !important;
-  max-width: 100% !important;
+  max-width: 516pt !important;
+}
+.allen-qitem-single .allen-qsvg-wrap img.mschouhan-svg,
+.allen-qitem-single .allen-qsvg-wrap img[data-zipimg*="mschouhan"],
+.allen-qitem-single .allen-qsvg-wrap img[src*="mschouhan"],
+.allen-qitem-single .allen-qsvg-wrap .mschouhan-svg {
+  width: auto !important;
+  max-width: 430pt !important;
 }
 
 /* Section Header Banners for Allen Single-Column Practice Sheets */
@@ -894,18 +905,19 @@
   .allen-qitem-single {
     break-inside: avoid !important;
     page-break-inside: avoid !important;
-    margin-bottom: 4pt !important;
+    margin-bottom: 6pt !important;
     padding-bottom: 0 !important;
     border-bottom: none !important;
     border: none !important;
+    background: transparent !important;
     display: flex !important;
     align-items: flex-start !important;
-    gap: 4pt !important;
+    gap: 3pt !important;
   }
   .allen-qitem-single .allen-qnum {
     flex: 0 0 18pt !important;
     min-width: 18pt !important;
-    font-weight: 800 !important;
+    font-weight: 700 !important;
     font-size: 9.5pt !important;
     line-height: 1.15 !important;
     color: #000000 !important;
@@ -913,17 +925,36 @@
     margin: 0 !important;
     text-align: right !important;
   }
+  .allen-qitem-single .allen-qsvg-wrap img,
+  .allen-qitem-single .allen-qsvg-wrap svg {
+    height: auto !important;
+    display: block !important;
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
   .allen-qitem-single .allen-qsvg-wrap img.allen-svg-neet,
   .allen-qitem-single .allen-qsvg-wrap img[data-zipimg*="allenchem"],
-  .allen-qitem-single .allen-qsvg-wrap img[src*="allenchem"] {
+  .allen-qitem-single .allen-qsvg-wrap img[src*="allenchem"],
+  .allen-qitem-single .allen-qsvg-wrap .allen-svg-neet {
     width: auto !important;
-    max-width: 320px !important;
+    max-width: 245pt !important;
   }
   .allen-qitem-single .allen-qsvg-wrap img.allen-svg-jee,
   .allen-qitem-single .allen-qsvg-wrap img[data-zipimg*="allenjee"],
-  .allen-qitem-single .allen-qsvg-wrap img[src*="allenjee"] {
+  .allen-qitem-single .allen-qsvg-wrap img[src*="allenjee"],
+  .allen-qitem-single .allen-qsvg-wrap .allen-svg-jee {
     width: 100% !important;
-    max-width: 100% !important;
+    max-width: 516pt !important;
+  }
+  .allen-qitem-single .allen-qsvg-wrap img.mschouhan-svg,
+  .allen-qitem-single .allen-qsvg-wrap img[data-zipimg*="mschouhan"],
+  .allen-qitem-single .allen-qsvg-wrap img[src*="mschouhan"],
+  .allen-qitem-single .allen-qsvg-wrap .mschouhan-svg {
+    width: auto !important;
+    max-width: 430pt !important;
   }
   .allen-ans-box {
     break-inside: avoid !important;
@@ -1925,11 +1956,12 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 .sheet-page .vector-inline-svg {
   filter: none !important;
   mix-blend-mode: normal !important;
-  background: #ffffff !important;
+  background: transparent !important;
   color: #000000 !important;
-  border-radius: 4px;
-  padding: 8px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
 }
 #scrTestPreview .vector-inline-svg text,
 #scrTestPreview .vector-inline-svg tspan,
@@ -3001,33 +3033,6 @@ function processSvgMarkup(rawSvgText, isTestBuilder){
   svgText = svgText.replace(/<(?:use|path)[^>]*(?:fill|stroke)="#(?:c0c0c0|c4c4c4|cccccc|d0d0d0|d3d3d3|e0e0e0|e8e8e8)"[^>]*\/?>/gi, '');
 
   if(isTestBuilder){
-    // 3. Auto-trim dead left/top book margins and align question text for Test Sheet compilation
-    const vbMatch = svgText.match(/viewBox="([^"]+)"/i);
-    if(vbMatch){
-      const parts = vbMatch[1].trim().split(/[\s,]+/).map(Number);
-      if(parts.length === 4 && !parts.some(isNaN)){
-        const [vx, vy, vw, vh] = parts;
-        // Check if root viewBox starts at (0, 0) and has book margin
-        if(vx === 0 && vy === 0 && vw > 150){
-          const isNeet = (vw < 350);
-          const shiftX = isNeet ? 27.0 : 27.5; // Exactly trims the dead book left margin
-          const shiftY = 5.5;                  // Exactly trims the dead top space above glyphs
-          const newVx = shiftX;
-          const newVy = shiftY;
-          const newVw = Math.max(10, vw - shiftX);
-          const newVh = Math.max(10, vh - shiftY);
-          svgText = svgText.replace(vbMatch[0], `viewBox="${newVx.toFixed(2)} ${newVy.toFixed(2)} ${newVw.toFixed(2)} ${newVh.toFixed(2)}"`);
-          svgText = svgText.replace(/(<svg\b[^>]*\bwidth=")[0-9.]+/i, `$1${newVw.toFixed(2)}`);
-          svgText = svgText.replace(/(<svg\b[^>]*\bheight=")[0-9.]+/i, `$1${newVh.toFixed(2)}`);
-          if(!svgText.includes('overflow=')){
-            svgText = svgText.replace(/<svg\b/i, `<svg overflow="hidden" data-intrinsic-w="${newVw.toFixed(2)}"`);
-          } else {
-            svgText = svgText.replace(/<svg\b/i, `<svg data-intrinsic-w="${newVw.toFixed(2)}"`);
-          }
-        }
-      }
-    }
-
     // Test builder / Print: ensure authentic pure white background rect is present
     if(!/<rect[^>]*fill="#ffffff"/i.test(svgText)){
       svgText = svgText.replace(/(<svg[^>]*>)/i, '$1<rect width="100%" height="100%" fill="#ffffff"/>');
@@ -3202,6 +3207,7 @@ async function resolveZipImage(img){
       img.setAttribute('role', 'img');
       img.setAttribute('aria-label', img.alt || 'Question figure');
       const isNeet = /allenchem/i.test(fileName) || /data-intrinsic-w="2/i.test(processedSvg) || /viewBox="[^"]*?\b(21[0-9]|22[0-9]|23[0-9]|24[0-9]|25[0-9]|26[0-9])\b/i.test(processedSvg);
+      const isMsChouhan = /mschouhan/i.test(fileName);
       if(isTb){
         img.style.height = 'auto';
         img.style.display = 'block';
@@ -3210,7 +3216,11 @@ async function resolveZipImage(img){
         if(isNeet){
           img.classList.add('allen-svg-neet');
           img.style.width = 'auto';
-          img.style.maxWidth = '320px';
+          img.style.maxWidth = '245pt';
+        } else if(isMsChouhan){
+          img.classList.add('mschouhan-svg');
+          img.style.width = 'auto';
+          img.style.maxWidth = '430pt';
         } else {
           img.classList.add('allen-svg-jee');
           img.style.width = '100%';
@@ -3257,6 +3267,7 @@ async function resolveZipImage(img){
           img.src = URL.createObjectURL(blob);
           img.classList.add('qimg', 'vector-inline-svg', isTb ? 'test-builder-svg' : 'practice-svg');
           const isNeet = /allenchem/i.test(qid) || /data-intrinsic-w="2/i.test(processedSvg);
+          const isMsChouhan = /mschouhan/i.test(qid);
           if(isTb){
             img.style.height = 'auto';
             img.style.display = 'block';
@@ -3265,7 +3276,11 @@ async function resolveZipImage(img){
             if(isNeet){
               img.classList.add('allen-svg-neet');
               img.style.width = 'auto';
-              img.style.maxWidth = '320px';
+              img.style.maxWidth = '245pt';
+            } else if(isMsChouhan){
+              img.classList.add('mschouhan-svg');
+              img.style.width = 'auto';
+              img.style.maxWidth = '430pt';
             } else {
               img.classList.add('allen-svg-jee');
               img.style.width = '100%';
@@ -8625,8 +8640,9 @@ async function renderAllenSheetDoc(rawQs, opts, onProgress){
     const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
     const hasImgs = qImgs.length > 0;
     const isNeetQ = (q.id && q.id.startsWith('allenchem_')) || (q.paper === 'allen');
+    const isMsQ = (q.id && q.id.startsWith('mschouhan_'));
     const imgsHtml = qImgs.map(u => {
-      const extraCls = isNeetQ ? 'test-builder-svg allen-svg-neet' : 'test-builder-svg allen-svg-jee';
+      const extraCls = isNeetQ ? 'test-builder-svg allen-svg-neet' : (isMsQ ? 'test-builder-svg mschouhan-svg' : 'test-builder-svg allen-svg-jee');
       const markup = imageMarkup(u, 'Question figure', extraCls, q.crop);
       const fallbackStr = encodeURIComponent('<div class="allen-qstem" style="display:block">' + rich(stem) + '</div>' + optsHtml);
       return markup.replace('<img ', '<img data-fallback="' + fallbackStr + '" ');

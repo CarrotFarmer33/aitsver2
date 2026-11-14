@@ -37,10 +37,17 @@
           15.0,
           321.3,
           445.0,
-          562.7
+          591.2
+        ],
+        [
+          2,
+          15.0,
+          48.0,
+          445.0,
+          93.4
         ]
       ],
-      "text": "N H KOH H O (Wolff-Kishner reduction) majo 2 4 2 ( ) \u00be \u00ae \u00be\u00be\u00be\u00be\u00be\u00be A r ; Product A is : (a) (b) (c) (d) O Cl O OH",
+      "text": "N H KOH H O (Wolff-Kishner reduction) majo 2 4 2 ( ) \u00be \u00ae \u00be\u00be\u00be\u00be\u00be\u00be A r ; Product A is : (a) (b) (c) (d) O Cl NO2 O OH NO2\nO C \u2014 CH3 CH \u2014 CH 2 3",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q1.svg"
       ],
@@ -74,12 +81,12 @@
         [
           2,
           15.0,
-          52.0,
+          93.4,
           445.0,
-          194.7
+          214.8
         ]
       ],
-      "text": "Above conversion can be achieved by : (a) Wolf-Kishner reduction (b) Clemmensen reduction (c) LiAlH 4 (d) NaBH 4 C \u2014 CH3 CH \u2014 CH 2 3 CH \u2014 CH \u2014 NMe 2 2 3 CH \u2014 CH \u2014 NMe 2 2 3",
+      "text": "Above conversion can be achieved by : (a) Wolf-Kishner reduction (b) Clemmensen reduction (c) LiAlH 4 (d) NaBH 4 O CH \u2014 CH \u2014 NMe 2 2 3 CH \u2014 CH \u2014 NMe 2 2 3",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q2.svg"
       ],
@@ -113,12 +120,12 @@
         [
           2,
           15.0,
-          194.7,
+          214.8,
           445.0,
-          322.9
+          345.4
         ]
       ],
-      "text": "Above conversion can be achieved by : (a) Wolff- Kishner reduction (b) Clemmensen reduction (c) HS \u2014 CH \u2014 CH \u2014 SH 2 2 , following by Raney Ni (d) None of these CH \u00be C \u00be CH \u00be CH \u00be CH \u00be CH \u00be\u00be\u00ae CH \u00be (CH ) \u00be CH \u00be CH 3 2 2 2 3 2 3 2 O O O O",
+      "text": "Above conversion can be achieved by : (a) Wolff- Kishner reduction (b) Clemmensen reduction (c) HS \u2014 CH \u2014 CH \u2014 SH 2 2 , following by Raney Ni (d) None of these CH \u00be C \u00be CH \u00be CH \u00be CH \u00be CH \u00be\u00be\u00ae CH \u00be (CH ) \u00be CH \u00be CH 3 2 2 2 3 2 3 2 O O O",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q3.svg"
       ],
@@ -152,12 +159,12 @@
         [
           2,
           15.0,
-          322.9,
+          345.4,
           445.0,
-          486.2
+          528.4
         ]
       ],
-      "text": "Zn(Hg) HCl \u00be \u00ae \u00be\u00be\u00be ; Product of the Clemmensen reduction is : (a) (b) (c) (d) NO2 C \u2014 CH3 CH \u2014 CH 2 3 CH \u2014 CH3 OH CH \u2014 CH 2 3 CH \u2014 CH 2 3 OH",
+      "text": "Zn(Hg) HCl \u00be \u00ae \u00be\u00be\u00be ; Product of the Clemmensen reduction is : (a) (b) (c) (d) | OH || O | OH NO2 C \u2014 CH3 NO2 CH \u2014 CH 2 3 NO2 CH \u2014 CH3 OH NH2 CH \u2014 CH 2 3 NO2 CH \u2014 CH 2 3 OH",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q4.svg"
       ],
@@ -191,12 +198,19 @@
         [
           2,
           15.0,
-          486.2,
+          528.4,
           445.0,
-          599.4
+          595.4
+        ],
+        [
+          3,
+          15.0,
+          48.0,
+          445.0,
+          146.5
         ]
       ],
-      "text": "CH \u2014 CH \u2014 | OH CH \u2014 CH \u2014 C \u2014 || O CH CH \u2014 CH | OH \u2014 (CH ) \u2014 CH 3 2 2 3 3 2 3 3 \u00be\u00ae Above conversion can be achieved by : (a) Wolff-Kishner reduction (b) Clemmensen reduction (c) LiAlH 4 (d) NaBH 4 NO2 NO2 NH2 NO2",
+      "text": "CH \u2014 CH \u2014 CH \u2014 CH \u2014 C \u2014 CH CH \u2014 CH \u2014 (CH ) \u2014 CH 3 2 2 3 3 2 3 3 \u00be\u00ae Above conversion can be achieved by : (a) Wolff-Kishner reduction (b) Clemmensen reduction (c) LiAlH 4 (d) NaBH 4\nC \u2014 CH3 O CH \u2014 CH 2 3 C \u2014 CH3 H2 C \u2014 CH3 H2 Zn(Hg) HCl (A) NH \u2014NH 2",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q5.svg"
       ],
@@ -230,12 +244,12 @@
         [
           3,
           15.0,
-          52.0,
+          146.5,
           445.0,
-          236.6
+          258.7
         ]
       ],
-      "text": "Identify product (A) & (B) from the given product P Q R , , : (a) A P B Q = = , (b) A Q B R = = , (c) A Q, B P = = (d) A R B P = = , O C \u2014 CH3 O OH CH \u2014 CH 2 3 OH C \u2014 CH3 H2 Cl C \u2014 CH3 H2 Cl Zn(Hg) HCl (A) NH \u2014NH 2 2 \u2013 HO /D (B) (P) (Q) (R)",
+      "text": "Identify product (A) & (B) from the given product P Q R , , : (a) A P B Q = = , (b) A Q B R = = , (c) A Q, B P = = (d) A R B P = = , O OH OH Cl Cl 2 \u2013 HO /D (B) (P) (Q) (R)",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q6.svg"
       ],
@@ -269,12 +283,12 @@
         [
           3,
           15.0,
-          236.6,
+          258.7,
           445.0,
-          401.6
+          438.9
         ]
       ],
-      "text": "Zn(Hg) HCl ( ) \u00be \u00ae \u00be\u00be\u00be A ; Identify the A. (a) (b) (c) (d) C \u2014 CH3 HO CH \u2014 CH 2 3 HO Cl Cl OH",
+      "text": "Zn(Hg) HCl ( ) \u00be \u00ae \u00be\u00be\u00be A ; Identify the A. (a) (b) (c) (d) C \u2014 CH3 HO CH \u2014 CH 2 3 HO Cl Cl OH O",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q7.svg"
       ],
@@ -308,19 +322,19 @@
         [
           3,
           15.0,
-          401.6,
+          438.9,
           445.0,
-          620.0
+          622.5
         ],
         [
           4,
           15.0,
-          52.0,
+          48.0,
           445.0,
-          100.1
+          181.7
         ]
       ],
-      "text": "HO , N H 2 4 - \u00be \u00ae \u00be\u00be\u00be\u00be\u00be\u00be\u00be\u00be D (Wolff -Kishner reduction) (A) ; Product (A) is : (a) (b) C \u2014 CH3 CH \u2014 CH 2 2 \u2014 Br O CH \u2014 CH 2 3 CH \u2014 CH 2 2 \u2014 OH\n(c) (d)",
+      "text": "HO , N H 2 4 - \u00be \u00ae \u00be\u00be\u00be\u00be\u00be\u00be\u00be\u00be D (Wolff -Kishner reduction) (A) ; Product (A) is : (a) (b) C \u2014 CH3 CH \u2014 CH 2 2 \u2014 Br CH \u2014 CH 2 3 CH \u2014 CH 2 2 \u2014 OH\n(c) (d) ; CH \u2014 CH 2 2 \u2014 Br CH \u2014 CH3 Br",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q8.svg"
       ],
@@ -354,12 +368,12 @@
         [
           4,
           15.0,
-          100.1,
+          181.7,
           445.0,
-          252.8
+          252.5
         ]
       ],
-      "text": "; Above conversion can be carried out by : (a) Clemmensen reduction (b) Wolff-Kishner reduction (c) LiAlH 4 (d) NaBH 4 CH \u2014 CH 2 2 \u2014 Br CH \u2014 CH3 Br",
+      "text": "Above conversion can be carried out by : (a) Clemmensen reduction (b) Wolff-Kishner reduction (c) LiAlH 4 (d) NaBH 4",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q9.svg"
       ],
@@ -393,9 +407,9 @@
         [
           4,
           15.0,
-          252.8,
+          252.5,
           445.0,
-          379.2
+          383.0
         ]
       ],
       "text": "Increasing order of equilibrium constants for the formation of a hydrate: (a) IV < III < II < I (b) IV < III < I < II (c) I < II < III < IV (d) II <III < I < IV NH2 NH2 O O O O N 2 O (I) (II) (III) (IV)",
@@ -432,12 +446,19 @@
         [
           4,
           15.0,
-          379.2,
+          383.0,
           445.0,
-          518.7
+          532.4
+        ],
+        [
+          5,
+          15.0,
+          48.0,
+          445.0,
+          81.0
         ]
       ],
-      "text": "(a) (b) (c) (d) C\u00ba\u00baC OCH3 \u00be\u00be\u00be\u00ae HgSO4 dil. H SO 2 4 (A) Product (A) is: Major product OCH3 C\u2014CH2 O OCH3 C\u2014CH2 OH OCH3 CH2\u2014C O OCH3 OH CH2\u2014CH",
+      "text": "(a) (b) (c) (d) C\u00ba\u00baC OCH3 \u00be\u00be\u00be\u00ae HgSO4 dil. H SO 2 4 (A) Product (A) is: Major product OCH3 C\u2014CH2 O OCH3 C\u2014CH2 OH OCH3 CH2\u2014C O OCH3 OH CH2\u2014CH\nH O 2 \u00be \u00ae \u00be\u00be (A)",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q11.svg"
       ],
@@ -471,12 +492,12 @@
         [
           5,
           15.0,
-          52.0,
+          81.0,
           445.0,
-          281.0
+          303.1
         ]
       ],
-      "text": "H O 2 \u00be \u00ae \u00be\u00be (A) Predict the product of hydrolysis of the above molecule. (a) (b) (c) (d) O CO H 2",
+      "text": "Predict the product of hydrolysis of the above molecule. (a) (b) (c) (d) OH OH O CO H 2",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q12.svg"
       ],
@@ -510,12 +531,12 @@
         [
           5,
           15.0,
-          281.0,
+          303.1,
           445.0,
-          409.2
+          407.7
         ]
       ],
-      "text": ", This conversion can be achieved by : (a) Me CO H H O KMnO HO 2 3 4 + \u00c5 - , , (b) Me CO H KMnO H O 2 4 3 + + , , (c) KMnO NaO , Me CO H , H O 4 4 2 3 + + (d) KMnO NaIO 4 4, H O Me CO H 3 2 + + , OH OH OH OH OH O",
+      "text": ", This conversion can be achieved by : (a) Me CO H H O KMnO HO 2 3 4 + \u00c5 - , , (b) Me CO H KMnO H O 2 4 3 + + , , (c) KMnO NaO , Me CO H , H O 4 4 2 3 + + (d) KMnO NaIO 4 4, H O Me CO H 3 2 + + , OH OH OH O",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q13.svg"
       ],
@@ -549,9 +570,9 @@
         [
           5,
           15.0,
-          409.2,
+          407.7,
           445.0,
-          468.9
+          478.0
         ]
       ],
       "text": "H O 3 \u00c5 \u00be \u00ae \u00be\u00be \u00be A + B. Compound (A) & (B) can be differentiated by: (a) 2-4-DNP (b) Fehling solution (c) Lucas reagent (d) NaHSO 3 O",
@@ -588,9 +609,16 @@
         [
           5,
           15.0,
-          468.9,
+          478.0,
           445.0,
-          573.2
+          576.3
+        ],
+        [
+          6,
+          15.0,
+          48.0,
+          445.0,
+          51.1
         ]
       ],
       "text": "HOH, H catalyst 20 C,15min Meth ( ) H \u2014 C || O \u2014 OMe + \u00be \u00ae \u00be\u00be\u00be\u00be\u00be\u00be + \u00b0 A yl formate ; Product (A) is : (a) (b) (c) (d)",
@@ -627,12 +655,12 @@
         [
           6,
           15.0,
-          52.0,
+          51.1,
           445.0,
-          181.6
+          179.4
         ]
       ],
-      "text": "Reagents to carry out above conversion, P, Q, R respectively are : (a) H C CH \u2014 CH \u2014 Br,(HO ),[HO , ] 2 2 == Q Q D , Wacker-process (b) H C CH \u2014 CH \u2014 Br(HO ) 2 2 == Q , Wacker-process, HO Q D , (c) Wacker process, H C CH \u2014 CH \u2014 Br(HO ),HO 2 2 == Q Q D ( ) (d) Wacker process, HO ( ),H C CH \u2014 CH \u2014 Br(HO ) 2 2 Q Q D == O - O O P Q R",
+      "text": "Reagents to carry out above conversion, P, Q, R respectively are : (a) H C CH \u2014 CH \u2014 Br,(HO ),[HO , ] 2 2 == Q Q D , Wacker-process (b) H C CH \u2014 CH \u2014 Br(HO ) 2 2 == Q , Wacker-process, HO Q D , (c) Wacker process, H C CH \u2014 CH \u2014 Br(HO ),HO 2 2 == Q Q D ( ) (d) Wacker process, HO ( ),H C CH \u2014 CH \u2014 Br(HO ) 2 2 Q Q D == O O P Q R",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q16.svg"
       ],
@@ -666,12 +694,12 @@
         [
           6,
           15.0,
-          181.6,
+          179.4,
           445.0,
-          333.9
+          345.3
         ]
       ],
-      "text": "\u00be\u00ae Above reaction is a Baeyer Villiger rearrangement of an asymmetric ketone with magnesium mono peroxo pthalate hexahydrate (in the drawing, Mg 2 + is omitted for clearity) Identify major product. (a) (b) (c) (d) R O O R OH O R C \u00be O \u00be O \u00be H O CO2 +",
+      "text": "\u00be\u00ae Above reaction is a Baeyer Villiger rearrangement of an asymmetric ketone with magnesium mono peroxo pthalate hexahydrate (in the drawing, Mg 2 + is omitted for clearity) Identify major product. (a) (b) (c) (d) R O O R OH O R C \u00be O \u00be O \u00be H O O - CO2 +",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q17.svg"
       ],
@@ -705,9 +733,9 @@
         [
           6,
           15.0,
-          333.9,
+          345.3,
           445.0,
-          443.4
+          451.5
         ]
       ],
       "text": ", Above compounds can be differentiated by following reagent: (a) 2-4 DNP (Brady reagent) (b) Tollen's reagent (c) Lucas reagent (d) NaHSO 3 OH",
@@ -744,12 +772,19 @@
         [
           6,
           15.0,
-          443.4,
+          451.5,
           445.0,
-          620.0
+          626.5
+        ],
+        [
+          7,
+          15.0,
+          48.0,
+          445.0,
+          76.6
         ]
       ],
-      "text": "Product (D) will be : (a) (b) (c) (d) OH PCC (excess) 1 equivalent + H CH MgBr 3 + H O 3 NaBH4 (A) (B) (C) (D) OH OH OH OH CH \u00be CH3 OH OH OH OH OH OH",
+      "text": "Product (D) will be : (a) (b) (c) (d) OH PCC (excess) 1 equivalent + H CH MgBr 3 + H O 3 NaBH4 (A) (B) (C) (D) OH OH OH OH CH \u00be CH3 OH OH OH OH OH OH\nCH \u2014CH==CH H O ,OH 2 2 \u2013 BH ,THF 3 Pyridinium Chloro Chromate (PCC) (P) (Q) CH Cl 2 2",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q19.svg"
       ],
@@ -783,12 +818,12 @@
         [
           7,
           15.0,
-          52.0,
+          76.6,
           445.0,
-          187.8
+          184.3
         ]
       ],
-      "text": "Relationship between products ( ) Q and ( ) S is: (a) Positional isomer (b) Chain isomer (c) Stereoisomer (d) Functional isomer CH \u2014CH==CH 3 2 H O ,OH 2 2 \u2013 3 Hg(OAc) ,H O 2 2 s NaBH ,HO 4 (P) (Q) Pyridinium Chloro Chromate (PCC) (R) (S) CH Cl 2 2 CH Cl 2 2",
+      "text": "Relationship between products ( ) Q and ( ) S is: (a) Positional isomer (b) Chain isomer (c) Stereoisomer (d) Functional isomer 3 2 Hg(OAc) ,H O 2 2 s NaBH ,HO 4 Pyridinium Chloro Chromate (PCC) (R) (S) CH Cl 2 2",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q20.svg"
       ],
@@ -822,12 +857,12 @@
         [
           7,
           15.0,
-          187.8,
+          184.3,
           445.0,
-          303.9
+          328.5
         ]
       ],
-      "text": "In the reaction, 1. Al(Hg), benzene, heat 2. H O, heat 2 \u00be \u00ae \u00be\u00be\u00be\u00be\u00be\u00be\u00be\u00be X, the product (X) is : (a) (b) (c) (d) O O O HO OH",
+      "text": "In the reaction, 1. Al(Hg), benzene, heat 2. H O, heat 2 \u00be \u00ae \u00be\u00be\u00be\u00be\u00be\u00be\u00be\u00be X, the product (X) is : (a) (b) (c) (d) O O O O HO OH",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q21.svg"
       ],
@@ -861,12 +896,12 @@
         [
           7,
           15.0,
-          303.9,
+          328.5,
           445.0,
-          435.4
+          438.7
         ]
       ],
-      "text": "Rank the following in order of increasing value of the equilibrium constant for hydration, K hyd. (smallest value first). (a) 1 < 2 <3 (b) 3 < 1 < 2 (c) 2 < 1 < 3 (d) 2 < 3 < 1 O O O (CH ) CCC(CH ) 3 3 3 3 1 2 3 O",
+      "text": "Rank the following in order of increasing value of the equilibrium constant for hydration, K hyd. (smallest value first). (a) 1 < 2 <3 (b) 3 < 1 < 2 (c) 2 < 1 < 3 (d) 2 < 3 < 1 O O O (CH ) CCC(CH ) 3 3 3 3 1 2 3",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q22.svg"
       ],
@@ -900,9 +935,16 @@
         [
           7,
           15.0,
-          435.4,
+          438.7,
           445.0,
-          590.6
+          586.5
+        ],
+        [
+          8,
+          15.0,
+          48.0,
+          445.0,
+          51.1
         ]
       ],
       "text": "Above conversion can be achieved by: (a) Zn Hg HCl ( ), (b) NH NH KOH 2 2 \u2014 D (c) LiAlH 4 (d) H Ni 2 O \u00be\u00be\u00ae O S S O",
@@ -939,12 +981,12 @@
         [
           8,
           15.0,
-          52.0,
+          51.1,
           445.0,
-          202.1
+          261.6
         ]
       ],
-      "text": "Which sequence represents the best synthesis of hexanal ? CH CH CH CH CH CH O 3 2 2 2 2 Hexanal == (a) 1. CH CH CH CH Br NaC CH 3 2 2 2 + \u00ba\u00ba (b) 1. CH CH CH CH CH CH C || O OOH 3 2 2 2 3 == + 2. H O, H SO ,HgSO 2 2 4 4 2. CH MgBr 3 , diethyl ether 3. H O 3 + 4. PCC, CH Cl 2 2 (c) 1. CH CH CH CH C || O CH 3 2 2 2 3 (d) O 1. CH3CH CH CH MgBr + H C \u2014 CH 2 2 2 2 2",
+      "text": "Which sequence represents the best synthesis of hexanal ? CH CH CH CH CH CH O 3 2 2 2 2 Hexanal == (a) 1. CH CH CH CH Br NaC CH 3 2 2 2 + \u00ba\u00ba (b) 1. CH CH CH CH CH CH C || O OOH 3 2 2 2 3 == + 2. H O, H SO ,HgSO 2 2 4 4 2. CH MgBr 3 , diethyl ether 3. H O 3 + 4. PCC, CH Cl 2 2 (c) 1. CH CH CH CH C || O CH 3 2 2 2 3 (d) 2. CH C || O OOH 3 3. LiAlH 4 2. H O 3 + 3. PCC, CH Cl 2 2 4. H O 2 5. PCC, CH Cl 2 2 O 1. CH3CH CH CH MgBr + H C \u2014 CH 2 2 2 2 2",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q24.svg"
       ],
@@ -978,12 +1020,12 @@
         [
           8,
           15.0,
-          202.1,
+          261.6,
           445.0,
-          366.3
+          376.0
         ]
       ],
-      "text": "2. CH C || O OOH 3 3. LiAlH 4 2. H O 3 + 3. PCC, CH Cl 2 2 4. H O 2 5. PCC, CH Cl 2 2 HNO Ca(OH) 3 2 ( ) ( ) \u00be \u00ae \u00be\u00be\u00be \u00be \u00ae \u00be\u00be\u00be A B , Product (B) in this reaction is : (a) (b) (c) (d) O O O O O",
+      "text": "HNO Ca(OH) 3 2 ( ) ( ) \u00be \u00ae \u00be\u00be\u00be \u00be \u00ae \u00be\u00be\u00be A B , Product (B) in this reaction is : (a) (b) (c) (d) O O O O O",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q25.svg"
       ],
@@ -1017,12 +1059,19 @@
         [
           8,
           15.0,
-          366.3,
+          376.0,
           445.0,
-          560.7
+          556.7
+        ],
+        [
+          9,
+          15.0,
+          48.0,
+          445.0,
+          74.2
         ]
       ],
-      "text": ", Compound (x) in the above reaction is : (a) Ph \u2014 C || O \u2014 CH 3 (b) Ph \u2014 C || O \u2014 H (c) Ph \u2014 CH \u2014 C || O \u2014 H 2 (d) Ph \u2014 CH \u2014 C || O \u2014 CH 2 3 CH \u2014 OH 2 CH OH 2 H OH OH HO H H (?)x CH \u2014 OH 2 CH O 2 H CH \u2014 Ph O OH HO H H",
+      "text": ", Compound (x) in the above reaction is : (a) Ph \u2014 C || O \u2014 CH 3 (b) Ph \u2014 C || O \u2014 H (c) Ph \u2014 CH \u2014 C || O \u2014 H 2 (d) Ph \u2014 CH \u2014 C || O \u2014 CH 2 3 CH \u2014 OH 2 CH OH 2 H OH OH HO H H (?)x CH \u2014 OH 2 CH O 2 H CH \u2014 Ph O OH HO H H\nPh \u2014 C || O \u2014 CH ( ) ( ) NaNO AC O H O 2 2 3 \u00be \u00ae \u00be\u00be\u00be \u00be \u00ae \u00be\u00be\u00be \u00be \u00ae \u00be + A B \u00be ( ) C",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q26.svg"
       ],
@@ -1056,12 +1105,12 @@
         [
           9,
           15.0,
-          52.0,
+          74.2,
           445.0,
-          179.8
+          178.0
         ]
       ],
-      "text": "Ph \u2014 C || \u2014 CH ( ) ( ) 3 NaNO HCl AC O heat H O 2 2 3 \u00be \u00ae \u00be\u00be\u00be \u00be \u00ae \u00be\u00be\u00be \u00be \u00ae \u00be + A B \u00be ( ) C Product (C) of the above reaction is : (a) Ph \u2014 CO H 2 (b) Ph \u2014 C || O \u2014 CO H 2 (c) Ph \u2014 C || O \u2014 C || O \u2014 H (d) Ph \u2014 C || O \u2014 CH OH 2",
+      "text": "3 HCl heat Product (C) of the above reaction is : (a) Ph \u2014 CO H 2 (b) Ph \u2014 C || O \u2014 CO H 2 (c) Ph \u2014 C || O \u2014 C || O \u2014 H (d) Ph \u2014 C || O \u2014 CH OH 2",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q27.svg"
       ],
@@ -1095,12 +1144,12 @@
         [
           9,
           15.0,
-          179.8,
+          178.0,
           445.0,
-          254.5
+          250.4
         ]
       ],
-      "text": "H\u2014C \u2014H 2HCl AgNO || O ( ) ( ) 2 \u00be \u00ae \u00be\u00be\u00be\u00be \u00be \u00ae \u00be\u00be\u00be A B ; Product (B) of the reaction is : (a) Ph \u2014 CH \u2014 NO 2 2 (b) Ph \u2014 CH \u2014 ONO 2 (c) Ph \u2014 CHO (d) Ph \u2014 O \u2014 N O == O",
+      "text": "H\u2014C \u2014H 2HCl AgNO || O ( ) ( ) 2 \u00be \u00ae \u00be\u00be\u00be\u00be \u00be \u00ae \u00be\u00be\u00be A B ; Product (B) of the reaction is : (a) Ph \u2014 CH \u2014 NO 2 2 (b) Ph \u2014 CH \u2014 ONO 2 (c) Ph \u2014 CHO (d) Ph \u2014 O \u2014 N O ==",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q28.svg"
       ],
@@ -1134,12 +1183,12 @@
         [
           9,
           15.0,
-          254.5,
+          250.4,
           445.0,
-          444.5
+          451.8
         ]
       ],
-      "text": "Br 0.75 mole %, AlCl Et O 2 3 2 ( ) ; \u00be \u00ae \u00be\u00be A ( %) 100 Product (A) of the above reaction is (bromination occur not in the benzene ring) : (a) (b) (c) (d) O Br O Br CH3 C O Br O Br",
+      "text": "Br 0.75 mole %, AlCl Et O 2 3 2 ( ) ; \u00be \u00ae \u00be\u00be A ( %) 100 Product (A) of the above reaction is (bromination occur not in the benzene ring) : (a) (b) (c) (d) O Br O Br CH3 C O Br O Br O",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q29.svg"
       ],
@@ -1173,19 +1222,19 @@
         [
           9,
           15.0,
-          444.5,
+          451.8,
           445.0,
-          620.0
+          597.6
         ],
         [
           10,
           15.0,
-          52.0,
+          48.0,
           445.0,
-          94.8
+          117.5
         ]
       ],
-      "text": "drop of H SO H O 2 4 2 \u00be \u00ae \u00be\u00be\u00be\u00be\u00be Positive Tollens test Compound (A) is : (a) CH \u2014 C O || \u2014 CH | OCH \u2014 CH | OCH 3 3 2 3 (b) CH \u2014 C O || \u2014 C \u2014 | OCH OCH | CH 3 3 3 3 C H O 6 12 3 +ive \u2013ive Tollens test Iodoform test A\n(c) CH \u2014 C O || \u2014 CH \u2014 CH \u2014 OCH 3 2 3 | (d)H \u2014 C O || \u2014 CH \u2014 CH \u2014 CH | \u2014 OCH 2 2 3",
+      "text": "drop of H SO H O 2 4 2 \u00be \u00ae \u00be\u00be\u00be\u00be\u00be Positive Tollens test Compound (A) is : (a) CH \u2014 C O || \u2014 CH | OCH \u2014 CH | OCH 3 3 2 3 (b) CH \u2014 C O || \u2014 C \u2014 | OCH OCH | CH 3 3 3 3 C H O 6 12 3 +ive \u2013ive Tollens test Iodoform test A\n(c) CH \u2014 C O || \u2014 CH \u2014 CH \u2014 OCH OCH 3 2 3 3 | (d)H \u2014 C O || \u2014 CH \u2014 CH \u2014 CH | OCH \u2014 OCH 2 2 3 3",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q30.svg"
       ],
@@ -1219,12 +1268,12 @@
         [
           10,
           15.0,
-          94.8,
+          117.5,
           445.0,
-          249.3
+          260.2
         ]
       ],
-      "text": "OCH 3 OCH 3 C H ( ) 16 16 ( ) O C H O NH \u2014NH HO 3 8 8 2 2 A B \u00be \u00ae \u00be \u00be \u00be \u00ae \u00be\u00be\u00be\u00be - D ; Reactant (A) in this reaction is : (a) (b) (c) (d) both (b) and (c) Ph CH3 C == C Ph CH3 Ph CH3 C = = C Ph CH3 Ph CH3 C = = C Ph CH3",
+      "text": "C H ( ) 16 16 ( ) O C H O NH \u2014NH HO 3 8 8 2 2 A B \u00be \u00ae \u00be \u00be \u00be \u00ae \u00be\u00be\u00be\u00be - D ; Reactant (A) in this reaction is : (a) (b) (c) (d) both (b) and (c) Ph CH3 C == C Ph CH3 Ph CH3 C = = C Ph CH3 Ph CH3 C = = C Ph CH3",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q31.svg"
       ],
@@ -1258,12 +1307,19 @@
         [
           10,
           15.0,
-          249.3,
+          260.2,
           445.0,
-          583.0
+          600.9
+        ],
+        [
+          11,
+          15.0,
+          48.0,
+          445.0,
+          50.8
         ]
       ],
-      "text": "Compound (P) is : (a) CH \u2014 C O || \u2014 CH \u2014 CH \u2014 CH \u2014 CH | OH \u2014 CH 3 2 2 2 3 (b) CH \u2014 C O || \u2014 CH \u2014 CH OH | \u2014 CH \u2014 CH \u2014 CH 3 2 2 2 3 (c) CH \u2014 C O || \u2014 CH \u2014 CH \u2014 CH \u2014 CH \u2014 CH \u2014 OH 3 2 2 2 2 2 (d) CH \u2014 C O || \u2014 CH | \u2014 C | OH | \u2014 CH 3 3 O \u2014 O \u2014 H 1-methyl 1-cyclohexyl hydrogen peroxide \u00c5 H O 3 P +ive Iodoform test +ive 2-4 DNP test +ive test with CrO3 C H O 7 14 2",
+      "text": "Compound (P) is : (a) CH \u2014 C O || \u2014 CH \u2014 CH \u2014 CH \u2014 CH | OH \u2014 CH 3 2 2 2 3 (b) CH \u2014 C O || \u2014 CH \u2014 CH OH | \u2014 CH \u2014 CH \u2014 CH 3 2 2 2 3 (c) CH \u2014 C O || \u2014 CH \u2014 CH \u2014 CH \u2014 CH \u2014 CH \u2014 OH 3 2 2 2 2 2 (d) CH \u2014 C O || \u2014 CH | CH \u2014 C | CH OH | \u2014 CH 3 3 3 3 O \u2014 O \u2014 H 1-methyl 1-cyclohexyl hydrogen peroxide \u00c5 H O 3 P +ive Iodoform test +ive 2-4 DNP test +ive test with CrO3 C H O 7 14 2",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q32.svg"
       ],
@@ -1297,9 +1353,9 @@
         [
           11,
           15.0,
-          52.0,
+          50.8,
           445.0,
-          171.1
+          176.0
         ]
       ],
       "text": "Correct order of reactivity of following compounds towards Grignard reagent? CH \u2014 C || O \u2014 H (I) 3 H \u2014 C || O \u2014 H (II) (a) I II III > > (b) II I III > > (c) II III I > > (d) I III II > > CH \u2014C 3 O (III)",
@@ -1336,9 +1392,9 @@
         [
           11,
           15.0,
-          171.1,
+          176.0,
           445.0,
-          405.2
+          425.4
         ]
       ],
       "text": "HCHO TsOH, \u00be \u00ae \u00be\u00be\u00be D ( ) % A 93 ; Product (A) is : (a) (b) (c) (d) CH \u00be CH \u00be CH \u00be CH \u00be OH 3 2 CH \u00be 2 OH",
@@ -1375,9 +1431,16 @@
         [
           11,
           15.0,
-          405.2,
+          425.4,
           445.0,
-          555.0
+          549.0
+        ],
+        [
+          12,
+          15.0,
+          48.0,
+          445.0,
+          51.1
         ]
       ],
       "text": "KOH H O 2 \u00be \u00ae \u00be\u00be D Total number of products obtained in above reaction is : (a) 2 (b) 3 (c) 4 (d) 5 (CH ) CO \u00be C \u00be CH \u00be CH \u00be CH \u2014 \u2014 OCH CH CH 3 3 2 2 2 2 3 O OH OCH3 I",
@@ -1414,12 +1477,12 @@
         [
           12,
           15.0,
-          52.0,
+          51.1,
           445.0,
-          163.6
+          160.5
         ]
       ],
-      "text": "What reagent and/or reaction conditions would you choose to bring about the following conversion? \u00be\u00ae + HOCH CH OH 2 2 (a) 1. LiAlH 4, 2. H O 2 (b) H O, H SO 2 2 4, heat (c) H O 2 , NaOH, heat (d) PCC, CH Cl 2 2 O O O CH == O",
+      "text": "What reagent and/or reaction conditions would you choose to bring about the following conversion? \u00be\u00ae + HOCH CH OH 2 2 (a) 1. LiAlH 4, 2. H O 2 (b) H O, H SO 2 2 4, heat (c) H O 2 , NaOH, heat (d) PCC, CH Cl 2 2 O O CH == O",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q36.svg"
       ],
@@ -1453,12 +1516,12 @@
         [
           12,
           15.0,
-          163.6,
+          160.5,
           445.0,
-          279.0
+          295.4
         ]
       ],
-      "text": "MeI excess KH excess \u00be \u00ae \u00be\u00be\u00be\u00be 81% yield ; Product of the reaction is : (a) (b) (c) (d) || O ||O ||O ||O ||",
+      "text": "MeI excess KH excess \u00be \u00ae \u00be\u00be\u00be\u00be 81% yield ; Product of the reaction is : (a) (b) (c) (d) || O ||O ||O ||O || O",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q37.svg"
       ],
@@ -1492,12 +1555,12 @@
         [
           12,
           15.0,
-          279.0,
+          295.4,
           445.0,
-          439.9
+          437.4
         ]
       ],
-      "text": "\u00be\u00ae The above reduction can be best carried out by : (a) Clemmensen reduction (b) Wolff-Kishner reduction (c) NaBH 4 (d) None of these HgSO C ||O HO HO",
+      "text": "\u00be\u00ae The above reduction can be best carried out by : (a) Clemmensen reduction (b) Wolff-Kishner reduction (c) NaBH 4 (d) None of these C ||O HO HO",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q38.svg"
       ],
@@ -1531,12 +1594,19 @@
         [
           12,
           15.0,
-          439.9,
+          437.4,
           445.0,
-          533.2
+          529.1
+        ],
+        [
+          13,
+          15.0,
+          48.0,
+          445.0,
+          72.4
         ]
       ],
-      "text": "CH \u2014 C CH 3 dil. 4 2 \u00ba\u00ba \u00be \u00ae \u00be\u00be\u00be H SO4 ( ) A CH C CH BH THF H O HO 3 1 3 2 2 \u2014 ( ) ( ) / \u00ba\u00ba \u00be \u00ae \u00be\u00be\u00be\u00be \u00d7 - (2) B Product ( ) A and ( ) B is differentiated by: (a) 2-4-DNP (b) NaOI (c) Na-metal (d) NaHSO 3",
+      "text": "CH \u2014 C CH 3 dil. 4 2 \u00ba\u00ba \u00be \u00ae \u00be\u00be\u00be HgSO H SO4 ( ) A CH C CH BH THF H O HO 3 1 3 2 2 \u2014 ( ) ( ) / \u00ba\u00ba \u00be \u00ae \u00be\u00be\u00be\u00be \u00d7 - (2) B Product ( ) A and ( ) B is differentiated by: (a) 2-4-DNP (b) NaOI (c) Na-metal (d) NaHSO 3\nO",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q39.svg"
       ],
@@ -1570,9 +1640,9 @@
         [
           13,
           15.0,
-          52.0,
+          72.4,
           445.0,
-          166.3
+          169.5
         ]
       ],
       "text": "HCN LiAlH NaNO HCl ( ) ( ) ( ) 4 2 \u00be \u00ae \u00be\u00be \u00be \u00ae \u00be\u00be\u00be \u00be \u00ae \u00be\u00be\u00be A B C End product (C) in above reaction is : (a) (b) (c) (d) O O O OH OH | CH2",
@@ -1609,9 +1679,9 @@
         [
           13,
           15.0,
-          166.3,
+          169.5,
           445.0,
-          282.6
+          282.4
         ]
       ],
       "text": "Compound (X) C H O 4 8 , which reacts with 2, 4-DNP derivative and gives negative haloform test is : (a) CH C O CH \u2014 CH 3 2 3 \u2014 \u2014 || (b) CH 3 \u2014 CH CH | 3 \u2014 CHO (c) (d) CH CH CH OH CH 3 2 3 \u2014 \u2014 | \u2014 OH",
@@ -1648,9 +1718,9 @@
         [
           13,
           15.0,
-          282.6,
+          282.4,
           445.0,
-          350.2
+          349.4
         ]
       ],
       "text": "When a nucleophile encounters a ketone, the site of attack is : (a) the carbon atom of the carbonyl (b) the oxygen atom of the carbonyl (c) both the carbon and oxygen atoms, with equal probability (d) no attack occurs as ketones do not react with nucleophiles",
@@ -1687,9 +1757,9 @@
         [
           13,
           15.0,
-          350.2,
+          349.4,
           445.0,
-          484.0
+          479.7
         ]
       ],
       "text": "The correct order of rate of reaction toward nucleophilic addition reaction: (a) a > b > c > d > e (b) a > b > d > c > e (c) a > d > e > b > c (d) a > b > e > d > c NO2 CHO (a) CHO (b) OMe CHO (c) ) d ( Et C CH3 || O - - C \u2013 Ph (e) || O",
@@ -1726,9 +1796,9 @@
         [
           13,
           15.0,
-          484.0,
+          479.7,
           445.0,
-          543.7
+          543.0
         ]
       ],
       "text": "The structure would be best classified as a(an) : (a) Acetal (b) Hemiacetal (c) Hydrate (d) Cyanohydrin O H OH",
@@ -1765,19 +1835,19 @@
         [
           13,
           15.0,
-          543.7,
+          543.0,
           445.0,
-          620.0
+          611.0
         ],
         [
           14,
           15.0,
-          52.0,
+          48.0,
           445.0,
           86.0
         ]
       ],
-      "text": "Which of the following pairs of reactants is most effective in forming an enamine ? (a) CH CH C O H [(CH ) CH] NH 3 2 3 2 2 || + (b) + CH NH CH 3 3 \u2014 \u2014 || O\n(c) (CH ) CC H (CH ) NH 3 3 3 2 || + (d) None of these form an enamine.",
+      "text": "Which of the following pairs of reactants is most effective in forming an enamine ? (a) CH CH C O H [(CH ) CH] NH 3 2 3 2 2 || + (b) + CH NH CH 3 3 \u2014 \u2014 || O\n(c) (CH ) CC O H (CH ) NH 3 3 3 2 || + (d) None of these form an enamine.",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q45.svg"
       ],
@@ -1813,10 +1883,10 @@
           15.0,
           86.0,
           445.0,
-          130.6
+          126.9
         ]
       ],
-      "text": "The reaction of C H CH CHCHO 6 5 == with LiAlH 4 gives : (a) C H CH CH CH OH 6 5 2 2 2 (b) C H CH CHCH OH 6 5 2 == (c) C H CH CH CHO 6 5 2 2 (d) C H CH CHOHCH 6 5 2 3 O",
+      "text": "The reaction of C H CH CHCHO 6 5 == with LiAlH 4 gives : (a) C H CH CH CH OH 6 5 2 2 2 (b) C H CH CHCH OH 6 5 2 == (c) C H CH CH CHO 6 5 2 2 (d) C H CH CHOHCH 6 5 2 3",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q46.svg"
       ],
@@ -1850,12 +1920,12 @@
         [
           14,
           15.0,
-          130.6,
+          126.9,
           445.0,
-          205.7
+          219.7
         ]
       ],
-      "text": "NaBH H 4 + ( ) ( ) \u00be \u00ae \u00be\u00be\u00be \u00be \u00ae \u00be\u00be A B D ; Product (B) of the reaction is : (a) (b) (c) (d) O O OH O O O",
+      "text": "NaBH H 4 + ( ) ( ) \u00be \u00ae \u00be\u00be\u00be \u00be \u00ae \u00be\u00be A B D ; Product (B) of the reaction is : (a) (b) (c) (d) O O O OH O O O OH",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q47.svg"
       ],
@@ -1889,12 +1959,12 @@
         [
           14,
           15.0,
-          205.7,
+          219.7,
           445.0,
-          276.8
+          285.3
         ]
       ],
-      "text": "Which of following compound is hemiacetal ? (a) (b) (c) (d) all of these OH OMe HO O OH OH O H",
+      "text": "Which of following compound is hemiacetal ? (a) (b) (c) (d) all of these OMe HO O OH OH O H",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q48.svg"
       ],
@@ -1928,12 +1998,12 @@
         [
           14,
           15.0,
-          276.8,
+          285.3,
           445.0,
-          340.4
+          371.7
         ]
       ],
-      "text": "Ph CH C N 2 \u2014 \u2014 \u00ba\u00ba LDA THF \u00be \u00ae \u00be\u00be CH I 3 \u00be \u00ae \u00be\u00be 71% ; End product of the reaction will be : (a) Ph CH CH NH 2 2 2 \u2014 \u2014 \u2014 (b) Ph CH NH 2 2 \u2014 \u2014 (c) Ph CH C N | \u2014 \u2014 \u00ba\u00ba (d) Ph CH C N CH 3 \u2014 \u2014 == ==",
+      "text": "Ph CH C N 2 \u2014 \u2014 \u00ba\u00ba LDA THF \u00be \u00ae \u00be\u00be CH I 3 \u00be \u00ae \u00be\u00be 71% ; End product of the reaction will be : (a) Ph CH CH NH 2 2 2 \u2014 \u2014 \u2014 (b) Ph CH NH 2 2 \u2014 \u2014 (c) Ph CH CH C N | \u2014 \u2014 3 \u00ba\u00ba (d) Ph CH C N CH 3 \u2014 \u2014 == == O ||",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q49.svg"
       ],
@@ -1967,12 +2037,12 @@
         [
           14,
           15.0,
-          340.4,
+          371.7,
           445.0,
-          435.0
+          431.4
         ]
       ],
-      "text": "CH 3 Ph CH CH C O CH Ph CH CH CO H || 3 2 \u2014 \u2014 \u2014 \u2014 \u2014 == \u00be\u00ae == Above conversion can be achieved by : (a) KMnO 4, D followed by H + (b) I NaOH 2 followed by H + (c) H Pt 2 (d) LiAlH 4 OH",
+      "text": "Ph CH CH C CH Ph CH CH CO H 3 2 \u2014 \u2014 \u2014 \u2014 \u2014 == \u00be\u00ae == Above conversion can be achieved by : (a) KMnO 4, D followed by H + (b) I NaOH 2 followed by H + (c) H Pt 2 (d) LiAlH 4",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q50.svg"
       ],
@@ -2006,12 +2076,19 @@
         [
           14,
           15.0,
-          435.0,
+          431.4,
           445.0,
-          562.2
+          586.1
+        ],
+        [
+          15,
+          15.0,
+          48.0,
+          445.0,
+          74.0
         ]
       ],
-      "text": "H O 3 \u00c5 \u00be \u00ae \u00be\u00be\u00be Products ; Product of the reaction is/are : (a) (b) (c) HCHO (d) Both (a) and (c) O CH2 O OH OH OH OH OH",
+      "text": "H O 3 \u00c5 \u00be \u00ae \u00be\u00be\u00be Products ; Product of the reaction is/are : (a) (b) (c) HCHO (d) Both (a) and (c) O OH CH2 O OH OH OH OH OH OH\n|| O",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q51.svg"
       ],
@@ -2045,12 +2122,12 @@
         [
           15,
           15.0,
-          52.0,
+          74.0,
           445.0,
-          146.5
+          154.1
         ]
       ],
-      "text": "SeO2 \u00be \u00ae \u00be\u00be (A); Product (A) of the reaction is : (a) (b) (c) (d) || || O OH || O O ||O || O O",
+      "text": "SeO2 \u00be \u00ae \u00be\u00be (A); Product (A) of the reaction is : (a) (b) (c) (d) || O OH || O O ||O || O O",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q52.svg"
       ],
@@ -2084,9 +2161,9 @@
         [
           15,
           15.0,
-          146.5,
+          154.1,
           445.0,
-          261.6
+          267.1
         ]
       ],
       "text": "Br NaOH 2+ \u00be \u00ae \u00be\u00be\u00be\u00be D ; Product (C) of the reaction is : (a) (b) (c) (d) || O COCH3 CH3 D\u00be\u00ae \u00be + H (A) + CHBr3 (C) || O || O || O CH3 Br || O CBr3",
@@ -2123,12 +2200,12 @@
         [
           15,
           15.0,
-          261.6,
+          267.1,
           445.0,
-          468.4
+          465.8
         ]
       ],
-      "text": "H O 3 \u00c5 \u00be \u00ae \u00be\u00be\u00be (A) + 2 Glycol Product (A) of the reaction will be : (a) CH CH C O CH C O CH CH 3 2 2 2 3 || || \u2014 \u2014 \u2014 \u2014 \u2014 \u2014 (b) CH CH C O CH CH C O CH 3 2 2 2 3 || || \u2014 \u2014 \u2014 \u2014 \u2014 \u2014 (c) CH CH C O CH C O CH 3 2 2 3 || || \u2014 \u2014 \u2014 \u2014 \u2014 (d) CH C O CH C O CH 3 2 3 || || \u2014 \u2014 \u2014 \u2014 O O O O O",
+      "text": "H O 3 \u00c5 \u00be \u00ae \u00be\u00be\u00be (A) + 2 Glycol Product (A) of the reaction will be : (a) CH CH C O CH C O CH CH 3 2 2 2 3 || || \u2014 \u2014 \u2014 \u2014 \u2014 \u2014 (b) CH CH C O CH CH C O CH 3 2 2 2 3 || || \u2014 \u2014 \u2014 \u2014 \u2014 \u2014 (c) CH CH C O CH C O CH 3 2 2 3 || || \u2014 \u2014 \u2014 \u2014 \u2014 (d) CH C O CH C O CH 3 2 3 || || \u2014 \u2014 \u2014 \u2014 O O O O",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q54.svg"
       ],
@@ -2162,12 +2239,12 @@
         [
           15,
           15.0,
-          468.4,
+          465.8,
           445.0,
-          516.1
+          515.4
         ]
       ],
-      "text": "R \u2014 \u2014 || C H R- \u00be \u00ae \u00be\u00be\u00be NH2 R \u2014 CH ==N \u2014 R. This reaction gives best yield at : (a) pH 1 - 2 (b) pH 4 - 5 (c) pH 10 - 11 (d) pH 13 - 14",
+      "text": "R \u2014 \u2014 || C O H R- \u00be \u00ae \u00be\u00be\u00be NH2 R \u2014 CH ==N \u2014 R. This reaction gives best yield at : (a) pH 1 - 2 (b) pH 4 - 5 (c) pH 10 - 11 (d) pH 13 - 14",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q55.svg"
       ],
@@ -2201,9 +2278,16 @@
         [
           15,
           15.0,
-          516.1,
+          515.4,
           445.0,
-          612.0
+          625.3
+        ],
+        [
+          16,
+          15.0,
+          48.0,
+          445.0,
+          51.1
         ]
       ],
       "text": "An aromatic compound A of the molecular formula C H O 8 10 on reaction with iodine and dilute NaOH gives a yellow precipitate. The structure of the compound is expected to be: (a) (b) C H CHOHCH 6 5 3 (c) (d) C\u2014CH3 O CH2OH CH3 OH CH3 CH3",
@@ -2240,12 +2324,12 @@
         [
           16,
           15.0,
-          52.0,
+          51.1,
           445.0,
-          161.5
+          177.2
         ]
       ],
-      "text": "Compound A (molecular formula C H O 3 8 ) is treated with acidified potassium dichromate to form a product B(molecular formula C H O 3 6 ). B forms a shining silver mirror on warming with ammonical silver nitrate, B when treated with an aqueous solution of NH NHCONH 2 2 and sodium acetate gives a product C. Identify the structure of C. (a) CH CH CH NNHCONH 3 2 2 == (b) CH C NHHCONH CH 3 2 3 == | (c) C H C | NCONHNH 3 2 == (d) CH CH CH NCONHNH 3 2 2 ==",
+      "text": "Compound A (molecular formula C H O 3 8 ) is treated with acidified potassium dichromate to form a product B(molecular formula C H O 3 6 ). B forms a shining silver mirror on warming with ammonical silver nitrate, B when treated with an aqueous solution of NH NHCONH 2 2 and sodium acetate gives a product C. Identify the structure of C. (a) CH CH CH NNHCONH 3 2 2 == (b) CH C NHHCONH CH 3 2 3 == | (c) C H C | CH NCONHNH 3 3 2 == (d) CH CH CH NCONHNH 3 2 2 ==",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q57.svg"
       ],
@@ -2279,12 +2363,12 @@
         [
           16,
           15.0,
-          161.5,
+          177.2,
           445.0,
-          226.3
+          227.4
         ]
       ],
-      "text": "CH 3 In the reaction, the acid obtained will be : CH3CHO + HCN \u00be\u00ae CH3CH(OH)CN H OH - \u00be \u00ae \u00be\u00be \u00be CH3CH(OH)COOH (a) D-isomer (b) L-isomer (c) (80%D + 20%L) mixture (d) (50%D + 50%L) mixture",
+      "text": "In the reaction, the acid obtained will be : CH3CHO + HCN \u00be\u00ae CH3CH(OH)CN H OH - \u00be \u00ae \u00be\u00be \u00be CH3CH(OH)COOH (a) D-isomer (b) L-isomer (c) (80%D + 20%L) mixture (d) (50%D + 50%L) mixture",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q58.svg"
       ],
@@ -2318,12 +2402,12 @@
         [
           16,
           15.0,
-          226.3,
+          227.4,
           445.0,
-          289.0
+          303.5
         ]
       ],
-      "text": "In the following sequence : CH CH Cl 3 2 NaCN \u00be \u00ae \u00be\u00be (i) Ni H2 \u00be \u00ae \u00be\u00be \u00be (ii) acetic anhydride \u00be \u00ae \u00be\u00be\u00be\u00be\u00be \u00be (iii), Product (iii) is : (a) CH CH CH NH 3 2 2 2 (b) CH CH CH CONHCH 3 2 2 3 (c) CH CH CH NHCOCH 3 2 2 3 (d) CH CH CH CONHCOCH 3 2 2 3 O",
+      "text": "In the following sequence : CH CH Cl 3 2 NaCN \u00be \u00ae \u00be\u00be (i) Ni H2 \u00be \u00ae \u00be\u00be \u00be (ii) acetic anhydride \u00be \u00ae \u00be\u00be\u00be\u00be\u00be \u00be (iii), Product (iii) is : (a) CH CH CH NH 3 2 2 2 (b) CH CH CH CONHCH 3 2 2 3 (c) CH CH CH NHCOCH 3 2 2 3 (d) CH CH CH CONHCOCH 3 2 2 3 || O",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q59.svg"
       ],
@@ -2357,12 +2441,12 @@
         [
           16,
           15.0,
-          289.0,
+          303.5,
           445.0,
-          471.8
+          470.0
         ]
       ],
-      "text": "KMnO H O 4 2 \u00be \u00ae \u00be\u00be\u00be , D H O 3 \u00c5 \u00be \u00ae \u00be\u00be\u00be (G) Product (G) is : (a) (b) (c) (d) O O C \u2013 H || O O C \u2013 OH || O HO HO \u2013 CH2 CO H 2 HO CO H 2 HO C \u2013 H || O O",
+      "text": "KMnO H O 4 2 \u00be \u00ae \u00be\u00be\u00be , D H O 3 \u00c5 \u00be \u00ae \u00be\u00be\u00be (G) Product (G) is : (a) (b) (c) (d) O O C \u2013 H O O C \u2013 OH || O HO HO \u2013 CH2 CO H 2 HO CO H 2 HO C \u2013 H || O O",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q60.svg"
       ],
@@ -2396,12 +2480,12 @@
         [
           16,
           15.0,
-          471.8,
+          470.0,
           445.0,
-          503.6
+          501.2
         ]
       ],
-      "text": "Carbonyl compounds can generally be converted to hydrocarbons by : (a) H Pt 2 (b) LiAlH 4 (c) N H 2 4-KOH/D (d) K Cr O - H SO 2 2 7 2 4 O ( ) 1",
+      "text": "Carbonyl compounds can generally be converted to hydrocarbons by : (a) H Pt 2 (b) LiAlH 4 (c) N H 2 4-KOH/D (d) K Cr O - H SO 2 2 7 2 4",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q61.svg"
       ],
@@ -2435,12 +2519,19 @@
         [
           16,
           15.0,
-          503.6,
+          501.2,
           445.0,
-          597.7
+          623.3
+        ],
+        [
+          17,
+          15.0,
+          48.0,
+          445.0,
+          50.8
         ]
       ],
-      "text": "(2) Ag O (3) NaBH (4) H 2 4 3 \u00c5 \u00be \u00ae \u00be\u00be\u00be\u00be (A); Product (A) is : (a) (b) (c) (d) Et O O Et O O O O Et",
+      "text": "(2) Ag O (3) NaBH (4) H O 2 4 3 \u00c5 \u00be \u00ae \u00be\u00be\u00be\u00be ( ) 1 (A); Product (A) is : (a) (b) (c) (d) Et O O Et O O Et O Et O Et",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q62.svg"
       ],
@@ -2474,9 +2565,9 @@
         [
           17,
           15.0,
-          52.0,
+          50.8,
           445.0,
-          119.5
+          118.7
         ]
       ],
       "text": "Which statement about the aldol condensation is correct ? (a) A Lewis acid is commonly used as a catalyst (b) The initial step is probably the formation of a carbanion (c) A Lewis base is employed to induce carbocation formation (d) The carbon chain is lengthened through the elimination of 1 mole of water",
@@ -2513,9 +2604,9 @@
         [
           17,
           15.0,
-          119.5,
+          118.7,
           445.0,
-          172.5
+          172.7
         ]
       ],
       "text": "A compound gives a positive test with I NaOH 2 and is extracted from benzene by saturated NaHSO 3. It may be : (a) CH (CH ) CHO 3 2 4 (b) CH (CH ) COCH 3 2 3 3 (c) CH CH COCH CH 3 2 2 3 (d) CH (CH ) CH OH 3 2 4 2",
@@ -2552,12 +2643,12 @@
         [
           17,
           15.0,
-          172.5,
+          172.7,
           445.0,
-          215.2
+          239.8
         ]
       ],
-      "text": "Which of the following compounds on reaction with excess CH MgBr 3 and subsequent hydrolysis will give a tertiary alcohol? (a) C H CHO 2 5 (b) C H CO CH 2 5 2 3 (c) C H COOH 2 5 (d) CH3CH\u2014CHCH3 O",
+      "text": "Which of the following compounds on reaction with excess CH MgBr 3 and subsequent hydrolysis will give a tertiary alcohol? (a) C H CHO 2 5 (b) C H CO CH 2 5 2 3 (c) C H COOH 2 5 (d) CH3CH\u2014CHCH3 O N\u00be OH",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q65.svg"
       ],
@@ -2591,12 +2682,12 @@
         [
           17,
           15.0,
-          215.2,
+          239.8,
           445.0,
-          357.2
+          367.7
         ]
       ],
-      "text": "Reactant (A) and (B) is : (a) Ph CH CH O NH OH 2 2 \u00be \u00be == + \u00be (b) Ph CH O NH OH 2 \u00be == + \u00be (c) Ph C || O CH NH NH 3 2 2 \u00be \u00be + \u00be (d) Ph C || O CH NH OH 3 2 \u00be \u00be + \u00be N\u00be OH \u00be\u00be\u00be\u00ae A + B",
+      "text": "Reactant (A) and (B) is : (a) Ph CH CH O NH OH 2 2 \u00be \u00be == + \u00be (b) Ph CH O NH OH 2 \u00be == + \u00be (c) Ph C || O CH NH NH 3 2 2 \u00be \u00be + \u00be (d) Ph C || O CH NH OH 3 2 \u00be \u00be + \u00be O \u00be\u00be\u00be\u00ae A + B",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q66.svg"
       ],
@@ -2630,12 +2721,12 @@
         [
           17,
           15.0,
-          357.2,
+          367.7,
           445.0,
-          489.2
+          488.5
         ]
       ],
-      "text": "CH C || O OH 3 Ca(OH)2 \u00be \u00be \u00be\u00be\u00be\u00ae D ( ) A Product (A) is : (a) (b) (c) (d) O O OH OH",
+      "text": "CH C || OH 3 Ca(OH)2 \u00be \u00be \u00be\u00be\u00be\u00ae D ( ) A Product (A) is : (a) (b) (c) (d) O O OH OH",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q67.svg"
       ],
@@ -2669,9 +2760,16 @@
         [
           17,
           15.0,
-          489.2,
+          488.5,
           445.0,
-          612.5
+          616.0
+        ],
+        [
+          18,
+          15.0,
+          48.0,
+          445.0,
+          51.1
         ]
       ],
       "text": "Which of the following does not form a stable hydrate on addition of H2O ? (a) Ph C O C O C O Ph \u2014 \u2014 \u2014 \u2014 || || || (b) (c) (d) O O O O O",
@@ -2708,9 +2806,9 @@
         [
           18,
           15.0,
-          52.0,
+          51.1,
           445.0,
-          144.8
+          158.1
         ]
       ],
       "text": "Consider the following sequence of reactions. Ketone A 1. C H MgBr 2. H O 2 5 2 \u00be \u00ae \u00be\u00be\u00be\u00be\u00be B H SO , heat H O 2 4 2 \u00be \u00ae \u00be\u00be\u00be\u00be\u00be - C 1. O 2. Zn, H O 3 2 \u00be \u00ae \u00be\u00be + The ketone (A) is : (a) (b) (c) (d) O O O O O H O",
@@ -2747,9 +2845,9 @@
         [
           18,
           15.0,
-          144.8,
+          158.1,
           445.0,
-          315.4
+          338.7
         ]
       ],
       "text": "In the reaction, + CH3COCH3 EtONa EtOH heat \u00be \u00ae \u00be\u00be\u00be\u00be \u00be X, the product (X) is : (a) (b) (c) (d) C CH3 CH3 CH3 C CH3 CH3 H C 3 CH3 H C 3 OH",
@@ -2786,9 +2884,9 @@
         [
           18,
           15.0,
-          315.4,
+          338.7,
           445.0,
-          406.3
+          405.5
         ]
       ],
       "text": "The conversion of acetophenone into benzoic acid can be achieved by its reaction with : (a) sodium hydroxide followed by acidification (b) iodine and sodium hydroxide, followed by acidification (c) hydroxylamine followed by reaction with H2SO4 (d) m-chloroperoxobenzoic acid",
@@ -2825,9 +2923,9 @@
         [
           18,
           15.0,
-          406.3,
+          405.5,
           445.0,
-          448.3
+          448.5
         ]
       ],
       "text": "In which of the following compounds the methylenic hydrogens are the most acidic ? (a) CH COCH CH 3 2 3 (b) CH CH COOC H 3 2 2 5 (c) CH CH CH(COOC H ) 3 2 2 5 2 (d) CH COCH CN 3 2",
@@ -2864,12 +2962,12 @@
         [
           18,
           15.0,
-          448.3,
+          448.5,
           445.0,
-          534.1
+          567.6
         ]
       ],
-      "text": "Which is the major product of the following reaction ? H NH OH 2 \u00c5 \u00be \u00ae \u00be\u00be (a) (b) (c) (d) O OH NHOH OH ONH2 OEt OH N OH",
+      "text": "Which is the major product of the following reaction ? H NH OH 2 \u00c5 \u00be \u00ae \u00be\u00be (a) (b) (c) (d) O O OH NHOH OH ONH2 OEt OH N OH",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q73.svg"
       ],
@@ -2903,19 +3001,19 @@
         [
           18,
           15.0,
-          534.1,
+          567.6,
           445.0,
-          620.0
+          619.3
         ],
         [
           19,
           15.0,
-          52.0,
+          48.0,
           445.0,
-          105.6
+          105.5
         ]
       ],
-      "text": "Ph C || O OH SOCl Pd-BaSO H 2 4 2 \u00be \u00be \u00be\u00be\u00ae \u00be\u00be\u00be\u00ae ( ) ( ) A B Product (B) is :\n(a) Ph C || O H \u00be \u00be (b) Ph CH OH 2 \u00be \u00be (c) Ph CH Cl 2 \u00be \u00be (d) Ph CH CH 2 \u00be ==",
+      "text": "Ph C || OH SOCl Pd-BaSO H 2 4 2 \u00be \u00be \u00be\u00be\u00ae \u00be\u00be\u00be\u00ae ( ) ( ) A B Product (B) is :\n(a) Ph C || O H \u00be \u00be (b) Ph CH OH 2 \u00be \u00be (c) Ph CH Cl 2 \u00be \u00be (d) Ph CH CH 2 \u00be ==",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q74.svg"
       ],
@@ -2949,9 +3047,9 @@
         [
           19,
           15.0,
-          105.6,
+          105.5,
           445.0,
-          134.8
+          134.1
         ]
       ],
       "text": "The presence of unsaturation in organic compounds can be tested with : (a) Schiff's reagent (b) Tollens' reagent (c) Fehling's reagent (d) Baeyer\u2019s reagent",
@@ -2988,9 +3086,9 @@
         [
           19,
           15.0,
-          134.8,
+          134.1,
           445.0,
-          164.0
+          164.2
         ]
       ],
       "text": "Which of the following gives iodoform test ? (a) CH CH OH 3 2 (b) C H CHO 2 5 (c) (CH OH) 2 2 (d) None of these",
@@ -3027,9 +3125,9 @@
         [
           19,
           15.0,
-          164.0,
+          164.2,
           445.0,
-          275.5
+          283.4
         ]
       ],
       "text": "Which of the following b-keto carboxylic acid does not undergo decarboxylation on heating ? (a) (b) (c) (d) None of these O O CO H 2 Br CH3 O CO H 2 O CO H 2",
@@ -3066,12 +3164,19 @@
         [
           19,
           15.0,
-          275.5,
+          283.4,
           445.0,
-          575.4
+          589.8
+        ],
+        [
+          20,
+          15.0,
+          48.0,
+          445.0,
+          51.1
         ]
       ],
-      "text": "HOCH CH CH \u2014 C \u2014 OCH CH ( ) 2 2 2 2 3 PCC H C CHMgBr 2 || \u00be \u00ae \u00be\u00be \u00be \u00ae \u00be\u00be\u00be == A \u00be\u00be \u00be \u00ae \u00be\u00be\u00be\u00be (1 molar equivalent) NH Cl H O ( ) ( ) 4 2 B C KOH H O H O (CH \u2014C ) O Pyridine 2 3 3 2 || O ( ) \u00be \u00ae \u00be\u00be \u00be \u00ae \u00be\u00be\u00be \u00be \u00ae \u00be\u00be\u00be\u00be\u00be \u00c5 D Product (D) is : (a) H C CH \u2014 CH \u2014 | O \u2014 C || O \u2014 CH CH \u2014 CH \u2014 C || O \u2014 OH 2 3 2 2 == (b) H C== CH \u2014 CH \u2014 C OH \u2014 CO H 2 2 2 | (c) H C CH \u2014 C OH \u2014 CH \u2014 CH \u2014 C O \u2014 O \u2014 C O || \u2014 CH 2 2 2 3 == | || (d) H C CH \u2014 CH \u2014 CH | \u2014 CH \u2014 C O || \u2014 O \u2014 H 2 2 2 ==",
+      "text": "HOCH CH CH \u2014 C \u2014 OCH CH ( ) 2 2 2 2 3 PCC H C CHMgBr 2 || \u00be \u00ae \u00be\u00be \u00be \u00ae \u00be\u00be\u00be == A \u00be\u00be \u00be \u00ae \u00be\u00be\u00be\u00be (1 molar equivalent) NH Cl H O ( ) ( ) 4 2 B C KOH H O H O (CH \u2014C ) O Pyridine 2 3 3 2 || O ( ) \u00be \u00ae \u00be\u00be \u00be \u00ae \u00be\u00be\u00be \u00be \u00ae \u00be\u00be\u00be\u00be\u00be \u00c5 D Product (D) is : (a) H C CH \u2014 CH \u2014 | O \u2014 C || O \u2014 CH CH \u2014 CH \u2014 C || O \u2014 OH 2 3 2 2 == (b) H C== CH \u2014 CH \u2014 C OH \u2014 CO H 2 2 2 | (c) H C CH \u2014 C OH \u2014 CH \u2014 CH \u2014 C O \u2014 O \u2014 C O || \u2014 CH 2 2 2 3 == | || (d) H C CH \u2014 CH \u2014 CH | OH \u2014 CH \u2014 C O || \u2014 O \u2014 H 2 2 2 ==",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q78.svg"
       ],
@@ -3105,9 +3210,9 @@
         [
           20,
           15.0,
-          52.0,
+          51.1,
           445.0,
-          200.5
+          212.6
         ]
       ],
       "text": "The compound shown in the below undergoes racemization on reaction with aqueous acid. Which of the following structures best represents the intermediate responsible for this process? (a) (b) (c) (d) O OH H O OH OH OH H OH OH HO OH OH H",
@@ -3144,9 +3249,9 @@
         [
           20,
           15.0,
-          200.5,
+          212.6,
           445.0,
-          333.4
+          333.0
         ]
       ],
       "text": "The final product of the following sequence of reaction is : (CH O) CHCH CH CH Br 3 2 2 2 2 Mg H C =O heat H O 2 3 \u00be\u00be\u00ae \u00be\u00be\u00ae \u00be\u00be\u00ae = + (a) CH O C O || CH CH CH CH OH 3 2 2 2 2 (b) CH C O || CH CH CH CH OH 3 2 2 2 2 (c) H C O || CH CH CH CH OH 2 2 2 2 (d) H C O || CH CH CH C O || H 2 2 2",
@@ -3183,9 +3288,16 @@
         [
           20,
           15.0,
-          333.4,
+          333.0,
           445.0,
-          585.7
+          597.7
+        ],
+        [
+          21,
+          15.0,
+          48.0,
+          445.0,
+          50.8
         ]
       ],
       "text": "The amino ketone shown below undergoes a spontaneous cyclization on standing. What is the major product of this intramolecular reaction ? (a) (b) (c) (d) CCH3 CH2 | CH 3 CHNH2 O CH3 O NH2 CH3",
@@ -3222,9 +3334,9 @@
         [
           21,
           15.0,
-          52.0,
+          50.8,
           445.0,
-          234.1
+          189.3
         ]
       ],
       "text": "Compound (A) C H O 6 12 is optically active. Compound (A) give negative Tollens test and positive test with 2-4-di-nitro phenyl hydrazine. Identify A. (a) CH \u2014 C || O \u2014 CH \u2014 CH | CH \u2014 CH 3 2 3 3 (b) CH \u2014 C || O \u2014 CH \u2014 CH CH \u2014CH 3 3 2 3 | (c) H \u2014 C || O \u2014 CH CH \u2014 CH CH \u2014CH 2 3 2 3 \u2014 | (d CH \u2014 C || O \u2014 CH \u2014 CH \u2014 CH \u2014 CH 3 2 2 2 3",
@@ -3261,9 +3373,9 @@
         [
           21,
           15.0,
-          234.1,
+          189.3,
           445.0,
-          409.4
+          419.4
         ]
       ],
       "text": "(1)Et O (2)H O 2 3 \u00be \u00ae \u00be\u00be\u00be \u00c5 ( ) % A 99 ; Product (A) of the reaction is : (a) (b) (c) (d) O NO2 O NO2 O NO2 O NO2",
@@ -3300,9 +3412,9 @@
         [
           21,
           15.0,
-          409.4,
+          419.4,
           445.0,
-          527.4
+          547.3
         ]
       ],
       "text": "( ) N NH Cl H O HCl(conc.) cold KOH(4 mo 4 2 ( ) ( ) \u00be \u00ae \u00be\u00be\u00be \u00be \u00ae \u00be\u00be\u00be\u00be O P lar) ethanol, ( ) \u00be \u00ae \u00be\u00be\u00be\u00be\u00be D Q Product (Q) will be : (a) (b) (c) (d) O MgBr OH",
@@ -3339,12 +3451,19 @@
         [
           21,
           15.0,
-          527.4,
+          547.3,
           445.0,
-          610.7
+          606.7
+        ],
+        [
+          22,
+          15.0,
+          48.0,
+          445.0,
+          64.9
         ]
       ],
-      "text": "Ph \u2014 CH ( ) Ph \u2014 CH OH ( ) 3 CrO Cl conc.KOH 2 2 2 \u00be \u00ae \u00be\u00be\u00be \u00be \u00ae \u00be\u00be\u00be\u00be + A B Product (B) of above the reaction is : (a) Ph \u2014 CO H 2 (b) Ph \u2014 CO 2 - (c) Ph \u2014 CHO (d) Ph \u2014 CH 3",
+      "text": "Ph \u2014 CH ( ) Ph \u2014 CH OH ( ) 3 CrO Cl conc.KOH 2 2 2 \u00be \u00ae \u00be\u00be\u00be \u00be \u00ae \u00be\u00be\u00be\u00be + A B Product (B) of above the reaction is : (a) Ph \u2014 CO H 2 (b) Ph \u2014 CO 2 - (c) Ph \u2014 CHO (d) Ph \u2014 CH 3\n(i)KCN CHO",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q85.svg"
       ],
@@ -3378,12 +3497,12 @@
         [
           22,
           15.0,
-          52.0,
+          64.9,
           445.0,
-          153.4
+          149.2
         ]
       ],
-      "text": "(i)KCN (ii)H \u00be \u00ae \u00be\u00be\u00be + Product ; Product obtained in the reaction is : D-(+)-Glyceraldehyde (a) Diastereomer (b) Racemic (c) Meso (d) Optically pure enantiomer O CH \u2014 OH 2 OH H",
+      "text": "(ii)H \u00be \u00ae \u00be\u00be\u00be + Product ; Product obtained in the reaction is : D-(+)-Glyceraldehyde (a) Diastereomer (b) Racemic (c) Meso (d) Optically pure enantiomer CH \u2014 OH 2 OH H",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q86.svg"
       ],
@@ -3417,12 +3536,12 @@
         [
           22,
           15.0,
-          153.4,
+          149.2,
           445.0,
-          237.8
+          275.3
         ]
       ],
-      "text": "NH OH H LAH 2 ( ) ( ) ( ) \u00be \u00ae \u00be\u00be\u00be \u00be \u00ae \u00be\u00be \u00be \u00ae \u00be\u00be + A B C ; Product (C) of the reaction is : (a) (b) (c) (d)",
+      "text": "NH OH H LAH 2 ( ) ( ) ( ) \u00be \u00ae \u00be\u00be\u00be \u00be \u00ae \u00be\u00be \u00be \u00ae \u00be\u00be + A B C ; Product (C) of the reaction is : (a) (b) (c) (d) O",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q87.svg"
       ],
@@ -3456,9 +3575,9 @@
         [
           22,
           15.0,
-          237.8,
+          275.3,
           445.0,
-          413.5
+          415.7
         ]
       ],
       "text": "+ \u00be\u00be\u00ae \u00be\u00be\u00ae + CH MgBr 3 H O NaOI 3 r ( ) ( ) ( ) A B C Product (A) and (C) is : (a) ; CHI3 (b) ; CHI3 14 (c) ; CHI3 (d) ; CHI3 C \u00ba\u00ba N 14 C \u00be CH3 O C \u00be CH3 O C \u00be CH3 O 14 CH2 14 \u00be CHO",
@@ -3495,12 +3614,19 @@
         [
           22,
           15.0,
-          413.5,
+          415.7,
           445.0,
-          573.4
+          591.7
+        ],
+        [
+          23,
+          15.0,
+          48.0,
+          445.0,
+          74.2
         ]
       ],
-      "text": "Ph CH | OH CH 3 PCC NH NH C || O NH 2 2 \u00be \u00be \u00be\u00be\u00ae \u00be\u00be\u00be\u00be\u00be\u00be\u00be\u00be\u00ae \u00be \u00be \u00be ( ) ( ) A B Product (B) is : (a) Ph C | CH N C || O NH NH 3 2 \u00be == \u00be \u00be \u00be (b) Ph C | CH N NH C || O NH 3 2 \u00be == \u00be \u00be \u00be (c) Ph CH N N | C || O NH 2 \u00be == \u00be \u00be \u00be (d) Ph CH N C || O NH 2 \u00be == \u00be \u00be",
+      "text": "Ph CH | OH CH 3 PCC NH NH C || O NH 2 2 \u00be \u00be \u00be\u00be\u00ae \u00be\u00be\u00be\u00be\u00be\u00be\u00be\u00be\u00ae \u00be \u00be \u00be ( ) ( ) A B Product (B) is : (a) Ph C | CH N C || O NH NH 3 2 \u00be == \u00be \u00be \u00be (b) Ph C | CH N NH C || O NH 3 2 \u00be == \u00be \u00be \u00be (c) Ph CH N N | CH C || O NH 3 2 \u00be == \u00be \u00be \u00be (d) Ph CH N C || O NH 2 \u00be == \u00be \u00be\nO",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q89.svg"
       ],
@@ -3534,9 +3660,9 @@
         [
           23,
           15.0,
-          52.0,
+          74.2,
           445.0,
-          138.0
+          142.6
         ]
       ],
       "text": "\u00be\u00be\u00be\u00ae H 2EtOH r ( ) P Product (P) is : (a) Hemiacetal (b) Acetal (c) Alcohol (d) Alkane",
@@ -3573,9 +3699,9 @@
         [
           23,
           15.0,
-          138.0,
+          142.6,
           445.0,
-          319.5
+          334.9
         ]
       ],
       "text": "; Product of rearrangement is : (a) (b) (c) (d) O OMe (Oxyallyl cation) CH2 OMe OMe O O OMe CH2 OMe",
@@ -3612,9 +3738,16 @@
         [
           23,
           15.0,
-          319.5,
+          334.9,
           445.0,
-          593.0
+          587.0
+        ],
+        [
+          24,
+          15.0,
+          48.0,
+          445.0,
+          51.1
         ]
       ],
       "text": "Reactant K eq. PhCHO a b Ph \u2014 C || O \u2014 CH 3 c CH \u2014 C || O \u2014 H 3 d The correct order of decreasing value of K eq. is : (a) a > b > c > d (b) d > a > b > c (c) d > b > a > c (d) d > a > c > d O O + HCN R R R R OH CN C Keq",
@@ -3651,9 +3784,9 @@
         [
           24,
           15.0,
-          52.0,
+          51.1,
           445.0,
-          185.7
+          214.0
         ]
       ],
       "text": "Product (B) of the given reaction is : (a) (b) (c) (d) O O Me O O OMe O O SO OMe 2 O O SO Me 3 O + HO OH OH (A) (B) + H base Me \u2014 O \u2014 S O O OMe",
@@ -3690,12 +3823,12 @@
         [
           24,
           15.0,
-          185.7,
+          214.0,
           445.0,
-          320.9
+          342.5
         ]
       ],
-      "text": "End product ( ) C of the reaction is : ( ) A 2PhMgBr H O 3 \u00be \u00ae \u00be\u00be\u00be \u00be \u00be \u00ae \u00be\u00be \u00be \u00c5 ( ) ( ) B C (a) (b) (c) (d) O O OEt HO OH + H O Ph Ph O Ph Ph OH O Ph OEt OH O Ph OH",
+      "text": "End product ( ) C of the reaction is : ( ) A 2PhMgBr H O 3 \u00be \u00ae \u00be\u00be\u00be \u00be \u00be \u00ae \u00be\u00be \u00be \u00c5 ( ) ( ) B C (a) (b) (c) (d) O O OEt HO OH + H O Ph Ph OH O Ph Ph OH O Ph OEt OH O Ph OH",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q94.svg"
       ],
@@ -3729,12 +3862,12 @@
         [
           24,
           15.0,
-          320.9,
+          342.5,
           445.0,
-          458.3
+          455.1
         ]
       ],
-      "text": "Compound (A) will be : (a) Ph \u2014 C C \u2014 C C \u2014 CHO \u00ba\u00ba \u00ba\u00ba (b) Ph \u2014 C C \u2014 CH CH \u2014 CHO \u00ba\u00ba == (c) Ph \u2014 CH CH \u2014 C C \u2014 CHO == \u00ba\u00ba (d) Ph \u2014 CH CH \u2014 C CH \u2014 CO H 2 == == (A) C H O 11 8 O3 does not undergo self aldol condensation Ph \u2014 CHO + 2b \u00be\u00be\u00ae oxalic acid + Ag OH O",
+      "text": "Compound (A) will be : (a) Ph \u2014 C C \u2014 C C \u2014 CHO \u00ba\u00ba \u00ba\u00ba (b) Ph \u2014 C C \u2014 CH CH \u2014 CHO \u00ba\u00ba == (c) Ph \u2014 CH CH \u2014 C C \u2014 CHO == \u00ba\u00ba (d) Ph \u2014 CH CH \u2014 C CH \u2014 CO H 2 == == (A) C H O 11 8 O3 does not undergo self aldol condensation Ph \u2014 CHO + 2b \u00be\u00be\u00ae oxalic acid + Ag",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q95.svg"
       ],
@@ -3768,12 +3901,19 @@
         [
           24,
           15.0,
-          458.3,
+          455.1,
           445.0,
-          610.6
+          617.3
+        ],
+        [
+          25,
+          15.0,
+          48.0,
+          445.0,
+          50.8
         ]
       ],
-      "text": "Product (62% yield); Product of the reaction is : (a) (b) (c) (d) Catalyst TsOH 0\u00b0C, 2h (molecular sieves) OH O O O O O O O O",
+      "text": "Product (62% yield); Product of the reaction is : (a) (b) (c) (d) O Catalyst TsOH 0\u00b0C, 2h (molecular sieves) OH O O O O O O O O",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q96.svg"
       ],
@@ -3807,9 +3947,9 @@
         [
           25,
           15.0,
-          52.0,
+          50.8,
           445.0,
-          263.5
+          279.9
         ]
       ],
       "text": "Which pair of reactants compounds may be used to make given acetal ? (a) (b) (c) (d) O + CH \u2014 OH 2 | CH \u2014 OH 2 O + \u2014 OH \u2014 OH O + OH OH O + OH OH",
@@ -3846,9 +3986,9 @@
         [
           25,
           15.0,
-          263.5,
+          279.9,
           445.0,
-          478.9
+          502.0
         ]
       ],
       "text": "H ( ) \u00c5 \u00be \u00ae \u00be\u00be B ; (A) & (B) are isomers ; Isomer (B) is : (a) (b) (c) (d) O O CHO (A) O O OH OH CH2 O O O H O O OH OH O H O OH O CH2 H",
@@ -3885,9 +4025,16 @@
         [
           25,
           15.0,
-          478.9,
+          502.0,
           445.0,
-          616.4
+          612.4
+        ],
+        [
+          26,
+          15.0,
+          48.0,
+          445.0,
+          51.1
         ]
       ],
       "text": "\u00be\u00be\u00ae PCC ( ) A \u00be\u00be\u00ae PCC ( ) B (A) and (B) is differentiated by : (a) NaH (b) 2-4 DNA (c) Tollen\u2019s reagent (d) NaHSO 3 OH OH",
@@ -3924,9 +4071,9 @@
         [
           26,
           15.0,
-          52.0,
+          51.1,
           445.0,
-          99.9
+          98.6
         ]
       ],
       "text": "Which of the following pairs cannot be differentiated by Tollens' reagent ? (a) Benzaldehyde and benzyl alcohol (b) Hexanal and 2-hexanone (c) 2-Hexanol and 2-hexanone (d) Pentanal and diethyl ether",
@@ -3963,12 +4110,12 @@
         [
           26,
           15.0,
-          99.9,
+          98.6,
           445.0,
-          243.4
+          266.0
         ]
       ],
-      "text": "An optically active compound C H O 6 12 gives positive test with 2, 4-dinitrophenyl hydrazine, but negative with Tollens' reagent, what is the structure of the compound ? (a) CH \u2014 C || O \u2014 CH \u2014 CH \u2014 CH \u2014 CH 3 2 2 2 3 (b) O || H \u2014 C \u2014 CH \u2014 CH \u2014 CH \u2014 CH | CH 2 2 3 3 (c) O || CH \u2014 C \u2014 C H \u2014 CH \u2014 CH | 3 2 3 (d) O || CH \u2014 CH \u2014 C \u2014 CH \u2014 CH | 3 2 3",
+      "text": "An optically active compound C H O 6 12 gives positive test with 2, 4-dinitrophenyl hydrazine, but negative with Tollens' reagent, what is the structure of the compound ? (a) CH \u2014 C || O \u2014 CH \u2014 CH \u2014 CH \u2014 CH 3 2 2 2 3 (b) O || H \u2014 C \u2014 CH \u2014 CH \u2014 CH \u2014 CH | CH 2 2 3 3 (c) O || CH \u2014 C \u2014 C H \u2014 CH \u2014 CH | CH 3 2 3 3 (d) O || CH \u2014 CH \u2014 C \u2014 CH \u2014 CH | CH 3 2 3 3",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q101.svg"
       ],
@@ -4002,12 +4149,12 @@
         [
           26,
           15.0,
-          243.4,
+          266.0,
           445.0,
-          429.8
+          438.0
         ]
       ],
-      "text": "CH 3 CH 3 Compound (A) C H O 6 12 3, when treated with I2 in aqueous sodium hydroxide gives yellow precipitate. When A is treated with Tollens reagent no reaction occur. When A is hydrolysed and then treated with Tollens reagent, a silver mirror is formed in test tube. Compound (A) will be : (a) O || CH \u2014 C \u2014 CH \u2014 CH \u2014 CH \u2014 OH | OCH 3 2 2 3 (b) O OCH || | CH \u2014C \u2014C \u2014 CH | OCH 3 3 3 3 (c) CH \u2014 C || O \u2014 CH \u2014 CH(OCH ) 3 2 3 2 (d) H \u2014 C || O \u2014 CH \u2014 CH \u2014 CH(OCH ) 2 2 3 2",
+      "text": "Compound (A) C H O 6 12 3, when treated with I2 in aqueous sodium hydroxide gives yellow precipitate. When A is treated with Tollens reagent no reaction occur. When A is hydrolysed and then treated with Tollens reagent, a silver mirror is formed in test tube. Compound (A) will be : (a) O || CH \u2014 C \u2014 CH \u2014 CH \u2014 CH \u2014 OH | OCH 3 2 2 3 (b) O OCH || | CH \u2014C \u2014C \u2014 CH | OCH 3 3 3 3 (c) CH \u2014 C || O \u2014 CH \u2014 CH(OCH ) 3 2 3 2 (d) H \u2014 C || O \u2014 CH \u2014 CH \u2014 CH(OCH ) 2 2 3 2",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q102.svg"
       ],
@@ -4041,9 +4188,16 @@
         [
           26,
           15.0,
-          429.8,
+          438.0,
           445.0,
-          606.5
+          600.9
+        ],
+        [
+          27,
+          15.0,
+          48.0,
+          445.0,
+          50.8
         ]
       ],
       "text": "CH \u2014 CH \u2014 CO H | CH CH \u2014 CO H 2 2 2 2 2 2 \u2014 BaCO NH \u2014NH heat KOH 3 2 2 ( ) \u00be \u00ae \u00be\u00be\u00be \u00be \u00ae \u00be\u00be\u00be\u00be \u00be \u00ae \u00be\u00be D A B C , Product (C) obtained is : (a) CH \u2014 CH CH \u2014 CH 3 2 == (b) (c) (d) O N \u2014 NH2",
@@ -4080,9 +4234,9 @@
         [
           27,
           15.0,
-          52.0,
+          50.8,
           445.0,
-          138.2
+          136.2
         ]
       ],
       "text": "Which of following does not react with NaHSO 3 (sodium bisulphite)? (a) CH \u2014 C || O \u2014 H 3 (b) CH \u2014 C || O \u2014 Et 3 (c) Et \u2014 C || O \u2014 Et (d) Ph \u2014 CH \u2014 C || O \u2014 CH 2 3",
@@ -4119,12 +4273,12 @@
         [
           27,
           15.0,
-          138.2,
+          136.2,
           445.0,
-          274.6
+          312.4
         ]
       ],
-      "text": "Raney Ni H2 ( ) \u00be \u00ae \u00be\u00be\u00be A ; Product (A) is : (a) (b) (c) (d) O N H CH \u2014 H 2 2 \u2014 CH \u2014 CH N 2 2 O",
+      "text": "Raney Ni H2 ( ) \u00be \u00ae \u00be\u00be\u00be A ; Product (A) is : (a) (b) (c) (d) N H N H O N H CH \u2014 H 2 2 \u2014 CH \u2014 CH N 2 2 O",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q105.svg"
       ],
@@ -4158,12 +4312,12 @@
         [
           27,
           15.0,
-          274.6,
+          312.4,
           445.0,
-          464.1
+          479.5
         ]
       ],
-      "text": "+CH CH \u2014 CH \u2014 Br ( ) 2 2 KOH (75%) == \u00be \u00ae \u00be\u00be A ; Product (A) is : (a) (b) (c) (d) N H N H O O O \u2014 CH 2 \u2014 CH == CH 2 O CH 2 \u2014 CH == CH 2 O O CH \u2014 CH == CH O O O O",
+      "text": "+CH CH \u2014 CH \u2014 Br ( ) 2 2 KOH (75%) == \u00be \u00ae \u00be\u00be A ; Product (A) is : (a) (b) (c) (d) O O O \u2014 CH 2 \u2014 CH == CH 2 O CH 2 \u2014 CH == CH 2 O O CH 2 \u2014 CH == CH 2 O O O O",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q106.svg"
       ],
@@ -4197,12 +4351,19 @@
         [
           27,
           15.0,
-          464.1,
+          479.5,
           445.0,
-          613.4
+          619.0
+        ],
+        [
+          28,
+          15.0,
+          48.0,
+          445.0,
+          78.4
         ]
       ],
-      "text": "(1)Me-Li(excess) (2)HCl H O 2 \u00be \u00ae \u00be\u00be\u00be\u00be\u00be\u00be (A) NaOH I2 \u00be \u00ae \u00be\u00be \u00be ( ) CHI3 B + ; Product ( ) B in this reaction is : (a) (b) (c) (d) 2 2 CH 2 \u2014 CH == CH 2 CO H 2 CO Na 2 CO Na 2 CO Na 2 CO Na 2",
+      "text": "(1)Me-Li(excess) (2)HCl H O 2 \u00be \u00ae \u00be\u00be\u00be\u00be\u00be\u00be (A) NaOH I2 \u00be \u00ae \u00be\u00be \u00be ( ) CHI3 B + ; Product ( ) B in this reaction is : (a) (b) (c) (d) CH 2 \u2014 CH == CH 2 CO H 2 CO Na 2 CO Na 2 CO Na 2 CO Na 2\nO D D",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q107.svg"
       ],
@@ -4236,12 +4397,12 @@
         [
           28,
           15.0,
-          52.0,
+          78.4,
           445.0,
-          173.8
+          171.9
         ]
       ],
-      "text": "Arrange the following reagent in the correct order in which above transformation is carried out : (a) KOD D O ,H ,LiAlH 2 4 + D (b) H KOD D O ,LiAlH 2 4 + D , (c) KOD D O LiAlH H 2 4 , , + D (d) LiAlH H KOD D O 4 2 , , + D O D D D",
+      "text": "Arrange the following reagent in the correct order in which above transformation is carried out : (a) KOD D O ,H ,LiAlH 2 4 + D (b) H KOD D O ,LiAlH 2 4 + D , (c) KOD D O LiAlH H 2 4 , , + D (d) LiAlH H KOD D O 4 2 , , + D D",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q108.svg"
       ],
@@ -4275,9 +4436,9 @@
         [
           28,
           15.0,
-          173.8,
+          171.9,
           445.0,
-          282.0
+          281.6
         ]
       ],
       "text": "CH \u2014 C || O \u2014 H ( ) ( ) ( ) 3 HCN H O LiAlH 3 4 \u00be \u00ae \u00be\u00be \u00be \u00ae \u00be\u00be \u00be \u00be \u00ae \u00be \u00be \u00ae \u00be\u00be\u00be \u00c5 A B C D ( ) D HIO4 HCHO ( ) \u00be \u00ae \u00be\u00be + E Compound (C)can show geometrical isomerism. Product (E) of the reaction will be : (a) CH \u2014 C || O \u2014 CH 3 3 (b) CH \u2014 CH \u2014 C || O \u2014 H 3 2 (c) CH \u2014 CHO 3 (d) HCHO",
@@ -4314,9 +4475,9 @@
         [
           28,
           15.0,
-          282.0,
+          281.6,
           445.0,
-          419.4
+          418.2
         ]
       ],
       "text": "Arrange in their increasing order of equilibrium constants for hydration ? CH \u2014 C || O \u2014 CH 3 3 ( ) A , CH \u2014 C || O \u2014 H 3 ( ) B , CH \u2014 C || O \u2014 CH \u2014 Cl 3 2 ( ) C , H \u2014 C || O \u2014 H ( ) D , Cl \u2014 CH \u2014 C || O \u2014 H 2 ( ) E (a) A < B < C < D < E (b) A < C < B < E < D (c) A < C < E < B < D (d) C < A < B < E < D",
@@ -4353,9 +4514,16 @@
         [
           28,
           15.0,
-          419.4,
+          418.2,
           445.0,
-          585.1
+          590.7
+        ],
+        [
+          29,
+          15.0,
+          48.0,
+          445.0,
+          50.8
         ]
       ],
       "text": "End products of the following sequence of reactions are : 1. I NaOH, 2. H 3. 2+ \u00be \u00ae \u00be\u00be\u00be\u00be\u00be + D D (a) yellow ppt. of CHI3, (b) yellow ppt. of CHI3, (c) yellow ppt. of CHI3, (d) yellow ppt. of CHI3, O C \u2014 CH3 O O COOH O CHO O COOH COOH",
@@ -4392,12 +4560,12 @@
         [
           29,
           15.0,
-          52.0,
+          50.8,
           445.0,
-          204.9
+          222.1
         ]
       ],
-      "text": "Ph \u2014 CH \u2014 CN 2 (2)CH \u2014C\u2014Cl (3)H O (1)EtONa 3 || O 3 \u00c5 \u00be \u00ae \u00be\u00be\u00be\u00be\u00be \u00be D (P) ; Product (P) of the reaction will be : (a) Ph \u2014 CH \u2014 C || O \u2014 H 2 (b) Ph \u2014 CH \u2014 C || O \u2014 CH 2 3 (c) Ph \u2014 CH | \u2014 C || O \u2014 H (d) Ph \u2014 CH | \u2014 C || O \u2014 CH 3",
+      "text": "Ph \u2014 CH \u2014 CN 2 (2)CH \u2014C\u2014Cl (3)H O (1)EtONa 3 || O 3 \u00c5 \u00be \u00ae \u00be\u00be\u00be\u00be\u00be \u00be D (P) ; Product (P) of the reaction will be : (a) Ph \u2014 CH \u2014 C || O \u2014 H 2 (b) Ph \u2014 CH \u2014 C || O \u2014 CH 2 3 (c) Ph \u2014 CH | CH \u2014 C || O \u2014 H 3 (d) Ph \u2014 CH | CH \u2014 C || O \u2014 CH 3 3",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q112.svg"
       ],
@@ -4431,12 +4599,12 @@
         [
           29,
           15.0,
-          204.9,
+          222.1,
           445.0,
-          331.7
+          329.8
         ]
       ],
-      "text": "CH 3 CH 3 (i)NaCN (ii)H SO 2 4 \u00be \u00ae \u00be\u00be\u00be Products. Products of the reaction are : (a) Racemic mixture (b) Diastereomers (c) Meso (d) Mixture of meso compound and optically active compound C \u2014 H O",
+      "text": "(i)NaCN (ii)H SO 2 4 \u00be \u00ae \u00be\u00be\u00be Products. Products of the reaction are : (a) Racemic mixture (b) Diastereomers (c) Meso (d) Mixture of meso compound and optically active compound C \u2014 H O",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q113.svg"
       ],
@@ -4470,9 +4638,9 @@
         [
           29,
           15.0,
-          331.7,
+          329.8,
           445.0,
-          413.1
+          417.2
         ]
       ],
       "text": "( ) ( ) ( ) A B C \u00be\u00be\u00be\u00be\u00ae \u00be\u00be\u00be\u00ae dil. H SO HgSO LiAlH recemic mix 2 4 4 4 ture \\ reactant (A) is : (a) CH C CH 3 \u00be \u00ba\u00ba (b) HC CH \u00ba\u00ba (c) CH C C CH 3 3 \u00be \u00ba\u00ba \u00be (d) Ph CH CH 2 \u00be ==",
@@ -4509,12 +4677,19 @@
         [
           29,
           15.0,
-          413.1,
+          417.2,
           445.0,
-          562.2
+          577.7
+        ],
+        [
+          30,
+          15.0,
+          48.0,
+          445.0,
+          78.9
         ]
       ],
-      "text": "CH CH \u2014 C || O \u2014 CH 3 2 3 NaNO HCl 2 \u00be \u00ae \u00be\u00be\u00be ; Major product of this reaction is : (a) CH CH | NO \u2014 C || O \u2014 CH 3 3 (b) CH \u2014 CH \u2014 C || O \u2014 CH N \u2014 OH 3 2 == (c) CH \u2014 C \u2014 C || O || \u2014 CH 3 3 (d) CH \u2014 CH \u2014 C \u2014 CH 3 2 3 ||",
+      "text": "CH CH \u2014 C || O \u2014 CH 3 2 3 NaNO HCl 2 \u00be \u00ae \u00be\u00be\u00be ; Major product of this reaction is : (a) CH CH | NO \u2014 C || O \u2014 CH 3 3 (b) CH \u2014 CH \u2014 C || O \u2014 CH N \u2014 OH 3 2 == (c) CH \u2014 C \u2014 C || O || N\u2014OH \u2014 CH 3 3 (d) CH \u2014 CH \u2014 C \u2014 CH N\u2014OH 3 2 3 ||\n( ) 1 NH OH 2 O",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q115.svg"
       ],
@@ -4548,12 +4723,12 @@
         [
           30,
           15.0,
-          52.0,
+          78.9,
           445.0,
-          222.8
+          259.8
         ]
       ],
-      "text": "( ) , ( ) ( ) 2 3 1 H LiAlH NH OH 4 2 ( ) ( ) + \u00be \u00ae \u00be\u00be\u00be\u00be + D A B . Product (A) & (B) are : (a) (b) (c) (d) & OH NH NH OH & & N H N \u2014 H &",
+      "text": "( ) , ( ) 2 3 H LiAlH 4 ( ) ( ) + \u00be \u00ae \u00be\u00be\u00be\u00be + D A B . Product (A) & (B) are : (a) (b) (c) (d) & OH NH NH OH & & N H N \u2014 H &",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q116.svg"
       ],
@@ -4587,12 +4762,12 @@
         [
           30,
           15.0,
-          222.8,
+          259.8,
           445.0,
-          483.2
+          500.8
         ]
       ],
-      "text": "+ \u00be \u00ae \u00be\u00be \u00be \u00be \u00ae \u00be\u00be CH NO ( ) 3 2 nitromethane NaOH HCl A D B 93% . Product (B) is : (a) (b) (c) (d) HO CH == CH \u2014 NO2 OH CH == CH \u2014 NO2",
+      "text": "+ \u00be \u00ae \u00be\u00be \u00be \u00be \u00ae \u00be\u00be CH NO ( ) 3 2 nitromethane NaOH HCl A D B 93% . Product (B) is : (a) (b) (c) (d) HO CH == CH \u2014 NO2 OH HO CH == CH \u2014 NO2",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q117.svg"
       ],
@@ -4626,12 +4801,19 @@
         [
           30,
           15.0,
-          483.2,
+          500.8,
           445.0,
-          617.9
+          624.0
+        ],
+        [
+          31,
+          15.0,
+          48.0,
+          445.0,
+          64.9
         ]
       ],
-      "text": "(2) LiAlH (3) NaNO H HCN 4 2 + \u00be \u00ae \u00be\u00be\u00be\u00be\u00be ( ) 1 ( ) major A . Product (A) is : (a) (b) (c) (d) HO O O O",
+      "text": "(2) LiAlH (3) NaNO H HCN 4 2 + \u00be \u00ae \u00be\u00be\u00be\u00be\u00be ( ) 1 ( ) major A . Product (A) is : (a) (b) (c) (d) O O O\nO",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q118.svg"
       ],
@@ -4665,12 +4847,12 @@
         [
           31,
           15.0,
-          52.0,
+          64.9,
           445.0,
-          175.2
+          171.6
         ]
       ],
-      "text": "alc. KOH (2mole) ( ) \u00be \u00ae \u00be\u00be\u00be A . Product (A) is : (a) (b) (c) (d) OH O HO OH O O O C Cl Cl",
+      "text": "alc. KOH (2mole) ( ) \u00be \u00ae \u00be\u00be\u00be A . Product (A) is : (a) (b) (c) (d) O HO OH O O O C Cl Cl",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q119.svg"
       ],
@@ -4704,12 +4886,12 @@
         [
           31,
           15.0,
-          175.2,
+          171.6,
           445.0,
-          288.3
+          287.9
         ]
       ],
-      "text": "R R \u2014 C || O \u2014 | \u2014 C \u2014 | CN R R Which of following can be used as a catalyst in the above reaction? (a) Cl- (b) CH \u2014 C || O \u2014 O 3 - (c) Et \u2014 O - (d) HSO 4 - HCN (catalyst)",
+      "text": "R R \u2014 C || O \u2014 OH | \u2014 C \u2014 | CN R R Which of following can be used as a catalyst in the above reaction? (a) Cl- (b) CH \u2014 C || O \u2014 O 3 - (c) Et \u2014 O - (d) HSO 4 - HCN (catalyst)",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q120.svg"
       ],
@@ -4743,9 +4925,9 @@
         [
           31,
           15.0,
-          288.3,
+          287.9,
           445.0,
-          468.6
+          467.3
         ]
       ],
       "text": "Arrange the following carbonyl compounds in decreasing order of their reactivity in nucleophilic addition reaciton. (a) ii > iii > i > iv (b) ii > i > iv > iii (c) iii > ii > i > iv (d) iii > i > iv > ii CHO CHO NO2 COCH3 CHO CH3 (i) (ii) (iii) (iv)",
@@ -4782,19 +4964,19 @@
         [
           31,
           15.0,
-          468.6,
+          467.3,
           445.0,
-          620.0
+          629.6
         ],
         [
           32,
           15.0,
-          52.0,
+          48.0,
           445.0,
-          94.4
+          146.6
         ]
       ],
-      "text": "The following reaction were carried out. I NaHCO3 2 \u00be \u00ae \u00be\u00be\u00be\u00be The final product formed in the above reaction sequence is : (a) (b) OH O H ONa O H I I O O I H\n(c) (d) OH O H I ONa O",
+      "text": "The following reaction were carried out. I NaHCO3 2 \u00be \u00ae \u00be\u00be\u00be\u00be The final product formed in the above reaction sequence is : (a) (b) OH O H ONa O H I I O O I H\n(c) (d) O Me C \u2014 C \u2014 CH 58% O Me C \u2014 C \u2014 CH \u2014 Br OH O H I ONa O H I I",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q122.svg"
       ],
@@ -4828,12 +5010,12 @@
         [
           32,
           15.0,
-          94.4,
+          146.6,
           445.0,
-          348.2
+          361.5
         ]
       ],
-      "text": "A. Yield of each step as actually carried out in the laboratory is given above. What is overall yield of reaction? (a) 42% (b) 31% (c) 21% (d) 60% B. What is the appropriate reagent to carry out above synthesis, i e . ., A, B, C respectively are : (a) Br H , LiAlH ,H 2 4 + \u00c5 (b) Br H ,NaBH ,HO 2 4 + - (c) NBS, AlCl ,HO 3 - (d) Br HO ,BF ,HO 2 3 - - O Me C \u2014 C \u2014 CH 3 3 58% (A) O O Me C \u2014 C \u2014 CH \u2014 Br 3 2 OH Me C \u2014 CH \u2014 CH \u2014 Br 3 2 Me C \u2014 CH \u2014 CH 3 2 68% (C) 54% (B) I I",
+      "text": "A. Yield of each step as actually carried out in the laboratory is given above. What is overall yield of reaction? (a) 42% (b) 31% (c) 21% (d) 60% B. What is the appropriate reagent to carry out above synthesis, i e . ., A, B, C respectively are : (a) Br H , LiAlH ,H 2 4 + \u00c5 (b) Br H ,NaBH ,HO 2 4 + - (c) NBS, AlCl ,HO 3 - (d) Br HO ,BF ,HO 2 3 - - 3 3 (A) O 3 2 OH Me C \u2014 CH \u2014 CH \u2014 Br 3 2 Me C \u2014 CH \u2014 CH 3 2 68% (C) 54% (B) OH",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q123.svg"
       ],
@@ -4867,12 +5049,12 @@
         [
           32,
           15.0,
-          348.2,
+          361.5,
           445.0,
-          455.9
+          454.5
         ]
       ],
-      "text": "3H (High temp & pressure) Ni Cu NH OH 2 2 ( ) ( ) \u00be \u00ae \u00be\u00be\u00be\u00be \u00be \u00ae \u00be \u00be \u00ae A B \u00be\u00be\u00be \u00be \u00ae \u00be\u00be \u00be \u00ae \u00be\u00be \u00c5 - ( ) ( ) ( ) H HO C D E ; Product (E) is : (a) Nylon 66 (b) Nylon 6 (c) Styrene (d) Polystyrene OH",
+      "text": "3H (High temp & pressure) Ni Cu NH OH 2 2 ( ) ( ) \u00be \u00ae \u00be\u00be\u00be\u00be \u00be \u00ae \u00be \u00be \u00ae A B \u00be\u00be\u00be \u00be \u00ae \u00be\u00be \u00be \u00ae \u00be\u00be \u00c5 - ( ) ( ) ( ) H HO C D E ; Product (E) is : (a) Nylon 66 (b) Nylon 6 (c) Styrene (d) Polystyrene",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q124.svg"
       ],
@@ -4906,12 +5088,19 @@
         [
           32,
           15.0,
-          455.9,
+          454.5,
           445.0,
-          575.7
+          594.5
+        ],
+        [
+          33,
+          15.0,
+          48.0,
+          445.0,
+          50.8
         ]
       ],
-      "text": "Methyl vinyl ketone on reaction with LiCuMe 2 gives a major product, whose structure is : (a) (b) (c) (d) Me Me O Me HO Me Me Me Me O",
+      "text": "Methyl vinyl ketone on reaction with LiCuMe 2 gives a major product, whose structure is : (a) (b) (c) (d) Me Me O Me HO Me Me Me Me HO O",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q125.svg"
       ],
@@ -4945,9 +5134,9 @@
         [
           33,
           15.0,
-          52.0,
+          50.8,
           445.0,
-          189.3
+          198.3
         ]
       ],
       "text": "Which of following is in capable to show iodoform test ? (a) (b) Ph \u2014 CH CH \u2014 CH \u2014 CH OH 3 | == (c) (d) H C == CH CH 2 3 OH O CH \u2014 C \u2014 CH 2 3 H D O CH3",
@@ -4984,12 +5173,12 @@
         [
           33,
           15.0,
-          189.3,
+          198.3,
           445.0,
-          313.4
+          336.0
         ]
       ],
-      "text": "CH \u2014 C O || \u2014 CH \u2014 CH \u2014 C O || \u2014 CH 3 2 2 3 \u00be\u00be\u00be\u00be\u00ae D (NH ) CO 4 2 3 (A)\u00be\u00be\u00be\u00be\u00ae D CCl CO Na (major) 3 2 ( ) B Product (B) of above reaction is : (a) (b) (c) (d)",
+      "text": "CH \u2014 C O || \u2014 CH \u2014 CH \u2014 C O || \u2014 CH 3 2 2 3 \u00be\u00be\u00be\u00be\u00ae D (NH ) CO 4 2 3 (A)\u00be\u00be\u00be\u00be\u00ae D CCl CO Na (major) 3 2 ( ) B Product (B) of above reaction is : (a) (b) (c) (d) O",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q127.svg"
       ],
@@ -5023,12 +5212,12 @@
         [
           33,
           15.0,
-          313.4,
+          336.0,
           445.0,
-          450.9
+          480.7
         ]
       ],
-      "text": "\u00be\u00be\u00be\u00ae + D H O 3 A ; Product obtained is : (a) (b) (c) (d) None of these O O CO Et 2 Et C O2 O CO Et 2 O OH O",
+      "text": "\u00be\u00be\u00be\u00ae + D H O 3 A ; Product obtained is : (a) (b) (c) (d) None of these O CO Et 2 Et C O2 O CO Et 2 O O O OH O",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q128.svg"
       ],
@@ -5062,12 +5251,19 @@
         [
           33,
           15.0,
-          450.9,
+          480.7,
           445.0,
-          619.9
+          615.8
+        ],
+        [
+          34,
+          15.0,
+          48.0,
+          445.0,
+          51.1
         ]
       ],
-      "text": "( ) ( ) A B Symmetrical Ketone LiAlH H 4 Diastereomer \u00be\u00be\u00be\u00ae \u00be\u00ae D r s Reactent (A) is : (a) CH C || O CH 3 3 \u00be \u00be (b) CH C || O CH CH 3 2 3 \u00be \u00be \u00be (c) CH CH C || O CH CH 3 2 2 3 \u00be \u00be \u00be \u00be (d) CH CH CH CH O 3 2 2 \u00be \u00be \u00be == O O",
+      "text": "( ) ( ) A B Symmetrical Ketone LiAlH H 4 Diastereomer \u00be\u00be\u00be\u00ae \u00be\u00ae D r s Reactent (A) is : (a) CH C || O CH 3 3 \u00be \u00be (b) CH C || O CH CH 3 2 3 \u00be \u00be \u00be (c) CH CH C || O CH CH 3 2 2 3 \u00be \u00be \u00be \u00be (d) CH CH CH CH O 3 2 2 \u00be \u00be \u00be ==",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q129.svg"
       ],
@@ -5101,9 +5297,9 @@
         [
           34,
           15.0,
-          52.0,
+          51.1,
           445.0,
-          152.8
+          150.3
         ]
       ],
       "text": "4 + \u00be \u00ae \u00be\u00be \u00be \u00ae \u00be\u00be \u00be \u00c5 x LiAlH 4 ether H O 3 + Li and Al Salt 3 + + Value of x in above reaction is : (a) 1 (b) 2 (c) 3 (d) 4",
@@ -5140,12 +5336,12 @@
         [
           34,
           15.0,
-          152.8,
+          150.3,
           445.0,
-          274.4
+          270.1
         ]
       ],
-      "text": "( ) ( ) ( ) ( ) ( ) NH OH H SO H O CHCl 2 2 4 3 A B C D E \u00be \u00ae \u00be\u00be\u00be \u00be \u00ae \u00be\u00be\u00be \u00be \u00ae \u00be\u00be \u00be + \u00c5 D 3 KOH, 3 CH N C \u00be \u00ae \u00be\u00be \u00be == \u00ae D \u2014 ( ) ( ) ( ) D F G SOCl (i)PhMgBr(excess) (ii) H 2 \u00be \u00ae \u00be\u00be \u00be \u00ae \u00be\u00be\u00be\u00be\u00be\u00be \u00c5 H CH I Zn Cu 2 2 \u00c5 \u00be \u00ae \u00be\u00be \u00be \u00ae \u00be\u00be D ( ) H Molecular weight of compound (A) is : (a) 58 (b) 120 (c) 60 (d) 182 O",
+      "text": "( ) ( ) ( ) ( ) ( ) NH OH H SO H O CHCl 2 2 4 3 A B C D E \u00be \u00ae \u00be\u00be\u00be \u00be \u00ae \u00be\u00be\u00be \u00be \u00ae \u00be\u00be \u00be + \u00c5 D 3 KOH, 3 CH N C \u00be \u00ae \u00be\u00be \u00be == \u00ae D \u2014 ( ) ( ) ( ) D F G SOCl (i)PhMgBr(excess) (ii) H 2 \u00be \u00ae \u00be\u00be \u00be \u00ae \u00be\u00be\u00be\u00be\u00be\u00be \u00c5 H CH I Zn Cu 2 2 \u00c5 \u00be \u00ae \u00be\u00be \u00be \u00ae \u00be\u00be D ( ) H Molecular weight of compound (A) is : (a) 58 (b) 120 (c) 60 (d) 182",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q131.svg"
       ],
@@ -5179,12 +5375,12 @@
         [
           34,
           15.0,
-          274.4,
+          270.1,
           445.0,
-          422.1
+          421.6
         ]
       ],
-      "text": "Ph 2CH \u2014 C || \u2014 H aqueous acid \u00be \u00ae \u00be\u00be\u00be\u00be \u00be ( ) 81% A + enol 2% + aldehyde 17% Product (A) of above reaction will be : (a) Ph C | Ph CH O \u2014 \u2014 == (b) Ph CH CH | OH 2 2 \u2014 (c) Ph CH CH | OH OH 2 \u2014 \u2014 (d) Ph CH C || O CH 2 3 \u2014 \u2014",
+      "text": "Ph 2CH \u2014 C || O \u2014 H aqueous acid \u00be \u00ae \u00be\u00be\u00be\u00be \u00be ( ) 81% A + enol 2% + aldehyde 17% Product (A) of above reaction will be : (a) Ph C | Ph CH O \u2014 \u2014 == (b) Ph CH CH | OH 2 2 \u2014 (c) Ph CH CH | OH OH 2 \u2014 \u2014 (d) Ph CH C || O CH 2 3 \u2014 \u2014",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q132.svg"
       ],
@@ -5218,9 +5414,9 @@
         [
           34,
           15.0,
-          422.1,
+          421.6,
           445.0,
-          502.7
+          502.3
         ]
       ],
       "text": "Which of the following will form stable hydrate ? (a) CCl CHO 3 (Chloral) (b) (Ninhydrin) (c) (CF ) CO 3 2 (d) All of these",
@@ -5257,9 +5453,16 @@
         [
           34,
           15.0,
-          502.7,
+          502.3,
           445.0,
-          605.7
+          599.7
+        ],
+        [
+          35,
+          15.0,
+          48.0,
+          445.0,
+          50.8
         ]
       ],
       "text": "The pH at which maximum hydrate is present in an solution of oxaloacetic acid: H O C || C || CH C || O H O O O 2 \u2014 \u2014 \u2014 \u2014 \u2014 \u2014 \u2014 p 2.2 K a = p 3.98 K a = (a) pH = 0 (b) pH = 12 (c) pH = 4 (d) pH = 6",
@@ -5296,9 +5499,9 @@
         [
           35,
           15.0,
-          52.0,
+          50.8,
           445.0,
-          138.4
+          137.2
         ]
       ],
       "text": "Arrange their stabilities of given gem- diols in decreasing order. (I) (II) (III) (a) I > II > III (b) III > II > I (c) I > III > II (d) III > I > II OH OH OH OH OH OH",
@@ -5335,12 +5538,12 @@
         [
           35,
           15.0,
-          138.4,
+          137.2,
           445.0,
-          194.8
+          214.6
         ]
       ],
-      "text": "Maximum hydration takes place of : (a) CF C || O CF 3 3 (b) CH C || O CH 3 3 (c) CH CH | C || O CH 3 3 - (d) C H C || O C H 6 5 6 5",
+      "text": "Maximum hydration takes place of : (a) CF C || O CF 3 3 (b) CH C || O CH 3 3 (c) CH CH | Cl C || O CH 3 3 - (d) C H C || O C H 6 5 6 5",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q136.svg"
       ],
@@ -5374,12 +5577,12 @@
         [
           35,
           15.0,
-          194.8,
+          214.6,
           445.0,
-          294.6
+          291.6
         ]
       ],
-      "text": "Cl The conversion, PhCN \u00ae PhCOCH 3, can be achieved most conveniently by reaction with: (a) CH MgBr 3 followed by hydrolysis (b) I \u2014 NaOH, CH I 2 3 (c) dil. H SO 2 4 followed by reaction with CH N 2 2 (d) LAH followed by reaction with CH I 3 O",
+      "text": "The conversion, PhCN \u00ae PhCOCH 3, can be achieved most conveniently by reaction with: (a) CH MgBr 3 followed by hydrolysis (b) I \u2014 NaOH, CH I 2 3 (c) dil. H SO 2 4 followed by reaction with CH N 2 2 (d) LAH followed by reaction with CH I 3",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q137.svg"
       ],
@@ -5413,12 +5616,12 @@
         [
           35,
           15.0,
-          294.6,
+          291.6,
           445.0,
-          444.7
+          457.4
         ]
       ],
-      "text": "In the above reaction, product (B) is: (a) (b) (c) (d) (A) D H \u2013 O O (B) Zn(Hg)/HCl OH",
+      "text": "In the above reaction, product (B) is: (a) (b) (c) (d) (A) D H \u2013 O O O (B) Zn(Hg)/HCl OH",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q138.svg"
       ],
@@ -5452,9 +5655,16 @@
         [
           35,
           15.0,
-          444.7,
+          457.4,
           445.0,
-          566.7
+          572.3
+        ],
+        [
+          36,
+          15.0,
+          48.0,
+          445.0,
+          51.1
         ]
       ],
       "text": "( ) ( ) A B \u00be\u00be\u00be\u00ae \u00be\u00ae LiAlH H 4 D r Structure of A is : (a) (b) (c) (d) O O O O",
@@ -5491,12 +5701,12 @@
         [
           36,
           15.0,
-          52.0,
+          51.1,
           445.0,
-          162.7
+          191.1
         ]
       ],
-      "text": "Product (B) is : (a) Ph NH C O CO H 2 \u2014 \u2014 \u2014 || (b) Ph NH C O CH CO H || 2 2 \u2014 \u2014 \u2014 \u2014 (c) (d) N \u2013 Ph O O O N O O HCHO+(A) (B) O3 O Ph \u2013 NH2",
+      "text": "Product (B) is : (a) Ph NH C O CO H 2 \u2014 \u2014 \u2014 || (b) Ph NH C O CH CO H || 2 2 \u2014 \u2014 \u2014 \u2014 (c) (d) N \u2013 Ph O O O N Ph O O HCHO+(A) (B) O3 O Ph \u2013 NH2",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q140.svg"
       ],
@@ -5530,12 +5740,12 @@
         [
           36,
           15.0,
-          162.7,
+          191.1,
           445.0,
-          306.0
+          303.9
         ]
       ],
-      "text": "To carry out above conversion, arrange the following reagents in correct order. O Zn 3 (1) EtONa / EtOH D ( ) 2 NaOCl (3) H + ( ) 4 (a) 1 \u00ae 3 \u00ae 2 \u00ae 4 (b) 1 \u00ae 2 \u00ae 4 \u00ae 3 (c) 1 \u00ae 3 \u00ae 4 \u00ae 2 (d) 1 \u00ae 2 \u00ae 3 \u00ae 4 CO H 2 Ph",
+      "text": "To carry out above conversion, arrange the following reagents in correct order. O Zn 3 (1) EtONa / EtOH D ( ) 2 NaOCl (3) H + ( ) 4 (a) 1 \u00ae 3 \u00ae 2 \u00ae 4 (b) 1 \u00ae 2 \u00ae 4 \u00ae 3 (c) 1 \u00ae 3 \u00ae 4 \u00ae 2 (d) 1 \u00ae 2 \u00ae 3 \u00ae 4 CO H 2",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q141.svg"
       ],
@@ -5569,12 +5779,19 @@
         [
           36,
           15.0,
-          306.0,
+          303.9,
           445.0,
-          604.4
+          612.7
+        ],
+        [
+          37,
+          15.0,
+          48.0,
+          445.0,
+          88.6
         ]
       ],
-      "text": "HOCH | H C CH CH CH C OH | CH CH 2 2 2 2 2 3 = - - - - - CH C O CH TsOH (CH ) S O 3 3 3 2 3 HCHO - - \u00be \u00ae \u00be\u00be\u00be\u00be \u00be \u00be \u00ae \u00be\u00be\u00be + || ( ) ( ) A B Product (B) is: (a) (b) (c) (d) H \u2014 C \u2014 CH \u2014 CH \u2014 C O 2 2 O O CH3 CH3 CH2 Et C H \u2014 C \u2014 CH \u2014 CH \u2014 C C 2 2 O O O CH3 CH3 Et H \u2014 O \u2014 C \u2014 CH \u2014 CH \u2014 C O 2 2 O O CH3 CH3 CH2 Et C H \u2014 C \u2014 CH \u2014 C C 2 O O O CH3 CH3 Et",
+      "text": "HOCH | H C CH CH CH C OH | CH CH 2 2 2 2 2 3 = - - - - - CH C O CH TsOH (CH ) S O 3 3 3 2 3 HCHO - - \u00be \u00ae \u00be\u00be\u00be\u00be \u00be \u00be \u00ae \u00be\u00be\u00be + || ( ) ( ) A B Product (B) is: (a) (b) (c) (d) H \u2014 C \u2014 CH \u2014 CH \u2014 C O 2 2 O O CH3 CH3 CH2 Et C H \u2014 C \u2014 CH \u2014 CH \u2014 C C 2 2 O O O CH3 CH3 Et H \u2014 O \u2014 C \u2014 CH \u2014 CH \u2014 C O 2 2 O O CH3 CH3 CH2 Et C H \u2014 C \u2014 CH \u2014 C C 2 O O O CH3 CH3 Et\nC \u2014 H O a CHO Br b CHO",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q142.svg"
       ],
@@ -5608,12 +5825,12 @@
         [
           37,
           15.0,
-          52.0,
+          88.6,
           445.0,
-          199.0
+          197.1
         ]
       ],
-      "text": "Identify appropriate reagents for the above reaction: (a) a = Br CCl 2 4, b = aq.KOH (b) a = + Br H 2 , b = aq. KOH (c) a = + Br H 2 , b = alc.KOH (d) a = - Br HO 2 , b = aq.KOH C \u2014 H a CHO Br b CHO",
+      "text": "Identify appropriate reagents for the above reaction: (a) a = Br CCl 2 4, b = aq.KOH (b) a = + Br H 2 , b = aq. KOH (c) a = + Br H 2 , b = alc.KOH (d) a = - Br HO 2 , b = aq.KOH",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q143.svg"
       ],
@@ -5647,9 +5864,9 @@
         [
           37,
           15.0,
-          199.0,
+          197.1,
           445.0,
-          356.0
+          366.7
         ]
       ],
       "text": "PhCHO H 96% ) \u00be \u00ae \u00be\u00be\u00be + (X ; Product (X) of this reaction is : (a) (b) (c) (d) Me Me OH OH Ph CH Ph CH O O O",
@@ -5686,12 +5903,12 @@
         [
           37,
           15.0,
-          356.0,
+          366.7,
           445.0,
-          470.0
+          465.9
         ]
       ],
-      "text": "The K eq. values in HCN addition to following aldehydes are in the order : (I) (II) (III) (a) I > II > III (b) II > III > I (c) III > I > II (d) II > I > III MeO Me N 2 H H H O O O OH",
+      "text": "The K eq. values in HCN addition to following aldehydes are in the order : (I) (II) (III) (a) I > II > III (b) II > III > I (c) III > I > II (d) II > I > III MeO Me N 2 H H H O O O",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q145.svg"
       ],
@@ -5725,12 +5942,19 @@
         [
           37,
           15.0,
-          470.0,
+          465.9,
           445.0,
-          620.0
+          618.1
+        ],
+        [
+          38,
+          15.0,
+          48.0,
+          445.0,
+          51.1
         ]
       ],
-      "text": "(1) (2) elation between K1 and K 2 is : (a) K K 1 2 = (b) K K 1 2 > (c) K K 2 1 > (d) K K 1 2 1 = = CH \u2014C\u2014CN 3 +HCN O CH3 K1 CH \u2014C\u2014CN 3 +HCN O OH H K2 H",
+      "text": "(1) (2) elation between K1 and K 2 is : (a) K K 1 2 = (b) K K 1 2 > (c) K K 2 1 > (d) K K 1 2 1 = = CH \u2014C\u2014CN 3 +HCN O OH CH3 K1 CH \u2014C\u2014CN 3 +HCN O OH H K2 H",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q146.svg"
       ],
@@ -5764,9 +5988,9 @@
         [
           38,
           15.0,
-          52.0,
+          51.1,
           445.0,
-          164.1
+          162.8
         ]
       ],
       "text": "Which of the following is correct for the reaction ? + \u00be \u00ae \u00be\u00be\u00be\u00be = HCN pH to 9 10 ( ) A (a) A is cyanohydrin (b) Nucleophilic-addition reaction (c) The above reaction is not shown by alkenes (d) All of these O",
@@ -5803,9 +6027,9 @@
         [
           38,
           15.0,
-          164.1,
+          162.8,
           445.0,
-          330.5
+          329.0
         ]
       ],
       "text": "Which of the following compounds (i through v) should not be classified as an acetal ? (a) ii and iii (b) iv (c) i (d) none (they are all acetals) O O O O (i) (ii) O O (iii) O CH3 O (iv) CH O 3 OCH3 H (v)",
@@ -5842,9 +6066,9 @@
         [
           38,
           15.0,
-          330.5,
+          329.0,
           445.0,
-          470.7
+          468.5
         ]
       ],
       "text": "In which of reactions final product is NOT a ketone : (a) CH C C H NaNH 3 2 \u2014 \u2014 ( ) \u00ba\u00ba \u00be \u00ae \u00be\u00be\u00be A CH I HgSO H SO 3 4 2 4 \u2013 ( ) ( ) \u00be \u00ae \u00be\u00be\u00be \u00be \u00ae \u00be\u00be\u00be B C (b) H C C H NaNH CH CH I \u2014 \u2014 ( ) ( ) \u2014 \u2013 \u00ba\u00ba \u00be \u00ae \u00be\u00be\u00be \u00be \u00ae \u00be\u00be\u00be\u00be\u00be 2 3 2 C D Hg OAc H O NaBH H ( ) , , ( ) 2 2 4 \u00be \u00ae \u00be\u00be\u00be\u00be\u00be - E (c) R A B \u2014 || \u2014 ( ) ( ) \u2013 C O OH NaOH CH I \u00be \u00ae \u00be\u00be \u00be \u00be \u00ae \u00be\u00be\u00be 3 (d) 1-butyne NaNH CH I BH THF H O HO 2 3 3 2 2 1 2 \u00be \u00ae \u00be\u00be\u00be \u00be \u00ae \u00be\u00be\u00be \u00be \u00ae \u00be \u00d7 ( ) ( ) \u2013 ( ) ( ) / A B s \u00be\u00be\u00be\u00be ( ) C",
@@ -5881,9 +6105,9 @@
         [
           38,
           15.0,
-          470.7,
+          468.5,
           445.0,
-          526.2
+          525.7
         ]
       ],
       "text": "The reaction of ethyl methyl ketone with Cl2/excess OH \u2013 gives the following major product (a) ClCH CH COCH 2 2 3 (b) CH CH COCCl 3 2 3 (c) ClCH CH COCH Cl 2 2 2 (d) CH CCl COCH Cl 3 2 2",
@@ -5920,9 +6144,16 @@
         [
           38,
           15.0,
-          526.2,
+          525.7,
           445.0,
-          586.8
+          580.9
+        ],
+        [
+          39,
+          15.0,
+          48.0,
+          445.0,
+          50.8
         ]
       ],
       "text": "The product obtained from the following sequence of reactions is CH \u2014 C CH A B 3 HgSO H SO NaBH 4 2 4 4 \u00ba \u00be \u00ae \u00be\u00be\u00be \u00be \u00ae \u00be\u00be\u00be (a) propanol (b) 2-propanol (c) 1-propanol (d) propanhe",
@@ -5959,9 +6190,9 @@
         [
           39,
           15.0,
-          52.0,
+          50.8,
           445.0,
-          167.9
+          166.6
         ]
       ],
       "text": "Which of the fol low ing shows ox i da tion of re ac tant. (a) 1 (b) 1, 2 (c) 1, 2, 3 (d) All of the above O O O OCH3 CH ==CH \u00be\u00ae CH \u2014CH \u2014Cl 2 2 3 2 (1) (2) (3) (4)",
@@ -5998,12 +6229,12 @@
         [
           39,
           15.0,
-          167.9,
+          166.6,
           445.0,
-          288.7
+          303.0
         ]
       ],
-      "text": "The enolate ion that re acts with O O O to form (a) (c) (d) (b) O O O O",
+      "text": "The enolate ion that re acts with O O O to form (a) (c) (d) (b) O O O O O O",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q153.svg"
       ],
@@ -6037,12 +6268,12 @@
         [
           39,
           15.0,
-          288.7,
+          303.0,
           445.0,
-          620.0
+          452.8
         ]
       ],
-      "text": "What is the final product T. O O CH \u2014C\u2014CH 3 3 O NaNH2 P HC\u00baCH Q H O 3 R + 1H /Pd 2 S Al O 2 3 D T H C\u2014C==C\u2014C\u2014CH 3 3 CH3 O CH \u2014C\u2014CH 3 3 H C==CH 2 OH (a) (b) (c) (d) CH \u2014C==CH\u2014CH 3 3 CH3 CH ==C\u2014CH==CH 3 2 CH3",
+      "text": "What is the final product T. CH \u2014C\u2014CH 3 3 O NaNH2 P HC\u00baCH Q H O 3 R + 1H /Pd 2 S Al O 2 3 D T H C\u2014C==C\u2014C\u2014CH 3 3 CH3 O CH \u2014C\u2014CH 3 3 H C==CH 2 OH (a) (b) (c) (d) CH \u2014C==CH\u2014CH 3 3 CH3 CH ==C\u2014CH==CH 3 2 CH3",
       "images": [
         "zipimg:mschouhan_images.zip#mschouhan_aldehydes_and_ketones_q154.svg"
       ],
