@@ -5,6 +5,7 @@ window.AITS_CONFIG = {
   mathsAdvancedUrl: 'https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/maths_advanced_database.json',
   mathsMainUrl: 'https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/maths_main_database.json',
   allenChemUrl: 'allenchem_database.json',
+  allenJeeUrl: 'allenjee_database.json',
   reportWebhookUrl: 'https://script.google.com/macros/s/AKfycbz22mMoGU674mjLTxD-ttP0vJnppoq9qVOZDHqWEBPT9pJgMJVDo5sbttujc0QRP1w/exec',
   localVectorEngineUrl: 'http://localhost:8000', // Fast local engine (1-2s instant generation)
   vectorEngineUrl: '' // Disabled Render.com cloud engine - generate pure client-side PDF in browser
