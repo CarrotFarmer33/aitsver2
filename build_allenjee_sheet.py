@@ -179,9 +179,15 @@ def sort_questions_by_pattern(questions):
 
     return sorted(questions, key=q_key)
 
-def generate_custom_test(chapter_name=None, question_count=30, out_pdf_path="allen_test.pdf", bank="both", selected_qids=None, title="Practice Sheet", subtitle="", cand_name=None, time_limit=90):
+def generate_custom_test(chapter_name=None, question_count=30, out_pdf_path="allen_test.pdf", bank="both", selected_qids=None, title="Practice Sheet", subtitle="", cand_name=None, time_limit=90, crops=None):
     if not os.path.exists(DB_PATH):
         raise FileNotFoundError(f"Database not found at {DB_PATH}")
+
+    crops_map = {}
+    if crops:
+        for c in crops:
+            if isinstance(c, dict) and c.get("id"):
+                crops_map[c["id"]] = c.get("crop")
 
     with open(DB_PATH, "r", encoding="utf-8") as f:
         db = json.load(f)
@@ -341,6 +347,14 @@ def generate_custom_test(chapter_name=None, question_count=30, out_pdf_path="all
         seg = q["segments"][0]
         pno, x0, y0, x1, y1 = seg
         seg_h = y1 - y0
+
+        q_crop = crops_map.get(q.get("id")) or q.get("crop")
+        if q_crop and isinstance(q_crop, dict):
+            top_p = float(q_crop.get("top", 0)) / 100.0
+            bot_p = float(q_crop.get("bottom", 0)) / 100.0
+            y0 += seg_h * top_p
+            y1 -= seg_h * bot_p
+            seg_h = max(10.0, y1 - y0)
 
         # Check if question fits on current page
         if cur_y + seg_h + GAP_Q > COL_Y_END:

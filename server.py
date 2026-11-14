@@ -342,7 +342,8 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
                     title=title,
                     subtitle=subtitle,
                     cand_name=req.get("candName"),
-                    time_limit=req.get("timeLimit", 90)
+                    time_limit=req.get("timeLimit", 90),
+                    crops=req.get("crops")
                 )
                 pdf_url = f"/generated_tests/{out_filename}"
                 latest_url = "/generated_tests/latest_test.pdf"
@@ -424,7 +425,8 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
                     title=title,
                     subtitle=subtitle,
                     cand_name=req.get("candName"),
-                    time_limit=req.get("timeLimit", 90)
+                    time_limit=req.get("timeLimit", 90),
+                    crops=req.get("crops")
                 )
                 pdf_url = f"/generated_tests/{out_filename}"
                 latest_url = "/generated_tests/latest_test.pdf"

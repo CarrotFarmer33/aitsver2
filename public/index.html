@@ -457,21 +457,21 @@
   }
 }
 
-/* ==================== ALLEN CHEMISTRY / NEET 2-COLUMN COMPACT TEST STYLES ==================== */
+/* ==================== ALLEN CHEMISTRY / NEET 2-COLUMN & SINGLE-COLUMN TEST STYLES ==================== */
 .allen-sheet-page {
   width: 210mm;
   min-height: 297mm;
-  padding: 12pt 20pt 20pt 20pt;
-  margin: 0 auto 20pt auto;
+  padding: 16pt 20pt 28pt 20pt;
+  margin: 0 auto 24px auto;
   background: #ffffff !important;
   color: #000000 !important;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.35);
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 8.5pt;
-  line-height: 1.28;
+  line-height: 1.3;
   position: relative;
-  border: none !important;
+  border: 1.5px solid #222222 !important;
 }
 
 .allen-sheet-page, .allen-sheet-page * {
@@ -479,51 +479,56 @@
 }
 
 .allen-hdr-box {
-  border: none !important;
-  border-bottom: 1.2pt solid #000000 !important;
-  padding: 0 0 3pt 0;
-  margin-bottom: 5pt;
-  background: transparent;
-  text-align: center;
+  border: 1.2px solid #1a3366 !important;
+  background: #f5f7fa !important;
+  padding: 8pt 14pt 6pt 14pt !important;
+  margin-bottom: 12pt !important;
+  border-radius: 2px !important;
+  box-sizing: border-box !important;
+  text-align: left !important;
 }
 .allen-hdr-title {
-  font-size: 11.5pt;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5pt;
-  margin-bottom: 1pt;
-  color: #000000;
-  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13pt !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  margin-bottom: 2pt !important;
+  color: #102a56 !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  line-height: 1.2 !important;
 }
 .allen-hdr-sub {
-  font-size: 8.2pt;
-  font-weight: 600;
-  color: #333333;
-  margin-bottom: 3pt;
+  font-size: 8.5pt !important;
+  font-weight: 600 !important;
+  color: #475569 !important;
+  margin-bottom: 5pt !important;
   border: none !important;
-  padding-bottom: 1pt;
+  padding-bottom: 0 !important;
+  line-height: 1.2 !important;
 }
 .allen-hdr-grid {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 6pt;
-  font-size: 8pt;
+  border-top: 0.75px solid #cbd5e1 !important;
+  padding-top: 4pt !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  font-size: 8.5pt !important;
+  font-weight: 600 !important;
+  color: #1e293b !important;
 }
 .allen-hdr-line {
-  display: inline-block;
-  border-bottom: 0.75pt solid #000000;
-  width: 120px;
-  vertical-align: middle;
-  margin-left: 3pt;
+  display: inline-block !important;
+  border-bottom: 0.75pt solid #64748b !important;
+  width: 130px !important;
+  vertical-align: middle !important;
+  margin-left: 4pt !important;
 }
 
 /* Single-Column Allen JEE Sheet Layout */
 .allen-columns-single {
   display: flex;
   flex-direction: column;
-  gap: 10pt;
+  gap: 4pt;
   width: 100%;
 }
 .allen-qitem-single {
@@ -531,7 +536,7 @@
   break-inside: avoid;
   page-break-inside: avoid;
   margin-bottom: 8pt;
-  padding-bottom: 6pt;
+  padding-bottom: 4pt;
   border-bottom: 0.5pt solid #eeeeee;
   display: flex;
   align-items: flex-start;
@@ -563,21 +568,54 @@
 
 /* Section Header Banners for Allen Single-Column Practice Sheets */
 .allen-section-banner {
-  margin: 12pt 0 8pt 0;
-  padding: 4pt 8pt;
-  background: #0f172a !important;
-  color: #ffffff !important;
+  margin: 10pt 0 6pt 0;
+  padding: 2pt 0;
+  background: transparent !important;
+  color: #000000 !important;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 700;
-  font-size: 9pt;
+  font-size: 9.5pt;
+  text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.5pt;
-  border-radius: 3pt;
+  border: none !important;
   break-after: avoid;
   page-break-after: avoid;
   box-sizing: border-box;
 }
 .allen-section-banner * {
+  color: #000000 !important;
+}
+
+.allen-page-footer {
+  position: absolute;
+  bottom: 8pt;
+  left: 20pt;
+  right: 20pt;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 7.5pt;
+  color: #64748b;
+  border-top: 0.5pt solid #cbd5e1;
+  padding-top: 2pt;
+}
+
+.allen-ans-header-bar {
+  background: #1a3366 !important;
+  color: #ffffff !important;
+  padding: 6pt 12pt;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10pt;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 10pt;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 2px;
+}
+.allen-ans-header-bar * {
   color: #ffffff !important;
 }
 
@@ -760,18 +798,63 @@
 }
 
 @media print {
-  .allen-sheet-page {
-    width: 100% !important;
-    min-height: auto !important;
+  @page {
+    size: A4 portrait;
+    margin: 8mm 6mm;
+  }
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .topbar, .sheet-toolbar, #modal, #cropModal, #tbToast, .screen:not(#scrSheetView), #sheetPdfFrame {
+    display: none !important;
+  }
+  #scrSheetView {
+    display: block !important;
+    background: #ffffff !important;
     padding: 0 !important;
     margin: 0 !important;
-    box-shadow: none !important;
-    border: none !important;
+    height: auto !important;
+    overflow: visible !important;
   }
-  .allen-ans-page {
-    page-break-before: always !important;
-    break-before: page !important;
-    margin-top: 0 !important;
+  .sheet-view-wrap {
+    height: auto !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+    padding: 0 !important;
+  }
+  #sheetDocContainer {
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: #ffffff !important;
+  }
+  .allen-sheet-page {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 275mm !important;
+    max-height: 275mm !important;
+    padding: 14pt 18pt 24pt 18pt !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: 1.5px solid #222222 !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    box-sizing: border-box !important;
+    background: #ffffff !important;
+    overflow: hidden !important;
+    position: relative !important;
+  }
+  .allen-sheet-page:last-child {
+    page-break-after: auto !important;
+    break-after: auto !important;
+  }
+  .allen-hdr-box {
+    border: 1.2px solid #1a3366 !important;
+    background: #f5f7fa !important;
+    box-sizing: border-box !important;
   }
   .allen-columns {
     column-count: 2 !important;
@@ -791,13 +874,16 @@
   .allen-qitem-single {
     break-inside: avoid !important;
     page-break-inside: avoid !important;
-    margin-bottom: 10pt !important;
-    padding-bottom: 6pt !important;
+    margin-bottom: 8pt !important;
+    padding-bottom: 4pt !important;
     border-bottom: 0.5pt solid #dddddd !important;
   }
   .allen-ans-box {
     break-inside: avoid !important;
     page-break-inside: avoid !important;
+  }
+  .allen-page-footer {
+    display: flex !important;
   }
 
   /* Selective Printing: Student Copy vs Answer Key */
@@ -815,8 +901,8 @@
   body.print-mode-key .sheet-ans-key {
     display: block !important;
     margin: 0 !important;
-    page-break-before: auto !important;
-    break-before: auto !important;
+    page-break-after: auto !important;
+    break-after: auto !important;
   }
 }
 
@@ -2811,11 +2897,17 @@ function imageMarkup(u, alt, extraClass, crop){
   const x = String(u || '');
   const cls = 'qimg' + (extraClass ? (' ' + extraClass) : '');
   let cropAttrs = '';
+  let cropStyles = '';
   if(crop && (crop.top || crop.bottom || crop.left || crop.right)){
-    cropAttrs = ' data-crop-top="' + (crop.top || 0) + '" data-crop-bottom="' + (crop.bottom || 0) + '" data-crop-left="' + (crop.left || 0) + '" data-crop-right="' + (crop.right || 0) + '"';
+    const ct = Math.max(0, parseFloat(crop.top) || 0);
+    const cb = Math.max(0, parseFloat(crop.bottom) || 0);
+    const cl = Math.max(0, parseFloat(crop.left) || 0);
+    const cr = Math.max(0, parseFloat(crop.right) || 0);
+    cropAttrs = ' data-crop-top="' + ct + '" data-crop-bottom="' + cb + '" data-crop-left="' + cl + '" data-crop-right="' + cr + '"';
+    cropStyles = ' style="clip-path:inset(' + ct + '% ' + cr + '% ' + cb + '% ' + cl + '%);-webkit-clip-path:inset(' + ct + '% ' + cr + '% ' + cb + '% ' + cl + '%);"';
   }
-  if(x.startsWith('zipimg:')) return '<img class="' + cls + '" alt="' + esc(alt || 'Question figure') + '" data-zipimg="' + esc(x.slice(7)) + '"' + cropAttrs + ' src="data:,">';
-  return '<img class="' + cls + '" alt="' + esc(alt || 'Question figure') + '"' + cropAttrs + ' src="' + esc(x) + '">';
+  if(x.startsWith('zipimg:')) return '<img class="' + cls + '" alt="' + esc(alt || 'Question figure') + '" data-zipimg="' + esc(x.slice(7)) + '"' + cropAttrs + cropStyles + ' src="data:,">';
+  return '<img class="' + cls + '" alt="' + esc(alt || 'Question figure') + '"' + cropAttrs + cropStyles + ' src="' + esc(x) + '">';
 }
 
 function applySvgCrop(svgText, crop){
@@ -2837,8 +2929,11 @@ function applySvgCrop(svgText, crop){
   const newH = Math.max(1, h * (1 - topP - botP));
 
   let res = svgText.replace(vbMatch[0], `viewBox="${newX.toFixed(2)} ${newY.toFixed(2)} ${newW.toFixed(2)} ${newH.toFixed(2)}"`);
-  res = res.replace(/\bwidth="[0-9.]+"/i, `width="${newW.toFixed(2)}"`);
-  res = res.replace(/\bheight="[0-9.]+"/i, `height="${newH.toFixed(2)}"`);
+  res = res.replace(/(<svg\b[^>]*\bwidth=")[0-9.]+/i, `$1${newW.toFixed(2)}`);
+  res = res.replace(/(<svg\b[^>]*\bheight=")[0-9.]+/i, `$1${newH.toFixed(2)}`);
+  if(!res.includes('overflow=')){
+    res = res.replace(/(<svg\b)/i, '$1 overflow="hidden"');
+  }
   return res;
 }
 
@@ -3042,6 +3137,10 @@ async function resolveZipImage(img){
       } else {
         img.style.background = 'transparent';
       }
+      if(crop){
+        img.style.clipPath = `inset(${crop.top || 0}% ${crop.right || 0}% ${crop.bottom || 0}% ${crop.left || 0}%)`;
+        img.style.webkitClipPath = `inset(${crop.top || 0}% ${crop.right || 0}% ${crop.bottom || 0}% ${crop.left || 0}%)`;
+      }
       img.removeAttribute('data-zipimg');
       return;
     }
@@ -3051,6 +3150,7 @@ async function resolveZipImage(img){
     img.classList.add(isTb ? 'test-builder-svg' : 'practice-svg');
     if(crop){
       img.style.clipPath = `inset(${crop.top || 0}% ${crop.right || 0}% ${crop.bottom || 0}% ${crop.left || 0}%)`;
+      img.style.webkitClipPath = `inset(${crop.top || 0}% ${crop.right || 0}% ${crop.bottom || 0}% ${crop.left || 0}%)`;
     }
     img.removeAttribute('data-zipimg');
   }catch(e){
@@ -3069,6 +3169,10 @@ async function resolveZipImage(img){
           const blob = new Blob([processedSvg], { type: 'image/svg+xml;charset=utf-8' });
           img.src = URL.createObjectURL(blob);
           img.classList.add('qimg', 'vector-inline-svg', isTb ? 'test-builder-svg' : 'practice-svg');
+          if(crop){
+            img.style.clipPath = `inset(${crop.top || 0}% ${crop.right || 0}% ${crop.bottom || 0}% ${crop.left || 0}%)`;
+            img.style.webkitClipPath = `inset(${crop.top || 0}% ${crop.right || 0}% ${crop.bottom || 0}% ${crop.left || 0}%)`;
+          }
           img.removeAttribute('data-zipimg');
           return;
         }
@@ -7286,7 +7390,8 @@ async function buildCustomSheet(customQs){
       timeLimit: $('#tbTimeLimit') ? +($('#tbTimeLimit').value) : 90,
       includeSolutions: includeSol,
       removeWatermark: true, // Clean FIITJEE watermarks and diagonal patterns
-      qids: qids
+      qids: qids,
+      crops: qs.map(q => ({ id: q.id, crop: q.crop })).filter(c => c.crop)
     });
 
     const isLocalhost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
@@ -7366,85 +7471,67 @@ async function buildCustomSheet(customQs){
       }
     }
 
-    if (!resp) {
-      // Seamless online fallback: no local/cloud server reachable, compile test sheet purely in browser
-      console.log('No backend server reachable. Compiling test sheet directly in browser (client-side)...');
-      clearInterval(timerInterval);
-      if(pStage) pStage.textContent = 'Compiling test sheet directly in browser...';
-      if(pDetail) pDetail.textContent = 'Rendering A4 question pages and hydrating figures...';
-      if(pBar) pBar.style.width = '60%';
-      if(pPct) pPct.textContent = '60%';
+    // Render the practice sheet preview in the browser
+    clearInterval(timerInterval);
+    if(pStage) pStage.textContent = 'Rendering test sheet in browser...';
+    if(pDetail) pDetail.textContent = 'Formatting A4 pages, question crops, and answer key...';
+    if(pBar) pBar.style.width = '70%';
+    if(pPct) pPct.textContent = '70%';
 
-      const frame = $('#sheetPdfFrame');
-      if(frame) frame.style.display = 'none';
-      const container = $('#sheetDocContainer');
-      if(container) container.style.display = 'block';
+    const frame = $('#sheetPdfFrame');
+    if(frame) frame.style.display = 'none';
+    const container = $('#sheetDocContainer');
+    if(container) container.style.display = 'block';
 
-      show('scrSheetView');
-      await renderSheetDoc(qs, {
-        title: title,
-        subtitle: subtitle,
-        pattern: tbCfg.pattern,
-        timeLimit: (tbCfg.pattern === 'main' ? 180 : (qs.length * 3)),
-        includeKey: true,
-        includeSol: includeSol,
-        noWatermark: true
-      }, (done, total) => {
-        const pct = Math.max(10, Math.round((done / Math.max(total, 1)) * 100));
-        if(pBar) pBar.style.width = pct + '%';
-        if(pPct) pPct.textContent = pct + '%';
-        if(pStage) pStage.textContent = `Loading figures (${done} / ${total})...`;
-      });
+    show('scrSheetView');
+    await renderSheetDoc(qs, {
+      title: title,
+      subtitle: subtitle,
+      candName: $('#tbCandName') ? $('#tbCandName').value.trim() : '',
+      pattern: tbCfg.pattern,
+      timeLimit: $('#tbTimeLimit') ? +($('#tbTimeLimit').value) : (tbCfg.pattern === 'main' ? 180 : (qs.length * 3)),
+      includeKey: true,
+      includeSol: includeSol,
+      noWatermark: true
+    }, (done, total) => {
+      const pct = Math.max(10, Math.round((done / Math.max(total, 1)) * 100));
+      if(pBar) pBar.style.width = pct + '%';
+      if(pPct) pPct.textContent = pct + '%';
+      if(pStage) pStage.textContent = `Loading figures (${done} / ${total})...`;
+    });
 
-      $('#sheetDocTitle').textContent = title + ' (' + qs.length + ' Questions)';
+    if (resp) {
+      try {
+        const data = await resp.json();
+        if(data && data.ok){
+          const fullPdfUrl = (data.pdfUrl.startsWith('http') ? data.pdfUrl : (usedBaseUrl + data.pdfUrl));
+          tbCfg.lastStudentPdfUrl = data.studentPdfUrl ? (data.studentPdfUrl.startsWith('http') ? data.studentPdfUrl : (usedBaseUrl + data.studentPdfUrl)) : null;
+          tbCfg.lastAnswerKeyPdfUrl = data.keyPdfUrl ? (data.keyPdfUrl.startsWith('http') ? data.keyPdfUrl : (usedBaseUrl + data.keyPdfUrl)) : null;
+          tbCfg.lastFullPdfUrl = fullPdfUrl;
+          tbCfg.studentFilename = data.studentFilename || 'practice_sheet_student_copy.pdf';
+          tbCfg.keyFilename = data.keyFilename || 'practice_sheet_answer_key.pdf';
+          const tabBtn = $('#sheetOpenTabBtn');
+          if(tabBtn) tabBtn.href = fullPdfUrl;
+          saveTbTestToArchive({ isGenerated: true, pdfUrl: fullPdfUrl, filename: data.filename || 'practice_sheet.pdf' });
+        }
+      } catch(e) {
+        console.warn('Backend PDF JSON parse note:', e);
+      }
+    } else {
       tbCfg.lastStudentPdfUrl = null;
       tbCfg.lastAnswerKeyPdfUrl = null;
       tbCfg.lastFullPdfUrl = null;
-
-      if(pBar) pBar.style.width = '100%';
-      if(pPct) pPct.textContent = '100%';
-      if(pStage) pStage.textContent = 'Test sheet ready!';
-      if(pDetail) pDetail.textContent = 'Rendered in browser. Click "Download Student Copy" or "Download Answer Key".';
-      $('#tbStatusNote').textContent = 'Test sheet compiled! Ready for Student Copy or Answer Key download.';
       saveTbTestToArchive({ isGenerated: true });
-      recordUsedQuestions(qs);
-      showToast('Practice sheet ready! Click "Download Student Copy" or "Download Answer Key".');
-      return;
-    }
-
-    const data = await resp.json();
-    if(!data.ok){
-      throw new Error(data.error || 'Server error generating vector test');
     }
 
     if(pBar) pBar.style.width = '100%';
     if(pPct) pPct.textContent = '100%';
     if(pStage) pStage.textContent = 'Test sheet ready!';
-    if(pDetail) pDetail.textContent = (usedEndpoint && usedEndpoint.type === 'local') ? ('Generated via fast local engine in ' + (data.durationSeconds || '1') + 's') : 'Loading vector PDF preview...';
-
-    const fullPdfUrl = (data.pdfUrl.startsWith('http') ? data.pdfUrl : (usedBaseUrl + data.pdfUrl));
-    tbCfg.lastStudentPdfUrl = data.studentPdfUrl ? (data.studentPdfUrl.startsWith('http') ? data.studentPdfUrl : (usedBaseUrl + data.studentPdfUrl)) : null;
-    tbCfg.lastAnswerKeyPdfUrl = data.keyPdfUrl ? (data.keyPdfUrl.startsWith('http') ? data.keyPdfUrl : (usedBaseUrl + data.keyPdfUrl)) : null;
-    tbCfg.lastFullPdfUrl = fullPdfUrl;
-    tbCfg.studentFilename = data.studentFilename || 'practice_sheet_student_copy.pdf';
-    tbCfg.keyFilename = data.keyFilename || 'practice_sheet_answer_key.pdf';
-
-    const frame = $('#sheetPdfFrame');
-    if(frame){
-      frame.style.display = 'block';
-      frame.src = fullPdfUrl + '#toolbar=1&navpanes=0&view=FitH';
-    }
-    const container = $('#sheetDocContainer');
-    if(container) container.style.display = 'none';
-
-    const tabBtn = $('#sheetOpenTabBtn');
-    if(tabBtn) tabBtn.href = fullPdfUrl;
-    $('#sheetDocTitle').textContent = title + ' (' + data.totalQuestions + ' Qs, ' + data.totalPages + ' Pages)';
-
-    $('#tbStatusNote').textContent = 'Vector PDF created successfully! (' + data.totalQuestions + ' Qs, ' + data.totalPages + ' pages)';
-    saveTbTestToArchive({ isGenerated: true, pdfUrl: fullPdfUrl, filename: data.filename || 'practice_sheet.pdf' });
-    show('scrSheetView');
-    showToast('Vector test sheet ready! Preview loaded below.');
+    if(pDetail) pDetail.textContent = 'Rendered in browser. Click "Download Student Copy" or "Download Answer Key".';
+    $('#sheetDocTitle').textContent = title + ' (' + qs.length + ' Questions)';
+    $('#tbStatusNote').textContent = 'Test sheet compiled! Ready for Student Copy or Answer Key download.';
+    recordUsedQuestions(qs);
+    showToast('Practice sheet ready! Click "Download Student Copy" or "Download Answer Key".');
   } catch(err){
     console.error('Vector sheet build error:', err);
     alert('Error generating vector test sheet: ' + err.message + '\n\nPlease ensure the local server or cloud engine is running.');
@@ -7462,17 +7549,6 @@ async function buildCustomSheet(customQs){
 }
 
 function downloadOrPrintStudentCopy(){
-  if(tbCfg.lastStudentPdfUrl){
-    const a = document.createElement('a');
-    a.href = tbCfg.lastStudentPdfUrl + (tbCfg.lastStudentPdfUrl.includes('?') ? '&' : '?') + 'download=1';
-    a.download = tbCfg.studentFilename || 'practice_sheet_student_copy.pdf';
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => a.remove(), 400);
-    showToast('Downloaded Student Copy (Questions Only)!');
-    return;
-  }
-  // Browser print fallback: strictly print questions only, omit answer key
   document.body.classList.remove('print-mode-key');
   document.body.classList.add('print-mode-student');
   window.print();
@@ -7482,17 +7558,6 @@ function downloadOrPrintStudentCopy(){
 }
 
 function downloadOrPrintAnswerKey(){
-  if(tbCfg.lastAnswerKeyPdfUrl){
-    const a = document.createElement('a');
-    a.href = tbCfg.lastAnswerKeyPdfUrl + (tbCfg.lastAnswerKeyPdfUrl.includes('?') ? '&' : '?') + 'download=1';
-    a.download = tbCfg.keyFilename || 'practice_sheet_answer_key.pdf';
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => a.remove(), 400);
-    showToast('Downloaded Answer Key (Evaluation Copy)!');
-    return;
-  }
-  // Browser print fallback: strictly print answer key only, omit questions
   document.body.classList.remove('print-mode-student');
   document.body.classList.add('print-mode-key');
   window.print();
@@ -7503,20 +7568,6 @@ function downloadOrPrintAnswerKey(){
 
 function printCompletePaper(){
   document.body.classList.remove('print-mode-student', 'print-mode-key');
-  if(tbCfg.lastFullPdfUrl){
-    const a = document.createElement('a');
-    a.href = tbCfg.lastFullPdfUrl + (tbCfg.lastFullPdfUrl.includes('?') ? '&' : '?') + 'download=1';
-    a.download = 'practice_sheet_complete.pdf';
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => a.remove(), 400);
-    showToast('Downloaded Complete Paper (Questions + Key)!');
-    return;
-  }
-  const frame = $('#sheetPdfFrame');
-  if(frame && frame.style.display !== 'none' && frame.contentWindow){
-    try { frame.contentWindow.focus(); frame.contentWindow.print(); return; } catch(e){}
-  }
   window.print();
 }
 
@@ -8373,30 +8424,13 @@ async function renderAllenSheetDoc(rawQs, opts, onProgress){
   const qs = sortQuestionsByPattern(rawQs);
   const testTitle = (opts.title || '').trim() || 'Practice Sheet';
   const testSubtitle = (opts.subtitle || '').trim();
-  const isSingleCol = true; // Allen sheets are formatted strictly in single-column vector format
+  const timeLimit = opts.timeLimit > 0 ? opts.timeLimit : (qs.length * 2);
+  const candName = (opts.candName || ($('#tbCandName') ? $('#tbCandName').value : '') || '').trim();
+  const totalMarks = qs.length * 4;
 
   $('#sheetDocTitle').textContent = testTitle + ' (' + qs.length + ' Qs - Single Column Vector)';
   const container = $('#sheetDocContainer');
   container.innerHTML = '';
-
-  const totalMarks = qs.length * 4;
-
-  const colClass = isSingleCol ? 'allen-columns-single' : 'allen-columns';
-  const qitemClass = isSingleCol ? 'allen-qitem-single' : 'allen-qitem';
-
-  let html = '<div class="allen-sheet-page">' +
-    '<div class="allen-hdr-box">' +
-      '<div class="allen-hdr-title">' + esc(testTitle) + '</div>' +
-      (testSubtitle ? '<div class="allen-hdr-sub">' + esc(testSubtitle) + '</div>' : '') +
-      '<div class="allen-hdr-grid">' +
-        '<div><b>Candidate Name:</b> <span class="allen-hdr-line"></span></div>' +
-        '<div><b>Roll No.:</b> <span class="allen-hdr-line" style="width:90px"></span></div>' +
-        '<div><b>Time:</b> ' + (opts.timeLimit > 0 ? opts.timeLimit + ' Min' : (qs.length * 3) + ' Min') + '</div>' +
-        '<div><b>Max Marks:</b> ' + totalMarks + '</div>' +
-        '<div><b>Questions:</b> ' + qs.length + '</div>' +
-      '</div>' +
-    '</div>' +
-    '<div class="' + colClass + '">';
 
   const SECTION_TITLES = {
     single: 'SECTION 1: SINGLE CORRECT OPTION',
@@ -8417,8 +8451,9 @@ async function renderAllenSheetDoc(rawQs, opts, onProgress){
   });
 
   const keyRows = [];
-  let currentSec = null;
+  const qElements = [];
   const drawnParas = new Set();
+  let currentSec = null;
 
   qs.forEach((q, idx) => {
     const qNum = idx + 1;
@@ -8428,14 +8463,17 @@ async function renderAllenSheetDoc(rawQs, opts, onProgress){
     const isPara = !!(q.paragraph || q.type === 'paragraph');
     const qSec = isPara ? 'paragraph' : (q.type || 'single');
 
-    // Section Header Banner if pattern changes
+    let sectionHtml = '';
+    let sectionH = 0;
     if(qSec !== currentSec){
       currentSec = qSec;
       const secTitle = SECTION_TITLES[currentSec] || ('SECTION: ' + currentSec.toUpperCase());
-      html += '<div class="allen-section-banner">' + esc(secTitle) + '</div>';
+      sectionHtml = '<div class="allen-section-banner">' + esc(secTitle) + '</div>';
+      sectionH = 26;
     }
 
-    // Passage Card if entering a new paragraph group
+    let passHtml = '';
+    let passH = 0;
     const pid = q.paragraphId || q.id;
     if(isPara && pid && !drawnParas.has(pid)){
       drawnParas.add(pid);
@@ -8447,15 +8485,16 @@ async function renderAllenSheetDoc(rawQs, opts, onProgress){
       const passImgs = (q.passageImages || []).filter(Boolean);
       let passContent = '';
       if(passImgs.length){
-        passContent = passImgs.map(u => imageMarkup(u, 'Passage figure', 'test-builder-svg')).join('');
+        passContent = passImgs.map(u => imageMarkup(u, 'Passage figure', 'test-builder-svg', q.crop)).join('');
       } else if(q.passageText){
         passContent = '<div style="font-size:9pt;line-height:1.4">' + rich(stripWatermarks(q.passageText)) + '</div>';
       }
 
-      html += '<div class="allen-passage-card">' +
+      passHtml = '<div class="allen-passage-card">' +
         '<div class="allen-passage-hdr">' + esc(headerTxt) + '</div>' +
         '<div class="allen-passage-body">' + passContent + '</div>' +
       '</div>';
+      passH = 90;
     }
 
     const { stem, options } = cleanAllenQuestion(q.text || '');
@@ -8465,7 +8504,6 @@ async function renderAllenSheetDoc(rawQs, opts, onProgress){
     if(effOpts && effOpts.length){
       const isShort = effOpts.every(o => o.length <= 16);
       const isMedium = effOpts.every(o => o.length <= 36);
-
       if(isShort){
         optsHtml = '<div class="allen-opts-inline">' +
           effOpts.map((opt, oIdx) => '<span><b>(' + (oIdx + 1) + ')</b> ' + rich(opt) + '</span>').join('') +
@@ -8485,37 +8523,103 @@ async function renderAllenSheetDoc(rawQs, opts, onProgress){
     const hasImgs = qImgs.length > 0;
     const imgsHtml = qImgs.map(u => {
       const markup = imageMarkup(u, 'Question figure', 'test-builder-svg', q.crop);
-      const fallbackStr = encodeURIComponent('<span class="allen-qstem" style="padding-left:22pt;display:block">' + rich(stem) + '</span>' + optsHtml);
+      const fallbackStr = encodeURIComponent('<div class="allen-qstem" style="display:block">' + rich(stem) + '</div>' + optsHtml);
       return markup.replace('<img ', '<img data-fallback="' + fallbackStr + '" ');
     }).join('');
 
+    let qItemHtml = '';
     if(hasImgs){
-      html += '<div class="' + qitemClass + '" style="position:relative">' +
-        '<span class="allen-qnum" style="position:absolute;left:0;top:1px;font-weight:700;font-size:9pt;line-height:1;color:#000000;z-index:2">' + qNum + '.</span>' +
-        '<div class="allen-qsvg-wrap" style="width:100%">' + imgsHtml + '</div>' +
+      qItemHtml = '<div class="allen-qitem-single">' +
+        '<span class="allen-qnum">' + qNum + '.</span>' +
+        '<div class="allen-qsvg-wrap">' + imgsHtml + '</div>' +
       '</div>';
     } else {
-      html += '<div class="' + qitemClass + '">' +
-        '<div style="display:flex;align-items:flex-start;gap:4pt;width:100%">' +
-          '<span class="allen-qnum" style="flex:0 0 auto;font-weight:700;line-height:1.2;padding-top:2px">' + qNum + '.</span>' +
-          '<div style="flex:1;min-width:0">' +
-            '<span class="allen-qstem">' + rich(stem) + '</span>' + optsHtml +
-          '</div>' +
+      qItemHtml = '<div class="allen-qitem-single">' +
+        '<span class="allen-qnum">' + qNum + '.</span>' +
+        '<div class="allen-qsvg-wrap">' +
+          '<div class="allen-qstem">' + rich(stem) + '</div>' + optsHtml +
         '</div>' +
       '</div>';
     }
+
+    let estH = 55;
+    if(q.segments && q.segments[0] && q.segments[0].length >= 5){
+      estH = Math.max(30, q.segments[0][4] - q.segments[0][2]);
+    } else if(hasImgs){
+      estH = 95;
+    } else {
+      estH = 30 + Math.ceil((q.text || '').length / 60) * 14 + (effOpts.length * 14);
+    }
+
+    qElements.push({
+      html: sectionHtml + passHtml + qItemHtml,
+      height: estH + sectionH + passH + 14
+    });
   });
 
-  html += '</div>'; // closes colClass
-  html += '</div>'; // closes student copy .allen-sheet-page
+  const P1_LIMIT = 720;
+  const SUB_LIMIT = 780;
+
+  const pageGroups = [];
+  let curGroup = [];
+  let curH = 0;
+  let curMaxH = P1_LIMIT;
+
+  qElements.forEach((item) => {
+    if(curGroup.length > 0 && (curH + item.height > curMaxH)){
+      pageGroups.push(curGroup);
+      curGroup = [item];
+      curH = item.height;
+      curMaxH = SUB_LIMIT;
+    } else {
+      curGroup.push(item);
+      curH += item.height;
+    }
+  });
+  if(curGroup.length > 0){
+    pageGroups.push(curGroup);
+  }
+
+  const totalSheetPages = pageGroups.length + (opts.includeKey !== false ? 1 : 0);
+
+  let fullHtml = '';
+  pageGroups.forEach((group, pIdx) => {
+    const pNum = pIdx + 1;
+    const isFirst = (pNum === 1);
+
+    fullHtml += '<div class="allen-sheet-page" data-page="' + pNum + '">';
+
+    if(isFirst){
+      fullHtml += '<div class="allen-hdr-box">' +
+        '<div class="allen-hdr-title">' + esc(testTitle.toUpperCase()) + '</div>' +
+        '<div class="allen-hdr-sub">' + esc(testSubtitle || (qs.length + ' Questions | Max Marks: ' + totalMarks + ' | Time: ' + timeLimit + ' Mins')) + '</div>' +
+        '<div class="allen-hdr-grid">' +
+          '<div><b>Candidate Name:</b> <span class="allen-hdr-line">' + esc(candName) + '</span></div>' +
+          '<div><b>Roll No.:</b> <span class="allen-hdr-line" style="width:110px"></span></div>' +
+        '</div>' +
+      '</div>';
+    }
+
+    fullHtml += '<div class="allen-columns-single">' +
+      group.map(it => it.html).join('') +
+    '</div>';
+
+    fullHtml += '<div class="allen-page-footer">' +
+      '<span>' + esc(testTitle) + '</span>' +
+      '<span>Page ' + pNum + ' of ' + totalSheetPages + '</span>' +
+    '</div>';
+
+    fullHtml += '</div>';
+  });
 
   if(opts.includeKey !== false && keyRows.length){
-    html += '<div class="allen-sheet-page allen-ans-page">' +
-      '<div class="allen-hdr-box" style="margin-bottom:12pt">' +
-        '<div class="allen-hdr-title">' + esc(testTitle) + ' - ANSWER KEY</div>' +
-        '<div class="allen-hdr-sub">Teacher / Evaluation Key | Total Questions: ' + qs.length + '</div>' +
+    const keyPageNum = pageGroups.length + 1;
+    fullHtml += '<div class="allen-sheet-page allen-ans-page" data-page="key">' +
+      '<div class="allen-ans-header-bar">' +
+        '<span>' + esc(testTitle.toUpperCase()) + ' &mdash; ANSWER KEY</span>' +
+        '<span style="font-size:8.5pt;font-weight:600">Total Questions: ' + qs.length + '</span>' +
       '</div>' +
-      '<div class="allen-ans-box" style="margin-top:0">' +
+      '<div class="allen-ans-box">' +
         '<table class="allen-key-tbl">' +
           '<thead><tr>' +
             '<th>Que.</th><th>Ans.</th><th>Que.</th><th>Ans.</th><th>Que.</th><th>Ans.</th><th>Que.</th><th>Ans.</th><th>Que.</th><th>Ans.</th>' +
@@ -8525,189 +8629,31 @@ async function renderAllenSheetDoc(rawQs, opts, onProgress){
     const cols = 5;
     for(let i = 0; i < keyRows.length; i += cols){
       const chunk = keyRows.slice(i, i + cols);
-      html += '<tr>';
+      fullHtml += '<tr>';
       for(let c = 0; c < cols; c++){
         const item = chunk[c] || {num: '', ans: ''};
-        html += '<td class="allen-k-q">' + (item.num || '') + '</td>' +
-                '<td class="allen-k-a">' + (item.ans || '') + '</td>';
+        fullHtml += '<td class="allen-k-q">' + (item.num || '') + '</td>' +
+                    '<td class="allen-k-a">' + (item.ans || '') + '</td>';
       }
-      html += '</tr>';
+      fullHtml += '</tr>';
     }
 
-    html += '</tbody></table></div></div>';
+    fullHtml += '</tbody></table>' +
+      '</div>' +
+      '<div class="allen-page-footer">' +
+        '<span>' + esc(testTitle) + ' &mdash; Answer Key</span>' +
+        '<span>Page ' + keyPageNum + ' of ' + totalSheetPages + ' (Answer Key)</span>' +
+      '</div>' +
+    '</div>';
   }
 
-  container.innerHTML = html;
+  container.innerHTML = fullHtml;
   await hydrateZipImages(container, onProgress);
   typeset(container);
 }
 
 async function renderSheetDoc(qs, opts, onProgress){
-  const hasMs = qs.some(q => q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_')));
-  const isAllen = qs.length > 0 && (
-    tbCfg.sourceTab === 'allen' ||
-    (tbCfg.papers && tbCfg.papers.has('allen') && tbCfg.papers.size === 1) ||
-    qs.every(q => q.paper === 'allen' || q.paper === 'allen_jee' || (q.id && (String(q.id).startsWith('allenchem_') || String(q.id).startsWith('allenjee_')))) ||
-    (qs.filter(q => q.paper === 'allen' || q.paper === 'allen_jee' || (q.id && (String(q.id).startsWith('allenchem_') || String(q.id).startsWith('allenjee_')))).length >= qs.length / 2)
-  );
-
-  if(isAllen || hasMs || tbCfg.sourceTab === 'mschouhan'){
-    return renderAllenSheetDoc(qs, opts, onProgress);
-  }
-
-  $('#sheetDocTitle').textContent = opts.title + ' (' + qs.length + ' Qs)';
-  const container = $('#sheetDocContainer');
-  container.innerHTML = '';
-
-  // Group questions by section
-  const sections = [];
-  const secMap = new Map();
-  qs.forEach(q => {
-    const isParaQ = !!(q.paragraph || q.type === 'paragraph');
-    const effType = isParaQ ? 'paragraph' : (q.rawType || q.type);
-    const secLabel = isParaQ ? 'Comprehension' : (SECLBL[effType] || SECLBL[q.type] || 'Questions');
-    const secKey = (effType === 'numerical' ? 'Numerical' : 'MCQ');
-    if(!secMap.has(secKey)){
-      secMap.set(secKey, {title: secKey, qs: []});
-      sections.push(secMap.get(secKey));
-    }
-    secMap.get(secKey).qs.push(q);
-  });
-
-  // Calculate total marks based on pattern
-  const preset = PRESETS[opts.pattern] || PRESETS.adv;
-  const totalMarks = qs.reduce((acc, q) => {
-    const isParaQ = !!(q.paragraph || q.type === 'paragraph');
-    const t = isParaQ ? 'paragraph' : (q.rawType || q.type);
-    return acc + ((preset[t] || preset.single).c || 3);
-  }, 0);
-
-  // Distinct subjects and chapters
-  const subjs = [...new Set(qs.map(q => q.subject))].join(', ');
-  const chaps = [...new Set(qs.map(q => q.chapter))];
-  const chapsText = chaps.length <= 4 ? chaps.join(', ') : chaps.slice(0, 3).join(', ') + ' &amp; ' + (chaps.length - 3) + ' more';
-
-  let qGlobalNum = 1;
-  const keyRows = [];
-  const solRows = [];
-
-  // PAGE 1: COVER & FIRST SECTION
-  let html = '<div class="sheet-page" data-page="1">' +
-    '<h1 class="sheet-cover-title" style="margin-bottom:14pt;font-size:24pt;font-weight:800;letter-spacing:1px;color:#123361;border-bottom:1.5pt solid #123361;padding-bottom:8pt;">' + esc((subjs || 'Chemistry').toUpperCase()) + '</h1>';
-
-  sections.forEach(sec => {
-    html += '<div class="sheet-sec-hdr">' +
-      '<div class="sheet-sec-lines"><div class="sheet-sec-lines-top"></div><div class="sheet-sec-lines-bot"></div></div>' +
-      '<div class="sheet-sec-title">' + esc(sec.title) + '</div>' +
-    '</div>';
-
-    sec.qs.forEach(q => {
-      const qNum = qGlobalNum++;
-      const qLabel = 'Q' + qNum;
-      const tag = cleanSourceTag(q);
-      const ansKey = keyText(q);
-      keyRows.push({num: qLabel, ans: ansKey || '&mdash;'});
-
-      const hasPassageImgs = !!(q.paragraph && q.passageImages && q.passageImages.length);
-      const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
-      const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure', 'test-builder-svg', q.crop)).join('');
-      const hasImgs = !!(imgsHtml || hasPassageImgs);
-
-      let qText = opts.noWatermark ? stripWatermarks(q.text) : (q.text || '');
-      let passageHtml = '';
-      if(q.paragraph && (hasPassageImgs || q.passageText)){
-        passageHtml = '<div style="margin-bottom:8pt;padding:6pt 10pt;background:#f8f9fa;border-left:3pt solid #1a3a5c;font-size:9pt">' +
-          '<b style="color:#1a3a5c">Paragraph for Question Nos. ' + qNum + ':</b>' +
-          (!hasPassageImgs && q.passageText ? '<div>' + rich(stripWatermarks(q.passageText)) + '</div>' : '') +
-          (hasPassageImgs ? q.passageImages.map(u => imageMarkup(u, 'Passage figure', 'test-builder-svg', q.crop)).join('') : '') +
-        '</div>';
-      }
-
-      let optsHtml = '';
-      if(!hasImgs && q.options && q.options.length && !String(qText).includes('(1)') && !String(qText).includes('(A)')){
-        optsHtml = '<div class="sheet-opts" style="display:grid;grid-template-columns:1fr 1fr;gap:4pt 12pt;margin:6pt 0;font-size:9pt">' +
-          q.options.map((opt, oIdx) => '<div><b>(' + (oIdx + 1) + ')</b> ' + rich(stripWatermarks(opt)) + '</div>').join('') +
-        '</div>';
-      }
-
-      html += '<div class="sheet-qrow">' +
-        '<div class="sheet-qlab-col">' +
-          '<div class="sheet-qlab">' + esc(qLabel) + '</div>' +
-        '</div>' +
-        '<div class="sheet-qbody-col">' +
-          passageHtml +
-          (!hasImgs && qText ? '<div class="sheet-qbody-text">' + rich(qText) + '</div>' : '') +
-          optsHtml +
-          imgsHtml +
-        '</div>' +
-      '</div>';
-
-      const solImgs = q.solImages || q.solution_images || [];
-      if(opts.includeSol && (q.solution || solImgs.length)){
-        solRows.push({num: qLabel, tag, q, solText: opts.noWatermark ? stripWatermarks(q.solution) : (q.solution || ''), solImgs: solImgs});
-      }
-    });
-  });
-
-  html += '<div class="sheet-page-footer">Sheet Page 1</div></div>';
-
-  // ANSWER KEY PAGE (Exact build_sheets.py 5-column grid)
-  if(opts.includeKey && keyRows.length){
-    html += '<div class="sheet-page sheet-ans-section" data-page="ans">' +
-      '<div class="sheet-sec-hdr">' +
-        '<div class="sheet-sec-lines"><div class="sheet-sec-lines-top"></div><div class="sheet-sec-lines-bot"></div></div>' +
-        '<div class="sheet-sec-title">Answer Key</div>' +
-      '</div>' +
-      '<table class="sheet-key-table">' +
-        '<thead><tr>' +
-          '<th>Q</th><th>Ans</th><th>Q</th><th>Ans</th><th>Q</th><th>Ans</th><th>Q</th><th>Ans</th><th>Q</th><th>Ans</th>' +
-        '</tr></thead>' +
-        '<tbody>';
-
-    const cols = 5;
-    for(let i = 0; i < keyRows.length; i += cols){
-      const chunk = keyRows.slice(i, i + cols);
-      html += '<tr>';
-      for(let c = 0; c < cols; c++){
-        const item = chunk[c] || {num: '', ans: ''};
-        html += '<td class="sheet-key-q">' + (item.num ? esc(item.num) : '') + '</td>' +
-                '<td class="sheet-key-ans">' + (item.ans ? esc(item.ans) : '') + '</td>';
-      }
-      html += '</tr>';
-    }
-
-    html += '</tbody></table>' +
-      '<div class="sheet-page-footer">Answer Key</div>' +
-    '</div>';
-  }
-
-  // SOLUTIONS PAGE(S)
-  if(opts.includeSol && solRows.length){
-    html += '<div class="sheet-page sheet-sol-section" data-page="sol">' +
-      '<div class="sheet-sec-hdr">' +
-        '<div class="sheet-sec-lines"><div class="sheet-sec-lines-top"></div><div class="sheet-sec-lines-bot"></div></div>' +
-        '<div class="sheet-sec-title">Solutions</div>' +
-      '</div>';
-
-    solRows.forEach(item => {
-      const imgs = item.solImgs.map(u => imageMarkup(u, 'Solution figure', 'test-builder-svg')).join('');
-      html += '<div class="sheet-sol-item">' +
-        '<div class="sheet-qlab-col">' +
-          '<div class="sheet-qlab">' + esc(item.num) + '</div>' +
-        '</div>' +
-        '<div class="sheet-sol-body">' +
-          (item.solText ? '<div style="margin-bottom:6pt">' + rich(item.solText) + '</div>' : '') +
-          imgs +
-        '</div>' +
-      '</div>';
-    });
-
-    html += '<div class="sheet-page-footer">Worked Solutions</div></div>';
-  }
-
-  container.innerHTML = html;
-  await hydrateZipImages(container, onProgress);
-  typeset(container);
+  return renderAllenSheetDoc(qs, opts, onProgress);
 }
 
 function startCbtFromBuilder(){
