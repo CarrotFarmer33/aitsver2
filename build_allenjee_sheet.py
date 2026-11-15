@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
 """
-build_allenjee_sheet.py - Uniform 2-Column Compact Test Sheet Generator for Allen JEE Chemistry (O-1 & O-2).
+build_allenjee_sheet.py - Uniform Single-Column Compact Test Sheet Generator for Allen JEE Chemistry (O-1 & O-2).
 
-Matches the authentic, compact, uniform 2-column layout of the NEET sheets:
-1. Uniform 2-Column Layout: Questions scale uniformly to fit 258 pt columns with a vertical dividing line.
-2. Tight Content Trimming: Eliminates wasteful trailing space by computing the exact lowest text/draw coordinate
+Matches the authentic, clean, uniform single-column layout of the reference student test:
+1. Pure Single-Column Layout: Questions span the full readable width (~507 pt) at 1:1 natural vector scale.
+2. 100% Uniform Font Size: Every question is rendered without scaling distortion, ensuring small,
+   aligned, and uniform text and formulas across all pages.
+3. Tight Content Trimming: Eliminates wasteful trailing space by computing the exact lowest text/draw coordinate
    and clamping to any subsequent question/paragraph boundary.
-3. Clean Vector Redactions: Completely redacts original question numbers and Allen codes (e.g. CK0105, IG0065, AE0048, CBO0027).
-4. Sequential Renumbering: (1., 2., 3... N) dynamically inserted at the top-left of each question.
-5. Header Box on Page 1: Chapter Name, Candidate Name, Roll No, Question Count, Marks.
-6. Structured 5-Block Table for Answer Key on final page.
-7. Pure Vector Output: Zero rasterization, preserving crisp vector quality.
+4. Clean Vector Redactions: Completely redacts original question numbers and Allen codes (e.g. CK0105, CBO0018, TE0058, CC0020).
+5. Sequential Renumbering: (1., 2., 3... N) dynamically inserted at the left margin (x = 26.0 pt).
+6. Header Box on Page 1: Space for Title, Candidate Name, Roll No, Question Count, Marks.
+7. Subsequent Pages: Questions start right away at the top inside the outer border for maximum compactness.
+8. Structured 5-Block Table for Answer Key on final page.
+9. Pure Vector Output: Zero rasterization, preserving crisp vector quality.
 """
 
 import argparse
@@ -38,29 +41,24 @@ if not os.path.exists(DB_PATH):
     if os.path.exists(alt_db):
         DB_PATH = alt_db
 
-# 2-Column Page Layout Geometry (Identical to NEET sheets)
+# Single-Column Page Layout Geometry (Identical to student test reference)
 PW, PH = 595.0, 842.0
-MX = 24.0               # Compact 24 pt outer margin
-COL_W = 258.0           # Width of each column (258 * 2 + 31 = 547; 595 - 48 = 547)
-COL1_X0 = MX            # Left column: 24.0 -> 282.0
-CENTER_X = 297.5        # Center dividing line
-COL2_X0 = 313.0         # Right column: 313.0 -> 571.0
-
-# Legacy exports for backwards compatibility
+MX = 36.0               # Outer margin
 COL_X0 = 45.0
 COL_X1 = 552.0
-HEADER_Y_CUT = 50.0
-FOOTER_Y_CUT = 790.0
-P1_Y_START = 76.0
-SUB_Y_START = 26.0
+COL_W = COL_X1 - COL_X0 # 507.0 pt
 
-P1_HEADER_TOP = 18.0
-P1_HEADER_BOT = 68.0
-P1_COL_Y_START = 76.0   # Questions start below header on Page 1
-SUB_COL_Y_START = 26.0  # Questions start at top on Page 2+
+P1_HEADER_TOP = 22.0
+P1_HEADER_BOT = 74.0
+P1_Y_START = 82.0
+SUB_Y_START = 28.0
 COL_Y_END = 804.0
 FOOTER_Y = 814.0
-GAP_Q = 6.0
+GAP_Q = 8.0
+
+# Legacy constants for compatibility
+HEADER_Y_CUT = 50.0
+FOOTER_Y_CUT = 790.0
 
 SECTION_ORDER = {'single': 0, 'numerical': 1, 'multi': 2, 'paragraph': 3, 'matrix': 4}
 SECTION_TITLES = {
@@ -88,7 +86,7 @@ def clean_source_page(page):
     words = page.get_text("words")
     for w in words:
         text = w[4].strip()
-        # Allen question code (e.g. CK0105, IG0065, AE0048, CBO0027, QN0001)
+        # Allen question code (e.g. CK0105, IG0065, AE0048, CBO0027, QN0001, CBO0018, TE0058, CC0020)
         if CODE_RE.fullmatch(text):
             page.add_redact_annot(fitz.Rect(w[0] - 1.5, w[1] - 1.5, w[2] + 2.0, w[3] + 1.5), fill=False)
         # Original question number at left margin
@@ -103,7 +101,7 @@ def clean_source_page(page):
                     end_x = w[0] + (w[2] - w[0]) * ratio
                     page.add_redact_annot(fitz.Rect(w[0] - 2.0, w[1] - 1.5, end_x, w[3] + 1.5), fill=False)
 
-    # Running headers & margin node markers
+    # Running headers, footers & margin node markers
     for b in page.get_text("blocks"):
         r = fitz.Rect(b[:4])
         t = b[4].strip()
@@ -120,55 +118,39 @@ def clean_source_doc(doc):
     for p in doc:
         clean_source_page(p)
 
-def add_sheet_page(doc, title="CHEMISTRY PRACTICE TEST", is_first_page=False, total_questions=20, cand_name=None, time_limit=90, subtitle=""):
+def add_sheet_page(doc, title="PRACTICE SHEET", is_first_page=False, total_questions=20, cand_name=None, time_limit=90, subtitle=""):
     page = doc.new_page(width=PW, height=PH)
 
+    # Outer page border (exact match to student test reference)
+    page.draw_rect(fitz.Rect(18, 18, PW - 18, PH - 18), color=(0.2, 0.2, 0.2), width=0.75)
+
     if is_first_page:
-        # Header Box matching NEET aesthetic
-        page.draw_rect(fitz.Rect(MX, P1_HEADER_TOP, PW - MX, P1_HEADER_BOT), color=(0.12, 0.22, 0.45), fill=(0.96, 0.98, 1.0), width=0.8)
-        page.insert_text(fitz.Point(MX + 10, P1_HEADER_TOP + 13), "PRACTICE TEST", fontsize=8.5, fontname="hebo", color=(0.12, 0.22, 0.45))
+        # Header Box matching student test reference
+        hb = fitz.Rect(24, P1_HEADER_TOP, PW - 24, P1_HEADER_BOT)
+        page.draw_rect(hb, color=(0.1, 0.2, 0.4), fill=(0.96, 0.97, 0.99), width=1.0)
+        disp_title = (title if title else "PRACTICE SHEET").upper()
+        page.insert_text(fitz.Point(32, P1_HEADER_TOP + 15), disp_title, fontsize=11, fontname="hebo", color=(0.08, 0.18, 0.38))
+        if subtitle:
+            sub = subtitle
+        else:
+            sub = f"{total_questions} Questions | Max Marks: {total_questions * 4} | Time: {time_limit} Mins"
+        page.insert_text(fitz.Point(32, P1_HEADER_TOP + 28), sub, fontsize=8, fontname="helv", color=(0.3, 0.3, 0.3))
 
-        title_disp = title.upper() if title else "ALLEN JEE PRACTICE TEST"
-        max_marks = total_questions * 4
-        tag_text = f"Questions: {total_questions}  |  Max Marks: {max_marks}"
-        tag_w = fitz.get_text_length(tag_text, fontname="hebo", fontsize=8.5)
-        avail_title_w = (PW - MX - 15 - tag_w) - (MX + 10)
+        c_name = f"Candidate Name: {cand_name if cand_name else '____________________'}"
+        page.insert_text(fitz.Point(32, P1_HEADER_TOP + 42), c_name, fontsize=8, fontname="helv", color=(0.1, 0.1, 0.1))
+        page.insert_text(fitz.Point(320, P1_HEADER_TOP + 42), "Roll No: ________________", fontsize=8, fontname="helv", color=(0.1, 0.1, 0.1))
 
-        font_sz = 10.0
-        while font_sz > 7.5 and fitz.get_text_length(f"TEST: {title_disp}", fontname="hebo", fontsize=font_sz) > avail_title_w:
-            font_sz -= 0.5
-
-        if fitz.get_text_length(f"TEST: {title_disp}", fontname="hebo", fontsize=font_sz) > avail_title_w:
-            while len(title_disp) > 10 and fitz.get_text_length(f"TEST: {title_disp}...", fontname="hebo", fontsize=font_sz) > avail_title_w:
-                title_disp = title_disp[:-1]
-            title_disp = title_disp.rstrip() + "..."
-
-        page.insert_text(fitz.Point(MX + 10, P1_HEADER_TOP + 28), f"TEST: {title_disp}", fontsize=font_sz, fontname="hebo", color=(0.0, 0.0, 0.0))
-        page.insert_text(fitz.Point(PW - MX - 10 - tag_w, P1_HEADER_TOP + 28), tag_text, fontsize=8.5, fontname="hebo", color=(0.25, 0.25, 0.25))
-
-        c_str = f"Candidate Name: {cand_name}   " if cand_name else "Candidate Name: _____________________________________   "
-        page.insert_text(fitz.Point(MX + 10, P1_HEADER_TOP + 43), c_str + "Roll No.: _________________   Score: _____ / " + str(max_marks), fontsize=8.0, fontname="helv", color=(0.3, 0.3, 0.3))
-
-        # Vertical dividing center line
-        page.draw_line(fitz.Point(CENTER_X, P1_COL_Y_START - 4), fitz.Point(CENTER_X, COL_Y_END), color=(0.7, 0.7, 0.7), width=0.5)
-    else:
-        # Vertical dividing center line on subsequent pages
-        page.draw_line(fitz.Point(CENTER_X, SUB_COL_Y_START - 4), fitz.Point(CENTER_X, COL_Y_END), color=(0.7, 0.7, 0.7), width=0.5)
-
-    # Footer line and title
-    page.draw_line(fitz.Point(MX, FOOTER_Y), fitz.Point(PW - MX, FOOTER_Y), color=(0.8, 0.8, 0.8), width=0.5)
-    page.insert_text(fitz.Point(MX, FOOTER_Y + 11), f"Allen JEE Chemistry  •  {title}", fontsize=7.5, fontname="helv", color=(0.45, 0.45, 0.45))
     return page
 
 def draw_answer_key_grid(page, y_start, key_data):
-    """5-Block NEET-style structured table for the answer key."""
-    title_rect = fitz.Rect(MX, y_start, PW - MX, y_start + 18)
-    page.draw_rect(title_rect, color=(0.12, 0.22, 0.45), fill=(0.12, 0.22, 0.45))
-    page.insert_text(fitz.Point(MX + 8, y_start + 13), "ANSWER KEY", fontsize=9.5, fontname="hebo", color=(1, 1, 1))
+    """5-Block structured table for the answer key."""
+    title_rect = fitz.Rect(24, y_start, PW - 24, y_start + 18)
+    page.draw_rect(title_rect, color=(0.1, 0.2, 0.4), fill=(0.1, 0.2, 0.4))
+    page.insert_text(fitz.Point(32, y_start + 13), "ANSWER KEY", fontsize=9.5, fontname="hebo", color=(1, 1, 1))
 
     table_top_y = y_start + 24.0
     num_blocks = 5
-    total_table_w = PW - 2 * MX
+    total_table_w = PW - 48.0
     block_w = total_table_w / num_blocks
     q_col_w = 42.0
     ans_col_w = block_w - q_col_w
@@ -176,60 +158,67 @@ def draw_answer_key_grid(page, y_start, key_data):
     row_h = 20.0
 
     for b_idx in range(num_blocks):
-        bx = MX + b_idx * block_w
+        bx = 24.0 + b_idx * block_w
         q_hdr_rect = fitz.Rect(bx, table_top_y, bx + q_col_w, table_top_y + header_h)
-        page.draw_rect(q_hdr_rect, color=(0.12, 0.22, 0.45), fill=(0.12, 0.22, 0.45), width=0.5)
+        page.draw_rect(q_hdr_rect, color=(0.1, 0.2, 0.4), fill=(0.1, 0.2, 0.4), width=0.5)
         q_tw = fitz.get_text_length("Q.No.", fontname="hebo", fontsize=8.5)
-        page.insert_text(fitz.Point(bx + (q_col_w - q_tw) / 2, table_top_y + 15), "Q.No.", fontsize=8.5, fontname="hebo", color=(1.0, 1.0, 1.0))
+        page.insert_text(fitz.Point(bx + (q_col_w - q_tw) / 2.0, table_top_y + 14.0), "Q.No.", fontsize=8.5, fontname="hebo", color=(1, 1, 1))
 
-        ans_hdr_rect = fitz.Rect(bx + q_col_w, table_top_y, bx + block_w, table_top_y + header_h)
-        page.draw_rect(ans_hdr_rect, color=(0.12, 0.22, 0.45), fill=(0.12, 0.22, 0.45), width=0.5)
-        ans_tw = fitz.get_text_length("Ans", fontname="hebo", fontsize=8.5)
-        page.insert_text(fitz.Point(bx + q_col_w + (ans_col_w - ans_tw) / 2, table_top_y + 15), "Ans", fontsize=8.5, fontname="hebo", color=(1.0, 1.0, 1.0))
+        a_hdr_rect = fitz.Rect(bx + q_col_w, table_top_y, bx + block_w, table_top_y + header_h)
+        page.draw_rect(a_hdr_rect, color=(0.1, 0.2, 0.4), fill=(0.1, 0.2, 0.4), width=0.5)
+        a_tw = fitz.get_text_length("Ans", fontname="hebo", fontsize=8.5)
+        page.insert_text(fitz.Point(bx + q_col_w + (ans_col_w - a_tw) / 2.0, table_top_y + 14.0), "Ans", fontsize=8.5, fontname="hebo", color=(1, 1, 1))
 
-    rows_per_block = math.ceil(len(key_data) / num_blocks)
-    for b_idx in range(num_blocks):
-        bx = MX + b_idx * block_w
-        for r_idx in range(rows_per_block):
-            item_idx = b_idx * rows_per_block + r_idx
-            ry = table_top_y + header_h + r_idx * row_h
-            row_fill = (0.97, 0.98, 1.0) if (r_idx % 2 == 1) else (1.0, 1.0, 1.0)
+    num_rows = math.ceil(len(key_data) / num_blocks)
+    for r_idx in range(num_rows):
+        ry = table_top_y + header_h + r_idx * row_h
+        bg_color = (0.96, 0.97, 0.99) if (r_idx % 2 == 1) else (1.0, 1.0, 1.0)
+
+        for b_idx in range(num_blocks):
+            item_idx = r_idx + b_idx * num_rows
+            bx = 24.0 + b_idx * block_w
+
             q_cell = fitz.Rect(bx, ry, bx + q_col_w, ry + row_h)
-            ans_cell = fitz.Rect(bx + q_col_w, ry, bx + block_w, ry + row_h)
-            page.draw_rect(q_cell, color=(0.75, 0.8, 0.9), fill=row_fill, width=0.4)
-            page.draw_rect(ans_cell, color=(0.75, 0.8, 0.9), fill=row_fill, width=0.4)
+            page.draw_rect(q_cell, color=(0.75, 0.8, 0.85), fill=bg_color, width=0.5)
+
+            a_cell = fitz.Rect(bx + q_col_w, ry, bx + block_w, ry + row_h)
+            page.draw_rect(a_cell, color=(0.75, 0.8, 0.85), fill=bg_color, width=0.5)
 
             if item_idx < len(key_data):
                 item = key_data[item_idx]
-                q_num = item.get("num", item_idx + 1)
-                ans_val = item.get("ans", "-")
-                ans_text = f"({ans_val})" if str(ans_val).isdigit() else str(ans_val)
-                q_str = str(q_num)
-                q_w = fitz.get_text_length(q_str, fontname="helv", fontsize=8.5)
-                page.insert_text(fitz.Point(bx + (q_col_w - q_w) / 2, ry + 13.5), q_str, fontsize=8.5, fontname="helv", color=(0.0, 0.0, 0.0))
-                ans_w = fitz.get_text_length(ans_text, fontname="hebo", fontsize=8.5)
-                page.insert_text(fitz.Point(bx + q_col_w + (ans_col_w - ans_w) / 2, ry + 13.5), ans_text, fontsize=8.5, fontname="hebo", color=(0.08, 0.28, 0.65))
+                q_str = str(item["num"])
+                q_tw = fitz.get_text_length(q_str, fontname="hebo", fontsize=8.5)
+                page.insert_text(fitz.Point(bx + (q_col_w - q_tw) / 2.0, ry + 13.5), q_str, fontsize=8.5, fontname="hebo", color=(0.1, 0.2, 0.4))
 
-    table_total_h = header_h + rows_per_block * row_h
-    page.draw_rect(fitz.Rect(MX, table_top_y, PW - MX, table_top_y + table_total_h), color=(0.12, 0.22, 0.45), width=0.8)
-    return table_top_y + table_total_h + 10
+                ans_str = str(item["ans"]).strip()
+                ans_tw = fitz.get_text_length(ans_str, fontname="hebo", fontsize=8.5)
+                page.insert_text(fitz.Point(bx + q_col_w + (ans_col_w - ans_tw) / 2.0, ry + 13.5), ans_str, fontsize=8.5, fontname="hebo", color=(0.1, 0.1, 0.1))
 
-def sort_questions_by_pattern(questions):
-    def q_key(q):
-        is_para = bool(q.get("paragraph") or q.get("type") == "paragraph")
-        raw_type = "paragraph" if is_para else q.get("type", "single")
-        sec_idx = SECTION_ORDER.get(raw_type, 0)
-        p_id = q.get("paragraphId", "") if is_para else ""
-        q_num = q.get("questionNumber", 0)
-        return (sec_idx, p_id, q_num)
-    return sorted(questions, key=q_key)
+    return table_top_y + header_h + num_rows * row_h
+
+def get_tight_y0(page, y0, y1):
+    """
+    Ensures y0 begins cleanly at the question stem or question number,
+    avoiding slicing through preceding topic banners (e.g. BENT'S RULE AND DRAGO'S RULE).
+    """
+    words = page.get_text("words")
+    q_words = [
+        w for w in words
+        if 42.0 <= w[0] <= 65.0
+        and (y0 - 10.0 <= w[1] <= y0 + 35.0)
+        and re.match(r'^(?:Q\.?\s*)?\d+\.?', w[4].strip())
+    ]
+    if q_words:
+        first_q = min(q_words, key=lambda w: w[1])
+        return max(y0, first_q[1] - 2.5)
+    return y0
 
 def calculate_tight_y1(page, y0, y1):
     """
     Finds the exact bottom-most coordinate of real question content,
     clamping to the start of any subsequent question or paragraph header.
     """
-    # 1. Clamp y1 if a subsequent question or paragraph starts inside [y0+20, y1]
+    # 1. Clamp y1 if a subsequent question or paragraph starts inside [y0+18, y1]
     blocks = page.get_text("blocks")
     for b in blocks:
         if y0 + 18.0 < b[1] < y1:
@@ -270,19 +259,29 @@ def resolve_pdf_path(pdf_name):
         cand_paths.append(os.path.join(BASE_DIR, sub_rel))
     return next((p for p in cand_paths if os.path.exists(p)), cand_paths[0])
 
+def sort_questions_by_pattern(questions):
+    def q_key(q):
+        is_para = bool(q.get("paragraph") or q.get("type") == "paragraph")
+        raw_type = "paragraph" if is_para else q.get("type", "single")
+        sec_idx = SECTION_ORDER.get(raw_type, 0)
+        p_id = q.get("paragraphId", "") if is_para else ""
+        q_num = q.get("questionNumber", 0)
+        return (sec_idx, p_id, q_num)
+    return sorted(questions, key=q_key)
+
 def generate_custom_test(
     chapter_name=None,
     question_count=25,
     out_pdf_path="allen_test.pdf",
     bank="both",
     selected_qids=None,
-    title="Practice Sheet",
+    title="PRACTICE SHEET",
     subtitle="",
     cand_name=None,
     time_limit=90,
     crops=None,
-    chapters=None,
-    seed=42
+    seed=42,
+    chapters=None
 ):
     if not os.path.exists(DB_PATH):
         raise FileNotFoundError(f"Database not found at {DB_PATH}")
@@ -389,11 +388,11 @@ def generate_custom_test(
                 clean_source_page(src_doc[pass_pno - 1])
                 cleaned_pages.add(pass_key)
 
-    # PASS 2: Layout in uniform 2-column format
+    # PASS 2: Layout in uniform single-column 1:1 natural scale
     doc = fitz.open()
     curr_page = add_sheet_page(doc, title=title, is_first_page=True, total_questions=len(chosen), cand_name=cand_name, time_limit=time_limit, subtitle=subtitle)
-    curr_col = 1
-    curr_y = P1_COL_Y_START
+    curr_y = P1_Y_START
+    page_num = 1
 
     key_data = []
     current_sec = None
@@ -410,27 +409,21 @@ def generate_custom_test(
         pdf_path = resolve_pdf_path(q.get("pdfName") or "")
         src_doc = open_docs[pdf_path]
 
-        # 1. Section Banner if section changed
+        # 1. Section Header Banner if pattern section changes
         if q_sec != current_sec and len(set(q.get("type", "single") for q in chosen)) > 1:
             current_sec = q_sec
             sec_title = SECTION_TITLES.get(current_sec, f"SECTION: {current_sec.upper()}")
-            col_start_y = P1_COL_Y_START if len(doc) == 1 else SUB_COL_Y_START
             if curr_y + 24.0 > COL_Y_END:
-                if curr_col == 1:
-                    curr_col = 2
-                    curr_y = col_start_y
-                else:
-                    curr_page = add_sheet_page(doc, title=title, is_first_page=False, total_questions=len(chosen), cand_name=cand_name, time_limit=time_limit, subtitle=subtitle)
-                    curr_col = 1
-                    curr_y = SUB_COL_Y_START
+                page_num += 1
+                curr_page = add_sheet_page(doc, title=title, is_first_page=False, total_questions=len(chosen), cand_name=cand_name, time_limit=time_limit, subtitle=subtitle)
+                curr_y = SUB_Y_START
 
-            col_x = COL1_X0 if curr_col == 1 else COL2_X0
-            sec_rect = fitz.Rect(col_x, curr_y, col_x + COL_W, curr_y + 16.0)
-            curr_page.draw_rect(sec_rect, color=(0.12, 0.22, 0.45), fill=(0.12, 0.22, 0.45))
-            curr_page.insert_text(fitz.Point(col_x + 6.0, curr_y + 11.5), sec_title, fontsize=8.0, fontname="hebo", color=(1.0, 1.0, 1.0))
-            curr_y += 20.0
+            sec_rect = fitz.Rect(COL_X0 - 18.0, curr_y, COL_X1, curr_y + 16.0)
+            curr_page.draw_rect(sec_rect, color=(0.1, 0.2, 0.4), fill=(0.1, 0.2, 0.4))
+            curr_page.insert_text(fitz.Point(COL_X0 - 10.0, curr_y + 11.5), sec_title, fontsize=8.5, fontname="hebo", color=(1.0, 1.0, 1.0))
+            curr_y += 22.0
 
-        # 2. Passage Card if new paragraph group
+        # 2. Passage Card if entering a new paragraph group
         pid = q.get("paragraphId")
         if is_para and pid and (pid not in drawn_paras):
             drawn_paras.add(pid)
@@ -439,122 +432,99 @@ def generate_custom_test(
                 p_pno, px0, py0, px1, py1 = p_crop
                 pass_page = src_doc[p_pno - 1]
                 tight_py1 = calculate_tight_y1(pass_page, py0, py1)
-                pass_clip = fitz.Rect(45.0, max(py0, 72.0), 552.0, tight_py1)
-                p_scale = COL_W / pass_clip.width
-                pass_h = max(pass_clip.height * p_scale, 20.0)
+                pass_clip = fitz.Rect(COL_X0, max(py0, 72.0), COL_X1, tight_py1)
+                pass_h = pass_clip.height
 
-                col_start_y = P1_COL_Y_START if len(doc) == 1 else SUB_COL_Y_START
-                if curr_y + pass_h + 20.0 > COL_Y_END:
-                    if curr_col == 1:
-                        curr_col = 2
-                        curr_y = col_start_y
-                    else:
-                        curr_page = add_sheet_page(doc, title=title, is_first_page=False, total_questions=len(chosen), cand_name=cand_name, time_limit=time_limit, subtitle=subtitle)
-                        curr_col = 1
-                        curr_y = SUB_COL_Y_START
+                if curr_y + pass_h + 30.0 > COL_Y_END:
+                    page_num += 1
+                    curr_page = add_sheet_page(doc, title=title, is_first_page=False, total_questions=len(chosen), cand_name=cand_name, time_limit=time_limit, subtitle=subtitle)
+                    curr_y = SUB_Y_START
 
-                col_x = COL1_X0 if curr_col == 1 else COL2_X0
                 q_start, q_end = para_ranges.get(pid, (test_idx, test_idx))
                 pass_txt = f"PARAGRAPH FOR QUESTIONS {q_start} TO {q_end}" if q_start != q_end else f"PARAGRAPH FOR QUESTION {q_start}"
+                header_rect = fitz.Rect(COL_X0 - 18.0, curr_y, COL_X1, curr_y + 15.0)
+                curr_page.draw_rect(header_rect, color=(0.7, 0.75, 0.8), fill=(0.94, 0.96, 0.98), width=0.5)
+                curr_page.insert_text(fitz.Point(COL_X0 - 10.0, curr_y + 11.0), pass_txt, fontsize=8.0, fontname="hebo", color=(0.08, 0.18, 0.38))
+                curr_y += 18.0
 
-                hdr_rect = fitz.Rect(col_x, curr_y, col_x + COL_W, curr_y + 14.0)
-                curr_page.draw_rect(hdr_rect, color=(0.7, 0.75, 0.8), fill=(0.94, 0.96, 0.98), width=0.5)
-                curr_page.insert_text(fitz.Point(col_x + 5.0, curr_y + 10.0), pass_txt, fontsize=7.5, fontname="hebo", color=(0.08, 0.18, 0.38))
-                curr_y += 16.0
-
-                dest_pass = fitz.Rect(col_x, curr_y, col_x + COL_W, curr_y + pass_h)
+                dest_pass = fitz.Rect(COL_X0, curr_y, COL_X1, curr_y + pass_h)
                 curr_page.show_pdf_page(dest_pass, src_doc, p_pno - 1, clip=pass_clip)
                 curr_y += pass_h + GAP_Q
 
-        # 3. Question Rendering with Tight Trimming
+        # 3. Question Content Rendering
         seg = q["segments"][0]
         pno, x0, y0, x1, y1 = seg
         page = src_doc[pno - 1]
 
-        tight_y1 = calculate_tight_y1(page, y0, y1)
-        clip_rect = fitz.Rect(45.0, max(y0, 72.0), 552.0, tight_y1)
-        src_w = clip_rect.width
-        src_h = max(clip_rect.height, 15.0)
+        tight_y0 = get_tight_y0(page, y0, y1)
+        tight_y1 = calculate_tight_y1(page, tight_y0, y1)
+        clip_rect = fitz.Rect(COL_X0, max(tight_y0, 72.0), COL_X1, min(tight_y1, 770.0))
+        target_h = max(clip_rect.height, 15.0)
 
-        scale = COL_W / src_w
-        target_h = src_h * scale
+        # Check page overflow
+        if curr_y + target_h + GAP_Q > COL_Y_END:
+            page_num += 1
+            curr_page = add_sheet_page(doc, title=title, is_first_page=False, total_questions=len(chosen), cand_name=cand_name, time_limit=time_limit, subtitle=subtitle)
+            curr_y = SUB_Y_START
 
-        col_start_y = P1_COL_Y_START if len(doc) == 1 else SUB_COL_Y_START
-        if curr_y + target_h > COL_Y_END:
-            if curr_col == 1:
-                curr_col = 2
-                curr_y = col_start_y
-            else:
-                curr_page = add_sheet_page(doc, title=title, is_first_page=False, total_questions=len(chosen), cand_name=cand_name, time_limit=time_limit, subtitle=subtitle)
-                curr_col = 1
-                curr_y = SUB_COL_Y_START
+        # Draw sequential question number at left margin
+        curr_page.insert_text(fitz.Point(26.0, curr_y + 11.5), f"{test_idx}.", fontsize=9.5, fontname="hebo", color=(0, 0, 0))
 
-        col_x = COL1_X0 if curr_col == 1 else COL2_X0
-        dest_rect = fitz.Rect(col_x, curr_y, col_x + COL_W, curr_y + target_h)
-        curr_page.show_pdf_page(dest_rect, src_doc, pno - 1, clip=clip_rect)
-
-        # Dynamic Sequential Question Number
-        curr_page.insert_text(fitz.Point(col_x + 1.5, curr_y + 11.0), f"{test_idx}.", fontsize=9.5, fontname="hebo", color=(0, 0, 0))
+        # Show native vector question at exact 1:1 scale (COL_X0 to COL_X1, height = target_h)
+        target_rect = fitz.Rect(COL_X0, curr_y, COL_X1, curr_y + target_h)
+        curr_page.show_pdf_page(target_rect, src_doc, pno - 1, clip=clip_rect)
 
         curr_y += target_h + GAP_Q
 
-    # 4. Final Answer Key Page (5-Block NEET Table)
+    # 4. Final Answer Key Page (5-Block Table)
     ak_page = doc.new_page(width=PW, height=PH)
-    ak_title_rect = fitz.Rect(MX, P1_HEADER_TOP, PW - MX, P1_HEADER_TOP + 32)
-    ak_page.draw_rect(ak_title_rect, color=(0.12, 0.22, 0.45), fill=(0.96, 0.98, 1.0), width=0.8)
-    ak_page.insert_text(fitz.Point(MX + 10, P1_HEADER_TOP + 13), "ANSWER KEY", fontsize=8.5, fontname="hebo", color=(0.12, 0.22, 0.45))
-    ak_page.insert_text(fitz.Point(MX + 10, P1_HEADER_TOP + 27), f"{title.upper()}", fontsize=10.5, fontname="hebo", color=(0.0, 0.0, 0.0))
-    ak_page.draw_line(fitz.Point(MX, FOOTER_Y), fitz.Point(PW - MX, FOOTER_Y), color=(0.8, 0.8, 0.8), width=0.5)
-    ak_page.insert_text(fitz.Point(MX, FOOTER_Y + 11), f"Allen JEE Chemistry  •  {title}", fontsize=7.5, fontname="helv", color=(0.45, 0.45, 0.45))
+    # Outer page border
+    ak_page.draw_rect(fitz.Rect(18, 18, PW - 18, PH - 18), color=(0.2, 0.2, 0.2), width=0.75)
 
+    ak_title_rect = fitz.Rect(24, P1_HEADER_TOP, PW - 24, P1_HEADER_TOP + 32)
+    ak_page.draw_rect(ak_title_rect, color=(0.1, 0.2, 0.4), fill=(0.96, 0.98, 1.0), width=0.8)
+    ak_page.insert_text(fitz.Point(32, P1_HEADER_TOP + 13), "ANSWER KEY", fontsize=8.5, fontname="hebo", color=(0.1, 0.2, 0.4))
+    ak_page.insert_text(fitz.Point(32, P1_HEADER_TOP + 27), f"{title.upper()}", fontsize=10.5, fontname="hebo", color=(0.0, 0.0, 0.0))
     draw_answer_key_grid(ak_page, P1_HEADER_TOP + 40.0, key_data)
 
-    # 5. Page Numbering ("Page X of Y")
     total_pages = len(doc)
-    for p_no in range(total_pages):
-        page_obj = doc[p_no]
-        pg_str = f"Page {p_no + 1} of {total_pages}"
-        pg_w = fitz.get_text_length(pg_str, fontname="helv", fontsize=7.5)
-        page_obj.insert_text(fitz.Point(PW - MX - pg_w, FOOTER_Y + 11), pg_str, fontsize=7.5, fontname="helv", color=(0.45, 0.45, 0.45))
 
     os.makedirs(os.path.dirname(os.path.abspath(out_pdf_path)), exist_ok=True)
-    doc.save(out_pdf_path)
+    doc.save(out_pdf_path, deflate=True)
     doc.close()
-    for d in open_docs.values():
-        d.close()
 
-    print(f"✓ Saved 2-Column Allen JEE Test Sheet: {os.path.abspath(out_pdf_path)} ({total_pages} pages)")
+    for sdoc in open_docs.values():
+        sdoc.close()
+
     return {
         "ok": True,
-        "success": True,
+        "out_pdf": out_pdf_path,
         "total_questions": len(chosen),
         "total_pages": total_pages,
-        "out_pdf": out_pdf_path,
-        "filename": os.path.basename(out_pdf_path)
+        "key_data": key_data
     }
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate 2-Column Uniform Allen JEE Test Sheet.")
-    parser.add_argument("--chapter", "-c", default=None, help="Chapter name")
-    parser.add_argument("--chapters", nargs="+", default=None, help="List of chapters")
-    parser.add_argument("--count", "-n", type=int, default=25, help="Number of questions (default: 25)")
-    parser.add_argument("--bank", "-b", default="both", choices=["O-1", "O-2", "both"])
-    parser.add_argument("--out", "-o", default="allen_test.pdf", help="Output PDF file path")
-    parser.add_argument("--seed", "-s", type=int, default=42, help="Random seed")
-    parser.add_argument("--title", "-t", default="Practice Sheet", help="Title")
-    parser.add_argument("--cand-name", default=None, help="Candidate name")
+    parser = argparse.ArgumentParser(description="Generate uniform single-column test sheet for Allen JEE Chemistry.")
+    parser.add_argument("--chapter", help="Chapter name to filter questions")
+    parser.add_argument("--count", type=int, default=25, help="Number of questions to select")
+    parser.add_argument("--out", default="allen_jee_test.pdf", help="Output PDF file path")
+    parser.add_argument("--bank", choices=["O-1", "O-2", "both"], default="both", help="Exercise bank")
+    parser.add_argument("--title", default="PRACTICE SHEET", help="Title for the practice sheet")
+    parser.add_argument("--cand", default=None, help="Candidate Name")
+    parser.add_argument("--seed", type=int, default=42, help="Random seed for selection")
     args = parser.parse_args()
 
-    generate_custom_test(
+    res = generate_custom_test(
         chapter_name=args.chapter,
-        chapters=args.chapters,
         question_count=args.count,
-        bank=args.bank,
         out_pdf_path=args.out,
-        seed=args.seed,
+        bank=args.bank,
         title=args.title,
-        cand_name=args.cand_name
+        cand_name=args.cand,
+        seed=args.seed
     )
+    print(f"Generated test: {res['out_pdf']} ({res['total_questions']} questions, {res['total_pages']} pages)")
 
 if __name__ == "__main__":
     main()

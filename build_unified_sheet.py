@@ -198,15 +198,18 @@ def generate_multi_source_test(selected_qids, out_pdf_path="custom_test.pdf", ti
 
             seg = q["segments"][0]
             pno, x0, y0, x1, y1 = seg
-            seg_h = y1 - y0
+            page = src_doc[pno - 1]
+            tight_y0 = baj.get_tight_y0(page, y0, y1)
+            tight_y1 = baj.calculate_tight_y1(page, tight_y0, y1)
+            clip_r = fitz.Rect(COL_X0, max(tight_y0, baj.HEADER_Y_CUT), COL_X1, min(tight_y1, baj.FOOTER_Y_CUT))
+            seg_h = max(clip_r.height, 15.0)
 
             if cur_y + seg_h + GAP_Q > COL_Y_END:
                 page_num += 1
                 cur_page = baj.add_sheet_page(doc, title, is_first_page=False, total_questions=len(chosen), cand_name=cand_name, time_limit=time_limit, subtitle=subtitle)
                 cur_y = SUB_Y_START
 
-            cur_page.insert_text(fitz.Point(COL_X0 - 18, cur_y + 11), f"{q_label_num}.", fontsize=9.5, fontname="helv", color=(0, 0, 0))
-            clip_r = fitz.Rect(COL_X0, max(y0, baj.HEADER_Y_CUT), COL_X1, min(y1, baj.FOOTER_Y_CUT))
+            cur_page.insert_text(fitz.Point(COL_X0 - 19.0, cur_y + 11.5), f"{q_label_num}.", fontsize=9.5, fontname="hebo", color=(0, 0, 0))
             target_r = fitz.Rect(COL_X0, cur_y, COL_X1, cur_y + seg_h)
             cur_page.show_pdf_page(target_r, src_doc, pno - 1, clip=clip_r)
             cur_y += seg_h + GAP_Q
