@@ -524,12 +524,81 @@
   margin-left: 4pt !important;
 }
 
-/* Single-Column Allen JEE Sheet Layout */
+/* Hybrid Layout: Single-Column for JEE/MS Chouhan + Two-Column for NEET */
+.allen-sheet-content {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  gap: 3pt !important;
+}
 .allen-columns-single {
   display: flex;
   flex-direction: column;
   gap: 3pt;
   width: 100%;
+}
+.allen-neet-columns {
+  column-count: 2 !important;
+  column-gap: 16pt !important;
+  column-rule: 0.75pt solid #cbd5e1 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  margin: 2pt 0 4pt 0 !important;
+}
+.allen-qitem-col {
+  position: relative !important;
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+  margin-bottom: 6pt !important;
+  padding-bottom: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 3pt !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+}
+.allen-qitem-col .allen-qnum {
+  flex: 0 0 18pt !important;
+  min-width: 18pt !important;
+  font-weight: 700 !important;
+  font-size: 9.5pt !important;
+  line-height: 1.15 !important;
+  color: #000000 !important;
+  padding-top: 1px !important;
+  margin: 0 !important;
+  text-align: right !important;
+}
+.allen-qitem-col .allen-qsvg-wrap {
+  flex: 1 !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.allen-qitem-col .allen-qsvg-wrap img,
+.allen-qitem-col .allen-qsvg-wrap svg {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  display: block !important;
+  background: transparent !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+.allen-qitem-col .allen-qstem {
+  font-size: 9.5pt !important;
+  line-height: 1.25 !important;
+  color: #000000 !important;
+  font-weight: 400 !important;
+}
+.allen-qitem-col .allen-opts-inline,
+.allen-qitem-col .allen-opts-grid,
+.allen-qitem-col .allen-opts-stack {
+  font-size: 9pt !important;
+  line-height: 1.25 !important;
 }
 .allen-qitem-single {
   position: relative;
@@ -574,16 +643,19 @@
   border: none !important;
   box-shadow: none !important;
 }
-.allen-qitem-single .allen-qsvg-wrap img.allen-svg-neet,
 .allen-qitem-single .allen-qsvg-wrap img.allen-svg-jee,
-.allen-qitem-single .allen-qsvg-wrap img[data-zipimg*="allenchem"],
 .allen-qitem-single .allen-qsvg-wrap img[data-zipimg*="allenjee"],
-.allen-qitem-single .allen-qsvg-wrap img[src*="allenchem"],
 .allen-qitem-single .allen-qsvg-wrap img[src*="allenjee"],
-.allen-qitem-single .allen-qsvg-wrap .allen-svg-neet,
 .allen-qitem-single .allen-qsvg-wrap .allen-svg-jee {
   width: 100% !important;
   max-width: 516pt !important;
+}
+.allen-qitem-single .allen-qsvg-wrap img.allen-svg-neet,
+.allen-qitem-single .allen-qsvg-wrap img[data-zipimg*="allenchem"],
+.allen-qitem-single .allen-qsvg-wrap img[src*="allenchem"],
+.allen-qitem-single .allen-qsvg-wrap .allen-svg-neet {
+  width: auto !important;
+  max-width: 254pt !important;
 }
 .allen-qitem-single .allen-qsvg-wrap img.mschouhan-svg,
 .allen-qitem-single .allen-qsvg-wrap img[data-zipimg*="mschouhan"],
@@ -893,11 +965,74 @@
     break-inside: avoid !important;
     page-break-inside: avoid !important;
   }
+  .allen-sheet-content {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 4pt !important;
+  }
   .allen-columns-single {
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
     gap: 4pt !important;
+  }
+  .allen-neet-columns {
+    column-count: 2 !important;
+    column-gap: 16pt !important;
+    column-rule: 0.75pt solid #cbd5e1 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    margin: 2pt 0 4pt 0 !important;
+  }
+  .allen-qitem-col {
+    position: relative !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    margin-bottom: 6pt !important;
+    padding-bottom: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 3pt !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+  }
+  .allen-qitem-col .allen-qnum {
+    flex: 0 0 18pt !important;
+    min-width: 18pt !important;
+    font-weight: 700 !important;
+    font-size: 9.5pt !important;
+    line-height: 1.15 !important;
+    color: #000000 !important;
+    padding-top: 1px !important;
+    margin: 0 !important;
+    text-align: right !important;
+  }
+  .allen-qitem-col .allen-qsvg-wrap {
+    flex: 1 !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .allen-qitem-col .allen-qsvg-wrap img,
+  .allen-qitem-col .allen-qsvg-wrap svg {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+  .allen-qitem-col .allen-qstem {
+    font-size: 9.5pt !important;
+    line-height: 1.25 !important;
+    color: #000000 !important;
+    font-weight: 400 !important;
   }
   .allen-qitem-single {
     break-inside: avoid !important;
@@ -932,16 +1067,19 @@
     border: none !important;
     box-shadow: none !important;
   }
-  .allen-qitem-single .allen-qsvg-wrap img.allen-svg-neet,
   .allen-qitem-single .allen-qsvg-wrap img.allen-svg-jee,
-  .allen-qitem-single .allen-qsvg-wrap img[data-zipimg*="allenchem"],
   .allen-qitem-single .allen-qsvg-wrap img[data-zipimg*="allenjee"],
-  .allen-qitem-single .allen-qsvg-wrap img[src*="allenchem"],
   .allen-qitem-single .allen-qsvg-wrap img[src*="allenjee"],
-  .allen-qitem-single .allen-qsvg-wrap .allen-svg-neet,
   .allen-qitem-single .allen-qsvg-wrap .allen-svg-jee {
     width: 100% !important;
     max-width: 516pt !important;
+  }
+  .allen-qitem-single .allen-qsvg-wrap img.allen-svg-neet,
+  .allen-qitem-single .allen-qsvg-wrap img[data-zipimg*="allenchem"],
+  .allen-qitem-single .allen-qsvg-wrap img[src*="allenchem"],
+  .allen-qitem-single .allen-qsvg-wrap .allen-svg-neet {
+    width: auto !important;
+    max-width: 254pt !important;
   }
   .allen-qitem-single .allen-qsvg-wrap img.mschouhan-svg,
   .allen-qitem-single .allen-qsvg-wrap img[data-zipimg*="mschouhan"],
@@ -3048,7 +3186,7 @@ const AitsCache = {
       this.dbPromise = new Promise((resolve) => {
         try {
           if(!window.indexedDB) return resolve(null);
-          const req = indexedDB.open('aits_storage_cache_v3', 1);
+          const req = indexedDB.open('aits_storage_cache_v4', 1);
           req.onupgradeneeded = e => {
             const db = e.target.result;
             if(!db.objectStoreNames.contains('kv')) db.createObjectStore('kv');
@@ -7397,7 +7535,8 @@ function getSelectedBuilderQuestions(){
 }
 
 async function buildCustomSheet(customQs){
-  const qs = (customQs && customQs.length) ? customQs : ((tbCfg.builtQs && tbCfg.builtQs.length) ? tbCfg.builtQs : getSelectedBuilderQuestions());
+  if(!customQs) tbCfg.builtQs = null;
+  const qs = (customQs && customQs.length) ? customQs : getSelectedBuilderQuestions();
   if(!qs || !qs.length){
     alert('No questions match your selection. Please select at least one chapter with available questions.');
     return;
@@ -8527,14 +8666,31 @@ function cleanAllenQuestion(rawText){
 }
 
 async function renderAllenSheetDoc(rawQs, opts, onProgress){
-  const qs = sortQuestionsByPattern(rawQs);
+  function isNeetQuestion(q){
+    return !!((q.id && String(q.id).startsWith('allenchem_')) || (q.paper === 'allen'));
+  }
+
+  const hasNeet = rawQs.some(isNeetQuestion);
+  const hasNonNeet = rawQs.some(q => !isNeetQuestion(q));
+
+  // If sheet has both JEE and NEET: show JEE first (single column), then NEET (two columns)
+  let qs = [];
+  if(hasNeet && hasNonNeet){
+    const nonNeetList = rawQs.filter(q => !isNeetQuestion(q));
+    const neetList = rawQs.filter(isNeetQuestion);
+    qs = sortQuestionsByPattern(nonNeetList).concat(neetList);
+  } else {
+    qs = sortQuestionsByPattern(rawQs);
+  }
+
   const testTitle = (opts.title || '').trim() || 'Practice Sheet';
   const testSubtitle = (opts.subtitle || '').trim();
   const timeLimit = opts.timeLimit > 0 ? opts.timeLimit : (qs.length * 2);
   const candName = (opts.candName || ($('#tbCandName') ? $('#tbCandName').value : '') || '').trim();
   const totalMarks = qs.length * 4;
 
-  $('#sheetDocTitle').textContent = testTitle + ' (' + qs.length + ' Qs - Single Column Vector)';
+  const modeLabel = (hasNeet && hasNonNeet) ? 'Hybrid 1 & 2 Col' : (hasNeet ? '2-Column Vector' : 'Single Column Vector');
+  $('#sheetDocTitle').textContent = testTitle + ' (' + qs.length + ' Qs - ' + modeLabel + ')';
   const container = $('#sheetDocContainer');
   container.innerHTML = '';
 
@@ -8543,7 +8699,8 @@ async function renderAllenSheetDoc(rawQs, opts, onProgress){
     numerical: 'SECTION 2: NUMERICAL VALUE TYPE',
     multi: 'SECTION 3: ONE OR MORE THAN ONE OPTION CORRECT',
     paragraph: 'SECTION 4: COMPREHENSION / PARAGRAPH BASED QUESTIONS',
-    matrix: 'SECTION 5: MATCH THE FOLLOWING / MATRIX MATCH'
+    matrix: 'SECTION 5: MATCH THE FOLLOWING / MATRIX MATCH',
+    neet: 'SECTION: NEET MODULE QUESTIONS (2-COLUMN COMPACT FORMAT)'
   };
 
   // Pre-compute dynamic question ranges for paragraph groups
@@ -8566,16 +8723,22 @@ async function renderAllenSheetDoc(rawQs, opts, onProgress){
     const ansKey = keyText(q) || q.answer || '';
     keyRows.push({ num: qNum, ans: ansKey || '-' });
 
-    const isPara = !!(q.paragraph || q.type === 'paragraph');
-    const qSec = isPara ? 'paragraph' : (q.type || 'single');
+    const isNeetQ = isNeetQuestion(q);
+    const isPara = !isNeetQ && !!(q.paragraph || q.type === 'paragraph');
+    const qSec = isNeetQ ? 'neet' : (isPara ? 'paragraph' : (q.type || 'single'));
 
     let sectionHtml = '';
     let sectionH = 0;
     if(qSec !== currentSec){
       currentSec = qSec;
-      const secTitle = SECTION_TITLES[currentSec] || ('SECTION: ' + currentSec.toUpperCase());
+      let secTitle = '';
+      if(currentSec === 'neet'){
+        secTitle = (hasNeet && hasNonNeet) ? 'SECTION: NEET CHEMISTRY MODULE (2-COLUMN FORMAT)' : 'SECTION: CHEMISTRY QUESTIONS (2-COLUMN FORMAT)';
+      } else {
+        secTitle = SECTION_TITLES[currentSec] || ('SECTION: ' + currentSec.toUpperCase());
+      }
       sectionHtml = '<div class="allen-section-banner">' + esc(secTitle) + '</div>';
-      sectionH = 26;
+      sectionH = 24;
     }
 
     let passHtml = '';
@@ -8627,7 +8790,6 @@ async function renderAllenSheetDoc(rawQs, opts, onProgress){
 
     const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
     const hasImgs = qImgs.length > 0;
-    const isNeetQ = (q.id && q.id.startsWith('allenchem_')) || (q.paper === 'allen');
     const isMsQ = (q.id && q.id.startsWith('mschouhan_'));
     const imgsHtml = qImgs.map(u => {
       const extraCls = isNeetQ ? 'test-builder-svg allen-svg-neet' : (isMsQ ? 'test-builder-svg mschouhan-svg' : 'test-builder-svg allen-svg-jee');
@@ -8637,32 +8799,62 @@ async function renderAllenSheetDoc(rawQs, opts, onProgress){
     }).join('');
 
     let qItemHtml = '';
-    if(hasImgs){
-      qItemHtml = '<div class="allen-qitem-single">' +
-        '<span class="allen-qnum">' + qNum + '.</span>' +
-        '<div class="allen-qsvg-wrap">' + imgsHtml + '</div>' +
-      '</div>';
+    if(isNeetQ){
+      // 2-Column layout for NEET questions
+      if(hasImgs){
+        qItemHtml = '<div class="allen-qitem-col">' +
+          '<span class="allen-qnum">' + qNum + '.</span>' +
+          '<div class="allen-qsvg-wrap">' + imgsHtml + '</div>' +
+        '</div>';
+      } else {
+        qItemHtml = '<div class="allen-qitem-col">' +
+          '<span class="allen-qnum">' + qNum + '.</span>' +
+          '<div class="allen-qsvg-wrap">' +
+            '<div class="allen-qstem">' + rich(stem) + '</div>' + optsHtml +
+          '</div>' +
+        '</div>';
+      }
     } else {
-      qItemHtml = '<div class="allen-qitem-single">' +
-        '<span class="allen-qnum">' + qNum + '.</span>' +
-        '<div class="allen-qsvg-wrap">' +
-          '<div class="allen-qstem">' + rich(stem) + '</div>' + optsHtml +
-        '</div>' +
-      '</div>';
+      // Single-column layout for JEE and MS Chouhan questions
+      if(hasImgs){
+        qItemHtml = '<div class="allen-qitem-single">' +
+          '<span class="allen-qnum">' + qNum + '.</span>' +
+          '<div class="allen-qsvg-wrap">' + imgsHtml + '</div>' +
+        '</div>';
+      } else {
+        qItemHtml = '<div class="allen-qitem-single">' +
+          '<span class="allen-qnum">' + qNum + '.</span>' +
+          '<div class="allen-qsvg-wrap">' +
+            '<div class="allen-qstem">' + rich(stem) + '</div>' + optsHtml +
+          '</div>' +
+        '</div>';
+      }
     }
 
     let estH = 50;
-    if(q.segments && q.segments[0] && q.segments[0].length >= 5){
-      estH = Math.max(30, q.segments[0][4] - q.segments[0][2]);
-    } else if(hasImgs){
-      estH = isNeetQ ? 65 : 85;
+    if(isNeetQ){
+      // Two NEET questions sit side-by-side in 2 columns, halving vertical consumption
+      if(q.segments && q.segments[0] && q.segments[0].length >= 5){
+        estH = Math.max(24, (q.segments[0][4] - q.segments[0][2]) * 0.52);
+      } else {
+        estH = 34;
+      }
     } else {
-      estH = 30 + Math.ceil((q.text || '').length / 60) * 14 + (effOpts.length * 14);
+      if(q.segments && q.segments[0] && q.segments[0].length >= 5){
+        estH = Math.max(30, q.segments[0][4] - q.segments[0][2]);
+      } else if(hasImgs){
+        estH = 85;
+      } else {
+        estH = 30 + Math.ceil((q.text || '').length / 60) * 14 + (effOpts.length * 14);
+      }
     }
 
     qElements.push({
-      html: sectionHtml + passHtml + qItemHtml,
-      height: estH + sectionH + passH + 6
+      isNeet: isNeetQ,
+      sectionHtml: sectionHtml,
+      passHtml: passHtml,
+      qItemHtml: qItemHtml,
+      height: estH + sectionH + passH + 4
     });
   });
 
@@ -8709,8 +8901,38 @@ async function renderAllenSheetDoc(rawQs, opts, onProgress){
       '</div>';
     }
 
-    fullHtml += '<div class="allen-columns-single">' +
-      group.map(it => it.html).join('') +
+    // Assemble page items: bundle consecutive NEET items into .allen-neet-columns (2-col), rest in single column
+    let pageContentHtml = '';
+    let neetBatch = [];
+
+    function flushNeetBatch(){
+      if(!neetBatch.length) return;
+      pageContentHtml += '<div class="allen-neet-columns">' +
+        neetBatch.map(it => it.qItemHtml).join('') +
+      '</div>';
+      neetBatch = [];
+    }
+
+    group.forEach(it => {
+      if(it.sectionHtml){
+        flushNeetBatch();
+        pageContentHtml += it.sectionHtml;
+      }
+      if(it.passHtml){
+        flushNeetBatch();
+        pageContentHtml += it.passHtml;
+      }
+      if(it.isNeet){
+        neetBatch.push(it);
+      } else {
+        flushNeetBatch();
+        pageContentHtml += it.qItemHtml;
+      }
+    });
+    flushNeetBatch();
+
+    fullHtml += '<div class="allen-sheet-content">' +
+      pageContentHtml +
     '</div>';
 
     fullHtml += '<div class="allen-page-footer">' +
