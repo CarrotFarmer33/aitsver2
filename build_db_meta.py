@@ -3,6 +3,7 @@
 
 import json
 import os
+import re
 
 CHEM_ALIAS = {
     'Isomerism': 'Isomerism (Structural & Stereoisomerism)',
@@ -11,6 +12,19 @@ CHEM_ALIAS = {
     'p-Block: Group 13 & 14': 'p-Block Elements: Group 13 (Boron family) & Group 14 (Carbon family)',
     'p-Block: Group 15 & 16': 'p-Block Elements: Group 15 (Nitrogen family) & Group 16 (Oxygen family)',
     'p-Block: Group 17 & 18': 'p-Block Elements: Group 17 (Halogens) & Group 18 (Noble gases)',
+    'p-Block Elements: Group 13 to Group 18': 'p-Block Elements: Group 15 (Nitrogen family) & Group 16 (Oxygen family)',
+    'Environmental Chemistry': 'Chemistry in Everyday Life',
+    'Organic Compounds Containing Oxygen (Alcohols, Phenols, Ethers, Aldehydes, Ketones, Carboxylic Acids)': 'Aldehydes, Ketones & Carboxylic Acids',
+    'Equilibrium': 'Chemical Equilibrium',
+    'Chemical Thermodynamics': 'Thermodynamics (Chemical)',
+    'Solutions': 'Liquid Solutions & Colligative Properties',
+    'Purification and Characterisation of Organic Compounds & General Organic Chemistry (GOC)': 'General Organic Chemistry (GOC)',
+    'Redox Reactions & Electrochemistry': 'Electrochemistry',
+    'Principles Related to Practical Chemistry (Salt Analysis)': 'Qualitative Salt Analysis',
+    'Organic Compounds Containing Halogens (Haloalkanes & Haloarenes)': 'Haloalkanes & Haloarenes',
+    'Organic Compounds Containing Nitrogen (Amines & Diazonium Salts)': 'Amines & Diazonium Salts',
+    's-Block Elements (Alkali and Alkaline Earth Metals)': 's-Block Elements',
+    'Classification of Elements & Periodicity in Properties': 'Periodic Table & Periodicity'
 }
 
 def norm_subj(s):
@@ -19,6 +33,45 @@ def norm_subj(s):
     if 'chem' in s.lower(): return 'Chemistry'
     if 'math' in s.lower(): return 'Mathematics'
     return 'Physics'
+
+def paper_of(s):
+    s = str(s or '')
+    m = bool(re.search(r'(\bJM\b|JEE[\s_-]?M\b|JEEM|\bMains?\b|_Mains?\b)', s, re.I))
+    a = bool(re.search(r'(\bJA\b|JEE[\s_-]?A\b|JEEA|\bAdv)', s, re.I))
+    if m and not a: return 'main'
+    if a and not m: return 'adv'
+    if m and a: return 'main' if re.search(r'\bMain\b', s, re.I) else 'adv'
+    if re.search(r'Paper[- _]?(1|2|I{1,2})\b|\bP[- ]?[12]\b', s, re.I): return 'adv'
+    return 'other'
+
+def get_paper(q, def_subj, def_paper):
+    qid = str(q.get('id') or '')
+    if q.get('paper') == 'mschouhan' or qid.startswith('mschouhan_'):
+        return 'mschouhan'
+    if q.get('paper') == 'allen_jee' or qid.startswith('allenjee_'):
+        return 'allen_jee'
+    if q.get('paper') == 'allen' or qid.startswith('allenchem_') or 'allen' in str(q.get('source', '')).lower():
+        return 'allen'
+    if def_paper in ('allen', 'allen_jee', 'mschouhan', 'main', 'adv'):
+        return def_paper
+    exam = q.get('exam')
+    if exam:
+        if re.search(r'adv', str(exam), re.I): return 'adv'
+        if re.search(r'main', str(exam), re.I): return 'main'
+    p = paper_of(str(q.get('source', '')) + ' ' + str(q.get('paperTitle', '') or q.get('paper_title', '')) + ' ' + qid)
+    if p != 'other':
+        return p
+    return 'adv'
+
+def year_of(q):
+    try:
+        y = int(q.get('year'))
+        if 1990 <= y <= 2100:
+            return str(y)
+    except:
+        pass
+    m = re.search(r'\b(19|20)\d{2}\b', str(q.get('source', '')) + ' ' + str(q.get('paperTitle', '') or q.get('paper_title', '')) + ' ' + str(q.get('id', '')))
+    return m.group(0) if m else 'Unknown'
 
 def parse_choice(raw):
     if not raw: return None
@@ -64,8 +117,8 @@ def build_meta():
             if subj == 'Chemistry' and chap in CHEM_ALIAS:
                 chap = CHEM_ALIAS[chap]
             qtype = q.get('type') or 'single'
-            year = str(q.get('year') or 'Unknown')
-            paper = q.get('paper') or def_paper
+            year = year_of(q)
+            paper = get_paper(q, subj, def_paper)
             raw_ans = q.get('answer') or q.get('correct_answer') or q.get('key') or q.get('ans')
 
             p_text = q.get('previewText')
@@ -100,6 +153,9 @@ def build_meta():
                 'ans': ans,
                 'previewText': p_text or f'{paper} - {chap}'
             }
+            if q.get('source'): item['source'] = q['source']
+            if q.get('paperTitle'): item['paperTitle'] = q['paperTitle']
+            elif q.get('paper_title'): item['paperTitle'] = q['paper_title']
             if q.get('exam'): item['exam'] = q['exam']
             if q.get('branch'): item['branch'] = q['branch']
             if q.get('star'): item['star'] = q['star']

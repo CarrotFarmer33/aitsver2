@@ -3186,7 +3186,7 @@ const AitsCache = {
       this.dbPromise = new Promise((resolve) => {
         try {
           if(!window.indexedDB) return resolve(null);
-          const req = indexedDB.open('aits_storage_cache_v7', 1);
+          const req = indexedDB.open('aits_storage_cache_v8', 1);
           req.onupgradeneeded = e => {
             const db = e.target.result;
             if(!db.objectStoreNames.contains('kv')) db.createObjectStore('kv');
@@ -3730,6 +3730,15 @@ function loadDB(raw,label,isSample){
   const out=[]; let skipped=0;
   list.forEach((e,i)=>{
     if(e.q && e.q._isNormalized){
+      if(e.q.paper === 'aits' || !e.q.paper || e.q.paper === 'other'){
+        const isSpecial = e.q.paper === 'allen' || e.q.paper === 'allen_jee' || e.q.paper === 'mschouhan' || (e.q.id && (String(e.q.id).startsWith('allenjee_') || String(e.q.id).startsWith('allenchem_') || String(e.q.id).startsWith('mschouhan_')));
+        if(!isSpecial){
+          e.q.paper = (e.q.exam && /main/i.test(e.q.exam)) ? 'main' : ((e.q.exam && /adv/i.test(e.q.exam)) ? 'adv' : (paperOf(String(e.q.source||'')+' '+String(e.q.paperTitle||e.q.paper_title||'')+' '+String(e.q.id||'')) === 'main' ? 'main' : 'adv'));
+        }
+      }
+      if(e.q.subject === 'Chemistry' && CHEM_ALIAS[e.q.chapter]){
+        e.q.chapter = CHEM_ALIAS[e.q.chapter];
+      }
       out.push(e.q);
       return;
     }
@@ -3844,7 +3853,15 @@ function show(id){
 }
 
 /* ---------- setup ---------- */
-const paperOnlyOK = q => q.paper !== 'allen' && q.paper !== 'allen_jee' && (cfg.paper==='all' || q.paper===cfg.paper);
+const paperOnlyOK = q => {
+  if(q.paper === 'allen' || q.paper === 'allen_jee' || q.paper === 'mschouhan') return false;
+  if(cfg.paper === 'all') return true;
+  let p = q.paper;
+  if(p === 'aits' || !p || p === 'other'){
+    p = (q.exam && /main/i.test(q.exam)) ? 'main' : ((q.exam && /adv/i.test(q.exam)) ? 'adv' : (paperOf(String(q.source||'')+' '+String(q.paperTitle||q.paper_title||'')+' '+String(q.id||'')) === 'main' ? 'main' : 'adv'));
+  }
+  return p === cfg.paper;
+};
 const paperOK = q => paperOnlyOK(q) && cfg.years.has(q.year);
 function typeSrcOK(q){ return cfg.types.has(q.type) && paperOK(q); }
 function renderYears(){
@@ -6660,7 +6677,11 @@ function tbPaperOK(q){
   // FIITJEE
   if(!tbCfg.subjects.has(q.subject)) return false;
   if(!tbCfg.papers || tbCfg.papers.size === 0) return true;
-  return tbCfg.papers.has(q.paper);
+  let qPaper = q.paper;
+  if(qPaper === 'aits' || !qPaper || qPaper === 'other'){
+    qPaper = (q.exam && /main/i.test(q.exam)) ? 'main' : ((q.exam && /adv/i.test(q.exam)) ? 'adv' : (paperOf(String(q.source||'')+' '+String(q.paperTitle||q.paper_title||'')+' '+String(q.id||'')) === 'main' ? 'main' : 'adv'));
+  }
+  return tbCfg.papers.has(qPaper);
 }
 
 function syncAllenCountsToTotal(){
