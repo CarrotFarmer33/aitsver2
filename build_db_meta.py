@@ -114,6 +114,9 @@ def build_meta():
                 item['options'] = q.get('options')
             if q.get('images'): item['images'] = q.get('images')
             if q.get('solution_images'): item['solImages'] = q.get('solution_images')
+            if q.get('segments'): item['segments'] = q.get('segments')
+            if q.get('height'): item['height'] = q.get('height')
+            if q.get('width'): item['width'] = q.get('width')
 
             questions.append(item)
 

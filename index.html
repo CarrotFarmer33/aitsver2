@@ -3186,7 +3186,7 @@ const AitsCache = {
       this.dbPromise = new Promise((resolve) => {
         try {
           if(!window.indexedDB) return resolve(null);
-          const req = indexedDB.open('aits_storage_cache_v6', 1);
+          const req = indexedDB.open('aits_storage_cache_v7', 1);
           req.onupgradeneeded = e => {
             const db = e.target.result;
             if(!db.objectStoreNames.contains('kv')) db.createObjectStore('kv');
@@ -8782,7 +8782,7 @@ async function renderAllenSheetDoc(rawQs, opts, onProgress){
 
     const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
     const hasImgs = qImgs.length > 0;
-    const isMsQ = (q.id && q.id.startsWith('mschouhan_'));
+    const isMsQ = !!((q.id && String(q.id).startsWith('mschouhan_')) || q.paper === 'mschouhan' || q.source === 'MS Chouhan');
     const imgsHtml = qImgs.map(u => {
       const extraCls = isNeetQ ? 'test-builder-svg allen-svg-neet' : (isMsQ ? 'test-builder-svg mschouhan-svg' : 'test-builder-svg allen-svg-jee');
       const markup = imageMarkup(u, 'Question figure', extraCls, q.crop);
@@ -8833,9 +8833,17 @@ async function renderAllenSheetDoc(rawQs, opts, onProgress){
       }
     } else {
       if(q.segments && q.segments[0] && q.segments[0].length >= 5){
-        estH = Math.max(30, q.segments[0][4] - q.segments[0][2]);
+        const segW = q.segments[0][3] - q.segments[0][1];
+        const segH = q.segments[0][4] - q.segments[0][2];
+        const maxW = isMsQ ? 430 : 516;
+        const scale = (segW > maxW && maxW > 0) ? (maxW / segW) : 1.0;
+        estH = Math.max(30, segH * scale);
+      } else if(q.height){
+        const maxW = isMsQ ? 430 : 516;
+        const scale = (q.width && q.width > maxW && maxW > 0) ? (maxW / q.width) : 1.0;
+        estH = Math.max(30, q.height * scale);
       } else if(hasImgs){
-        estH = 85;
+        estH = 140;
       } else {
         estH = 30 + Math.ceil((q.text || '').length / 60) * 14 + (effOpts.length * 14);
       }
@@ -8846,12 +8854,12 @@ async function renderAllenSheetDoc(rawQs, opts, onProgress){
       sectionHtml: sectionHtml,
       passHtml: passHtml,
       qItemHtml: qItemHtml,
-      height: estH + sectionH + passH + 4
+      height: estH + sectionH + passH + 8
     });
   });
 
-  const P1_LIMIT = 720;
-  const SUB_LIMIT = 780;
+  const P1_LIMIT = 640;
+  const SUB_LIMIT = 710;
 
   const pageGroups = [];
   let curGroup = [];
