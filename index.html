@@ -3469,14 +3469,22 @@ const SECLBL = {single:'MCQ', numerical:'Numerical', multi:'Multiple Correct', p
 const TRANK = {single:0, numerical:1, multi:2, paragraph:3, matrix:4};
 function sortQuestionsByPattern(list){
   if(!list || !list.length) return [];
-  const orderMap = { single: 0, numerical: 1, multi: 2, paragraph: 3, matrix: 4 };
+  function isNeet(q){
+    return !!((q.id && String(q.id).startsWith('allenchem_')) || (q.paper === 'allen'));
+  }
+  // Order: single (non-neet: 0, neet: 1 - last of single before multi) -> multi: 2 -> numerical: 3 -> paragraph: 4 -> matrix: 5
+  const orderMap = { single: 0, multi: 2, numerical: 3, paragraph: 4, matrix: 5 };
   return list.slice().sort((a, b) => {
     const isParaA = !!(a.paragraph || a.type === 'paragraph');
     const isParaB = !!(b.paragraph || b.type === 'paragraph');
     const typeA = isParaA ? 'paragraph' : (a.type || 'single');
     const typeB = isParaB ? 'paragraph' : (b.type || 'single');
-    const rankA = orderMap[typeA] != null ? orderMap[typeA] : 0;
-    const rankB = orderMap[typeB] != null ? orderMap[typeB] : 0;
+    const baseRankA = orderMap[typeA] != null ? orderMap[typeA] : 0;
+    const baseRankB = orderMap[typeB] != null ? orderMap[typeB] : 0;
+
+    const rankA = (typeA === 'single' && isNeet(a)) ? 1 : baseRankA;
+    const rankB = (typeB === 'single' && isNeet(b)) ? 1 : baseRankB;
+
     if(rankA !== rankB) return rankA - rankB;
     if(isParaA && isParaB){
       const pidA = a.paragraphId || '';
@@ -8670,18 +8678,8 @@ async function renderAllenSheetDoc(rawQs, opts, onProgress){
     return !!((q.id && String(q.id).startsWith('allenchem_')) || (q.paper === 'allen'));
   }
 
-  const hasNeet = rawQs.some(isNeetQuestion);
-  const hasNonNeet = rawQs.some(q => !isNeetQuestion(q));
-
-  // If sheet has both JEE and NEET: show JEE first (single column), then NEET (two columns)
-  let qs = [];
-  if(hasNeet && hasNonNeet){
-    const nonNeetList = rawQs.filter(q => !isNeetQuestion(q));
-    const neetList = rawQs.filter(isNeetQuestion);
-    qs = sortQuestionsByPattern(nonNeetList).concat(neetList);
-  } else {
-    qs = sortQuestionsByPattern(rawQs);
-  }
+  // Sort questions: single (JEE) -> single (NEET - last of single before multi) -> multi -> numerical -> paragraph -> matrix
+  const qs = sortQuestionsByPattern(rawQs);
 
   const testTitle = (opts.title || '').trim() || 'Practice Sheet';
   const testSubtitle = (opts.subtitle || '').trim();
@@ -8689,18 +8687,16 @@ async function renderAllenSheetDoc(rawQs, opts, onProgress){
   const candName = (opts.candName || ($('#tbCandName') ? $('#tbCandName').value : '') || '').trim();
   const totalMarks = qs.length * 4;
 
-  const modeLabel = (hasNeet && hasNonNeet) ? 'Hybrid 1 & 2 Col' : (hasNeet ? '2-Column Vector' : 'Single Column Vector');
-  $('#sheetDocTitle').textContent = testTitle + ' (' + qs.length + ' Qs - ' + modeLabel + ')';
+  $('#sheetDocTitle').textContent = testTitle + ' (' + qs.length + ' Qs - Compact Vector)';
   const container = $('#sheetDocContainer');
   container.innerHTML = '';
 
   const SECTION_TITLES = {
     single: 'SECTION 1: SINGLE CORRECT OPTION',
-    numerical: 'SECTION 2: NUMERICAL VALUE TYPE',
-    multi: 'SECTION 3: ONE OR MORE THAN ONE OPTION CORRECT',
+    multi: 'SECTION 2: ONE OR MORE THAN ONE OPTION CORRECT',
+    numerical: 'SECTION 3: NUMERICAL VALUE TYPE',
     paragraph: 'SECTION 4: COMPREHENSION / PARAGRAPH BASED QUESTIONS',
-    matrix: 'SECTION 5: MATCH THE FOLLOWING / MATRIX MATCH',
-    neet: 'SECTION: NEET MODULE QUESTIONS (2-COLUMN COMPACT FORMAT)'
+    matrix: 'SECTION 5: MATCH THE FOLLOWING / MATRIX MATCH'
   };
 
   // Pre-compute dynamic question ranges for paragraph groups
@@ -8724,19 +8720,15 @@ async function renderAllenSheetDoc(rawQs, opts, onProgress){
     keyRows.push({ num: qNum, ans: ansKey || '-' });
 
     const isNeetQ = isNeetQuestion(q);
-    const isPara = !isNeetQ && !!(q.paragraph || q.type === 'paragraph');
-    const qSec = isNeetQ ? 'neet' : (isPara ? 'paragraph' : (q.type || 'single'));
+    const isPara = !!(q.paragraph || q.type === 'paragraph');
+    // NEET questions are Single Correct, so they belong to the 'single' section with no separate NEET header
+    const qSec = isPara ? 'paragraph' : (q.type || 'single');
 
     let sectionHtml = '';
     let sectionH = 0;
     if(qSec !== currentSec){
       currentSec = qSec;
-      let secTitle = '';
-      if(currentSec === 'neet'){
-        secTitle = (hasNeet && hasNonNeet) ? 'SECTION: NEET CHEMISTRY MODULE (2-COLUMN FORMAT)' : 'SECTION: CHEMISTRY QUESTIONS (2-COLUMN FORMAT)';
-      } else {
-        secTitle = SECTION_TITLES[currentSec] || ('SECTION: ' + currentSec.toUpperCase());
-      }
+      const secTitle = SECTION_TITLES[currentSec] || ('SECTION: ' + currentSec.toUpperCase());
       sectionHtml = '<div class="allen-section-banner">' + esc(secTitle) + '</div>';
       sectionH = 24;
     }
