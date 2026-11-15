@@ -2747,8 +2747,8 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
               <div class="field">
                 <label>M.S. Chouhan Sub-Sources <span class="muted" style="font-size:11px;font-weight:normal">(Select Level 1 or Selected Questions)</span></label>
                 <div class="pattern-pills" id="tbMsSubSourcePills" style="display:flex;flex-wrap:wrap;gap:8px">
-                  <button type="button" class="pattern-pill active" data-mssubsource="selected" id="tbMsSubSourceSelected"><span class="pill-check">✓ </span>Selected Questions <span id="tbMsSelectedCnt">(82)</span></button>
-                  <button type="button" class="pattern-pill" data-mssubsource="level1" id="tbMsSubSourceLevel1"><span class="pill-check">+ </span>Level 1 (All Questions) <span id="tbMsLevel1Cnt">(154)</span></button>
+                  <button type="button" class="pattern-pill active" data-mssubsource="selected" id="tbMsSubSourceSelected"><span class="pill-check">✓ </span>Selected Questions <span id="tbMsSelectedCnt">(1,839)</span></button>
+                  <button type="button" class="pattern-pill" data-mssubsource="level1" id="tbMsSubSourceLevel1"><span class="pill-check">+ </span>Level 1 (All Questions) <span id="tbMsLevel1Cnt">(1,839)</span></button>
                 </div>
               </div>
 
@@ -2801,7 +2801,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
             </div>
             <!-- MS Chouhan Branch indicator (shown when MS Chouhan tab is active) -->
             <div class="chips" id="tbMsBranchBox" style="display:none;margin-top:6px">
-              <label class="chk"><input type="checkbox" data-tbmsbranch="Organic Chemistry" checked disabled> <span>Organic Chemistry (Aldehydes &amp; Ketones)</span></label>
+              <label class="chk"><input type="checkbox" data-tbmsbranch="Organic Chemistry" checked disabled> <span>Organic Chemistry (All 19 Chapters)</span></label>
             </div>
           </div>
           <div class="chtools" style="margin-top:12px">
@@ -3186,7 +3186,7 @@ const AitsCache = {
       this.dbPromise = new Promise((resolve) => {
         try {
           if(!window.indexedDB) return resolve(null);
-          const req = indexedDB.open('aits_storage_cache_v4', 1);
+          const req = indexedDB.open('aits_storage_cache_v5', 1);
           req.onupgradeneeded = e => {
             const db = e.target.result;
             if(!db.objectStoreNames.contains('kv')) db.createObjectStore('kv');

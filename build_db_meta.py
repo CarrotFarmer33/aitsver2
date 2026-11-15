@@ -103,6 +103,11 @@ def build_meta():
             if q.get('exam'): item['exam'] = q['exam']
             if q.get('branch'): item['branch'] = q['branch']
             if q.get('star'): item['star'] = q['star']
+            if q.get('selected'): item['selected'] = True
+            if q.get('isLevel1'): item['isLevel1'] = True
+            if q.get('exercise'): item['exercise'] = q['exercise']
+            if q.get('bank'): item['bank'] = q['bank']
+            if q.get('subSource'): item['subSource'] = q['subSource']
             if q.get('paragraph') or q.get('paragraph_id'): item['paragraph'] = True
             if q.get('rawType'): item['rawType'] = q['rawType']
             if q.get('options') and isinstance(q.get('options'), list):
