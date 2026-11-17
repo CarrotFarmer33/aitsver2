@@ -29,17 +29,52 @@ import pymupdf as fitz
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 PARENT_DIR = os.path.dirname(ROOT_DIR)
 
-BASE_DIR = os.path.join(ROOT_DIR, "allen jee", "Chemistry[Separate]")
-if not os.path.exists(BASE_DIR):
-    alt_base = os.path.join(PARENT_DIR, "allen jee", "Chemistry[Separate]")
-    if os.path.exists(alt_base):
-        BASE_DIR = alt_base
+def find_existing_path(rel_path):
+    if not rel_path:
+        return rel_path
+    if os.path.isabs(rel_path) and os.path.exists(rel_path):
+        return rel_path
 
-DB_PATH = os.path.join(ROOT_DIR, "allenjee_database.json")
+    # Search up from ROOT_DIR
+    cur = ROOT_DIR
+    for _ in range(6):
+        cand = os.path.join(cur, rel_path)
+        if os.path.exists(cand):
+            return cand
+        next_cur = os.path.dirname(cur)
+        if next_cur == cur:
+            break
+        cur = next_cur
+
+    # Search up from sys.executable
+    cur = os.path.dirname(os.path.abspath(sys.executable))
+    for _ in range(6):
+        cand = os.path.join(cur, rel_path)
+        if os.path.exists(cand):
+            return cand
+        next_cur = os.path.dirname(cur)
+        if next_cur == cur:
+            break
+        cur = next_cur
+
+    # Search up from cwd
+    cur = os.path.abspath(os.getcwd())
+    for _ in range(6):
+        cand = os.path.join(cur, rel_path)
+        if os.path.exists(cand):
+            return cand
+        next_cur = os.path.dirname(cur)
+        if next_cur == cur:
+            break
+        cur = next_cur
+
+    return os.path.join(ROOT_DIR, rel_path)
+
+BASE_DIR = find_existing_path(os.path.join("allen jee", "Chemistry[Separate]"))
+
+DB_PATH = find_existing_path("allenjee_database.json")
 if not os.path.exists(DB_PATH):
-    alt_db = os.path.join(ROOT_DIR, "aitsver2-main", "allenjee_database.json")
-    if os.path.exists(alt_db):
-        DB_PATH = alt_db
+    DB_PATH = find_existing_path(os.path.join("aitsver2-main", "allenjee_database.json"))
 
 # Single-Column Page Layout Geometry (Identical to student test reference)
 PW, PH = 595.0, 842.0
@@ -62,11 +97,11 @@ FOOTER_Y_CUT = 790.0
 
 SECTION_ORDER = {'single': 0, 'numerical': 1, 'multi': 2, 'paragraph': 3, 'matrix': 4}
 SECTION_TITLES = {
-    'single': 'SECTION 1: SINGLE CHOICE QUESTIONS',
-    'numerical': 'SECTION 2: NUMERICAL VALUE TYPE',
-    'multi': 'SECTION 3: ONE OR MORE THAN ONE CHOICE',
-    'paragraph': 'SECTION 4: PARAGRAPH BASED QUESTIONS',
-    'matrix': 'SECTION 5: MATRIX MATCH QUESTIONS'
+    'single': 'SECTION 1: SINGLE CORRECT OPTION',
+    'multi': 'SECTION 2: ONE OR MORE THAN ONE OPTION CORRECT',
+    'numerical': 'SECTION 3: NUMERICAL VALUE TYPE',
+    'paragraph': 'SECTION 4: COMPREHENSION / PARAGRAPH BASED QUESTIONS',
+    'matrix': 'SECTION 5: MATCH THE FOLLOWING / MATRIX MATCH'
 }
 
 CODE_RE = re.compile(r'^[A-Z]{2,4}[0-9O]{3,5}$')
@@ -196,6 +231,54 @@ def draw_answer_key_grid(page, y_start, key_data):
 
     return table_top_y + header_h + num_rows * row_h
 
+def calibrate_allenjee_bounds(page, y0, y1):
+    """
+    Calibrate crop bounds for an Allen JEE question.
+    Eliminates stray header lines, preceding section banners (and their descenders),
+    trailing question codes (e.g. CBO0001, AS0076), and unindents the question.
+    """
+    words = page.get_text("words")
+    band_words = [w for w in words if y0 - 1.0 <= w[1] <= y1 and 42.0 <= w[0] <= 552.0]
+    content_words = [
+        w for w in band_words
+        if w[1] >= max(y0, 70.0)
+        and not (w[1] < y0 + 12.0 and any(h in w[4].lower() for h in ["exercise", "session", "only", "option", "allen", "$//(1", "(only"]))
+    ]
+    if not content_words:
+        return fitz.Rect(74.0, max(y0, 70.0), 552.0, min(y1, 770.0))
+
+    top_w = min(content_words, key=lambda w: w[1])
+    cal_y0 = max(y0, top_w[1] - 1.5)
+
+    real_words = [
+        w for w in content_words
+        if not re.fullmatch(r"^[A-Z]{2,4}\d{4,5}$", w[4].strip())
+        and not any(k in w[4].lower() for k in ["session", "allen", "$//(1"])
+    ]
+    if real_words:
+        max_w = max(real_words, key=lambda w: w[3])
+        drawings = [d for d in page.get_drawings() if 42.0 <= d['rect'].x0 and d['rect'].x1 <= 552.0 and cal_y0 <= d['rect'].y0 <= y1]
+        drawings = [d for d in drawings if d['rect'].height < (y1 - cal_y0)]
+        max_d_y = max((d['rect'].y1 for d in drawings), default=cal_y0)
+        cal_y1 = min(max(max_w[3], max_d_y) + 3.0, y1)
+    else:
+        cal_y1 = y1
+
+    stem_words = [w for w in real_words if 68.0 <= w[0] <= 115.0 and w[1] <= cal_y0 + 15.0]
+    cal_x0 = (min(w[0] for w in stem_words) - 3.0) if stem_words else 74.0
+    cal_x0 = max(68.0, min(80.0, cal_x0))
+
+    return fitz.Rect(cal_x0, max(cal_y0, 70.0), 552.0, min(cal_y1, 770.0))
+
+def has_answer_key(q):
+    if not q:
+        return False
+    ans = q.get("answer") or q.get("ans") or q.get("correct_option")
+    if ans is None:
+        return False
+    s = str(ans).strip()
+    return s != "" and s != "-" and s != "?" and s.lower() not in ("none", "null", "[blank]")
+
 def get_tight_y0(page, y0, y1):
     """
     Ensures y0 begins cleanly at the question stem or question number,
@@ -247,17 +330,36 @@ def calculate_tight_y1(page, y0, y1):
 
 def resolve_pdf_path(pdf_name):
     norm_rel = pdf_name.replace("/", os.sep)
-    cand_paths = [
-        os.path.join(ROOT_DIR, norm_rel),
-        os.path.join(PARENT_DIR, norm_rel),
-        os.path.join(BASE_DIR, norm_rel),
-        os.path.join(BASE_DIR, os.path.basename(norm_rel)),
-    ]
+    if os.path.isabs(norm_rel) and os.path.exists(norm_rel):
+        return norm_rel
+
+    found = find_existing_path(norm_rel)
+    if os.path.exists(found):
+        return found
+
     prefix = os.path.join("allen jee", "Chemistry[Separate]")
     if norm_rel.lower().startswith(prefix.lower()):
         sub_rel = norm_rel[len(prefix):].lstrip(os.sep)
-        cand_paths.append(os.path.join(BASE_DIR, sub_rel))
-    return next((p for p in cand_paths if os.path.exists(p)), cand_paths[0])
+        cand = os.path.join(BASE_DIR, sub_rel)
+        if os.path.exists(cand):
+            return cand
+        cand_found = find_existing_path(os.path.join("allen jee", "Chemistry[Separate]", sub_rel))
+        if os.path.exists(cand_found):
+            return cand_found
+
+    cand_basename = os.path.join(BASE_DIR, os.path.basename(norm_rel))
+    if os.path.exists(cand_basename):
+        return cand_basename
+
+    # Search recursively in BASE_DIR for the file basename
+    target_base = os.path.basename(norm_rel).lower()
+    if os.path.isdir(BASE_DIR):
+        for root, _, files in os.walk(BASE_DIR):
+            for f in files:
+                if f.lower() == target_base:
+                    return os.path.join(root, f)
+
+    return os.path.join(ROOT_DIR, norm_rel)
 
 def sort_questions_by_pattern(questions):
     def q_key(q):
@@ -298,19 +400,21 @@ def generate_custom_test(
         for qid in selected_qids:
             if qid in qid_map:
                 q = qid_map[qid]
+                if not has_answer_key(q):
+                    continue
                 if q.get("paragraph"):
                     pid = q.get("paragraphId")
                     if pid and pid not in seen_pids:
                         seen_pids.add(pid)
                         for gid in q.get("paragraphGroup", [qid]):
-                            if gid in qid_map and qid_map[gid] not in chosen:
+                            if gid in qid_map and qid_map[gid] not in chosen and has_answer_key(qid_map[gid]):
                                 chosen.append(qid_map[gid])
                 else:
                     if q not in chosen:
                         chosen.append(q)
     else:
         target_chapters = chapters if chapters else ([chapter_name] if chapter_name and chapter_name != "All" else None)
-        pool = all_qs
+        pool = [q for q in all_qs if has_answer_key(q)]
         if target_chapters:
             tc_lower = [c.strip().lower() for c in target_chapters]
             pool = [q for q in pool if any(c in q.get("chapter", "").strip().lower() or q.get("chapter", "").strip().lower() in c for c in tc_lower)]
@@ -410,7 +514,7 @@ def generate_custom_test(
         src_doc = open_docs[pdf_path]
 
         # 1. Section Header Banner if pattern section changes
-        if q_sec != current_sec and len(set(q.get("type", "single") for q in chosen)) > 1:
+        if q_sec != current_sec:
             current_sec = q_sec
             sec_title = SECTION_TITLES.get(current_sec, f"SECTION: {current_sec.upper()}")
             if curr_y + 24.0 > COL_Y_END:
@@ -456,25 +560,24 @@ def generate_custom_test(
         pno, x0, y0, x1, y1 = seg
         page = src_doc[pno - 1]
 
-        tight_y0 = get_tight_y0(page, y0, y1)
-        tight_y1 = calculate_tight_y1(page, tight_y0, y1)
-        clip_rect = fitz.Rect(COL_X0, max(tight_y0, 72.0), COL_X1, min(tight_y1, 770.0))
-        target_h = max(clip_rect.height, 15.0)
+        clip_rect = calibrate_allenjee_bounds(page, y0, y1)
+        draw_w = clip_rect.width
+        draw_h = clip_rect.height
 
         # Check page overflow
-        if curr_y + target_h + GAP_Q > COL_Y_END:
+        if curr_y + draw_h + GAP_Q > COL_Y_END:
             page_num += 1
             curr_page = add_sheet_page(doc, title=title, is_first_page=False, total_questions=len(chosen), cand_name=cand_name, time_limit=time_limit, subtitle=subtitle)
             curr_y = SUB_Y_START
 
         # Draw sequential question number at left margin
-        curr_page.insert_text(fitz.Point(26.0, curr_y + 11.5), f"{test_idx}.", fontsize=9.5, fontname="hebo", color=(0, 0, 0))
+        curr_page.insert_text(fitz.Point(COL_X0 - 18.0, curr_y + 11.5), f"{test_idx}.", fontsize=9.5, fontname="hebo", color=(0, 0, 0))
 
-        # Show native vector question at exact 1:1 scale (COL_X0 to COL_X1, height = target_h)
-        target_rect = fitz.Rect(COL_X0, curr_y, COL_X1, curr_y + target_h)
+        # Show native vector question with calibrated crop
+        target_rect = fitz.Rect(COL_X0, curr_y, COL_X0 + draw_w, curr_y + draw_h)
         curr_page.show_pdf_page(target_rect, src_doc, pno - 1, clip=clip_rect)
 
-        curr_y += target_h + GAP_Q
+        curr_y += draw_h + GAP_Q
 
     # 4. Final Answer Key Page (5-Block Table)
     ak_page = doc.new_page(width=PW, height=PH)

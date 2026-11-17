@@ -9,6 +9,14 @@
   --sheet-alt: #ededed;
 }
 
+/* Desktop Mode specific overrides */
+body.desktop-mode #tbLogoutBtn,
+body.desktop-mode #tbBackBtn,
+body.desktop-mode #btnGenCbt,
+body.desktop-mode #tbPrevStartCbtBtn {
+  display: none !important;
+}
+
 .builder-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
@@ -16,7 +24,15 @@
   align-items: start;
 }
 @media (max-width: 900px) {
-  .builder-grid { grid-template-columns: minmax(0, 1fr); }
+  /* Desktop Mode specific overrides */
+body.desktop-mode #tbLogoutBtn,
+body.desktop-mode #tbBackBtn,
+body.desktop-mode #btnGenCbt,
+body.desktop-mode #tbPrevStartCbtBtn {
+  display: none !important;
+}
+
+.builder-grid { grid-template-columns: minmax(0, 1fr); }
 }
 
 .pattern-pills {
@@ -2631,7 +2647,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 </div>
 
 <div id="scrTestBuilder" class="screen" hidden>
-  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Test Builder &ndash; Build Custom Question Sheets</span><div style="display:flex;align-items:center;gap:8px"><button class="btn sm" id="tbArchiveNavBtn" type="button" style="display:inline-flex;align-items:center;gap:5px" title="View last 3 generated tests"><span>📁 Recent Tests (<b id="tbArchiveNavCount">0</b>)</span></button><button class="btn sm" id="tbLogoutBtn" type="button" style="border-color:#e05252;color:#e05252">Log out</button><button class="btn sm" id="tbBackBtn" type="button">&larr; Practice portal</button></div></div></div>
+  <div class="topbar"><div class="tb-in"><span class="tb-title">AITS Test Builder &ndash; Build Custom Question Sheets</span><div style="display:flex;align-items:center;gap:8px"><button class="btn sm" id="tbOpenFolderBtn" type="button" style="display:inline-flex;align-items:center;gap:5px;font-weight:600" title="Open folder where generated PDFs are saved"><span>📂 Open PDFs Folder</span></button><button class="btn sm" id="tbArchiveNavBtn" type="button" style="display:inline-flex;align-items:center;gap:5px" title="View last 3 generated tests"><span>📁 Recent Tests (<b id="tbArchiveNavCount">0</b>)</span></button><button class="btn sm" id="tbLogoutBtn" type="button" style="border-color:#e05252;color:#e05252">Log out</button><button class="btn sm" id="tbBackBtn" type="button">&larr; Practice portal</button></div></div></div>
   <main class="wrap setup">
     <div id="tbResumeBanner" style="display:none;margin-bottom:16px;padding:12px 16px;background:var(--tint);border:1px solid var(--brand);border-radius:6px;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
       <div style="display:flex;align-items:center;gap:10px;min-width:0">
@@ -2656,20 +2672,54 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
       <div style="display:flex;flex-direction:column;gap:16px">
         <section class="card">
           <h2>1. Exam Pattern &amp; Paper Source</h2>
-          <!-- Source Bank Top-Level Tabs: Separates FIITJEE, Allen, and MS Chouhan -->
-          <div class="source-top-tabs" style="display:flex;gap:10px;margin-bottom:14px;border-bottom:1.5px solid var(--line);padding-bottom:10px;flex-wrap:wrap">
-            <button type="button" class="source-tab-btn active" id="tbTabFiitjee">
+          <!-- Source Selection Tiles: Tap to select / deselect multi-sources -->
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <label style="margin:0;font-size:13px;font-weight:700">Question Sources <span class="muted" style="font-size:11.5px;font-weight:normal">(Tap to toggle source inclusion)</span></label>
+          </div>
+          <div class="source-top-tabs" id="tbSourceToggleBar" style="display:flex;gap:10px;margin-bottom:12px;border-bottom:1.5px solid var(--line);padding-bottom:10px;flex-wrap:wrap">
+            <button type="button" class="source-tab-btn active" id="tbTabFiitjee" data-source="fiitjee">
+              <span class="pill-check" style="font-weight:900;font-size:14px">✓ </span>
               <span>🏛️ FIITJEE Question Bank</span>
               <span class="tab-badge" id="tbFiitjeeBadge" style="display:none;background:var(--brand);color:#fff;border-radius:10px;padding:1px 6px;font-size:11px;margin-left:6px">0</span>
             </button>
-            <button type="button" class="source-tab-btn" id="tbTabAllen">
+            <button type="button" class="source-tab-btn active" id="tbTabAllen" data-source="allen">
+              <span class="pill-check" style="font-weight:900;font-size:14px">✓ </span>
               <span>🔷 ALLEN Question Bank</span>
               <span class="tab-badge" id="tbAllenBadge" style="display:none;background:var(--brand);color:#fff;border-radius:10px;padding:1px 6px;font-size:11px;margin-left:6px">0</span>
             </button>
-            <button type="button" class="source-tab-btn" id="tbTabMschouhan">
+            <button type="button" class="source-tab-btn" id="tbTabMschouhan" data-source="mschouhan">
+              <span class="pill-check" style="font-weight:900;font-size:14px">+ </span>
               <span>📗 M.S. Chouhan Question Bank</span>
               <span class="tab-badge" id="tbMsBadge" style="display:none;background:var(--brand);color:#fff;border-radius:10px;padding:1px 6px;font-size:11px;margin-left:6px">0</span>
             </button>
+            <button type="button" class="source-tab-btn" id="tbTabNeeraj" data-source="neeraj">
+              <span class="pill-check" style="font-weight:900;font-size:14px">+ </span>
+              <span>📙 Neeraj Kumar (Physical Chem)</span>
+              <span class="tab-badge" id="tbNeerajBadge" style="display:none;background:var(--brand);color:#fff;border-radius:10px;padding:1px 6px;font-size:11px;margin-left:6px">0</span>
+            </button>
+          </div>
+
+          <!-- Multi-Source Allocation Card: Configure questions per source -->
+          <div id="tbMultiSourceAllocCard" style="display:none;background:var(--surface-2);border:1.5px solid var(--brand, #0066cc);border-radius:8px;padding:12px 14px;margin-bottom:14px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px">
+              <div style="display:flex;align-items:center;gap:6px">
+                <span style="font-size:14px">⚡</span>
+                <strong style="font-size:13px;color:var(--brand-deep, #004c99)">Select Questions from Each Source:</strong>
+              </div>
+              <span style="font-size:12px;font-weight:700;color:var(--brand)" id="tbMultiSourceSumBadge">Total: 30 Questions</span>
+            </div>
+            <div id="tbMultiSourceInputsGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px">
+              <!-- Dynamically populated based on active sources -->
+            </div>
+          </div>
+
+          <!-- Settings Switcher Pill Bar (when multiple sources are selected) -->
+          <div id="tbSourceSettingsTabs" style="display:none;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+            <span style="font-size:12px;font-weight:700;color:var(--fg);opacity:0.8">Configure Settings:</span>
+            <button type="button" class="pattern-pill active" data-viewtab="fiitjee" id="tbViewTabFiitjee">🏛️ FIITJEE Settings</button>
+            <button type="button" class="pattern-pill" data-viewtab="allen" id="tbViewTabAllen">🔷 ALLEN Settings</button>
+            <button type="button" class="pattern-pill" data-viewtab="mschouhan" id="tbViewTabMschouhan">📗 M.S. Chouhan Settings</button>
+            <button type="button" class="pattern-pill" data-viewtab="neeraj" id="tbViewTabNeeraj">📙 Neeraj Kumar Settings</button>
           </div>
 
           <!-- Multi-Source Active Banner (shown when chapters are selected across 2 or more tabs) -->
@@ -2765,6 +2815,20 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
             </div>
           </div>
 
+          <!-- NEERAJ KUMAR Controls Panel -->
+          <div id="tbPanelNeeraj" style="display:none">
+            <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:12px">
+              <div class="field">
+                <label>Neeraj Kumar Mode / Level <span class="muted" style="font-size:11px;font-weight:normal">(Select JEE Main, JEE Advanced, or All Levels)</span></label>
+                <div class="pattern-pills" id="tbNeerajExamPills" style="display:flex;flex-wrap:wrap;gap:8px">
+                  <button type="button" class="pattern-pill active" data-neerajexam="all" id="tbNeerajExamAll"><span class="pill-check">✓ </span>All Levels <span id="tbNeerajAllCnt"></span></button>
+                  <button type="button" class="pattern-pill" data-neerajexam="jee_main" id="tbNeerajExamMain"><span class="pill-check">+ </span>JEE Main (Exercise I) <span id="tbNeerajMainCnt"></span></button>
+                  <button type="button" class="pattern-pill" data-neerajexam="jee_advanced" id="tbNeerajExamAdv"><span class="pill-check">+ </span>JEE Advanced (Exercise II) <span id="tbNeerajAdvCnt"></span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="field"><label for="tbTestTitle">Test Paper Title</label>
             <input type="text" id="tbTestTitle" value="Practice Sheet">
           </div>
@@ -2802,6 +2866,10 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
             <!-- MS Chouhan Branch indicator (shown when MS Chouhan tab is active) -->
             <div class="chips" id="tbMsBranchBox" style="display:none;margin-top:6px">
               <label class="chk"><input type="checkbox" data-tbmsbranch="Organic Chemistry" checked disabled> <span>Organic Chemistry (All 19 Chapters)</span></label>
+            </div>
+            <!-- Neeraj Kumar Branch indicator (shown when Neeraj tab is active) -->
+            <div class="chips" id="tbNeerajBranchBox" style="display:none;margin-top:6px">
+              <label class="chk"><input type="checkbox" data-tbneerajbranch="Physical Chemistry" checked disabled> <span>Physical Chemistry (All 14 Chapters)</span></label>
             </div>
           </div>
           <div class="chtools" style="margin-top:12px">
@@ -2981,11 +3049,10 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
     <button class="btn sm" id="sheetAddRandomBtn" type="button" title="Add another random question and rebuild sheet">+ Add Random Question</button>
     <span class="tb-title" id="sheetDocTitle">Vector Test Sheet Preview</span>
   </div><div class="sheet-tools-right">
-    <button class="btn sm primary" id="sheetDownloadStudentBtn" type="button" style="background:#2563eb;color:#fff;border-color:#2563eb;font-weight:700" title="Download or print the Student Copy containing questions only">📥 Download Student Copy</button>
-    <button class="btn sm" id="sheetDownloadKeyBtn" type="button" style="background:#059669;color:#fff;border-color:#059669;font-weight:700" title="Download or print the Answer Key only">🔑 Download Answer Key</button>
-    <button class="btn sm" id="sheetPrintCompleteBtn" type="button" style="color:#e2e8f0;border-color:#55595d" title="Download or print complete paper with questions and answer key">Complete Paper</button>
-    <a class="btn sm" id="sheetOpenTabBtn" href="#" target="_blank" title="Open complete PDF in new browser tab">Open in Tab</a>
-    <button class="btn sm" id="sheetStartCbtBtn" type="button">Take as CBT Exam</button>
+    <button class="btn sm primary" id="sheetDownloadStudentBtn" type="button" style="background:#2563eb;color:#fff;border-color:#2563eb;font-weight:700;display:inline-flex;align-items:center;gap:5px" title="Download Student Copy (Questions Only)">📥 Download Student Copy</button>
+    <button class="btn sm" id="sheetDownloadKeyBtn" type="button" style="background:#059669;color:#fff;border-color:#059669;font-weight:700;display:inline-flex;align-items:center;gap:5px" title="Download Answer Key Only">🔑 Download Answer Key</button>
+    <button class="btn sm" id="sheetPrintCompleteBtn" type="button" style="background:#3b82f6;color:#fff;border-color:#2563eb;font-weight:700;display:inline-flex;align-items:center;gap:5px" title="Download Full Copy (Questions + Worked Solutions)">📄 Download Full Copy</button>
+    <button class="btn sm" id="sheetOpenFolderBtn" type="button" style="background:#334155;color:#fff;border-color:#475569;font-weight:600;display:inline-flex;align-items:center;gap:5px" title="Open folder where PDFs are saved" onclick="fetch('/api/open-folder')">📂 Reveal in Folder</button>
   </div></div></div>
 
   <div class="sheet-view-wrap" style="padding:0;height:calc(100vh - 56px);overflow-y:auto;background:#525659">
@@ -3186,7 +3253,7 @@ const AitsCache = {
       this.dbPromise = new Promise((resolve) => {
         try {
           if(!window.indexedDB) return resolve(null);
-          const req = indexedDB.open('aits_storage_cache_v8', 1);
+          const req = indexedDB.open('aits_storage_cache_v13', 1);
           req.onupgradeneeded = e => {
             const db = e.target.result;
             if(!db.objectStoreNames.contains('kv')) db.createObjectStore('kv');
@@ -3242,7 +3309,7 @@ const AitsCache = {
 window.AitsCache = AitsCache;
 
 async function fetchCachedJson(url){
-  const cacheKey = 'json:' + url;
+  const cacheKey = 'json:v6:' + url;
   const cached = await AitsCache.get(cacheKey);
   if(cached) return cached;
   const r = await fetch(url);
@@ -3265,9 +3332,9 @@ async function getZip(zipUrl){
   }
 
   const p = (async () => {
-    // 1. Check local IndexedDB disk cache
+    // 1. Check local IndexedDB disk cache with versioned key
     try {
-      const cachedBuf = await AitsCache.get('zip:' + cacheKey);
+      const cachedBuf = await AitsCache.get('zip:v6:' + cacheKey);
       if(cachedBuf){
         return await JSZip.loadAsync(cachedBuf);
       }
@@ -3292,7 +3359,7 @@ async function getZip(zipUrl){
           continue;
         }
         const b = await r.arrayBuffer();
-        AitsCache.set('zip:' + cacheKey, b);
+        AitsCache.set('zip:v6:' + cacheKey, b);
         return await JSZip.loadAsync(b);
       } catch(err) {
         lastErr = err;
@@ -3316,7 +3383,14 @@ async function resolveZipImage(img){
     const zip = await getZip(zipUrl);
     let f=zip.file(fileName);
     if(!f){ const match=Object.keys(zip.files).find(k=>!zip.files[k].dir && (k===fileName || k.endsWith('/'+fileName))); if(match) f=zip.file(match); }
-    if(!f) throw new Error('Image not found in ZIP: '+fileName);
+    if(!f){
+      try {
+        const rel = zipUrl.replace(/^\/+/, '');
+        AitsCache.delete('zip:v6:' + (zipUrl.startsWith('http') ? zipUrl : rel));
+        zipCache.delete(zipUrl.startsWith('http') ? zipUrl : rel);
+      } catch(_) {}
+      throw new Error('Image not found in ZIP: '+fileName);
+    }
     const isSvg = /\.svg$/i.test(fileName);
     const isTb = img.classList.contains('test-builder-svg') || img.classList.contains('cbt-svg') || !!img.closest('#scrTestPreview, #scrSheetView, #scrExam, #scrRes, .preview-q-card, .preview-q-body, .preview-sol-box, .sheet-page, .allen-sheet-page');
     const crop = (img.dataset.cropTop || img.dataset.cropBottom || img.dataset.cropLeft || img.dataset.cropRight) ? {
@@ -3382,13 +3456,27 @@ async function resolveZipImage(img){
   }catch(e){
     console.warn('Unable to load image from ZIP: ' + fileName, e);
     // Automatic fallback: fetch vector SVG directly from local vector engine
-    if(fileName.startsWith('allenjee_') || fileName.startsWith('allenchem_')){
+    if(fileName.startsWith('allenjee_') || fileName.startsWith('allenchem_') || fileName.startsWith('mschouhan_')){
       try {
         const qid = fileName.replace(/\.svg$/i, '');
-        const baseEngine = (window.AITS_CONFIG && window.AITS_CONFIG.localVectorEngineUrl) ? window.AITS_CONFIG.localVectorEngineUrl.replace(/\/+$/, '') : '';
-        const svgUrl = (baseEngine || '') + '/api/question-svg/' + encodeURIComponent(qid);
-        const resp = await fetch(svgUrl);
-        if(resp.ok){
+        const baseOrigin = (window.location.protocol.startsWith('http') && window.location.origin && window.location.origin !== 'null') ? window.location.origin : 'http://127.0.0.1:8000';
+        const candidateSvgUrls = [
+          '/api/question-svg/' + encodeURIComponent(qid),
+          baseOrigin + '/api/question-svg/' + encodeURIComponent(qid),
+          'http://127.0.0.1:8000/api/question-svg/' + encodeURIComponent(qid),
+          'http://localhost:8000/api/question-svg/' + encodeURIComponent(qid)
+        ];
+        if (window.AITS_CONFIG && window.AITS_CONFIG.localVectorEngineUrl) {
+          candidateSvgUrls.push(window.AITS_CONFIG.localVectorEngineUrl.replace(/\/+$/, '') + '/api/question-svg/' + encodeURIComponent(qid));
+        }
+        let resp = null;
+        for (const url of candidateSvgUrls) {
+          try {
+            const r = await fetch(url);
+            if (r.ok) { resp = r; break; }
+          } catch (_) {}
+        }
+        if(resp && resp.ok){
           const rawSvgText = await resp.text();
           let processedSvg = processSvgMarkup(rawSvgText, isTb);
           if(crop) processedSvg = applySvgCrop(processedSvg, crop);
@@ -3660,12 +3748,15 @@ function normQuestion(q,i,defSubject){
     raster_images:[].concat(q.raster_images||imgs).filter(Boolean).map(String),
     solImages:[].concat(q.solution_images||q.solutionImages||[]).filter(Boolean).map(String),
     source:String(q.source!=null?q.source:(q.source_paper!=null?q.source_paper:(q.paper!=null?q.paper:(q.test||'')))),
-    bank: (q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? (q.bank || 'Selected Questions') : (q.bank || q.exercise || (String(q.id).includes('_o1_') ? 'O-1' : (String(q.id).includes('_o2_') ? 'O-2' : ''))),
-    branch: q.branch || ((q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? 'Organic Chemistry' : (((q.paper === 'allen' || (q.id && String(q.id).startsWith('allenchem_'))) ? 'NEET Modules' : ''))),
-    paper: (q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? 'mschouhan' : ((q.paper === 'allen_jee' || (q.id && String(q.id).startsWith('allenjee_'))) ? 'allen_jee' : ((q.paper === 'allen' || (q.id && String(q.id).startsWith('allenchem_')) || /allen/i.test(String(q.source||''))) ? 'allen' : (q.exam ? (/adv/i.test(q.exam)?'adv':(/main/i.test(q.exam)?'main':q.exam)) : paperOf(String(q.source||'')+' '+String(q.paperTitle||q.paper_title||''))))),
+    bank: (q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) ? (q.bank || 'JEE Main') : ((q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? (q.bank || 'Selected Questions') : (q.bank || q.exercise || (String(q.id).includes('_o1_') ? 'O-1' : (String(q.id).includes('_o2_') ? 'O-2' : '')))),
+    branch: q.branch || ((q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) ? 'Physical Chemistry' : ((q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? 'Organic Chemistry' : (((q.paper === 'allen' || (q.id && String(q.id).startsWith('allenchem_'))) ? 'NEET Modules' : '')))),
+    paper: (q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) ? 'neeraj' : ((q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? 'mschouhan' : ((q.paper === 'allen_jee' || (q.id && String(q.id).startsWith('allenjee_'))) ? 'allen_jee' : ((q.paper === 'allen' || (q.id && String(q.id).startsWith('allenchem_')) || /allen/i.test(String(q.source||''))) ? 'allen' : (q.exam ? (/adv/i.test(q.exam)?'adv':(/main/i.test(q.exam)?'main':q.exam)) : paperOf(String(q.source||'')+' '+String(q.paperTitle||q.paper_title||'')))))),
     selected: !!q.selected,
     star: q.star || null,
     exercise: q.exercise || ((q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? 'Level 1' : null),
+    exam: q.exam || ((q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) ? (String(q.id).includes('_jee_adv') ? 'jee_advanced' : 'jee_main') : null),
+    subSource: q.subSource || ((q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) ? (String(q.id).includes('_jee_adv') ? 'jee_advanced' : 'jee_main') : null),
+    answer: q.answer || (q.ans != null ? (Array.isArray(q.ans) ? q.ans.map(k=>LET[k]||k).join('') : q.ans) : null),
     year:yearOf(q)
   };
 }
@@ -3731,7 +3822,7 @@ function loadDB(raw,label,isSample){
   list.forEach((e,i)=>{
     if(e.q && e.q._isNormalized){
       if(e.q.paper === 'aits' || !e.q.paper || e.q.paper === 'other'){
-        const isSpecial = e.q.paper === 'allen' || e.q.paper === 'allen_jee' || e.q.paper === 'mschouhan' || (e.q.id && (String(e.q.id).startsWith('allenjee_') || String(e.q.id).startsWith('allenchem_') || String(e.q.id).startsWith('mschouhan_')));
+        const isSpecial = e.q.paper === 'neeraj' || e.q.paper === 'allen' || e.q.paper === 'allen_jee' || e.q.paper === 'mschouhan' || (e.q.id && (String(e.q.id).startsWith('nk_') || String(e.q.id).startsWith('allenjee_') || String(e.q.id).startsWith('allenchem_') || String(e.q.id).startsWith('mschouhan_')));
         if(!isSpecial){
           e.q.paper = (e.q.exam && /main/i.test(e.q.exam)) ? 'main' : ((e.q.exam && /adv/i.test(e.q.exam)) ? 'adv' : (paperOf(String(e.q.source||'')+' '+String(e.q.paperTitle||e.q.paper_title||'')+' '+String(e.q.id||'')) === 'main' ? 'main' : 'adv'));
         }
@@ -3777,15 +3868,16 @@ async function ensureSubjectLoaded(subject){
       if(subject === 'Physics'){
         const remote = isLocal ? '' : (conf.databaseUrl || '').trim();
         fileUrls = [
-          ['database.json', remote, 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/database.json'],
-          ['allenjee_database.json', (conf.allenJeeUrl || '').trim(), 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/allenjee_database.json']
+          ['database.json', remote, 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/database.json']
         ];
       } else if(subject === 'Chemistry'){
         const chemRemote = (conf.chemistryUrl || '').trim();
         fileUrls = [
           ['chemistry_database.json', chemRemote, 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/chemistry_database.json'],
+          ['allenjee_database.json', (conf.allenJeeUrl || '').trim(), 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/allenjee_database.json'],
           ['allenchem_database.json', (conf.allenChemUrl || '').trim(), 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/allenchem_database.json'],
-          ['mschouhan_database.json', 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/mschouhan_database.json']
+          ['mschouhan_database.json', 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/mschouhan_database.json'],
+          ['neeraj_database.json', 'public/neeraj_database.json']
         ];
       } else if(subject === 'Mathematics'){
         const mathAdvRemote = (conf.mathsAdvancedUrl || '').trim();
@@ -3822,23 +3914,31 @@ async function ensureSubjectLoaded(subject){
 function mergeSubjectQuestions(raw, subject){
   const list = extractList(raw) || [];
   if(!list.length) return;
-  const qMap = new Map();
+  const existingMap = new Map();
+  DB.forEach(q => { existingMap.set(String(q.id), q); });
+  const toAdd = [];
+
   list.forEach(e => {
-    if(e.q && e.q.id) qMap.set(String(e.q.id), e.q);
-  });
-  DB.forEach(q => {
-    if(qMap.has(q.id)){
-      const full = qMap.get(q.id);
-      // Ensure we don't treat full raw question as already normalized if missing ans
-      delete full._isNormalized;
-      const norm = normQuestion(full, 0, subject);
-      if(norm){
-        Object.assign(q, norm);
+    if(e.q && e.q.id){
+      const qid = String(e.q.id);
+      if(existingMap.has(qid)){
+        const q = existingMap.get(qid);
+        delete e.q._isNormalized;
+        const norm = normQuestion(e.q, 0, subject);
+        if(norm){ Object.assign(q, norm); }
+        else { Object.assign(q, e.q, { _isNormalized: true, keyOk: true }); }
       } else {
-        Object.assign(q, full, { _isNormalized: true, keyOk: true });
+        delete e.q._isNormalized;
+        const norm = normQuestion(e.q, 0, subject);
+        if(norm){ toAdd.push(norm); }
+        else { toAdd.push(Object.assign({}, e.q, { _isNormalized: true, keyOk: true })); }
+        existingMap.set(qid, e.q);
       }
     }
   });
+  if(toAdd.length){
+    DB.push(...toAdd);
+  }
 }
 window.ensureSubjectLoaded = ensureSubjectLoaded;
 function showNote(t){ const n=$('#dbNote'); n.textContent=t; n.hidden=!t; }
@@ -5958,6 +6058,9 @@ document.addEventListener('click',e=>{
   }
   else if(b.id==='tbBackBtn' || b.id==='tbLoginBackBtn'){ show('scrSetup'); renderHist(); }
   else if(b.id==='tbLogoutBtn'){ logoutBuilder(); }
+  else if(b.id==='tbOpenFolderBtn'){
+    fetch('/api/open-folder').catch(err => console.error(err));
+  }
   else if(b.id==='tbArchiveNavBtn'){
     const card = $('#tbArchiveCard');
     if(card){
@@ -6002,9 +6105,23 @@ document.addEventListener('click',e=>{
     const id = archBtn.dataset.archId || archBtn.getAttribute('data-arch-id');
     deleteArchivedTest(id);
   }
-  else if(b.id==='sheetBackBtn'){ show('scrTestBuilder'); }
-  else if(b.id==='btnGenSheet'){ buildCustomSheet(); }
-  else if(b.id==='btnPreviewSheet'){ openBuilderPreview(); }
+  else if(b.id==='sheetBackBtn'){
+    tbCfg.builtQs = null;
+    tbCfg.currentTestId = null;
+    refreshBuilderSummary();
+    updateExhaustDisplay();
+    show('scrTestBuilder');
+  }
+  else if(b.id==='btnGenSheet'){
+    tbCfg.builtQs = null;
+    tbCfg.currentTestId = null;
+    buildCustomSheet();
+  }
+  else if(b.id==='btnPreviewSheet'){
+    tbCfg.builtQs = null;
+    tbCfg.currentTestId = null;
+    openBuilderPreview(true);
+  }
   else if(b.id==='tbResetExhaustBtn'){ clearUsedQuestions(); }
   else if(b.id==='tbPrevBackBtn' || b.id==='tbPrevBottomBackBtn'){ show('scrTestBuilder'); }
   else if(b.id==='tbPrevGenPdfBtn' || b.id==='tbPrevBottomGenPdfBtn'){ buildCustomSheet(tbCfg.builtQs); }
@@ -6170,13 +6287,30 @@ document.addEventListener('click',e=>{
     refreshBuilderSummary();
   }
   else if(b.id==='tbTabFiitjee' || b.closest('#tbTabFiitjee')){
-    setSourceTab('fiitjee');
+    toggleSource('fiitjee');
   }
   else if(b.id==='tbTabAllen' || b.closest('#tbTabAllen')){
-    setSourceTab('allen');
+    toggleSource('allen');
   }
   else if(b.id==='tbTabMschouhan' || b.closest('#tbTabMschouhan')){
-    setSourceTab('mschouhan');
+    toggleSource('mschouhan');
+  }
+  else if(b.id==='tbTabNeeraj' || b.closest('#tbTabNeeraj')){
+    toggleSource('neeraj');
+  }
+  else if(b.dataset.viewtab){
+    setSourceTab(b.dataset.viewtab);
+  }
+  else if(b.dataset.neerajexam){
+    document.querySelectorAll('#tbNeerajExamPills .pattern-pill').forEach(p => {
+      const isAct = p === b;
+      p.classList.toggle('active', isAct);
+      const chk = p.querySelector('.pill-check');
+      if(chk) chk.textContent = isAct ? '✓ ' : '+ ';
+    });
+    tbCfg.neerajExam = b.dataset.neerajexam;
+    renderBuilderChapters();
+    refreshBuilderSummary();
   }
   else if(b.dataset.mssubsource){
     document.querySelectorAll('#tbMsSubSourcePills .pattern-pill').forEach(p => {
@@ -6467,7 +6601,7 @@ $('#tbChapList').addEventListener('change', e => {
   }
 });
 $('#tbChSearch').addEventListener('input', () => { renderBuilderChapters(); });
-$('#tbCountIn').addEventListener('input', () => { tbCfg.count = +($('#tbCountIn').value) || 30; });
+$('#tbCountIn').addEventListener('input', () => { tbCfg.count = +($('#tbCountIn').value) || 30; syncSourceAllocCounts(); refreshBuilderSummary(); });
 window.addEventListener('hashchange', () => {
   if(window.location.hash.startsWith('#practice') || window.location.hash.startsWith('#marks')) openPracticeList();
   else if(window.location.hash.startsWith('#builder') || window.location.hash.startsWith('#test-builder')) openBuilderScreen();
@@ -6497,6 +6631,10 @@ function cleanSourceTag(q){
     if(q.star === 'one_star') return 'MS Chouhan • Selected (★)';
     if(q.star === 'normal') return 'MS Chouhan • Selected (Normal)';
     return 'MS Chouhan • ' + (q.exercise || 'Level 1');
+  }
+  if(q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))){
+    const ex = q.exam === 'jee_advanced' ? 'Advanced' : 'Mains';
+    return 'Neeraj Kumar • ' + ex;
   }
   if(q.paper === 'allen_jee' || (q.id && String(q.id).startsWith('allenjee_'))){
     const b = q.bank || q.exercise || (String(q.id).includes('_o2_') ? 'O-2' : 'O-1');
@@ -6564,6 +6702,8 @@ function updateExhaustDisplay(){
 }
 
 const tbCfg = {
+  activeSources: new Set(['fiitjee', 'allen']),
+  sourceCounts: { fiitjee: 15, allen: 15, mschouhan: 0, neeraj: 0 },
   sourceTab: 'fiitjee',
   pattern: 'adv',
   paper: 'all',
@@ -6579,6 +6719,7 @@ const tbCfg = {
   allenNeetCount: 0,
   msSubSource: 'selected', // 'selected' | 'level1'
   msStar: 'all',          // 'all' | 'normal' | 'one_star' | 'two_star'
+  neerajExam: 'all',      // 'all' | 'jee_main' | 'jee_advanced'
   chapters: new Set(),
   initializedTabs: new Set(),
   types: new Set(['single', 'multi', 'numerical', 'paragraph']),
@@ -6595,6 +6736,9 @@ const tbCfg = {
 };
 
 function getQuestionChapKey(q){
+  if(q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))){
+    return 'neeraj||' + (q.subject || 'Chemistry') + '||' + q.chapter;
+  }
   if(q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))){
     return 'mschouhan||' + (q.subject || 'Chemistry') + '||' + q.chapter;
   }
@@ -6605,16 +6749,196 @@ function getQuestionChapKey(q){
 }
 
 function isChapterSelected(q){
+  let qSource = 'fiitjee';
+  if(q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) qSource = 'neeraj';
+  else if(q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) qSource = 'mschouhan';
+  else if(q.paper === 'allen' || q.paper === 'allen_jee' || (q.id && (String(q.id).startsWith('allenjee_') || String(q.id).startsWith('allenchem_')))) qSource = 'allen';
+
+  if(tbCfg.activeSources && !tbCfg.activeSources.has(qSource)) return false;
+
   const k = getQuestionChapKey(q);
   if(tbCfg.chapters.has(k)) return true;
   if(tbCfg.chapters.has(q.subject + '||' + q.chapter)) return true;
   return false;
 }
 
+function toggleSource(src){
+  if(!tbCfg.activeSources) tbCfg.activeSources = new Set(['fiitjee', 'allen']);
+  if(tbCfg.activeSources.has(src)){
+    if(tbCfg.activeSources.size <= 1){
+      showToast('At least one source must remain selected.');
+      return;
+    }
+    tbCfg.activeSources.delete(src);
+    if(tbCfg.sourceTab === src){
+      const remaining = Array.from(tbCfg.activeSources);
+      setSourceTab(remaining[0]);
+    }
+  } else {
+    tbCfg.activeSources.add(src);
+    setSourceTab(src);
+    if(!tbCfg.initializedTabs) tbCfg.initializedTabs = new Set();
+    if(!tbCfg.initializedTabs.has(src)){
+      tbCfg.initializedTabs.add(src);
+      DB.forEach(q => {
+        const qSource = (q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) ? 'neeraj' : ((q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? 'mschouhan' : ((q.paper === 'allen' || q.paper === 'allen_jee' || (q.id && (String(q.id).startsWith('allenjee_') || String(q.id).startsWith('allenchem_')))) ? 'allen' : 'fiitjee'));
+        if(qSource === src && tbPaperOK(q)){
+          tbCfg.chapters.add(getQuestionChapKey(q));
+        }
+      });
+    }
+  }
+  syncSourceAllocCounts();
+  updateSourceToggleUI();
+  updateBuilderPaperOptions();
+  renderBuilderChapters();
+  refreshBuilderSummary();
+}
+
+function syncSourceAllocCounts(changedSource, changedValue){
+  if(!tbCfg.activeSources) tbCfg.activeSources = new Set(['fiitjee', 'allen']);
+  if(!tbCfg.sourceCounts) tbCfg.sourceCounts = { fiitjee: 15, allen: 15, mschouhan: 0 };
+  const active = Array.from(tbCfg.activeSources);
+
+  if(changedSource && changedValue !== undefined){
+    tbCfg.sourceCounts[changedSource] = Math.max(0, parseInt(changedValue, 10) || 0);
+    let total = 0;
+    active.forEach(s => {
+      total += (tbCfg.sourceCounts[s] || 0);
+    });
+    tbCfg.count = total;
+    const cntIn = $('#tbCountIn');
+    if(cntIn) cntIn.value = total;
+  } else {
+    const total = Math.max(1, tbCfg.count || 30);
+    const perSource = Math.floor(total / active.length);
+    let rem = total;
+    active.forEach((s, idx) => {
+      const isLast = (idx === active.length - 1);
+      const val = isLast ? rem : perSource;
+      tbCfg.sourceCounts[s] = val;
+      rem -= val;
+    });
+  }
+  renderSourceAllocUI();
+}
+
+function renderSourceAllocUI(){
+  const allocCard = $('#tbMultiSourceAllocCard');
+  const grid = $('#tbMultiSourceInputsGrid');
+  const sumBadge = $('#tbMultiSourceSumBadge');
+  const settingsBar = $('#tbSourceSettingsTabs');
+  if(!allocCard || !grid) return;
+
+  const active = Array.from(tbCfg.activeSources || ['fiitjee', 'allen']);
+  if(active.length <= 1){
+    allocCard.style.display = 'none';
+    if(settingsBar) settingsBar.style.display = 'none';
+    return;
+  }
+
+  allocCard.style.display = 'block';
+  if(settingsBar) settingsBar.style.display = 'flex';
+
+  const sourceLabels = {
+    fiitjee: { name: 'FIITJEE Bank', icon: '🏛️', color: 'var(--brand)' },
+    allen: { name: 'ALLEN Chemistry', icon: '🔷', color: '#0088cc' },
+    mschouhan: { name: 'M.S. Chouhan Organic', icon: '📗', color: '#16a34a' },
+    neeraj: { name: 'Neeraj Kumar Physical', icon: '📙', color: '#e67e22' }
+  };
+
+  let total = 0;
+  grid.innerHTML = active.map(src => {
+    const info = sourceLabels[src] || { name: src, icon: '📄', color: 'var(--fg)' };
+    const val = tbCfg.sourceCounts[src] != null ? tbCfg.sourceCounts[src] : Math.floor(tbCfg.count / active.length);
+    total += val;
+    return `
+      <div style="background:var(--surface);border:1.5px solid var(--line);border-radius:6px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px">
+        <div style="display:flex;align-items:center;gap:6px;min-width:0">
+          <span style="font-size:16px">${info.icon}</span>
+          <span style="font-size:12.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${info.name}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:4px">
+          <input type="number" min="0" max="300" class="input sm" data-source-alloc="${src}" value="${val}" style="width:65px;padding:5px 6px;text-align:center;font-weight:700;font-size:13.5px;border:1.5px solid var(--line);border-radius:4px" />
+          <span style="font-size:11.5px;color:var(--muted);font-weight:600">Qs</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  if(sumBadge){
+    sumBadge.textContent = 'Total: ' + total + ' Questions';
+  }
+
+  grid.querySelectorAll('input[data-source-alloc]').forEach(inp => {
+    inp.addEventListener('input', (e) => {
+      syncSourceAllocCounts(e.target.dataset.sourceAlloc, e.target.value);
+      refreshBuilderSummary();
+    });
+  });
+}
+
+function updateSourceToggleUI(){
+  const tabFiitjee = $('#tbTabFiitjee');
+  const tabAllen = $('#tbTabAllen');
+  const tabMs = $('#tbTabMschouhan');
+  const tabNeeraj = $('#tbTabNeeraj');
+
+  const fAct = tbCfg.activeSources ? tbCfg.activeSources.has('fiitjee') : true;
+  const aAct = tbCfg.activeSources ? tbCfg.activeSources.has('allen') : true;
+  const mAct = tbCfg.activeSources ? tbCfg.activeSources.has('mschouhan') : false;
+  const nAct = tbCfg.activeSources ? tbCfg.activeSources.has('neeraj') : false;
+
+  if(tabFiitjee){
+    tabFiitjee.classList.toggle('active', fAct);
+    const chk = tabFiitjee.querySelector('.pill-check');
+    if(chk) chk.textContent = fAct ? '✓ ' : '+ ';
+  }
+  if(tabAllen){
+    tabAllen.classList.toggle('active', aAct);
+    const chk = tabAllen.querySelector('.pill-check');
+    if(chk) chk.textContent = aAct ? '✓ ' : '+ ';
+  }
+  if(tabMs){
+    tabMs.classList.toggle('active', mAct);
+    const chk = tabMs.querySelector('.pill-check');
+    if(chk) chk.textContent = mAct ? '✓ ' : '+ ';
+  }
+  if(tabNeeraj){
+    tabNeeraj.classList.toggle('active', nAct);
+    const chk = tabNeeraj.querySelector('.pill-check');
+    if(chk) chk.textContent = nAct ? '✓ ' : '+ ';
+  }
+
+  // Update Settings switcher pills
+  const viewFiitjee = $('#tbViewTabFiitjee');
+  const viewAllen = $('#tbViewTabAllen');
+  const viewMs = $('#tbViewTabMschouhan');
+  const viewNeeraj = $('#tbViewTabNeeraj');
+
+  if(viewFiitjee){
+    viewFiitjee.style.display = fAct ? 'inline-flex' : 'none';
+    viewFiitjee.classList.toggle('active', tbCfg.sourceTab === 'fiitjee');
+  }
+  if(viewAllen){
+    viewAllen.style.display = aAct ? 'inline-flex' : 'none';
+    viewAllen.classList.toggle('active', tbCfg.sourceTab === 'allen');
+  }
+  if(viewMs){
+    viewMs.style.display = mAct ? 'inline-flex' : 'none';
+    viewMs.classList.toggle('active', tbCfg.sourceTab === 'mschouhan');
+  }
+  if(viewNeeraj){
+    viewNeeraj.style.display = nAct ? 'inline-flex' : 'none';
+    viewNeeraj.classList.toggle('active', tbCfg.sourceTab === 'neeraj');
+  }
+}
+
 function updateSourceBadges(){
-  let fiitjeeCh = 0, allenCh = 0, msCh = 0;
+  let fiitjeeCh = 0, allenCh = 0, msCh = 0, neerajCh = 0;
   tbCfg.chapters.forEach(k => {
     if(k.startsWith('mschouhan||')) msCh++;
+    else if(k.startsWith('neeraj||')) neerajCh++;
     else if(k.startsWith('allen||')) allenCh++;
     else fiitjeeCh++;
   });
@@ -6622,10 +6946,12 @@ function updateSourceBadges(){
   const bF = $('#tbFiitjeeBadge');
   const bA = $('#tbAllenBadge');
   const bM = $('#tbMsBadge');
+  const bN = $('#tbNeerajBadge');
 
   if(bF){ bF.textContent = fiitjeeCh; bF.style.display = fiitjeeCh > 0 ? 'inline-block' : 'none'; }
   if(bA){ bA.textContent = allenCh; bA.style.display = allenCh > 0 ? 'inline-block' : 'none'; }
   if(bM){ bM.textContent = msCh; bM.style.display = msCh > 0 ? 'inline-block' : 'none'; }
+  if(bN){ bN.textContent = neerajCh; bN.style.display = neerajCh > 0 ? 'inline-block' : 'none'; }
 
   const banner = $('#tbMultiSourceBanner');
   const bannerText = $('#tbMultiSourceText');
@@ -6633,6 +6959,7 @@ function updateSourceBadges(){
   if(fiitjeeCh > 0) activeSources.push(`FIITJEE (${fiitjeeCh} ch)`);
   if(allenCh > 0) activeSources.push(`Allen (${allenCh} ch)`);
   if(msCh > 0) activeSources.push(`M.S. Chouhan (${msCh} ch)`);
+  if(neerajCh > 0) activeSources.push(`Neeraj Kumar (${neerajCh} ch)`);
 
   if(banner && bannerText){
     if(activeSources.length > 1){
@@ -6644,9 +6971,26 @@ function updateSourceBadges(){
   }
 }
 
+function hasAnswerKey(q){
+  if(!q) return false;
+  const a = q.answer || q.ans || q.correct_option;
+  if(a === undefined || a === null) return false;
+  const s = String(a).trim();
+  return s !== '' && s !== '-' && s !== '?' && s.toLowerCase() !== 'none' && s.toLowerCase() !== 'null' && s.toLowerCase() !== '[blank]';
+}
+
 function tbPaperOK(q){
+  if(!hasAnswerKey(q)) return false;
+  const isNeeraj = q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'));
   const isMs = q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'));
   const isAllen = q.paper === 'allen' || q.paper === 'allen_jee' || (q.id && (String(q.id).startsWith('allenjee_') || String(q.id).startsWith('allenchem_')));
+
+  if(isNeeraj){
+    const isAdv = (q.subSource === 'jee_advanced' || q.exam === 'jee_advanced' || q.exam === 'JEE Advanced' || String(q.id).includes('_jee_adv'));
+    if(tbCfg.neerajExam === 'jee_main') return !isAdv;
+    if(tbCfg.neerajExam === 'jee_advanced') return isAdv;
+    return true;
+  }
 
   if(isMs){
     if(tbCfg.msSubSource === 'selected'){
@@ -6724,21 +7068,23 @@ function setSourceTab(tab){
   tbCfg.sourceTab = tab;
   const isAllen = tab === 'allen';
   const isMs = tab === 'mschouhan';
+  const isNeeraj = tab === 'neeraj';
   const isFiitjee = tab === 'fiitjee';
 
   const tabFiitjee = $('#tbTabFiitjee');
   const tabAllen = $('#tbTabAllen');
   const tabMs = $('#tbTabMschouhan');
+  const tabNeeraj = $('#tbTabNeeraj');
   const pnlFiitjee = $('#tbPanelFiitjee');
   const pnlAllen = $('#tbPanelAllen');
   const pnlMs = $('#tbPanelMschouhan');
+  const pnlNeeraj = $('#tbPanelNeeraj');
   const subjBox = $('#tbSubjBox');
   const allenBranchBox = $('#tbAllenBranchBox');
   const msBranchBox = $('#tbMsBranchBox');
+  const neerajBranchBox = $('#tbNeerajBranchBox');
 
-  if(tabFiitjee) tabFiitjee.classList.toggle('active', isFiitjee);
-  if(tabAllen) tabAllen.classList.toggle('active', isAllen);
-  if(tabMs) tabMs.classList.toggle('active', isMs);
+  updateSourceToggleUI();
 
   document.querySelectorAll('#setupTabFiitjee, #topNavFiitjee, #tbTopNavFiitjee, #prkTopNavFiitjee').forEach(el => el.classList.toggle('active', isFiitjee));
   document.querySelectorAll('#setupTabAllen, #topNavAllen, #tbTopNavAllen, #prkTopNavAllen').forEach(el => el.classList.toggle('active', isAllen));
@@ -6747,15 +7093,17 @@ function setSourceTab(tab){
   if(pnlFiitjee) pnlFiitjee.style.display = isFiitjee ? 'block' : 'none';
   if(pnlAllen) pnlAllen.style.display = isAllen ? 'block' : 'none';
   if(pnlMs) pnlMs.style.display = isMs ? 'block' : 'none';
+  if(pnlNeeraj) pnlNeeraj.style.display = isNeeraj ? 'block' : 'none';
 
   if(subjBox) subjBox.style.display = isFiitjee ? 'flex' : 'none';
   if(allenBranchBox) allenBranchBox.style.display = isAllen ? 'flex' : 'none';
   if(msBranchBox) msBranchBox.style.display = isMs ? 'flex' : 'none';
+  if(neerajBranchBox) neerajBranchBox.style.display = isNeeraj ? 'flex' : 'none';
 
   if(isAllen){
     tbCfg.subjects.add('Chemistry');
     syncAllenCountsToTotal();
-  } else if(isMs){
+  } else if(isMs || isNeeraj){
     tbCfg.subjects.add('Chemistry');
   } else {
     document.querySelectorAll('#tbSubjBox input[data-tbsubj]').forEach(cb => {
@@ -6769,7 +7117,7 @@ function setSourceTab(tab){
   if(!tbCfg.initializedTabs.has(tab)){
     tbCfg.initializedTabs.add(tab);
     DB.forEach(q => {
-      const qSource = (q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? 'mschouhan' : ((q.paper === 'allen' || q.paper === 'allen_jee' || (q.id && (String(q.id).startsWith('allenjee_') || String(q.id).startsWith('allenchem_')))) ? 'allen' : 'fiitjee');
+      const qSource = (q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) ? 'neeraj' : ((q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? 'mschouhan' : ((q.paper === 'allen' || q.paper === 'allen_jee' || (q.id && (String(q.id).startsWith('allenjee_') || String(q.id).startsWith('allenchem_')))) ? 'allen' : 'fiitjee'));
       if(qSource === tab && tbPaperOK(q)){
         tbCfg.chapters.add(getQuestionChapKey(q));
       }
@@ -6825,6 +7173,18 @@ function updateBuilderPaperOptions(){
   const elMsOne = $('#tbMsStarOneCnt'); if(elMsOne) elMsOne.textContent = '(' + msOneCnt + ')';
   const elMsTwo = $('#tbMsStarTwoCnt'); if(elMsTwo) elMsTwo.textContent = '(' + msTwoCnt + ')';
 
+  // Count Neeraj Kumar distributions
+  const allNeeraj = DB.filter(q => q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_')));
+  let nkMainCnt = 0, nkAdvCnt = 0;
+  allNeeraj.forEach(q => {
+    const isAdv = (q.subSource === 'jee_advanced' || q.exam === 'jee_advanced' || q.exam === 'JEE Advanced' || String(q.id).includes('_jee_adv'));
+    if(isAdv) nkAdvCnt++;
+    else nkMainCnt++;
+  });
+  const elNkAll = $('#tbNeerajAllCnt'); if(elNkAll) elNkAll.textContent = '(' + allNeeraj.length + ')';
+  const elNkMain = $('#tbNeerajMainCnt'); if(elNkMain) elNkMain.textContent = '(' + nkMainCnt + ')';
+  const elNkAdv = $('#tbNeerajAdvCnt'); if(elNkAdv) elNkAdv.textContent = '(' + nkAdvCnt + ')';
+
   document.querySelectorAll('#tbPaperPills .pattern-pill').forEach(btn => {
     const p = btn.dataset.paper;
     const isAct = tbCfg.papers ? tbCfg.papers.has(p) : (p === tbCfg.paper);
@@ -6838,6 +7198,48 @@ function updateBuilderPaperOptions(){
 
 function renderBuilderChapters(){
   const term = ($('#tbChSearch').value || '').trim().toLowerCase();
+
+  // 0. Neeraj Kumar Mode (Physical Chemistry)
+  if(tbCfg.sourceTab === 'neeraj'){
+    const nkPool = DB.filter(q => {
+      const isNk = q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'));
+      return isNk && tbPaperOK(q);
+    });
+    const byChap = {};
+    nkPool.forEach(q => {
+      const c = q.chapter || 'Physical Chemistry';
+      if(!byChap[c]) byChap[c] = { total: 0, main: 0, adv: 0 };
+      byChap[c].total++;
+      const isAdv = (q.subSource === 'jee_advanced' || q.exam === 'jee_advanced' || q.exam === 'JEE Advanced' || String(q.id).includes('_jee_adv'));
+      if(isAdv) byChap[c].adv++;
+      else byChap[c].main++;
+    });
+
+    let totalSelected = 0;
+    const chEntries = Object.entries(byChap).filter(([c]) => !term || c.toLowerCase().includes(term));
+    const chHtml = chEntries.map(([c, info]) => {
+      const k = 'neeraj||Chemistry||' + c;
+      const isChecked = tbCfg.chapters.has(k) || tbCfg.chapters.has('Chemistry||' + c);
+      if(isChecked) totalSelected++;
+      const breakdown = tbCfg.neerajExam === 'jee_main' ? ` (Main • ${info.main} Qs)` :
+        (tbCfg.neerajExam === 'jee_advanced' ? ` (Adv • ${info.adv} Qs)` :
+        ` (${info.main} Main, ${info.adv} Adv)`);
+      return '<div class="chgroup" style="margin-bottom:8px;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--surface)">' +
+        '<div style="padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px">' +
+          '<label class="chk" style="cursor:pointer;font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:8px;margin:0">' +
+            '<input type="checkbox" data-tbch="' + esc(k) + '"' + (isChecked ? ' checked' : '') + '> ' +
+            '<span>' + esc(c) + '</span>' +
+          '</label>' +
+          '<span style="font-size:12px;color:var(--brand);font-weight:700">' + info.total + ' Qs' + breakdown + '</span>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    $('#tbChapList').innerHTML = chHtml || '<div class="muted" style="padding:12px;text-align:center">No chapters found for Neeraj Kumar.</div>';
+    $('#tbChapSelectedCnt').textContent = totalSelected;
+    updateSourceBadges();
+    return;
+  }
 
   // 1. M.S. Chouhan Mode
   if(tbCfg.sourceTab === 'mschouhan'){
@@ -7010,6 +7412,8 @@ function renderBuilderChapters(){
 }
 
 function refreshBuilderSummary(){
+  tbCfg.builtQs = null;
+  tbCfg.currentTestId = null;
   const pool = DB.filter(q => {
     if(!isChapterSelected(q)) return false;
     if(!tbPaperOK(q)) return false;
@@ -7083,6 +7487,7 @@ function checkCbtHash(){
 
 const TB_AUTH_KEY = 'aits_tb_auth';
 function isBuilderAuthenticated(){
+  if(window.location.search.includes('desktop=1') || window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost') return true;
   return sessionStorage.getItem(TB_AUTH_KEY) === '1' || localStorage.getItem(TB_AUTH_KEY) === '1';
 }
 function setBuilderAuthenticated(state){
@@ -7131,6 +7536,9 @@ document.addEventListener('submit', e => {
 });
 
 function openBuilderScreen(){
+  if(window.location.search.includes('desktop=1') || window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost'){
+    document.body.classList.add('desktop-mode');
+  }
   if(!isBuilderAuthenticated()){
     showBuilderLogin();
     return;
@@ -7158,6 +7566,8 @@ function openBuilderScreen(){
       if(tbPaperOK(q)) tbCfg.chapters.add(q.subject + '||' + q.chapter);
     });
   }
+  updateSourceToggleUI();
+  syncSourceAllocCounts();
   updateBuilderPaperOptions();
   renderBuilderChapters();
   refreshBuilderSummary();
@@ -7250,22 +7660,15 @@ function getSelectedBuilderQuestions(){
   }
 
   // Count active chapters by source
-  let msChCount = 0, allenChCount = 0, fiitjeeChCount = 0;
+  let msChCount = 0, allenChCount = 0, fiitjeeChCount = 0, neerajChCount = 0;
   tbCfg.chapters.forEach(k => {
     if(k.startsWith('mschouhan||')) msChCount++;
+    else if(k.startsWith('neeraj||')) neerajChCount++;
     else if(k.startsWith('allen||')) allenChCount++;
     else fiitjeeChCount++;
   });
 
-  const activeSources = [];
-  if(fiitjeeChCount > 0) activeSources.push('fiitjee');
-  if(allenChCount > 0) activeSources.push('allen');
-  if(msChCount > 0) activeSources.push('mschouhan');
-
-  // If no chapters selected across any tabs yet, fall back to current tab
-  if(!activeSources.length){
-    activeSources.push(tbCfg.sourceTab || 'fiitjee');
-  }
+  const activeSources = Array.from(tbCfg.activeSources && tbCfg.activeSources.size ? tbCfg.activeSources : ['fiitjee']);
 
   const isMultiSource = activeSources.length > 1;
   const totalTarget = Math.max(1, +($('#tbCountIn') ? $('#tbCountIn').value : (tbCfg.count || 30)));
@@ -7374,6 +7777,18 @@ function getSelectedBuilderQuestions(){
     return sortQuestionsByPattern(picked);
   }
 
+  // Helper: Pick Neeraj Kumar questions
+  function pickNeerajQuestions(targetNeerajCount){
+    const nkPool = DB.filter(q => {
+      const isNk = q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'));
+      if(!isNk) return false;
+      if(!isChapterSelected(q)) return false;
+      if(!tbPaperOK(q)) return false;
+      return true;
+    });
+    return pickFrom(nkPool, targetNeerajCount);
+  }
+
   // Helper: Pick MS Chouhan questions
   function pickMsQuestions(targetMsCount){
     const msPool = DB.filter(q => {
@@ -7412,7 +7827,7 @@ function getSelectedBuilderQuestions(){
       let mainPicked = [];
       for(const subj of activeSubjs){
         const subPool = DB.filter(q => {
-          if(q.paper === 'allen' || q.paper === 'allen_jee' || q.paper === 'mschouhan') return false;
+          if(q.paper === 'allen' || q.paper === 'allen_jee' || q.paper === 'mschouhan' || q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) return false;
           if(q.subject !== subj) return false;
           if(!isChapterSelected(q)) return false;
           if(!tbPaperOK(q)) return false;
@@ -7435,7 +7850,7 @@ function getSelectedBuilderQuestions(){
     }
 
     const pool = DB.filter(q => {
-      if(q.paper === 'allen' || q.paper === 'allen_jee' || q.paper === 'mschouhan') return false;
+      if(q.paper === 'allen' || q.paper === 'allen_jee' || q.paper === 'mschouhan' || q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) return false;
       if(!tbCfg.subjects.has(q.subject)) return false;
       if(!isChapterSelected(q)) return false;
       if(!tbPaperOK(q)) return false;
@@ -7527,47 +7942,46 @@ function getSelectedBuilderQuestions(){
 
   // Pure Single-Source Modes
   if(!isMultiSource){
-    if(activeSources[0] === 'mschouhan') return pickMsQuestions(totalTarget);
-    if(activeSources[0] === 'allen') return pickAllenQuestions(totalTarget);
+    const s = activeSources[0] || 'fiitjee';
+    if(s === 'mschouhan') return pickMsQuestions(totalTarget);
+    if(s === 'neeraj') return pickNeerajQuestions(totalTarget);
+    if(s === 'allen') return pickAllenQuestions(totalTarget);
     return pickFiitjeeQuestions(totalTarget);
   }
 
-  // Multi-Source Mode: distribute totalTarget questions among active sources
-  const perSourceQuota = Math.max(1, Math.floor(totalTarget / activeSources.length));
+  // Multi-Source Mode: distribute questions strictly according to tbCfg.sourceCounts
   let result = [];
-  let remTotal = totalTarget;
-
-  for(let i = 0; i < activeSources.length; i++){
-    const src = activeSources[i];
-    const isLast = (i === activeSources.length - 1);
-    const quota = isLast ? remTotal : Math.min(perSourceQuota, remTotal);
-    if(quota <= 0) break;
+  for(const src of activeSources){
+    const quota = (tbCfg.sourceCounts && tbCfg.sourceCounts[src] != null) ? tbCfg.sourceCounts[src] : Math.max(1, Math.floor(totalTarget / activeSources.length));
+    if(quota <= 0) continue;
 
     let subPicked = [];
     if(src === 'mschouhan') subPicked = pickMsQuestions(quota);
+    else if(src === 'neeraj') subPicked = pickNeerajQuestions(quota);
     else if(src === 'allen') subPicked = pickAllenQuestions(quota);
     else if(src === 'fiitjee') subPicked = pickFiitjeeQuestions(quota);
 
     result = result.concat(subPicked);
-    remTotal -= subPicked.length;
   }
 
-  if(remTotal > 0){
+  // Fill remainder if any pool came up short
+  if(result.length < totalTarget){
     const currentIds = new Set(result.map(q => q.id));
     const fallbackPool = DB.filter(q => isChapterSelected(q) && tbPaperOK(q) && !currentIds.has(q.id));
     if(fallbackPool.length){
-      result = result.concat(pickFrom(fallbackPool, remTotal));
+      result = result.concat(pickFrom(fallbackPool, totalTarget - result.length));
     }
   }
 
-  return result;
+  return sortQuestionsByPattern(result);
 }
 
 async function buildCustomSheet(customQs){
   if(!customQs) tbCfg.builtQs = null;
-  const qs = (customQs && customQs.length) ? customQs : getSelectedBuilderQuestions();
+  const rawQs = (customQs && customQs.length) ? customQs : getSelectedBuilderQuestions();
+  const qs = (rawQs || []).filter(hasAnswerKey);
   if(!qs || !qs.length){
-    alert('No questions match your selection. Please select at least one chapter with available questions.');
+    alert('No questions with answer keys match your selection. Please select chapters with available questions.');
     return;
   }
   tbCfg.builtQs = qs;
@@ -7669,38 +8083,46 @@ async function buildCustomSheet(customQs){
     });
 
     const isLocalhost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
-    const origin = (window.location.protocol.startsWith('http')) ? window.location.origin : 'http://localhost:8080';
+    const origin = (window.location.protocol.startsWith('http')) ? window.location.origin : 'http://127.0.0.1:8000';
     const configuredLocal = (window.AITS_CONFIG && window.AITS_CONFIG.localVectorEngineUrl) ? window.AITS_CONFIG.localVectorEngineUrl.replace(/\/+$/, '') : '';
 
     const candidateEndpoints = [];
 
-    // Probe local Python vector server (1-2s instant generation) if running locally
-    if (isLocalhost || configuredLocal) {
-      const localCandidates = [
-        isLocalhost ? origin : null,
-        configuredLocal,
-        'http://localhost:8080',
-        'http://localhost:8000'
-      ].filter(Boolean);
+    // In desktop exe or local server, directly use the relative endpoint first
+    if (isLocalhost || window.location.search.includes('desktop=1')) {
+      candidateEndpoints.push({ url: '/api/build-test', type: 'local', label: 'Local Server' });
+      candidateEndpoints.push({ url: `${origin}/api/build-test`, type: 'local', label: 'Local Server' });
+    }
 
-      const seenLocal = new Set();
-      for (const base of localCandidates) {
-        if (seenLocal.has(base)) continue;
-        seenLocal.add(base);
-        try {
-          const probeCtrl = new AbortController();
-          const probeTid = setTimeout(() => probeCtrl.abort(), 400);
-          const probeRes = await fetch(`${base}/health`, { signal: probeCtrl.signal });
-          clearTimeout(probeTid);
-          if (probeRes.ok) {
-            candidateEndpoints.push({ url: `${base}/api/build-test`, type: 'local', label: 'Local Server' });
-            break;
-          }
-        } catch (_) {}
-      }
-      if (isLocalhost && !candidateEndpoints.length) {
-        candidateEndpoints.push({ url: '/api/build-test', type: 'local', label: 'Local Server' });
-      }
+    // Probe local Python vector server on standard ports as fallback
+    const localCandidates = [
+      isLocalhost ? origin : null,
+      configuredLocal,
+      'http://127.0.0.1:8000',
+      'http://localhost:8000',
+      'http://127.0.0.1:8765',
+      'http://localhost:8765',
+      'http://127.0.0.1:8080',
+      'http://localhost:8080'
+    ].filter(Boolean);
+
+    const seenLocal = new Set();
+    for (const base of localCandidates) {
+      if (seenLocal.has(base)) continue;
+      seenLocal.add(base);
+      try {
+        const probeCtrl = new AbortController();
+        const probeTid = setTimeout(() => probeCtrl.abort(), 1500);
+        const probeRes = await fetch(`${base}/health`, { signal: probeCtrl.signal });
+        clearTimeout(probeTid);
+        if (probeRes.ok) {
+          candidateEndpoints.push({ url: `${base}/api/build-test`, type: 'local', label: 'Local Server' });
+          break;
+        }
+      } catch (_) {}
+    }
+    if (isLocalhost && !candidateEndpoints.length) {
+      candidateEndpoints.push({ url: '/api/build-test', type: 'local', label: 'Local Server' });
     }
 
     const seenUrls = new Set();
@@ -7734,10 +8156,10 @@ async function buildCustomSheet(customQs){
         });
         clearTimeout(tid);
 
-        if (r.ok || (r.status < 500 && r.status !== 404)) {
-          resp = r;
-          usedEndpoint = ep;
-          usedBaseUrl = ep.url.startsWith('http') ? new URL(ep.url).origin : '';
+        resp = r;
+        usedEndpoint = ep;
+        usedBaseUrl = ep.url.startsWith('http') ? new URL(ep.url).origin : '';
+        if (r.ok) {
           break;
         }
       } catch (err) {
@@ -7745,70 +8167,79 @@ async function buildCustomSheet(customQs){
       }
     }
 
-    // Render the practice sheet preview in the browser
+    // Use Python Vector Sheet Generator directly (NO browser HTML rendering)
     clearInterval(timerInterval);
-    if(pStage) pStage.textContent = 'Rendering test sheet in browser...';
-    if(pDetail) pDetail.textContent = 'Formatting A4 pages, question crops, and answer key...';
-    if(pBar) pBar.style.width = '70%';
-    if(pPct) pPct.textContent = '70%';
-
-    const frame = $('#sheetPdfFrame');
-    if(frame) frame.style.display = 'none';
-    const container = $('#sheetDocContainer');
-    if(container) container.style.display = 'block';
-
-    show('scrSheetView');
-    await renderSheetDoc(qs, {
-      title: title,
-      subtitle: subtitle,
-      candName: $('#tbCandName') ? $('#tbCandName').value.trim() : '',
-      pattern: tbCfg.pattern,
-      timeLimit: $('#tbTimeLimit') ? +($('#tbTimeLimit').value) : (tbCfg.pattern === 'main' ? 180 : (qs.length * 3)),
-      includeKey: true,
-      includeSol: includeSol,
-      noWatermark: true
-    }, (done, total) => {
-      const pct = Math.max(10, Math.round((done / Math.max(total, 1)) * 100));
-      if(pBar) pBar.style.width = pct + '%';
-      if(pPct) pPct.textContent = pct + '%';
-      if(pStage) pStage.textContent = `Loading figures (${done} / ${total})...`;
-    });
-
-    if (resp) {
-      try {
-        const data = await resp.json();
-        if(data && data.ok){
-          const fullPdfUrl = (data.pdfUrl.startsWith('http') ? data.pdfUrl : (usedBaseUrl + data.pdfUrl));
-          tbCfg.lastStudentPdfUrl = data.studentPdfUrl ? (data.studentPdfUrl.startsWith('http') ? data.studentPdfUrl : (usedBaseUrl + data.studentPdfUrl)) : null;
-          tbCfg.lastAnswerKeyPdfUrl = data.keyPdfUrl ? (data.keyPdfUrl.startsWith('http') ? data.keyPdfUrl : (usedBaseUrl + data.keyPdfUrl)) : null;
-          tbCfg.lastFullPdfUrl = fullPdfUrl;
-          tbCfg.studentFilename = data.studentFilename || 'practice_sheet_student_copy.pdf';
-          tbCfg.keyFilename = data.keyFilename || 'practice_sheet_answer_key.pdf';
-          const tabBtn = $('#sheetOpenTabBtn');
-          if(tabBtn) tabBtn.href = fullPdfUrl;
-          saveTbTestToArchive({ isGenerated: true, pdfUrl: fullPdfUrl, filename: data.filename || 'practice_sheet.pdf' });
-        }
-      } catch(e) {
-        console.warn('Backend PDF JSON parse note:', e);
-      }
-    } else {
-      tbCfg.lastStudentPdfUrl = null;
-      tbCfg.lastAnswerKeyPdfUrl = null;
-      tbCfg.lastFullPdfUrl = null;
-      saveTbTestToArchive({ isGenerated: true });
+    if (!resp) {
+      const hint = lastErr ? ` (${lastErr.message})` : '';
+      throw new Error(`Vector engine could not be reached${hint}. Please ensure the desktop app (desktop_test_builder.py or AITS_Test_Builder.exe) is running.`);
     }
+
+    const data = await resp.json();
+    if (!data || !data.ok) {
+      throw new Error(data && data.error ? data.error : "Failed to compile vector PDF");
+    }
+
+    const fullPdfUrl = (data.pdfUrl.startsWith('http') ? data.pdfUrl : (usedBaseUrl + data.pdfUrl));
+    tbCfg.lastStudentPdfUrl = data.studentPdfUrl ? (data.studentPdfUrl.startsWith('http') ? data.studentPdfUrl : (usedBaseUrl + data.studentPdfUrl)) : null;
+    tbCfg.lastAnswerKeyPdfUrl = data.keyPdfUrl ? (data.keyPdfUrl.startsWith('http') ? data.keyPdfUrl : (usedBaseUrl + data.keyPdfUrl)) : null;
+    tbCfg.lastFullPdfUrl = fullPdfUrl;
+    tbCfg.studentFilename = data.studentFilename || 'practice_sheet_student_copy.pdf';
+    tbCfg.keyFilename = data.keyFilename || 'practice_sheet_answer_key.pdf';
+    tbCfg.fullFilename = data.filename || 'practice_sheet.pdf';
+
+    saveTbTestToArchive({ isGenerated: true, pdfUrl: fullPdfUrl, filename: data.filename || 'practice_sheet.pdf' });
+    renderTbArchive();
 
     if(pBar) pBar.style.width = '100%';
     if(pPct) pPct.textContent = '100%';
-    if(pStage) pStage.textContent = 'Test sheet ready!';
-    if(pDetail) pDetail.textContent = 'Rendered in browser. Click "Download Student Copy" or "Download Answer Key".';
-    $('#sheetDocTitle').textContent = title + ' (' + qs.length + ' Questions)';
-    $('#tbStatusNote').textContent = 'Test sheet compiled! Ready for Student Copy or Answer Key download.';
+    if(pStage) pStage.textContent = 'Vector PDF Ready!';
+    if(pDetail) pDetail.textContent = `Generated ${data.totalQuestions || qs.length} questions across ${data.totalPages || ''} pages with PyMuPDF.`;
+
+    // Open Download / PDF Viewer page with the 3 download buttons
+    const frame = $('#sheetPdfFrame');
+    if(frame){
+      frame.src = fullPdfUrl;
+      frame.style.display = 'block';
+    }
+    const container = $('#sheetDocContainer');
+    if(container) container.style.display = 'none';
+    $('#sheetDocTitle').textContent = `${title} (${data.totalQuestions || qs.length} Questions)`;
+    show('scrSheetView');
+
+    // Automatically open the generated PDF in the system PDF viewer
+    if(data.filename && (window.location.search.includes('desktop=1') || window.location.hostname === '127.0.0.1')){
+      fetch('/api/open-file', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ filename: data.filename })
+      }).catch(e => console.log('Auto open notice:', e));
+    }
+
+    // Display clean direct download buttons right on the test builder
+    const noteEl = $('#tbStatusNote');
+    if(noteEl){
+      noteEl.innerHTML = `
+        <div style="margin-top:14px;padding:14px;border:1.5px solid #16a34a;background:rgba(22,163,74,0.08);border-radius:6px;text-align:left">
+          <div style="font-weight:700;color:#15803d;font-size:13.5px;margin-bottom:8px;display:flex;align-items:center;gap:6px">
+            <span>✓ Vector Test Sheet Generated (Python PyMuPDF Engine)</span>
+          </div>
+          <div style="font-size:12px;color:var(--fg);opacity:0.85;margin-bottom:10px">
+            High-resolution vector sheet compiled directly to <b>generated_tests/${data.filename}</b>.
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <a href="${fullPdfUrl}" target="_blank" download="${data.filename}" class="btn sm primary" style="font-weight:600;display:inline-flex;align-items:center;gap:5px">📄 Open Full Test</a>
+            ${tbCfg.lastStudentPdfUrl ? `<a href="${tbCfg.lastStudentPdfUrl}" target="_blank" download="${tbCfg.studentFilename}" class="btn sm" style="font-weight:600">📝 Student Copy</a>` : ''}
+            ${tbCfg.lastAnswerKeyPdfUrl ? `<a href="${tbCfg.lastAnswerKeyPdfUrl}" target="_blank" download="${tbCfg.keyFilename}" class="btn sm" style="font-weight:600">🔑 Answer Key</a>` : ''}
+            <button type="button" class="btn sm" onclick="fetch('/api/open-folder')" style="font-weight:600">📂 Reveal in Folder</button>
+          </div>
+        </div>
+      `;
+    }
     recordUsedQuestions(qs);
-    showToast('Practice sheet ready! Click "Download Student Copy" or "Download Answer Key".');
+    showToast('Vector test sheet generated with Python engine!');
   } catch(err){
     console.error('Vector sheet build error:', err);
-    alert('Error generating vector test sheet: ' + err.message + '\n\nPlease ensure the local server or cloud engine is running.');
+    alert('Error generating vector test sheet: ' + err.message);
     $('#tbStatusNote').textContent = 'Error: ' + err.message;
   } finally {
     clearInterval(timerInterval);
@@ -7822,27 +8253,46 @@ async function buildCustomSheet(customQs){
   }
 }
 
+function downloadFile(url, filename){
+  if(!url) return;
+  if(window.location.search.includes('desktop=1') || window.location.hostname === '127.0.0.1'){
+    fetch('/api/open-file', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ filename: filename })
+    }).catch(e => console.log('Open notice:', e));
+  }
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename || 'practice_sheet.pdf';
+  a.target = '_blank';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
 function downloadOrPrintStudentCopy(){
-  document.body.classList.remove('print-mode-key');
-  document.body.classList.add('print-mode-student');
-  window.print();
-  setTimeout(() => {
-    document.body.classList.remove('print-mode-student');
-  }, 1000);
+  if(tbCfg.lastStudentPdfUrl){
+    downloadFile(tbCfg.lastStudentPdfUrl, tbCfg.studentFilename || 'student_copy.pdf');
+  } else {
+    showToast('Student Copy not available yet.');
+  }
 }
 
 function downloadOrPrintAnswerKey(){
-  document.body.classList.remove('print-mode-student');
-  document.body.classList.add('print-mode-key');
-  window.print();
-  setTimeout(() => {
-    document.body.classList.remove('print-mode-key');
-  }, 1000);
+  if(tbCfg.lastAnswerKeyPdfUrl){
+    downloadFile(tbCfg.lastAnswerKeyPdfUrl, tbCfg.keyFilename || 'answer_key.pdf');
+  } else {
+    showToast('Answer Key not available yet.');
+  }
 }
 
 function printCompletePaper(){
-  document.body.classList.remove('print-mode-student', 'print-mode-key');
-  window.print();
+  if(tbCfg.lastFullPdfUrl){
+    downloadFile(tbCfg.lastFullPdfUrl, tbCfg.fullFilename || 'full_test_paper.pdf');
+  } else {
+    showToast('Full test paper not available yet.');
+  }
 }
 
 /* ==================== TEST BUILDER: INTERACTIVE PREVIEW & SWAP ==================== */
@@ -8145,7 +8595,11 @@ window.addEventListener('beforeunload', () => {
   }
 });
 
-function openBuilderPreview(){
+function openBuilderPreview(forceFresh = false){
+  if(forceFresh){
+    tbCfg.builtQs = null;
+    tbCfg.currentTestId = null;
+  }
   const qs = (tbCfg.builtQs && tbCfg.builtQs.length) ? tbCfg.builtQs : getSelectedBuilderQuestions();
   if(!qs || !qs.length){
     alert('No questions match your current selection. Please select at least one chapter with available questions.');
@@ -9084,16 +9538,17 @@ function startCbtFromBuilder(){
       return null;
     }
 
-    const [phys, chem, mathAdv, mathMain, allenChem, allenJee, msChouhan] = await Promise.all([
+    const [phys, chem, mathAdv, mathMain, allenChem, allenJee, msChouhan, neeraj] = await Promise.all([
       fetchFirst(['database.json', remote].filter(Boolean)),
       fetchFirst(['chemistry_database.json', chemRemote].filter(Boolean)),
       fetchFirst(['maths_advanced_database.json', mathAdvRemote].filter(Boolean)),
       fetchFirst(['maths_main_database.json', mathMainRemote].filter(Boolean)),
       fetchFirst(['allenchem_database.json', allenChemRemote, 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/allenchem_database.json'].filter(Boolean)),
       fetchFirst(['allenjee_database.json', allenJeeRemote, 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/allenjee_database.json'].filter(Boolean)),
-      fetchFirst(['mschouhan_database.json', 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/mschouhan_database.json'].filter(Boolean))
+      fetchFirst(['mschouhan_database.json', 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/mschouhan_database.json'].filter(Boolean)),
+      fetchFirst(['neeraj_database.json', 'public/neeraj_database.json'].filter(Boolean))
     ]);
-    const parts = [phys, chem, mathAdv, mathMain, allenChem, allenJee, msChouhan].filter(Boolean);
+    const parts = [phys, chem, mathAdv, mathMain, allenChem, allenJee, msChouhan, neeraj].filter(Boolean);
     if(parts.length){
       const all = parts.flatMap(x=>(extractList(x.raw)||[]).map(e=>e.q));
       ok = loadDB(all, phys && phys.url===remote && remote ? 'Hugging Face database' : 'database.json', false);

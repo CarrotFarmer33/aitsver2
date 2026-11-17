@@ -73,6 +73,14 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
         elif path == "/api/status":
             self.handle_status()
             return
+        elif path == "/api/open-folder":
+            try:
+                os.makedirs(GENERATED_DIR, exist_ok=True)
+                os.startfile(GENERATED_DIR)
+                self.send_json({"ok": True, "dir": GENERATED_DIR})
+            except Exception as e:
+                self.send_json({"ok": False, "error": str(e)}, 500)
+            return
         elif path == "/api/chapters":
             self.handle_chapters()
             return
@@ -90,6 +98,21 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
 
         if path == "/api/build-test" or path == "/api/build-sheet":
             self.handle_build_test()
+            return
+        elif path == "/api/open-file":
+            try:
+                content_len = int(self.headers.get("Content-Length", 0))
+                body = self.rfile.read(content_len).decode("utf-8") if content_len else "{}"
+                req = json.loads(body)
+                fname = os.path.basename(req.get("filename", ""))
+                fpath = os.path.join(GENERATED_DIR, fname)
+                if os.path.exists(fpath):
+                    os.startfile(fpath)
+                    self.send_json({"ok": True, "path": fpath})
+                else:
+                    self.send_json({"ok": False, "error": f"File not found: {fname}"}, 404)
+            except Exception as e:
+                self.send_json({"ok": False, "error": str(e)}, 500)
             return
 
         self.send_error(404, "Endpoint not found")
