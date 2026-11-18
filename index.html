@@ -3253,7 +3253,7 @@ const AitsCache = {
       this.dbPromise = new Promise((resolve) => {
         try {
           if(!window.indexedDB) return resolve(null);
-          const req = indexedDB.open('aits_storage_cache_v13', 1);
+          const req = indexedDB.open('aits_storage_cache_v15', 1);
           req.onupgradeneeded = e => {
             const db = e.target.result;
             if(!db.objectStoreNames.contains('kv')) db.createObjectStore('kv');
@@ -3334,7 +3334,7 @@ async function getZip(zipUrl){
   const p = (async () => {
     // 1. Check local IndexedDB disk cache with versioned key
     try {
-      const cachedBuf = await AitsCache.get('zip:v13:' + cacheKey);
+      const cachedBuf = await AitsCache.get('zip:v15:' + cacheKey);
       if(cachedBuf){
         return await JSZip.loadAsync(cachedBuf);
       }
@@ -3342,7 +3342,8 @@ async function getZip(zipUrl){
       console.warn('Cached ZIP read error, re-fetching:', cErr);
     }
 
-    const candidates = zipUrl.startsWith('http') ? [zipUrl] : [
+    const fname = zipUrl.split('#')[0].split('/').pop();
+    const candidates = zipUrl.startsWith('http') ? ['/vector_zips/' + fname, zipUrl] : [
       '/' + rel,
       rel,
       'public/' + rel,
@@ -3359,7 +3360,7 @@ async function getZip(zipUrl){
           continue;
         }
         const b = await r.arrayBuffer();
-        AitsCache.set('zip:v13:' + cacheKey, b);
+        AitsCache.set('zip:v15:' + cacheKey, b);
         return await JSZip.loadAsync(b);
       } catch(err) {
         lastErr = err;
@@ -3386,7 +3387,7 @@ async function resolveZipImage(img){
     if(!f){
       try {
         const rel = zipUrl.replace(/^\/+/, '');
-        AitsCache.delete('zip:v13:' + (zipUrl.startsWith('http') ? zipUrl : rel));
+        AitsCache.delete('zip:v15:' + (zipUrl.startsWith('http') ? zipUrl : rel));
         zipCache.delete(zipUrl.startsWith('http') ? zipUrl : rel);
       } catch(_) {}
       throw new Error('Image not found in ZIP: '+fileName);

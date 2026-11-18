@@ -3253,7 +3253,7 @@ const AitsCache = {
       this.dbPromise = new Promise((resolve) => {
         try {
           if(!window.indexedDB) return resolve(null);
-          const req = indexedDB.open('aits_storage_cache_v13', 1);
+          const req = indexedDB.open('aits_storage_cache_v15', 1);
           req.onupgradeneeded = e => {
             const db = e.target.result;
             if(!db.objectStoreNames.contains('kv')) db.createObjectStore('kv');
@@ -3309,7 +3309,7 @@ const AitsCache = {
 window.AitsCache = AitsCache;
 
 async function fetchCachedJson(url){
-  const cacheKey = 'json:v6:' + url;
+  const cacheKey = 'json:v13:' + url;
   const cached = await AitsCache.get(cacheKey);
   if(cached) return cached;
   const r = await fetch(url);
@@ -3334,7 +3334,7 @@ async function getZip(zipUrl){
   const p = (async () => {
     // 1. Check local IndexedDB disk cache with versioned key
     try {
-      const cachedBuf = await AitsCache.get('zip:v6:' + cacheKey);
+      const cachedBuf = await AitsCache.get('zip:v15:' + cacheKey);
       if(cachedBuf){
         return await JSZip.loadAsync(cachedBuf);
       }
@@ -3342,7 +3342,8 @@ async function getZip(zipUrl){
       console.warn('Cached ZIP read error, re-fetching:', cErr);
     }
 
-    const candidates = zipUrl.startsWith('http') ? [zipUrl] : [
+    const fname = zipUrl.split('#')[0].split('/').pop();
+    const candidates = zipUrl.startsWith('http') ? ['/vector_zips/' + fname, zipUrl] : [
       '/' + rel,
       rel,
       'public/' + rel,
@@ -3359,7 +3360,7 @@ async function getZip(zipUrl){
           continue;
         }
         const b = await r.arrayBuffer();
-        AitsCache.set('zip:v6:' + cacheKey, b);
+        AitsCache.set('zip:v15:' + cacheKey, b);
         return await JSZip.loadAsync(b);
       } catch(err) {
         lastErr = err;
@@ -3386,7 +3387,7 @@ async function resolveZipImage(img){
     if(!f){
       try {
         const rel = zipUrl.replace(/^\/+/, '');
-        AitsCache.delete('zip:v6:' + (zipUrl.startsWith('http') ? zipUrl : rel));
+        AitsCache.delete('zip:v15:' + (zipUrl.startsWith('http') ? zipUrl : rel));
         zipCache.delete(zipUrl.startsWith('http') ? zipUrl : rel);
       } catch(_) {}
       throw new Error('Image not found in ZIP: '+fileName);
@@ -3413,6 +3414,7 @@ async function resolveZipImage(img){
       img.setAttribute('role', 'img');
       img.setAttribute('aria-label', img.alt || 'Question figure');
       const isNeet = /allenchem/i.test(fileName) || /data-intrinsic-w="2/i.test(processedSvg) || /viewBox="[^"]*?\b(21[0-9]|22[0-9]|23[0-9]|24[0-9]|25[0-9]|26[0-9])\b/i.test(processedSvg);
+      const isNeeraj = /nk_/i.test(fileName);
       const isMsChouhan = /mschouhan/i.test(fileName);
       if(isTb){
         img.style.height = 'auto';
@@ -3423,15 +3425,18 @@ async function resolveZipImage(img){
           img.classList.add('mschouhan-svg');
           img.style.width = 'auto';
           img.style.maxWidth = '430pt';
+        } else if(isNeeraj || isNeet){
+          img.classList.add(isNeeraj ? 'neeraj-svg' : 'allen-svg-neet');
+          img.style.width = 'auto';
+          img.style.maxWidth = '255pt';
         } else {
-          if(isNeet) img.classList.add('allen-svg-neet');
-          else img.classList.add('allen-svg-jee');
+          img.classList.add('allen-svg-jee');
           img.style.width = '100%';
           img.style.maxWidth = '100%';
         }
       } else {
-        img.style.width = '100%';
-        img.style.maxWidth = '850px';
+        img.style.width = 'auto';
+        img.style.maxWidth = (isNeeraj || isNeet) ? '480px' : '850px';
         img.style.height = 'auto';
         img.style.display = 'block';
         img.style.margin = '16px auto';
