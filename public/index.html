@@ -1729,6 +1729,36 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   font-size: 14px;
   line-height: 1.6;
   color: var(--fg);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+}
+.marks-q-img-scroll-wrap {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+  margin: 14px 0;
+  padding: 4px 0 8px 0;
+  display: block;
+  overscroll-behavior-x: contain;
+}
+.marks-q-img-scroll-wrap::-webkit-scrollbar {
+  height: 6px;
+}
+.marks-q-img-scroll-wrap::-webkit-scrollbar-track {
+  background: transparent;
+}
+.marks-q-img-scroll-wrap::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 4px;
+}
+.marks-q-img-scroll-wrap::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
 }
 .marks-q-options {
   display: flex;
@@ -1913,9 +1943,11 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 
 /* Marks Question Detail Screen (Image 2) */
 .marks-detail-wrap {
-  max-width: 900px;
+  width: 100%;
+  max-width: 1040px;
   margin: 16px auto 0;
-  padding-bottom: 220px;
+  padding: 0 16px 220px 16px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -1999,7 +2031,9 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   border: none;
   box-shadow: none;
   border-radius: 0;
-  padding: 12px 4px 60px 4px;
+  padding: 12px 0 60px 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 @media (max-width: 600px) {
   .marks-detail-card-body {
@@ -2042,7 +2076,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 .vector-inline-svg {
   display: block;
   width: 100%;
-  max-width: 850px;
+  max-width: 100%;
   height: auto;
   margin: 14px auto;
   user-select: text !important;
@@ -2051,6 +2085,19 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
+}
+#scrPracticeDetail .marks-q-body img,
+#scrPracticeDetail .marks-q-body .qimg,
+#scrPracticeDetail .marks-q-body .practice-svg,
+#scrPracticeDetail .marks-q-body .vector-inline-svg,
+#scrPracticeDetail .vector-inline-svg {
+  display: block;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  margin: 14px auto !important;
+  object-fit: contain;
+  box-sizing: border-box;
 }
 .marks-detail-card-body img,
 .marks-detail-card-body .qimg,
@@ -2235,7 +2282,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   box-shadow: 0 -4px 18px rgba(0,0,0,0.25);
 }
 .marks-bottom-bar-in {
-  max-width: 900px;
+  max-width: 1040px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -3317,7 +3364,7 @@ const AitsCache = {
 window.AitsCache = AitsCache;
 
 async function fetchCachedJson(url){
-  const cacheKey = 'json:v18:' + url;
+  const cacheKey = 'json:v19:' + url;
   const cached = await AitsCache.get(cacheKey);
   if(cached) return cached;
   const r = await fetch(url);
@@ -3444,11 +3491,13 @@ async function resolveZipImage(img){
           img.style.maxWidth = '100%';
         }
       } else {
-        img.style.width = 'auto';
-        img.style.maxWidth = (isNeeraj || isNeet) ? '480px' : '850px';
+        const z = (typeof prkCurrentZoom !== 'undefined' && prkCurrentZoom > 100) ? (prkCurrentZoom + '%') : '100%';
+        img.style.setProperty('width', z, 'important');
+        img.style.setProperty('max-width', (typeof prkCurrentZoom !== 'undefined' && prkCurrentZoom > 100) ? 'none' : '100%', 'important');
+        img.style.setProperty('min-width', (typeof prkCurrentZoom !== 'undefined' && prkCurrentZoom > 100) ? z : '100%', 'important');
         img.style.height = 'auto';
         img.style.display = 'block';
-        img.style.margin = '16px auto';
+        img.style.margin = '14px auto';
         img.style.background = 'transparent';
       }
       if(crop){
@@ -3462,6 +3511,15 @@ async function resolveZipImage(img){
     const rawBlob = await f.async('blob');
     img.src = URL.createObjectURL(rawBlob);
     img.classList.add(isTb ? 'test-builder-svg' : 'practice-svg');
+    if(!isTb){
+      const z = (typeof prkCurrentZoom !== 'undefined' && prkCurrentZoom > 100) ? (prkCurrentZoom + '%') : '100%';
+      img.style.setProperty('width', z, 'important');
+      img.style.setProperty('max-width', (typeof prkCurrentZoom !== 'undefined' && prkCurrentZoom > 100) ? 'none' : '100%', 'important');
+      img.style.setProperty('min-width', (typeof prkCurrentZoom !== 'undefined' && prkCurrentZoom > 100) ? z : '100%', 'important');
+      img.style.height = 'auto';
+      img.style.display = 'block';
+      img.style.margin = '14px auto';
+    }
     if(crop){
       img.style.clipPath = `inset(${crop.top || 0}% ${crop.right || 0}% ${crop.bottom || 0}% ${crop.left || 0}%)`;
       img.style.webkitClipPath = `inset(${crop.top || 0}% ${crop.right || 0}% ${crop.bottom || 0}% ${crop.left || 0}%)`;
@@ -3568,7 +3626,7 @@ const SUBJ = ['Physics','Chemistry','Mathematics'];
 const TYPES = {single:'Single correct', numerical:'Numerical', multi:'Multiple correct', paragraph:'Paragraph-based', matrix:'Match the column'};
 const QT = {single:'Multiple Choice', numerical:'Numerical Value', multi:'Multiple Choice (one or more correct)', paragraph:'Comprehension', matrix:'Matrix Match'};
 const SECLBL = {single:'MCQ', numerical:'Numerical', multi:'Multiple Correct', paragraph:'Comprehension', matrix:'Matrix Match'};
-const TRANK = {single:0, numerical:1, multi:2, paragraph:3, matrix:4};
+const TRANK = {single:0, assertion_reason:0, numerical:1, multi:2, multiple:2, paragraph:3, comprehension:3, matrix:4, column_match:4};
 function sortQuestionsByPattern(list){
   if(!list || !list.length) return [];
   function isNeet(q){
@@ -3577,10 +3635,19 @@ function sortQuestionsByPattern(list){
   // Order: single (non-neet: 0, neet: 1 - last of single before multi) -> multi: 2 -> numerical: 3 -> paragraph: 4 -> matrix: 5
   const orderMap = { single: 0, multi: 2, numerical: 3, paragraph: 4, matrix: 5 };
   return list.slice().sort((a, b) => {
-    const isParaA = !!(a.paragraph || a.type === 'paragraph');
-    const isParaB = !!(b.paragraph || b.type === 'paragraph');
-    const typeA = isParaA ? 'paragraph' : (a.type || 'single');
-    const typeB = isParaB ? 'paragraph' : (b.type || 'single');
+    const isParaA = !!(a.paragraph || a.type === 'paragraph' || a.type === 'comprehension');
+    const isParaB = !!(b.paragraph || b.type === 'paragraph' || b.type === 'comprehension');
+    let typeA = isParaA ? 'paragraph' : (a.type || 'single');
+    let typeB = isParaB ? 'paragraph' : (b.type || 'single');
+    if(typeA === 'multiple') typeA = 'multi';
+    if(typeB === 'multiple') typeB = 'multi';
+    if(typeA === 'assertion_reason') typeA = 'single';
+    if(typeB === 'assertion_reason') typeB = 'single';
+    if(typeA === 'column_match') typeA = 'matrix';
+    if(typeB === 'column_match') typeB = 'matrix';
+    if(typeA === 'integer') typeA = 'numerical';
+    if(typeB === 'integer') typeB = 'numerical';
+
     const baseRankA = orderMap[typeA] != null ? orderMap[typeA] : 0;
     const baseRankB = orderMap[typeB] != null ? orderMap[typeB] : 0;
 
@@ -3641,6 +3708,9 @@ function normType(t){
   if(s.includes('multi')) return 'multi';
   if(/single|^mcq/.test(s)) return 'single';
   if(/num|integer|^int|subjective|decimal/.test(s)) return 'numerical';
+  if(/para|comprehension/.test(s)) return 'paragraph';
+  if(/assertion|reason/.test(s)) return 'single';
+  if(/match|matrix|column/.test(s)) return 'matrix';
   return null;
 }
 function normOptions(o){
@@ -3716,9 +3786,9 @@ function normQuestion(q,i,defSubject){
   let options = normOptions(q.options!=null?q.options:q.choices);
   let type = normType(q.type!=null?q.type:(q.question_type!=null?q.question_type:q.qtype));
   const rawAns = q.answer!=null?q.answer:(q.correct_answer!=null?q.correct_answer:(q.correct!=null?q.correct:q.key));
-  const isPara = !!(q.paragraph || q.passage_images || q.paragraph_id || (q.type && String(q.type).includes('para')) || (q.rawType && String(q.rawType).includes('para')));
+  const isPara = !!(q.paragraph || q.passage_images || q.paragraph_id || (q.type && (String(q.type).includes('para') || String(q.type).includes('comp'))) || (q.rawType && (String(q.rawType).includes('para') || String(q.rawType).includes('comp'))));
   const rawType = type || 'single';
-  const isMatch = isMatchQuestion({ ...q, text, type, rawType, options });
+  const isMatch = isMatchQuestion({ ...q, text, type, rawType, options }) || type === 'matrix';
   if(!hasRealOptions(options) && isMatch){
     const fullText = (text || '') + '\n' + (q.stem || '');
     const extracted = extractMatchOptionsFromText(fullText);
@@ -3734,7 +3804,10 @@ function normQuestion(q,i,defSubject){
     if(options){ const p=parseChoice(rawAns,options); type = p && p.length>1 ? 'multi' : 'single'; }
     else type='numerical';
   }
-  if(type!=='numerical'){
+  if(type === 'matrix' || isMatch){
+    keyOk = hasAnswerKey(q);
+    ans = rawAns;
+  } else if(type!=='numerical'){
     if(!options){ const n = +(q.option_count||q.optionCount||4); options = Array.from({length:Math.min(Math.max(n,2),8)},(_,k)=>LET[k]); labelOnly=true; }
     if(hasRealOptions(options)) labelOnly=false;
     ans = parseChoice(rawAns,labelOnly?null:options);
@@ -3762,14 +3835,14 @@ function normQuestion(q,i,defSubject){
     raster_images:[].concat(q.raster_images||imgs).filter(Boolean).map(String),
     solImages:[].concat(q.solution_images||q.solutionImages||[]).filter(Boolean).map(String),
     source:String(q.source!=null?q.source:(q.source_paper!=null?q.source_paper:(q.paper!=null?q.paper:(q.test||'')))),
-    bank: (q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) ? (q.bank || 'JEE Main') : ((q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? (q.bank || 'Selected Questions') : (q.bank || q.exercise || (String(q.id).includes('_o1_') ? 'O-1' : (String(q.id).includes('_o2_') ? 'O-2' : '')))),
+    bank: (q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) ? (q.bank || ((q.subSource === 'jee_advanced' || (q.exam && /adv/i.test(q.exam)) || String(q.id).includes('_jee_adv')) ? 'JEE Advanced' : 'JEE Main')) : ((q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? (q.bank || 'Selected Questions') : (q.bank || q.exercise || (String(q.id).includes('_o1_') ? 'O-1' : (String(q.id).includes('_o2_') ? 'O-2' : '')))),
     branch: q.branch || ((q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) ? 'Physical Chemistry' : ((q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? 'Organic Chemistry' : (((q.paper === 'allen' || (q.id && String(q.id).startsWith('allenchem_'))) ? 'NEET Modules' : '')))),
     paper: (q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) ? 'neeraj' : ((q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? 'mschouhan' : ((q.paper === 'allen_jee' || (q.id && String(q.id).startsWith('allenjee_'))) ? 'allen_jee' : ((q.paper === 'allen' || (q.id && String(q.id).startsWith('allenchem_')) || /allen/i.test(String(q.source||''))) ? 'allen' : (q.exam ? (/adv/i.test(q.exam)?'adv':(/main/i.test(q.exam)?'main':q.exam)) : paperOf(String(q.source||'')+' '+String(q.paperTitle||q.paper_title||'')))))),
     selected: !!q.selected,
     star: q.star || null,
-    exercise: q.exercise || ((q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? 'Level 1' : null),
-    exam: q.exam || ((q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) ? (String(q.id).includes('_jee_adv') ? 'jee_advanced' : 'jee_main') : null),
-    subSource: q.subSource || ((q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) ? (String(q.id).includes('_jee_adv') ? 'jee_advanced' : 'jee_main') : null),
+    exercise: q.exercise || ((q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) ? ((q.subSource === 'jee_advanced' || (q.exam && /adv/i.test(q.exam)) || String(q.id).includes('_jee_adv')) ? 'Exercise II' : 'Exercise I') : ((q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? 'Level 1' : null)),
+    exam: q.exam || ((q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) ? ((q.subSource === 'jee_advanced' || String(q.id).includes('_jee_adv')) ? 'JEE Advanced' : 'JEE Main') : null),
+    subSource: q.subSource || ((q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) ? ((q.subSource === 'jee_advanced' || String(q.id).includes('_jee_adv')) ? 'jee_advanced' : 'jee_main') : null),
     answer: q.answer || (q.ans != null ? (Array.isArray(q.ans) ? q.ans.map(k=>LET[k]||k).join('') : q.ans) : null),
     year:yearOf(q)
   };
@@ -3972,8 +4045,8 @@ const paperOnlyOK = q => {
   if(q.paper === 'allen' || q.paper === 'allen_jee' || q.paper === 'mschouhan') return false;
   if(cfg.paper === 'all') return true;
   let p = q.paper;
-  if(p === 'aits' || !p || p === 'other'){
-    p = (q.exam && /main/i.test(q.exam)) ? 'main' : ((q.exam && /adv/i.test(q.exam)) ? 'adv' : (paperOf(String(q.source||'')+' '+String(q.paperTitle||q.paper_title||'')+' '+String(q.id||'')) === 'main' ? 'main' : 'adv'));
+  if(p === 'aits' || !p || p === 'other' || p === 'neeraj'){
+    p = (q.exam && /main/i.test(q.exam)) ? 'main' : ((q.exam && /adv/i.test(q.exam)) ? 'adv' : (String(q.id).includes('_jee_adv') ? 'adv' : (String(q.id).includes('_jee_main') ? 'main' : (paperOf(String(q.source||'')+' '+String(q.paperTitle||q.paper_title||'')+' '+String(q.id||'')) === 'main' ? 'main' : 'adv'))));
   }
   return p === cfg.paper;
 };
@@ -3998,7 +4071,14 @@ function renderSetup(){
   showNote(notes.join(' '));
   renderSubjects();
   const inSubj=practiceDB.filter(q=>cfg.subjects.has(q.subject));
-  const pc={main:0,adv:0}; inSubj.forEach(q=>{ if(pc[q.paper]!=null) pc[q.paper]++; });
+  const pc={main:0,adv:0};
+  inSubj.forEach(q=>{
+    let p = q.paper;
+    if(p === 'aits' || !p || p === 'other' || p === 'neeraj'){
+      p = (q.exam && /main/i.test(q.exam)) ? 'main' : ((q.exam && /adv/i.test(q.exam)) ? 'adv' : (String(q.id).includes('_jee_adv') ? 'adv' : (String(q.id).includes('_jee_main') ? 'main' : (paperOf(String(q.source||'')+' '+String(q.paperTitle||q.paper_title||'')+' '+String(q.id||'')) === 'main' ? 'main' : 'adv'))));
+    }
+    if(pc[p]!=null) pc[p]++;
+  });
   const sel=$('#paperSel');
   sel.innerHTML='<option value="all">Mains and Advanced papers ('+inSubj.length+')</option>'+Object.keys(PAPERS).map(k=>'<option value="'+k+'">'+PAPERS[k]+' ('+pc[k]+')</option>').join('');
   sel.value=cfg.paper;
@@ -4923,8 +5003,8 @@ function getFilteredPracticeQuestions(){
       if(prkState.paper === 'qrp'){
         if(q.paper !== 'qrp' && !String(q.id).startsWith('qrp_')) return false;
       } else {
-        const isMain = q.paper === 'main' || q.paper === 'qrp' || String(q.id).startsWith('qrp_') || /main/i.test(q.exam || '');
-        const isAdv = q.paper === 'adv' || /adv/i.test(q.exam || '');
+        const isAdv = q.paper === 'adv' || (q.exam && /adv/i.test(q.exam)) || String(q.id).includes('_jee_adv') || q.subSource === 'jee_advanced' || q.level === 'Level 2' || q.exercise === 'Exercise II' || (q.paper === 'allen_jee' && (q.bank === 'O-2' || q.exercise === 'O-2'));
+        const isMain = q.paper === 'main' || q.paper === 'qrp' || String(q.id).startsWith('qrp_') || (q.exam && /main/i.test(q.exam)) || String(q.id).includes('_jee_main') || q.subSource === 'jee_main' || q.level === 'Level 1' || q.exercise === 'Exercise I' || (q.paper === 'allen_jee' && (q.bank === 'O-1' || q.exercise === 'O-1'));
         if(prkState.paper === 'main' && !isMain) return false;
         if(prkState.paper === 'adv' && !isAdv) return false;
       }
@@ -5234,14 +5314,14 @@ function renderPracticeCardHtml(q, idx){
     passageHtml = '<div style="margin-bottom:16px;padding:14px 18px;background:var(--surface-2);border-left:3px solid var(--brand);border-radius:0 8px 8px 0;font-size:14px;line-height:1.6">' +
       '<div style="font-weight:700;color:var(--brand);margin-bottom:8px">Common Paragraph / Passage:</div>' +
       (!hasPassageImgs && q.passageText ? '<div style="margin-bottom:8px">' + rich(stripWatermarks(q.passageText)) + '</div>' : '') +
-      (hasPassageImgs ? q.passageImages.map(u => imageMarkup(u, 'Passage figure', 'practice-svg', q.crop)).join('') : '') +
+      (hasPassageImgs ? ('<div class="marks-q-img-scroll-wrap">' + q.passageImages.map(u => imageMarkup(u, 'Passage figure', 'practice-svg', q.crop)).join('') + '</div>') : '') +
     '</div>';
   }
 
   // Question figures/diagrams (primary question display)
   const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
   const hasImgs = qImgs && qImgs.length > 0;
-  const imgsHtml = qImgs.map(u => imageMarkup(u, 'Question figure', 'practice-svg', q.crop)).join('');
+  const imgsHtml = hasImgs ? ('<div class="marks-q-img-scroll-wrap">' + qImgs.map(u => imageMarkup(u, 'Question figure', 'practice-svg', q.crop)).join('') + '</div>') : '';
 
   // Fallback text (only shown if question has no image)
   const qInfo = (typeof questionTextsMap !== 'undefined' && questionTextsMap[q.id]) ? questionTextsMap[q.id] : null;
@@ -5317,14 +5397,23 @@ function renderPracticeCardHtml(q, idx){
 let prkCurrentZoom = 100;
 
 function setPrkZoom(zoomPercent){
-  prkCurrentZoom = Math.max(75, Math.min(250, zoomPercent));
+  prkCurrentZoom = Math.max(75, Math.min(300, zoomPercent));
   const el = document.getElementById('prkZoomLevelText');
   if(el) el.textContent = prkCurrentZoom + '%';
   const svgs = document.querySelectorAll('#prkDetailCardContainer .vector-inline-svg, #prkDetailCardContainer .qimg');
   svgs.forEach(item => {
-    item.style.transform = prkCurrentZoom === 100 ? 'none' : 'scale(' + (prkCurrentZoom / 100) + ')';
-    item.style.transformOrigin = 'top center';
-    item.style.transition = 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)';
+    if(prkCurrentZoom === 100){
+      item.style.setProperty('width', '100%', 'important');
+      item.style.setProperty('max-width', '100%', 'important');
+      item.style.setProperty('min-width', '100%', 'important');
+    } else {
+      const zStr = prkCurrentZoom + '%';
+      item.style.setProperty('width', zStr, 'important');
+      item.style.setProperty('max-width', 'none', 'important');
+      item.style.setProperty('min-width', zStr, 'important');
+    }
+    item.style.transform = 'none';
+    item.style.transition = 'width 0.15s ease, min-width 0.15s ease';
   });
 }
 
@@ -6685,8 +6774,10 @@ function cleanSourceTag(q){
     return 'MS Chouhan • ' + (q.exercise || 'Level 1');
   }
   if(q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))){
-    const ex = q.exam === 'jee_advanced' ? 'Advanced' : 'Mains';
-    return 'Neeraj Kumar • ' + ex;
+    const isAdv = (q.subSource === 'jee_advanced' || (q.exam && /adv/i.test(q.exam)) || String(q.id).includes('_jee_adv') || q.level === 'Level 2' || q.exercise === 'Exercise II');
+    const ex = isAdv ? 'Advanced' : 'Mains';
+    const sec = q.section ? (' • ' + q.section) : '';
+    return 'Neeraj Kumar • ' + ex + sec;
   }
   if(q.paper === 'allen_jee' || (q.id && String(q.id).startsWith('allenjee_'))){
     const b = q.bank || q.exercise || (String(q.id).includes('_o2_') ? 'O-2' : 'O-1');
@@ -7037,9 +7128,9 @@ function hasAnswerKey(q){
 function tbPaperOK(q){
   if(!hasAnswerKey(q)) return false;
   if(tbCfg.types && tbCfg.types.size > 0){
-    const isPara = !!(q.paragraph || q.type === 'paragraph');
+    const isPara = !!(q.paragraph || q.type === 'paragraph' || q.type === 'comprehension');
     const qType = isPara ? 'paragraph' : (q.type || 'single');
-    const normType = (qType === 'mcq') ? 'single' : ((qType === 'nat') ? 'numerical' : qType);
+    const normType = (qType === 'mcq' || qType === 'assertion_reason') ? 'single' : ((qType === 'nat' || qType === 'integer') ? 'numerical' : ((qType === 'multiple') ? 'multi' : ((qType === 'column_match') ? 'matrix' : qType)));
     if(!tbCfg.types.has(normType)) return false;
   }
   const isNeeraj = q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'));
@@ -7047,7 +7138,7 @@ function tbPaperOK(q){
   const isAllen = q.paper === 'allen' || q.paper === 'allen_jee' || (q.id && (String(q.id).startsWith('allenjee_') || String(q.id).startsWith('allenchem_')));
 
   if(isNeeraj){
-    const isAdv = (q.subSource === 'jee_advanced' || q.exam === 'jee_advanced' || q.exam === 'JEE Advanced' || String(q.id).includes('_jee_adv'));
+    const isAdv = (q.subSource === 'jee_advanced' || (q.exam && /adv/i.test(q.exam)) || String(q.id).includes('_jee_adv') || q.level === 'Level 2' || q.exercise === 'Exercise II');
     if(tbCfg.neerajExam === 'jee_main') return !isAdv;
     if(tbCfg.neerajExam === 'jee_advanced') return isAdv;
     return true;
@@ -7247,7 +7338,7 @@ function updateBuilderPaperOptions(){
   const allNeeraj = DB.filter(q => q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_')));
   let nkMainCnt = 0, nkAdvCnt = 0;
   allNeeraj.forEach(q => {
-    const isAdv = (q.subSource === 'jee_advanced' || q.exam === 'jee_advanced' || q.exam === 'JEE Advanced' || String(q.id).includes('_jee_adv'));
+    const isAdv = (q.subSource === 'jee_advanced' || (q.exam && /adv/i.test(q.exam)) || String(q.id).includes('_jee_adv') || q.level === 'Level 2' || q.exercise === 'Exercise II');
     if(isAdv) nkAdvCnt++;
     else nkMainCnt++;
   });
@@ -7280,7 +7371,7 @@ function renderBuilderChapters(){
       const c = q.chapter || 'Physical Chemistry';
       if(!byChap[c]) byChap[c] = { total: 0, main: 0, adv: 0 };
       byChap[c].total++;
-      const isAdv = (q.subSource === 'jee_advanced' || q.exam === 'jee_advanced' || q.exam === 'JEE Advanced' || String(q.id).includes('_jee_adv'));
+      const isAdv = (q.subSource === 'jee_advanced' || (q.exam && /adv/i.test(q.exam)) || String(q.id).includes('_jee_adv') || q.level === 'Level 2' || q.exercise === 'Exercise II');
       if(isAdv) byChap[c].adv++;
       else byChap[c].main++;
     });
@@ -7884,6 +7975,12 @@ function getSelectedBuilderQuestions(){
       if(!isNk) return false;
       if(!isChapterSelected(q)) return false;
       if(!tbPaperOK(q)) return false;
+      const isPara = !!(q.paragraph || q.type === 'paragraph' || q.type === 'comprehension');
+      const effType = isPara ? 'paragraph' :
+        ((q.type === 'multi' || q.type === 'multiple') ? 'multi' :
+        ((q.type === 'numerical' || q.type === 'integer') ? 'numerical' :
+        ((q.type === 'matrix' || q.type === 'column_match') ? 'matrix' : 'single')));
+      if(tbCfg.types && !tbCfg.types.has(effType)) return false;
       return true;
     });
     return pickFrom(nkPool, targetNeerajCount);
@@ -8170,8 +8267,8 @@ async function buildCustomSheet(customQs){
       subjects: subjs,
       count: qs.length,
       pattern: tbCfg.pattern,
-      paper: (tbCfg.sourceTab === 'allen') ? (tbCfg.allenBank === 'o1' ? 'allen_o1' : (tbCfg.allenBank === 'o2' ? 'allen_o2' : 'allen_jee')) : ((tbCfg.papers && tbCfg.papers.has('allen') && tbCfg.papers.size === 1) ? 'allen' : (tbCfg.papers ? Array.from(tbCfg.papers).join(',') : (tbCfg.paper || 'all'))),
-      papers: (tbCfg.sourceTab === 'allen') ? ['allen_jee'] : (tbCfg.papers ? Array.from(tbCfg.papers) : ['adv', 'main']),
+      paper: (tbCfg.sourceTab === 'neeraj') ? (tbCfg.neerajExam === 'jee_main' ? 'neeraj_main' : (tbCfg.neerajExam === 'jee_advanced' ? 'neeraj_adv' : 'neeraj')) : ((tbCfg.sourceTab === 'allen') ? (tbCfg.allenBank === 'o1' ? 'allen_o1' : (tbCfg.allenBank === 'o2' ? 'allen_o2' : 'allen_jee')) : ((tbCfg.papers && tbCfg.papers.has('allen') && tbCfg.papers.size === 1) ? 'allen' : (tbCfg.papers ? Array.from(tbCfg.papers).join(',') : (tbCfg.paper || 'all')))),
+      papers: (tbCfg.sourceTab === 'neeraj') ? ['neeraj'] : ((tbCfg.sourceTab === 'allen') ? ['allen_jee'] : (tbCfg.papers ? Array.from(tbCfg.papers) : ['adv', 'main'])),
       title: title,
       subtitle: subtitle,
       candName: $('#tbCandName') ? $('#tbCandName').value.trim() : '',
@@ -9018,10 +9115,14 @@ function swapBuilderQuestion(idx){
                     (currentQ.paper === 'neeraj' || String(currentQ.id).startsWith('nk_')) ? 'neeraj' : 'fiitjee';
 
   const matchType = (q) => {
-    const isQPara = !!(q.paragraph || q.type === 'paragraph');
+    const isQPara = !!(q.paragraph || q.type === 'paragraph' || q.type === 'comprehension');
     if(isCurPara) return isQPara;
     if(isQPara) return false;
-    const t = (q.rawType || q.type || '').toLowerCase();
+    let t = (q.rawType || q.type || '').toLowerCase();
+    if(t === 'multiple') t = 'multi';
+    if(t === 'column_match') t = 'matrix';
+    if(t === 'assertion_reason') t = 'single';
+    if(t === 'integer') t = 'numerical';
     if(curEffType === 'single' || curEffType === 'mcq') return t === 'single' || t === 'mcq';
     if(curEffType === 'multi' || curEffType === 'msq') return t === 'multi' || t === 'msq';
     if(curEffType === 'numerical' || curEffType === 'nat') return t === 'numerical' || t === 'nat';
@@ -9190,14 +9291,21 @@ function addBuilderQuestion(navigateToPreview = true){
   }
 
   const matchPatternAndType = (q) => {
+    const isQPara = !!(q.paragraph || q.type === 'paragraph' || q.type === 'comprehension');
+    let t = (q.rawType || q.type || '').toLowerCase();
+    if(t === 'multiple') t = 'multi';
+    if(t === 'column_match') t = 'matrix';
+    if(t === 'assertion_reason') t = 'single';
+    if(t === 'integer') t = 'numerical';
+    const effType = isQPara ? 'paragraph' : t;
     if(tbCfg.pattern === 'main'){
-      if(q.paragraph || q.type === 'paragraph') return false;
-      return q.type === 'single' || q.type === 'numerical';
+      if(isQPara) return false;
+      return effType === 'single' || effType === 'numerical';
     }
-    if(q.paragraph || q.type === 'paragraph'){
+    if(isQPara){
       return tbCfg.types ? tbCfg.types.has('paragraph') : true;
     }
-    return tbCfg.types ? tbCfg.types.has(q.type) : true;
+    return tbCfg.types ? tbCfg.types.has(effType) : true;
   };
 
   // 1. Strict match: active subjects, selected chapters, paper, types
