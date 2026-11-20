@@ -2501,6 +2501,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
           <option value="all">All Papers</option>
           <option value="main">JEE Main</option>
           <option value="adv">JEE Advanced</option>
+          <option value="qrp">Quizrr QRP (2027)</option>
         </select>
 
         <select id="prkFilterYear" class="marks-pill-select" aria-label="Year">
@@ -2763,7 +2764,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
               <div class="field" style="background:var(--surface-2);padding:10px 14px;border-radius:6px;border:1px solid var(--line)">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
                   <label style="margin:0;font-size:12.5px;font-weight:700">Choose Questions from Each Bank &amp; Pattern</label>
-                  <span style="font-size:11.5px;color:var(--brand);font-weight:700" id="tbAllenAllocSum">Total: 25 Questions (15 O-1 + 6 Multi + 2 Para + 2 Matrix)</span>
+                  <span style="font-size:11.5px;color:var(--brand);font-weight:700" id="tbAllenAllocSum">Total: 25 Questions (15 O-1 + 8 Multi + 2 Para)</span>
                 </div>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px">
                   <div style="display:flex;flex-direction:column;gap:3px">
@@ -2772,7 +2773,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
                   </div>
                   <div style="display:flex;flex-direction:column;gap:3px">
                     <span style="font-size:11px;color:var(--fg);opacity:0.85">O-2 (Multi)</span>
-                    <input type="number" id="tbAllenO2MultiIn" min="0" value="6" style="padding:5px 6px;font-size:12.5px;font-weight:700;border:1px solid var(--line);border-radius:4px;background:var(--surface);text-align:center">
+                    <input type="number" id="tbAllenO2MultiIn" min="0" value="8" style="padding:5px 6px;font-size:12.5px;font-weight:700;border:1px solid var(--line);border-radius:4px;background:var(--surface);text-align:center">
                   </div>
                   <div style="display:flex;flex-direction:column;gap:3px">
                     <span style="font-size:11px;color:var(--fg);opacity:0.85">O-2 (Paragraphs)</span>
@@ -2780,7 +2781,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
                   </div>
                   <div style="display:flex;flex-direction:column;gap:3px">
                     <span style="font-size:11px;color:var(--fg);opacity:0.85">O-2 (Matrix)</span>
-                    <input type="number" id="tbAllenO2MatrixIn" min="0" value="2" style="padding:5px 6px;font-size:12.5px;font-weight:700;border:1px solid var(--line);border-radius:4px;background:var(--surface);text-align:center">
+                    <input type="number" id="tbAllenO2MatrixIn" min="0" value="0" style="padding:5px 6px;font-size:12.5px;font-weight:700;border:1px solid var(--line);border-radius:4px;background:var(--surface);text-align:center">
                   </div>
                   <div style="display:flex;flex-direction:column;gap:3px">
                     <span style="font-size:11px;color:var(--fg);opacity:0.85">NEET Module</span>
@@ -2925,6 +2926,13 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
                 <label class="chk" style="display:inline-flex;align-items:center;gap:6px;margin:0;flex:1"><input type="checkbox" data-tbtype="paragraph" checked> <span>Comprehension / Paragraph</span></label>
                 <div style="display:inline-flex;align-items:center;gap:4px">
                   <input type="number" class="tb-type-cnt-in" data-tbtype-cnt="paragraph" min="0" placeholder="Auto" style="width:68px;padding:3px 6px;font-size:12px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--fg);text-align:center" title="Specify how many Comprehension questions you need">
+                  <span class="muted" style="font-size:11px">Qs</span>
+                </div>
+              </div>
+              <div class="tb-type-row" style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+                <label class="chk" style="display:inline-flex;align-items:center;gap:6px;margin:0;flex:1"><input type="checkbox" data-tbtype="matrix"> <span>Match the Column (Matrix Match)</span></label>
+                <div style="display:inline-flex;align-items:center;gap:4px">
+                  <input type="number" class="tb-type-cnt-in" data-tbtype-cnt="matrix" min="0" placeholder="Auto" style="width:68px;padding:3px 6px;font-size:12px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--fg);text-align:center" title="Specify how many Match the Column questions you need">
                   <span class="muted" style="font-size:11px">Qs</span>
                 </div>
               </div>
@@ -3309,7 +3317,7 @@ const AitsCache = {
 window.AitsCache = AitsCache;
 
 async function fetchCachedJson(url){
-  const cacheKey = 'json:v13:' + url;
+  const cacheKey = 'json:v18:' + url;
   const cached = await AitsCache.get(cacheKey);
   if(cached) return cached;
   const r = await fetch(url);
@@ -3347,6 +3355,7 @@ async function getZip(zipUrl){
       '/' + rel,
       rel,
       'public/' + rel,
+      'https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/vector_zips/' + fname,
       'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/' + rel,
       'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/' + rel
     ];
@@ -3827,7 +3836,7 @@ function loadDB(raw,label,isSample){
   list.forEach((e,i)=>{
     if(e.q && e.q._isNormalized){
       if(e.q.paper === 'aits' || !e.q.paper || e.q.paper === 'other'){
-        const isSpecial = e.q.paper === 'neeraj' || e.q.paper === 'allen' || e.q.paper === 'allen_jee' || e.q.paper === 'mschouhan' || (e.q.id && (String(e.q.id).startsWith('nk_') || String(e.q.id).startsWith('allenjee_') || String(e.q.id).startsWith('allenchem_') || String(e.q.id).startsWith('mschouhan_')));
+        const isSpecial = e.q.paper === 'qrp' || e.q.paper === 'neeraj' || e.q.paper === 'allen' || e.q.paper === 'allen_jee' || e.q.paper === 'mschouhan' || (e.q.id && (String(e.q.id).startsWith('qrp_') || String(e.q.id).startsWith('nk_') || String(e.q.id).startsWith('allenjee_') || String(e.q.id).startsWith('allenchem_') || String(e.q.id).startsWith('mschouhan_')));
         if(!isSpecial){
           e.q.paper = (e.q.exam && /main/i.test(e.q.exam)) ? 'main' : ((e.q.exam && /adv/i.test(e.q.exam)) ? 'adv' : (paperOf(String(e.q.source||'')+' '+String(e.q.paperTitle||e.q.paper_title||'')+' '+String(e.q.id||'')) === 'main' ? 'main' : 'adv'));
         }
@@ -3873,7 +3882,8 @@ async function ensureSubjectLoaded(subject){
       if(subject === 'Physics'){
         const remote = isLocal ? '' : (conf.databaseUrl || '').trim();
         fileUrls = [
-          ['database.json', remote, 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/database.json']
+          ['database.json', remote, 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/database.json'],
+          ['qrp_database.json', 'public/qrp_database.json']
         ];
       } else if(subject === 'Chemistry'){
         const chemRemote = (conf.chemistryUrl || '').trim();
@@ -4909,7 +4919,16 @@ function getFilteredPracticeQuestions(){
     if(q.paper === 'allen') return false;
     if(q.subject !== prkState.subj) return false;
     if(prkState.chap && q.chapter !== prkState.chap) return false;
-    if(prkState.paper !== 'all' && q.paper !== prkState.paper) return false;
+    if(prkState.paper !== 'all'){
+      if(prkState.paper === 'qrp'){
+        if(q.paper !== 'qrp' && !String(q.id).startsWith('qrp_')) return false;
+      } else {
+        const isMain = q.paper === 'main' || q.paper === 'qrp' || String(q.id).startsWith('qrp_') || /main/i.test(q.exam || '');
+        const isAdv = q.paper === 'adv' || /adv/i.test(q.exam || '');
+        if(prkState.paper === 'main' && !isMain) return false;
+        if(prkState.paper === 'adv' && !isAdv) return false;
+      }
+    }
     if(prkState.year !== 'all' && String(q.year) !== String(prkState.year)) return false;
     if(prkState.type !== 'all'){
       const qTypeForFilter = q.paragraph ? 'paragraph' : q.type;
@@ -5027,7 +5046,7 @@ function renderPracticeRowHtml(q, idx){
   }
   if(!previewText){
     const yrStr = q.year ? (' ' + q.year) : '';
-    const paperName = q.paper === 'adv' ? 'JEE Advanced' : (q.paper === 'main' ? 'JEE Main' : 'AITS');
+    const paperName = (q.paper === 'qrp' || String(q.id).startsWith('qrp_')) ? 'Quizrr QRP' : (q.paper === 'adv' ? 'JEE Advanced' : (q.paper === 'main' ? 'JEE Main' : 'AITS'));
     const ch = q.chapter || q.subject || 'Practice Question';
     previewText = (tag ? (tag + ' - ') : (paperName + yrStr + ' - ')) + ch + ' (' + typeLabel + ')';
   }
@@ -5111,7 +5130,7 @@ function renderPracticeDetailView(){
     });
   }
 
-  const paperName = q.paper === 'adv' ? 'JEE Advanced' : (q.paper === 'main' ? 'JEE Main' : 'AITS');
+  const paperName = (q.paper === 'qrp' || String(q.id).startsWith('qrp_')) ? 'Quizrr QRP' : (q.paper === 'adv' ? 'JEE Advanced' : (q.paper === 'main' ? 'JEE Main' : 'AITS'));
   const breadcrumbEl = $('#prkDetailBreadcrumb');
   if(breadcrumbEl){
     const chapPart = prkState.chap || q.chapter;
@@ -6223,7 +6242,8 @@ document.addEventListener('click',e=>{
       $('#tbTimeLimit').value = 60;
       tbCfg.types = new Set(['single', 'multi', 'numerical', 'paragraph']);
       document.querySelectorAll('#tbTypesBox input[data-tbtype]').forEach(cb => {
-        cb.checked = true;
+        const isMatrix = cb.dataset.tbtype === 'matrix';
+        cb.checked = !isMatrix;
         cb.disabled = false;
         const row = cb.closest('.tb-type-row') || cb.parentElement;
         row.style.opacity = '1';
@@ -6237,7 +6257,8 @@ document.addEventListener('click',e=>{
       $('#tbTimeLimit').value = 90;
       tbCfg.types = new Set(['single', 'multi', 'numerical', 'paragraph']);
       document.querySelectorAll('#tbTypesBox input[data-tbtype]').forEach(cb => {
-        cb.checked = true;
+        const isMatrix = cb.dataset.tbtype === 'matrix';
+        cb.checked = !isMatrix;
         cb.disabled = false;
         const row = cb.closest('.tb-type-row') || cb.parentElement;
         row.style.opacity = '1';
@@ -6356,9 +6377,9 @@ document.addEventListener('click',e=>{
           neetIn = $('#tbAllenNeetIn');
     if(b.dataset.allenbank === 'both'){
       if(o1In) o1In.value = 15;
-      if(o2MultiIn) o2MultiIn.value = 6;
+      if(o2MultiIn) o2MultiIn.value = 8;
       if(o2ParaIn) o2ParaIn.value = 2;
-      if(o2MatrixIn) o2MatrixIn.value = 2;
+      if(o2MatrixIn) o2MatrixIn.value = (tbCfg.types && tbCfg.types.has('matrix')) ? 2 : 0;
       if(neetIn) neetIn.value = 0;
     } else if(b.dataset.allenbank === 'o1'){
       if(o1In) o1In.value = 25;
@@ -6368,9 +6389,9 @@ document.addEventListener('click',e=>{
       if(neetIn) neetIn.value = 0;
     } else if(b.dataset.allenbank === 'o2'){
       if(o1In) o1In.value = 0;
-      if(o2MultiIn) o2MultiIn.value = 14;
+      if(o2MultiIn) o2MultiIn.value = 20;
       if(o2ParaIn) o2ParaIn.value = 4;
-      if(o2MatrixIn) o2MatrixIn.value = 2;
+      if(o2MatrixIn) o2MatrixIn.value = (tbCfg.types && tbCfg.types.has('matrix')) ? 2 : 0;
       if(neetIn) neetIn.value = 0;
     } else if(b.dataset.allenbank === 'neet'){
       if(o1In) o1In.value = 0;
@@ -6527,11 +6548,25 @@ $('#tbTypesBox').addEventListener('change', e => {
   if(cb){
     if(cb.checked){
       tbCfg.types.add(cb.dataset.tbtype);
+      if(cb.dataset.tbtype === 'matrix'){
+        const mIn = $('#tbAllenO2MatrixIn');
+        if(mIn && (!parseInt(mIn.value, 10) || parseInt(mIn.value, 10) <= 0)){
+          mIn.value = 2;
+          syncAllenCountsToTotal();
+        }
+      }
     } else {
       tbCfg.types.delete(cb.dataset.tbtype);
       if(tbCfg.typeCounts) tbCfg.typeCounts[cb.dataset.tbtype] = null;
       const countInput = $(`#tbTypesBox input[data-tbtype-cnt="${cb.dataset.tbtype}"]`);
       if(countInput) countInput.value = '';
+      if(cb.dataset.tbtype === 'matrix'){
+        const mIn = $('#tbAllenO2MatrixIn');
+        if(mIn){
+          mIn.value = 0;
+          syncAllenCountsToTotal();
+        }
+      }
     }
     renderBuilderChapters();
     refreshBuilderSummary();
@@ -6546,12 +6581,20 @@ $('#tbTypesBox').addEventListener('change', e => {
       tbCfg.types.add(t);
       const cb = $(`#tbTypesBox input[data-tbtype="${t}"]`);
       if(cb) cb.checked = true;
+      if(t === 'matrix'){
+        const mIn = $('#tbAllenO2MatrixIn');
+        if(mIn){ mIn.value = val; syncAllenCountsToTotal(); }
+      }
     } else {
       tbCfg.typeCounts[t] = null;
       if(cntIn.value === '0'){
         tbCfg.types.delete(t);
         const cb = $(`#tbTypesBox input[data-tbtype="${t}"]`);
         if(cb) cb.checked = false;
+        if(t === 'matrix'){
+          const mIn = $('#tbAllenO2MatrixIn');
+          if(mIn){ mIn.value = 0; syncAllenCountsToTotal(); }
+        }
       }
     }
     const sum = Object.values(tbCfg.typeCounts).filter(v => v != null).reduce((a, b) => a + b, 0);
@@ -6631,6 +6674,10 @@ function stripWatermarks(text){
 }
 
 function cleanSourceTag(q){
+  if(q.paper === 'qrp' || (q.id && String(q.id).startsWith('qrp_'))){
+    const qrpNum = q.qrpNumber ? ('0' + q.qrpNumber).slice(-2) : (String(q.id).match(/qrp_(\d+)/i) ? ('0' + String(q.id).match(/qrp_(\d+)/i)[1]).slice(-2) : '');
+    return 'Quizrr QRP' + (qrpNum ? (' • QRP ' + qrpNum) : '');
+  }
   if(q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))){
     if(q.star === 'two_star') return 'MS Chouhan • Selected (★★)';
     if(q.star === 'one_star') return 'MS Chouhan • Selected (★)';
@@ -6664,6 +6711,7 @@ function cleanSourceTag(q){
 const TB_ARCHIVE_KEY = 'aits_tb_archive_v1';
 const TB_USED_QIDS_KEY = 'aits_tb_used_qids_v1';
 let tbDismissedResumeId = null;
+let tbRecentlySwapped = new Set();
 
 let TB_USED_QIDS = new Set();
 try {
@@ -6717,9 +6765,9 @@ const tbCfg = {
   allenBank: 'both',
   allenBranches: new Set(['Physical Chemistry', 'Inorganic Chemistry', 'Organic Chemistry', 'NEET Modules']),
   allenO1Count: 15,
-  allenO2MultiCount: 6,
+  allenO2MultiCount: 8,
   allenO2ParaCount: 2,
-  allenO2MatrixCount: 2,
+  allenO2MatrixCount: 0,
   allenO2Count: 10,
   allenNeetCount: 0,
   msSubSource: 'selected', // 'selected' | 'level1'
@@ -6728,7 +6776,7 @@ const tbCfg = {
   chapters: new Set(),
   initializedTabs: new Set(),
   types: new Set(['single', 'multi', 'numerical', 'paragraph']),
-  typeCounts: { single: null, multi: null, numerical: null, paragraph: null },
+  typeCounts: { single: null, multi: null, numerical: null, paragraph: null, matrix: null },
   count: 30,
   distMode: 'balanced',
   optAnsKey: true,
@@ -6770,15 +6818,17 @@ function isChapterSelected(q){
 function toggleSource(src){
   if(!tbCfg.activeSources) tbCfg.activeSources = new Set(['fiitjee', 'allen']);
   if(tbCfg.activeSources.has(src)){
+    if(tbCfg.sourceTab !== src){
+      setSourceTab(src);
+      return;
+    }
     if(tbCfg.activeSources.size <= 1){
       showToast('At least one source must remain selected.');
       return;
     }
     tbCfg.activeSources.delete(src);
-    if(tbCfg.sourceTab === src){
-      const remaining = Array.from(tbCfg.activeSources);
-      setSourceTab(remaining[0]);
-    }
+    const remaining = Array.from(tbCfg.activeSources);
+    setSourceTab(remaining[0]);
   } else {
     tbCfg.activeSources.add(src);
     setSourceTab(src);
@@ -6986,6 +7036,12 @@ function hasAnswerKey(q){
 
 function tbPaperOK(q){
   if(!hasAnswerKey(q)) return false;
+  if(tbCfg.types && tbCfg.types.size > 0){
+    const isPara = !!(q.paragraph || q.type === 'paragraph');
+    const qType = isPara ? 'paragraph' : (q.type || 'single');
+    const normType = (qType === 'mcq') ? 'single' : ((qType === 'nat') ? 'numerical' : qType);
+    if(!tbCfg.types.has(normType)) return false;
+  }
   const isNeeraj = q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'));
   const isMs = q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'));
   const isAllen = q.paper === 'allen' || q.paper === 'allen_jee' || (q.id && (String(q.id).startsWith('allenjee_') || String(q.id).startsWith('allenchem_')));
@@ -7040,9 +7096,9 @@ function syncAllenCountsToTotal(){
         o2MatrixEl = $('#tbAllenO2MatrixIn'),
         neetEl = $('#tbAllenNeetIn');
   const o1 = o1El ? Math.max(0, parseInt(o1El.value, 10) || 0) : 15;
-  const o2Multi = o2MultiEl ? Math.max(0, parseInt(o2MultiEl.value, 10) || 0) : 6;
+  const o2Multi = o2MultiEl ? Math.max(0, parseInt(o2MultiEl.value, 10) || 0) : 8;
   const o2Para = o2ParaEl ? Math.max(0, parseInt(o2ParaEl.value, 10) || 0) : 2;
-  const o2Matrix = o2MatrixEl ? Math.max(0, parseInt(o2MatrixEl.value, 10) || 0) : 2;
+  const o2Matrix = o2MatrixEl ? Math.max(0, parseInt(o2MatrixEl.value, 10) || 0) : 0;
   const neet = neetEl ? Math.max(0, parseInt(neetEl.value, 10) || 0) : 0;
 
   tbCfg.allenO1Count = o1;
@@ -7051,6 +7107,15 @@ function syncAllenCountsToTotal(){
   tbCfg.allenO2MatrixCount = o2Matrix;
   tbCfg.allenO2Count = o2Multi + o2Para + o2Matrix;
   tbCfg.allenNeetCount = neet;
+
+  // Sync matrix with tbCfg.types
+  const matrixCb = document.querySelector('#tbTypesBox input[data-tbtype="matrix"]');
+  if(o2Matrix > 0){
+    tbCfg.types.add('matrix');
+    if(matrixCb) matrixCb.checked = true;
+  } else if(matrixCb && !matrixCb.checked){
+    tbCfg.types.delete('matrix');
+  }
 
   const total = o1 + o2Multi + o2Para + o2Matrix + neet;
   tbCfg.count = total;
@@ -7311,7 +7376,12 @@ function renderBuilderChapters(){
     const html = activeBranches.map(branch => {
       const available = branchGroups[branch] || {};
       const chaps = Object.keys(available).sort((a,b) => a.localeCompare(b, undefined, {numeric:true}));
-      const shown = chaps.filter(c => !term || c.toLowerCase().includes(term) || branch.toLowerCase().includes(term));
+      const termWords = term ? term.split(/\s+/).filter(Boolean) : [];
+      const shown = chaps.filter(c => {
+        if(!term) return true;
+        const normTarget = (c + ' ' + branch).toLowerCase().replace(/acidic/g, 'acid').replace(/basic/g, 'base');
+        return c.toLowerCase().includes(term) || branch.toLowerCase().includes(term) || (termWords.length && termWords.every(w => normTarget.includes(w.replace(/acidic/g, 'acid').replace(/basic/g, 'base'))));
+      });
       if(!shown.length) return '';
       const total = shown.reduce((sum, c) => sum + (available[c] ? available[c].n : 0), 0);
       const segmentKey = 'Chemistry||BRANCH||' + branch;
@@ -7548,8 +7618,11 @@ function openBuilderScreen(){
     showBuilderLogin();
     return;
   }
-  setSourceTab(tbCfg.sourceTab || 'fiitjee');
   const hash = window.location.hash || '';
+  if(/allen/i.test(hash) || /allen/i.test(window.location.search)){
+    tbCfg.sourceTab = 'allen';
+  }
+  setSourceTab(tbCfg.sourceTab || 'fiitjee');
   if(hash.includes('?')){
     const qIdx = hash.indexOf('?');
     const params = new URLSearchParams(hash.slice(qIdx + 1));
@@ -7680,19 +7753,33 @@ function getSelectedBuilderQuestions(){
 
   // Helper: Pick Allen questions given a target count for Allen
   function pickAllenQuestions(targetAllenCount){
-    const o1Target = tbCfg.allenO1Count != null ? tbCfg.allenO1Count : 15;
-    const o2MultiTarget = tbCfg.allenO2MultiCount != null ? tbCfg.allenO2MultiCount : 6;
-    const o2ParaTarget = tbCfg.allenO2ParaCount != null ? tbCfg.allenO2ParaCount : 2;
-    const o2MatrixTarget = tbCfg.allenO2MatrixCount != null ? tbCfg.allenO2MatrixCount : 2;
-    const neetTarget = tbCfg.allenNeetCount != null ? tbCfg.allenNeetCount : 0;
+    const allowSingle = !tbCfg.types || tbCfg.types.has('single');
+    const allowMulti = !tbCfg.types || tbCfg.types.has('multi');
+    const allowPara = !tbCfg.types || tbCfg.types.has('paragraph');
+    const allowMatrix = !!(tbCfg.types && tbCfg.types.has('matrix'));
+
+    let o1Target = allowSingle ? (tbCfg.allenO1Count != null ? tbCfg.allenO1Count : 15) : 0;
+    let o2MultiTarget = allowMulti ? (tbCfg.allenO2MultiCount != null ? tbCfg.allenO2MultiCount : 8) : 0;
+    let o2ParaTarget = allowPara ? (tbCfg.allenO2ParaCount != null ? tbCfg.allenO2ParaCount : 2) : 0;
+    let o2MatrixTarget = allowMatrix ? (tbCfg.allenO2MatrixCount != null ? tbCfg.allenO2MatrixCount : 0) : 0;
+    let neetTarget = allowSingle ? (tbCfg.allenNeetCount != null ? tbCfg.allenNeetCount : 0) : 0;
+
+    // Respect explicit typeCounts if set by user
+    if(tbCfg.typeCounts){
+      if(tbCfg.typeCounts.single != null && allowSingle) o1Target = tbCfg.typeCounts.single;
+      if(tbCfg.typeCounts.multi != null && allowMulti) o2MultiTarget = tbCfg.typeCounts.multi;
+      if(tbCfg.typeCounts.paragraph != null && allowPara) o2ParaTarget = tbCfg.typeCounts.paragraph;
+      if(tbCfg.typeCounts.matrix != null && allowMatrix) o2MatrixTarget = tbCfg.typeCounts.matrix;
+    }
+
     const allenSum = o1Target + o2MultiTarget + o2ParaTarget + o2MatrixTarget + neetTarget;
 
     const scale = (isMultiSource && allenSum > 0) ? (targetAllenCount / allenSum) : 1;
-    const effO1 = Math.round(o1Target * scale);
-    const effMulti = Math.round(o2MultiTarget * scale);
-    const effPara = Math.round(o2ParaTarget * scale);
-    const effMatrix = Math.round(o2MatrixTarget * scale);
-    const effNeet = Math.round(neetTarget * scale);
+    const effO1 = allowSingle ? Math.round(o1Target * scale) : 0;
+    const effMulti = allowMulti ? Math.round(o2MultiTarget * scale) : 0;
+    const effPara = allowPara ? Math.round(o2ParaTarget * scale) : 0;
+    const effMatrix = allowMatrix ? Math.round(o2MatrixTarget * scale) : 0;
+    const effNeet = allowSingle ? Math.round(neetTarget * scale) : 0;
 
     let picked = [];
 
@@ -7701,6 +7788,7 @@ function getSelectedBuilderQuestions(){
         if(q.paper !== 'allen_jee' && !String(q.id).startsWith('allenjee_')) return false;
         if(q.bank !== 'O-1' && q.exercise !== 'O-1' && !String(q.id).includes('_o1_')) return false;
         if(q.paragraph || q.type === 'paragraph') return false;
+        if(q.type === 'matrix') return false;
         if(!isChapterSelected(q)) return false;
         if(!tbPaperOK(q)) return false;
         return true;
@@ -7714,6 +7802,7 @@ function getSelectedBuilderQuestions(){
         if(q.bank !== 'O-2' && q.exercise !== 'O-2' && !String(q.id).includes('_o2_')) return false;
         if(q.paragraph || q.type === 'paragraph') return false;
         if(q.type !== 'multi') return false;
+        if(q.type === 'matrix') return false;
         if(!isChapterSelected(q)) return false;
         if(!tbPaperOK(q)) return false;
         return true;
@@ -7726,6 +7815,7 @@ function getSelectedBuilderQuestions(){
         if(q.paper !== 'allen_jee' && !String(q.id).startsWith('allenjee_')) return false;
         if(q.bank !== 'O-2' && q.exercise !== 'O-2' && !String(q.id).includes('_o2_')) return false;
         if(!q.paragraph && q.type !== 'paragraph') return false;
+        if(q.type === 'matrix') return false;
         if(!isChapterSelected(q)) return false;
         if(!tbPaperOK(q)) return false;
         return true;
@@ -7747,10 +7837,9 @@ function getSelectedBuilderQuestions(){
       }
     }
 
-    if(effMatrix > 0){
+    if(effMatrix > 0 && allowMatrix){
       const o2MatrixPool = DB.filter(q => {
         if(q.paper !== 'allen_jee' && !String(q.id).startsWith('allenjee_')) return false;
-        if(q.bank !== 'O-2' && q.exercise !== 'O-2' && !String(q.id).includes('_o2_')) return false;
         if(q.type !== 'matrix') return false;
         if(!isChapterSelected(q)) return false;
         if(!tbPaperOK(q)) return false;
@@ -7762,6 +7851,7 @@ function getSelectedBuilderQuestions(){
     if(effNeet > 0){
       const neetPool = DB.filter(q => {
         if(q.paper !== 'allen' && !String(q.id).startsWith('allenchem_')) return false;
+        if(q.type === 'matrix') return false;
         if(!isChapterSelected(q)) return false;
         if(!tbPaperOK(q)) return false;
         return true;
@@ -7769,15 +7859,20 @@ function getSelectedBuilderQuestions(){
       picked = picked.concat(pickFrom(neetPool, effNeet));
     }
 
-    if(!picked.length){
+    if(picked.length < targetAllenCount){
+      const pickedIds = new Set(picked.map(q => q.id));
       const allAllenPool = DB.filter(q => {
+        if(pickedIds.has(q.id)) return false;
         const isAllen = q.paper === 'allen_jee' || q.paper === 'allen' || (q.id && (String(q.id).startsWith('allenjee_') || String(q.id).startsWith('allenchem_')));
         if(!isAllen) return false;
         if(!isChapterSelected(q)) return false;
         if(!tbPaperOK(q)) return false;
+        if(q.type === 'matrix' && !allowMatrix) return false;
         return true;
       });
-      picked = pickFrom(allAllenPool, targetAllenCount);
+      if(allAllenPool.length){
+        picked = picked.concat(pickFrom(allAllenPool, targetAllenCount - picked.length));
+      }
     }
     return sortQuestionsByPattern(picked);
   }
@@ -7868,7 +7963,7 @@ function getSelectedBuilderQuestions(){
 
     let picked = [];
     if(hasTypeCounts){
-      const chosenTypes = ['single', 'multi', 'numerical', 'paragraph'].filter(t => tbCfg.types.has(t));
+      const chosenTypes = ['single', 'multi', 'numerical', 'paragraph', 'matrix'].filter(t => tbCfg.types.has(t));
       for(const t of chosenTypes){
         const reqCount = tbCfg.typeCounts[t];
         if(reqCount != null && reqCount > 0){
@@ -8084,6 +8179,7 @@ async function buildCustomSheet(customQs){
       includeSolutions: includeSol,
       removeWatermark: true, // Clean FIITJEE watermarks and diagonal patterns
       qids: qids,
+      types: Array.from(tbCfg.types || []),
       crops: qs.map(q => ({ id: q.id, crop: q.crop })).filter(c => c.crop)
     });
 
@@ -8605,6 +8701,7 @@ function openBuilderPreview(forceFresh = false){
     tbCfg.builtQs = null;
     tbCfg.currentTestId = null;
   }
+  if(typeof tbRecentlySwapped !== 'undefined') tbRecentlySwapped.clear();
   const qs = (tbCfg.builtQs && tbCfg.builtQs.length) ? tbCfg.builtQs : getSelectedBuilderQuestions();
   if(!qs || !qs.length){
     alert('No questions match your current selection. Please select at least one chapter with available questions.');
@@ -8910,7 +9007,15 @@ function swapBuilderQuestion(idx){
   const curSubj = currentQ.subject;
   const curChap = currentQ.chapter;
 
+  // Track recently swapped questions so they don't immediately bounce back
+  if(typeof tbRecentlySwapped === 'undefined') window.tbRecentlySwapped = new Set();
+  tbRecentlySwapped.add(currentQ.id);
+
   const currentIds = new Set(tbCfg.builtQs.map(q => q.id));
+
+  const curSource = (currentQ.paper === 'allen' || currentQ.paper === 'allen_jee' || String(currentQ.id).startsWith('allen')) ? 'allen' :
+                    (currentQ.paper === 'mschouhan' || String(currentQ.id).startsWith('mschouhan_')) ? 'mschouhan' :
+                    (currentQ.paper === 'neeraj' || String(currentQ.id).startsWith('nk_')) ? 'neeraj' : 'fiitjee';
 
   const matchType = (q) => {
     const isQPara = !!(q.paragraph || q.type === 'paragraph');
@@ -8920,12 +9025,20 @@ function swapBuilderQuestion(idx){
     if(curEffType === 'single' || curEffType === 'mcq') return t === 'single' || t === 'mcq';
     if(curEffType === 'multi' || curEffType === 'msq') return t === 'multi' || t === 'msq';
     if(curEffType === 'numerical' || curEffType === 'nat') return t === 'numerical' || t === 'nat';
+    if(curEffType === 'matrix') return t === 'matrix';
     if(curEffType.includes('para') || curEffType.includes('comp')) return t.includes('para') || t.includes('comp');
     return t === curEffType;
   };
 
-  // 1. Exact same chapter, subject, and question type
-  let candidates = DB.filter(q => {
+  const isSameSource = (q) => {
+    const qSrc = (q.paper === 'allen' || q.paper === 'allen_jee' || String(q.id).startsWith('allen')) ? 'allen' :
+                 (q.paper === 'mschouhan' || String(q.id).startsWith('mschouhan_')) ? 'mschouhan' :
+                 (q.paper === 'neeraj' || String(q.id).startsWith('nk_')) ? 'neeraj' : 'fiitjee';
+    return qSrc === curSource;
+  };
+
+  // 1. Same chapter, same subject, matching type
+  let sameChapCandidates = DB.filter(q => {
     if(currentIds.has(q.id)) return false;
     if(q.subject !== curSubj) return false;
     if(q.chapter !== curChap) return false;
@@ -8933,37 +9046,76 @@ function swapBuilderQuestion(idx){
     return matchType(q);
   });
 
-  // 2. Search other selected chapters of this subject with the same type
-  if(!candidates.length){
-    candidates = DB.filter(q => {
+  // Prefer same source within same chapter if plentiful
+  const sameSrcChap = sameChapCandidates.filter(isSameSource);
+  if(sameSrcChap.length >= 3){
+    sameChapCandidates = sameSrcChap;
+  }
+
+  // Filter out recently swapped questions
+  let freshCandidates = sameChapCandidates.filter(q => !tbRecentlySwapped.has(q.id));
+
+  // If same chapter has fewer than 5 fresh candidates, broaden to other selected chapters of the subject
+  if(freshCandidates.length < 5){
+    const otherSelected = DB.filter(q => {
       if(currentIds.has(q.id)) return false;
+      if(q.subject !== curSubj) return false;
+      if(q.chapter === curChap) return false;
+      if(!isChapterSelected(q)) return false;
+      if(!tbPaperOK(q)) return false;
+      return matchType(q);
+    }).filter(q => !tbRecentlySwapped.has(q.id));
+
+    const otherSameSrc = otherSelected.filter(isSameSource);
+    freshCandidates = freshCandidates.concat(otherSameSrc.length ? otherSameSrc : otherSelected);
+  }
+
+  let candidates = freshCandidates;
+
+  // If still fewer than 3 candidates, allow previously swapped questions (except the one clicked right now)
+  if(candidates.length < 3){
+    const relaxed = sameChapCandidates.filter(q => q.id !== currentQ.id);
+    candidates = candidates.concat(relaxed.filter(q => !candidates.some(c => c.id === q.id)));
+  }
+
+  // 2. Search other selected chapters of this subject with the same type (even if previously swapped, except currentQ)
+  if(candidates.length < 3){
+    const otherSelectedAll = DB.filter(q => {
+      if(currentIds.has(q.id)) return false;
+      if(q.id === currentQ.id) return false;
       if(q.subject !== curSubj) return false;
       if(!isChapterSelected(q)) return false;
       if(!tbPaperOK(q)) return false;
       return matchType(q);
     });
+    candidates = candidates.concat(otherSelectedAll.filter(q => !candidates.some(c => c.id === q.id)));
   }
 
   // 3. Search any chapter of this subject with the same type
   if(!candidates.length){
     candidates = DB.filter(q => {
       if(currentIds.has(q.id)) return false;
+      if(q.id === currentQ.id) return false;
       if(q.subject !== curSubj) return false;
       if(!tbPaperOK(q)) return false;
       return matchType(q);
     });
   }
 
-  // 4. Fallback: any question in this chapter with matching paragraph type
+  // 4. Fallback: any question in this chapter or selected chapters matching paragraph type
   if(!candidates.length){
     candidates = DB.filter(q => {
       if(currentIds.has(q.id)) return false;
+      if(q.id === currentQ.id) return false;
       if(q.subject !== curSubj) return false;
-      if(q.chapter !== curChap) return false;
+      if(!tbPaperOK(q)) return false;
       const isQPara = !!(q.paragraph || q.type === 'paragraph');
       return isCurPara ? isQPara : !isQPara;
     });
   }
+
+  // Strictly exclude current question from candidates
+  candidates = candidates.filter(q => q.id !== currentQ.id);
 
   if(!candidates.length){
     alert('No alternative question available in the database for ' + curSubj + ' - ' + curChap + '.');
@@ -8973,10 +9125,20 @@ function swapBuilderQuestion(idx){
   const exhaustFirst = $('#tbOptExhaustFirst') ? $('#tbOptExhaustFirst').checked : true;
   if(exhaustFirst){
     const unused = candidates.filter(q => !TB_USED_QIDS.has(q.id));
-    if(unused.length) candidates = unused;
+    if(unused.length >= 3){
+      candidates = unused;
+    } else if(unused.length > 0){
+      candidates = unused.concat(candidates.filter(q => TB_USED_QIDS.has(q.id)));
+    }
   }
 
-  const newQ = candidates[Math.floor(Math.random() * candidates.length)];
+  shuffle(candidates);
+
+  // Pick from unswapped candidates first
+  const pickPool = candidates.filter(q => !tbRecentlySwapped.has(q.id));
+  const newQ = pickPool.length ? pickPool[Math.floor(Math.random() * pickPool.length)] : candidates[Math.floor(Math.random() * candidates.length)];
+
+  tbRecentlySwapped.add(newQ.id);
   tbCfg.builtQs[idx] = newQ;
 
   // Replace card in DOM with highlight pulse
@@ -9112,6 +9274,7 @@ function addBuilderQuestion(navigateToPreview = true){
 }
 
 function shuffleAllBuilderPreview(){
+  if(typeof tbRecentlySwapped !== 'undefined') tbRecentlySwapped.clear();
   const qs = getSelectedBuilderQuestions();
   if(!qs || !qs.length){
     alert('Cannot reshuffle: no questions match current criteria.');
@@ -9543,7 +9706,7 @@ function startCbtFromBuilder(){
       return null;
     }
 
-    const [phys, chem, mathAdv, mathMain, allenChem, allenJee, msChouhan, neeraj] = await Promise.all([
+    const [phys, chem, mathAdv, mathMain, allenChem, allenJee, msChouhan, neeraj, qrp] = await Promise.all([
       fetchFirst(['database.json', remote].filter(Boolean)),
       fetchFirst(['chemistry_database.json', chemRemote].filter(Boolean)),
       fetchFirst(['maths_advanced_database.json', mathAdvRemote].filter(Boolean)),
@@ -9551,9 +9714,10 @@ function startCbtFromBuilder(){
       fetchFirst(['allenchem_database.json', allenChemRemote, 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/allenchem_database.json'].filter(Boolean)),
       fetchFirst(['allenjee_database.json', allenJeeRemote, 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/allenjee_database.json'].filter(Boolean)),
       fetchFirst(['mschouhan_database.json', 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/mschouhan_database.json'].filter(Boolean)),
-      fetchFirst(['neeraj_database.json', 'public/neeraj_database.json'].filter(Boolean))
+      fetchFirst(['neeraj_database.json', 'public/neeraj_database.json'].filter(Boolean)),
+      fetchFirst(['qrp_database.json', 'public/qrp_database.json'].filter(Boolean))
     ]);
-    const parts = [phys, chem, mathAdv, mathMain, allenChem, allenJee, msChouhan, neeraj].filter(Boolean);
+    const parts = [phys, chem, mathAdv, mathMain, allenChem, allenJee, msChouhan, neeraj, qrp].filter(Boolean);
     if(parts.length){
       const all = parts.flatMap(x=>(extractList(x.raw)||[]).map(e=>e.q));
       ok = loadDB(all, phys && phys.url===remote && remote ? 'Hugging Face database' : 'database.json', false);

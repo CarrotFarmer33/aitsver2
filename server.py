@@ -10,6 +10,7 @@ import http.server
 import json
 import mimetypes
 import os
+import re
 import sys
 import threading
 import time
@@ -20,6 +21,7 @@ from build_sheets import CROP_X0, CROP_X1, remove_watermarks, open_pdf
 import pymupdf as fitz
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(os.path.abspath(sys.executable)) if getattr(sys, "frozen", False) else ROOT_DIR
 SITE_DIR = os.path.join(ROOT_DIR, "aitsver2-main")
 if not os.path.isdir(SITE_DIR):
     SITE_DIR = ROOT_DIR
@@ -40,6 +42,21 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
             pub_cand = os.path.join(self.directory, "public", rel)
             if os.path.exists(pub_cand):
                 return pub_cand
+            fname = os.path.basename(rel)
+            for search_dir in [
+                ROOT_DIR,
+                SITE_DIR,
+                os.path.join(SITE_DIR, "public"),
+                getattr(sys, "_MEIPASS", ""),
+                os.path.dirname(os.path.abspath(sys.executable)),
+                os.path.join(os.path.dirname(os.path.abspath(sys.executable)), "_internal"),
+                os.path.join(os.path.dirname(os.path.abspath(sys.executable)), "_internal", "aitsver2-main"),
+                os.path.join(os.path.dirname(os.path.abspath(sys.executable)), "_internal", "aitsver2-main", "public"),
+            ]:
+                if search_dir:
+                    cand = os.path.join(search_dir, fname)
+                    if os.path.exists(cand):
+                        return cand
         return orig
 
     def end_headers(self):
@@ -84,6 +101,46 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
         elif path == "/api/chapters":
             self.handle_chapters()
             return
+        elif path.startswith('/vector_zips/'):
+            raw_fname = path.split('/vector_zips/')[1].strip()
+            decoded_fname = urllib.parse.unquote(raw_fname)
+            candidate_names = [
+                raw_fname,
+                decoded_fname,
+                decoded_fname.replace('+', '_'),
+                raw_fname.replace('%2B', '_').replace('%2b', '_'),
+                re.sub(r'[^A-Za-z0-9._-]+', '_', decoded_fname),
+            ]
+            candidate_dirs = [
+                os.path.join(ROOT_DIR, 'vector_zips'),
+                os.path.join(os.path.dirname(ROOT_DIR), 'vector_zips'),
+                os.path.join(getattr(sys, '_MEIPASS', ''), 'vector_zips'),
+                r'c:\Users\hp\Desktop\Antigravity\vector_zips'
+            ]
+            local_zp = None
+            for cdir in candidate_dirs:
+                if not cdir or not os.path.exists(cdir):
+                    continue
+                for cname in candidate_names:
+                    p = os.path.join(cdir, cname)
+                    if os.path.exists(p):
+                        local_zp = p
+                        break
+                if local_zp:
+                    break
+
+            if local_zp and os.path.exists(local_zp):
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/zip')
+                self.send_header('Content-Length', str(os.path.getsize(local_zp)))
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                with open(local_zp, 'rb') as zf:
+                    self.wfile.write(zf.read())
+                return
+            else:
+                self.send_error(404, 'Local vector zip not found')
+                return
         elif path.startswith("/api/question-svg/"):
             qid = path.split("/api/question-svg/")[1].strip()
             self.handle_question_svg(qid)
@@ -139,6 +196,49 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
         self.send_json({"ok": True, "subjects": result})
 
     def handle_question_svg(self, qid):
+        # Universal fast lookup: check all local SVG zip archives first
+        target_svg = f"{qid}.svg" if not qid.endswith(".svg") else qid
+        zip_names = [
+            "neeraj_images.zip",
+            "allenjee_images_o1_part2.zip",
+            "allenjee_images_o2.zip",
+            "allenjee_images.zip",
+            "allenchem_images.zip",
+            "mschouhan_images.zip",
+            "fiitjee_chem_mains_images.zip"
+        ]
+        search_dirs = [
+            ROOT_DIR,
+            BASE_DIR,
+            SITE_DIR,
+            os.path.join(SITE_DIR, "public"),
+            getattr(sys, "_MEIPASS", ""),
+            os.path.dirname(os.path.abspath(sys.executable)),
+            os.path.join(os.path.dirname(os.path.abspath(sys.executable)), "_internal"),
+            os.path.join(os.path.dirname(os.path.abspath(sys.executable)), "_internal", "aitsver2-main"),
+            os.path.join(os.path.dirname(os.path.abspath(sys.executable)), "_internal", "aitsver2-main", "public"),
+        ]
+        import zipfile
+        for zname in zip_names:
+            for sdir in search_dirs:
+                if not sdir:
+                    continue
+                zpath = os.path.join(sdir, zname)
+                if os.path.exists(zpath):
+                    try:
+                        with zipfile.ZipFile(zpath, "r") as zf:
+                            if target_svg in zf.namelist():
+                                svg_bytes = zf.read(target_svg)
+                                self.send_response(200)
+                                self.send_header("Content-Type", "image/svg+xml; charset=utf-8")
+                                self.send_header("Content-Length", str(len(svg_bytes)))
+                                self.send_header("Cache-Control", "public, max-age=86400")
+                                self.end_headers()
+                                self.wfile.write(svg_bytes)
+                                return
+                    except Exception:
+                        pass
+
         if qid.startswith("mschouhan_"):
             try:
                 import sheet_engine
@@ -180,8 +280,51 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_error(500, f"Error rendering MS Chouhan SVG: {e}")
                 return
 
+        if qid.startswith("nk_"):
+            try:
+                target_svg = f"{qid}.svg"
+                for zname in ["neeraj_images.zip"]:
+                    for b in [ROOT_DIR, BASE_DIR, os.path.dirname(os.path.abspath(sys.executable)), os.path.join(os.path.dirname(os.path.abspath(sys.executable)), "_internal")]:
+                        zpath = os.path.join(b, zname)
+                        if os.path.exists(zpath):
+                            import zipfile
+                            with zipfile.ZipFile(zpath, 'r') as zf:
+                                if target_svg in zf.namelist():
+                                    svg_bytes = zf.read(target_svg)
+                                    self.send_response(200)
+                                    self.send_header("Content-Type", "image/svg+xml; charset=utf-8")
+                                    self.send_header("Content-Length", str(len(svg_bytes)))
+                                    self.send_header("Cache-Control", "public, max-age=86400")
+                                    self.end_headers()
+                                    self.wfile.write(svg_bytes)
+                                    return
+                self.send_error(404, f"Neeraj SVG {target_svg} not found")
+                return
+            except Exception as e:
+                self.send_error(500, f"Error rendering Neeraj SVG: {e}")
+                return
+
         if qid.startswith("allenjee_"):
             try:
+                # 1. First check if SVG already exists in image zips
+                target_svg = f"{qid}.svg"
+                for zname in ["allenjee_images_o1_part2.zip", "allenjee_images_o2.zip", "allenjee_images.zip"]:
+                    for b in [ROOT_DIR, BASE_DIR, os.path.dirname(os.path.abspath(sys.executable)), os.path.join(os.path.dirname(os.path.abspath(sys.executable)), "_internal")]:
+                        zpath = os.path.join(b, zname)
+                        if os.path.exists(zpath):
+                            import zipfile
+                            with zipfile.ZipFile(zpath, 'r') as zf:
+                                if target_svg in zf.namelist():
+                                    svg_bytes = zf.read(target_svg)
+                                    self.send_response(200)
+                                    self.send_header("Content-Type", "image/svg+xml; charset=utf-8")
+                                    self.send_header("Content-Length", str(len(svg_bytes)))
+                                    self.send_header("Cache-Control", "public, max-age=86400")
+                                    self.end_headers()
+                                    self.wfile.write(svg_bytes)
+                                    return
+
+                # 2. Fallback to vector crop from PDF using resolve_pdf_path
                 import build_allenjee_sheet as baj
                 with open(baj.DB_PATH, "r", encoding="utf-8") as f:
                     allen_db = json.load(f)
@@ -189,18 +332,17 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
                 if not allen_q:
                     self.send_error(404, "Allen JEE question not found")
                     return
-                pdf_path = os.path.join(ROOT_DIR, allen_q["pdfName"].replace("/", os.sep))
+                pdf_path = baj.resolve_pdf_path(allen_q["pdfName"])
                 doc = fitz.open(pdf_path)
                 baj.clean_source_doc(doc)
                 seg = allen_q["segments"][0]
                 pno, x0, y0, x1, y1 = seg
-                clip_r = fitz.Rect(baj.COL_X0, max(y0, baj.HEADER_Y_CUT), baj.COL_X1, min(y1, baj.FOOTER_Y_CUT))
-                tdoc = fitz.open()
-                tdoc.insert_pdf(doc, from_page=pno - 1, to_page=pno - 1)
-                tp = tdoc[0]
-                tp.set_cropbox(clip_r)
-                svg = tp.get_svg_image(text_as_path=1)
-                tdoc.close()
+                clip_r = baj.calibrate_allenjee_bounds(doc[pno - 1], y0, y1)
+                temp_doc = fitz.open()
+                temp_page = temp_doc.new_page(width=clip_r.width, height=clip_r.height)
+                temp_page.show_pdf_page(fitz.Rect(0, 0, clip_r.width, clip_r.height), doc, pno - 1, clip=clip_r)
+                svg = temp_page.get_svg_image(text_as_path=1)
+                temp_doc.close()
                 doc.close()
                 insert_pos = svg.find(">") + 1
                 if insert_pos > 0:
@@ -342,15 +484,16 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
         out_filename = f"test_{ts}.pdf"
         out_pdf = os.path.join(GENERATED_DIR, out_filename)
 
-        # Check if Multi-Source or MS Chouhan is requested
+        # Check if Multi-Source, MS Chouhan, or Neeraj Kumar is requested
         has_ms = bool(selected_qids and any(str(qid).startswith("mschouhan_") for qid in selected_qids))
+        has_neeraj = bool(selected_qids and any(str(qid).startswith("nk_") for qid in selected_qids))
         has_allen_jee = bool(selected_qids and any(str(qid).startswith("allenjee_") for qid in selected_qids))
         has_allen_chem = bool(selected_qids and any(str(qid).startswith("allenchem_") for qid in selected_qids))
-        has_fiitjee = bool(selected_qids and any(not str(qid).startswith("allen") and not str(qid).startswith("mschouhan") for qid in selected_qids))
-        sources_count = sum([has_ms, has_allen_jee, has_allen_chem, has_fiitjee])
+        has_fiitjee = bool(selected_qids and any(not str(qid).startswith("allen") and not str(qid).startswith("mschouhan") and not str(qid).startswith("nk_") for qid in selected_qids))
+        sources_count = sum([has_ms, has_neeraj, has_allen_jee, has_allen_chem, has_fiitjee])
         is_mixed = sources_count > 1
 
-        if has_ms or is_mixed or (paper == "mschouhan"):
+        if has_ms or has_neeraj or is_mixed or (paper == "mschouhan") or (paper == "neeraj"):
             try:
                 import build_unified_sheet as bus
                 if not selected_qids:
@@ -366,7 +509,8 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
                     subtitle=subtitle,
                     cand_name=req.get("candName"),
                     time_limit=req.get("timeLimit", 90),
-                    crops=req.get("crops")
+                    crops=req.get("crops"),
+                    types=req.get("types")
                 )
                 pdf_url = f"/generated_tests/{out_filename}"
                 latest_url = "/generated_tests/latest_test.pdf"
@@ -449,7 +593,8 @@ class AitsRequestHandler(http.server.SimpleHTTPRequestHandler):
                     subtitle=subtitle,
                     cand_name=req.get("candName"),
                     time_limit=req.get("timeLimit", 90),
-                    crops=req.get("crops")
+                    crops=req.get("crops"),
+                    types=req.get("types")
                 )
                 pdf_url = f"/generated_tests/{out_filename}"
                 latest_url = "/generated_tests/latest_test.pdf"

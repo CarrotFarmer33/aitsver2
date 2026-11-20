@@ -46,13 +46,17 @@ def paper_of(s):
 
 def get_paper(q, def_subj, def_paper):
     qid = str(q.get('id') or '')
+    if q.get('paper') == 'qrp' or qid.startswith('qrp_'):
+        return 'qrp'
+    if q.get('paper') == 'neeraj' or qid.startswith('nk_'):
+        return 'neeraj'
     if q.get('paper') == 'mschouhan' or qid.startswith('mschouhan_'):
         return 'mschouhan'
     if q.get('paper') == 'allen_jee' or qid.startswith('allenjee_'):
         return 'allen_jee'
     if q.get('paper') == 'allen' or qid.startswith('allenchem_') or 'allen' in str(q.get('source', '')).lower():
         return 'allen'
-    if def_paper in ('allen', 'allen_jee', 'mschouhan', 'main', 'adv'):
+    if def_paper in ('qrp', 'neeraj', 'allen', 'allen_jee', 'mschouhan', 'main', 'adv'):
         return def_paper
     exam = q.get('exam')
     if exam:
@@ -90,12 +94,14 @@ def build_meta():
     root = os.path.dirname(os.path.abspath(__file__))
     db_files = [
         (os.path.join(root, 'database.json'), 'Physics', 'aits'),
+        (os.path.join(root, 'qrp_database.json'), 'Physics', 'qrp'),
         (os.path.join(root, 'chemistry_database.json'), 'Chemistry', 'aits'),
         (os.path.join(root, 'maths_advanced_database.json'), 'Mathematics', 'adv'),
         (os.path.join(root, 'maths_main_database.json'), 'Mathematics', 'main'),
         (os.path.join(root, 'allenchem_database.json'), 'Chemistry', 'allen'),
         (os.path.join(root, 'allenjee_database.json'), 'Physics', 'allen_jee'),
-        (os.path.join(root, 'mschouhan_database.json'), 'Chemistry', 'mschouhan')
+        (os.path.join(root, 'mschouhan_database.json'), 'Chemistry', 'mschouhan'),
+        (os.path.join(root, 'neeraj_database.json'), 'Chemistry', 'neeraj')
     ]
 
     questions = []
@@ -103,15 +109,18 @@ def build_meta():
 
     for path, def_subj, def_paper in db_files:
         if not os.path.exists(path):
+            print(f"Skipping non-existent: {path}")
             continue
         with open(path, 'r', encoding='utf-8') as f:
             data = json.load(f)
         qs = data if isinstance(data, list) else data.get('questions', [])
+        count_for_file = 0
         for q in qs:
             qid = q.get('id')
             if not qid or qid in seen:
                 continue
             seen.add(qid)
+            count_for_file += 1
             subj = norm_subj(q.get('subject') or def_subj)
             chap = str(q.get('chapter') or 'Unsorted').strip() or 'Unsorted'
             if subj == 'Chemistry' and chap in CHEM_ALIAS:
@@ -131,14 +140,15 @@ def build_meta():
             if p_text and len(p_text) > 90:
                 p_text = p_text[:90] + '...'
 
-            ans = None
-            if qtype == 'numerical':
-                try:
-                    ans = float(str(raw_ans).strip())
-                except:
-                    ans = str(raw_ans).strip() if raw_ans is not None else None
-            else:
-                ans = parse_choice(raw_ans)
+            ans = q.get('ans')
+            if ans is None:
+                if qtype == 'numerical':
+                    try:
+                        ans = float(str(raw_ans).strip())
+                    except:
+                        ans = str(raw_ans).strip() if raw_ans is not None else None
+                else:
+                    ans = parse_choice(raw_ans)
 
             item = {
                 'id': str(qid),
@@ -164,6 +174,8 @@ def build_meta():
             if q.get('exercise'): item['exercise'] = q['exercise']
             if q.get('bank'): item['bank'] = q['bank']
             if q.get('subSource'): item['subSource'] = q['subSource']
+            if q.get('qrpNumber'): item['qrpNumber'] = q['qrpNumber']
+            if q.get('questionNumber'): item['questionNumber'] = q['questionNumber']
             if q.get('paragraph') or q.get('paragraph_id'): item['paragraph'] = True
             if q.get('rawType'): item['rawType'] = q['rawType']
             if q.get('options') and isinstance(q.get('options'), list):
@@ -175,10 +187,12 @@ def build_meta():
             if q.get('width'): item['width'] = q.get('width')
 
             questions.append(item)
+        print(f"Loaded {count_for_file} questions from {os.path.basename(path)}")
 
     out_files = [
         os.path.join(root, 'db_meta.json'),
-        os.path.join(root, 'public', 'db_meta.json')
+        os.path.join(root, 'public', 'db_meta.json'),
+        os.path.join(os.path.dirname(root), 'db_meta.json')
     ]
     for out_p in out_files:
         os.makedirs(os.path.dirname(out_p), exist_ok=True)

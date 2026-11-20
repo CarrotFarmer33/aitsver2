@@ -383,7 +383,9 @@ def generate_custom_test(
     time_limit=90,
     crops=None,
     seed=42,
-    chapters=None
+    chapters=None,
+    types=None,
+    **kwargs
 ):
     if not os.path.exists(DB_PATH):
         raise FileNotFoundError(f"Database not found at {DB_PATH}")
@@ -424,15 +426,23 @@ def generate_custom_test(
         elif bank == "O-2":
             pool = [q for q in pool if q.get("bank") == "O-2"]
 
-        non_para = [q for q in pool if not q.get("paragraph") and q.get("type") != "paragraph"]
+        if types:
+            allowed_types = set(types)
+            pool = [q for q in pool if (q.get("type") in allowed_types) or (q.get("paragraph") and "paragraph" in allowed_types)]
+
+        allow_matrix = (types is None) or ("matrix" in types)
+        allow_para = (types is None) or ("paragraph" in types)
+
+        non_para = [q for q in pool if not q.get("paragraph") and q.get("type") != "paragraph" and (allow_matrix or q.get("type") != "matrix")]
         para_groups = {}
-        for q in pool:
-            if q.get("paragraph") or q.get("type") == "paragraph":
-                pid = q.get("paragraphId") or q.get("id")
-                para_groups.setdefault(pid, []).append(q)
+        if allow_para:
+            for q in pool:
+                if q.get("paragraph") or q.get("type") == "paragraph":
+                    pid = q.get("paragraphId") or q.get("id")
+                    para_groups.setdefault(pid, []).append(q)
 
         random.seed(seed)
-        if (bank in ["O-2", "both"]) and para_groups and question_count >= 10:
+        if allow_para and (bank in ["O-2", "both"]) and para_groups and question_count >= 10:
             pid = random.choice(list(para_groups.keys()))
             chosen.extend(para_groups[pid])
 

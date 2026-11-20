@@ -117,7 +117,7 @@ def parse_answer_key_tables(doc):
         i = 0
         while i < len(lines):
             line = lines[i]
-            m = re.search(r"EXERCISE\s*[:#]?\s*([^\n]+)", line, re.I)
+            m = re.search(r"EXERCISE\s*[:#\-]?\s*([^\n]+)", line, re.I)
             if m:
                 raw = m.group(1).upper()
                 if re.search(r"\bO-?(?:2|II)\b", raw):
@@ -149,6 +149,57 @@ def parse_answer_key_tables(doc):
                         ans_map[cur_ex][q] = a
                 continue
             i += 1
+
+    # Fallback for list-formatted answer keys (e.g. Organic Chemistry: Isomerism, EDE/GOC, Acid-Base, Polymer & POC)
+    if len(ans_map["O-1"]) == 0 or len(ans_map["O-2"]) == 0:
+        ans_start = -1
+        for p_idx in range(len(doc)):
+            t = doc[p_idx].get_text("text")
+            if re.search(r"ANSWER[\s\-]KEY", t, re.I):
+                ans_start = p_idx
+                break
+        if ans_start >= 0:
+            full_ans_text = ""
+            for p_idx in range(ans_start, len(doc)):
+                full_ans_text += doc[p_idx].get_text("text") + "\n"
+
+            ex_blocks = re.split(r"(EXERCISE\s*[:#\-]?\s*[^\n]+)", full_ans_text, flags=re.I)
+            current_target = None
+            for part in ex_blocks:
+                m_hdr = re.match(r"EXERCISE\s*[:#\-]?\s*([^\n]+)", part.strip(), re.I)
+                if m_hdr:
+                    hdr_raw = m_hdr.group(1).upper()
+                    if re.search(r"\bO-?(?:2|II)\b", hdr_raw):
+                        current_target = "O-2"
+                    elif re.search(r"\bO-?(?:1|I)\b", hdr_raw):
+                        current_target = "O-1"
+                    else:
+                        current_target = None
+                    continue
+
+                if current_target and len(ans_map[current_target]) == 0:
+                    clean_txt = re.sub(r"node\d+.*?\.p65", "", part)
+                    clean_txt = re.sub(r"\$//\(1®", "", clean_txt)
+                    clean_txt = re.sub(r"JEE-Chemistry|ALLEN|®", "", clean_txt)
+
+                    norm = re.sub(r"(?:^|\n)\s*(\d+)\s*(?:[\.\)]|(?=\n\s*\())\s*", r"\n<<Q:\1>> ", clean_txt)
+                    norm = re.sub(r"(?<=\s)(\d+)\s*[\.\)]\s*", r"\n<<Q:\1>> ", norm)
+
+                    q_chunks = re.split(r"<<Q:(\d+)>>", norm)
+                    for c_idx in range(1, len(q_chunks), 2):
+                        qn = int(q_chunks[c_idx])
+                        if qn in ans_map[current_target]:
+                            continue
+                        first_line = q_chunks[c_idx + 1].strip().split("\n")[0].strip()
+                        ans_clean = re.sub(r"^Ans\.?\s*", "", first_line).strip()
+                        if "®" in ans_clean or ";" in ans_clean:
+                            val = ans_clean
+                        else:
+                            m_opt = re.match(r"^\(?([A-D0-9,\s\-®\>]+)\)?", ans_clean)
+                            val = m_opt.group(1).strip() if m_opt else ans_clean
+                        val = re.sub(r"^\(([A-Za-z0-9,\s\-®\>]+)\)$", r"\1", val).strip()
+                        if val:
+                            ans_map[current_target][qn] = val
 
     return ans_map
 
@@ -451,7 +502,7 @@ def process_all_chapters():
                     elif ex_key == "O-1":
                         q_type = "single"
                     else:
-                        if ";" in ans or ("-" in ans and not ans.startswith("-")):
+                        if ";" in ans or ("-" in ans and not ans.startswith("-")) or "®" in ans:
                             q_type = "matrix"
                         elif "," in ans:
                             q_type = "multi"

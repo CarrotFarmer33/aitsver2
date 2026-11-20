@@ -31,3 +31,6 @@ public/paras/
 generated_tests/
 __pycache__/
 *.pyc
+
+qrp_images.zip
+public/qrp_images.zip
