@@ -3356,6 +3356,17 @@ function processSvgMarkup(rawSvgText, isTestBuilder){
   svgText = svgText.replace(/<path [^>]*d="M337\.5\s+484\.199H5617\.5V499\.199H337\.5Z"[^>]*\/?>\s*/gi, '');
   svgText = svgText.replace(/<path [^>]*d="M337\.5\s+7924\.2H5617\.5V7939\.2H337\.5Z"[^>]*\/?>\s*/gi, '');
 
+  // 4. Neutralize empty clipPaths: in W3C SVG spec, <clipPath id="X"></clipPath> with zero shapes
+  // causes Chromium/browsers to clip all child elements to 0 pixels (making questions completely blank).
+  const emptyClipRegex = /<clipPath id="([^"]+)">\s*<\/clipPath>/gi;
+  let ecMatch;
+  while((ecMatch = emptyClipRegex.exec(svgText)) !== null){
+    const cid = ecMatch[1];
+    svgText = svgText.replaceAll(`clip-path="url(#${cid})"`, '');
+    svgText = svgText.replaceAll(`clip-path="url('#${cid}')"`, '');
+    svgText = svgText.replaceAll(`clip-path='url("#${cid}")'`, '');
+  }
+
   // Ensure authentic solid white background rect is present in every SVG
   // This allows crisp black-on-white in light mode, and perfect contrast when inverted in dark mode
   if(!/<rect[^>]*fill="#ffffff"/i.test(svgText)){
@@ -3454,7 +3465,7 @@ async function getZip(zipUrl){
   const p = (async () => {
     // 1. Check local IndexedDB disk cache with versioned key
     try {
-      const cachedBuf = await AitsCache.get('zip:v18:' + cacheKey);
+      const cachedBuf = await AitsCache.get('zip:v19:' + cacheKey);
       if(cachedBuf){
         return await JSZip.loadAsync(cachedBuf);
       }
@@ -3486,7 +3497,7 @@ async function getZip(zipUrl){
           continue;
         }
         const b = await r.arrayBuffer();
-        AitsCache.set('zip:v18:' + cacheKey, b);
+        AitsCache.set('zip:v19:' + cacheKey, b);
         return await JSZip.loadAsync(b);
       } catch(err) {
         lastErr = err;
@@ -3513,7 +3524,7 @@ async function resolveZipImage(img){
     if(!f){
       try {
         const rel = zipUrl.replace(/^\/+/, '');
-        AitsCache.delete('zip:v18:' + (zipUrl.startsWith('http') ? zipUrl : rel));
+        AitsCache.delete('zip:v19:' + (zipUrl.startsWith('http') ? zipUrl : rel));
         zipCache.delete(zipUrl.startsWith('http') ? zipUrl : rel);
       } catch(_) {}
       throw new Error('Image not found in ZIP: '+fileName);
