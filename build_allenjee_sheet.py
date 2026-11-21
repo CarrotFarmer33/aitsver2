@@ -328,6 +328,24 @@ def calculate_tight_y1(page, y0, y1):
     # Clean 4.5 pt padding for subscripts/descenders, bounded by original y1
     return min(max(max_text_y, max_draw_y) + 4.5, y1)
 
+def apply_rect_crop(rect, crop):
+    if not crop:
+        return rect
+    top_p = max(0.0, min(50.0, float(crop.get("top", 0) or 0))) / 100.0
+    bot_p = max(0.0, min(50.0, float(crop.get("bottom", 0) or 0))) / 100.0
+    left_p = max(0.0, min(40.0, float(crop.get("left", 0) or 0))) / 100.0
+    right_p = max(0.0, min(40.0, float(crop.get("right", 0) or 0))) / 100.0
+    if top_p == 0 and bot_p == 0 and left_p == 0 and right_p == 0:
+        return rect
+    h = rect.height
+    w = rect.width
+    return fitz.Rect(
+        rect.x0 + (w * left_p),
+        rect.y0 + (h * top_p),
+        rect.x1 - (w * right_p),
+        rect.y1 - (h * bot_p)
+    )
+
 def resolve_pdf_path(pdf_name):
     norm_rel = pdf_name.replace("/", os.sep)
     if os.path.isabs(norm_rel) and os.path.exists(norm_rel):
@@ -512,10 +530,23 @@ def generate_custom_test(
     current_sec = None
     drawn_paras = set()
 
+    crop_map = {}
+    if isinstance(crops, list):
+        for item in crops:
+            if isinstance(item, dict):
+                cid = item.get("id")
+                cdata = item.get("crop")
+                if cid and cdata:
+                    crop_map[str(cid)] = cdata
+    elif isinstance(crops, dict):
+        crop_map = {str(k): v for k, v in crops.items() if v}
+
     for idx, q in enumerate(chosen):
         test_idx = idx + 1
         ans = q.get("answer") or "-"
         key_data.append({"num": test_idx, "ans": ans})
+
+        q_crop = crop_map.get(str(q.get("id", ""))) or crop_map.get(str(idx)) or q.get("crop")
 
         is_para = bool(q.get("paragraph") or q.get("type") == "paragraph")
         q_sec = "paragraph" if is_para else q.get("type", "single")
@@ -571,6 +602,8 @@ def generate_custom_test(
         page = src_doc[pno - 1]
 
         clip_rect = calibrate_allenjee_bounds(page, y0, y1)
+        if q_crop:
+            clip_rect = apply_rect_crop(clip_rect, q_crop)
         draw_w = clip_rect.width
         draw_h = clip_rect.height
 

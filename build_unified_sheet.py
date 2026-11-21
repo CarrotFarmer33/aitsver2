@@ -37,6 +37,12 @@ MX = 36.0
 COL_W = 507.0
 COL_X0 = 45.0
 COL_X1 = 552.0
+# 2-column layout geometry (Neeraj Kumar & NEET)
+COL_W_HALF = 235.0
+COL0_X0 = 45.0
+COL1_X0 = 325.0
+CENTER_X = 295.0
+
 
 P1_HEADER_TOP = 22.0
 P1_HEADER_BOT = 74.0
@@ -44,6 +50,52 @@ P1_Y_START = 82.0
 SUB_Y_START = 28.0
 COL_Y_END = 804.0
 GAP_Q = 9.0
+
+def apply_svg_crop_text(svg_text, crop):
+    if not crop:
+        return svg_text
+    top_p = max(0.0, min(50.0, float(crop.get("top", 0) or 0))) / 100.0
+    bot_p = max(0.0, min(50.0, float(crop.get("bottom", 0) or 0))) / 100.0
+    left_p = max(0.0, min(40.0, float(crop.get("left", 0) or 0))) / 100.0
+    right_p = max(0.0, min(40.0, float(crop.get("right", 0) or 0))) / 100.0
+    if top_p == 0 and bot_p == 0 and left_p == 0 and right_p == 0:
+        return svg_text
+
+    m = re.search(r'viewBox="([^"]+)"', svg_text, re.IGNORECASE)
+    if not m:
+        return svg_text
+    parts = [float(p) for p in re.split(r'[\s,]+', m.group(1).strip()) if p]
+    if len(parts) != 4:
+        return svg_text
+
+    x, y, w, h = parts
+    new_x = x + (w * left_p)
+    new_y = y + (h * top_p)
+    new_w = max(1.0, w * (1.0 - left_p - right_p))
+    new_h = max(1.0, h * (1.0 - top_p - bot_p))
+
+    svg_text = svg_text[:m.start(1)] + f"{new_x:.2f} {new_y:.2f} {new_w:.2f} {new_h:.2f}" + svg_text[m.end(1):]
+    svg_text = re.sub(r'(<svg\b[^>]*\bwidth=")[0-9.]+(?:pt|px)?', rf'\g<1>{new_w:.2f}pt', svg_text, count=1, flags=re.I)
+    svg_text = re.sub(r'(<svg\b[^>]*\bheight=")[0-9.]+(?:pt|px)?', rf'\g<1>{new_h:.2f}pt', svg_text, count=1, flags=re.I)
+    return svg_text
+
+def apply_rect_crop(rect, crop):
+    if not crop:
+        return rect
+    top_p = max(0.0, min(50.0, float(crop.get("top", 0) or 0))) / 100.0
+    bot_p = max(0.0, min(50.0, float(crop.get("bottom", 0) or 0))) / 100.0
+    left_p = max(0.0, min(40.0, float(crop.get("left", 0) or 0))) / 100.0
+    right_p = max(0.0, min(40.0, float(crop.get("right", 0) or 0))) / 100.0
+    if top_p == 0 and bot_p == 0 and left_p == 0 and right_p == 0:
+        return rect
+    h = rect.height
+    w = rect.width
+    return fitz.Rect(
+        rect.x0 + (w * left_p),
+        rect.y0 + (h * top_p),
+        rect.x1 - (w * right_p),
+        rect.y1 - (h * bot_p)
+    )
 
 def has_answer_key(q):
     """Returns True if the question has a valid, non-blank answer key."""
@@ -191,7 +243,18 @@ def load_all_question_maps():
         except Exception as e:
             print("Error loading Allen Chem database:", e)
 
-    # 4. FIITJEE
+    # 4. Neeraj Kumar
+    neeraj_db_path = get_valid_db_path("neeraj_database.json")
+    if neeraj_db_path and os.path.exists(neeraj_db_path):
+        try:
+            with open(neeraj_db_path, "r", encoding="utf-8") as f:
+                nk_db = json.load(f)
+            for q in nk_db.get("questions", []):
+                q_map[q["id"]] = q
+        except Exception as e:
+            print("Error loading Neeraj Kumar database:", e)
+
+    # 5. FIITJEE
     try:
         qm = QuestionManager.get_instance()
         for q in qm.questions:
@@ -199,6 +262,17 @@ def load_all_question_maps():
                 q_map[q["id"]] = q
     except Exception as e:
         print("Error loading FIITJEE QuestionManager:", e)
+
+    # 6. Quizrr QRP
+    qrp_db_path = get_valid_db_path("qrp_database.json")
+    if qrp_db_path and os.path.exists(qrp_db_path):
+        try:
+            with open(qrp_db_path, "r", encoding="utf-8") as f:
+                qrp_db = json.load(f)
+            for q in qrp_db.get("questions", []):
+                q_map[q["id"]] = q
+        except Exception as e:
+            print("Error loading QRP database:", e)
 
     return q_map
 
@@ -243,6 +317,75 @@ def get_ms_chouhan_zip():
         pass
     return None
 
+_NEERAJ_ZIP_HANDLE = None
+
+def get_neeraj_zip():
+    global _NEERAJ_ZIP_HANDLE
+    if _NEERAJ_ZIP_HANDLE is not None:
+        return _NEERAJ_ZIP_HANDLE
+    import zipfile
+    cand_zips = [
+        baj.find_existing_path("neeraj_images.zip"),
+        baj.find_existing_path(os.path.join("aitsver2-main", "neeraj_images.zip")),
+        baj.find_existing_path(os.path.join("aitsver2-main", "public", "neeraj_images.zip")),
+        os.path.join(ROOT_DIR, "neeraj_images.zip"),
+        os.path.join(PARENT_DIR, "neeraj_images.zip"),
+        os.path.join(os.path.dirname(os.path.abspath(sys.executable)), "neeraj_images.zip"),
+        os.path.join(os.path.dirname(os.path.abspath(sys.executable)), "_internal", "neeraj_images.zip"),
+    ]
+    for cz in cand_zips:
+        if cz and os.path.exists(cz):
+            try:
+                _NEERAJ_ZIP_HANDLE = zipfile.ZipFile(cz, 'r')
+                return _NEERAJ_ZIP_HANDLE
+            except Exception:
+                pass
+    return None
+
+_ALLEN_ZIPS = {}
+
+def get_allenjee_zip(zip_name):
+    if zip_name in _ALLEN_ZIPS:
+        return _ALLEN_ZIPS[zip_name]
+    import zipfile
+    cand_zips = [
+        baj.find_existing_path(zip_name),
+        baj.find_existing_path(os.path.join("aitsver2-main", zip_name)),
+        baj.find_existing_path(os.path.join("aitsver2-main", "public", zip_name)),
+        os.path.join(ROOT_DIR, zip_name),
+        os.path.join(PARENT_DIR, zip_name),
+        os.path.join(os.path.dirname(os.path.abspath(sys.executable)), zip_name),
+        os.path.join(os.path.dirname(os.path.abspath(sys.executable)), "_internal", zip_name),
+    ]
+    for cz in cand_zips:
+        if cz and os.path.exists(cz):
+            try:
+                _ALLEN_ZIPS[zip_name] = zipfile.ZipFile(cz, 'r')
+                return _ALLEN_ZIPS[zip_name]
+            except Exception:
+                pass
+    return None
+
+_QRP_ZIP = None
+def get_qrp_zip():
+    global _QRP_ZIP
+    if _QRP_ZIP is not None:
+        return _QRP_ZIP
+    for cand in [
+        baj.find_existing_path("qrp_images.zip"),
+        os.path.join(ROOT_DIR, "qrp_images.zip"),
+        os.path.join(PARENT_DIR, "qrp_images.zip"),
+        os.path.join(ROOT_DIR, "vector_zips", "qrp_images.zip"),
+        os.path.join(ROOT_DIR, "aitsver2-main", "public", "qrp_images.zip"),
+    ]:
+        if cand and os.path.exists(cand):
+            try:
+                _QRP_ZIP = zipfile.ZipFile(cand, "r")
+                return _QRP_ZIP
+            except Exception:
+                pass
+    return None
+
 def generate_multi_source_test(selected_qids, out_pdf_path="custom_test.pdf", title="Practice Sheet", subtitle="", cand_name=None, time_limit=90, crops=None, **kwargs):
     q_map = load_all_question_maps()
     chosen = []
@@ -260,16 +403,109 @@ def generate_multi_source_test(selected_qids, out_pdf_path="custom_test.pdf", ti
     if not chosen:
         raise ValueError("None of the requested questions have valid answer keys or could be found in the databases.")
 
+    SECTION_ORDER = {'single': 0, 'multi': 1, 'numerical': 2, 'paragraph': 3, 'matrix': 4}
+
+    def get_canonical_sec(q):
+        is_para = bool(q.get("paragraph") or q.get("type") in ("paragraph", "comprehension") or "comprehension" in str(q.get("rawType", "")).lower())
+        if is_para:
+            return "paragraph"
+        t = str(q.get("type", "single")).lower()
+        if "multi" in t:
+            return "multi"
+        if any(k in t for k in ["num", "int", "subjective"]):
+            return "numerical"
+        if any(k in t for k in ["matrix", "match", "column"]):
+            return "matrix"
+        return "single"
+
+    # Sort chosen questions by canonical section order so questions of the same type
+    # are never split into multiple duplicate sections (e.g. multiple single-correct sections)
+    chosen.sort(key=lambda q: (SECTION_ORDER.get(get_canonical_sec(q), 0), q.get("questionNumber", 0)))
+
     doc = fitz.open()
     cur_page = baj.add_sheet_page(doc, title, is_first_page=True, total_questions=len(chosen), cand_name=cand_name, time_limit=time_limit, subtitle=subtitle)
-    cur_y = P1_Y_START
     page_num = 1
 
     open_docs = {}
     key_data = []
     current_sec = None
+    seen_passages = set()
+
+    col_y = [P1_Y_START, P1_Y_START]
+    two_col_top_y = P1_Y_START
+    cur_col = 0
+    in_two_col = False
+
+    def prepare_one_col_space(req_h):
+        nonlocal cur_page, page_num, col_y, two_col_top_y, cur_col, in_two_col
+        if in_two_col:
+            bot_y = max(col_y[0], col_y[1])
+            if bot_y > two_col_top_y + 12.0:
+                cur_page.draw_line(fitz.Point(CENTER_X, two_col_top_y), fitz.Point(CENTER_X, bot_y), color=(0.82, 0.82, 0.82), width=0.5)
+            in_two_col = False
+
+        base_y = max(col_y[0], col_y[1])
+        if base_y + req_h + GAP_Q > COL_Y_END:
+            page_num += 1
+            cur_page = baj.add_sheet_page(doc, title, is_first_page=False, total_questions=len(chosen), cand_name=cand_name, time_limit=time_limit, subtitle=subtitle)
+            base_y = SUB_Y_START
+
+        col_y[0] = base_y
+        col_y[1] = base_y
+        two_col_top_y = base_y
+        cur_col = 0
+        return base_y
+
+    def prepare_two_col_space(req_h):
+        nonlocal cur_page, page_num, col_y, two_col_top_y, cur_col, in_two_col
+        if not in_two_col:
+            base_y = max(col_y[0], col_y[1])
+            col_y[0] = base_y
+            col_y[1] = base_y
+            two_col_top_y = base_y
+            cur_col = 0
+            in_two_col = True
+
+        if col_y[cur_col] + req_h + GAP_Q > COL_Y_END:
+            if cur_col == 0:
+                cur_col = 1
+                if col_y[1] + req_h + GAP_Q > COL_Y_END:
+                    bot_y = max(col_y[0], col_y[1])
+                    if bot_y > two_col_top_y + 12.0:
+                        cur_page.draw_line(fitz.Point(CENTER_X, two_col_top_y), fitz.Point(CENTER_X, bot_y), color=(0.82, 0.82, 0.82), width=0.5)
+                    page_num += 1
+                    cur_page = baj.add_sheet_page(doc, title, is_first_page=False, total_questions=len(chosen), cand_name=cand_name, time_limit=time_limit, subtitle=subtitle)
+                    col_y[0] = SUB_Y_START
+                    col_y[1] = SUB_Y_START
+                    two_col_top_y = SUB_Y_START
+                    cur_col = 0
+            else:
+                bot_y = max(col_y[0], col_y[1])
+                if bot_y > two_col_top_y + 12.0:
+                    cur_page.draw_line(fitz.Point(CENTER_X, two_col_top_y), fitz.Point(CENTER_X, bot_y), color=(0.82, 0.82, 0.82), width=0.5)
+                page_num += 1
+                cur_page = baj.add_sheet_page(doc, title, is_first_page=False, total_questions=len(chosen), cand_name=cand_name, time_limit=time_limit, subtitle=subtitle)
+                col_y[0] = SUB_Y_START
+                col_y[1] = SUB_Y_START
+                two_col_top_y = SUB_Y_START
+                cur_col = 0
+
+        col_x = COL0_X0 if cur_col == 0 else COL1_X0
+        target_y = col_y[cur_col]
+        return col_x, target_y, cur_col
 
     qm = QuestionManager.get_instance()
+
+    crop_map = {}
+    if isinstance(crops, list):
+        for item in crops:
+            if isinstance(item, dict):
+                cid = item.get("id")
+                cdata = item.get("crop")
+                if cid and cdata:
+                    crop_map[str(cid)] = cdata
+    elif isinstance(crops, dict):
+        crop_map = {str(k): v for k, v in crops.items() if v}
 
     for idx, q in enumerate(chosen):
         q_label_num = idx + 1
@@ -277,24 +513,24 @@ def generate_multi_source_test(selected_qids, out_pdf_path="custom_test.pdf", ti
         key_data.append({"num": q_label_num, "ans": ans})
 
         # Section Header Banner if pattern section changes
-        is_para = bool(q.get("paragraph") or q.get("type") == "paragraph")
-        q_sec = "paragraph" if is_para else q.get("type", "single")
+        q_sec = get_canonical_sec(q)
         if q_sec != current_sec:
             current_sec = q_sec
             sec_title = baj.SECTION_TITLES.get(current_sec, f"SECTION: {current_sec.upper()}")
-            if cur_y + 24.0 > COL_Y_END:
-                page_num += 1
-                cur_page = baj.add_sheet_page(doc, title, is_first_page=False, total_questions=len(chosen), cand_name=cand_name, time_limit=time_limit, subtitle=subtitle)
-                cur_y = SUB_Y_START
-
-            sec_rect = fitz.Rect(COL_X0 - 18.0, cur_y, COL_X1, cur_y + 16.0)
+            sec_y = prepare_one_col_space(22.0)
+            sec_rect = fitz.Rect(COL_X0 - 18.0, sec_y, COL_X1, sec_y + 16.0)
             cur_page.draw_rect(sec_rect, color=(0.1, 0.2, 0.4), fill=(0.1, 0.2, 0.4))
-            cur_page.insert_text(fitz.Point(COL_X0 - 10.0, cur_y + 11.5), sec_title, fontsize=8.5, fontname="hebo", color=(1.0, 1.0, 1.0))
-            cur_y += 22.0
+            cur_page.insert_text(fitz.Point(COL_X0 - 10.0, sec_y + 11.5), sec_title, fontsize=8.5, fontname="hebo", color=(1.0, 1.0, 1.0))
+            col_y[0] = sec_y + 22.0
+            col_y[1] = col_y[0]
+            two_col_top_y = col_y[0]
 
         qid = str(q.get("id", ""))
+        q_crop = crop_map.get(qid) or crop_map.get(str(idx)) or q.get("crop")
 
-        # Check source type
+        # -------------------------------------------------------------
+        # SOURCE 1: MS Chouhan (1-column layout)
+        # -------------------------------------------------------------
         if qid.startswith("mschouhan_"):
             imgs = q.get("images", [])
             svg_filename = None
@@ -310,6 +546,8 @@ def generate_multi_source_test(selected_qids, out_pdf_path="custom_test.pdf", ti
             if ms_zip and svg_filename and svg_filename in ms_zip.namelist():
                 try:
                     svg_bytes = ms_zip.read(svg_filename)
+                    if q_crop:
+                        svg_bytes = apply_svg_crop_text(svg_bytes.decode('utf-8', errors='ignore'), q_crop).encode('utf-8')
                     svg_doc = fitz.open("svg", svg_bytes)
                     pdf_bytes = svg_doc.convert_to_pdf()
                     pdf_src = fitz.open("pdf", pdf_bytes)
@@ -322,15 +560,13 @@ def generate_multi_source_test(selected_qids, out_pdf_path="custom_test.pdf", ti
                     draw_w = sw * scale
                     draw_h = sh * scale
 
-                    if cur_y + draw_h + GAP_Q > COL_Y_END:
-                        page_num += 1
-                        cur_page = baj.add_sheet_page(doc, title, is_first_page=False, total_questions=len(chosen), cand_name=cand_name, time_limit=time_limit, subtitle=subtitle)
-                        cur_y = SUB_Y_START
-
-                    cur_page.insert_text(fitz.Point(COL_X0 - 18, cur_y + 11), f"{q_label_num}.", fontsize=9.5, fontname="hebo", color=(0, 0, 0))
-                    target_r = fitz.Rect(COL_X0, cur_y, COL_X0 + draw_w, cur_y + draw_h)
+                    target_y = prepare_one_col_space(draw_h)
+                    cur_page.insert_text(fitz.Point(COL_X0 - 18, target_y + 11), f"{q_label_num}.", fontsize=9.5, fontname="hebo", color=(0, 0, 0))
+                    target_r = fitz.Rect(COL_X0, target_y, COL_X0 + draw_w, target_y + draw_h)
                     cur_page.show_pdf_page(target_r, pdf_src, 0)
-                    cur_y += draw_h + GAP_Q
+                    col_y[0] = target_y + draw_h + GAP_Q
+                    col_y[1] = col_y[0]
+                    two_col_top_y = col_y[0]
                     rendered_svg = True
                 except Exception as e:
                     print("Error rendering MS Chouhan SVG:", e)
@@ -359,35 +595,150 @@ def generate_multi_source_test(selected_qids, out_pdf_path="custom_test.pdf", ti
                             src_doc = open_docs[full_pdf_path]
 
                         tot_h = sum(p[4] - p[2] for p in parts)
-                        if cur_y + tot_h + GAP_Q > COL_Y_END:
-                            page_num += 1
-                            cur_page = baj.add_sheet_page(doc, title, is_first_page=False, total_questions=len(chosen), cand_name=cand_name, time_limit=time_limit, subtitle=subtitle)
-                            cur_y = SUB_Y_START
-
-                        cur_page.insert_text(fitz.Point(COL_X0 - 18, cur_y + 11), f"{q_label_num}.", fontsize=9.5, fontname="hebo", color=(0, 0, 0))
+                        target_y = prepare_one_col_space(tot_h)
+                        cur_page.insert_text(fitz.Point(COL_X0 - 18, target_y + 11), f"{q_label_num}.", fontsize=9.5, fontname="hebo", color=(0, 0, 0))
+                        part_y = target_y
                         for pno, x0, y0, x1, y1 in parts:
                             h = y1 - y0
                             clip_r = fitz.Rect(15.0, y0, 445.0, y1)
-                            target_r = fitz.Rect(COL_X0, cur_y, COL_X0 + 430.0, cur_y + h)
+                            if q_crop:
+                                clip_r = apply_rect_crop(clip_r, q_crop)
+                                h = clip_r.height
+                            target_r = fitz.Rect(COL_X0, part_y, COL_X0 + 430.0, part_y + h)
                             cur_page.show_pdf_page(target_r, src_doc, pno - 1, clip=clip_r)
-                            cur_y += h
-                        cur_y += GAP_Q
+                            part_y += h
+                        col_y[0] = part_y + GAP_Q
+                        col_y[1] = col_y[0]
+                        two_col_top_y = col_y[0]
 
+        # -------------------------------------------------------------
+        # SOURCE 2: Neeraj Kumar Physical Chemistry (2-column layout)
+        # -------------------------------------------------------------
+        elif qid.startswith("nk_"):
+            imgs = q.get("images", [])
+            svg_filename = f"{qid}.svg"
+            for img in imgs:
+                if img.startswith("zipimg:") and img.endswith(".svg"):
+                    parts = img.split("#")
+                    if len(parts) == 2:
+                        svg_filename = parts[1]
+                        break
+
+            rendered_svg = False
+            nk_zip = get_neeraj_zip()
+            if nk_zip and svg_filename and svg_filename in nk_zip.namelist():
+                try:
+                    # If comprehension passage exists and hasn't been drawn yet
+                    p_id = q.get("paragraphId") or (f"{qid}_para" if q.get("paragraph") else None)
+                    if q.get("paragraph") and q.get("passageImages") and p_id and p_id not in seen_passages:
+                        seen_passages.add(p_id)
+                        pass_img = q["passageImages"][0]
+                        pass_fn = pass_img.split("#")[1] if "#" in pass_img else pass_img
+                        if pass_fn in nk_zip.namelist():
+                            p_bytes = nk_zip.read(pass_fn)
+                            p_doc = fitz.open("svg", p_bytes)
+                            p_pdf = fitz.open("pdf", p_doc.convert_to_pdf())
+                            pw = p_doc[0].rect.width
+                            ph = p_doc[0].rect.height
+                            p_scale = COL_W / pw if pw > COL_W else 1.0
+                            p_dw = pw * p_scale
+                            p_dh = ph * p_scale
+                            pass_y = prepare_one_col_space(p_dh + 4.0)
+                            p_target = fitz.Rect(COL_X0, pass_y, COL_X0 + p_dw, pass_y + p_dh)
+                            cur_page.show_pdf_page(p_target, p_pdf, 0)
+                            col_y[0] = pass_y + p_dh + 6.0
+                            col_y[1] = col_y[0]
+                            two_col_top_y = col_y[0]
+
+                    svg_bytes = nk_zip.read(svg_filename)
+                    if q_crop:
+                        svg_bytes = apply_svg_crop_text(svg_bytes.decode('utf-8', errors='ignore'), q_crop).encode('utf-8')
+                    svg_doc = fitz.open("svg", svg_bytes)
+                    pdf_bytes = svg_doc.convert_to_pdf()
+                    pdf_src = fitz.open("pdf", pdf_bytes)
+
+                    sw = svg_doc[0].rect.width
+                    sh = svg_doc[0].rect.height
+                    # Scale to fit 2-column width (COL_W_HALF = 235.0)
+                    scale = min(1.0, COL_W_HALF / max(sw, 1.0))
+                    draw_w = sw * scale
+                    draw_h = sh * scale
+
+                    col_x, target_y, cur_c = prepare_two_col_space(draw_h)
+
+                    # Render SVG first so white background is drawn underneath
+                    target_r = fitz.Rect(col_x, target_y, col_x + draw_w, target_y + draw_h)
+                    cur_page.show_pdf_page(target_r, pdf_src, 0)
+
+                    # Draw question number AFTER SVG in left gutter so it is 100% visible on top
+                    cur_page.insert_text(fitz.Point(col_x - 18.0, target_y + 11.0), f"{q_label_num}.", fontsize=9.5, fontname="hebo", color=(0, 0, 0))
+                    col_y[cur_c] += draw_h + GAP_Q
+                    rendered_svg = True
+                except Exception as e:
+                    print(f"Error rendering Neeraj SVG {svg_filename}:", e)
+
+        # -------------------------------------------------------------
+        # SOURCE 3: Allen JEE Chemistry (1-column layout)
+        # -------------------------------------------------------------
         elif qid.startswith("allenjee_"):
-            pdf_rel = q.get("pdfName") or ""
-            full_pdf_path = baj.resolve_pdf_path(pdf_rel)
-            if not os.path.exists(full_pdf_path):
-                norm_rel = pdf_rel.replace("/", os.sep)
-                cand_paths = [
-                    baj.find_existing_path(norm_rel),
-                    os.path.join(ROOT_DIR, norm_rel),
-                    os.path.join(PARENT_DIR, norm_rel),
-                    os.path.join(os.path.dirname(PARENT_DIR), norm_rel),
-                    os.path.join(os.path.dirname(os.path.abspath(sys.executable)), norm_rel),
-                ]
-                full_pdf_path = cloud_resolver.ensure_file(cand_paths, remote_filename=pdf_rel)
+            pdf_rel = (q.get("pdfName") or "").strip()
+            full_pdf_path = None
+            if pdf_rel:
+                cand_path = baj.resolve_pdf_path(pdf_rel)
+                if os.path.isfile(cand_path):
+                    full_pdf_path = cand_path
+                else:
+                    norm_rel = pdf_rel.replace("/", os.sep)
+                    cand_paths = [
+                        baj.find_existing_path(norm_rel),
+                        os.path.join(ROOT_DIR, norm_rel),
+                        os.path.join(PARENT_DIR, norm_rel),
+                        os.path.join(os.path.dirname(PARENT_DIR), norm_rel),
+                        os.path.join(os.path.dirname(os.path.abspath(sys.executable)), norm_rel),
+                    ]
+                    resolved = cloud_resolver.ensure_file(cand_paths, remote_filename=pdf_rel)
+                    if resolved and os.path.isfile(resolved):
+                        full_pdf_path = resolved
 
-            if full_pdf_path and os.path.exists(full_pdf_path):
+            rendered_svg = False
+            if not full_pdf_path or not os.path.isfile(full_pdf_path):
+                # Fallback to pre-extracted vector SVG from image zips
+                for img_ref in q.get("images", []):
+                    if img_ref.startswith("zipimg:"):
+                        ref_parts = img_ref[7:].split("#")
+                        if len(ref_parts) == 2:
+                            z_name, s_name = ref_parts
+                            azip = get_allenjee_zip(z_name)
+                            if azip and s_name in azip.namelist():
+                                try:
+                                    s_bytes = azip.read(s_name)
+                                    if q_crop:
+                                        s_bytes = apply_svg_crop_text(s_bytes.decode('utf-8', errors='ignore'), q_crop).encode('utf-8')
+                                    svg_doc = fitz.open("svg", s_bytes)
+                                    pdf_bytes = svg_doc.convert_to_pdf()
+                                    pdf_src = fitz.open("pdf", pdf_bytes)
+
+                                    sw = svg_doc[0].rect.width
+                                    sh = svg_doc[0].rect.height
+                                    scale = 1.0
+                                    if sw > COL_W:
+                                        scale = COL_W / sw
+                                    draw_w = sw * scale
+                                    draw_h = sh * scale
+
+                                    target_y = prepare_one_col_space(draw_h)
+                                    cur_page.insert_text(fitz.Point(COL_X0 - 18, target_y + 11), f"{q_label_num}.", fontsize=9.5, fontname="hebo", color=(0, 0, 0))
+                                    target_r = fitz.Rect(COL_X0, target_y, COL_X0 + draw_w, target_y + draw_h)
+                                    cur_page.show_pdf_page(target_r, pdf_src, 0)
+                                    col_y[0] = target_y + draw_h + GAP_Q
+                                    col_y[1] = col_y[0]
+                                    two_col_top_y = col_y[0]
+                                    rendered_svg = True
+                                    break
+                                except Exception as e:
+                                    print(f"Error rendering Allen SVG {s_name}:", e)
+
+            if not rendered_svg and full_pdf_path and os.path.exists(full_pdf_path):
                 if full_pdf_path not in open_docs:
                     src_doc = fitz.open(full_pdf_path)
                     baj.clean_watermarks(src_doc)
@@ -396,20 +747,21 @@ def generate_multi_source_test(selected_qids, out_pdf_path="custom_test.pdf", ti
                 else:
                     src_doc = open_docs[full_pdf_path]
 
-                # Render passage if paragraph
+                # Render passage if paragraph and not yet rendered
+                p_id = q.get("paragraphId")
                 is_para = bool(q.get("paragraph") or q.get("type") == "paragraph")
                 p_crop = q.get("passageCrop")
-                if is_para and p_crop:
+                if is_para and p_crop and p_id and p_id not in seen_passages:
+                    seen_passages.add(p_id)
                     p_pno, px0, py0, px1, py1 = p_crop
                     pass_h = py1 - py0
-                    if cur_y + pass_h + 20 > COL_Y_END:
-                        page_num += 1
-                        cur_page = baj.add_sheet_page(doc, title, is_first_page=False, total_questions=len(chosen), cand_name=cand_name, time_limit=time_limit, subtitle=subtitle)
-                        cur_y = SUB_Y_START
+                    pass_y = prepare_one_col_space(pass_h + 4.0)
                     clip_r = fitz.Rect(COL_X0, py0, COL_X1, py1)
-                    target_r = fitz.Rect(COL_X0, cur_y, COL_X1, cur_y + pass_h)
+                    target_r = fitz.Rect(COL_X0, pass_y, COL_X1, pass_y + pass_h)
                     cur_page.show_pdf_page(target_r, src_doc, p_pno - 1, clip=clip_r)
-                    cur_y += pass_h + 4.0
+                    col_y[0] = pass_y + pass_h + 4.0
+                    col_y[1] = col_y[0]
+                    two_col_top_y = col_y[0]
 
                 if q.get("segments"):
                     seg = q["segments"][0]
@@ -418,19 +770,22 @@ def generate_multi_source_test(selected_qids, out_pdf_path="custom_test.pdf", ti
                     
                     # Calibrate exact question boundaries dynamically
                     clip_r = calibrate_allenjee_bounds(page, y0, y1)
+                    if q_crop:
+                        clip_r = apply_rect_crop(clip_r, q_crop)
                     draw_w = clip_r.width
                     draw_h = clip_r.height
 
-                    if cur_y + draw_h + GAP_Q > COL_Y_END:
-                        page_num += 1
-                        cur_page = baj.add_sheet_page(doc, title, is_first_page=False, total_questions=len(chosen), cand_name=cand_name, time_limit=time_limit, subtitle=subtitle)
-                        cur_y = SUB_Y_START
-
-                    cur_page.insert_text(fitz.Point(COL_X0 - 18.0, cur_y + 11.5), f"{q_label_num}.", fontsize=9.5, fontname="hebo", color=(0, 0, 0))
-                    target_r = fitz.Rect(COL_X0, cur_y, COL_X0 + draw_w, cur_y + draw_h)
+                    target_y = prepare_one_col_space(draw_h)
+                    cur_page.insert_text(fitz.Point(COL_X0 - 18.0, target_y + 11.5), f"{q_label_num}.", fontsize=9.5, fontname="hebo", color=(0, 0, 0))
+                    target_r = fitz.Rect(COL_X0, target_y, COL_X0 + draw_w, target_y + draw_h)
                     cur_page.show_pdf_page(target_r, src_doc, pno - 1, clip=clip_r)
-                    cur_y += draw_h + GAP_Q
+                    col_y[0] = target_y + draw_h + GAP_Q
+                    col_y[1] = col_y[0]
+                    two_col_top_y = col_y[0]
 
+        # -------------------------------------------------------------
+        # SOURCE 4: Allen NEET Chemistry (2-column layout)
+        # -------------------------------------------------------------
         elif qid.startswith("allenchem_"):
             import build_allenchem_sheet as bas
             pdf_rel = q.get("pdfName")
@@ -452,22 +807,23 @@ def generate_multi_source_test(selected_qids, out_pdf_path="custom_test.pdf", ti
 
                 # Calibrate NEET question bounds dynamically
                 clip_r = calibrate_allenchem_bounds(page, x0, y0, x1, y1)
-                scale = min(1.20, COL_W / max(clip_r.width, 1.0))
+                if q_crop:
+                    clip_r = apply_rect_crop(clip_r, q_crop)
+                scale = min(1.0, COL_W_HALF / max(clip_r.width, 1.0))
                 draw_w = clip_r.width * scale
                 draw_h = clip_r.height * scale
 
-                if cur_y + draw_h + GAP_Q > COL_Y_END:
-                    page_num += 1
-                    cur_page = baj.add_sheet_page(doc, title, is_first_page=False, total_questions=len(chosen), cand_name=cand_name, time_limit=time_limit, subtitle=subtitle)
-                    cur_y = SUB_Y_START
+                col_x, target_y, cur_c = prepare_two_col_space(draw_h)
 
-                cur_page.insert_text(fitz.Point(COL_X0 - 18, cur_y + 11), f"{q_label_num}.", fontsize=9.5, fontname="hebo", color=(0, 0, 0))
-                target_r = fitz.Rect(COL_X0, cur_y, COL_X0 + draw_w, cur_y + draw_h)
+                target_r = fitz.Rect(col_x, target_y, col_x + draw_w, target_y + draw_h)
                 cur_page.show_pdf_page(target_r, src_doc, pno - 1, clip=clip_r)
-                cur_y += draw_h + GAP_Q
+                cur_page.insert_text(fitz.Point(col_x - 18.0, target_y + 11.0), f"{q_label_num}.", fontsize=9.5, fontname="hebo", color=(0, 0, 0))
+                col_y[cur_c] += draw_h + GAP_Q
 
-        else:
-            # FIITJEE AITS Question
+        # -------------------------------------------------------------
+        # SOURCE 5: FIITJEE AITS Question (1-column layout)
+        # -------------------------------------------------------------
+        elif not qid.startswith("qrp_"):
             key = qm.find_pdf_key(q)
             pdf_path = qm.pdfs.get(key) if (key and key in qm.pdfs) else None
             if not pdf_path and key:
@@ -493,23 +849,73 @@ def generate_multi_source_test(selected_qids, out_pdf_path="custom_test.pdf", ti
                     tot_h = 0.0
                     for pno, a, b in parts:
                         c_rect = calibrate_fiitjee_bounds(src_doc[pno], a, b)
+                        if q_crop:
+                            c_rect = apply_rect_crop(c_rect, q_crop)
                         calibrated_parts.append((pno, c_rect))
                         tot_h += c_rect.height
 
-                    if cur_y + tot_h + GAP_Q > COL_Y_END:
-                        page_num += 1
-                        cur_page = baj.add_sheet_page(doc, title, is_first_page=False, total_questions=len(chosen), cand_name=cand_name, time_limit=time_limit, subtitle=subtitle)
-                        cur_y = SUB_Y_START
-
-                    cur_page.insert_text(fitz.Point(COL_X0 - 18, cur_y + 11), f"{q_label_num}.", fontsize=9.5, fontname="hebo", color=(0, 0, 0))
+                    target_y = prepare_one_col_space(tot_h)
+                    cur_page.insert_text(fitz.Point(COL_X0 - 18, target_y + 11), f"{q_label_num}.", fontsize=9.5, fontname="hebo", color=(0, 0, 0))
+                    part_y = target_y
                     for pno, c_rect in calibrated_parts:
                         h = c_rect.height
                         w = c_rect.width
                         scale = min(1.0, COL_W / max(w, 1.0))
-                        target_r = fitz.Rect(COL_X0, cur_y, COL_X0 + w * scale, cur_y + h * scale)
+                        target_r = fitz.Rect(COL_X0, part_y, COL_X0 + w * scale, part_y + h * scale)
                         cur_page.show_pdf_page(target_r, src_doc, pno, clip=c_rect)
-                        cur_y += h * scale
-                    cur_y += GAP_Q
+                        part_y += h * scale
+                    col_y[0] = part_y + GAP_Q
+                    col_y[1] = col_y[0]
+                    two_col_top_y = col_y[0]
+
+        # -------------------------------------------------------------
+        # SOURCE 6: Quizrr QRP Question (1-column layout)
+        # -------------------------------------------------------------
+        elif qid.startswith("qrp_"):
+            imgs = q.get("images", [])
+            svg_filename = None
+            for img in imgs:
+                if img.startswith("zipimg:") and img.endswith(".svg"):
+                    parts = img.split("#")
+                    if len(parts) == 2:
+                        svg_filename = parts[1]
+                        break
+
+            rendered_svg = False
+            qrp_zip = get_qrp_zip()
+            if qrp_zip and svg_filename and svg_filename in qrp_zip.namelist():
+                try:
+                    svg_bytes = qrp_zip.read(svg_filename)
+                    if q_crop:
+                        svg_bytes = apply_svg_crop_text(svg_bytes.decode('utf-8', errors='ignore'), q_crop).encode('utf-8')
+                    svg_doc = fitz.open("svg", svg_bytes)
+                    pdf_bytes = svg_doc.convert_to_pdf()
+                    pdf_src = fitz.open("pdf", pdf_bytes)
+
+                    sw = svg_doc[0].rect.width
+                    sh = svg_doc[0].rect.height
+                    scale = 1.0
+                    if sw > COL_W:
+                        scale = COL_W / sw
+                    draw_w = sw * scale
+                    draw_h = sh * scale
+
+                    target_y = prepare_one_col_space(draw_h)
+                    cur_page.insert_text(fitz.Point(COL_X0 - 18, target_y + 11), f"{q_label_num}.", fontsize=9.5, fontname="hebo", color=(0, 0, 0))
+                    target_r = fitz.Rect(COL_X0, target_y, COL_X0 + draw_w, target_y + draw_h)
+                    cur_page.show_pdf_page(target_r, pdf_src, 0)
+                    col_y[0] = target_y + draw_h + GAP_Q
+                    col_y[1] = col_y[0]
+                    two_col_top_y = col_y[0]
+                    rendered_svg = True
+                except Exception as e:
+                    print("Error rendering QRP SVG:", e)
+
+    # Finalize any open 2-column section on the last page
+    if in_two_col:
+        bot_y = max(col_y[0], col_y[1])
+        if bot_y > two_col_top_y + 12.0:
+            cur_page.draw_line(fitz.Point(CENTER_X, two_col_top_y), fitz.Point(CENTER_X, bot_y), color=(0.82, 0.82, 0.82), width=0.5)
 
     # Close open documents
     for odoc in open_docs.values():
@@ -527,8 +933,7 @@ def generate_multi_source_test(selected_qids, out_pdf_path="custom_test.pdf", ti
     doc.save(out_pdf_path, garbage=3, deflate=True)
     doc.close()
 
-    # Also build standalone Student Copy (questions only, without the last answer key page)
-    # and Answer Key (answer grid only) for the test download screen
+    # Split student/key copies
     base_dir = os.path.dirname(os.path.abspath(out_pdf_path))
     base_name = os.path.basename(out_pdf_path)
     if base_name.startswith("test_"):
@@ -539,13 +944,11 @@ def generate_multi_source_test(selected_qids, out_pdf_path="custom_test.pdf", ti
             full_doc = fitz.open(out_pdf_path)
             num_pages = len(full_doc)
             if num_pages > 1:
-                # Student copy: pages 0 to num_pages - 2
                 s_doc = fitz.open()
                 s_doc.insert_pdf(full_doc, from_page=0, to_page=num_pages - 2)
                 s_doc.save(student_path, garbage=3, deflate=True)
                 s_doc.close()
 
-                # Key copy: last page only
                 k_doc = fitz.open()
                 k_doc.insert_pdf(full_doc, from_page=num_pages - 1, to_page=num_pages - 1)
                 k_doc.save(key_path, garbage=3, deflate=True)

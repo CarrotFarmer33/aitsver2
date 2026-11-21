@@ -769,30 +769,65 @@ body.desktop-mode #tbPrevStartCbtBtn {
 }
 
 /* Source top tabs */
+.source-top-tabs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
 .source-tab-btn {
-  flex: 1;
   padding: 10px 14px;
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 700;
   border: 1.5px solid var(--line);
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 8px;
   background: var(--surface);
   color: var(--fg);
   transition: all 0.2s ease;
+  user-select: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
 }
 .source-tab-btn:hover {
   border-color: var(--brand);
+  background: var(--surface-2);
 }
 .source-tab-btn.active {
-  background: var(--brand);
-  color: #ffffff !important;
-  border-color: var(--brand);
-  box-shadow: 0 2px 8px rgba(37,99,235,0.25);
+  background: var(--brand-tint, rgba(0, 102, 204, 0.08));
+  color: var(--brand-deep, #004c99) !important;
+  border-color: var(--brand, #0066cc);
+  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.15);
+}
+.source-tab-btn .pill-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 11.5px;
+  font-weight: 800;
+  background: var(--surface-2);
+  color: var(--muted);
+  border: 1px solid var(--line);
+  transition: all 0.2s ease;
+}
+.source-tab-btn.active .pill-check {
+  background: var(--brand, #0066cc);
+  color: #ffffff;
+  border-color: var(--brand, #0066cc);
+}
+.source-tab-btn.inactive {
+  opacity: 0.65;
+  border-style: dashed;
+}
+.source-tab-btn.inactive:hover {
+  opacity: 0.95;
+  border-style: solid;
 }
 
 .allen-columns {
@@ -2720,54 +2755,48 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
       <div style="display:flex;flex-direction:column;gap:16px">
         <section class="card">
           <h2>1. Exam Pattern &amp; Paper Source</h2>
-          <!-- Source Selection Tiles: Tap to select / deselect multi-sources -->
+          <!-- Source Selection Tiles: Tap to activate / deactivate multi-sources -->
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-            <label style="margin:0;font-size:13px;font-weight:700">Question Sources <span class="muted" style="font-size:11.5px;font-weight:normal">(Tap to toggle source inclusion)</span></label>
+            <label style="margin:0;font-size:13px;font-weight:700">Question Sources <span class="muted" style="font-size:11.5px;font-weight:normal">(Click a source to activate or deactivate it from the question pool)</span></label>
           </div>
-          <div class="source-top-tabs" id="tbSourceToggleBar" style="display:flex;gap:10px;margin-bottom:12px;border-bottom:1.5px solid var(--line);padding-bottom:10px;flex-wrap:wrap">
+          <div class="source-top-tabs" id="tbSourceToggleBar">
             <button type="button" class="source-tab-btn active" id="tbTabFiitjee" data-source="fiitjee">
-              <span class="pill-check" style="font-weight:900;font-size:14px">✓ </span>
-              <span>🏛️ FIITJEE Question Bank</span>
-              <span class="tab-badge" id="tbFiitjeeBadge" style="display:none;background:var(--brand);color:#fff;border-radius:10px;padding:1px 6px;font-size:11px;margin-left:6px">0</span>
+              <div style="display:flex;align-items:center;gap:8px">
+                <span class="pill-check">✓</span>
+                <span>🏛️ FIITJEE Bank</span>
+              </div>
+              <span class="tab-badge" id="tbFiitjeeBadge" style="display:none;background:var(--brand);color:#fff;border-radius:10px;padding:2px 7px;font-size:11px">0 ch</span>
             </button>
             <button type="button" class="source-tab-btn active" id="tbTabAllen" data-source="allen">
-              <span class="pill-check" style="font-weight:900;font-size:14px">✓ </span>
-              <span>🔷 ALLEN Question Bank</span>
-              <span class="tab-badge" id="tbAllenBadge" style="display:none;background:var(--brand);color:#fff;border-radius:10px;padding:1px 6px;font-size:11px;margin-left:6px">0</span>
-            </button>
-            <button type="button" class="source-tab-btn" id="tbTabMschouhan" data-source="mschouhan">
-              <span class="pill-check" style="font-weight:900;font-size:14px">+ </span>
-              <span>📗 M.S. Chouhan Question Bank</span>
-              <span class="tab-badge" id="tbMsBadge" style="display:none;background:var(--brand);color:#fff;border-radius:10px;padding:1px 6px;font-size:11px;margin-left:6px">0</span>
-            </button>
-            <button type="button" class="source-tab-btn" id="tbTabNeeraj" data-source="neeraj">
-              <span class="pill-check" style="font-weight:900;font-size:14px">+ </span>
-              <span>📙 Neeraj Kumar (Physical Chem)</span>
-              <span class="tab-badge" id="tbNeerajBadge" style="display:none;background:var(--brand);color:#fff;border-radius:10px;padding:1px 6px;font-size:11px;margin-left:6px">0</span>
-            </button>
-          </div>
-
-          <!-- Multi-Source Allocation Card: Configure questions per source -->
-          <div id="tbMultiSourceAllocCard" style="display:none;background:var(--surface-2);border:1.5px solid var(--brand, #0066cc);border-radius:8px;padding:12px 14px;margin-bottom:14px">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px">
-              <div style="display:flex;align-items:center;gap:6px">
-                <span style="font-size:14px">⚡</span>
-                <strong style="font-size:13px;color:var(--brand-deep, #004c99)">Select Questions from Each Source:</strong>
+              <div style="display:flex;align-items:center;gap:8px">
+                <span class="pill-check">✓</span>
+                <span>🔷 ALLEN Bank</span>
               </div>
-              <span style="font-size:12px;font-weight:700;color:var(--brand)" id="tbMultiSourceSumBadge">Total: 30 Questions</span>
-            </div>
-            <div id="tbMultiSourceInputsGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px">
-              <!-- Dynamically populated based on active sources -->
-            </div>
+              <span class="tab-badge" id="tbAllenBadge" style="display:none;background:var(--brand);color:#fff;border-radius:10px;padding:2px 7px;font-size:11px">0 ch</span>
+            </button>
+            <button type="button" class="source-tab-btn inactive" id="tbTabMschouhan" data-source="mschouhan">
+              <div style="display:flex;align-items:center;gap:8px">
+                <span class="pill-check">+</span>
+                <span>📗 M.S. Chouhan</span>
+              </div>
+              <span class="tab-badge" id="tbMsBadge" style="display:none;background:var(--brand);color:#fff;border-radius:10px;padding:2px 7px;font-size:11px">0 ch</span>
+            </button>
+            <button type="button" class="source-tab-btn inactive" id="tbTabNeeraj" data-source="neeraj">
+              <div style="display:flex;align-items:center;gap:8px">
+                <span class="pill-check">+</span>
+                <span>📙 Neeraj Kumar</span>
+              </div>
+              <span class="tab-badge" id="tbNeerajBadge" style="display:none;background:var(--brand);color:#fff;border-radius:10px;padding:2px 7px;font-size:11px">0 ch</span>
+            </button>
           </div>
 
-          <!-- Settings Switcher Pill Bar (when multiple sources are selected) -->
-          <div id="tbSourceSettingsTabs" style="display:none;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap">
-            <span style="font-size:12px;font-weight:700;color:var(--fg);opacity:0.8">Configure Settings:</span>
-            <button type="button" class="pattern-pill active" data-viewtab="fiitjee" id="tbViewTabFiitjee">🏛️ FIITJEE Settings</button>
-            <button type="button" class="pattern-pill" data-viewtab="allen" id="tbViewTabAllen">🔷 ALLEN Settings</button>
-            <button type="button" class="pattern-pill" data-viewtab="mschouhan" id="tbViewTabMschouhan">📗 M.S. Chouhan Settings</button>
-            <button type="button" class="pattern-pill" data-viewtab="neeraj" id="tbViewTabNeeraj">📙 Neeraj Kumar Settings</button>
+          <!-- Settings Switcher Pill Bar (switches view between active sources without toggling) -->
+          <div id="tbSourceSettingsTabs" style="display:flex;align-items:center;gap:8px;margin-bottom:14px;border-bottom:1px solid var(--line);padding-bottom:10px;flex-wrap:wrap">
+            <span style="font-size:12px;font-weight:700;color:var(--muted)">Configure Settings &amp; Chapters:</span>
+            <button type="button" class="pattern-pill active" data-viewtab="fiitjee" id="tbViewTabFiitjee">🏛️ FIITJEE</button>
+            <button type="button" class="pattern-pill" data-viewtab="allen" id="tbViewTabAllen">🔷 ALLEN</button>
+            <button type="button" class="pattern-pill" data-viewtab="mschouhan" id="tbViewTabMschouhan">📗 M.S. Chouhan</button>
+            <button type="button" class="pattern-pill" data-viewtab="neeraj" id="tbViewTabNeeraj">📙 Neeraj Kumar</button>
           </div>
 
           <!-- Multi-Source Active Banner (shown when chapters are selected across 2 or more tabs) -->
@@ -2807,35 +2836,6 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
                 </div>
               </div>
 
-              <!-- Question Allocation Per Bank & Pattern -->
-              <div class="field" style="background:var(--surface-2);padding:10px 14px;border-radius:6px;border:1px solid var(--line)">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-                  <label style="margin:0;font-size:12.5px;font-weight:700">Choose Questions from Each Bank &amp; Pattern</label>
-                  <span style="font-size:11.5px;color:var(--brand);font-weight:700" id="tbAllenAllocSum">Total: 25 Questions (15 O-1 + 8 Multi + 2 Para)</span>
-                </div>
-                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px">
-                  <div style="display:flex;flex-direction:column;gap:3px">
-                    <span style="font-size:11px;color:var(--fg);opacity:0.85">O-1 (Single)</span>
-                    <input type="number" id="tbAllenO1In" min="0" value="15" style="padding:5px 6px;font-size:12.5px;font-weight:700;border:1px solid var(--line);border-radius:4px;background:var(--surface);text-align:center">
-                  </div>
-                  <div style="display:flex;flex-direction:column;gap:3px">
-                    <span style="font-size:11px;color:var(--fg);opacity:0.85">O-2 (Multi)</span>
-                    <input type="number" id="tbAllenO2MultiIn" min="0" value="8" style="padding:5px 6px;font-size:12.5px;font-weight:700;border:1px solid var(--line);border-radius:4px;background:var(--surface);text-align:center">
-                  </div>
-                  <div style="display:flex;flex-direction:column;gap:3px">
-                    <span style="font-size:11px;color:var(--fg);opacity:0.85">O-2 (Paragraphs)</span>
-                    <input type="number" id="tbAllenO2ParaIn" min="0" value="2" style="padding:5px 6px;font-size:12.5px;font-weight:700;border:1px solid var(--line);border-radius:4px;background:var(--surface);text-align:center">
-                  </div>
-                  <div style="display:flex;flex-direction:column;gap:3px">
-                    <span style="font-size:11px;color:var(--fg);opacity:0.85">O-2 (Matrix)</span>
-                    <input type="number" id="tbAllenO2MatrixIn" min="0" value="0" style="padding:5px 6px;font-size:12.5px;font-weight:700;border:1px solid var(--line);border-radius:4px;background:var(--surface);text-align:center">
-                  </div>
-                  <div style="display:flex;flex-direction:column;gap:3px">
-                    <span style="font-size:11px;color:var(--fg);opacity:0.85">NEET Module</span>
-                    <input type="number" id="tbAllenNeetIn" min="0" value="0" style="padding:5px 6px;font-size:12.5px;font-weight:700;border:1px solid var(--line);border-radius:4px;background:var(--surface);text-align:center">
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
 
@@ -2932,8 +2932,14 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
       <div style="display:flex;flex-direction:column;gap:16px" class="sticky">
         <section class="card">
           <h2>3. Questions &amp; Distribution</h2>
-          <div class="sum"><span>Available Questions</span><b class="big" id="tbSumAvail">0</b></div>
-          <div class="field" style="margin-top:12px"><label for="tbCountIn">Total Questions</label>
+          <div class="sum" style="display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;width:100%">
+              <span>Available in Question Pool</span>
+              <b class="big" id="tbSumAvail">0</b>
+            </div>
+            <div id="tbSourcePoolBreakdown" style="display:flex;flex-wrap:wrap;gap:6px;width:100%"></div>
+          </div>
+          <div class="field" style="margin-top:12px"><label for="tbCountIn">Total Questions to Generate</label>
             <div style="display:flex;gap:8px">
               <input type="number" id="tbCountIn" value="30" min="1" step="1">
               <button class="btn sm" id="tbCountAll" type="button">Max</button>
@@ -2943,6 +2949,23 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
               <button class="preset-count-btn" type="button" data-cnt="25">25 Qs (1 Subj: 20+5)</button>
               <button class="preset-count-btn" type="button" data-cnt="54">54 Qs (Adv Full)</button>
               <button class="preset-count-btn" type="button" data-cnt="75">75 Qs (Main: 20+5 per subj)</button>
+            </div>
+          </div>
+
+          <!-- Unified Multi-Source Allocation Card: Configure questions per source in ONE place -->
+          <div id="tbMultiSourceAllocCard" style="display:none;background:var(--surface-2);border:1.5px solid var(--brand, #0066cc);border-radius:8px;padding:12px 14px;margin-top:14px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px">
+              <div style="display:flex;align-items:center;gap:6px">
+                <span style="font-size:14px">📊</span>
+                <strong style="font-size:12.5px;color:var(--brand-deep, #004c99)">Source Question Split:</strong>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px">
+                <span style="font-size:11.5px;font-weight:700;color:var(--brand)" id="tbMultiSourceSumBadge">Total: 30 Qs</span>
+                <button type="button" class="btn sm" id="tbEvenSplitBtn" style="padding:2px 8px;font-size:11px;line-height:1.4" title="Split total questions equally across active sources">⚖️ Even Split</button>
+              </div>
+            </div>
+            <div id="tbMultiSourceInputsGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px">
+              <!-- Dynamically populated based on active sources -->
             </div>
           </div>
 
@@ -3135,9 +3158,9 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
         Adjust the sliders to trim unwanted headers, footers, or adjacent text. The shaded red regions will be cropped out of the figure.
       </div>
       <!-- Interactive Preview with Shaded Overlay -->
-      <div id="cropPreviewContainer" style="position:relative;background:#ffffff;border:1px solid var(--line);border-radius:4px;overflow:hidden;margin-bottom:16px;min-height:160px;display:flex;align-items:center;justify-content:center">
-        <div id="cropPreviewInner" style="position:relative;width:100%;max-width:760px;margin:0 auto">
-          <div id="cropTargetWrapper" style="position:relative;width:100%;background:#ffffff"></div>
+      <div id="cropPreviewContainer" style="position:relative;background:#f8fafc;border:1px solid var(--line);border-radius:6px;overflow:auto;margin-bottom:16px;min-height:160px;display:flex;align-items:center;justify-content:center;padding:16px">
+        <div id="cropPreviewInner" style="position:relative;display:inline-block;max-width:100%;margin:0 auto;line-height:0;background:#ffffff;box-shadow:0 1px 3px rgba(0,0,0,0.1)">
+          <div id="cropTargetWrapper" style="position:relative;display:block;max-width:100%;line-height:0"></div>
           <div id="cropOverlayTop" style="position:absolute;top:0;left:0;right:0;height:0%;background:rgba(239,68,68,0.35);border-bottom:2px dashed #ef4444;pointer-events:none;transition:height 0.05s ease"></div>
           <div id="cropOverlayBottom" style="position:absolute;bottom:0;left:0;right:0;height:0%;background:rgba(239,68,68,0.35);border-top:2px dashed #ef4444;pointer-events:none;transition:height 0.05s ease"></div>
           <div id="cropOverlayLeft" style="position:absolute;top:0;bottom:0;left:0;width:0%;background:rgba(239,68,68,0.25);border-right:2px dashed #ef4444;pointer-events:none;transition:width 0.05s ease"></div>
@@ -3231,13 +3254,16 @@ function imageMarkup(u, alt, extraClass, crop){
   const cls = 'qimg' + (extraClass ? (' ' + extraClass) : '');
   let cropAttrs = '';
   let cropStyles = '';
+  const isSvg = /\.svg(?:[?#]|$)/i.test(x);
   if(crop && (crop.top || crop.bottom || crop.left || crop.right)){
     const ct = Math.max(0, parseFloat(crop.top) || 0);
     const cb = Math.max(0, parseFloat(crop.bottom) || 0);
     const cl = Math.max(0, parseFloat(crop.left) || 0);
     const cr = Math.max(0, parseFloat(crop.right) || 0);
     cropAttrs = ' data-crop-top="' + ct + '" data-crop-bottom="' + cb + '" data-crop-left="' + cl + '" data-crop-right="' + cr + '"';
-    cropStyles = ' style="clip-path:inset(' + ct + '% ' + cr + '% ' + cb + '% ' + cl + '%);-webkit-clip-path:inset(' + ct + '% ' + cr + '% ' + cb + '% ' + cl + '%);"';
+    if(!isSvg){
+      cropStyles = ' style="clip-path:inset(' + ct + '% ' + cr + '% ' + cb + '% ' + cl + '%);-webkit-clip-path:inset(' + ct + '% ' + cr + '% ' + cb + '% ' + cl + '%);"';
+    }
   }
   if(x.startsWith('zipimg:')) return '<img class="' + cls + '" alt="' + esc(alt || 'Question figure') + '" data-zipimg="' + esc(x.slice(7)) + '"' + cropAttrs + cropStyles + ' src="data:,">';
   return '<img class="' + cls + '" alt="' + esc(alt || 'Question figure') + '"' + cropAttrs + cropStyles + ' src="' + esc(x) + '">';
@@ -3262,8 +3288,8 @@ function applySvgCrop(svgText, crop){
   const newH = Math.max(1, h * (1 - topP - botP));
 
   let res = svgText.replace(vbMatch[0], `viewBox="${newX.toFixed(2)} ${newY.toFixed(2)} ${newW.toFixed(2)} ${newH.toFixed(2)}"`);
-  res = res.replace(/(<svg\b[^>]*\bwidth=")[0-9.]+/i, `$1${newW.toFixed(2)}`);
-  res = res.replace(/(<svg\b[^>]*\bheight=")[0-9.]+/i, `$1${newH.toFixed(2)}`);
+  res = res.replace(/(<svg\b[^>]*\bwidth=")[0-9.]+(?:pt|px)?/i, `$1${newW.toFixed(2)}pt`);
+  res = res.replace(/(<svg\b[^>]*\bheight=")[0-9.]+(?:pt|px)?/i, `$1${newH.toFixed(2)}pt`);
   if(!res.includes('overflow=')){
     res = res.replace(/(<svg\b)/i, '$1 overflow="hidden"');
   }
@@ -3285,6 +3311,11 @@ function processSvgMarkup(rawSvgText, isTestBuilder){
 
   // 2. Strip diagonal grey watermark text across the page (Physics, Chemistry, FIITJEE background text)
   svgText = svgText.replace(/<(?:use|path)[^>]*(?:fill|stroke)="#(?:c0c0c0|c4c4c4|cccccc|d0d0d0|d3d3d3|e0e0e0|e8e8e8)"[^>]*\/?>/gi, '');
+
+  // 3. Strip residual QRP header/footer divider lines and background rects (safety net)
+  svgText = svgText.replace(/<path [^>]*V8081\.[0-9]+[^>]*\/?>\s*/gi, '');
+  svgText = svgText.replace(/<path [^>]*d="M337\.5\s+484\.199H5617\.5V499\.199H337\.5Z"[^>]*\/?>\s*/gi, '');
+  svgText = svgText.replace(/<path [^>]*d="M337\.5\s+7924\.2H5617\.5V7939\.2H337\.5Z"[^>]*\/?>\s*/gi, '');
 
   if(isTestBuilder){
     // Test builder / Print: ensure authentic pure white background rect is present
@@ -3453,8 +3484,9 @@ async function resolveZipImage(img){
       throw new Error('Image not found in ZIP: '+fileName);
     }
     const isSvg = /\.svg$/i.test(fileName);
-    const isTb = img.classList.contains('test-builder-svg') || img.classList.contains('cbt-svg') || !!img.closest('#scrTestPreview, #scrSheetView, #scrExam, #scrRes, .preview-q-card, .preview-q-body, .preview-sol-box, .sheet-page, .allen-sheet-page');
-    const crop = (img.dataset.cropTop || img.dataset.cropBottom || img.dataset.cropLeft || img.dataset.cropRight) ? {
+    const isCropModal = img.classList.contains('crop-modal-target-img') || !!img.closest('#cropTargetWrapper');
+    const isTb = !isCropModal && (img.classList.contains('test-builder-svg') || img.classList.contains('cbt-svg') || !!img.closest('#scrTestPreview, #scrSheetView, #scrExam, #scrRes, .preview-q-card, .preview-q-body, .preview-sol-box, .sheet-page, .allen-sheet-page'));
+    const crop = (!isCropModal && (img.dataset.cropTop || img.dataset.cropBottom || img.dataset.cropLeft || img.dataset.cropRight)) ? {
       top: parseFloat(img.dataset.cropTop || 0),
       bottom: parseFloat(img.dataset.cropBottom || 0),
       left: parseFloat(img.dataset.cropLeft || 0),
@@ -3476,7 +3508,17 @@ async function resolveZipImage(img){
       const isNeet = /allenchem/i.test(fileName) || /data-intrinsic-w="2/i.test(processedSvg) || /viewBox="[^"]*?\b(21[0-9]|22[0-9]|23[0-9]|24[0-9]|25[0-9]|26[0-9])\b/i.test(processedSvg);
       const isNeeraj = /nk_/i.test(fileName);
       const isMsChouhan = /mschouhan/i.test(fileName);
-      if(isTb){
+      if(isCropModal){
+        img.style.display = 'block';
+        img.style.width = 'auto';
+        img.style.maxWidth = '100%';
+        img.style.maxHeight = '52vh';
+        img.style.height = 'auto';
+        img.style.margin = '0 auto';
+        img.style.background = '#ffffff';
+        img.style.clipPath = 'none';
+        img.style.webkitClipPath = 'none';
+      } else if(isTb){
         img.style.height = 'auto';
         img.style.display = 'block';
         img.style.margin = '0';
@@ -3504,10 +3546,9 @@ async function resolveZipImage(img){
         img.style.margin = '14px auto';
         img.style.background = 'transparent';
       }
-      if(crop){
-        img.style.clipPath = `inset(${crop.top || 0}% ${crop.right || 0}% ${crop.bottom || 0}% ${crop.left || 0}%)`;
-        img.style.webkitClipPath = `inset(${crop.top || 0}% ${crop.right || 0}% ${crop.bottom || 0}% ${crop.left || 0}%)`;
-      }
+      // Vector viewBox crop is already applied; clear CSS clipPath so there is zero double crop
+      img.style.clipPath = 'none';
+      img.style.webkitClipPath = 'none';
       img.removeAttribute('data-zipimg');
       return;
     }
@@ -3515,7 +3556,17 @@ async function resolveZipImage(img){
     const rawBlob = await f.async('blob');
     img.src = URL.createObjectURL(rawBlob);
     img.classList.add(isTb ? 'test-builder-svg' : 'practice-svg');
-    if(!isTb){
+    if(isCropModal){
+      img.style.display = 'block';
+      img.style.width = 'auto';
+      img.style.maxWidth = '100%';
+      img.style.maxHeight = '52vh';
+      img.style.height = 'auto';
+      img.style.margin = '0 auto';
+      img.style.background = '#ffffff';
+      img.style.clipPath = 'none';
+      img.style.webkitClipPath = 'none';
+    } else if(!isTb){
       const z = (typeof prkCurrentZoom !== 'undefined' && prkCurrentZoom > 100) ? (prkCurrentZoom + '%') : '100%';
       img.style.setProperty('width', z, 'important');
       img.style.setProperty('max-width', (typeof prkCurrentZoom !== 'undefined' && prkCurrentZoom > 100) ? 'none' : '100%', 'important');
@@ -3524,9 +3575,13 @@ async function resolveZipImage(img){
       img.style.display = 'block';
       img.style.margin = '14px auto';
     }
-    if(crop){
+    if(crop && !isCropModal){
       img.style.clipPath = `inset(${crop.top || 0}% ${crop.right || 0}% ${crop.bottom || 0}% ${crop.left || 0}%)`;
       img.style.webkitClipPath = `inset(${crop.top || 0}% ${crop.right || 0}% ${crop.bottom || 0}% ${crop.left || 0}%)`;
+    } else {
+      img.style.clipPath = 'none';
+      img.style.webkitClipPath = 'none';
+    }
     }
     img.removeAttribute('data-zipimg');
   }catch(e){
@@ -6463,37 +6518,6 @@ document.addEventListener('click',e=>{
       if(chk) chk.textContent = isAct ? '✓ ' : '+ ';
     });
     tbCfg.allenBank = b.dataset.allenbank;
-    const o1In = $('#tbAllenO1In'),
-          o2MultiIn = $('#tbAllenO2MultiIn'),
-          o2ParaIn = $('#tbAllenO2ParaIn'),
-          o2MatrixIn = $('#tbAllenO2MatrixIn'),
-          neetIn = $('#tbAllenNeetIn');
-    if(b.dataset.allenbank === 'both'){
-      if(o1In) o1In.value = 15;
-      if(o2MultiIn) o2MultiIn.value = 8;
-      if(o2ParaIn) o2ParaIn.value = 2;
-      if(o2MatrixIn) o2MatrixIn.value = (tbCfg.types && tbCfg.types.has('matrix')) ? 2 : 0;
-      if(neetIn) neetIn.value = 0;
-    } else if(b.dataset.allenbank === 'o1'){
-      if(o1In) o1In.value = 25;
-      if(o2MultiIn) o2MultiIn.value = 0;
-      if(o2ParaIn) o2ParaIn.value = 0;
-      if(o2MatrixIn) o2MatrixIn.value = 0;
-      if(neetIn) neetIn.value = 0;
-    } else if(b.dataset.allenbank === 'o2'){
-      if(o1In) o1In.value = 0;
-      if(o2MultiIn) o2MultiIn.value = 20;
-      if(o2ParaIn) o2ParaIn.value = 4;
-      if(o2MatrixIn) o2MatrixIn.value = (tbCfg.types && tbCfg.types.has('matrix')) ? 2 : 0;
-      if(neetIn) neetIn.value = 0;
-    } else if(b.dataset.allenbank === 'neet'){
-      if(o1In) o1In.value = 0;
-      if(o2MultiIn) o2MultiIn.value = 0;
-      if(o2ParaIn) o2ParaIn.value = 0;
-      if(o2MatrixIn) o2MatrixIn.value = 0;
-      if(neetIn) neetIn.value = 25;
-    }
-    syncAllenCountsToTotal();
     renderBuilderChapters();
     refreshBuilderSummary();
   }
@@ -6619,15 +6643,13 @@ if(allenBranchBox){
     refreshBuilderSummary();
   });
 }
-['tbAllenO1In', 'tbAllenO2MultiIn', 'tbAllenO2ParaIn', 'tbAllenO2MatrixIn', 'tbAllenNeetIn'].forEach(id => {
-  const el = document.getElementById(id);
-  if(el){
-    el.addEventListener('input', () => {
-      syncAllenCountsToTotal();
-      refreshBuilderSummary();
-    });
-  }
-});
+const evenSplitBtn = document.getElementById('tbEvenSplitBtn');
+if(evenSplitBtn){
+  evenSplitBtn.addEventListener('click', () => {
+    syncSourceAllocCounts();
+    refreshBuilderSummary();
+  });
+}
 document.addEventListener('change', e => {
   if(e.target && e.target.id === 'tbPaperSel'){
     tbCfg.paper = e.target.value;
@@ -6641,25 +6663,11 @@ $('#tbTypesBox').addEventListener('change', e => {
   if(cb){
     if(cb.checked){
       tbCfg.types.add(cb.dataset.tbtype);
-      if(cb.dataset.tbtype === 'matrix'){
-        const mIn = $('#tbAllenO2MatrixIn');
-        if(mIn && (!parseInt(mIn.value, 10) || parseInt(mIn.value, 10) <= 0)){
-          mIn.value = 2;
-          syncAllenCountsToTotal();
-        }
-      }
     } else {
       tbCfg.types.delete(cb.dataset.tbtype);
       if(tbCfg.typeCounts) tbCfg.typeCounts[cb.dataset.tbtype] = null;
       const countInput = $(`#tbTypesBox input[data-tbtype-cnt="${cb.dataset.tbtype}"]`);
       if(countInput) countInput.value = '';
-      if(cb.dataset.tbtype === 'matrix'){
-        const mIn = $('#tbAllenO2MatrixIn');
-        if(mIn){
-          mIn.value = 0;
-          syncAllenCountsToTotal();
-        }
-      }
     }
     renderBuilderChapters();
     refreshBuilderSummary();
@@ -6674,26 +6682,19 @@ $('#tbTypesBox').addEventListener('change', e => {
       tbCfg.types.add(t);
       const cb = $(`#tbTypesBox input[data-tbtype="${t}"]`);
       if(cb) cb.checked = true;
-      if(t === 'matrix'){
-        const mIn = $('#tbAllenO2MatrixIn');
-        if(mIn){ mIn.value = val; syncAllenCountsToTotal(); }
-      }
     } else {
       tbCfg.typeCounts[t] = null;
       if(cntIn.value === '0'){
         tbCfg.types.delete(t);
         const cb = $(`#tbTypesBox input[data-tbtype="${t}"]`);
         if(cb) cb.checked = false;
-        if(t === 'matrix'){
-          const mIn = $('#tbAllenO2MatrixIn');
-          if(mIn){ mIn.value = 0; syncAllenCountsToTotal(); }
-        }
       }
     }
     const sum = Object.values(tbCfg.typeCounts).filter(v => v != null).reduce((a, b) => a + b, 0);
     if(sum > 0){
       tbCfg.count = sum;
       $('#tbCountIn').value = sum;
+      syncSourceAllocCounts();
     }
     renderBuilderChapters();
     refreshBuilderSummary();
@@ -6896,58 +6897,84 @@ function getQuestionChapKey(q){
   return 'fiitjee||' + q.subject + '||' + q.chapter;
 }
 
-function isChapterSelected(q){
-  let qSource = 'fiitjee';
-  if(q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) qSource = 'neeraj';
-  else if(q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) qSource = 'mschouhan';
-  else if(q.paper === 'allen' || q.paper === 'allen_jee' || (q.id && (String(q.id).startsWith('allenjee_') || String(q.id).startsWith('allenchem_')))) qSource = 'allen';
+function getQuestionSource(q){
+  if(!q) return 'fiitjee';
+  if(q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) return 'neeraj';
+  if(q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) return 'mschouhan';
+  if(q.paper === 'allen' || q.paper === 'allen_jee' || (q.id && (String(q.id).startsWith('allenjee_') || String(q.id).startsWith('allenchem_')))) return 'allen';
+  return 'fiitjee';
+}
 
+function isChapterSelected(q){
+  const qSource = getQuestionSource(q);
   if(tbCfg.activeSources && !tbCfg.activeSources.has(qSource)) return false;
 
   const k = getQuestionChapKey(q);
   if(tbCfg.chapters.has(k)) return true;
-  if(tbCfg.chapters.has(q.subject + '||' + q.chapter)) return true;
+  if(qSource === 'fiitjee' && tbCfg.chapters.has(q.subject + '||' + q.chapter)) return true;
   return false;
 }
 
 function toggleSource(src){
   if(!tbCfg.activeSources) tbCfg.activeSources = new Set(['fiitjee', 'allen']);
-  if(tbCfg.activeSources.has(src)){
-    if(tbCfg.sourceTab !== src){
-      setSourceTab(src);
-      return;
-    }
+  const isAct = tbCfg.activeSources.has(src);
+  if(isAct){
     if(tbCfg.activeSources.size <= 1){
-      showToast('At least one source must remain selected.');
+      showToast('At least one question source must remain active.');
       return;
     }
+    // Deactivate source
     tbCfg.activeSources.delete(src);
-    const remaining = Array.from(tbCfg.activeSources);
-    setSourceTab(remaining[0]);
-  } else {
-    tbCfg.activeSources.add(src);
-    setSourceTab(src);
-    if(!tbCfg.initializedTabs) tbCfg.initializedTabs = new Set();
-    if(!tbCfg.initializedTabs.has(src)){
-      tbCfg.initializedTabs.add(src);
-      DB.forEach(q => {
-        const qSource = (q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) ? 'neeraj' : ((q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? 'mschouhan' : ((q.paper === 'allen' || q.paper === 'allen_jee' || (q.id && (String(q.id).startsWith('allenjee_') || String(q.id).startsWith('allenchem_')))) ? 'allen' : 'fiitjee'));
-        if(qSource === src && tbPaperOK(q)){
-          tbCfg.chapters.add(getQuestionChapKey(q));
-        }
-      });
+
+    // Completely purge all chapters belonging to this source from tbCfg.chapters
+    const prefix = src + '||';
+    for(const k of Array.from(tbCfg.chapters)){
+      if(k.startsWith(prefix)){
+        tbCfg.chapters.delete(k);
+      }
     }
+    if(src === 'fiitjee'){
+      for(const k of Array.from(tbCfg.chapters)){
+        if(!k.startsWith('allen||') && !k.startsWith('mschouhan||') && !k.startsWith('neeraj||')){
+          tbCfg.chapters.delete(k);
+        }
+      }
+    }
+
+    // If active tab was this source, switch to a remaining active source
+    if(tbCfg.sourceTab === src){
+      const remaining = Array.from(tbCfg.activeSources);
+      setSourceTab(remaining[0]);
+    }
+    showToast(`${src.toUpperCase()} excluded from question pool.`);
+  } else {
+    // Activate source
+    tbCfg.activeSources.add(src);
+
+    // Populate default chapters for this newly activated source
+    DB.forEach(q => {
+      const qSource = getQuestionSource(q);
+      if(qSource === src && tbPaperOK(q)){
+        tbCfg.chapters.add(getQuestionChapKey(q));
+      }
+    });
+
+    // Set view tab to this source so user can configure it
+    setSourceTab(src);
+    showToast(`${src.toUpperCase()} activated in question pool!`);
   }
+
   syncSourceAllocCounts();
   updateSourceToggleUI();
+  updateSourceBadges();
   updateBuilderPaperOptions();
   renderBuilderChapters();
   refreshBuilderSummary();
 }
 
 function syncSourceAllocCounts(changedSource, changedValue){
-  if(!tbCfg.activeSources) tbCfg.activeSources = new Set(['fiitjee', 'allen']);
-  if(!tbCfg.sourceCounts) tbCfg.sourceCounts = { fiitjee: 15, allen: 15, mschouhan: 0 };
+  if(!tbCfg.activeSources || tbCfg.activeSources.size === 0) tbCfg.activeSources = new Set(['fiitjee']);
+  if(!tbCfg.sourceCounts) tbCfg.sourceCounts = { fiitjee: 15, allen: 15, mschouhan: 0, neeraj: 0 };
   const active = Array.from(tbCfg.activeSources);
 
   if(changedSource && changedValue !== undefined){
@@ -6981,43 +7008,52 @@ function renderSourceAllocUI(){
   if(!allocCard || !grid) return;
 
   const active = Array.from(tbCfg.activeSources || ['fiitjee', 'allen']);
+
+  // Update Settings View Switcher Pills to show only active sources
+  if(settingsBar){
+    settingsBar.querySelectorAll('button[data-viewtab]').forEach(btn => {
+      const s = btn.dataset.viewtab;
+      const isVisible = tbCfg.activeSources ? tbCfg.activeSources.has(s) : false;
+      btn.style.display = isVisible ? 'inline-flex' : 'none';
+      btn.classList.toggle('active', tbCfg.sourceTab === s);
+    });
+  }
+
   if(active.length <= 1){
     allocCard.style.display = 'none';
-    if(settingsBar) settingsBar.style.display = 'none';
     return;
   }
 
   allocCard.style.display = 'block';
-  if(settingsBar) settingsBar.style.display = 'flex';
 
   const sourceLabels = {
     fiitjee: { name: 'FIITJEE Bank', icon: '🏛️', color: 'var(--brand)' },
-    allen: { name: 'ALLEN Chemistry', icon: '🔷', color: '#0088cc' },
-    mschouhan: { name: 'M.S. Chouhan Organic', icon: '📗', color: '#16a34a' },
-    neeraj: { name: 'Neeraj Kumar Physical', icon: '📙', color: '#e67e22' }
+    allen: { name: 'ALLEN Bank', icon: '🔷', color: '#0088cc' },
+    mschouhan: { name: 'M.S. Chouhan', icon: '📗', color: '#16a34a' },
+    neeraj: { name: 'Neeraj Kumar', icon: '📙', color: '#e67e22' }
   };
 
   let total = 0;
   grid.innerHTML = active.map(src => {
     const info = sourceLabels[src] || { name: src, icon: '📄', color: 'var(--fg)' };
-    const val = tbCfg.sourceCounts[src] != null ? tbCfg.sourceCounts[src] : Math.floor(tbCfg.count / active.length);
+    const val = tbCfg.sourceCounts[src] != null ? tbCfg.sourceCounts[src] : Math.floor((tbCfg.count || 30) / active.length);
     total += val;
     return `
-      <div style="background:var(--surface);border:1.5px solid var(--line);border-radius:6px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px">
+      <div style="background:var(--surface);border:1.5px solid var(--line);border-radius:6px;padding:7px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px">
         <div style="display:flex;align-items:center;gap:6px;min-width:0">
-          <span style="font-size:16px">${info.icon}</span>
-          <span style="font-size:12.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${info.name}</span>
+          <span style="font-size:15px">${info.icon}</span>
+          <span style="font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${info.name}</span>
         </div>
         <div style="display:flex;align-items:center;gap:4px">
-          <input type="number" min="0" max="300" class="input sm" data-source-alloc="${src}" value="${val}" style="width:65px;padding:5px 6px;text-align:center;font-weight:700;font-size:13.5px;border:1.5px solid var(--line);border-radius:4px" />
-          <span style="font-size:11.5px;color:var(--muted);font-weight:600">Qs</span>
+          <input type="number" min="0" max="300" class="input sm" data-source-alloc="${src}" value="${val}" style="width:56px;padding:4px;text-align:center;font-weight:700;font-size:13px;border:1.5px solid var(--line);border-radius:4px" />
+          <span style="font-size:11px;color:var(--muted);font-weight:600">Qs</span>
         </div>
       </div>
     `;
   }).join('');
 
   if(sumBadge){
-    sumBadge.textContent = 'Total: ' + total + ' Questions';
+    sumBadge.textContent = 'Total: ' + total + ' Qs';
   }
 
   grid.querySelectorAll('input[data-source-alloc]').forEach(inp => {
@@ -7039,28 +7075,20 @@ function updateSourceToggleUI(){
   const mAct = tbCfg.activeSources ? tbCfg.activeSources.has('mschouhan') : false;
   const nAct = tbCfg.activeSources ? tbCfg.activeSources.has('neeraj') : false;
 
-  if(tabFiitjee){
-    tabFiitjee.classList.toggle('active', fAct);
-    const chk = tabFiitjee.querySelector('.pill-check');
-    if(chk) chk.textContent = fAct ? '✓ ' : '+ ';
-  }
-  if(tabAllen){
-    tabAllen.classList.toggle('active', aAct);
-    const chk = tabAllen.querySelector('.pill-check');
-    if(chk) chk.textContent = aAct ? '✓ ' : '+ ';
-  }
-  if(tabMs){
-    tabMs.classList.toggle('active', mAct);
-    const chk = tabMs.querySelector('.pill-check');
-    if(chk) chk.textContent = mAct ? '✓ ' : '+ ';
-  }
-  if(tabNeeraj){
-    tabNeeraj.classList.toggle('active', nAct);
-    const chk = tabNeeraj.querySelector('.pill-check');
-    if(chk) chk.textContent = nAct ? '✓ ' : '+ ';
-  }
+  const updateTab = (el, act) => {
+    if(!el) return;
+    el.classList.toggle('active', act);
+    el.classList.toggle('inactive', !act);
+    const chk = el.querySelector('.pill-check');
+    if(chk) chk.textContent = act ? '✓' : '+';
+    el.title = act ? 'Active in question pool (Click to exclude)' : 'Excluded from question pool (Click to include)';
+  };
 
-  // Update Settings switcher pills
+  updateTab(tabFiitjee, fAct);
+  updateTab(tabAllen, aAct);
+  updateTab(tabMs, mAct);
+  updateTab(tabNeeraj, nAct);
+
   const viewFiitjee = $('#tbViewTabFiitjee');
   const viewAllen = $('#tbViewTabAllen');
   const viewMs = $('#tbViewTabMschouhan');
@@ -7086,11 +7114,16 @@ function updateSourceToggleUI(){
 
 function updateSourceBadges(){
   let fiitjeeCh = 0, allenCh = 0, msCh = 0, neerajCh = 0;
+  const fAct = tbCfg.activeSources ? tbCfg.activeSources.has('fiitjee') : false;
+  const aAct = tbCfg.activeSources ? tbCfg.activeSources.has('allen') : false;
+  const mAct = tbCfg.activeSources ? tbCfg.activeSources.has('mschouhan') : false;
+  const nAct = tbCfg.activeSources ? tbCfg.activeSources.has('neeraj') : false;
+
   tbCfg.chapters.forEach(k => {
-    if(k.startsWith('mschouhan||')) msCh++;
-    else if(k.startsWith('neeraj||')) neerajCh++;
-    else if(k.startsWith('allen||')) allenCh++;
-    else fiitjeeCh++;
+    if(k.startsWith('mschouhan||')){ if(mAct) msCh++; }
+    else if(k.startsWith('neeraj||')){ if(nAct) neerajCh++; }
+    else if(k.startsWith('allen||')){ if(aAct) allenCh++; }
+    else { if(fAct) fiitjeeCh++; }
   });
 
   const bF = $('#tbFiitjeeBadge');
@@ -7098,23 +7131,23 @@ function updateSourceBadges(){
   const bM = $('#tbMsBadge');
   const bN = $('#tbNeerajBadge');
 
-  if(bF){ bF.textContent = fiitjeeCh; bF.style.display = fiitjeeCh > 0 ? 'inline-block' : 'none'; }
-  if(bA){ bA.textContent = allenCh; bA.style.display = allenCh > 0 ? 'inline-block' : 'none'; }
-  if(bM){ bM.textContent = msCh; bM.style.display = msCh > 0 ? 'inline-block' : 'none'; }
-  if(bN){ bN.textContent = neerajCh; bN.style.display = neerajCh > 0 ? 'inline-block' : 'none'; }
+  if(bF){ bF.textContent = fiitjeeCh + ' ch'; bF.style.display = (fAct && fiitjeeCh > 0) ? 'inline-block' : 'none'; }
+  if(bA){ bA.textContent = allenCh + ' ch'; bA.style.display = (aAct && allenCh > 0) ? 'inline-block' : 'none'; }
+  if(bM){ bM.textContent = msCh + ' ch'; bM.style.display = (mAct && msCh > 0) ? 'inline-block' : 'none'; }
+  if(bN){ bN.textContent = neerajCh + ' ch'; bN.style.display = (nAct && neerajCh > 0) ? 'inline-block' : 'none'; }
 
   const banner = $('#tbMultiSourceBanner');
   const bannerText = $('#tbMultiSourceText');
   const activeSources = [];
-  if(fiitjeeCh > 0) activeSources.push(`FIITJEE (${fiitjeeCh} ch)`);
-  if(allenCh > 0) activeSources.push(`Allen (${allenCh} ch)`);
-  if(msCh > 0) activeSources.push(`M.S. Chouhan (${msCh} ch)`);
-  if(neerajCh > 0) activeSources.push(`Neeraj Kumar (${neerajCh} ch)`);
+  if(fAct && fiitjeeCh > 0) activeSources.push(`FIITJEE (${fiitjeeCh} ch)`);
+  if(aAct && allenCh > 0) activeSources.push(`Allen (${allenCh} ch)`);
+  if(mAct && msCh > 0) activeSources.push(`M.S. Chouhan (${msCh} ch)`);
+  if(nAct && neerajCh > 0) activeSources.push(`Neeraj Kumar (${neerajCh} ch)`);
 
   if(banner && bannerText){
     if(activeSources.length > 1){
       banner.style.display = 'block';
-      bannerText.innerHTML = `⚡ <b>Multi-Tab Test Active:</b> Questions will be compiled from <b>${activeSources.join(' + ')}</b>.`;
+      bannerText.innerHTML = `⚡ <b>Multi-Source Active:</b> Questions will be compiled from <b>${activeSources.join(' + ')}</b>.`;
     } else {
       banner.style.display = 'none';
     }
@@ -7131,15 +7164,21 @@ function hasAnswerKey(q){
 
 function tbPaperOK(q){
   if(!hasAnswerKey(q)) return false;
+
+  const qSource = getQuestionSource(q);
+  if(tbCfg.activeSources && !tbCfg.activeSources.has(qSource)){
+    return false;
+  }
+
   if(tbCfg.types && tbCfg.types.size > 0){
     const isPara = !!(q.paragraph || q.type === 'paragraph' || q.type === 'comprehension');
     const qType = isPara ? 'paragraph' : (q.type || 'single');
     const normType = (qType === 'mcq' || qType === 'assertion_reason') ? 'single' : ((qType === 'nat' || qType === 'integer') ? 'numerical' : ((qType === 'multiple') ? 'multi' : ((qType === 'column_match') ? 'matrix' : qType)));
     if(!tbCfg.types.has(normType)) return false;
   }
-  const isNeeraj = q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'));
-  const isMs = q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'));
-  const isAllen = q.paper === 'allen' || q.paper === 'allen_jee' || (q.id && (String(q.id).startsWith('allenjee_') || String(q.id).startsWith('allenchem_')));
+  const isNeeraj = qSource === 'neeraj';
+  const isMs = qSource === 'mschouhan';
+  const isAllen = qSource === 'allen';
 
   if(isNeeraj){
     const isAdv = (q.subSource === 'jee_advanced' || (q.exam && /adv/i.test(q.exam)) || String(q.id).includes('_jee_adv') || q.level === 'Level 2' || q.exercise === 'Exercise II');
@@ -7184,51 +7223,6 @@ function tbPaperOK(q){
   return tbCfg.papers.has(qPaper);
 }
 
-function syncAllenCountsToTotal(){
-  const o1El = $('#tbAllenO1In'),
-        o2MultiEl = $('#tbAllenO2MultiIn'),
-        o2ParaEl = $('#tbAllenO2ParaIn'),
-        o2MatrixEl = $('#tbAllenO2MatrixIn'),
-        neetEl = $('#tbAllenNeetIn');
-  const o1 = o1El ? Math.max(0, parseInt(o1El.value, 10) || 0) : 15;
-  const o2Multi = o2MultiEl ? Math.max(0, parseInt(o2MultiEl.value, 10) || 0) : 8;
-  const o2Para = o2ParaEl ? Math.max(0, parseInt(o2ParaEl.value, 10) || 0) : 2;
-  const o2Matrix = o2MatrixEl ? Math.max(0, parseInt(o2MatrixEl.value, 10) || 0) : 0;
-  const neet = neetEl ? Math.max(0, parseInt(neetEl.value, 10) || 0) : 0;
-
-  tbCfg.allenO1Count = o1;
-  tbCfg.allenO2MultiCount = o2Multi;
-  tbCfg.allenO2ParaCount = o2Para;
-  tbCfg.allenO2MatrixCount = o2Matrix;
-  tbCfg.allenO2Count = o2Multi + o2Para + o2Matrix;
-  tbCfg.allenNeetCount = neet;
-
-  // Sync matrix with tbCfg.types
-  const matrixCb = document.querySelector('#tbTypesBox input[data-tbtype="matrix"]');
-  if(o2Matrix > 0){
-    tbCfg.types.add('matrix');
-    if(matrixCb) matrixCb.checked = true;
-  } else if(matrixCb && !matrixCb.checked){
-    tbCfg.types.delete('matrix');
-  }
-
-  const total = o1 + o2Multi + o2Para + o2Matrix + neet;
-  tbCfg.count = total;
-  const countIn = $('#tbCountIn');
-  if(countIn) countIn.value = total;
-
-  const sumEl = $('#tbAllenAllocSum');
-  if(sumEl){
-    const parts = [];
-    if(o1) parts.push(o1 + ' O-1');
-    if(o2Multi) parts.push(o2Multi + ' Multi');
-    if(o2Para) parts.push(o2Para + ' Para');
-    if(o2Matrix) parts.push(o2Matrix + ' Matrix');
-    if(neet) parts.push(neet + ' NEET');
-    sumEl.textContent = 'Total: ' + total + ' Questions' + (parts.length ? ' (' + parts.join(' + ') + ')' : '');
-  }
-}
-
 function setSourceTab(tab){
   tbCfg.sourceTab = tab;
   const isAllen = tab === 'allen';
@@ -7265,10 +7259,9 @@ function setSourceTab(tab){
   if(msBranchBox) msBranchBox.style.display = isMs ? 'flex' : 'none';
   if(neerajBranchBox) neerajBranchBox.style.display = isNeeraj ? 'flex' : 'none';
 
-  if(isAllen){
+  if(isAllen || isMs || isNeeraj){
     tbCfg.subjects.add('Chemistry');
-    syncAllenCountsToTotal();
-  } else if(isMs || isNeeraj){
+  } else {
     tbCfg.subjects.add('Chemistry');
   } else {
     document.querySelectorAll('#tbSubjBox input[data-tbsubj]').forEach(cb => {
@@ -7601,26 +7594,46 @@ function refreshBuilderSummary(){
   if($('#btnPreviewSheet')) $('#btnPreviewSheet').disabled = !ok;
   if($('#btnGenCbt')) $('#btnGenCbt').disabled = !ok;
 
-  // Count active questions per source
-  let msCount = 0, allenCount = 0, fiitjeeCount = 0;
+  // Count active questions per source strictly
+  let msCount = 0, allenCount = 0, fiitjeeCount = 0, neerajCount = 0;
   pool.forEach(q => {
-    if(q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) msCount++;
-    else if(q.paper === 'allen' || q.paper === 'allen_jee' || (q.id && (String(q.id).startsWith('allenjee_') || String(q.id).startsWith('allenchem_')))) allenCount++;
+    const s = getQuestionSource(q);
+    if(s === 'mschouhan') msCount++;
+    else if(s === 'allen') allenCount++;
+    else if(s === 'neeraj') neerajCount++;
     else fiitjeeCount++;
   });
+
+  const poolBreakdownEl = $('#tbSourcePoolBreakdown');
+  if(poolBreakdownEl){
+    const chips = [];
+    if(tbCfg.activeSources && tbCfg.activeSources.has('fiitjee') && fiitjeeCount > 0){
+      chips.push(`<span style="font-size:11px;padding:2px 7px;border-radius:10px;background:var(--surface-2);color:var(--brand);font-weight:600">🏛️ FIITJEE: ${fiitjeeCount}</span>`);
+    }
+    if(tbCfg.activeSources && tbCfg.activeSources.has('allen') && allenCount > 0){
+      chips.push(`<span style="font-size:11px;padding:2px 7px;border-radius:10px;background:var(--surface-2);color:#0088cc;font-weight:600">🔷 ALLEN: ${allenCount}</span>`);
+    }
+    if(tbCfg.activeSources && tbCfg.activeSources.has('mschouhan') && msCount > 0){
+      chips.push(`<span style="font-size:11px;padding:2px 7px;border-radius:10px;background:var(--surface-2);color:#16a34a;font-weight:600">📗 M.S. Chouhan: ${msCount}</span>`);
+    }
+    if(tbCfg.activeSources && tbCfg.activeSources.has('neeraj') && neerajCount > 0){
+      chips.push(`<span style="font-size:11px;padding:2px 7px;border-radius:10px;background:var(--surface-2);color:#e67e22;font-weight:600">📙 Neeraj: ${neerajCount}</span>`);
+    }
+    poolBreakdownEl.innerHTML = chips.join('');
+  }
 
   const activeParts = [];
   if(fiitjeeCount > 0) activeParts.push(fiitjeeCount + ' FIITJEE');
   if(allenCount > 0) activeParts.push(allenCount + ' Allen');
   if(msCount > 0) activeParts.push(msCount + ' M.S. Chouhan');
+  if(neerajCount > 0) activeParts.push(neerajCount + ' Neeraj');
 
   if(activeParts.length > 1){
-    $('#tbStatusNote').textContent = '⚡ Multi-Tab Pool: ' + avail + ' available questions across ' + activeParts.join(' + ') + '.';
+    $('#tbStatusNote').textContent = '⚡ Multi-Source Pool: ' + avail + ' available questions across ' + activeParts.join(' + ') + '.';
   } else if(msCount > 0){
     $('#tbStatusNote').textContent = 'M.S. Chouhan: ' + avail + ' questions available (' + (tbCfg.msSubSource === 'selected' ? ('Selected Questions • ' + (tbCfg.msStar === 'all' ? 'All 3 Tiers' : (tbCfg.msStar === 'two_star' ? 'Two Star ★★' : (tbCfg.msStar === 'one_star' ? 'One Star ★' : 'Normal / Tick')))) : 'Level 1 (All Questions)') + ').';
   } else if(allenCount > 0){
-    const o1 = tbCfg.allenO1Count || 0, o2 = tbCfg.allenO2Count || 0, neet = tbCfg.allenNeetCount || 0;
-    $('#tbStatusNote').textContent = 'Allen Mode: ' + tbCfg.count + ' Qs allocated (' + (o1 ? o1 + ' O-1, ' : '') + (o2 ? o2 + ' O-2, ' : '') + (neet ? neet + ' NEET, ' : '') + avail + ' available in chosen chapters).';
+    $('#tbStatusNote').textContent = 'Allen Mode: ' + tbCfg.count + ' Qs allocated (' + avail + ' available in chosen chapters).';
   } else {
     $('#tbStatusNote').textContent = ok ? (avail + ' questions match your criteria.') : 'Select at least one chapter and question type.';
   }
@@ -8981,10 +8994,16 @@ function openCropModal(idx){
   const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
   const targetImgUrl = qImgs[0] || (q.passageImages && q.passageImages[0]) || '';
   if(targetImgUrl){
-    wrapper.innerHTML = imageMarkup(targetImgUrl, 'Crop Target Figure', 'test-builder-svg');
+    wrapper.innerHTML = imageMarkup(targetImgUrl, 'Crop Target Figure', 'crop-modal-target-img');
     hydrateZipImages(wrapper);
+    const previewImg = wrapper.querySelector('img');
+    if(previewImg){
+      previewImg.onload = () => {
+        updateCropOverlays();
+      };
+    }
   } else {
-    wrapper.innerHTML = '<div style="padding:40px;text-align:center;color:var(--muted)">No image figure attached to this question.</div>';
+    wrapper.innerHTML = '<div style="padding:40px;text-align:center;color:var(--muted);line-height:1.5">No image figure attached to this question.</div>';
   }
 
   updateCropOverlays();
