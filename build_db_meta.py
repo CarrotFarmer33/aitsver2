@@ -176,6 +176,8 @@ def build_meta():
             if q.get('subSource'): item['subSource'] = q['subSource']
             if q.get('qrpNumber'): item['qrpNumber'] = q['qrpNumber']
             if q.get('questionNumber'): item['questionNumber'] = q['questionNumber']
+            if q.get('subChapter'): item['subChapter'] = q['subChapter']
+            if q.get('qrpTopic'): item['qrpTopic'] = q['qrpTopic']
             if q.get('paragraph') or q.get('paragraph_id'): item['paragraph'] = True
             if q.get('rawType'): item['rawType'] = q['rawType']
             if q.get('options') and isinstance(q.get('options'), list):

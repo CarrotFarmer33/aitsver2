@@ -2183,10 +2183,18 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 .test-builder-svg,
 .cbt-svg,
 .sheet-page .qimg,
-.sheet-page .vector-inline-svg {
+.sheet-page .vector-inline-svg,
+#cropModal .crop-modal-target-img,
+#cropModal .qimg,
+#cropModal img,
+#cropTargetWrapper img,
+#cropTargetWrapper .vector-inline-svg,
+#cropTargetWrapper .qimg,
+.crop-modal-target-img {
   filter: none !important;
+  -webkit-filter: none !important;
   mix-blend-mode: normal !important;
-  background: transparent !important;
+  background: #ffffff !important;
   color: #000000 !important;
   border: none !important;
   outline: none !important;
@@ -2202,7 +2210,11 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 .preview-q-card .vector-inline-svg text,
 .preview-q-card .vector-inline-svg tspan,
 .sheet-page .vector-inline-svg text,
-.sheet-page .vector-inline-svg tspan {
+.sheet-page .vector-inline-svg tspan,
+#cropModal .vector-inline-svg text,
+#cropModal .vector-inline-svg tspan,
+#cropTargetWrapper .vector-inline-svg text,
+#cropTargetWrapper .vector-inline-svg tspan {
   fill: #000000 !important;
   color: #000000 !important;
 }
@@ -3158,13 +3170,13 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
         Adjust the sliders to trim unwanted headers, footers, or adjacent text. The shaded red regions will be cropped out of the figure.
       </div>
       <!-- Interactive Preview with Shaded Overlay -->
-      <div id="cropPreviewContainer" style="position:relative;background:#f8fafc;border:1px solid var(--line);border-radius:6px;overflow:auto;margin-bottom:16px;min-height:160px;display:flex;align-items:center;justify-content:center;padding:16px">
-        <div id="cropPreviewInner" style="position:relative;display:inline-block;max-width:100%;margin:0 auto;line-height:0;background:#ffffff;box-shadow:0 1px 3px rgba(0,0,0,0.1)">
+      <div id="cropPreviewContainer" style="position:relative;background:var(--surface-2,#1e293b);border:1px solid var(--line);border-radius:6px;overflow:auto;margin-bottom:16px;min-height:160px;display:flex;align-items:center;justify-content:center;padding:16px">
+        <div id="cropPreviewInner" style="position:relative;display:inline-block;max-width:100%;margin:0 auto;line-height:0;background:#ffffff;box-shadow:0 2px 8px rgba(0,0,0,0.25);border-radius:3px">
           <div id="cropTargetWrapper" style="position:relative;display:block;max-width:100%;line-height:0"></div>
-          <div id="cropOverlayTop" style="position:absolute;top:0;left:0;right:0;height:0%;background:rgba(239,68,68,0.35);border-bottom:2px dashed #ef4444;pointer-events:none;transition:height 0.05s ease"></div>
-          <div id="cropOverlayBottom" style="position:absolute;bottom:0;left:0;right:0;height:0%;background:rgba(239,68,68,0.35);border-top:2px dashed #ef4444;pointer-events:none;transition:height 0.05s ease"></div>
-          <div id="cropOverlayLeft" style="position:absolute;top:0;bottom:0;left:0;width:0%;background:rgba(239,68,68,0.25);border-right:2px dashed #ef4444;pointer-events:none;transition:width 0.05s ease"></div>
-          <div id="cropOverlayRight" style="position:absolute;top:0;bottom:0;right:0;width:0%;background:rgba(239,68,68,0.25);border-left:2px dashed #ef4444;pointer-events:none;transition:width 0.05s ease"></div>
+          <div id="cropOverlayTop" style="position:absolute;top:0;left:0;right:0;height:0%;background:rgba(239,68,68,0.35);border-bottom:none;pointer-events:none;transition:height 0.05s ease"></div>
+          <div id="cropOverlayBottom" style="position:absolute;bottom:0;left:0;right:0;height:0%;background:rgba(239,68,68,0.35);border-top:none;pointer-events:none;transition:height 0.05s ease"></div>
+          <div id="cropOverlayLeft" style="position:absolute;top:0;bottom:0;left:0;width:0%;background:rgba(239,68,68,0.25);border-right:none;pointer-events:none;transition:width 0.05s ease"></div>
+          <div id="cropOverlayRight" style="position:absolute;top:0;bottom:0;right:0;width:0%;background:rgba(239,68,68,0.25);border-left:none;pointer-events:none;transition:width 0.05s ease"></div>
         </div>
       </div>
 
@@ -3395,7 +3407,7 @@ const AitsCache = {
 window.AitsCache = AitsCache;
 
 async function fetchCachedJson(url){
-  const cacheKey = 'json:v22:' + url;
+  const cacheKey = 'json:v23:' + url;
   const cached = await AitsCache.get(cacheKey);
   if(cached) return cached;
   const r = await fetch(url);
@@ -3485,8 +3497,8 @@ async function resolveZipImage(img){
       throw new Error('Image not found in ZIP: '+fileName);
     }
     const isSvg = /\.svg$/i.test(fileName);
-    const isCropModal = img.classList.contains('crop-modal-target-img') || !!img.closest('#cropTargetWrapper');
-    const isTb = !isCropModal && (img.classList.contains('test-builder-svg') || img.classList.contains('cbt-svg') || !!img.closest('#scrTestPreview, #scrSheetView, #scrExam, #scrRes, .preview-q-card, .preview-q-body, .preview-sol-box, .sheet-page, .allen-sheet-page'));
+    const isCropModal = img.classList.contains('crop-modal-target-img') || !!img.closest('#cropTargetWrapper, #cropModal');
+    const isTb = isCropModal || img.classList.contains('test-builder-svg') || img.classList.contains('cbt-svg') || !!img.closest('#scrTestPreview, #scrSheetView, #scrExam, #scrRes, #cropModal, #cropTargetWrapper, .preview-q-card, .preview-q-body, .preview-sol-box, .sheet-page, .allen-sheet-page');
     const crop = (!isCropModal && (img.dataset.cropTop || img.dataset.cropBottom || img.dataset.cropLeft || img.dataset.cropRight)) ? {
       top: parseFloat(img.dataset.cropTop || 0),
       bottom: parseFloat(img.dataset.cropBottom || 0),
@@ -3503,7 +3515,7 @@ async function resolveZipImage(img){
       // Render as isolated SVG blob to eliminate cross-SVG ID/clipPath/font collisions
       const blob = new Blob([processedSvg], { type: 'image/svg+xml;charset=utf-8' });
       img.src = URL.createObjectURL(blob);
-      img.classList.add('qimg', 'vector-inline-svg', isTb ? 'test-builder-svg' : 'practice-svg');
+      img.classList.add('qimg', 'vector-inline-svg', (isTb || isCropModal) ? 'test-builder-svg' : 'practice-svg');
       img.setAttribute('role', 'img');
       img.setAttribute('aria-label', img.alt || 'Question figure');
       const isNeet = /allenchem/i.test(fileName) || /data-intrinsic-w="2/i.test(processedSvg) || /viewBox="[^"]*?\b(21[0-9]|22[0-9]|23[0-9]|24[0-9]|25[0-9]|26[0-9])\b/i.test(processedSvg);
@@ -3517,6 +3529,9 @@ async function resolveZipImage(img){
         img.style.height = 'auto';
         img.style.margin = '0 auto';
         img.style.background = '#ffffff';
+        img.style.filter = 'none';
+        img.style.webkitFilter = 'none';
+        img.style.mixBlendMode = 'normal';
         img.style.clipPath = 'none';
         img.style.webkitClipPath = 'none';
       } else if(isTb){
@@ -3556,7 +3571,7 @@ async function resolveZipImage(img){
 
     const rawBlob = await f.async('blob');
     img.src = URL.createObjectURL(rawBlob);
-    img.classList.add(isTb ? 'test-builder-svg' : 'practice-svg');
+    img.classList.add((isTb || isCropModal) ? 'test-builder-svg' : 'practice-svg');
     if(isCropModal){
       img.style.display = 'block';
       img.style.width = 'auto';
@@ -3565,6 +3580,9 @@ async function resolveZipImage(img){
       img.style.height = 'auto';
       img.style.margin = '0 auto';
       img.style.background = '#ffffff';
+      img.style.filter = 'none';
+      img.style.webkitFilter = 'none';
+      img.style.mixBlendMode = 'normal';
       img.style.clipPath = 'none';
       img.style.webkitClipPath = 'none';
     } else if(!isTb){
@@ -3587,7 +3605,7 @@ async function resolveZipImage(img){
   }catch(e){
     console.warn('Unable to load image from ZIP: ' + fileName, e);
     // Automatic fallback: fetch vector SVG directly from local vector engine
-    if(fileName.startsWith('allenjee_') || fileName.startsWith('allenchem_') || fileName.startsWith('mschouhan_')){
+    if(fileName.startsWith('allenjee_') || fileName.startsWith('allenchem_') || fileName.startsWith('mschouhan_') || fileName.startsWith('nk_') || fileName.startsWith('chemistry_') || fileName.startsWith('physics_') || fileName.startsWith('mathematics_')){
       try {
         const qid = fileName.replace(/\.svg$/i, '');
         const baseOrigin = (window.location.protocol.startsWith('http') && window.location.origin && window.location.origin !== 'null') ? window.location.origin : 'http://127.0.0.1:8000';
@@ -3613,10 +3631,25 @@ async function resolveZipImage(img){
           if(crop) processedSvg = applySvgCrop(processedSvg, crop);
           const blob = new Blob([processedSvg], { type: 'image/svg+xml;charset=utf-8' });
           img.src = URL.createObjectURL(blob);
-          img.classList.add('qimg', 'vector-inline-svg', isTb ? 'test-builder-svg' : 'practice-svg');
+          img.classList.add('qimg', 'vector-inline-svg', (isTb || isCropModal) ? 'test-builder-svg' : 'practice-svg');
           const isNeet = /allenchem/i.test(qid) || /data-intrinsic-w="2/i.test(processedSvg);
           const isMsChouhan = /mschouhan/i.test(qid);
-          if(isTb){
+          if(isCropModal){
+            img.style.display = 'block';
+            img.style.width = 'auto';
+            img.style.maxWidth = '100%';
+            img.style.maxHeight = '52vh';
+            img.style.height = 'auto';
+            img.style.margin = '0 auto';
+            img.style.background = '#ffffff';
+            img.style.filter = 'none';
+            img.style.webkitFilter = 'none';
+            img.style.mixBlendMode = 'normal';
+            img.style.clipPath = 'none';
+            img.style.webkitClipPath = 'none';
+            img.removeAttribute('data-zipimg');
+            return;
+          } else if(isTb){
             img.style.height = 'auto';
             img.style.display = 'block';
             img.style.margin = '0';
@@ -3642,6 +3675,13 @@ async function resolveZipImage(img){
       } catch(err) {
         console.warn('Direct SVG endpoint fallback failed:', err);
       }
+    }
+    if(isCropModal){
+      const wrap = document.createElement('div');
+      wrap.style.cssText = 'padding:30px;text-align:center;color:var(--muted);font-size:13px;line-height:1.5';
+      wrap.innerHTML = `⚠️ Unable to load figure image (<b>${esc(fileName)}</b>). Please verify that the image archive is available.`;
+      if(img.parentNode) img.parentNode.replaceChild(wrap, img);
+      return;
     }
     const fallback = img.dataset.fallback;
     if(fallback){
@@ -4906,7 +4946,13 @@ const svCard=q=>{
     '<div>Correct answer: <b>'+esc(keyText(q))+'</b></div>'+
     ((q.solution||q.solImages.length)?'<details open><summary style="cursor:pointer;font-weight:600;margin-top:8px">Solution</summary><div style="margin-top:8px">'+rich(q.solution)+q.solImages.map(u=>imageMarkup(u,'Solution figure','practice-svg')).join('')+'</div></details>':'<details open><summary style="cursor:pointer;font-weight:600;margin-top:8px">Solution</summary><div class="muted" style="margin-top:8px;font-size:13px">Official Answer Key: <b>'+esc(keyText(q))+'</b><br><span style="opacity:0.8">Step-by-step worked solution image was not provided in the original paper archive.</span></div></details>')+'</article>';
 };
-function svOrder(subj,ch){ const segs=SEGMENTS[subj]||[]; let n=0; for(const g of segs){ const i=g.chapters.indexOf(ch); if(i>=0) return n+i; n+=g.chapters.length; } return 9999; }
+function svOrder(subj,ch){
+  if(String(ch).startsWith('QRP ')){
+    const m = String(ch).match(/QRP\s*(\d+)/i);
+    return 1000 + (m ? parseInt(m[1]) : 0);
+  }
+  const segs=SEGMENTS[subj]||[]; let n=0; for(const g of segs){ const i=g.chapters.indexOf(ch); if(i>=0) return n+i; n+=g.chapters.length; } return 9999;
+}
 function svPick(){ const all=svAll(); if(!all.some(q=>q.subject===svSubj)){ const s=SUBJ.find(x=>all.some(q=>q.subject===x)); if(s) svSubj=s; } }
 /* ==================== MARKS-STYLE SCROLLABLE PRACTICE SCREEN ==================== */
 const PRK_ANS_KEY = 'aits_prk_answers';
@@ -4970,6 +5016,7 @@ function savePrkAnswer(qId, val, status){
 const prkState = {
   subj: 'Physics',
   chap: null,
+  sourceGroup: null, // 'fiitjee' | 'qrp' | 'neeraj' | 'mschouhan' | null
   paper: 'all',
   year: 'all',
   type: 'all',
@@ -4984,7 +5031,11 @@ function openPracticeList(initialOpts){
   prkVisibleLimit = 50;
   if(initialOpts){
     if(initialOpts.subject && SUBJ.includes(initialOpts.subject)) prkState.subj = initialOpts.subject;
-    if(initialOpts.chapter) prkState.chap = initialOpts.chapter;
+    if(initialOpts.chapter){
+      prkState.chap = initialOpts.chapter;
+      if(String(prkState.chap).startsWith('QRP ')) prkState.sourceGroup = 'qrp';
+      else prkState.sourceGroup = 'fiitjee';
+    }
   }
   const availableSubjs = SUBJ.filter(s => DB.some(q => q.paper !== 'allen' && q.subject === s));
   if(!availableSubjs.includes(prkState.subj)) prkState.subj = availableSubjs[0] || 'Physics';
@@ -5016,24 +5067,159 @@ function renderPracticeSidebar(){
   }
 
   const inSubj = DB.filter(q => q.paper !== 'allen' && q.subject === prkState.subj);
-  const byCh = {};
-  inSubj.forEach(q => { if(q.chapter) byCh[q.chapter] = (byCh[q.chapter] || 0) + 1; });
+
+  // Group by question source
+  const isQrp = q => q.paper === 'qrp' || (q.id && String(q.id).startsWith('qrp_'));
+  const isMs = q => q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'));
+  const isNk = q => q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'));
+  const isFiitjee = q => !isQrp(q) && !isMs(q) && !isNk(q);
+
+  const fiitjeeQs = inSubj.filter(isFiitjee);
+  const qrpQs = inSubj.filter(isQrp);
+  const msQs = inSubj.filter(isMs);
+  const nkQs = inSubj.filter(isNk);
+
+  const byChFiitjee = {};
+  fiitjeeQs.forEach(q => { if(q.chapter) byChFiitjee[q.chapter] = (byChFiitjee[q.chapter] || 0) + 1; });
+
+  const byChQrp = {};
+  qrpQs.forEach(q => { if(q.chapter) byChQrp[q.chapter] = (byChQrp[q.chapter] || 0) + 1; });
+
+  const byChMs = {};
+  msQs.forEach(q => { if(q.chapter) byChMs[q.chapter] = (byChMs[q.chapter] || 0) + 1; });
+
+  const byChNk = {};
+  nkQs.forEach(q => { if(q.chapter) byChNk[q.chapter] = (byChNk[q.chapter] || 0) + 1; });
+
+  // Retain collapse/expand state
+  const fiitjeeEl = $('#prkGroupFiitjee');
+  const qrpEl = $('#prkGroupQrp');
+  const msEl = $('#prkGroupMs');
+  const nkEl = $('#prkGroupNk');
+  const fiitjeeOpen = fiitjeeEl ? (fiitjeeEl.open || prkState.sourceGroup === 'fiitjee') : true;
+  const qrpOpen = qrpEl ? (qrpEl.open || prkState.sourceGroup === 'qrp') : true;
+  const msOpen = msEl ? (msEl.open || prkState.sourceGroup === 'mschouhan') : true;
+  const nkOpen = nkEl ? (nkEl.open || prkState.sourceGroup === 'neeraj') : true;
 
   const chapBox = $('#prkChapList');
   if(chapBox){
-    const keys = Object.keys(byCh).sort((a,b) => svOrder(prkState.subj, a) - svOrder(prkState.subj, b) || a.localeCompare(b));
-    let chHtml = '<button type="button" class="marks-sb-item' + (!prkState.chap ? ' active' : '') + '" data-prkchap="__ALL__">' +
-      '<span>All Chapters</span>' +
+    let chHtml = '<button type="button" class="marks-sb-item' + (!prkState.chap && !prkState.sourceGroup ? ' active' : '') + '" data-prkchap="__ALL__" data-prksource="__ALL__">' +
+      '<span style="font-weight:600">All Chapters</span>' +
       '<span class="marks-sb-count">' + inSubj.length + '</span>' +
     '</button>';
 
-    chHtml += keys.map(c => {
-      const isAct = prkState.chap === c;
-      return '<button type="button" class="marks-sb-item' + (isAct ? ' active' : '') + '" data-prkchap="' + esc(c) + '">' +
-        '<span>' + esc(c) + '</span>' +
-        '<span class="marks-sb-count">' + byCh[c] + '</span>' +
-      '</button>';
-    }).join('');
+    // 1. FIITJEE Dropdown Menu
+    if(fiitjeeQs.length > 0){
+      const keys = Object.keys(byChFiitjee).sort((a,b) => svOrder(prkState.subj, a) - svOrder(prkState.subj, b) || a.localeCompare(b));
+      const isAllFiitjee = !prkState.chap && prkState.sourceGroup === 'fiitjee';
+      chHtml += '<details class="marks-sb-group" id="prkGroupFiitjee"' + (fiitjeeOpen ? ' open' : '') + '>' +
+        '<summary class="marks-sb-group-hdr">' +
+          '<span class="marks-sb-group-title">' +
+            '<span class="marks-sb-caret">&#9656;</span>' +
+            '<span>FIITJEE (AITS)</span>' +
+          '</span>' +
+          '<span class="marks-sb-count">' + fiitjeeQs.length + '</span>' +
+        '</summary>' +
+        '<div class="marks-sb-sublist">' +
+          '<button type="button" class="marks-sb-item marks-sb-subitem' + (isAllFiitjee ? ' active' : '') + '" data-prkchap="__ALL_FIITJEE__" data-prksource="fiitjee">' +
+            '<span style="font-weight:600">All FIITJEE Chapters</span>' +
+            '<span class="marks-sb-count">' + fiitjeeQs.length + '</span>' +
+          '</button>' +
+          keys.map(c => {
+            const isAct = prkState.chap === c && prkState.sourceGroup === 'fiitjee';
+            return '<button type="button" class="marks-sb-item marks-sb-subitem' + (isAct ? ' active' : '') + '" data-prkchap="' + esc(c) + '" data-prksource="fiitjee">' +
+              '<span>' + esc(c) + '</span>' +
+              '<span class="marks-sb-count">' + byChFiitjee[c] + '</span>' +
+            '</button>';
+          }).join('') +
+        '</div>' +
+      '</details>';
+    }
+
+    // 2. Quizrr QRP Dropdown Menu
+    if(qrpQs.length > 0){
+      const keys = Object.keys(byChQrp).sort((a,b) => {
+        const mA = a.match(/QRP\s*(\d+)/i), mB = b.match(/QRP\s*(\d+)/i);
+        const nA = mA ? parseInt(mA[1]) : 99, nB = mB ? parseInt(mB[1]) : 99;
+        if(nA !== nB) return nA - nB;
+        return a.localeCompare(b);
+      });
+      const isAllQrp = !prkState.chap && prkState.sourceGroup === 'qrp';
+      chHtml += '<details class="marks-sb-group" id="prkGroupQrp"' + (qrpOpen ? ' open' : '') + '>' +
+        '<summary class="marks-sb-group-hdr">' +
+          '<span class="marks-sb-group-title">' +
+            '<span class="marks-sb-caret">&#9656;</span>' +
+            '<span>Quizrr QRP</span>' +
+          '</span>' +
+          '<span class="marks-sb-count">' + qrpQs.length + '</span>' +
+        '</summary>' +
+        '<div class="marks-sb-sublist">' +
+          '<button type="button" class="marks-sb-item marks-sb-subitem' + (isAllQrp ? ' active' : '') + '" data-prkchap="__ALL_QRP__" data-prksource="qrp">' +
+            '<span style="font-weight:600">All QRPs</span>' +
+            '<span class="marks-sb-count">' + qrpQs.length + '</span>' +
+          '</button>' +
+          keys.map(c => {
+            const isAct = prkState.chap === c && prkState.sourceGroup === 'qrp';
+            const m = c.match(/^(QRP\s*\d+):\s*(.*)$/i);
+            const pill = m ? m[1] : '';
+            const subTitle = m ? m[2] : c;
+            const labelHtml = pill
+              ? '<span style="display:inline-flex;align-items:center;gap:6px"><span class="qrp-ch-pill">' + esc(pill) + '</span><span>' + esc(subTitle) + '</span></span>'
+              : '<span>' + esc(c) + '</span>';
+            return '<button type="button" class="marks-sb-item marks-sb-subitem' + (isAct ? ' active' : '') + '" data-prkchap="' + esc(c) + '" data-prksource="qrp">' +
+              labelHtml +
+              '<span class="marks-sb-count">' + byChQrp[c] + '</span>' +
+            '</button>';
+          }).join('') +
+        '</div>' +
+      '</details>';
+    }
+
+    // 3. Neeraj Kumar (if present)
+    if(nkQs.length > 0){
+      const keys = Object.keys(byChNk).sort((a,b) => a.localeCompare(b));
+      const isAllNk = !prkState.chap && prkState.sourceGroup === 'neeraj';
+      chHtml += '<details class="marks-sb-group" id="prkGroupNk"' + (nkOpen ? ' open' : '') + '>' +
+        '<summary class="marks-sb-group-hdr">' +
+          '<span class="marks-sb-group-title"><span class="marks-sb-caret">&#9656;</span><span>Neeraj Kumar (Physical)</span></span>' +
+          '<span class="marks-sb-count">' + nkQs.length + '</span>' +
+        '</summary>' +
+        '<div class="marks-sb-sublist">' +
+          '<button type="button" class="marks-sb-item marks-sb-subitem' + (isAllNk ? ' active' : '') + '" data-prkchap="__ALL_NEERAJ__" data-prksource="neeraj">' +
+            '<span style="font-weight:600">All Neeraj Kumar</span><span class="marks-sb-count">' + nkQs.length + '</span>' +
+          '</button>' +
+          keys.map(c => {
+            const isAct = prkState.chap === c && prkState.sourceGroup === 'neeraj';
+            return '<button type="button" class="marks-sb-item marks-sb-subitem' + (isAct ? ' active' : '') + '" data-prkchap="' + esc(c) + '" data-prksource="neeraj">' +
+              '<span>' + esc(c) + '</span><span class="marks-sb-count">' + byChNk[c] + '</span>' +
+            '</button>';
+          }).join('') +
+        '</div>' +
+      '</details>';
+    }
+
+    // 4. M.S. Chouhan (if present)
+    if(msQs.length > 0){
+      const keys = Object.keys(byChMs).sort((a,b) => a.localeCompare(b));
+      const isAllMs = !prkState.chap && prkState.sourceGroup === 'mschouhan';
+      chHtml += '<details class="marks-sb-group" id="prkGroupMs"' + (msOpen ? ' open' : '') + '>' +
+        '<summary class="marks-sb-group-hdr">' +
+          '<span class="marks-sb-group-title"><span class="marks-sb-caret">&#9656;</span><span>M.S. Chouhan (Organic)</span></span>' +
+          '<span class="marks-sb-count">' + msQs.length + '</span>' +
+        '</summary>' +
+        '<div class="marks-sb-sublist">' +
+          '<button type="button" class="marks-sb-item marks-sb-subitem' + (isAllMs ? ' active' : '') + '" data-prkchap="__ALL_MSCHOUHAN__" data-prksource="mschouhan">' +
+            '<span style="font-weight:600">All M.S. Chouhan</span><span class="marks-sb-count">' + msQs.length + '</span>' +
+          '</button>' +
+          keys.map(c => {
+            const isAct = prkState.chap === c && prkState.sourceGroup === 'mschouhan';
+            return '<button type="button" class="marks-sb-item marks-sb-subitem' + (isAct ? ' active' : '') + '" data-prkchap="' + esc(c) + '" data-prksource="mschouhan">' +
+              '<span>' + esc(c) + '</span><span class="marks-sb-count">' + byChMs[c] + '</span>' +
+            '</button>';
+          }).join('') +
+        '</div>' +
+      '</details>';
+    }
 
     chapBox.innerHTML = chHtml;
   }
@@ -5042,7 +5228,23 @@ function renderPracticeSidebar(){
 function renderPracticeFilterYears(){
   const yrSel = $('#prkFilterYear');
   if(!yrSel) return;
-  const inSubj = DB.filter(q => q.paper !== 'allen' && q.subject === prkState.subj && (!prkState.chap || q.chapter === prkState.chap));
+  const inSubj = DB.filter(q => {
+    if(q.paper === 'allen') return false;
+    if(q.subject !== prkState.subj) return false;
+    if(prkState.sourceGroup === 'fiitjee'){
+      if(q.paper === 'qrp' || (q.id && String(q.id).startsWith('qrp_'))) return false;
+      if(q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) return false;
+      if(q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) return false;
+    } else if(prkState.sourceGroup === 'qrp'){
+      if(q.paper !== 'qrp' && !(q.id && String(q.id).startsWith('qrp_'))) return false;
+    } else if(prkState.sourceGroup === 'neeraj'){
+      if(q.paper !== 'neeraj' && !(q.id && String(q.id).startsWith('nk_'))) return false;
+    } else if(prkState.sourceGroup === 'mschouhan'){
+      if(q.paper !== 'mschouhan' && !(q.id && String(q.id).startsWith('mschouhan_'))) return false;
+    }
+    if(prkState.chap && q.chapter !== prkState.chap) return false;
+    return true;
+  });
   const years = [...new Set(inSubj.map(q => q.year).filter(Boolean))].sort((a,b) => b - a);
 
   let opts = '<option value="all">All Years</option>';
@@ -5057,6 +5259,17 @@ function getFilteredPracticeQuestions(){
   const list = DB.filter(q => {
     if(q.paper === 'allen') return false;
     if(q.subject !== prkState.subj) return false;
+    if(prkState.sourceGroup === 'fiitjee'){
+      if(q.paper === 'qrp' || (q.id && String(q.id).startsWith('qrp_'))) return false;
+      if(q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) return false;
+      if(q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) return false;
+    } else if(prkState.sourceGroup === 'qrp'){
+      if(q.paper !== 'qrp' && !(q.id && String(q.id).startsWith('qrp_'))) return false;
+    } else if(prkState.sourceGroup === 'neeraj'){
+      if(q.paper !== 'neeraj' && !(q.id && String(q.id).startsWith('nk_'))) return false;
+    } else if(prkState.sourceGroup === 'mschouhan'){
+      if(q.paper !== 'mschouhan' && !(q.id && String(q.id).startsWith('mschouhan_'))) return false;
+    }
     if(prkState.chap && q.chapter !== prkState.chap) return false;
     if(prkState.paper !== 'all'){
       if(prkState.paper === 'qrp'){
@@ -5100,16 +5313,45 @@ function getFilteredPracticeQuestions(){
 
 function renderPracticeMain(){
   const topTitle = $('#prkTopbarTitle');
-  if(topTitle) topTitle.textContent = 'Practice - ' + prkState.subj + (prkState.chap ? ' - ' + prkState.chap : '');
+  const scopeLabel = prkState.chap 
+    ? prkState.chap 
+    : (prkState.sourceGroup === 'fiitjee' 
+        ? 'FIITJEE (AITS)' 
+        : (prkState.sourceGroup === 'qrp' 
+            ? 'Quizrr QRP' 
+            : (prkState.sourceGroup === 'neeraj' 
+                ? 'Neeraj Kumar' 
+                : (prkState.sourceGroup === 'mschouhan' 
+                    ? 'M.S. Chouhan' 
+                    : 'All Chapters'))));
+  if(topTitle) topTitle.textContent = 'Practice - ' + prkState.subj + ' - ' + scopeLabel;
 
   const heroTitle = $('#prkHeroTitle');
-  if(heroTitle) heroTitle.textContent = prkState.chap ? prkState.chap : ('All ' + prkState.subj + ' Questions');
+  if(heroTitle) heroTitle.textContent = prkState.chap ? prkState.chap : (scopeLabel + ' (' + prkState.subj + ')');
 
   const qs = getFilteredPracticeQuestions();
   prkFilteredList = qs;
-  const totalInScope = DB.filter(q => q.subject === prkState.subj && (!prkState.chap || q.chapter === prkState.chap)).length;
+  const totalInScope = DB.filter(q => {
+    if(q.paper === 'allen') return false;
+    if(q.subject !== prkState.subj) return false;
+    if(prkState.sourceGroup === 'fiitjee' && (q.paper === 'qrp' || (q.id && String(q.id).startsWith('qrp_')))) return false;
+    if(prkState.sourceGroup === 'qrp' && (q.paper !== 'qrp' && !(q.id && String(q.id).startsWith('qrp_')))) return false;
+    if(prkState.sourceGroup === 'neeraj' && (q.paper !== 'neeraj' && !(q.id && String(q.id).startsWith('nk_')))) return false;
+    if(prkState.sourceGroup === 'mschouhan' && (q.paper !== 'mschouhan' && !(q.id && String(q.id).startsWith('mschouhan_')))) return false;
+    if(prkState.chap && q.chapter !== prkState.chap) return false;
+    return true;
+  }).length;
   const ansMap = getPrkAnswers();
-  const attInScope = DB.filter(q => q.subject === prkState.subj && (!prkState.chap || q.chapter === prkState.chap) && Boolean(ansMap[q.id] && ansMap[q.id].status !== 'skip')).length;
+  const attInScope = DB.filter(q => {
+    if(q.paper === 'allen') return false;
+    if(q.subject !== prkState.subj) return false;
+    if(prkState.sourceGroup === 'fiitjee' && (q.paper === 'qrp' || (q.id && String(q.id).startsWith('qrp_')))) return false;
+    if(prkState.sourceGroup === 'qrp' && (q.paper !== 'qrp' && !(q.id && String(q.id).startsWith('qrp_')))) return false;
+    if(prkState.sourceGroup === 'neeraj' && (q.paper !== 'neeraj' && !(q.id && String(q.id).startsWith('nk_')))) return false;
+    if(prkState.sourceGroup === 'mschouhan' && (q.paper !== 'mschouhan' && !(q.id && String(q.id).startsWith('mschouhan_')))) return false;
+    if(prkState.chap && q.chapter !== prkState.chap) return false;
+    return Boolean(ansMap[q.id] && ansMap[q.id].status !== 'skip');
+  }).length;
 
   const statsEl = $('#prkHeroStats');
   if(statsEl) statsEl.textContent = 'Showing ' + Math.min(prkVisibleLimit, qs.length) + ' of ' + qs.length + ' Qs (' + totalInScope + ' total)';
@@ -5577,12 +5819,22 @@ function resetAllPracticeAttempts(){
 }
 
 function startTestForCurrentPracticeChapter(){
-  const qs = DB.filter(q => q.subject === prkState.subj && (!prkState.chap || q.chapter === prkState.chap));
+  const qs = DB.filter(q => {
+    if(q.paper === 'allen') return false;
+    if(q.subject !== prkState.subj) return false;
+    if(prkState.sourceGroup === 'fiitjee' && (q.paper === 'qrp' || (q.id && String(q.id).startsWith('qrp_')))) return false;
+    if(prkState.sourceGroup === 'qrp' && (q.paper !== 'qrp' && !(q.id && String(q.id).startsWith('qrp_')))) return false;
+    if(prkState.sourceGroup === 'neeraj' && (q.paper !== 'neeraj' && !(q.id && String(q.id).startsWith('nk_')))) return false;
+    if(prkState.sourceGroup === 'mschouhan' && (q.paper !== 'mschouhan' && !(q.id && String(q.id).startsWith('mschouhan_')))) return false;
+    if(prkState.chap && q.chapter !== prkState.chap) return false;
+    return true;
+  });
   if(!qs.length){
     alert('No questions in this chapter to start a test.');
     return;
   }
-  const title = prkState.chap ? (prkState.subj + ' - ' + prkState.chap) : (prkState.subj + ' CHAPTER TEST');
+  const scopeLabel = prkState.chap || (prkState.sourceGroup === 'qrp' ? 'Quizrr QRP' : (prkState.sourceGroup === 'fiitjee' ? 'FIITJEE' : 'All Chapters'));
+  const title = prkState.subj + ' - ' + scopeLabel + ' PRACTICE TEST';
   buildTest(qs.slice(0, 30), Math.min(30, qs.length) * 3, cfg.preset || 'adv', title);
   renderInstr();
   show('scrInstr');
@@ -6114,11 +6366,32 @@ document.addEventListener('click',e=>{
     const s = b.closest('.marks-sb-item[data-prksubj]').dataset.prksubj;
     prkState.subj = s;
     prkState.chap = null;
+    prkState.sourceGroup = null;
     renderPracticeScreen();
   }
   else if(b.closest('.marks-sb-item[data-prkchap]')){
-    const c = b.closest('.marks-sb-item[data-prkchap]').dataset.prkchap;
-    prkState.chap = c === '__ALL__' ? null : c;
+    const item = b.closest('.marks-sb-item[data-prkchap]');
+    const c = item.dataset.prkchap;
+    const src = item.dataset.prksource || null;
+    if(c === '__ALL__'){
+      prkState.chap = null;
+      prkState.sourceGroup = null;
+    } else if(c === '__ALL_FIITJEE__'){
+      prkState.chap = null;
+      prkState.sourceGroup = 'fiitjee';
+    } else if(c === '__ALL_QRP__'){
+      prkState.chap = null;
+      prkState.sourceGroup = 'qrp';
+    } else if(c === '__ALL_NEERAJ__'){
+      prkState.chap = null;
+      prkState.sourceGroup = 'neeraj';
+    } else if(c === '__ALL_MSCHOUHAN__'){
+      prkState.chap = null;
+      prkState.sourceGroup = 'mschouhan';
+    } else {
+      prkState.chap = c;
+      prkState.sourceGroup = src;
+    }
     renderPracticeSidebar();
     renderPracticeFilterYears();
     renderPracticeMain();
@@ -8992,13 +9265,19 @@ function openCropModal(idx){
   const qImgs = (q.images || []).filter(u => !(q.passageImages || []).includes(u));
   const targetImgUrl = qImgs[0] || (q.passageImages && q.passageImages[0]) || '';
   if(targetImgUrl){
-    wrapper.innerHTML = imageMarkup(targetImgUrl, 'Crop Target Figure', 'crop-modal-target-img');
-    hydrateZipImages(wrapper);
+    wrapper.innerHTML = imageMarkup(targetImgUrl, 'Crop Target Figure', 'crop-modal-target-img test-builder-svg');
+    hydrateZipImages(wrapper).then(() => {
+      updateCropOverlays();
+    });
     const previewImg = wrapper.querySelector('img');
     if(previewImg){
-      previewImg.onload = () => {
+      if(previewImg.complete){
         updateCropOverlays();
-      };
+      } else {
+        previewImg.onload = () => {
+          updateCropOverlays();
+        };
+      }
     }
   } else {
     wrapper.innerHTML = '<div style="padding:40px;text-align:center;color:var(--muted);line-height:1.5">No image figure attached to this question.</div>';
@@ -9019,10 +9298,22 @@ function updateCropOverlays(){
   const oLeft = $('#cropOverlayLeft');
   const oRight = $('#cropOverlayRight');
 
-  if(oTop) oTop.style.height = top + '%';
-  if(oBot) oBot.style.height = bottom + '%';
-  if(oLeft) oLeft.style.width = left + '%';
-  if(oRight) oRight.style.width = right + '%';
+  if(oTop){
+    oTop.style.height = top + '%';
+    oTop.style.borderBottom = top > 0 ? '2px dashed #ef4444' : 'none';
+  }
+  if(oBot){
+    oBot.style.height = bottom + '%';
+    oBot.style.borderTop = bottom > 0 ? '2px dashed #ef4444' : 'none';
+  }
+  if(oLeft){
+    oLeft.style.width = left + '%';
+    oLeft.style.borderRight = left > 0 ? '2px dashed #ef4444' : 'none';
+  }
+  if(oRight){
+    oRight.style.width = right + '%';
+    oRight.style.borderLeft = right > 0 ? '2px dashed #ef4444' : 'none';
+  }
 
   if($('#cropValTop')) $('#cropValTop').textContent = top.toFixed(1) + '%';
   if($('#cropValBottom')) $('#cropValBottom').textContent = bottom.toFixed(1) + '%';
