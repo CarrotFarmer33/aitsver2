@@ -7694,7 +7694,7 @@ function handleBuilderLogin(){
   if(user === 'admin' && pass === 'anwesh@14'){
     setBuilderAuthenticated(true);
     if(err) err.style.display = 'none';
-    openBuilderScreen();
+    window.location.href = "https://anwehsh-jeeneetchemtest.hf.space/builder";
   } else {
     if(err){
       err.textContent = 'Invalid username or password. Access is restricted.';
@@ -7717,47 +7717,12 @@ document.addEventListener('submit', e => {
 });
 
 function openBuilderScreen(){
-  if(window.location.search.includes('desktop=1') || window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost'){
-    document.body.classList.add('desktop-mode');
-  }
   if(!isBuilderAuthenticated()){
     showBuilderLogin();
     return;
   }
-  const hash = window.location.hash || '';
-  if(/allen/i.test(hash) || /allen/i.test(window.location.search)){
-    tbCfg.sourceTab = 'allen';
-  }
-  setSourceTab(tbCfg.sourceTab || 'fiitjee');
-  if(hash.includes('?')){
-    const qIdx = hash.indexOf('?');
-    const params = new URLSearchParams(hash.slice(qIdx + 1));
-    const subj = params.get('subject');
-    const chap = params.get('chapter');
-    if(subj && SUBJ.includes(subj)){
-      tbCfg.subjects = new Set([subj]);
-      document.querySelectorAll('#tbSubjBox input[data-tbsubj]').forEach(cb => {
-        cb.checked = cb.dataset.tbsubj === subj;
-      });
-    }
-    if(chap){
-      const fullKey = (subj || 'Physics') + '||' + chap;
-      tbCfg.chapters = new Set([fullKey]);
-    }
-  } else if(!tbCfg.chapters.size && DB.length){
-    // Select all chapters of active subjects by default
-    DB.forEach(q => {
-      if(tbPaperOK(q)) tbCfg.chapters.add(q.subject + '||' + q.chapter);
-    });
-  }
-  updateSourceToggleUI();
-  syncSourceAllocCounts();
-  updateBuilderPaperOptions();
-  renderBuilderChapters();
-  refreshBuilderSummary();
-  updateExhaustDisplay();
-  renderTbArchive();
-  show('scrTestBuilder');
+  window.location.href = "https://anwehsh-jeeneetchemtest.hf.space/builder";
+}
 
   // Pre-warm engines in background
   if(window.AITS_CONFIG){
