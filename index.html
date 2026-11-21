@@ -2152,19 +2152,39 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   cursor: text !important;
 }
 
-/* 1. PRACTICE MODE ONLY: Seamless dark mode transparent background */
-:root[data-theme="dark"] #scrPracticeDetail .qimg,
-:root:not([data-theme="light"]) #scrPracticeDetail .qimg,
-:root[data-theme="dark"] #scrPracticeList .qimg,
-:root:not([data-theme="light"]) #scrPracticeList .qimg,
-:root[data-theme="dark"] .practice-svg,
-:root:not([data-theme="light"]) .practice-svg,
-:root[data-theme="dark"] .marks-detail-card-body .vector-inline-svg,
-:root:not([data-theme="light"]) .marks-detail-card-body .vector-inline-svg {
+/* 1. PRACTICE MODE: Seamless dark mode rendering with authentic white canvas inversion */
+#scrPracticeDetail .qimg,
+#scrPracticeDetail .practice-svg,
+#scrPracticeDetail .vector-inline-svg,
+#scrPracticeList .qimg,
+#scrPracticeList .practice-svg,
+#scrPracticeList .vector-inline-svg,
+.practice-svg,
+.marks-detail-card-body .vector-inline-svg,
+.marks-detail-card-body .practice-svg,
+.marks-detail-card-body .qimg,
+#prkDetailCardContainer img {
   filter: invert(0.93) hue-rotate(180deg) brightness(1.1) contrast(1.15) !important;
-  background: transparent !important;
+  background: #ffffff !important;
   mix-blend-mode: lighten !important;
   box-shadow: none !important;
+  border-radius: 4px;
+}
+
+:root[data-theme="light"] #scrPracticeDetail .qimg,
+:root[data-theme="light"] #scrPracticeDetail .practice-svg,
+:root[data-theme="light"] #scrPracticeDetail .vector-inline-svg,
+:root[data-theme="light"] #scrPracticeList .qimg,
+:root[data-theme="light"] #scrPracticeList .practice-svg,
+:root[data-theme="light"] #scrPracticeList .vector-inline-svg,
+:root[data-theme="light"] .practice-svg,
+:root[data-theme="light"] .marks-detail-card-body .vector-inline-svg,
+:root[data-theme="light"] .marks-detail-card-body .practice-svg,
+:root[data-theme="light"] .marks-detail-card-body .qimg,
+:root[data-theme="light"] #prkDetailCardContainer img {
+  filter: none !important;
+  background: #ffffff !important;
+  mix-blend-mode: normal !important;
 }
 
 /* 2. TEST BUILDER, CBT EXAM & RESULTS: Clean authentic solid white background, normal blending, crisp black text */
@@ -3329,15 +3349,10 @@ function processSvgMarkup(rawSvgText, isTestBuilder){
   svgText = svgText.replace(/<path [^>]*d="M337\.5\s+484\.199H5617\.5V499\.199H337\.5Z"[^>]*\/?>\s*/gi, '');
   svgText = svgText.replace(/<path [^>]*d="M337\.5\s+7924\.2H5617\.5V7939\.2H337\.5Z"[^>]*\/?>\s*/gi, '');
 
-  if(isTestBuilder){
-    // Test builder / Print: ensure authentic pure white background rect is present
-    if(!/<rect[^>]*fill="#ffffff"/i.test(svgText)){
-      svgText = svgText.replace(/(<svg[^>]*>)/i, '$1<rect width="100%" height="100%" fill="#ffffff"/>');
-    }
-  } else {
-    // Practice mode: strip solid white background rect so it blends seamlessly into dark mode
-    svgText = svgText.replace(/<rect\s+width="100%"\s+height="100%"\s+fill="#ffffff"\s*\/?>/gi, '');
-    svgText = svgText.replace(/<rect[^>]*fill="#ffffff"[^>]*\/>/gi, '');
+  // Ensure authentic solid white background rect is present in every SVG
+  // This allows crisp black-on-white in light mode, and perfect contrast when inverted in dark mode
+  if(!/<rect[^>]*fill="#ffffff"/i.test(svgText)){
+    svgText = svgText.replace(/(<svg[^>]*>)/i, '$1<rect width="100%" height="100%" fill="#ffffff"/>');
   }
 
   return svgText;
@@ -3407,7 +3422,7 @@ const AitsCache = {
 window.AitsCache = AitsCache;
 
 async function fetchCachedJson(url){
-  const cacheKey = 'json:v24:' + url;
+  const cacheKey = 'json:v25:' + url;
   const cached = await AitsCache.get(cacheKey);
   if(cached) return cached;
   const r = await fetch(url);
@@ -3560,7 +3575,7 @@ async function resolveZipImage(img){
         img.style.height = 'auto';
         img.style.display = 'block';
         img.style.margin = '14px auto';
-        img.style.background = 'transparent';
+        img.style.borderRadius = '4px';
       }
       // Vector viewBox crop is already applied; clear CSS clipPath so there is zero double crop
       img.style.clipPath = 'none';
