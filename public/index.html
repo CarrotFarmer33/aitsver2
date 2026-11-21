@@ -4015,7 +4015,7 @@ async function ensureSubjectLoaded(subject){
         const remote = isLocal ? '' : (conf.databaseUrl || '').trim();
         fileUrls = [
           ['database.json', remote, 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/database.json'],
-          ['qrp_database.json', 'public/qrp_database.json']
+          ['qrp_database.json', 'public/qrp_database.json', (conf.qrpUrl || '').trim(), 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/qrp_database.json']
         ];
       } else if(subject === 'Chemistry'){
         const chemRemote = (conf.chemistryUrl || '').trim();
@@ -7262,8 +7262,6 @@ function setSourceTab(tab){
   if(isAllen || isMs || isNeeraj){
     tbCfg.subjects.add('Chemistry');
   } else {
-    tbCfg.subjects.add('Chemistry');
-  } else {
     document.querySelectorAll('#tbSubjBox input[data-tbsubj]').forEach(cb => {
       if(cb.checked) tbCfg.subjects.add(cb.dataset.tbsubj);
     });
@@ -9845,8 +9843,8 @@ function startCbtFromBuilder(){
       fetchFirst(['allenchem_database.json', allenChemRemote, 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/allenchem_database.json'].filter(Boolean)),
       fetchFirst(['allenjee_database.json', allenJeeRemote, 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/allenjee_database.json'].filter(Boolean)),
       fetchFirst(['mschouhan_database.json', 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/mschouhan_database.json'].filter(Boolean)),
-      fetchFirst(['neeraj_database.json', 'public/neeraj_database.json'].filter(Boolean)),
-      fetchFirst(['qrp_database.json', 'public/qrp_database.json'].filter(Boolean))
+      fetchFirst(['neeraj_database.json', 'public/neeraj_database.json', 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/neeraj_database.json'].filter(Boolean)),
+      fetchFirst(['qrp_database.json', 'public/qrp_database.json', conf.qrpUrl, 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/qrp_database.json'].filter(Boolean))
     ]);
     const parts = [phys, chem, mathAdv, mathMain, allenChem, allenJee, msChouhan, neeraj, qrp].filter(Boolean);
     if(parts.length){
