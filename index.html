@@ -3395,7 +3395,7 @@ const AitsCache = {
 window.AitsCache = AitsCache;
 
 async function fetchCachedJson(url){
-  const cacheKey = 'json:v21:' + url;
+  const cacheKey = 'json:v22:' + url;
   const cached = await AitsCache.get(cacheKey);
   if(cached) return cached;
   const r = await fetch(url);
@@ -3420,7 +3420,7 @@ async function getZip(zipUrl){
   const p = (async () => {
     // 1. Check local IndexedDB disk cache with versioned key
     try {
-      const cachedBuf = await AitsCache.get('zip:v17:' + cacheKey);
+      const cachedBuf = await AitsCache.get('zip:v18:' + cacheKey);
       if(cachedBuf){
         return await JSZip.loadAsync(cachedBuf);
       }
@@ -3439,7 +3439,8 @@ async function getZip(zipUrl){
       'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/vector_zips/' + fname,
       'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/' + rel,
       'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/' + rel,
-      'https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/vector_zips/' + fname
+      'https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/vector_zips/' + fname,
+      'https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/' + fname
     ];
 
     let lastErr = null;
@@ -3451,7 +3452,7 @@ async function getZip(zipUrl){
           continue;
         }
         const b = await r.arrayBuffer();
-        AitsCache.set('zip:v17:' + cacheKey, b);
+        AitsCache.set('zip:v18:' + cacheKey, b);
         return await JSZip.loadAsync(b);
       } catch(err) {
         lastErr = err;
@@ -3478,7 +3479,7 @@ async function resolveZipImage(img){
     if(!f){
       try {
         const rel = zipUrl.replace(/^\/+/, '');
-        AitsCache.delete('zip:v17:' + (zipUrl.startsWith('http') ? zipUrl : rel));
+        AitsCache.delete('zip:v18:' + (zipUrl.startsWith('http') ? zipUrl : rel));
         zipCache.delete(zipUrl.startsWith('http') ? zipUrl : rel);
       } catch(_) {}
       throw new Error('Image not found in ZIP: '+fileName);
@@ -3581,7 +3582,6 @@ async function resolveZipImage(img){
     } else {
       img.style.clipPath = 'none';
       img.style.webkitClipPath = 'none';
-    }
     }
     img.removeAttribute('data-zipimg');
   }catch(e){
@@ -9798,6 +9798,7 @@ function startCbtFromBuilder(){
   const metaCandidates = [
     'db_meta.json',
     'public/db_meta.json',
+    'https://huggingface.co/datasets/anwehsh/aits-physics/resolve/main/db_meta.json',
     'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/db_meta.json',
     'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/db_meta.json'
   ];
