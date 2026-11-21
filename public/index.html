@@ -2152,7 +2152,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   cursor: text !important;
 }
 
-/* 1. PRACTICE MODE: Seamless dark mode rendering with authentic white canvas inversion */
+/* 1. PRACTICE MODE & ALL QUESTION CARDS: Clean authentic solid white background, normal blending, crisp black text */
 #scrPracticeDetail .qimg,
 #scrPracticeDetail .practice-svg,
 #scrPracticeDetail .vector-inline-svg,
@@ -2164,11 +2164,14 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 .marks-detail-card-body .practice-svg,
 .marks-detail-card-body .qimg,
 #prkDetailCardContainer img {
-  filter: invert(0.93) hue-rotate(180deg) brightness(1.1) contrast(1.15) !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  mix-blend-mode: normal !important;
   background: #ffffff !important;
-  mix-blend-mode: lighten !important;
-  box-shadow: none !important;
-  border-radius: 4px;
+  color: #000000 !important;
+  border-radius: 6px !important;
+  padding: 8px !important;
+  box-sizing: border-box !important;
 }
 
 :root[data-theme="light"] #scrPracticeDetail .qimg,
@@ -2183,8 +2186,12 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 :root[data-theme="light"] .marks-detail-card-body .qimg,
 :root[data-theme="light"] #prkDetailCardContainer img {
   filter: none !important;
+  -webkit-filter: none !important;
   background: #ffffff !important;
   mix-blend-mode: normal !important;
+  border-radius: 6px !important;
+  padding: 8px !important;
+  box-sizing: border-box !important;
 }
 
 /* 2. TEST BUILDER, CBT EXAM & RESULTS: Clean authentic solid white background, normal blending, crisp black text */
@@ -3422,7 +3429,7 @@ const AitsCache = {
 window.AitsCache = AitsCache;
 
 async function fetchCachedJson(url){
-  const cacheKey = 'json:v25:' + url;
+  const cacheKey = 'json:v26:' + url;
   const cached = await AitsCache.get(cacheKey);
   if(cached) return cached;
   const r = await fetch(url);
@@ -3575,7 +3582,10 @@ async function resolveZipImage(img){
         img.style.height = 'auto';
         img.style.display = 'block';
         img.style.margin = '14px auto';
-        img.style.borderRadius = '4px';
+        img.style.background = '#ffffff';
+        img.style.borderRadius = '6px';
+        img.style.padding = '8px';
+        img.style.boxSizing = 'border-box';
       }
       // Vector viewBox crop is already applied; clear CSS clipPath so there is zero double crop
       img.style.clipPath = 'none';
