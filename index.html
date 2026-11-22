@@ -2166,9 +2166,20 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 }
 
 #scrPracticeDetail .marks-detail-card {
-  background: var(--surface) !important;
-  border: 1px solid var(--line) !important;
-  border-radius: 8px !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+
+#scrPracticeDetail .marks-q-body,
+#scrPracticeDetail .marks-q-img-scroll-wrap {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
 }
 
 #scrPracticeList .marks-q-card {
@@ -3461,15 +3472,39 @@ function processSvgMarkup(rawSvgText, isTestBuilder){
     svgText = svgText.replaceAll(`clip-path='url("#${cid}")'`, '');
   }
 
-  // 5. Strip only outer canvas full-page background rect so the SVG has a transparent background
+  // 5. Strip all solid white background rects so question SVGs have 100% transparent backgrounds
   if(!isTestBuilder){
-    svgText = svgText.replace(/<rect\s+[^>]*width="(?:100%|714|595|842|520)"[^>]*height="(?:100%|\d+)"[^>]*fill="(?:#ffffff|#fff|white|rgb\(100%,\s*100%,\s*100%\)|rgb\(255,\s*255,\s*255\))"[^>]*\/?>/gi, '');
-    svgText = svgText.replace(/<rect\s+[^>]*fill="(?:#ffffff|#fff|white|rgb\(100%,\s*100%,\s*100%\)|rgb\(255,\s*255,\s*255\))"[^>]*width="(?:100%|714|595|842|520)"[^>]*height="(?:100%|\d+)"[^>]*\/?>/gi, '');
+    // Protect rects inside clipPath from removal
+    const clipPathMap = new Map();
+    let cpIndex = 0;
+    svgText = svgText.replace(/<clipPath\b[^>]*>[\s\S]*?<\/clipPath>/gi, function(match){
+      const token = `___CLIP_PATH_PLACEHOLDER_${cpIndex++}___`;
+      clipPathMap.set(token, match);
+      return token;
+    });
+
+    // Strip solid white background rects
+    svgText = svgText.replace(/<rect\b[^>]*\bfill="(?:#ffffff|#fff|white|rgb\(100%,\s*100%,\s*100%\)|rgb\(255,\s*255,\s*255\))"[^>]*\/?>/gi, '');
+    svgText = svgText.replace(/<rect\b[^>]*\bfill="(?:#ffffff|#fff|white|rgb\(100%,\s*100%,\s*100%\)|rgb\(255,\s*255,\s*255\))"[^>]*>[\s\S]*?<\/rect>/gi, '');
+    svgText = svgText.replace(/<rect\b[^>]*\bstyle="[^"]*fill:\s*(?:#ffffff|#fff|white|rgb\(100%,\s*100%,\s*100%\)|rgb\(255,\s*255,\s*255\))[^"]*"[^>]*\/?>/gi, '');
     svgText = svgText.replace(/<rect\s+width="100%"\s+height="100%"[^>]*\/?>/gi, '');
+
+    // Restore clipPath blocks
+    for(const [token, orig] of clipPathMap.entries()){
+      svgText = svgText.replace(token, orig);
+    }
+
+    // Ensure root SVG has transparent background
+    if(/<svg\b[^>]*\bstyle="/i.test(svgText)){
+      svgText = svgText.replace(/(<svg\b[^>]*\bstyle=")([^"]*)(")/i, '$1background:transparent;$2$3');
+    } else {
+      svgText = svgText.replace(/(<svg\b)/i, '$1 style="background:transparent"');
+    }
   }
 
   return svgText;
 }
+window.processSvgMarkup = processSvgMarkup;
 
 /* ---------- IndexedDB High-Performance Cache ---------- */
 const AitsCache = {
