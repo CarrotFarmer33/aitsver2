@@ -1557,7 +1557,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 /* Marks-app inspired practice styles */
 .marks-layout {
   display: grid;
-  grid-template-columns: 260px minmax(0, 1fr);
+  grid-template-columns: 280px minmax(0, 1fr);
   gap: 20px;
   align-items: start;
   padding-top: 16px;
@@ -1566,24 +1566,35 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 .marks-sidebar {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0;
   position: sticky;
   top: calc(46px + env(safe-area-inset-top, 0px));
-}
-.marks-sb-card {
-  background: var(--surface);
+  max-height: calc(100vh - 70px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  border-radius: 8px;
   border: 1px solid var(--line);
-  border-radius: 6px;
+  background: var(--surface);
   overflow: hidden;
 }
+.marks-sb-card {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  overflow: hidden;
+}
+.marks-sb-card + .marks-sb-card {
+  border-top: 1px solid var(--line);
+}
 .marks-sb-head {
-  padding: 10px 14px;
+  padding: 8px 12px;
   border-bottom: 1px solid var(--line);
-  font-size: 11px;
+  font-size: 10px;
   text-transform: uppercase;
-  letter-spacing: .06em;
+  letter-spacing: .08em;
   color: var(--muted);
   font-weight: 700;
+  background: var(--surface-2);
 }
 .marks-sb-item {
   display: flex;
@@ -1603,11 +1614,13 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 .marks-sb-item:last-child { border-bottom: 0; }
 .marks-sb-item:hover { background: var(--surface-2); }
 .marks-sb-item.active {
-  background: rgba(40,106,199,0.09);
+  background: rgba(37,99,235,0.07);
   color: var(--brand);
   font-weight: 700;
   border-left: 3px solid var(--brand);
+  padding-left: 9px;
 }
+.marks-sb-item.active .marks-sb-item-name { color: var(--brand); }
 .marks-sb-count {
   font-size: 11.5px;
   color: var(--muted);
@@ -2490,13 +2503,298 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
   opacity: 0.5;
   cursor: not-allowed;
 }
+/* ===== PRACTICE TAB: REDESIGNED SIDEBAR + LAYOUT ===== */
+
+/* Sidebar toggle button (mobile) */
+.prk-sb-toggle {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fg);
+  cursor: pointer;
+  margin-bottom: 10px;
+  width: 100%;
+}
+.prk-sb-toggle svg { flex-shrink: 0; color: var(--brand); }
+
+/* Chapter search box in sidebar */
+.prk-sb-search-wrap {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+.prk-sb-search {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 5px 12px 5px 30px;
+  font-size: 12.5px;
+  color: var(--fg);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.prk-sb-search:focus { border-color: var(--brand); }
+.prk-sb-search-wrap::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 13px;
+  height: 13px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E") center/contain no-repeat;
+  pointer-events: none;
+}
+
+/* Subject tabs in sidebar — compact pill row */
+.prk-subj-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.prk-subj-tabs::-webkit-scrollbar { display: none; }
+.prk-subj-tab {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--muted);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+}
+.prk-subj-tab:hover { color: var(--fg); }
+.prk-subj-tab.active {
+  color: var(--brand);
+  border-bottom-color: var(--brand);
+  font-weight: 700;
+}
+
+/* Chapter item with progress bar */
+.marks-sb-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 4px;
+  width: 100%;
+  padding: 8px 12px;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  font-size: 12.5px;
+  color: var(--fg);
+  font-weight: 500;
+  transition: background 0.15s ease, color 0.15s ease;
+  cursor: pointer;
+}
+.marks-sb-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 6px;
+}
+.marks-sb-item-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12.5px;
+}
+.marks-sb-progress-wrap {
+  width: 100%;
+  height: 2.5px;
+  background: var(--line);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.marks-sb-progress-bar {
+  height: 100%;
+  border-radius: 2px;
+  background: var(--good, #15803d);
+  transition: width 0.3s ease;
+}
+.marks-sb-item.active .marks-sb-progress-bar { background: var(--brand); }
+
+/* Group headers redesigned */
+.marks-sb-group { border-bottom: 1px solid var(--line); }
+.marks-sb-group-hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--surface-2);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--fg);
+  border-bottom: 1px solid var(--line);
+  transition: background 0.15s;
+}
+.marks-sb-group-hdr::-webkit-details-marker { display: none; }
+.marks-sb-group-hdr:hover { background: var(--line); }
+.marks-sb-group-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  flex: 1;
+}
+.marks-sb-caret {
+  display: inline-block;
+  font-size: 9px;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+  color: var(--muted);
+}
+.marks-sb-group[open] .marks-sb-caret { transform: rotate(90deg); }
+.marks-sb-sublist { background: var(--bg); }
+.marks-sb-subitem {
+  padding-left: 20px;
+  font-size: 12px;
+}
+.marks-sb-count {
+  flex-shrink: 0;
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 600;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 1px 6px;
+  min-width: 24px;
+  text-align: center;
+}
+.marks-sb-item.active .marks-sb-count {
+  background: rgba(37,99,235,0.1);
+  color: var(--brand);
+  border-color: rgba(37,99,235,0.3);
+}
+
+/* Better source tabs: clean pill design at top */
+#prkSourceTabs {
+  display: flex !important;
+  gap: 6px !important;
+  margin-bottom: 14px !important;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+#prkSourceTabs::-webkit-scrollbar { display: none; }
+#prkSourceTabs .source-tab-btn {
+  flex: none !important;
+  min-width: 0 !important;
+  padding: 7px 14px !important;
+  border-radius: 999px !important;
+  font-size: 12.5px !important;
+  white-space: nowrap;
+}
+
+/* Practice breadcrumb bar */
+.prk-breadcrumb-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  margin-bottom: 2px;
+  font-size: 12.5px;
+  flex-wrap: wrap;
+}
+.prk-breadcrumb-bar .prk-bc-sep { color: var(--muted); }
+.prk-breadcrumb-bar .prk-bc-subj { color: var(--muted); font-weight: 500; }
+.prk-breadcrumb-bar .prk-bc-chap { color: var(--fg); font-weight: 700; }
+.prk-breadcrumb-bar .prk-bc-count {
+  margin-left: auto;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 12px;
+}
+
+/* Practice action buttons: bigger, more visible */
+#prkPracticeFirstBtn, #prkTakeTestBtn {
+  flex: 1;
+  min-width: 140px;
+  justify-content: center;
+  padding: 12px 20px !important;
+  font-size: 14px !important;
+  border-radius: 10px !important;
+}
+#prkPracticeFirstBtn {
+  background: var(--brand) !important;
+  color: #fff !important;
+  border-color: var(--brand) !important;
+}
+#prkPracticeFirstBtn:hover {
+  opacity: 0.9 !important;
+}
+
+/* Filter bar: cleaner */
+.marks-filter-bar {
+  background: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  gap: 6px !important;
+}
+
+/* Sidebar overlay for mobile */
+.prk-sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 199;
+}
+
 @media (max-width: 900px) {
   .marks-layout {
     grid-template-columns: minmax(0, 1fr);
   }
   .marks-sidebar {
-    position: static;
+    position: fixed !important;
+    top: 0;
+    left: -300px;
+    width: 280px;
+    height: 100%;
+    z-index: 200;
+    background: var(--bg);
+    border-right: 1px solid var(--line);
+    transition: left 0.25s cubic-bezier(.4,0,.2,1);
+    overflow-y: auto;
+    padding-top: env(safe-area-inset-top, 0px);
+    box-shadow: 4px 0 24px rgba(0,0,0,0.12);
   }
+  .marks-sidebar.open {
+    left: 0;
+  }
+  .prk-sidebar-overlay.show { display: block; }
+  .prk-sb-toggle { display: flex; }
 }
 /* ==================== TEST BUILDER ARCHIVE STYLES ==================== */
 @keyframes tbPulse {
@@ -2675,43 +2973,71 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 
 <div id="scrPracticeList" class="screen" hidden>
   <div class="topbar"><div class="tb-in"><span class="tb-title" id="prkTopbarTitle">Practice &ndash; Questions</span><div style="display:flex;align-items:center;gap:8px"><div class="marks-detail-session-pill" id="prkListSessionPill" title="Questions attempted this session (click to reset)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg><span>Session: <b id="prkListSessionCount">0</b> attempted</span></div><button class="btn sm" id="prkResetAttemptBtn" type="button" style="font-size:12px">Reset Attempts</button><button class="btn sm" id="prkBackBtn" type="button">&larr; Portal Home</button></div></div></div>
+
+  <!-- Mobile sidebar overlay -->
+  <div class="prk-sidebar-overlay" id="prkSidebarOverlay"></div>
+
   <main class="wrap marks-layout">
-    <aside class="marks-sidebar">
+    <aside class="marks-sidebar" id="prkSidebar">
+      <!-- Subject selector: compact pill tabs -->
       <div class="marks-sb-card">
-        <div class="marks-sb-head">Subjects</div>
-        <div id="prkSubjList"></div>
+        <div class="marks-sb-head">Subject</div>
+        <div id="prkSubjList" class="prk-subj-tabs"></div>
       </div>
-      <div class="marks-sb-card">
-        <div class="marks-sb-head">Chapters</div>
-        <div id="prkChapList" style="max-height:60vh;overflow-y:auto"></div>
+      <!-- Chapter search + list -->
+      <div class="marks-sb-card" style="flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden">
+        <div class="marks-sb-head" style="display:flex;align-items:center;justify-content:space-between">
+          <span>Chapters</span>
+          <span id="prkChapCount" style="font-size:11px;font-weight:600;text-transform:none;letter-spacing:0;color:var(--muted)"></span>
+        </div>
+        <div class="prk-sb-search-wrap">
+          <input type="search" class="prk-sb-search" id="prkChapSearch" placeholder="Search chapters…" autocomplete="off" spellcheck="false">
+        </div>
+        <div id="prkChapList" style="overflow-y:auto;max-height:calc(100vh - 260px)"></div>
       </div>
     </aside>
 
     <section class="marks-main-card">
-      <!-- Source Bank Switcher Tabs (Selected Bank vs FIITJEE vs QRP) -->
-      <div class="source-top-tabs" id="prkSourceTabs" style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
-        <button type="button" class="source-tab-btn" data-prksrcgroup="priority" style="flex:1.4;min-width:180px;justify-content:space-between;border-color:var(--brand);background:rgba(37,99,235,0.08);color:var(--fg)">
+      <!-- Mobile sidebar toggle -->
+      <button type="button" class="prk-sb-toggle" id="prkSidebarToggle" aria-label="Open chapter navigator">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <span id="prkSbToggleLabel">Chapters &amp; Filters</span>
+      </button>
+
+      <!-- Active chapter breadcrumb -->
+      <div class="prk-breadcrumb-bar" id="prkBreadcrumbBar">
+        <span class="prk-bc-subj" id="prkBcSubj">Physics</span>
+        <span class="prk-bc-sep">&rsaquo;</span>
+        <span class="prk-bc-chap" id="prkBcChap">All Chapters</span>
+        <span class="prk-bc-count" id="prkBcCount"></span>
+      </div>
+
+      <!-- Source Bank Switcher Tabs -->
+      <div class="source-top-tabs" id="prkSourceTabs">
+        <button type="button" class="source-tab-btn" data-prksrcgroup="priority">
           <span style="font-weight:700">Selected Bank</span>
           <span class="pill-check" id="prkPriorityBadgeCount" style="background:var(--brand);color:#fff;border:none;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;width:auto;height:auto">1,216 Qs</span>
         </button>
-        <button type="button" class="source-tab-btn" data-prksrcgroup="all" style="flex:1;min-width:130px;justify-content:center">
+        <button type="button" class="source-tab-btn" data-prksrcgroup="all">
           <span>All Questions</span>
         </button>
-        <button type="button" class="source-tab-btn" data-prksrcgroup="fiitjee" style="flex:1;min-width:130px;justify-content:center">
+        <button type="button" class="source-tab-btn" data-prksrcgroup="fiitjee">
           <span>FIITJEE (AITS)</span>
         </button>
-        <button type="button" class="source-tab-btn" data-prksrcgroup="qrp" style="flex:1;min-width:130px;justify-content:center">
+        <button type="button" class="source-tab-btn" data-prksrcgroup="qrp">
           <span>Quizrr QRP</span>
         </button>
       </div>
 
-      <!-- Marks Action Buttons (Image 1) -->
-      <div style="display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap">
+      <!-- Marks Action Buttons -->
+      <div style="display:flex;gap:10px;margin-bottom:4px;flex-wrap:wrap">
         <button class="marks-hero-action-btn" id="prkPracticeFirstBtn" type="button">
-          <span>Practice Chapter &rarr;</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          <span>Practice Now</span>
         </button>
         <button class="marks-hero-action-btn test-btn" id="prkTakeTestBtn" type="button">
-          <span>Take Chapter Test &rarr;</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span>Take Chapter Test</span>
         </button>
       </div>
 
@@ -5220,21 +5546,43 @@ function renderPracticeScreen(){
   updateSessionAttemptedCounters();
 }
 
+function applyPrkChapSearch(){
+  const searchInput = $('#prkChapSearch');
+  if(!searchInput) return;
+  const q = searchInput.value.trim().toLowerCase();
+  const items = document.querySelectorAll('#prkChapList .marks-sb-item');
+  const groups = document.querySelectorAll('#prkChapList .marks-sb-group');
+  if(!q){
+    items.forEach(el => el.style.display = '');
+    groups.forEach(el => el.style.display = '');
+    return;
+  }
+  items.forEach(el => {
+    const text = el.textContent.toLowerCase();
+    el.style.display = text.includes(q) ? '' : 'none';
+  });
+  groups.forEach(grp => {
+    const hasVisible = [...grp.querySelectorAll('.marks-sb-item')].some(it => it.style.display !== 'none');
+    grp.style.display = hasVisible ? '' : 'none';
+    if(hasVisible) grp.open = true;
+  });
+}
+
 function renderPracticeSidebar(){
   const availableSubjs = SUBJ.filter(s => DB.some(q => q.paper !== 'allen' && q.subject === s));
   const subjBox = $('#prkSubjList');
   if(subjBox){
     subjBox.innerHTML = availableSubjs.map(s => {
-      const cnt = DB.filter(q => q.paper !== 'allen' && q.subject === s).length;
       const isAct = s === prkState.subj;
-      return '<button type="button" class="marks-sb-item' + (isAct ? ' active' : '') + '" data-prksubj="' + esc(s) + '">' +
-        '<span>' + esc(s) + '</span>' +
-        '<span class="marks-sb-count">' + cnt + '</span>' +
+      return '<button type="button" class="prk-subj-tab' + (isAct ? ' active' : '') + '" data-prksubj="' + esc(s) + '">' +
+        esc(s) +
       '</button>';
     }).join('');
   }
 
   const inSubj = DB.filter(q => q.paper !== 'allen' && q.subject === prkState.subj);
+  const chapCountEl = $('#prkChapCount');
+  if(chapCountEl) chapCountEl.textContent = inSubj.length + ' Qs';
 
   // Canonical taxonomy order for clean syllabus sequence
   const TAXONOMY_CHAPTER_ORDER = {
@@ -5305,17 +5653,37 @@ function renderPracticeSidebar(){
   const msOpen = msEl ? (msEl.open || prkState.sourceGroup === 'mschouhan') : (prkState.sourceGroup === 'mschouhan');
   const nkOpen = nkEl ? (nkEl.open || prkState.sourceGroup === 'neeraj') : (prkState.sourceGroup === 'neeraj');
 
+  const ansMap = getPrkAnswers();
+  const getProgressHtml = (qs) => {
+    if(!qs || !qs.length) return '';
+    const att = qs.filter(q => ansMap[q.id] && ansMap[q.id].status !== 'skip').length;
+    if(!att) return '';
+    const pct = Math.min(100, Math.round(att / qs.length * 100));
+    return '<div class="marks-sb-progress-wrap"><div class="marks-sb-progress-bar" style="width:' + pct + '%"></div></div>';
+  };
+
   const chapBox = $('#prkChapList');
   if(chapBox){
+    const allAtt = inSubj.filter(q => ansMap[q.id] && ansMap[q.id].status !== 'skip').length;
+    const allPct = inSubj.length ? Math.min(100, Math.round(allAtt / inSubj.length * 100)) : 0;
+    const allProg = allAtt > 0 ? '<div class="marks-sb-progress-wrap"><div class="marks-sb-progress-bar" style="width:' + allPct + '%"></div></div>' : '';
+
     let chHtml = '<button type="button" class="marks-sb-item' + (!prkState.chap && !prkState.sourceGroup ? ' active' : '') + '" data-prkchap="__ALL__" data-prksource="__ALL__">' +
-      '<span style="font-weight:600">All Chapters</span>' +
-      '<span class="marks-sb-count">' + inSubj.length + '</span>' +
+      '<div class="marks-sb-item-row">' +
+        '<span class="marks-sb-item-name" style="font-weight:600">All Chapters</span>' +
+        '<span class="marks-sb-count">' + inSubj.length + '</span>' +
+      '</div>' +
+      allProg +
     '</button>';
 
     // 0. Selected Bank (2024-2025 JEE Main)
     if(priorityQs.length > 0 || Object.keys(byChPriority).length > 0){
       const keys = Object.keys(byChPriority).sort((a,b) => (TAXONOMY_CHAPTER_ORDER[a] || 99) - (TAXONOMY_CHAPTER_ORDER[b] || 99) || a.localeCompare(b));
       const isAllPriority = !prkState.chap && prkState.sourceGroup === 'priority';
+      const prioAtt = priorityQs.filter(q => ansMap[q.id] && ansMap[q.id].status !== 'skip').length;
+      const prioPct = priorityQs.length ? Math.min(100, Math.round(prioAtt / priorityQs.length * 100)) : 0;
+      const prioProg = prioAtt > 0 ? '<div class="marks-sb-progress-wrap"><div class="marks-sb-progress-bar" style="width:' + prioPct + '%"></div></div>' : '';
+
       chHtml += '<details class="marks-sb-group" id="prkGroupPriority"' + (priorityOpen ? ' open' : '') + '>' +
         '<summary class="marks-sb-group-hdr" style="background:rgba(37,99,235,0.08);border-left:3.5px solid var(--brand)">' +
           '<span class="marks-sb-group-title" style="color:var(--fg);font-weight:700">' +
@@ -5326,14 +5694,25 @@ function renderPracticeSidebar(){
         '</summary>' +
         '<div class="marks-sb-sublist">' +
           '<button type="button" class="marks-sb-item marks-sb-subitem' + (isAllPriority ? ' active' : '') + '" data-prkchap="__ALL_PRIORITY__" data-prksource="priority">' +
-            '<span style="font-weight:700">All Selected Bank</span>' +
-            '<span class="marks-sb-count">' + priorityQs.length + '</span>' +
+            '<div class="marks-sb-item-row">' +
+              '<span class="marks-sb-item-name" style="font-weight:700">All Selected Bank</span>' +
+              '<span class="marks-sb-count">' + priorityQs.length + '</span>' +
+            '</div>' +
+            prioProg +
           '</button>' +
           keys.map(c => {
             const isAct = prkState.chap === c && prkState.sourceGroup === 'priority';
+            const cQs = priorityQs.filter(q => {
+              const qCh = (window.PRIORITY_MAP && window.PRIORITY_MAP[q.id] && window.PRIORITY_MAP[q.id].chapter) || q.chapter;
+              return qCh === c;
+            });
+            const cProg = getProgressHtml(cQs);
             return '<button type="button" class="marks-sb-item marks-sb-subitem' + (isAct ? ' active' : '') + '" data-prkchap="' + esc(c) + '" data-prksource="priority">' +
-              '<span>' + esc(c) + '</span>' +
-              '<span class="marks-sb-count">' + byChPriority[c] + '</span>' +
+              '<div class="marks-sb-item-row">' +
+                '<span class="marks-sb-item-name">' + esc(c) + '</span>' +
+                '<span class="marks-sb-count">' + byChPriority[c] + '</span>' +
+              '</div>' +
+              cProg +
             '</button>';
           }).join('') +
         '</div>' +
@@ -5344,6 +5723,10 @@ function renderPracticeSidebar(){
     if(fiitjeeQs.length > 0){
       const keys = Object.keys(byChFiitjee).sort((a,b) => svOrder(prkState.subj, a) - svOrder(prkState.subj, b) || a.localeCompare(b));
       const isAllFiitjee = !prkState.chap && prkState.sourceGroup === 'fiitjee';
+      const fjAtt = fiitjeeQs.filter(q => ansMap[q.id] && ansMap[q.id].status !== 'skip').length;
+      const fjPct = fiitjeeQs.length ? Math.min(100, Math.round(fjAtt / fiitjeeQs.length * 100)) : 0;
+      const fjProg = fjAtt > 0 ? '<div class="marks-sb-progress-wrap"><div class="marks-sb-progress-bar" style="width:' + fjPct + '%"></div></div>' : '';
+
       chHtml += '<details class="marks-sb-group" id="prkGroupFiitjee"' + (fiitjeeOpen ? ' open' : '') + '>' +
         '<summary class="marks-sb-group-hdr">' +
           '<span class="marks-sb-group-title">' +
@@ -5354,14 +5737,22 @@ function renderPracticeSidebar(){
         '</summary>' +
         '<div class="marks-sb-sublist">' +
           '<button type="button" class="marks-sb-item marks-sb-subitem' + (isAllFiitjee ? ' active' : '') + '" data-prkchap="__ALL_FIITJEE__" data-prksource="fiitjee">' +
-            '<span style="font-weight:600">All FIITJEE Chapters</span>' +
-            '<span class="marks-sb-count">' + fiitjeeQs.length + '</span>' +
+            '<div class="marks-sb-item-row">' +
+              '<span class="marks-sb-item-name" style="font-weight:600">All FIITJEE Chapters</span>' +
+              '<span class="marks-sb-count">' + fiitjeeQs.length + '</span>' +
+            '</div>' +
+            fjProg +
           '</button>' +
           keys.map(c => {
             const isAct = prkState.chap === c && prkState.sourceGroup === 'fiitjee';
+            const cQs = fiitjeeQs.filter(q => q.chapter === c);
+            const cProg = getProgressHtml(cQs);
             return '<button type="button" class="marks-sb-item marks-sb-subitem' + (isAct ? ' active' : '') + '" data-prkchap="' + esc(c) + '" data-prksource="fiitjee">' +
-              '<span>' + esc(c) + '</span>' +
-              '<span class="marks-sb-count">' + byChFiitjee[c] + '</span>' +
+              '<div class="marks-sb-item-row">' +
+                '<span class="marks-sb-item-name">' + esc(c) + '</span>' +
+                '<span class="marks-sb-count">' + byChFiitjee[c] + '</span>' +
+              '</div>' +
+              cProg +
             '</button>';
           }).join('') +
         '</div>' +
@@ -5377,6 +5768,10 @@ function renderPracticeSidebar(){
         return a.localeCompare(b);
       });
       const isAllQrp = !prkState.chap && prkState.sourceGroup === 'qrp';
+      const qrpAtt = qrpQs.filter(q => ansMap[q.id] && ansMap[q.id].status !== 'skip').length;
+      const qrpPct = qrpQs.length ? Math.min(100, Math.round(qrpAtt / qrpQs.length * 100)) : 0;
+      const qrpProg = qrpAtt > 0 ? '<div class="marks-sb-progress-wrap"><div class="marks-sb-progress-bar" style="width:' + qrpPct + '%"></div></div>' : '';
+
       chHtml += '<details class="marks-sb-group" id="prkGroupQrp"' + (qrpOpen ? ' open' : '') + '>' +
         '<summary class="marks-sb-group-hdr">' +
           '<span class="marks-sb-group-title">' +
@@ -5387,8 +5782,11 @@ function renderPracticeSidebar(){
         '</summary>' +
         '<div class="marks-sb-sublist">' +
           '<button type="button" class="marks-sb-item marks-sb-subitem' + (isAllQrp ? ' active' : '') + '" data-prkchap="__ALL_QRP__" data-prksource="qrp">' +
-            '<span style="font-weight:600">All QRPs</span>' +
-            '<span class="marks-sb-count">' + qrpQs.length + '</span>' +
+            '<div class="marks-sb-item-row">' +
+              '<span class="marks-sb-item-name" style="font-weight:600">All QRPs</span>' +
+              '<span class="marks-sb-count">' + qrpQs.length + '</span>' +
+            '</div>' +
+            qrpProg +
           '</button>' +
           keys.map(c => {
             const isAct = prkState.chap === c && prkState.sourceGroup === 'qrp';
@@ -5396,11 +5794,16 @@ function renderPracticeSidebar(){
             const pill = m ? m[1] : '';
             const subTitle = m ? m[2] : c;
             const labelHtml = pill
-              ? '<span style="display:inline-flex;align-items:center;gap:6px"><span class="qrp-ch-pill">' + esc(pill) + '</span><span>' + esc(subTitle) + '</span></span>'
-              : '<span>' + esc(c) + '</span>';
+              ? '<span style="display:inline-flex;align-items:center;gap:6px;min-width:0;overflow:hidden"><span class="qrp-ch-pill">' + esc(pill) + '</span><span class="marks-sb-item-name">' + esc(subTitle) + '</span></span>'
+              : '<span class="marks-sb-item-name">' + esc(c) + '</span>';
+            const cQs = qrpQs.filter(q => q.chapter === c);
+            const cProg = getProgressHtml(cQs);
             return '<button type="button" class="marks-sb-item marks-sb-subitem' + (isAct ? ' active' : '') + '" data-prkchap="' + esc(c) + '" data-prksource="qrp">' +
-              labelHtml +
-              '<span class="marks-sb-count">' + byChQrp[c] + '</span>' +
+              '<div class="marks-sb-item-row">' +
+                labelHtml +
+                '<span class="marks-sb-count">' + byChQrp[c] + '</span>' +
+              '</div>' +
+              cProg +
             '</button>';
           }).join('') +
         '</div>' +
@@ -5411,6 +5814,10 @@ function renderPracticeSidebar(){
     if(nkQs.length > 0){
       const keys = Object.keys(byChNk).sort((a,b) => a.localeCompare(b));
       const isAllNk = !prkState.chap && prkState.sourceGroup === 'neeraj';
+      const nkAtt = nkQs.filter(q => ansMap[q.id] && ansMap[q.id].status !== 'skip').length;
+      const nkPct = nkQs.length ? Math.min(100, Math.round(nkAtt / nkQs.length * 100)) : 0;
+      const nkProg = nkAtt > 0 ? '<div class="marks-sb-progress-wrap"><div class="marks-sb-progress-bar" style="width:' + nkPct + '%"></div></div>' : '';
+
       chHtml += '<details class="marks-sb-group" id="prkGroupNk"' + (nkOpen ? ' open' : '') + '>' +
         '<summary class="marks-sb-group-hdr">' +
           '<span class="marks-sb-group-title"><span class="marks-sb-caret">&#9656;</span><span>Neeraj Kumar (Physical)</span></span>' +
@@ -5418,12 +5825,22 @@ function renderPracticeSidebar(){
         '</summary>' +
         '<div class="marks-sb-sublist">' +
           '<button type="button" class="marks-sb-item marks-sb-subitem' + (isAllNk ? ' active' : '') + '" data-prkchap="__ALL_NEERAJ__" data-prksource="neeraj">' +
-            '<span style="font-weight:600">All Neeraj Kumar</span><span class="marks-sb-count">' + nkQs.length + '</span>' +
+            '<div class="marks-sb-item-row">' +
+              '<span class="marks-sb-item-name" style="font-weight:600">All Neeraj Kumar</span>' +
+              '<span class="marks-sb-count">' + nkQs.length + '</span>' +
+            '</div>' +
+            nkProg +
           '</button>' +
           keys.map(c => {
             const isAct = prkState.chap === c && prkState.sourceGroup === 'neeraj';
+            const cQs = nkQs.filter(q => q.chapter === c);
+            const cProg = getProgressHtml(cQs);
             return '<button type="button" class="marks-sb-item marks-sb-subitem' + (isAct ? ' active' : '') + '" data-prkchap="' + esc(c) + '" data-prksource="neeraj">' +
-              '<span>' + esc(c) + '</span><span class="marks-sb-count">' + byChNk[c] + '</span>' +
+              '<div class="marks-sb-item-row">' +
+                '<span class="marks-sb-item-name">' + esc(c) + '</span>' +
+                '<span class="marks-sb-count">' + byChNk[c] + '</span>' +
+              '</div>' +
+              cProg +
             '</button>';
           }).join('') +
         '</div>' +
@@ -5434,6 +5851,10 @@ function renderPracticeSidebar(){
     if(msQs.length > 0){
       const keys = Object.keys(byChMs).sort((a,b) => a.localeCompare(b));
       const isAllMs = !prkState.chap && prkState.sourceGroup === 'mschouhan';
+      const msAtt = msQs.filter(q => ansMap[q.id] && ansMap[q.id].status !== 'skip').length;
+      const msPct = msQs.length ? Math.min(100, Math.round(msAtt / msQs.length * 100)) : 0;
+      const msProg = msAtt > 0 ? '<div class="marks-sb-progress-wrap"><div class="marks-sb-progress-bar" style="width:' + msPct + '%"></div></div>' : '';
+
       chHtml += '<details class="marks-sb-group" id="prkGroupMs"' + (msOpen ? ' open' : '') + '>' +
         '<summary class="marks-sb-group-hdr">' +
           '<span class="marks-sb-group-title"><span class="marks-sb-caret">&#9656;</span><span>M.S. Chouhan (Organic)</span></span>' +
@@ -5441,12 +5862,22 @@ function renderPracticeSidebar(){
         '</summary>' +
         '<div class="marks-sb-sublist">' +
           '<button type="button" class="marks-sb-item marks-sb-subitem' + (isAllMs ? ' active' : '') + '" data-prkchap="__ALL_MSCHOUHAN__" data-prksource="mschouhan">' +
-            '<span style="font-weight:600">All M.S. Chouhan</span><span class="marks-sb-count">' + msQs.length + '</span>' +
+            '<div class="marks-sb-item-row">' +
+              '<span class="marks-sb-item-name" style="font-weight:600">All M.S. Chouhan</span>' +
+              '<span class="marks-sb-count">' + msQs.length + '</span>' +
+            '</div>' +
+            msProg +
           '</button>' +
           keys.map(c => {
             const isAct = prkState.chap === c && prkState.sourceGroup === 'mschouhan';
+            const cQs = msQs.filter(q => q.chapter === c);
+            const cProg = getProgressHtml(cQs);
             return '<button type="button" class="marks-sb-item marks-sb-subitem' + (isAct ? ' active' : '') + '" data-prkchap="' + esc(c) + '" data-prksource="mschouhan">' +
-              '<span>' + esc(c) + '</span><span class="marks-sb-count">' + byChMs[c] + '</span>' +
+              '<div class="marks-sb-item-row">' +
+                '<span class="marks-sb-item-name">' + esc(c) + '</span>' +
+                '<span class="marks-sb-count">' + byChMs[c] + '</span>' +
+              '</div>' +
+              cProg +
             '</button>';
           }).join('') +
         '</div>' +
@@ -5455,7 +5886,30 @@ function renderPracticeSidebar(){
 
     chapBox.innerHTML = chHtml;
   }
+
+  // Update breadcrumb
+  const bcSubj = $('#prkBcSubj'), bcChap = $('#prkBcChap');
+  if(bcSubj) bcSubj.textContent = prkState.subj;
+  if(bcChap){
+    const sourceLabel = prkState.sourceGroup === 'priority' ? 'Selected Bank'
+      : prkState.sourceGroup === 'fiitjee' ? 'FIITJEE (AITS)'
+      : prkState.sourceGroup === 'qrp' ? 'Quizrr QRP'
+      : prkState.sourceGroup === 'neeraj' ? 'Neeraj Kumar'
+      : prkState.sourceGroup === 'mschouhan' ? 'M.S. Chouhan'
+      : 'All Chapters';
+    bcChap.textContent = prkState.chap || sourceLabel;
+  }
+
+  // Wire search input listener if not already bound
+  const searchInput = $('#prkChapSearch');
+  if(searchInput && !searchInput.dataset.bound){
+    searchInput.dataset.bound = '1';
+    searchInput.addEventListener('input', applyPrkChapSearch);
+  }
+  applyPrkChapSearch();
 }
+window.openPracticeList = openPracticeList;
+window.applyPrkChapSearch = applyPrkChapSearch;
 
 function renderPracticeFilterYears(){
   const yrSel = $('#prkFilterYear');
@@ -5650,6 +6104,9 @@ function renderPracticeMain(){
 
   const statsEl = $('#prkHeroStats');
   if(statsEl) statsEl.textContent = 'Showing ' + Math.min(prkVisibleLimit, qs.length) + ' of ' + qs.length + ' Qs (' + totalInScope + ' total)';
+
+  const bcCount = $('#prkBcCount');
+  if(bcCount) bcCount.textContent = '(' + qs.length + ' Qs)';
 
   const sortEl = $('#prkSortBtn');
   if(sortEl) sortEl.innerHTML = prkState.sortOrder === 'asc' ? '&uarr;&darr; Year-wise (Old to New)' : '&uarr;&darr; Year-wise (New to Old)';
@@ -6633,6 +7090,13 @@ document.addEventListener('click',e=>{
     return;
   }
 
+  // Mobile practice sidebar overlay click
+  if(e.target && e.target.id === 'prkSidebarOverlay'){
+    $('#prkSidebar')?.classList.remove('open');
+    $('#prkSidebarOverlay')?.classList.remove('show');
+    return;
+  }
+
   const b=e.target.closest('button, .pattern-pill'); if(!b) return;
   if(b.id==='chAll'||b.id==='chNone'){ const term=$('#chSearch').value.trim().toLowerCase(); DB.forEach(q=>{ if(cfg.subjects.has(q.subject)&&(!term||q.chapter.toLowerCase().includes(term)||q.subject.toLowerCase().includes(term))){ const k=q.subject+'||'+q.chapter; b.id==='chAll'?cfg.chapters.add(k):cfg.chapters.delete(k); } }); renderChapters(); renderTypes(); refreshSummary(); }
   else if(b.id==='attReset'){ if(confirm('Forget all attempted questions?')){ ATT.clear(); saveAtt(); refreshSummary(); } }
@@ -6681,13 +7145,21 @@ document.addEventListener('click',e=>{
       alert('Session counter: 0 questions attempted so far in this session.');
     }
   }
+  else if(b.id==='prkSidebarToggle' || b.closest('#prkSidebarToggle')){
+    $('#prkSidebar')?.classList.toggle('open');
+    $('#prkSidebarOverlay')?.classList.toggle('show');
+  }
   else if(b.id==='prkTakeTestBtn'){ startTestForCurrentPracticeChapter(); }
-  else if(b.closest('.marks-sb-item[data-prksubj]')){
-    const s = b.closest('.marks-sb-item[data-prksubj]').dataset.prksubj;
+  else if(b.closest('[data-prksubj]')){
+    const s = b.closest('[data-prksubj]').dataset.prksubj;
     prkState.subj = s;
     prkState.chap = null;
     prkState.sourceGroup = null;
     renderPracticeScreen();
+    if(window.innerWidth <= 900){
+      $('#prkSidebar')?.classList.remove('open');
+      $('#prkSidebarOverlay')?.classList.remove('show');
+    }
   }
   else if(b.closest('#prkSourceTabs [data-prksrcgroup]')){
     const btn = b.closest('#prkSourceTabs [data-prksrcgroup]');
@@ -6727,6 +7199,10 @@ document.addEventListener('click',e=>{
     renderPracticeSidebar();
     renderPracticeFilterYears();
     renderPracticeMain();
+    if(window.innerWidth <= 900){
+      $('#prkSidebar')?.classList.remove('open');
+      $('#prkSidebarOverlay')?.classList.remove('show');
+    }
   }
   else if(b.closest('#prkToggleHideAttempted')){
     prkState.hideAttempted = !prkState.hideAttempted;
