@@ -3141,7 +3141,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
     <div class="marks-detail-header">
       <div class="marks-detail-header-left">
         <div class="marks-detail-qnum" id="prkDetailQNum">Q 1</div>
-        <div class="marks-detail-qmeta" id="prkDetailQMeta">JEE Main 2025</div>
+        <div class="marks-detail-qmeta" id="prkDetailQMeta"></div>
       </div>
       <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
         <div class="marks-detail-session-pill" id="prkDetailSessionPill" title="Questions attempted this session (click to reset)">
@@ -3915,7 +3915,7 @@ window.PRIORITY_MAP = window.PRIORITY_BANK.questions || {};
 
 
 async function fetchCachedJson(url){
-  const cacheKey = 'json:v29:' + url;
+  const cacheKey = 'json:v30:' + url;
   const cached = await AitsCache.get(cacheKey);
   if(cached) return cached;
   const r = await fetch(url);
@@ -6371,7 +6371,8 @@ function renderPracticeDetailView(){
   }
 
   const isPri = Boolean(window.PRIORITY_MAP && window.PRIORITY_MAP[q.id]);
-  const paperName = isPri ? 'Selected Bank' : ((q.paper === 'qrp' || String(q.id).startsWith('qrp_')) ? 'Quizrr QRP' : (q.paper === 'adv' ? 'JEE Advanced' : (q.paper === 'main' ? 'JEE Main' : 'AITS')));
+  const isHcv = q.paper === 'hcv' || (q.id && String(q.id).startsWith('HCV_'));
+  const paperName = isPri ? 'Selected Bank' : (isHcv ? 'HC Verma' : ((q.paper === 'qrp' || String(q.id).startsWith('qrp_')) ? 'Quizrr QRP' : (q.paper === 'adv' ? 'JEE Advanced' : (q.paper === 'main' ? 'JEE Main' : 'AITS'))));
   const breadcrumbEl = $('#prkDetailBreadcrumb');
   if(breadcrumbEl){
     const chapPart = prkState.chap || (isPri && window.PRIORITY_MAP[q.id] ? window.PRIORITY_MAP[q.id].chapter : q.chapter);
@@ -6383,13 +6384,13 @@ function renderPracticeDetailView(){
 
   const qMetaEl = $('#prkDetailQMeta');
   if(qMetaEl){
-    if(isPri && window.PRIORITY_MAP[q.id]){
-      const pInfo = window.PRIORITY_MAP[q.id];
-      qMetaEl.innerHTML = '<span style="color:var(--brand);font-weight:700">Topic: ' + esc(pInfo.topic || '') + '</span> &bull; <span>JEE Main ' + esc(pInfo.year || q.year || 2025) + '</span> &bull; <span>' + esc(pInfo.chapter || q.chapter || '') + '</span>';
-    } else if(isHcv){
+    if(isHcv){
       const sec = q.hcv_section || 'Selected';
       const num = q.hcv_qnum ? (' Q' + q.hcv_qnum) : '';
       qMetaEl.innerHTML = '<span style="color:var(--brand);font-weight:700">HC Verma</span> &bull; <span>' + esc(sec + num) + '</span> &bull; <span>' + esc(q.chapter || '') + '</span>';
+    } else if(isPri && window.PRIORITY_MAP[q.id]){
+      const pInfo = window.PRIORITY_MAP[q.id];
+      qMetaEl.innerHTML = '<span style="color:var(--brand);font-weight:700">Topic: ' + esc(pInfo.topic || '') + '</span> &bull; <span>JEE Main ' + esc(pInfo.year || q.year || 2025) + '</span> &bull; <span>' + esc(pInfo.chapter || q.chapter || '') + '</span>';
     } else {
       const yrStr = q.year ? (' ' + q.year) : '';
       const src = cleanSourceTag(q) || (paperName + yrStr);
@@ -7971,6 +7972,11 @@ function stripWatermarks(text){
 }
 
 function cleanSourceTag(q){
+  if(q.paper === 'hcv' || (q.id && String(q.id).startsWith('HCV_'))){
+    const sec = q.hcv_section || 'Selected';
+    const num = q.hcv_qnum ? (' • Q' + q.hcv_qnum) : '';
+    return 'HC Verma • ' + sec + num;
+  }
   if(q.paper === 'qrp' || (q.id && String(q.id).startsWith('qrp_'))){
     const qrpNum = q.qrpNumber ? ('0' + q.qrpNumber).slice(-2) : (String(q.id).match(/qrp_(\d+)/i) ? ('0' + String(q.id).match(/qrp_(\d+)/i)[1]).slice(-2) : '');
     return 'Quizrr QRP' + (qrpNum ? (' • QRP ' + qrpNum) : '');
