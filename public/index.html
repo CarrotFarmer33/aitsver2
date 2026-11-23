@@ -2442,6 +2442,59 @@ mjx-container *{color:#ffffff !important;fill:#ffffff !important}
   -webkit-user-select: text;
 }
 
+/* Dark Mode Pure White Option Text & MathJax */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .marks-opt-chip,
+  :root:not([data-theme="light"]) .marks-opt-text,
+  :root:not([data-theme="light"]) .marks-opt-text *,
+  :root:not([data-theme="light"]) .marks-opt-circle,
+  :root:not([data-theme="light"]) .opts,
+  :root:not([data-theme="light"]) .opt,
+  :root:not([data-theme="light"]) .opt .ot,
+  :root:not([data-theme="light"]) .opt .ot *,
+  :root:not([data-theme="light"]) .opt .ol,
+  :root:not([data-theme="light"]) .qpopts,
+  :root:not([data-theme="light"]) .qpopts li,
+  :root:not([data-theme="light"]) .qpopts li * {
+    color: #ffffff !important;
+  }
+  :root:not([data-theme="light"]) mjx-container,
+  :root:not([data-theme="light"]) mjx-container *,
+  :root:not([data-theme="light"]) mjx-container svg {
+    color: #ffffff !important;
+    fill: #ffffff !important;
+  }
+}
+:root[data-theme="dark"] .marks-opt-chip,
+:root[data-theme="dark"] .marks-opt-text,
+:root[data-theme="dark"] .marks-opt-text *,
+:root[data-theme="dark"] .marks-opt-circle,
+:root[data-theme="dark"] .opts,
+:root[data-theme="dark"] .opt,
+:root[data-theme="dark"] .opt .ot,
+:root[data-theme="dark"] .opt .ot *,
+:root[data-theme="dark"] .opt .ol,
+:root[data-theme="dark"] .qpopts,
+:root[data-theme="dark"] .qpopts li,
+:root[data-theme="dark"] .qpopts li *,
+#scrExam[data-xtheme="dark"] .opts,
+#scrExam[data-xtheme="dark"] .opt,
+#scrExam[data-xtheme="dark"] .opt .ot,
+#scrExam[data-xtheme="dark"] .opt .ot *,
+#scrExam[data-xtheme="dark"] .opt .ol,
+#scrExam[data-xtheme="dark"] mjx-container,
+#scrExam[data-xtheme="dark"] mjx-container * {
+  color: #ffffff !important;
+}
+:root[data-theme="dark"] mjx-container,
+:root[data-theme="dark"] mjx-container *,
+:root[data-theme="dark"] mjx-container svg,
+#scrExam[data-xtheme="dark"] mjx-container svg {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+}
+
+
 /* Floating Bottom Action Bar (Image 2) */
 .marks-bottom-bar {
   position: fixed;
