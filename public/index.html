@@ -3030,6 +3030,15 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
         </button>
         <button type="button" class="source-tab-btn" data-prksrcgroup="qrp">
           <span>Quizrr QRP</span>
+          <span class="pill-check" id="prkQrpBadgeCount" style="background:var(--brand);color:#fff;border:none;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;width:auto;height:auto;display:none"></span>
+        </button>
+        <button type="button" class="source-tab-btn" data-prksrcgroup="mschouhan" style="display:none">
+          <span style="font-weight:700">M.S. Chouhan</span>
+          <span class="pill-check" id="prkMsBadgeCount" style="background:var(--brand);color:#fff;border:none;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;width:auto;height:auto;display:none"></span>
+        </button>
+        <button type="button" class="source-tab-btn" data-prksrcgroup="neeraj" style="display:none">
+          <span style="font-weight:700">Neeraj Kumar</span>
+          <span class="pill-check" id="prkNkBadgeCount" style="background:var(--brand);color:#fff;border:none;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;width:auto;height:auto;display:none"></span>
         </button>
       </div>
 
@@ -3057,6 +3066,7 @@ mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
           <option value="priority">Selected Bank</option>
           <option value="main">JEE Main</option>
           <option value="adv">JEE Advanced</option>
+          <option value="hcv">HC Verma (Selected)</option>
           <option value="qrp">Quizrr QRP (2027)</option>
         </select>
 
@@ -3905,7 +3915,7 @@ window.PRIORITY_MAP = window.PRIORITY_BANK.questions || {};
 
 
 async function fetchCachedJson(url){
-  const cacheKey = 'json:v28:' + url;
+  const cacheKey = 'json:v29:' + url;
   const cached = await AitsCache.get(cacheKey);
   if(cached) return cached;
   const r = await fetch(url);
@@ -4432,9 +4442,15 @@ function normQuestion(q,i,defSubject){
     raster_images:[].concat(q.raster_images||imgs).filter(Boolean).map(String),
     solImages:[].concat(q.solution_images||q.solutionImages||[]).filter(Boolean).map(String),
     source:String(q.source!=null?q.source:(q.source_paper!=null?q.source_paper:(q.paper!=null?q.paper:(q.test||'')))),
-    bank: (q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) ? (q.bank || ((q.subSource === 'jee_advanced' || (q.exam && /adv/i.test(q.exam)) || String(q.id).includes('_jee_adv')) ? 'JEE Advanced' : 'JEE Main')) : ((q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? (q.bank || 'Selected Questions') : (q.bank || q.exercise || (String(q.id).includes('_o1_') ? 'O-1' : (String(q.id).includes('_o2_') ? 'O-2' : '')))),
+    bank: (q.paper === 'hcv' || (q.id && String(q.id).startsWith('HCV_'))) ? 'HC Verma' : ((q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) ? (q.bank || ((q.subSource === 'jee_advanced' || (q.exam && /adv/i.test(q.exam)) || String(q.id).includes('_jee_adv')) ? 'JEE Advanced' : 'JEE Main')) : ((q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? (q.bank || 'Selected Questions') : (q.bank || q.exercise || (String(q.id).includes('_o1_') ? 'O-1' : (String(q.id).includes('_o2_') ? 'O-2' : ''))))),
     branch: q.branch || ((q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) ? 'Physical Chemistry' : ((q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? 'Organic Chemistry' : (((q.paper === 'allen' || (q.id && String(q.id).startsWith('allenchem_'))) ? 'NEET Modules' : '')))),
-    paper: (q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) ? 'neeraj' : ((q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? 'mschouhan' : ((q.paper === 'allen_jee' || (q.id && String(q.id).startsWith('allenjee_'))) ? 'allen_jee' : ((q.paper === 'allen' || (q.id && String(q.id).startsWith('allenchem_')) || /allen/i.test(String(q.source||''))) ? 'allen' : (q.exam ? (/adv/i.test(q.exam)?'adv':(/main/i.test(q.exam)?'main':q.exam)) : paperOf(String(q.source||'')+' '+String(q.paperTitle||q.paper_title||'')))))),
+    paper: (q.paper === 'hcv' || (q.id && String(q.id).startsWith('HCV_'))) ? 'hcv' : ((q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) ? 'neeraj' : ((q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? 'mschouhan' : ((q.paper === 'allen_jee' || (q.id && String(q.id).startsWith('allenjee_'))) ? 'allen_jee' : ((q.paper === 'allen' || (q.id && String(q.id).startsWith('allenchem_')) || /allen/i.test(String(q.source||''))) ? 'allen' : (q.exam ? (/adv/i.test(q.exam)?'adv':(/main/i.test(q.exam)?'main':q.exam)) : paperOf(String(q.source||'')+' '+String(q.paperTitle||q.paper_title||''))))))),
+    is_vector: q.is_vector || false,
+    svg_path: q.svg_path || null,
+    svg_dimensions: q.svg_dimensions || null,
+    hcv_chapter: q.hcv_chapter || null,
+    hcv_section: q.hcv_section || null,
+    hcv_qnum: q.hcv_qnum || null,
     selected: !!q.selected,
     star: q.star || null,
     exercise: q.exercise || ((q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) ? ((q.subSource === 'jee_advanced' || (q.exam && /adv/i.test(q.exam)) || String(q.id).includes('_jee_adv')) ? 'Exercise II' : 'Exercise I') : ((q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? 'Level 1' : null)),
@@ -4553,7 +4569,7 @@ async function ensureSubjectLoaded(subject){
         const remote = isLocal ? '' : (conf.databaseUrl || '').trim();
         fileUrls = [
           ['database.json', remote, 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/database.json'],
-          ['hcv_database.json', 'public/hcv_database.json'],
+          ['hcv_database.json', 'public/hcv_database.json', 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/hcv_database.json', 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/hcv_database.json'],
           ['qrp_database.json', 'public/qrp_database.json', (conf.qrpUrl || '').trim(), 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/qrp_database.json']
         ];
       } else if(subject === 'Chemistry'){
@@ -4588,6 +4604,9 @@ async function ensureSubjectLoaded(subject){
         }
       }
       loadedSubjects.add(subject);
+      if($('#scrPracticeList') && !$('#scrPracticeList').hidden && prkState.subj === subject){
+        renderPracticeScreen();
+      }
       return true;
     } finally {
       delete loadingSubjectPromises[subject];
@@ -5539,7 +5558,9 @@ function openPracticeList(initialOpts){
   const availableSubjs = SUBJ.filter(s => DB.some(q => q.paper !== 'allen' && q.subject === s));
   if(!availableSubjs.includes(prkState.subj)) prkState.subj = availableSubjs[0] || 'Physics';
 
-  ensureSubjectLoaded(prkState.subj).catch(() => {});
+  ensureSubjectLoaded(prkState.subj).then(() => {
+    if($('#scrPracticeList') && !$('#scrPracticeList').hidden) renderPracticeScreen();
+  }).catch(() => {});
   renderPracticeScreen();
   show('scrPracticeList');
 }
@@ -5640,9 +5661,16 @@ function renderPracticeSidebar(){
   const byChHcv = {};
   hcvQs.forEach(q => { if(q.chapter) byChHcv[q.chapter] = (byChHcv[q.chapter] || 0) + 1; });
 
-  // Update top source tabs active state
+  // Update top source tabs active state and visibility based on subject
   document.querySelectorAll('#prkSourceTabs .source-tab-btn').forEach(btn => {
     const grp = btn.dataset.prksrcgroup;
+    if(grp === 'hcv' || grp === 'qrp'){
+      btn.style.display = (prkState.subj === 'Physics') ? '' : 'none';
+    } else if(grp === 'mschouhan' || grp === 'neeraj'){
+      btn.style.display = (prkState.subj === 'Chemistry') ? '' : 'none';
+    } else {
+      btn.style.display = '';
+    }
     const isAct = (grp === 'all' && !prkState.sourceGroup) || (grp === prkState.sourceGroup);
     btn.classList.toggle('active', isAct);
     if(grp === 'priority'){
@@ -5674,8 +5702,16 @@ function renderPracticeSidebar(){
     return '<div class="marks-sb-progress-wrap"><div class="marks-sb-progress-bar" style="width:' + pct + '%"></div></div>';
   };
 
+  const priorityBadge = $('#prkPriorityBadgeCount');
+  if(priorityBadge) priorityBadge.textContent = priorityQs.length + ' Qs';
   const hcvBadge = $('#prkHcvBadgeCount');
   if(hcvBadge) hcvBadge.textContent = hcvQs.length + ' Qs';
+  const qrpBadge = $('#prkQrpBadgeCount');
+  if(qrpBadge) { qrpBadge.textContent = qrpQs.length + ' Qs'; qrpBadge.style.display = qrpQs.length ? '' : 'none'; }
+  const msBadge = $('#prkMsBadgeCount');
+  if(msBadge) { msBadge.textContent = msQs.length + ' Qs'; msBadge.style.display = msQs.length ? '' : 'none'; }
+  const nkBadge = $('#prkNkBadgeCount');
+  if(nkBadge) { nkBadge.textContent = nkQs.length + ' Qs'; nkBadge.style.display = nkQs.length ? '' : 'none'; }
 
   const chapBox = $('#prkChapList');
   if(chapBox){
@@ -6045,6 +6081,8 @@ function getFilteredPracticeQuestions(){
     if(prkState.paper !== 'all'){
       if(prkState.paper === 'qrp'){
         if(q.paper !== 'qrp' && !String(q.id).startsWith('qrp_')) return false;
+      } else if(prkState.paper === 'hcv'){
+        if(q.paper !== 'hcv' && !String(q.id).startsWith('HCV_')) return false;
       } else {
         const isAdv = q.paper === 'adv' || (q.exam && /adv/i.test(q.exam)) || String(q.id).includes('_jee_adv') || q.subSource === 'jee_advanced' || q.level === 'Level 2' || q.exercise === 'Exercise II' || (q.paper === 'allen_jee' && (q.bank === 'O-2' || q.exercise === 'O-2'));
         const isMain = q.paper === 'main' || q.paper === 'qrp' || String(q.id).startsWith('qrp_') || (q.exam && /main/i.test(q.exam)) || String(q.id).includes('_jee_main') || q.subSource === 'jee_main' || q.level === 'Level 1' || q.exercise === 'Exercise I' || (q.paper === 'allen_jee' && (q.bank === 'O-1' || q.exercise === 'O-1'));
@@ -6087,21 +6125,15 @@ function getFilteredPracticeQuestions(){
 
 function renderPracticeMain(){
   const topTitle = $('#prkTopbarTitle');
-  const scopeLabel = prkState.chap 
-    ? prkState.chap 
-    : (prkState.sourceGroup === 'priority'
-        ? 'Selected Bank'
-        : (prkState.sourceGroup === 'hcv'
-            ? 'HC Verma'
-            : (prkState.sourceGroup === 'fiitjee' 
-            ? 'FIITJEE (AITS)' 
-            : (prkState.sourceGroup === 'qrp' 
-                ? 'Quizrr QRP' 
-                : (prkState.sourceGroup === 'neeraj' 
-                    ? 'Neeraj Kumar' 
-                    : (prkState.sourceGroup === 'mschouhan' 
-                        ? 'M.S. Chouhan' 
-                        : 'All Chapters')))));
+  const groupNames = {
+    priority: 'Selected Bank',
+    hcv: 'HC Verma',
+    fiitjee: 'FIITJEE (AITS)',
+    qrp: 'Quizrr QRP',
+    neeraj: 'Neeraj Kumar',
+    mschouhan: 'M.S. Chouhan'
+  };
+  const scopeLabel = prkState.chap || groupNames[prkState.sourceGroup] || 'All Chapters';
   if(topTitle) topTitle.textContent = 'Practice - ' + prkState.subj + ' - ' + scopeLabel;
 
   const heroTitle = $('#prkHeroTitle');
@@ -11025,7 +11057,7 @@ function startCbtFromBuilder(){
       return null;
     }
 
-    const [phys, chem, mathAdv, mathMain, allenChem, allenJee, msChouhan, neeraj, qrp] = await Promise.all([
+    const [phys, chem, mathAdv, mathMain, allenChem, allenJee, msChouhan, neeraj, hcv, qrp] = await Promise.all([
       fetchFirst(['database.json', remote].filter(Boolean)),
       fetchFirst(['chemistry_database.json', chemRemote].filter(Boolean)),
       fetchFirst(['maths_advanced_database.json', mathAdvRemote].filter(Boolean)),
@@ -11034,10 +11066,10 @@ function startCbtFromBuilder(){
       fetchFirst(['allenjee_database.json', allenJeeRemote, 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/allenjee_database.json'].filter(Boolean)),
       fetchFirst(['mschouhan_database.json', 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/mschouhan_database.json'].filter(Boolean)),
       fetchFirst(['neeraj_database.json', 'public/neeraj_database.json', 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/neeraj_database.json'].filter(Boolean)),
-      fetchFirst(['hcv_database.json', 'public/hcv_database.json'].filter(Boolean)),
+      fetchFirst(['hcv_database.json', 'public/hcv_database.json', 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/hcv_database.json', 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/public/hcv_database.json'].filter(Boolean)),
       fetchFirst(['qrp_database.json', 'public/qrp_database.json', conf.qrpUrl, 'https://raw.githubusercontent.com/CarrotFarmer33/aitsver2/main/qrp_database.json'].filter(Boolean))
     ]);
-    const parts = [phys, chem, mathAdv, mathMain, allenChem, allenJee, msChouhan, neeraj, qrp].filter(Boolean);
+    const parts = [phys, chem, mathAdv, mathMain, allenChem, allenJee, msChouhan, neeraj, hcv, qrp].filter(Boolean);
     if(parts.length){
       const all = parts.flatMap(x=>(extractList(x.raw)||[]).map(e=>e.q));
       ok = loadDB(all, phys && phys.url===remote && remote ? 'Hugging Face database' : 'database.json', false);

@@ -46,6 +46,8 @@ def paper_of(s):
 
 def get_paper(q, def_subj, def_paper):
     qid = str(q.get('id') or '')
+    if q.get('paper') == 'hcv' or qid.startswith('HCV_'):
+        return 'hcv'
     if q.get('paper') == 'qrp' or qid.startswith('qrp_'):
         return 'qrp'
     if q.get('paper') == 'neeraj' or qid.startswith('nk_'):
@@ -94,6 +96,7 @@ def build_meta():
     root = os.path.dirname(os.path.abspath(__file__))
     db_files = [
         (os.path.join(root, 'database.json'), 'Physics', 'aits'),
+        (os.path.join(root, 'hcv_database.json'), 'Physics', 'hcv'),
         (os.path.join(root, 'qrp_database.json'), 'Physics', 'qrp'),
         (os.path.join(root, 'chemistry_database.json'), 'Chemistry', 'aits'),
         (os.path.join(root, 'maths_advanced_database.json'), 'Mathematics', 'adv'),
@@ -180,6 +183,13 @@ def build_meta():
             if q.get('qrpTopic'): item['qrpTopic'] = q['qrpTopic']
             if q.get('paragraph') or q.get('paragraph_id'): item['paragraph'] = True
             if q.get('rawType'): item['rawType'] = q['rawType']
+            if q.get('is_vector'): item['is_vector'] = True
+            if q.get('svg_path'): item['svg_path'] = q['svg_path']
+            if q.get('svg_dimensions'): item['svg_dimensions'] = q['svg_dimensions']
+            if q.get('hcv_chapter'): item['hcv_chapter'] = q['hcv_chapter']
+            if q.get('hcv_section'): item['hcv_section'] = q['hcv_section']
+            if q.get('hcv_qnum'): item['hcv_qnum'] = q['hcv_qnum']
+            if q.get('solution'): item['solution'] = q['solution']
             if q.get('options') and isinstance(q.get('options'), list):
                 item['options'] = q.get('options')
             if q.get('images'): item['images'] = q.get('images')
