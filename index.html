@@ -1533,9 +1533,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 .rv details{background:var(--surface-2);border-radius:2px;padding:8px 12px}
 .rv summary{cursor:pointer;font-weight:600}
 .rv .qtext{margin-top:0}
-mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden;color:#ffffff !important;fill:#ffffff !important}
-mjx-container svg{color:#ffffff !important;fill:#ffffff !important}
-mjx-container *{color:#ffffff !important;fill:#ffffff !important}
+mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
 
 @media (max-width:900px){
   .setup-grid{grid-template-columns:minmax(0,1fr)} .sticky{position:static}
@@ -2815,6 +2813,60 @@ mjx-container *{color:#ffffff !important;fill:#ffffff !important}
   border-color: var(--brand) !important;
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
+
+.marks-sol-btn {
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 13.5px;
+  font-weight: 600;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  color: var(--fg);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.marks-sol-btn:hover:not(:disabled) {
+  background: var(--surface);
+  border-color: #ef4444;
+  color: #ef4444;
+}
+.marks-sol-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.marks-hcv-video-banner {
+  margin: 16px 0;
+  padding: 14px 18px;
+  background: var(--surface-2);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.marks-hcv-video-btn {
+  background: #ef4444;
+  color: #fff;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  box-shadow: 0 2px 6px rgba(239, 68, 68, 0.25);
+  transition: transform 0.12s ease, background 0.12s ease;
+}
+.marks-hcv-video-btn:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
 </style>
 
 <div id="scrSetup"  class="screen">
@@ -3169,6 +3221,7 @@ mjx-container *{color:#ffffff !important;fill:#ffffff !important}
   <div class="marks-bottom-bar">
     <div class="marks-bottom-bar-in">
       <button class="marks-nav-btn" id="prkPrevQBtn" type="button">Previous</button>
+      <button class="marks-sol-btn" id="prkBottomSolBtn" type="button">Show Solution</button>
       <button class="marks-check-btn" id="prkBottomCheckBtn" type="button">Check Answer</button>
       <button class="marks-nav-btn" id="prkNextQBtn" type="button">Next</button>
     </div>
@@ -4063,13 +4116,10 @@ async function resolveZipImage(img){
           img.style.maxWidth = '100%';
         }
       } else {
-        const isHcvImg = /laws_of_motion|circular_motion|work_power|rotational|gravitation|fluid|thermo|heat|shm|waves|electrostatics|gravitation|capacitance|current_electricity|magnetism|emi|ac|optics|modern_physics|hcv/i.test(fileName);
-        const defZ = isHcvImg ? 75 : 100;
-        const currentZ = (typeof prkCurrentZoom !== 'undefined') ? prkCurrentZoom : defZ;
-        const z = currentZ + '%';
+        const z = (typeof prkCurrentZoom !== 'undefined' && prkCurrentZoom > 100) ? (prkCurrentZoom + '%') : '100%';
         img.style.setProperty('width', z, 'important');
-        img.style.setProperty('max-width', (currentZ > 100) ? 'none' : z, 'important');
-        img.style.setProperty('min-width', (currentZ > 100) ? z : '0', 'important');
+        img.style.setProperty('max-width', (typeof prkCurrentZoom !== 'undefined' && prkCurrentZoom > 100) ? 'none' : '100%', 'important');
+        img.style.setProperty('min-width', (typeof prkCurrentZoom !== 'undefined' && prkCurrentZoom > 100) ? z : '100%', 'important');
         img.style.height = 'auto';
         img.style.display = 'block';
         img.style.margin = '14px auto';
@@ -4099,13 +4149,10 @@ async function resolveZipImage(img){
       img.style.clipPath = 'none';
       img.style.webkitClipPath = 'none';
     } else if(!isTb){
-      const isHcvImg = /laws_of_motion|circular_motion|work_power|rotational|gravitation|fluid|thermo|heat|shm|waves|electrostatics|gravitation|capacitance|current_electricity|magnetism|emi|ac|optics|modern_physics|hcv/i.test(fileName);
-      const defZ = isHcvImg ? 75 : 100;
-      const currentZ = (typeof prkCurrentZoom !== 'undefined') ? prkCurrentZoom : defZ;
-      const z = currentZ + '%';
+      const z = (typeof prkCurrentZoom !== 'undefined' && prkCurrentZoom > 100) ? (prkCurrentZoom + '%') : '100%';
       img.style.setProperty('width', z, 'important');
-      img.style.setProperty('max-width', (currentZ > 100) ? 'none' : z, 'important');
-      img.style.setProperty('min-width', (currentZ > 100) ? z : '0', 'important');
+      img.style.setProperty('max-width', (typeof prkCurrentZoom !== 'undefined' && prkCurrentZoom > 100) ? 'none' : '100%', 'important');
+      img.style.setProperty('min-width', (typeof prkCurrentZoom !== 'undefined' && prkCurrentZoom > 100) ? z : '100%', 'important');
       img.style.height = 'auto';
       img.style.display = 'block';
       img.style.margin = '14px auto';
@@ -6303,6 +6350,9 @@ function renderPracticeRowHtml(q, idx){
   if(tag) metaParts.push('<span>' + esc(tag) + '</span>');
   if(q.chapter) metaParts.push('<span>' + esc(q.chapter) + '</span>');
   metaParts.push('<span class="marks-q-badge" style="font-size:11px;padding:1px 6px">' + esc(typeLabel) + '</span>');
+  if(q.solution_timeline_url || q.solution_video_url){
+    metaParts.push('<span class="marks-q-badge" style="background:rgba(239,68,68,0.12);color:#dc2626;border-color:rgba(239,68,68,0.25);font-size:11px;padding:1px 6px;font-weight:600">▶ Video Sol</span>');
+  }
   if(statusBadge) metaParts.push(statusBadge);
 
   return '<div class="' + rowClasses + '" data-prkqid="' + esc(q.id) + '" data-idx="' + idx + '">' +
@@ -6395,7 +6445,8 @@ function renderPracticeDetailView(){
     if(isHcv){
       const sec = q.hcv_section || 'Selected';
       const num = q.hcv_qnum ? (' Q' + q.hcv_qnum) : '';
-      qMetaEl.innerHTML = '<span style="color:var(--brand);font-weight:700">HC Verma</span> &bull; <span>' + esc(sec + num) + '</span> &bull; <span>' + esc(q.chapter || '') + '</span>';
+      const vidTag = (q.solution_timeline_url || q.solution_video_url) ? ' &bull; <span style="background:rgba(239,68,68,0.12);color:#dc2626;padding:2px 8px;border-radius:12px;font-weight:600;font-size:12px">▶ Video Solution' + (q.solution_timestamp ? (' @ ' + esc(q.solution_timestamp)) : '') + '</span>' : '';
+      qMetaEl.innerHTML = '<span style="color:var(--brand);font-weight:700">HC Verma</span> &bull; <span>' + esc(sec + num) + '</span> &bull; <span>' + esc(q.chapter || '') + '</span>' + vidTag;
     } else if(isPri && window.PRIORITY_MAP[q.id]){
       const pInfo = window.PRIORITY_MAP[q.id];
       qMetaEl.innerHTML = '<span style="color:var(--brand);font-weight:700">Topic: ' + esc(pInfo.topic || '') + '</span> &bull; <span>JEE Main ' + esc(pInfo.year || q.year || 2025) + '</span> &bull; <span>' + esc(pInfo.chapter || q.chapter || '') + '</span>';
@@ -6456,9 +6507,8 @@ function renderPracticeDetailView(){
     typeset(cont);
   }
 
-  // Start question stopwatch & reset zoom (HCV questions default to 75%, others default to 100%)
-  const defaultZoom = isHcv ? 75 : 100;
-  setPrkZoom(defaultZoom);
+  // Start question stopwatch & reset zoom
+  setPrkZoom(100);
   startPrkQTimer();
 }
 
@@ -6512,11 +6562,9 @@ function renderPracticeCardHtml(q, idx){
   }
 
   // Zoom Bar (Smooth in-card zooming)
-  const isHcvCard = q.paper === 'hcv' || (q.id && String(q.id).startsWith('HCV_'));
-  const defZoomVal = isHcvCard ? 75 : 100;
   const zoomBarHtml = '<div class="marks-zoom-bar">' +
     '<button type="button" class="marks-zoom-btn" id="prkZoomOutBtn" title="Zoom Out">&minus;</button>' +
-    '<span id="prkZoomLevelText" style="font-size:12px;font-family:monospace;font-weight:600">' + defZoomVal + '%</span>' +
+    '<span id="prkZoomLevelText" style="font-size:12px;font-family:monospace;font-weight:600">100%</span>' +
     '<button type="button" class="marks-zoom-btn" id="prkZoomInBtn" title="Zoom In">&plus;</button>' +
     '<button type="button" class="marks-zoom-btn" id="prkZoomResetBtn" title="Reset Zoom" style="font-size:11px;padding:3px 8px">Reset</button>' +
   '</div>';
@@ -6562,11 +6610,46 @@ function renderPracticeCardHtml(q, idx){
   // Solution Box
   let solHtml = '';
   if(savedAns){
+    const isHcv = q.paper === 'hcv' || (q.id && String(q.id).startsWith('HCV_'));
+    const hasVideo = Boolean(q.solution_timeline_url || q.solution_video_url);
+    const videoUrl = q.solution_timeline_url || q.solution_video_url;
+    
+    let videoSolCardHtml = '';
+    if(hasVideo){
+      videoSolCardHtml = '<div class="marks-hcv-video-banner">' +
+        '<div style="display:flex;align-items:center;gap:12px;min-width:220px">' +
+          '<div style="width:38px;height:38px;border-radius:50%;background:#ef4444;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 8px rgba(239,68,68,0.35)">' +
+            '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>' +
+          '</div>' +
+          '<div>' +
+            '<div style="font-weight:700;font-size:14.5px;color:var(--fg)">HC Verma Video Solution</div>' +
+            '<div style="font-size:12.5px;color:var(--muted);margin-top:2px">' +
+              (q.solution_timestamp ? ('Timestamp: <strong style="color:var(--fg);font-family:monospace;font-size:13px">' + esc(q.solution_timestamp) + '</strong>') : 'Full Chapter Video') +
+              (q.hcv_section ? (' &bull; ' + esc(q.hcv_section)) : '') +
+              (q.hcv_qnum ? (' Q' + esc(q.hcv_qnum)) : '') +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<a href="' + esc(videoUrl) + '" target="_blank" rel="noopener noreferrer" class="marks-hcv-video-btn">' +
+          '<span>Watch on YouTube</span>' +
+          '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>' +
+        '</a>' +
+      '</div>';
+    }
+
+    const solText = q.original_answer_mathjax || q.solution || q.original_answer || '';
+    const hasSolText = Boolean(solText && solText.trim());
+    const hasSolImgs = Boolean(q.solImages && q.solImages.length);
+
     solHtml = '<div class="marks-sol-box" style="margin-top:28px">' +
-      '<div style="margin-bottom:10px"><b>Key:</b> <span style="font-weight:700;color:var(--good,#15803d)">' + esc(keyText(q)) + '</span> &bull; <b>Your Answer:</b> <span style="font-weight:700">' + esc(fmtAns(q, savedAns.val)) + '</span></div>' +
-      ((q.solution || (q.solImages && q.solImages.length)) ?
-        '<div><b>Solution:</b><div style="margin-top:8px;font-size:15.5px;line-height:1.65;font-family:var(--font-q)">' + rich(q.solution || '') + (q.solImages || []).map(u => imageMarkup(u, 'Solution figure', 'practice-svg')).join('') + '</div></div>' :
-        '<div class="muted">No extended solution image was attached in archive.</div>') +
+      '<div style="margin-bottom:12px;font-size:14.5px">' +
+        '<b>Correct Key:</b> <span style="font-weight:700;color:var(--good,#15803d);margin-right:12px">' + esc(keyText(q)) + '</span>' +
+        (savedAns.status !== 'skip' ? ('&bull; <b style="margin-left:12px">Your Answer:</b> <span style="font-weight:700">' + esc(fmtAns(q, savedAns.val)) + '</span>') : '<span class="muted" style="margin-left:8px">(Solution viewed)</span>') +
+      '</div>' +
+      videoSolCardHtml +
+      ((hasSolText || hasSolImgs) ?
+        ('<div><b>' + (isHcv ? 'Book Answer / Solution:' : 'Solution:') + '</b><div style="margin-top:8px;font-size:15.5px;line-height:1.65;font-family:var(--font-q)">' + rich(solText) + (q.solImages || []).map(u => imageMarkup(u, 'Solution figure', 'practice-svg')).join('') + '</div></div>') :
+        (!hasVideo ? '<div class="muted">No extended solution image was attached in archive.</div>' : '')) +
     '</div>';
   }
 
@@ -6585,7 +6668,7 @@ function renderPracticeCardHtml(q, idx){
 let prkCurrentZoom = 100;
 
 function setPrkZoom(zoomPercent){
-  prkCurrentZoom = Math.max(50, Math.min(300, zoomPercent));
+  prkCurrentZoom = Math.max(75, Math.min(300, zoomPercent));
   const el = document.getElementById('prkZoomLevelText');
   if(el) el.textContent = prkCurrentZoom + '%';
   const svgs = document.querySelectorAll('#prkDetailCardContainer .vector-inline-svg, #prkDetailCardContainer .qimg');
@@ -6597,8 +6680,8 @@ function setPrkZoom(zoomPercent){
     } else {
       const zStr = prkCurrentZoom + '%';
       item.style.setProperty('width', zStr, 'important');
-      item.style.setProperty('max-width', (prkCurrentZoom > 100) ? 'none' : zStr, 'important');
-      item.style.setProperty('min-width', (prkCurrentZoom > 100) ? zStr : '0', 'important');
+      item.style.setProperty('max-width', 'none', 'important');
+      item.style.setProperty('min-width', zStr, 'important');
     }
     item.style.transform = 'none';
     item.style.transition = 'width 0.15s ease, min-width 0.15s ease';
@@ -7390,6 +7473,9 @@ document.addEventListener('click',e=>{
   else if(b.id==='prkBottomCheckBtn'){
     handlePrkBottomCheck();
   }
+  else if(b.id==='prkBottomSolBtn'){
+    handlePrkShowSol();
+  }
   else if(b.id==='prkZoomInBtn'){
     setPrkZoom(prkCurrentZoom + 25);
   }
@@ -7397,9 +7483,7 @@ document.addEventListener('click',e=>{
     setPrkZoom(prkCurrentZoom - 25);
   }
   else if(b.id==='prkZoomResetBtn'){
-    const q = prkFilteredList[prkCurrentDetailIdx];
-    const isHcv = q && (q.paper === 'hcv' || (q.id && String(q.id).startsWith('HCV_')));
-    setPrkZoom(isHcv ? 75 : 100);
+    setPrkZoom(100);
   }
   else if(b.closest('#prkDetailBmBtn')){
     if(!prkFilteredList.length) return;
