@@ -34,3 +34,7 @@ __pycache__/
 
 qrp_images.zip
 public/qrp_images.zip
+
+/hcv_selected_images.zip
+/public/hcv_selected_images.zip
+!public/vector_zips/hcv_selected_images.zip
