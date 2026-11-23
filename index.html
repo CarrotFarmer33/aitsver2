@@ -1533,7 +1533,9 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 .rv details{background:var(--surface-2);border-radius:2px;padding:8px 12px}
 .rv summary{cursor:pointer;font-weight:600}
 .rv .qtext{margin-top:0}
-mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}
+mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden;color:#ffffff !important;fill:#ffffff !important}
+mjx-container svg{color:#ffffff !important;fill:#ffffff !important}
+mjx-container *{color:#ffffff !important;fill:#ffffff !important}
 
 @media (max-width:900px){
   .setup-grid{grid-template-columns:minmax(0,1fr)} .sticky{position:static}
@@ -4061,10 +4063,13 @@ async function resolveZipImage(img){
           img.style.maxWidth = '100%';
         }
       } else {
-        const z = (typeof prkCurrentZoom !== 'undefined' && prkCurrentZoom > 100) ? (prkCurrentZoom + '%') : '100%';
+        const isHcvImg = /laws_of_motion|circular_motion|work_power|rotational|gravitation|fluid|thermo|heat|shm|waves|electrostatics|gravitation|capacitance|current_electricity|magnetism|emi|ac|optics|modern_physics|hcv/i.test(fileName);
+        const defZ = isHcvImg ? 75 : 100;
+        const currentZ = (typeof prkCurrentZoom !== 'undefined') ? prkCurrentZoom : defZ;
+        const z = currentZ + '%';
         img.style.setProperty('width', z, 'important');
-        img.style.setProperty('max-width', (typeof prkCurrentZoom !== 'undefined' && prkCurrentZoom > 100) ? 'none' : '100%', 'important');
-        img.style.setProperty('min-width', (typeof prkCurrentZoom !== 'undefined' && prkCurrentZoom > 100) ? z : '100%', 'important');
+        img.style.setProperty('max-width', (currentZ > 100) ? 'none' : z, 'important');
+        img.style.setProperty('min-width', (currentZ > 100) ? z : '0', 'important');
         img.style.height = 'auto';
         img.style.display = 'block';
         img.style.margin = '14px auto';
@@ -4094,10 +4099,13 @@ async function resolveZipImage(img){
       img.style.clipPath = 'none';
       img.style.webkitClipPath = 'none';
     } else if(!isTb){
-      const z = (typeof prkCurrentZoom !== 'undefined' && prkCurrentZoom > 100) ? (prkCurrentZoom + '%') : '100%';
+      const isHcvImg = /laws_of_motion|circular_motion|work_power|rotational|gravitation|fluid|thermo|heat|shm|waves|electrostatics|gravitation|capacitance|current_electricity|magnetism|emi|ac|optics|modern_physics|hcv/i.test(fileName);
+      const defZ = isHcvImg ? 75 : 100;
+      const currentZ = (typeof prkCurrentZoom !== 'undefined') ? prkCurrentZoom : defZ;
+      const z = currentZ + '%';
       img.style.setProperty('width', z, 'important');
-      img.style.setProperty('max-width', (typeof prkCurrentZoom !== 'undefined' && prkCurrentZoom > 100) ? 'none' : '100%', 'important');
-      img.style.setProperty('min-width', (typeof prkCurrentZoom !== 'undefined' && prkCurrentZoom > 100) ? z : '100%', 'important');
+      img.style.setProperty('max-width', (currentZ > 100) ? 'none' : z, 'important');
+      img.style.setProperty('min-width', (currentZ > 100) ? z : '0', 'important');
       img.style.height = 'auto';
       img.style.display = 'block';
       img.style.margin = '14px auto';
@@ -6448,8 +6456,9 @@ function renderPracticeDetailView(){
     typeset(cont);
   }
 
-  // Start question stopwatch & reset zoom
-  setPrkZoom(100);
+  // Start question stopwatch & reset zoom (HCV questions default to 75%, others default to 100%)
+  const defaultZoom = isHcv ? 75 : 100;
+  setPrkZoom(defaultZoom);
   startPrkQTimer();
 }
 
@@ -6503,9 +6512,11 @@ function renderPracticeCardHtml(q, idx){
   }
 
   // Zoom Bar (Smooth in-card zooming)
+  const isHcvCard = q.paper === 'hcv' || (q.id && String(q.id).startsWith('HCV_'));
+  const defZoomVal = isHcvCard ? 75 : 100;
   const zoomBarHtml = '<div class="marks-zoom-bar">' +
     '<button type="button" class="marks-zoom-btn" id="prkZoomOutBtn" title="Zoom Out">&minus;</button>' +
-    '<span id="prkZoomLevelText" style="font-size:12px;font-family:monospace;font-weight:600">100%</span>' +
+    '<span id="prkZoomLevelText" style="font-size:12px;font-family:monospace;font-weight:600">' + defZoomVal + '%</span>' +
     '<button type="button" class="marks-zoom-btn" id="prkZoomInBtn" title="Zoom In">&plus;</button>' +
     '<button type="button" class="marks-zoom-btn" id="prkZoomResetBtn" title="Reset Zoom" style="font-size:11px;padding:3px 8px">Reset</button>' +
   '</div>';
@@ -6574,7 +6585,7 @@ function renderPracticeCardHtml(q, idx){
 let prkCurrentZoom = 100;
 
 function setPrkZoom(zoomPercent){
-  prkCurrentZoom = Math.max(75, Math.min(300, zoomPercent));
+  prkCurrentZoom = Math.max(50, Math.min(300, zoomPercent));
   const el = document.getElementById('prkZoomLevelText');
   if(el) el.textContent = prkCurrentZoom + '%';
   const svgs = document.querySelectorAll('#prkDetailCardContainer .vector-inline-svg, #prkDetailCardContainer .qimg');
@@ -6586,8 +6597,8 @@ function setPrkZoom(zoomPercent){
     } else {
       const zStr = prkCurrentZoom + '%';
       item.style.setProperty('width', zStr, 'important');
-      item.style.setProperty('max-width', 'none', 'important');
-      item.style.setProperty('min-width', zStr, 'important');
+      item.style.setProperty('max-width', (prkCurrentZoom > 100) ? 'none' : zStr, 'important');
+      item.style.setProperty('min-width', (prkCurrentZoom > 100) ? zStr : '0', 'important');
     }
     item.style.transform = 'none';
     item.style.transition = 'width 0.15s ease, min-width 0.15s ease';
@@ -7386,7 +7397,9 @@ document.addEventListener('click',e=>{
     setPrkZoom(prkCurrentZoom - 25);
   }
   else if(b.id==='prkZoomResetBtn'){
-    setPrkZoom(100);
+    const q = prkFilteredList[prkCurrentDetailIdx];
+    const isHcv = q && (q.paper === 'hcv' || (q.id && String(q.id).startsWith('HCV_')));
+    setPrkZoom(isHcv ? 75 : 100);
   }
   else if(b.closest('#prkDetailBmBtn')){
     if(!prkFilteredList.length) return;
