@@ -6652,7 +6652,8 @@ function renderPracticeCardHtml(q, idx){
     const chosenList = savedAns ? (Array.isArray(savedAns.val) ? savedAns.val : [savedAns.val]) : [];
     const correctList = Array.isArray(q.ans) ? q.ans : (q.ans != null ? [q.ans] : []);
     const numOpts = (Array.isArray(q.options) && q.options.length) ? q.options.length : 4;
-    const hasCustomOpts = Array.isArray(q.options) && q.options.length > 0 && !q.labelOnly;
+    const isHcv = q.paper === 'hcv' || (q.id && String(q.id).startsWith('HCV_'));
+    const hasCustomOpts = isHcv && Array.isArray(q.options) && q.options.length > 0 && !q.labelOnly;
     const optLabels = Array.from({length: numOpts}, (_, i) => {
       if(hasCustomOpts && q.options[i] != null && String(q.options[i]).trim()){
         return rich(stripWatermarks(String(q.options[i])));
