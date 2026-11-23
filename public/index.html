@@ -4567,6 +4567,11 @@ function normQuestion(q,i,defSubject){
     hcv_chapter: q.hcv_chapter || null,
     hcv_section: q.hcv_section || null,
     hcv_qnum: q.hcv_qnum || null,
+    solution_timeline_url: q.solution_timeline_url || null,
+    solution_video_url: q.solution_video_url || null,
+    solution_timestamp: q.solution_timestamp || null,
+    original_answer_mathjax: q.original_answer_mathjax || null,
+    original_answer: q.original_answer || null,
     selected: !!q.selected,
     star: q.star || null,
     exercise: q.exercise || ((q.paper === 'neeraj' || (q.id && String(q.id).startsWith('nk_'))) ? ((q.subSource === 'jee_advanced' || (q.exam && /adv/i.test(q.exam)) || String(q.id).includes('_jee_adv')) ? 'Exercise II' : 'Exercise I') : ((q.paper === 'mschouhan' || (q.id && String(q.id).startsWith('mschouhan_'))) ? 'Level 1' : null)),
@@ -6549,6 +6554,14 @@ function renderPracticeDetailView(){
   // Bottom Check / Action button state
   const ansMap = getPrkAnswers();
   const savedAns = ansMap[q.id];
+  const solBtn = $('#prkBottomSolBtn');
+  if(solBtn){
+    if(savedAns){
+      solBtn.textContent = 'Hide Solution';
+    } else {
+      solBtn.textContent = (isHcv && (q.solution_timeline_url || q.solution_video_url)) ? '▶ Video Solution' : 'Show Solution';
+    }
+  }
   const checkBtn = $('#prkBottomCheckBtn');
   if(checkBtn){
     if(savedAns){
@@ -6840,10 +6853,19 @@ function handlePrkRetry(qId){
 }
 
 function handlePrkShowSol(qId){
+  if(!qId && prkFilteredList.length){
+    const curr = prkFilteredList[prkCurrentDetailIdx];
+    if(curr) qId = curr.id;
+  }
   const q = findQuestionById(qId);
   if(!q) return;
-  savePrkAnswer(qId, null, 'skip');
-  renderPracticeDetailView();
+  const map = getPrkAnswers();
+  if(map[qId]){
+    handlePrkRetry(qId);
+  } else {
+    savePrkAnswer(qId, null, 'skip');
+    renderPracticeDetailView();
+  }
 }
 
 function resetAllPracticeAttempts(){
